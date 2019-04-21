@@ -33,7 +33,7 @@ public class ListMediaActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(view.getContext(), ViewMediaItemActivity.class);
-                intent.putExtra("media_id", adapter.getItemId(i));
+                intent.putExtra(getString(R.string.intentMediaID), adapter.getItemId(i));
                 startActivity(intent);
             }
         });

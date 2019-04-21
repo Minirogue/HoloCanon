@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         if(prefs.getInt("lastLocalCSV", 0) != BuildConfig.VERSION_CODE) {
-            CSVImporter.importCSVToDatabase(this, CSVImporter.SOURCE_RAW_RESOURCES);
+            CSVImporter importer = new CSVImporter(this);
+            importer.execute(CSVImporter.SOURCE_RAW_RESOURCES);
             SharedPreferences.Editor editor = prefs.edit();
             editor.putInt("lastLocalCSV", BuildConfig.VERSION_CODE);
             editor.apply();
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateDatabaseFromOnline(View view){
-        CSVImporter.importCSVToDatabase(this, CSVImporter.SOURCE_ONLINE);
+        CSVImporter importer = new CSVImporter(this);
+        importer.execute(CSVImporter.SOURCE_ONLINE);
     }
 }

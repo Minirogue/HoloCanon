@@ -1,6 +1,7 @@
 package com.minirogue.starwarsmediatracker;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,23 +22,34 @@ class SWMListAdapter extends BaseAdapter{
 
     public SWMListAdapter(Context ctx){
         db = MediaDatabase.getMediaDataBase(ctx);
+        // If currentList is not initialized here, then asynchronous db querying could cause a null pointer exception
+        currentList = new ArrayList();
         setTypeFilter(MediaItem.MEDIATYPE_ANY);
     }
 
     public void setTypeFilter(int type) {
         typeFilter = type;
-        updateList();
+        new updateList().execute();
     }
 
-    private void updateList(){//TODO update DaoAccess to query based on multiple filters
-        if (typeFilter == MediaItem.MEDIATYPE_ANY) {
-            currentList = db.daoAccess().getAll();
+    private class updateList extends AsyncTask<Void, Void, Void> {//TODO update DaoAccess to query based on multiple filters
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            if (typeFilter == MediaItem.MEDIATYPE_ANY) {
+                currentList = db.daoAccess().getAll();
+            }
+            else{
+                currentList = db.daoAccess().getMediaByType(typeFilter);
+            }
+            return null;
         }
-        else{
-            currentList = db.daoAccess().getMediaByType(typeFilter);
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            notifyDataSetChanged();
+            Log.d("SWMListAdapter","List updated to "+currentList.toString());
         }
-        notifyDataSetChanged();
-        Log.d("SWMListAdapter","List updated to "+currentList.toString());
     }
 
 

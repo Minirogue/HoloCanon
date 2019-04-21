@@ -16,7 +16,7 @@ public abstract class MediaDatabase extends RoomDatabase {
         if (databaseInstance == null) {
             databaseInstance =
                     Room.databaseBuilder(ctx.getApplicationContext(), MediaDatabase.class, "StarWars-database")
-                    .allowMainThreadQueries()//TODO this is a bad idea, but the tutorial said to do it for now
+                    //.allowMainThreadQueries()//TODO this is a bad idea, but the tutorial said to do it for now
                     .fallbackToDestructiveMigration()
                     .build();
         }
