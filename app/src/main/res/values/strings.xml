@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Star Wars Media Tracker</string>
+    <string name="title_activity_media_by_type">MediaByTypeActivity</string>
+</resources>
