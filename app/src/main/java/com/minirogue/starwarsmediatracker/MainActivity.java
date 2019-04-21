@@ -12,10 +12,18 @@ package com.minirogue.starwarsmediatracker;
  */
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import com.minirogue.starwarsmediatracker.database.CSVImporter;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
     //TODO check online repo for current database version and download
@@ -26,11 +34,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        CSVImporter.importCSVToDatabase(this);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if(prefs.getInt("lastLocalCSV", 0) != BuildConfig.VERSION_CODE) {
+            CSVImporter.importCSVToDatabase(this, CSVImporter.SOURCE_RAW_RESOURCES);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putInt("lastLocalCSV", BuildConfig.VERSION_CODE);
+            editor.apply();
+        }
     }
 
     public void openMediaByType(View view) {
         Intent intent = new Intent(this, ListMediaActivity.class);
         startActivity(intent);
+    }
+
+    public void updateDatabaseFromOnline(View view){
+        CSVImporter.importCSVToDatabase(this, CSVImporter.SOURCE_ONLINE);
     }
 }

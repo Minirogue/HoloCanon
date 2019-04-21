@@ -50,7 +50,6 @@ public class ListMediaActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 adapter.setTypeFilter(position);
-                //adapter.notifyDataSetChanged();
             }
 
             @Override
