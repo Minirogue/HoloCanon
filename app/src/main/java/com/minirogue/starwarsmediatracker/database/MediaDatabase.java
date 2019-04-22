@@ -5,12 +5,14 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities = {MediaItem.class}, version = 2, exportSchema = false)//TODO examine schema when getting ready to ship app
+@Database(entities = {MediaItem.class, Character.class, MediaCharacterJoin.class}, version = 3, exportSchema = false)//TODO examine schema when getting ready to ship app
 public abstract class MediaDatabase extends RoomDatabase {
 
     private static MediaDatabase databaseInstance;
 
-    public abstract DaoAccess daoAccess();
+    public abstract DaoMedia getDaoMedia();
+    public abstract DaoCharacter getDaoCharacter();
+
 
     public static MediaDatabase getMediaDataBase(Context ctx){
         if (databaseInstance == null) {

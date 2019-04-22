@@ -1,5 +1,6 @@
 package com.minirogue.starwarsmediatracker;
 
+import android.arch.persistence.db.SimpleSQLiteQuery;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -10,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.minirogue.starwarsmediatracker.database.*;
+import com.minirogue.starwarsmediatracker.database.Character;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +21,14 @@ class SWMListAdapter extends BaseAdapter{
     private MediaDatabase db;
     private List<MediaItem> currentList;
     private int typeFilter;
+    private int characterFilter;
 
 
     public SWMListAdapter(Context ctx){
         db = MediaDatabase.getMediaDataBase(ctx);
         // If currentList is not initialized here, then asynchronous db querying could cause a null pointer exception
         currentList = new ArrayList();
+        setCharacterFilter(-1);
         setTypeFilter(MediaItem.MEDIATYPE_ANY);
     }
 
@@ -32,16 +37,41 @@ class SWMListAdapter extends BaseAdapter{
         new updateList().execute();
     }
 
-    private class updateList extends AsyncTask<Void, Void, Void> {//TODO update DaoAccess to query based on multiple filters
+    public void setCharacterFilter(int charID) {
+        characterFilter = charID;
+        new updateList().execute();
+    }
+
+    private class updateList extends AsyncTask<Void, Void, Void> {//TODO update DaoMedia to query based on multiple filters
 
         @Override
         protected Void doInBackground(Void... voids) {
-            if (typeFilter == MediaItem.MEDIATYPE_ANY) {
-                currentList = db.daoAccess().getAll();
+            StringBuilder queryBuild = new StringBuilder();
+            queryBuild.append("SELECT media_items.* FROM media_items");
+            boolean filterapplied = false;
+            if (characterFilter != -1){
+                queryBuild.append(" INNER JOIN media_character_join ON media_items.id = media_character_join.mediaId");
+                if (!filterapplied){
+                    queryBuild.append(" WHERE");
+                    filterapplied = true;
+                } else{
+                    queryBuild.append(" AND");
+                }
+                queryBuild.append(" media_character_join.characterID = ");
+                queryBuild.append(characterFilter);
             }
-            else{
-                currentList = db.daoAccess().getMediaByType(typeFilter);
+            if (typeFilter != MediaItem.MEDIATYPE_ANY) {
+                if (!filterapplied){
+                    queryBuild.append(" WHERE");
+                    filterapplied = true;
+                } else{
+                    queryBuild.append(" AND");
+                }
+                queryBuild.append(" type = ");
+                queryBuild.append((typeFilter));
             }
+            Log.d("ListAdapter", queryBuild.toString());
+            currentList = db.getDaoMedia().getMediaFromRawQuery(new SimpleSQLiteQuery(queryBuild.toString()));
             return null;
         }
 
@@ -65,7 +95,7 @@ class SWMListAdapter extends BaseAdapter{
 
     @Override
     public long getItemId(int position) {
-        return currentList.get(position).getMediaID();
+        return currentList.get(position).getId();
     }
 
     @Override

@@ -24,7 +24,7 @@ public class ViewMediaItemActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int mediaID = intent.getIntExtra(getString(R.string.intentMediaID),-1);
-        thisMediaItem = MediaDatabase.getMediaDataBase(this).daoAccess().getMediaItemById(mediaID);
+        thisMediaItem = MediaDatabase.getMediaDataBase(this).getDaoMedia().getMediaItemById(mediaID);
         titleTextView.setText(thisMediaItem.getTitle());
         typeTextView.setText(MediaItem.convertTypeToString(thisMediaItem.getType()));
         descriptionTextView.setText(thisMediaItem.getDescription());

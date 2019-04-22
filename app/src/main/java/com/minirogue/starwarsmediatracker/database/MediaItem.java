@@ -3,7 +3,6 @@ package com.minirogue.starwarsmediatracker.database;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
 
 @Entity(tableName = "media_items")
 public class MediaItem {
@@ -15,7 +14,7 @@ public class MediaItem {
 
 
     @PrimaryKey
-    private int mediaID;
+    private int id;
     @ColumnInfo(name = "title")
     private String title;
     @ColumnInfo(name = "type")
@@ -23,12 +22,12 @@ public class MediaItem {
     @ColumnInfo(name = "description")
     private String description;
 
-    public int getMediaID() {
-        return mediaID;
+    public int getId() {
+        return id;
     }
 
-    public void setMediaID(int newID){
-        this.mediaID = newID;
+    public void setId(int newID){
+        this.id = newID;
     }
 
     public String getTitle() {
