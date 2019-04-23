@@ -51,14 +51,17 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                         case "description":
                             newItem.setDescription(row[i]);
                             break;
+                        case "author"://TODO add author/people table?
+                            newItem.setAuthor(row[i]);
+                            break;
                         default:
                             System.out.println("Unused header: " + header[i]);
                     }
-                    if (db.getDaoMedia().getMediaItemById(newItem.getId()) == null) {
-                        db.getDaoMedia().insertSingleMediaItem(newItem);
-                    } else {
-                        db.getDaoMedia().updateMedia(newItem);
+                    long insertSuccessful = db.getDaoMedia().insert(newItem);
+                    if (insertSuccessful == -1){
+                        db.getDaoMedia().update(newItem);
                     }
+                    db.getDaoMedia().insert(new UserMedia(newItem.getId()));
                 }
             }
         } catch (IOException ex) {
@@ -100,14 +103,12 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                         default:
                             System.out.println("Unused header: " + header[i]);
                     }
-                    if (db.getDaoCharacter().getCharacterById(newCharacter.getId()) == null) {
-                        db.getDaoCharacter().insert(newCharacter);
-                    } else {
+                    long didInsertWork = db.getDaoCharacter().insert(newCharacter);
+                    if (didInsertWork == -1){
                         db.getDaoCharacter().update(newCharacter);
                     }
                     for (String strMedia : appearances){
-                        MediaCharacterJoin mcj = new MediaCharacterJoin(Integer.valueOf(strMedia),newCharacter.getId());
-                        db.getDaoCharacter().insert(mcj);
+                        db.getDaoCharacter().insert(new MediaCharacterJoin(Integer.valueOf(strMedia),newCharacter.getId()));
                     }
                 }
             }

@@ -4,8 +4,10 @@ import android.arch.persistence.db.SupportSQLiteQuery;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.RawQuery;
+import android.arch.persistence.room.Transaction;
 import android.arch.persistence.room.Update;
 
 import java.util.List;
@@ -16,8 +18,8 @@ public interface DaoMedia {
 
     @RawQuery
     List<MediaItem> getMediaFromRawQuery(SupportSQLiteQuery query);
-    @Insert
-    void insertSingleMediaItem (MediaItem mediaItem);
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    long insert (MediaItem mediaItem);
     @Insert
     void insertMultipleMediaItems (List<MediaItem> mediaItemList);
     @Query("SELECT * FROM media_items WHERE id = :mediaID LIMIT 1")
@@ -27,7 +29,18 @@ public interface DaoMedia {
     @Query("SELECT * FROM media_items")
     List<MediaItem> getAll();
     @Update
-    void updateMedia (MediaItem mediaItem);
+    void update (MediaItem mediaItem);
     @Delete
-    void deleteMedia (MediaItem mediaItem);
+    void delete (MediaItem mediaItem);
+
+
+    //The following are for UserMedia interactions
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insert(UserMedia um);
+    @Update
+    void update(UserMedia um);
+    @Delete
+    void delete(UserMedia um);
+
+
 }

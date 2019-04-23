@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -44,7 +45,8 @@ public class ListMediaActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(view.getContext(), ViewMediaItemActivity.class);
-                intent.putExtra(getString(R.string.intentMediaID), adapter.getItemId(i));
+                intent.putExtra(getString(R.string.intentMediaID), (int)adapter.getItemId(i));
+                Log.d("ListMedia", "Put "+adapter.getItemId(i)+" in intent");
                 startActivity(intent);
             }
         });

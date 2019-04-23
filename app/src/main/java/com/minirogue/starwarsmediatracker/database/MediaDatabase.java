@@ -5,7 +5,9 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities = {MediaItem.class, Character.class, MediaCharacterJoin.class}, version = 3, exportSchema = false)//TODO examine schema when getting ready to ship app
+//TODO add user database with watched/read toWatch/toRead and owned columns
+@Database(entities = {MediaItem.class, Character.class, MediaCharacterJoin.class, UserMedia.class},
+        version = 5, exportSchema = false)//TODO examine schema when getting ready to ship app
 public abstract class MediaDatabase extends RoomDatabase {
 
     private static MediaDatabase databaseInstance;
@@ -18,7 +20,6 @@ public abstract class MediaDatabase extends RoomDatabase {
         if (databaseInstance == null) {
             databaseInstance =
                     Room.databaseBuilder(ctx.getApplicationContext(), MediaDatabase.class, "StarWars-database")
-                    //.allowMainThreadQueries()//TODO this is a bad idea, but the tutorial said to do it for now
                     .fallbackToDestructiveMigration()
                     .build();
         }

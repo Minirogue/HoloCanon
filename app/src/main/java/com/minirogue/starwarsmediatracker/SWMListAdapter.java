@@ -42,7 +42,7 @@ class SWMListAdapter extends BaseAdapter{
         new updateList().execute();
     }
 
-    private class updateList extends AsyncTask<Void, Void, Void> {//TODO update DaoMedia to query based on multiple filters
+    private class updateList extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {

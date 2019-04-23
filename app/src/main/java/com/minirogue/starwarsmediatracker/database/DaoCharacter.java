@@ -3,6 +3,7 @@ package com.minirogue.starwarsmediatracker.database;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 import android.provider.MediaStore;
@@ -12,8 +13,8 @@ import java.util.List;
 @Dao
 public interface DaoCharacter {
 
-    @Insert
-    void insert(Character character);
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    long insert(Character character);
     @Update
     void update(Character character);
     @Query("SELECT * FROM characters WHERE id = :id LIMIT 1")
@@ -27,7 +28,7 @@ public interface DaoCharacter {
 
 
     //The following is for MediaCharacterJoin
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(MediaCharacterJoin mediaCharacterJoin);
     @Query("SELECT * FROM characters INNER JOIN media_character_join ON id=media_character_join.characterId WHERE media_character_join.mediaId=:mediaId")
     List<Character> getCharactersFromMedia(final int mediaId);
