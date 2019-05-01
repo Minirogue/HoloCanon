@@ -1,14 +1,15 @@
 package com.minirogue.starwarsmediatracker.database;
 
-import android.arch.persistence.db.SupportSQLiteQuery;
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Delete;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.OnConflictStrategy;
-import android.arch.persistence.room.Query;
-import android.arch.persistence.room.RawQuery;
-import android.arch.persistence.room.Transaction;
-import android.arch.persistence.room.Update;
+import androidx.lifecycle.LiveData;
+import androidx.sqlite.db.SupportSQLiteQuery;
+import androidx.room.Dao;
+import androidx.room.Delete;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
+import androidx.room.RawQuery;
+import androidx.room.Transaction;
+import androidx.room.Update;
 
 import java.util.List;
 
@@ -16,8 +17,8 @@ import java.util.List;
 public interface DaoMedia {
 //This class defines the insert, query, update, and delete methods for the database
 
-    @RawQuery
-    List<MediaItem> getMediaFromRawQuery(SupportSQLiteQuery query);
+    @RawQuery(observedEntities = MediaItem.class)
+    LiveData<List<MediaItem>> getMediaFromRawQuery(SupportSQLiteQuery query);
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insert (MediaItem mediaItem);
     @Insert
@@ -27,7 +28,7 @@ public interface DaoMedia {
     @Query("SELECT * FROM media_items WHERE type = :type")
     List<MediaItem> getMediaByType(int type);
     @Query("SELECT * FROM media_items")
-    List<MediaItem> getAll();
+    LiveData<List<MediaItem>> getAll();
     @Update
     void update (MediaItem mediaItem);
     @Delete
