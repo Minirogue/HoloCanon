@@ -8,7 +8,6 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.RawQuery;
-import androidx.room.Transaction;
 import androidx.room.Update;
 
 import java.util.List;
@@ -19,6 +18,8 @@ public interface DaoMedia {
 
     @RawQuery(observedEntities = MediaItem.class)
     LiveData<List<MediaItem>> getMediaFromRawQuery(SupportSQLiteQuery query);
+    @RawQuery(observedEntities = {MediaItem.class, MediaNotes.class})
+    LiveData<List<MediaAndNotes>> getMediaAndNotesRawQuery(SupportSQLiteQuery query);
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insert (MediaItem mediaItem);
     @Insert
@@ -35,13 +36,13 @@ public interface DaoMedia {
     void delete (MediaItem mediaItem);
 
 
-    //The following are for UserMedia interactions
+    //The following are for MediaNotes interactions
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(UserMedia um);
+    void insert(MediaNotes um);
     @Update
-    void update(UserMedia um);
+    void update(MediaNotes um);
     @Delete
-    void delete(UserMedia um);
+    void delete(MediaNotes um);
 
 
 }

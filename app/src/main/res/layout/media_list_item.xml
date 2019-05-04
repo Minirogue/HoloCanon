@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/media_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_margin="20dp"
+        android:text="Title"/>
+    <TextView
+        android:id="@+id/media_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/media_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:text="type"/>
+
+
+    <TextView
+        android:id="@+id/text_watched_or_read"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Watched/Read"
+        app:layout_constraintRight_toLeftOf="@id/text_want_to_watch_or_read"
+        app:layout_constraintTop_toTopOf="@id/text_want_to_watch_or_read"
+        android:layout_marginRight="10dp"/>
+    <CheckBox
+        android:id="@+id/checkbox_watched_or_read"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/text_watched_or_read"
+        app:layout_constraintRight_toRightOf="@id/text_watched_or_read"
+        app:layout_constraintLeft_toLeftOf="@id/text_watched_or_read"/>
+
+    <TextView
+        android:id="@+id/text_want_to_watch_or_read"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Want to Watch/Read"
+        app:layout_constraintRight_toLeftOf="@id/text_owned"
+        app:layout_constraintTop_toTopOf="@id/text_owned"
+        android:layout_marginRight="20dp"/>
+    <CheckBox
+        android:id="@+id/checkbox_want_to_watch_or_read"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/text_want_to_watch_or_read"
+        app:layout_constraintRight_toRightOf="@id/text_want_to_watch_or_read"
+        app:layout_constraintLeft_toLeftOf="@id/text_want_to_watch_or_read"/>
+
+    <TextView
+        android:id="@+id/text_owned"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Owned"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="20dp"/>
+    <CheckBox
+        android:id="@+id/checkbox_owned"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        app:layout_constraintTop_toBottomOf="@id/text_owned"
+        app:layout_constraintRight_toRightOf="@id/text_owned"
+        app:layout_constraintLeft_toLeftOf="@id/text_owned"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

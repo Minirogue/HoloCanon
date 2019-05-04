@@ -20,9 +20,6 @@ import android.view.View;
 import com.minirogue.starwarsmediatracker.database.CSVImporter;
 
 public class MainActivity extends AppCompatActivity {
-    //TODO check online repo for current database version and download
-    private final static String DB_NAME = "mediadatabase";
-    private final static String DB_PATH = "data/starwarsmediatracker/databases/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

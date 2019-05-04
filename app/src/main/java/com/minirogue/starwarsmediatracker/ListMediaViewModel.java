@@ -4,8 +4,12 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 
+import com.minirogue.starwarsmediatracker.database.MediaAndNotes;
 import com.minirogue.starwarsmediatracker.database.MediaItem;
+import com.minirogue.starwarsmediatracker.database.MediaNotes;
 import com.minirogue.starwarsmediatracker.database.SWMRepository;
 
 import java.util.ArrayList;
@@ -13,13 +17,13 @@ import java.util.List;
 
 public class ListMediaViewModel extends AndroidViewModel {
     private SWMRepository repository;
-    private List<FilterObject> filters;
-    private List<FilterObject> allFilters;
+    private MutableLiveData<List<FilterObject>> filters;
+    private List<FilterObject> allFilters;//TODO find better way to set this up
 
     public ListMediaViewModel(@NonNull Application application) {
         super(application);
         repository = new SWMRepository(application);
-        filters = new ArrayList<>();
+        filters = repository.getFilters();
         allFilters = new ArrayList<>();
         allFilters.add(new FilterObject(MediaItem.MEDIATYPE_MOVIE,FilterObject.FILTERCOLUMN_TYPE,0,"Movies"));
         allFilters.add(new FilterObject(MediaItem.MEDIATYPE_BOOK,FilterObject.FILTERCOLUMN_TYPE,0,"Books"));
@@ -32,22 +36,24 @@ public class ListMediaViewModel extends AndroidViewModel {
     }
 
     public void removeFilter(FilterObject filter){
-        filters.remove(filter);
-        repository.setFilters(filters);
+        List<FilterObject> tempList = filters.getValue();
+        tempList.remove(filter);
+        filters.setValue(tempList);
     }
 
-    public void setFilters(List<FilterObject> filters){
-        this.filters = filters;
-        repository.setFilters(filters);
+    public void setFilters(List<FilterObject> newFilters){
+        filters.setValue(newFilters);
     }
 
-    public List<FilterObject> getFilters() {
+    public LiveData<List<FilterObject>> getFilters() {
         return filters;
     }
 
-    public LiveData<List<MediaItem>> getFilteredMedia() {
-        repository.setFilters(filters);
-        return repository.getFilteredMedia();
+    public LiveData<List<MediaAndNotes>> getFilteredMediaAndNotes() {
+        return repository.getFilteredMediaAndNotes();
+    }
+    public void update(MediaNotes mediaNotes){
+        repository.update(mediaNotes);
     }
 
 }

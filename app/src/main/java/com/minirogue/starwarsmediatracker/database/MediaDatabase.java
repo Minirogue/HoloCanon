@@ -6,8 +6,8 @@ import androidx.room.RoomDatabase;
 import android.content.Context;
 
 //TODO add user database with watched/read toWatch/toRead and owned columns
-@Database(entities = {MediaItem.class, Character.class, MediaCharacterJoin.class, UserMedia.class},
-        version = 5, exportSchema = false)//TODO examine schema when getting ready to ship app
+@Database(entities = {MediaItem.class, Character.class, MediaCharacterJoin.class, MediaNotes.class},
+        version = 6, exportSchema = true)
 public abstract class MediaDatabase extends RoomDatabase {
 
     private static MediaDatabase databaseInstance;

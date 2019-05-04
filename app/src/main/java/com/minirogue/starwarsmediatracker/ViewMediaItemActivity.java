@@ -41,7 +41,7 @@ public class ViewMediaItemActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.type_textview)).setText("Book");
     }
 
-    private class loadMedia extends AsyncTask<Integer,Void,Void>{//TODO inflate a view depending on media type
+    private class loadMedia extends AsyncTask<Integer,Void,Void>{
 
         WeakReference<Context> ctxRef;
 

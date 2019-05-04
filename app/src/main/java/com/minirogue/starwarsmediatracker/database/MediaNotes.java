@@ -2,10 +2,15 @@ package com.minirogue.starwarsmediatracker.database;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity
-class UserMedia {
+@Entity(tableName = "media_notes",
+        foreignKeys = {@ForeignKey(entity = MediaItem.class,
+                                    parentColumns = "id",
+                                    childColumns = "mediaId",
+                                    onDelete = ForeignKey.CASCADE)})
+public class MediaNotes {
 
     @PrimaryKey
     private int mediaId;
@@ -16,7 +21,7 @@ class UserMedia {
     @ColumnInfo
     private boolean owned;
 
-    public UserMedia(int mediaId){
+    public MediaNotes(int mediaId){
         this.mediaId = mediaId;
         wantToWatchRead = false;
         watchedRead = false;
@@ -38,12 +43,19 @@ class UserMedia {
     public void setWantToWatchRead(boolean wantToWatchRead) {
         this.wantToWatchRead = wantToWatchRead;
     }
+    public void flipWantToWatchRead(){
+        wantToWatchRead = !wantToWatchRead;
+    }
+
     public boolean isWatchedRead() {
         return watchedRead;
     }
 
     public void setWatchedRead(boolean watchedRead) {
         this.watchedRead = watchedRead;
+    }
+    public void flipWatchedRead(){
+        watchedRead = !watchedRead;
     }
 
     public boolean isOwned() {
@@ -52,5 +64,8 @@ class UserMedia {
 
     public void setOwned(boolean owned) {
         this.owned = owned;
+    }
+    public void flipOwned(){
+        owned = !owned;
     }
 }

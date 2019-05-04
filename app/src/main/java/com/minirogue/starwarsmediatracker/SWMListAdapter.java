@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.minirogue.starwarsmediatracker.database.*;
@@ -18,14 +20,14 @@ import java.util.List;
 class SWMListAdapter extends BaseAdapter{
 
 
-    private List<MediaItem> currentList = new ArrayList<>();
+    private List<MediaAndNotes> currentList = new ArrayList<>();
+    private ListMediaViewModel listMediaViewModel;
 
-
-    public SWMListAdapter(){
-
+    public SWMListAdapter(ListMediaViewModel listMediaViewModel){
+        this.listMediaViewModel = listMediaViewModel;
     }
 
-    public void setList(List<MediaItem> currentList) {
+    public void setList(List<MediaAndNotes> currentList) {
         this.currentList = currentList;
         notifyDataSetChanged();
     }
@@ -42,23 +44,58 @@ class SWMListAdapter extends BaseAdapter{
 
     @Override
     public long getItemId(int position) {
-        return currentList.get(position).getId();
+        return currentList.get(position).mediaItem.getId();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.d("Adapter", "getView called on "+getItem(position));
+        //Log.d("Adapter", "getView called on "+getItem(position));
         if (convertView == null){
-            Log.d("Adapter", "convertView was null");
+            //Log.d("Adapter", "convertView was null");
             convertView = LayoutInflater.from(parent.getContext())
-                    .inflate(android.R.layout.simple_list_item_2, parent, false);
+                    .inflate(R.layout.media_list_item, parent, false);
         }
-        TextView text1 = convertView.findViewById(android.R.id.text1);
-        TextView text2 = convertView.findViewById(android.R.id.text2);
+        TextView titleTextView = convertView.findViewById(R.id.media_title);
+        TextView typeTextView = convertView.findViewById(R.id.media_type);
+        CheckBox checkBoxWatchedRead = convertView.findViewById(R.id.checkbox_watched_or_read);
+        CheckBox checkBoxWantToWatchRead = convertView.findViewById(R.id.checkbox_want_to_watch_or_read);
+        CheckBox checkBoxOwned = convertView.findViewById(R.id.checkbox_owned);
 
-        MediaItem currentItem = currentList.get(position);
-        text1.setText(currentItem.getTitle());
-        text2.setText(MediaItem.convertTypeToString(currentItem.getType()));
+        MediaAndNotes currentItem = currentList.get(position);
+        titleTextView.setText(currentItem.mediaItem.getTitle());
+        typeTextView.setText(MediaItem.convertTypeToString(currentItem.mediaItem.getType()));
+
+        checkBoxWatchedRead.setChecked(currentItem.mediaNotes.isWatchedRead());
+        checkBoxWantToWatchRead.setChecked(currentItem.mediaNotes.isWantToWatchRead());
+        checkBoxOwned.setChecked(currentItem.mediaNotes.isOwned());
+
+        checkBoxWatchedRead.setTag(currentItem.mediaNotes);
+        checkBoxWantToWatchRead.setTag(currentItem.mediaNotes);
+        checkBoxOwned.setTag(currentItem.mediaNotes);
+
+        checkBoxOwned.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MediaNotes)view.getTag()).flipOwned();
+                listMediaViewModel.update((MediaNotes)view.getTag());
+            }
+        });
+        checkBoxWatchedRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MediaNotes)view.getTag()).flipWatchedRead();
+                listMediaViewModel.update((MediaNotes)view.getTag());
+            }
+        });
+        checkBoxWantToWatchRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MediaNotes)view.getTag()).flipWantToWatchRead();
+                listMediaViewModel.update((MediaNotes)view.getTag());
+            }
+        });
+
+
         return convertView;
     }
 }

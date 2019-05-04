@@ -15,24 +15,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
-import android.widget.Filter;
 import android.widget.ListView;
 
-import com.minirogue.starwarsmediatracker.database.MediaItem;
+import com.minirogue.starwarsmediatracker.database.MediaAndNotes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListMediaActivity extends AppCompatActivity {
 
-    //private MediaDatabase db;
     private ListView listView;
     private SWMListAdapter adapter;
-    //private Spinner typeSpinner;
-    //private Spinner characterSpinner;
     private ListMediaViewModel mediaListViewModel;
     private ChipGroup chipGroup;
-    private List<FilterObject> filterList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +34,22 @@ public class ListMediaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_media_by_type);
 
         mediaListViewModel = ViewModelProviders.of(this).get(ListMediaViewModel.class);
-        mediaListViewModel.getFilteredMedia().observe(this, new Observer<List<MediaItem>>() {
+        mediaListViewModel.getFilteredMediaAndNotes().observe(this, new Observer<List<MediaAndNotes>>() {
             @Override
-            public void onChanged(@Nullable List<MediaItem> mediaItems) {//TODO getfilteredmedia returns livedata of livedata...
-                adapter.setList(mediaItems);
+            public void onChanged(@Nullable List<MediaAndNotes> mediaAndNotes) {
+                Log.d("OBSERVER", "filters: "+mediaListViewModel.getFilters());
+                Log.d("OBSERVER", "List length "+mediaAndNotes.size());
+                adapter.setList(mediaAndNotes);
             }
         });
 
         listView = findViewById(R.id.media_by_type_listview);
         chipGroup = findViewById(R.id.filter_chip_group);
-        for (FilterObject filter : mediaListViewModel.getFilters()){
+        for (FilterObject filter : mediaListViewModel.getFilters().getValue()){
             makeFilterChip(filter);
         }
 
-        adapter = new SWMListAdapter();
+        adapter = new SWMListAdapter(mediaListViewModel);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -64,13 +60,11 @@ public class ListMediaActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        //setTypeSpinner();
-        //new setCharacterSpinner().execute();
     }
 
     public void selectFilters(View view){
         List<FilterObject> allFilters = mediaListViewModel.getAllFilters();
-        final List<FilterObject> currentFilters = mediaListViewModel.getFilters();
+        final List<FilterObject> currentFilters = mediaListViewModel.getFilters().getValue();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose Filters");
         final ChipGroup filterChips = new ChipGroup(this);

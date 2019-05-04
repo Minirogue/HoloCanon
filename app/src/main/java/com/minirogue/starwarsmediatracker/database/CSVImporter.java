@@ -61,7 +61,7 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                     if (insertSuccessful == -1){
                         db.getDaoMedia().update(newItem);
                     }
-                    db.getDaoMedia().insert(new UserMedia(newItem.getId()));
+                    db.getDaoMedia().insert(new MediaNotes(newItem.getId()));
                 }
             }
         } catch (IOException ex) {
