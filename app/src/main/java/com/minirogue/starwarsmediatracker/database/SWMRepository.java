@@ -55,7 +55,7 @@ public class SWMRepository {
             if (filter.column == FilterObject.FILTERCOLUMN_CHARACTER) {
                 if (characterFilter.length() == 0) {
                     joins.append(" INNER JOIN media_character_join ON media_items.id = media_character_join.mediaId ");
-                } else {//TODO implement filtertype here
+                } else {
                     characterFilter.append(" AND ");
                 }
                 characterFilter.append(" media_character_join.characterID = ");

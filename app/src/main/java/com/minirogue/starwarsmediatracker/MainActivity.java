@@ -1,14 +1,10 @@
 package com.minirogue.starwarsmediatracker;
 
-/* TODO OUTLINE
- * MediaItem is the object type for each item.
- * There should be an activity to view all items and sort them
- * -Within that activity, a long press on an item should give users an option to add their own tags
- *  such as "reading", "want to read", "own", etc.
- *  There needs to be a set of stored user tags. Media items' ids will be stored in an arraylist for these tags
- *  Filtering methods: Characters, author, media type (book, film, etc.), user tags, age range
- *  Sorting methods: Title, Author
- *  Add option in settings to permanently filter things (namely media type)
+/* TODO Sorting
+*  TODO Update database
+*  TODO revise media_list_item.xml
+*  TODO properly implement "view media" pages
+*  TODO add menus
  */
 
 import android.content.Intent;

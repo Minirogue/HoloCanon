@@ -35,7 +35,7 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
             String[] header = reader.readLine().split(",");
             String csvLine;
             while ((csvLine = reader.readLine()) != null) {
-                String[] row = csvLine.split(",");//TODO this does not handle cases where the entry contains a comma
+                String[] row = csvLine.split(",");
                 newItem = new MediaItem();
                 for (int i = 0; i < row.length; i++) {
                     switch (header[i]) {
@@ -51,7 +51,7 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                         case "description":
                             newItem.setDescription(row[i]);
                             break;
-                        case "author"://TODO add author/people table?
+                        case "author":
                             newItem.setAuthor(row[i]);
                             break;
                         default:
@@ -85,7 +85,7 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
             String[] header = reader.readLine().split(",");
             String csvLine;
             while ((csvLine = reader.readLine()) != null) {
-                String[] row = csvLine.split(",");//TODO this does not handle cases where the entry contains a comma
+                String[] row = csvLine.split(",");
                 newCharacter = new Character();
                 for (int i = 0; i < row.length; i++) {
                     String[] appearances = new String[]{};
