@@ -14,6 +14,9 @@ public class FilterObject {
 
     public static final int FILTERCOLUMN_TYPE = 1;
     public static final int FILTERCOLUMN_CHARACTER = 2;
+    public static final int FILTERCOLUMN_OWNED = 3;
+    public static final int FILTERCOLUMN_WANTTOREADWATCH = 4;
+    public static final int FILTERCOLUMN_HASREADWATCHED = 5;
 
     public int id;
     public int column;

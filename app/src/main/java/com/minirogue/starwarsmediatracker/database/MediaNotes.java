@@ -14,11 +14,11 @@ public class MediaNotes {
 
     @PrimaryKey
     private int mediaId;
-    @ColumnInfo
+    @ColumnInfo(name = "want_to_watch_or_read")
     private boolean wantToWatchRead;
-    @ColumnInfo
+    @ColumnInfo(name = "watched_or_read")
     private boolean watchedRead;
-    @ColumnInfo
+    @ColumnInfo(name = "owned")
     private boolean owned;
 
     public MediaNotes(int mediaId){

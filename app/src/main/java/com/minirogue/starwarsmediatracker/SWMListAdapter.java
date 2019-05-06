@@ -1,15 +1,10 @@
 package com.minirogue.starwarsmediatracker;
 
-import androidx.lifecycle.LiveData;
-import androidx.sqlite.db.SimpleSQLiteQuery;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.minirogue.starwarsmediatracker.database.*;

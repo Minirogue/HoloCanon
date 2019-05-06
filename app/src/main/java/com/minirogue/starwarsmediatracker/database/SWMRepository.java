@@ -50,6 +50,7 @@ public class SWMRepository {
         StringBuilder joins = new StringBuilder();
         StringBuilder characterFilter = new StringBuilder();
         StringBuilder typeFilter = new StringBuilder();
+        StringBuilder notesFilter = new StringBuilder();
         for (FilterObject filter : filterList) {
             if (filter.column == FilterObject.FILTERCOLUMN_CHARACTER) {
                 if (characterFilter.length() == 0) {
@@ -63,24 +64,53 @@ public class SWMRepository {
             else if (filter.column == FilterObject.FILTERCOLUMN_TYPE) {
                 if (typeFilter.length() == 0) {
                 } else {
-                    typeFilter.append(" AND ");
+                    typeFilter.append(" OR ");
                 }
                 typeFilter.append(" type = ");
                 typeFilter.append(filter.id);
+            }
+            else if (filter.column == FilterObject.FILTERCOLUMN_OWNED){
+                if (notesFilter.length() == 0){
+                } else{
+                    notesFilter.append(" AND ");
+                }
+                notesFilter.append(" media_notes.owned = 1 ");
+            }
+            else if (filter.column == FilterObject.FILTERCOLUMN_HASREADWATCHED){
+                if (notesFilter.length() == 0){
+                } else{
+                    notesFilter.append(" AND ");
+                }
+                notesFilter.append(" media_notes.watched_or_read = 1 ");
+            }
+            else if (filter.column == FilterObject.FILTERCOLUMN_WANTTOREADWATCH){
+                if (notesFilter.length() == 0){
+                } else{
+                    notesFilter.append(" AND ");
+                }
+                notesFilter.append(" media_notes.want_to_watch_or_read = 1 ");
             }
         }
         queryBuild.append("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId ");
         queryBuild.append(joins);
         boolean whereClause = false;
         if (characterFilter.length() > 0){
-            queryBuild.append(whereClause ? " AND " : " WHERE ");
+            queryBuild.append(whereClause ? " AND (" : " WHERE (");
             whereClause = true;
             queryBuild.append(characterFilter);
+            queryBuild.append(")");
         }
         if (typeFilter.length() > 0){
-            queryBuild.append(whereClause ? " AND " : " WHERE ");
+            queryBuild.append(whereClause ? " AND (" : " WHERE (");
             whereClause = true;
             queryBuild.append(typeFilter);
+            queryBuild.append(")");
+        }
+        if (notesFilter.length() > 0){
+            queryBuild.append(whereClause ? " AND (" : " WHERE (");
+            whereClause = true;
+            queryBuild.append(notesFilter);
+            queryBuild.append(")");
         }
         Log.d("ListAdapter", queryBuild.toString());
         return new SimpleSQLiteQuery(queryBuild.toString());

@@ -29,6 +29,9 @@ public class ListMediaViewModel extends AndroidViewModel {
         allFilters.add(new FilterObject(MediaItem.MEDIATYPE_BOOK,FilterObject.FILTERCOLUMN_TYPE,0,"Books"));
         allFilters.add(new FilterObject(2,FilterObject.FILTERCOLUMN_CHARACTER,0,"Luke Skywalker"));
         allFilters.add(new FilterObject(3,FilterObject.FILTERCOLUMN_CHARACTER, 0, "Anakin Skywalker"));
+        allFilters.add(new FilterObject(0, FilterObject.FILTERCOLUMN_OWNED, 0, "Owned"));
+        allFilters.add(new FilterObject(0, FilterObject.FILTERCOLUMN_HASREADWATCHED, 0, "Read/Watched"));
+        allFilters.add(new FilterObject(0, FilterObject.FILTERCOLUMN_WANTTOREADWATCH, 0,"Want to Watch/Read"));
     }
 
     public List<FilterObject> getAllFilters(){
