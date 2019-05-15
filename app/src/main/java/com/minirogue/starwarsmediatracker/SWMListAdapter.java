@@ -7,6 +7,10 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import androidx.arch.core.util.Function;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.Transformations;
+
 import com.minirogue.starwarsmediatracker.database.*;
 
 import java.util.ArrayList;
@@ -16,6 +20,7 @@ class SWMListAdapter extends BaseAdapter{
 
 
     private List<MediaAndNotes> currentList = new ArrayList<>();
+
     private ListMediaViewModel listMediaViewModel;
 
     public SWMListAdapter(ListMediaViewModel listMediaViewModel){
@@ -58,7 +63,7 @@ class SWMListAdapter extends BaseAdapter{
 
         MediaAndNotes currentItem = currentList.get(position);
         titleTextView.setText(currentItem.mediaItem.getTitle());
-        typeTextView.setText(MediaItem.convertTypeToString(currentItem.mediaItem.getType()));
+        typeTextView.setText(listMediaViewModel.convertTypeToString(currentItem.mediaItem.getType()));
 
         checkBoxWatchedRead.setChecked(currentItem.mediaNotes.isWatchedRead());
         checkBoxWantToWatchRead.setChecked(currentItem.mediaNotes.isWantToWatchRead());

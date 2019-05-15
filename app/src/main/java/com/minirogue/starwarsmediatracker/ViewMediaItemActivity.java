@@ -57,14 +57,14 @@ public class ViewMediaItemActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void voids) {
-            switch (thisMediaItem.getType()){
+            /*switch (thisMediaItem.getType()){
                 case MediaItem.MEDIATYPE_MOVIE:
                     inflateMovieView();
                     break;
                 case MediaItem.MEDIATYPE_BOOK:
                     inflateBookView();
                     break;
-            }
+            }*/
         }
     }
 }

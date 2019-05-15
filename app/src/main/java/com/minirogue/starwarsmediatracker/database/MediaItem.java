@@ -7,10 +7,6 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "media_items")
 public class MediaItem {
     //This class represents the database entries
-    public static final int MEDIATYPE_ANY = 0;
-    public static final int MEDIATYPE_NONE = -1;
-    public static final int MEDIATYPE_MOVIE = 1;
-    public static final int MEDIATYPE_BOOK = 2;
 
 
     @PrimaryKey
@@ -48,7 +44,6 @@ public class MediaItem {
         this.author = author;
     }
 
-
     public int getType() {
         return type;
     }
@@ -63,21 +58,6 @@ public class MediaItem {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public static String convertTypeToString(int type){
-        switch (type){
-            case MEDIATYPE_ANY:
-                return "Any";
-            case MEDIATYPE_NONE:
-                return "None";
-            case MEDIATYPE_MOVIE:
-                return "Movie";
-            case MEDIATYPE_BOOK:
-                return "Book";
-            default:
-                return "Media type not found";
-        }
     }
 
     @Override

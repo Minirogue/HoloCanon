@@ -5,14 +5,16 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities = {MediaItem.class, Character.class, MediaCharacterJoin.class, MediaNotes.class},
-        version = 7, exportSchema = true)
+@Database(entities = {MediaItem.class, Character.class, MediaCharacterJoin.class, MediaNotes.class,
+                        MediaType.class},
+        version = 8, exportSchema = true)
 public abstract class MediaDatabase extends RoomDatabase {
 
     private static MediaDatabase databaseInstance;
 
     public abstract DaoMedia getDaoMedia();
     public abstract DaoCharacter getDaoCharacter();
+    public abstract DaoType getDaoType();
 
 
     public static MediaDatabase getMediaDataBase(Context ctx){

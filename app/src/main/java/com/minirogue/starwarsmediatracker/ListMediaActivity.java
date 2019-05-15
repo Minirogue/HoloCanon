@@ -1,6 +1,9 @@
 package com.minirogue.starwarsmediatracker;
 
 import android.app.AlertDialog;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
@@ -37,17 +40,15 @@ public class ListMediaActivity extends AppCompatActivity {
         mediaListViewModel.getFilteredMediaAndNotes().observe(this, new Observer<List<MediaAndNotes>>() {
             @Override
             public void onChanged(@Nullable List<MediaAndNotes> mediaAndNotes) {
-                Log.d("OBSERVER", "filters: "+mediaListViewModel.getFilters());
-                Log.d("OBSERVER", "List length "+mediaAndNotes.size());
+                Log.d("OBSERVER", "filters: " + mediaListViewModel.getFilters());
+                Log.d("OBSERVER", "List length " + mediaAndNotes.size());
                 adapter.setList(mediaAndNotes);
             }
         });
 
         listView = findViewById(R.id.media_by_type_listview);
         chipGroup = findViewById(R.id.filter_chip_group);
-        for (FilterObject filter : mediaListViewModel.getFilters().getValue()){
-            makeFilterChip(filter);
-        }
+
 
         adapter = new SWMListAdapter(mediaListViewModel);
         listView.setAdapter(adapter);
@@ -60,53 +61,59 @@ public class ListMediaActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        mediaListViewModel.getFilters().observe(this, new Observer<List<FilterObject>>() {
+            @Override
+            public void onChanged(List<FilterObject> filterObjects) {
+                fillChipGroup(filterObjects);
+            }
+        });
     }
 
-    public void selectFilters(View view){
-        List<FilterObject> allFilters = mediaListViewModel.getAllFilters();
-        final List<FilterObject> currentFilters = mediaListViewModel.getFilters().getValue();
+    public void selectFilters(View view) {
+        LiveData<List<FilterObject>> allFilters = mediaListViewModel.getAllFilters();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Choose Filters");
         final ChipGroup filterChips = new ChipGroup(this);
-        for (final FilterObject filter : allFilters){
-            Chip filterChip = new Chip(this);
-            filterChip.setText(filter.displayText);
-            filterChip.setCheckable(true);
-            filterChip.setCheckedIconVisible(true);
-            filterChip.setChecked(currentFilters.contains(filter));
-            filterChip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if (b){
-                        currentFilters.add(filter);
-                    } else{
-                        currentFilters.remove(filter);
-                    }
+        allFilters.observe(this, new Observer<List<FilterObject>>() {
+            @Override
+            public void onChanged(List<FilterObject> filterObjects) {
+                filterChips.removeAllViews();
+                for (FilterObject filter : filterObjects) {
+                    filterChips.addView(makeSelectableFilterChip(filter));
                 }
-            });
-            filterChips.addView(filterChip);
-        }
+            }
+        });
+
+
         builder.setView(filterChips);
         builder.setPositiveButton("Set Filters", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                    mediaListViewModel.setFilters(currentFilters);
+                    /*mediaListViewModel.setFilters(currentFilters);
                     chipGroup.removeAllViews();
                     for (FilterObject newFilter : currentFilters){
                         makeFilterChip(newFilter);
-                    }
-                }
-            });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    }*/
+                dialog.dismiss();
+            }
+        });
+        /*builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {//TODO cancel with oncancellistener to undo changes
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
-        });
+        });*/
         builder.show();
     }
 
-    private void makeFilterChip(final FilterObject filter){
+    private void fillChipGroup(List<FilterObject> filters) {
+        chipGroup.removeAllViews();
+        for (FilterObject filter : filters) {
+            makeCurrentFilterChip(filter);
+        }
+    }
+
+    private void makeCurrentFilterChip(final FilterObject filter) {
         final Chip filterChip = new Chip(this);
         filterChip.setText(filter.displayText);
         filterChip.setCloseIcon(getResources().getDrawable(R.drawable.ic_close));//TODO deprecated by getDrawable(int, Theme) in later apis
@@ -115,10 +122,28 @@ public class ListMediaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mediaListViewModel.removeFilter(filter);
-                chipGroup.removeView(filterChip);
             }
         });
         chipGroup.addView(filterChip);
+    }
+
+    private Chip makeSelectableFilterChip(final FilterObject filter) {
+        Chip filterChip = new Chip(this);
+        filterChip.setText(filter.displayText);
+        filterChip.setCheckable(true);
+        filterChip.setCheckedIconVisible(true);
+        filterChip.setChecked(mediaListViewModel.isCurrentFilter(filter));
+        filterChip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    mediaListViewModel.addFilter(filter);
+                } else {
+                    mediaListViewModel.removeFilter(filter);
+                }
+            }
+        });
+        return filterChip;
     }
 }
 

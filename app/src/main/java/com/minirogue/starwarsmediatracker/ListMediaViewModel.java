@@ -17,28 +17,29 @@ import java.util.List;
 
 public class ListMediaViewModel extends AndroidViewModel {
     private SWMRepository repository;
-    private MutableLiveData<List<FilterObject>> filters;
-    private List<FilterObject> allFilters;
+    private LiveData<List<FilterObject>> filters;
+    private LiveData<List<FilterObject>> allFilters;
 
     public ListMediaViewModel(@NonNull Application application) {
         super(application);
         repository = new SWMRepository(application);
         filters = repository.getFilters();
-        allFilters = FilterObject.getAllFilters();
+        allFilters = repository.getAllFilters();
     }
 
-    public List<FilterObject> getAllFilters(){
+    public LiveData<List<FilterObject>> getAllFilters(){
         return allFilters;
     }
 
     public void removeFilter(FilterObject filter){
-        List<FilterObject> tempList = filters.getValue();
-        tempList.remove(filter);
-        filters.setValue(tempList);
+        repository.removeFilter(filter);
+    }
+    void addFilter(FilterObject filter){
+        repository.addFilter(filter);
     }
 
-    public void setFilters(List<FilterObject> newFilters){
-        filters.setValue(newFilters);
+    boolean isCurrentFilter(FilterObject filter){
+        return repository.isCurrentFilter(filter);
     }
 
     public LiveData<List<FilterObject>> getFilters() {
@@ -51,5 +52,7 @@ public class ListMediaViewModel extends AndroidViewModel {
     public void update(MediaNotes mediaNotes){
         repository.update(mediaNotes);
     }
-
+    public String convertTypeToString(int typeId){
+        return repository.convertTypeToString(typeId);
+    }
 }
