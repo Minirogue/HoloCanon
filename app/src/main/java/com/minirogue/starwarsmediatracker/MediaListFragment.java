@@ -2,8 +2,9 @@ package com.minirogue.starwarsmediatracker;
 
 import android.app.AlertDialog;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
@@ -15,27 +16,29 @@ import com.google.android.material.chip.ChipGroup;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.minirogue.starwarsmediatracker.database.MediaAndNotes;
 
 import java.util.List;
 
-public class ListMediaActivity extends AppCompatActivity {
+public class MediaListFragment extends Fragment {
 
     private ListView listView;
     private SWMListAdapter adapter;
     private ListMediaViewModel mediaListViewModel;
     private ChipGroup chipGroup;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_media_by_type);
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View fragmentView = inflater.inflate(R.layout.fragment_media_list, container, false);
         mediaListViewModel = ViewModelProviders.of(this).get(ListMediaViewModel.class);
         mediaListViewModel.getFilteredMediaAndNotes().observe(this, new Observer<List<MediaAndNotes>>() {
             @Override
@@ -46,8 +49,8 @@ public class ListMediaActivity extends AppCompatActivity {
             }
         });
 
-        listView = findViewById(R.id.media_by_type_listview);
-        chipGroup = findViewById(R.id.filter_chip_group);
+        listView = fragmentView.findViewById(R.id.media_by_type_listview);
+        chipGroup = fragmentView.findViewById(R.id.filter_chip_group);
 
 
         adapter = new SWMListAdapter(mediaListViewModel);
@@ -67,13 +70,24 @@ public class ListMediaActivity extends AppCompatActivity {
                 fillChipGroup(filterObjects);
             }
         });
+
+        FloatingActionButton floatingActionButton = fragmentView.findViewById(R.id.filter_floating_action_button);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectFilters();
+            }
+        });
+
+        return fragmentView;
     }
 
-    public void selectFilters(View view) {
+
+    public void selectFilters() {
         LiveData<List<FilterObject>> allFilters = mediaListViewModel.getAllFilters();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Choose Filters");
-        final ChipGroup filterChips = new ChipGroup(this);
+        final ChipGroup filterChips = new ChipGroup(getActivity());
         allFilters.observe(this, new Observer<List<FilterObject>>() {
             @Override
             public void onChanged(List<FilterObject> filterObjects) {
@@ -114,7 +128,7 @@ public class ListMediaActivity extends AppCompatActivity {
     }
 
     private void makeCurrentFilterChip(final FilterObject filter) {
-        final Chip filterChip = new Chip(this);
+        final Chip filterChip = new Chip(getActivity());
         filterChip.setText(filter.displayText);
         filterChip.setCloseIcon(getResources().getDrawable(R.drawable.ic_close));//TODO deprecated by getDrawable(int, Theme) in later apis
         filterChip.setCloseIconVisible(true);
@@ -128,7 +142,7 @@ public class ListMediaActivity extends AppCompatActivity {
     }
 
     private Chip makeSelectableFilterChip(final FilterObject filter) {
-        Chip filterChip = new Chip(this);
+        Chip filterChip = new Chip(getActivity());
         filterChip.setText(filter.displayText);
         filterChip.setCheckable(true);
         filterChip.setCheckedIconVisible(true);
