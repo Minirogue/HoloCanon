@@ -12,13 +12,6 @@ public class Character {
     @ColumnInfo
     private String name;
 
-    public static Character getBlank(){
-        Character newChar = new Character();
-        newChar.setId(-1);
-        newChar.setName("");
-        return newChar;
-    }
-
     public int getId() {
         return id;
     }
@@ -37,7 +30,7 @@ public class Character {
 
     @Override
     public String toString(){
-        return name;
+        return (name==null ? "" : name);
     }
 
 }

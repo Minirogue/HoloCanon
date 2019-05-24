@@ -4,13 +4,13 @@
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_media"
             android:icon="@drawable/ic_testicon"
-            android:title="Media List" />
+            android:title="@string/nav_media_list" />
         <item android:id="@+id/nav_filters"
             android:icon="@drawable/ic_testicon"
-            android:title="Filters" />
+            android:title="@string/nav_filters" />
         <item android:id="@+id/nav_settings"
             android:icon="@drawable/ic_testicon"
-            android:title="Settings" />
+            android:title="@string/nav_settings" />
     </group>
 
 </menu>

@@ -5,7 +5,6 @@ import android.app.Application;
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.Transformations;
 import androidx.sqlite.db.SimpleSQLiteQuery;
@@ -64,25 +63,38 @@ public class SWMRepository {
         });
     }
     public void removeFilter(FilterObject filter){
-        List<FilterObject> tempList = filters.getValue();
-        tempList.remove(filter);
-        filters.removeSource(filter.getLiveFilter());
-        filters.setValue(tempList);
+        try {
+            List<FilterObject> tempList = filters.getValue();
+            tempList.remove(filter);
+            filters.removeSource(filter.getLiveFilter());
+            filters.setValue(tempList);
+        } catch (NullPointerException e){
+            Log.e(TAG, "removeFilter",e);
+        }
     }
     public void addFilter(FilterObject filter){
-        List<FilterObject> tempList = filters.getValue();
-        tempList.add(filter);
-        filters.addSource(filter.getLiveFilter(), new Observer<FilterObject>() {
-            @Override
-            public void onChanged(FilterObject filterObject) {
-                filters.postValue(filters.getValue());
-            }
-        });
-        filters.setValue(tempList);
+        try {
+            List<FilterObject> tempList = filters.getValue();
+            tempList.add(filter);
+            filters.addSource(filter.getLiveFilter(), new Observer<FilterObject>() {
+                @Override
+                public void onChanged(FilterObject filterObject) {
+                    filters.postValue(filters.getValue());
+                }
+            });
+            filters.setValue(tempList);
+        } catch (NullPointerException e){
+            Log.e(TAG, "addFilter",e);
+        }
     }
 
     public boolean isCurrentFilter(FilterObject filter){
-        return filters.getValue().contains(filter);
+        try {
+            return filters.getValue().contains(filter);
+        } catch (NullPointerException e){
+            Log.e(TAG, "isCurrentFilter",e);
+            return false;
+        }
     }
 
     public String convertTypeToString(final int typeId){
@@ -97,6 +109,7 @@ public class SWMRepository {
     }
 
 
+    @SuppressWarnings("StatementWithEmptyBody")
     private SimpleSQLiteQuery convertFiltersToQuery(List<FilterObject> filterList){
         StringBuilder queryBuild = new StringBuilder();
         StringBuilder joins = new StringBuilder();
@@ -166,6 +179,7 @@ public class SWMRepository {
         queryBuild.append(joins);
         boolean whereClause = false;
         if (characterFilter.length() > 0){
+            //noinspection ConstantConditions
             queryBuild.append(whereClause ? " AND (" : " WHERE (");
             whereClause = true;
             queryBuild.append(characterFilter);
@@ -179,6 +193,7 @@ public class SWMRepository {
         }
         if (notesFilter.length() > 0){
             queryBuild.append(whereClause ? " AND (" : " WHERE (");
+            //noinspection UnusedAssignment
             whereClause = true;
             queryBuild.append(notesFilter);
             queryBuild.append(")");
@@ -203,7 +218,7 @@ public class SWMRepository {
     private static class UpdateMediaNotes extends AsyncTask<MediaNotes, Void, Void>{
         WeakReference<DaoMedia> wrDaoMedia;
 
-        public UpdateMediaNotes(DaoMedia daoMedia) {
+        UpdateMediaNotes(DaoMedia daoMedia) {
             wrDaoMedia  = new WeakReference<>(daoMedia);
         }
 

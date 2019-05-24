@@ -1,10 +1,19 @@
 <resources>
     <string name="app_name">Star Wars Media Tracker</string>
-    <string name="title_activity_media_by_type">MediaByTypeActivity</string>
     <string name="intentMediaID">media_id</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nav_media_list">Media List</string>
+    <string name="nav_filters">Filters</string>
+    <string name="nav_settings">Settings</string>
+    <string name="sync_online">Sync with online database</string>
+    <string name="media_title">Title</string>
+    <string name="media_type">type</string>
+    <string name="watched_read">Watched/Read</string>
+    <string name="want_to_watch_read">Want to Watch/Read</string>
+    <string name="owned">Owned</string>
+    <string name="nav_subtext">May the Force be with you</string>
+    <string name="type_movie">Movie</string>
+    <string name="type_book">Book</string>
+    <string name="launcher_icon_description">Launcher Icon</string>
 </resources>

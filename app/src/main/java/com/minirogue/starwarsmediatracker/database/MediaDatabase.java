@@ -7,7 +7,7 @@ import android.content.Context;
 
 @Database(entities = {MediaItem.class, Character.class, MediaCharacterJoin.class, MediaNotes.class,
                         MediaType.class},
-        version = 8, exportSchema = true)
+        version = 8)
 public abstract class MediaDatabase extends RoomDatabase {
 
     private static MediaDatabase databaseInstance;

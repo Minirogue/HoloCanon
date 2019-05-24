@@ -15,14 +15,12 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,9 +28,8 @@ import com.minirogue.starwarsmediatracker.database.MediaAndNotes;
 
 import java.util.List;
 
-public class MediaListFragment extends Fragment {
+class MediaListFragment extends Fragment {
 
-    private ListView listView;
     private SWMListAdapter adapter;
     private ListMediaViewModel mediaListViewModel;
     private ChipGroup chipGroup;
@@ -46,14 +43,14 @@ public class MediaListFragment extends Fragment {
         mediaListViewModel = ViewModelProviders.of(this).get(ListMediaViewModel.class);
         mediaListViewModel.getFilteredMediaAndNotes().observe(this, new Observer<List<MediaAndNotes>>() {
             @Override
-            public void onChanged(@Nullable List<MediaAndNotes> mediaAndNotes) {
+            public void onChanged(List<MediaAndNotes> mediaAndNotes) {
                 Log.d("OBSERVER", "filters: " + mediaListViewModel.getFilters());
                 Log.d("OBSERVER", "List length " + mediaAndNotes.size());
                 adapter.setList(mediaAndNotes);
             }
         });
 
-        listView = fragmentView.findViewById(R.id.media_by_type_listview);
+        ListView listView = fragmentView.findViewById(R.id.media_by_type_listview);
         chipGroup = fragmentView.findViewById(R.id.filter_chip_group);
         ctx = getActivity();
 
@@ -87,7 +84,7 @@ public class MediaListFragment extends Fragment {
     }
 
 
-    public void selectFilters() {
+    private void selectFilters() {
         LiveData<List<FilterObject>> allFilters = mediaListViewModel.getAllFilters();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Choose Filters");

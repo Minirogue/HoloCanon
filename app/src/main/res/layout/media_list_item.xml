@@ -11,26 +11,28 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_margin="20dp"
-        android:text="Title"/>
+        android:text="@string/media_title"/>
     <TextView
         android:id="@+id/media_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/media_title"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
-        android:text="type"/>
+        android:text="@string/media_type"
+        android:layout_marginLeft="30dp" />
 
 
     <TextView
         android:id="@+id/text_watched_or_read"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Watched/Read"
+        android:text="@string/watched_read"
         app:layout_constraintRight_toLeftOf="@id/text_want_to_watch_or_read"
         app:layout_constraintTop_toTopOf="@id/text_want_to_watch_or_read"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginRight="10dp"
+        android:layout_marginEnd="10dp" />
     <CheckBox
         android:id="@+id/checkbox_watched_or_read"
         android:layout_width="wrap_content"
@@ -43,10 +45,11 @@
         android:id="@+id/text_want_to_watch_or_read"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Want to Watch/Read"
+        android:text="@string/want_to_watch_read"
         app:layout_constraintRight_toLeftOf="@id/text_owned"
         app:layout_constraintTop_toTopOf="@id/text_owned"
-        android:layout_marginRight="20dp"/>
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp" />
     <CheckBox
         android:id="@+id/checkbox_want_to_watch_or_read"
         android:layout_width="wrap_content"
@@ -59,7 +62,7 @@
         android:id="@+id/text_owned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Owned"
+        android:text="@string/owned"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_margin="20dp"/>
