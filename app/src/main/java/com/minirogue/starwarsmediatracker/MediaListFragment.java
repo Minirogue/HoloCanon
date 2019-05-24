@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,7 +36,9 @@ public class MediaListFragment extends Fragment {
     private SWMListAdapter adapter;
     private ListMediaViewModel mediaListViewModel;
     private ChipGroup chipGroup;
+    private Context ctx;
 
+    //TODO too much on UI when initializing?
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,7 +55,7 @@ public class MediaListFragment extends Fragment {
 
         listView = fragmentView.findViewById(R.id.media_by_type_listview);
         chipGroup = fragmentView.findViewById(R.id.filter_chip_group);
-
+        ctx = getActivity();
 
         adapter = new SWMListAdapter(mediaListViewModel);
         listView.setAdapter(adapter);
@@ -87,7 +91,7 @@ public class MediaListFragment extends Fragment {
         LiveData<List<FilterObject>> allFilters = mediaListViewModel.getAllFilters();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Choose Filters");
-        final ChipGroup filterChips = new ChipGroup(getActivity());
+        final ChipGroup filterChips = new ChipGroup(ctx);
         allFilters.observe(this, new Observer<List<FilterObject>>() {
             @Override
             public void onChanged(List<FilterObject> filterObjects) {
@@ -128,7 +132,7 @@ public class MediaListFragment extends Fragment {
     }
 
     private void makeCurrentFilterChip(final FilterObject filter) {
-        final Chip filterChip = new Chip(getActivity());
+        final Chip filterChip = new Chip(ctx);
         filterChip.setText(filter.displayText);
         filterChip.setCloseIcon(getResources().getDrawable(R.drawable.ic_close));//TODO deprecated by getDrawable(int, Theme) in later apis
         filterChip.setCloseIconVisible(true);
@@ -142,7 +146,7 @@ public class MediaListFragment extends Fragment {
     }
 
     private Chip makeSelectableFilterChip(final FilterObject filter) {
-        Chip filterChip = new Chip(getActivity());
+        Chip filterChip = new Chip(ctx);
         filterChip.setText(filter.displayText);
         filterChip.setCheckable(true);
         filterChip.setCheckedIconVisible(true);

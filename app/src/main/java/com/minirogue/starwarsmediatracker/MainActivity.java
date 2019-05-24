@@ -84,10 +84,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void openMediaByType(View view) {
-        Intent intent = new Intent(this, MediaListFragment.class);
-        startActivity(intent);
-    }
 
     public void updateDatabaseFromOnline(View view){
         CSVImporter importer = new CSVImporter(this);
