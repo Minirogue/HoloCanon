@@ -22,8 +22,7 @@ public interface DaoMedia {
     LiveData<List<MediaAndNotes>> getMediaAndNotesRawQuery(SupportSQLiteQuery query);
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insert (MediaItem mediaItem);
-    @Insert
-    void insertMultipleMediaItems (List<MediaItem> mediaItemList);
+
     @Query("SELECT * FROM media_items WHERE id = :mediaID LIMIT 1")
     MediaItem getMediaItemById (int mediaID);
     @Query("SELECT * FROM media_items WHERE type = :type")

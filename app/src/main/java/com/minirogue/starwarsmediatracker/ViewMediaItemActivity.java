@@ -30,7 +30,7 @@ public class ViewMediaItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_movie);
         ((TextView)findViewById(R.id.title_textview)).setText(thisMediaItem.getTitle());
         ((TextView)findViewById(R.id.description_textview)).setText(thisMediaItem.getDescription());
-        ((TextView)findViewById(R.id.type_textview)).setText("Movie");
+        ((TextView)findViewById(R.id.type_textview)).setText(this.getString(R.string.type_movie));
     }
 
     private void inflateBookView(){
@@ -38,7 +38,7 @@ public class ViewMediaItemActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.title_textview)).setText(thisMediaItem.getTitle());
         ((TextView)findViewById(R.id.author_textview)).setText(thisMediaItem.getAuthor());
         ((TextView)findViewById(R.id.description_textview)).setText(thisMediaItem.getDescription());
-        ((TextView)findViewById(R.id.type_textview)).setText("Book");
+        ((TextView)findViewById(R.id.type_textview)).setText(this.getString(R.string.type_book));
     }
 
     private class loadMedia extends AsyncTask<Integer,Void,Void>{

@@ -7,10 +7,6 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import androidx.arch.core.util.Function;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.Transformations;
-
 import com.minirogue.starwarsmediatracker.database.*;
 
 import java.util.ArrayList;

@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
 @Entity(tableName = "media_items")
 public class MediaItem {
     //This class represents the database entries
@@ -60,6 +62,7 @@ public class MediaItem {
         this.description = description;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return title;

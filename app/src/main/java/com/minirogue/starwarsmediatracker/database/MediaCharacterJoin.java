@@ -2,7 +2,8 @@ package com.minirogue.starwarsmediatracker.database;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.PrimaryKey;
+
+import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "media_character_join",
         primaryKeys = { "mediaId", "characterId" },
@@ -13,16 +14,17 @@ import androidx.room.PrimaryKey;
                 @ForeignKey(entity = Character.class,
                         parentColumns = "id",
                         childColumns = "characterId")})
-public class MediaCharacterJoin {
+class MediaCharacterJoin {
 
-    public final int mediaId;
-    public final int characterId;
+    final int mediaId;
+    final int characterId;
 
     public MediaCharacterJoin(int mediaId, int characterId){
         this.mediaId = mediaId;
         this.characterId = characterId;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "("+mediaId+", "+characterId+")";
