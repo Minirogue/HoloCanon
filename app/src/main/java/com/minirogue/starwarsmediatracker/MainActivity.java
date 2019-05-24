@@ -51,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                                 new MediaListFragment()).commit();
                         break;
+                    case R.id.nav_settings:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                                new SettingsFragment());
+                        break;
                     default:
                         Toast.makeText(getApplicationContext(),"Not yet implemented", Toast.LENGTH_SHORT).show();
                         break;
@@ -82,11 +86,5 @@ public class MainActivity extends AppCompatActivity {
         }else {
             super.onBackPressed();
         }
-    }
-
-
-    public void updateDatabaseFromOnline(View view){
-        CSVImporter importer = new CSVImporter(this);
-        importer.execute(CSVImporter.SOURCE_ONLINE);
     }
 }

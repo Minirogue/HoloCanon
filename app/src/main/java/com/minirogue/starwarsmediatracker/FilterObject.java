@@ -1,14 +1,10 @@
 package com.minirogue.starwarsmediatracker;
 
-import android.content.Context;
 
-
-import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.Transformations;
 
 import com.minirogue.starwarsmediatracker.database.MediaType;
 
@@ -31,16 +27,19 @@ public class FilterObject {
 
     public int id;
     public int column;
-    public int filterType;
-    public String displayText;
+    private boolean positive;
+    String displayText;
+    private MutableLiveData<FilterObject> liveFilter;
     private static MediatorLiveData<List<FilterObject>> allFilters;
     private static LiveData<List<MediaType>> allMediaTypes;
 
-    private FilterObject(int id, int column, int filterType, String displayText) {
+    private FilterObject(int id, int column, boolean positive, String displayText) {
         this.id = id;
         this.column = column;
-        this.filterType = filterType;
+        this.positive = positive;
         this.displayText = displayText;
+        this.liveFilter = new MutableLiveData<>();
+        this.liveFilter.postValue(this);
     }
 
     public static LiveData<List<FilterObject>> getAllFilters(LiveData<List<MediaType>> mediaTypes) {
@@ -83,14 +82,27 @@ public class FilterObject {
         List<FilterObject> newAllFilters = new ArrayList<>();
         if (allMediaTypes.getValue() != null) {
             for (MediaType mediaType : allMediaTypes.getValue()) {
-                newAllFilters.add(new FilterObject(mediaType.getId(), FILTERCOLUMN_TYPE, 0, mediaType.getText()));
+                newAllFilters.add(new FilterObject(mediaType.getId(), FILTERCOLUMN_TYPE, true, mediaType.getText()));
             }
         }
         //allFilters.add(new FilterObject(2, FILTERCOLUMN_CHARACTER,0,"Luke Skywalker"));
         //allFilters.add(new FilterObject(3, FILTERCOLUMN_CHARACTER, 0, "Anakin Skywalker"));
-        newAllFilters.add(new FilterObject(0, FILTERCOLUMN_OWNED, 0, "Owned"));
-        newAllFilters.add(new FilterObject(0, FILTERCOLUMN_HASREADWATCHED, 0, "Read/Watched"));
-        newAllFilters.add(new FilterObject(0, FILTERCOLUMN_WANTTOREADWATCH, 0,"Want to Watch/Read"));
+        newAllFilters.add(new FilterObject(0, FILTERCOLUMN_OWNED, true, "Owned"));
+        newAllFilters.add(new FilterObject(0, FILTERCOLUMN_HASREADWATCHED, true, "Read/Watched"));
+        newAllFilters.add(new FilterObject(0, FILTERCOLUMN_WANTTOREADWATCH, true,"Want to Watch/Read"));
         return newAllFilters;
+    }
+
+    public boolean isPositive() {
+        return positive;
+    }
+
+    public void setPositive(boolean positive) {
+        this.positive = positive;
+        this.liveFilter.postValue(this);
+    }
+
+    public LiveData<FilterObject> getLiveFilter(){
+        return liveFilter;
     }
 }
