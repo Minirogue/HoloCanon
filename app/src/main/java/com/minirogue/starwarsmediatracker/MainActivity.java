@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_settings:
                         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                                new SettingsFragment());
+                                new SettingsFragment()).commit();
                         break;
                     default:
                         Toast.makeText(getApplicationContext(),"Not yet implemented", Toast.LENGTH_SHORT).show();

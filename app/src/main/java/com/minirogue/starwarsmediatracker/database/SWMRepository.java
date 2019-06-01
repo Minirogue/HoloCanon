@@ -2,17 +2,23 @@ package com.minirogue.starwarsmediatracker.database;
 
 import android.app.Application;
 
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.Transformations;
 import androidx.sqlite.db.SimpleSQLiteQuery;
+
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import androidx.preference.PreferenceManager;
 import android.util.Log;
 import android.util.SparseArray;
 
 import com.minirogue.starwarsmediatracker.FilterObject;
+import com.minirogue.starwarsmediatracker.R;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -26,9 +32,12 @@ public class SWMRepository {
     private LiveData<List<MediaAndNotes>> filteredMediaAndNotes;
     private MediatorLiveData<List<FilterObject>> filters;
     private LiveData<List<MediaType>> allMediaTypes;
-    private LiveData<SparseArray<String>> typeConverter;
+//    private LiveData<SparseArray<String>> typeConverter;
+    private LiveData<StringBuilder> permanentFilters;
+    private Application application;
 
-    public SWMRepository(Application application){
+    public SWMRepository(final Application application){
+        this.application = application;
         MediaDatabase db = MediaDatabase.getMediaDataBase(application);
 //        daoCharacter = db.getDaoCharacter();
         daoMedia = db.getDaoMedia();
@@ -53,9 +62,13 @@ public class SWMRepository {
         filteredMediaAndNotes = new MediatorLiveData<>();
 //        currentFilteredMediaAndNotes = new LiveDataContainer<>();
         filters = new MediatorLiveData<>();
-        filters.setValue(new ArrayList<FilterObject>());
+        filters.setValue(new ArrayList<>());
+        permanentFilters = Transformations.map(allMediaTypes, input -> buildPermanentFilters(application));
         Log.d(TAG, "Filters set");
-        filteredMediaAndNotes = Transformations.switchMap(filters, new Function<List<FilterObject>, LiveData<List<MediaAndNotes>>>() {
+        MediatorLiveData<List<FilterObject>> filterTracker = new MediatorLiveData<>();
+        filterTracker.addSource(filters, filterTracker::setValue);
+        filterTracker.addSource(permanentFilters, input ->  filterTracker.setValue(filters.getValue()));
+        filteredMediaAndNotes = Transformations.switchMap(filterTracker, new Function<List<FilterObject>, LiveData<List<MediaAndNotes>>>() {
             @Override
             public LiveData<List<MediaAndNotes>> apply(List<FilterObject> input) {
                 return daoMedia.getMediaAndNotesRawQuery(convertFiltersToQuery(input));
@@ -193,13 +206,100 @@ public class SWMRepository {
         }
         if (notesFilter.length() > 0){
             queryBuild.append(whereClause ? " AND (" : " WHERE (");
-            //noinspection UnusedAssignment
             whereClause = true;
             queryBuild.append(notesFilter);
             queryBuild.append(")");
         }
+        if (permanentFilters.getValue() != null && permanentFilters.getValue().length() > 0){
+            queryBuild.append(whereClause ? " AND (" : " WHERE (");
+            //noinspection UnusedAssignment
+            whereClause = true;
+            queryBuild.append(permanentFilters.getValue());
+            queryBuild.append(")");
+        }
         Log.d("ListAdapter", queryBuild.toString());
         return new SimpleSQLiteQuery(queryBuild.toString());
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    private StringBuilder buildPermanentFilters(Application application){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(application);
+        StringBuilder permFiltersBuilder = new StringBuilder();
+        /*while (true){
+            if (allMediaTypes.getValue() != null){
+                break;
+            }
+        }*/
+        /*List<MediaType> typeList= allMediaTypes.getValue();
+        String[] typeNames = new String[typeList.size()];
+        for (MediaType type : typeList){
+            typeNames[type.getId()] = type.getText();
+        }*/
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_movie), true)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(1);
+        }
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_novelization), false)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(2);
+        }
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_original_novel), true)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(3);
+        }
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_video_game), false)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(4);
+        }
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_youth), true)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(5);
+        }
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_audiobook), true)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(6);
+        }
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_single_comics), false)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(7);
+        }
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_TPB), true)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(8);
+        }
+        return permFiltersBuilder;
     }
 
     /*public LiveData<List<MediaItem>> getAllMedia(){
@@ -209,7 +309,7 @@ public class SWMRepository {
     public LiveData<List<FilterObject>> getFilters(){ return filters; }
 
     public LiveData<List<FilterObject>> getAllFilters(){
-        return FilterObject.getAllFilters(allMediaTypes);
+        return FilterObject.getAllFilters(application);
     }
 
     public void update(MediaNotes mediaNotes){
