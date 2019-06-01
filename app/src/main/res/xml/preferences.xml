@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:key="permanent_filters"
+        android:title="Permanent Filters">
+
+        <SwitchPreference
+            android:key="@string/preferences_filter_TPB"
+            android:title="Trade Paperbacks (TPB)"
+            android:defaultValue="true"/>
+        <SwitchPreference
+            android:key="@string/preferences_filter_single_comics"
+            android:title="Single Issue Comics"
+            android:defaultValue="false"/>
+        <SwitchPreference
+            android:key="@string/preferences_filter_youth"
+            android:title="Youth"
+            android:defaultValue="true" />
+        <SwitchPreference
+            android:key="@string/preferences_filter_audiobook"
+            android:title="Audiobook"
+            android:defaultValue="true" />
+        <SwitchPreference
+            android:key="@string/preferences_filter_movie"
+            android:title="Movie"
+            android:defaultValue="true" />
+        <SwitchPreference
+            android:key="@string/preferences_filter_novelization"
+            android:title="Novelization"
+            android:defaultValue="false" />
+        <SwitchPreference
+            android:key="@string/preferences_filter_original_novel"
+            android:title="Original Novel"
+            android:defaultValue="true" />
+        <SwitchPreference
+            android:key="@string/preferences_filter_video_game"
+            android:title="Video Games"
+            android:defaultValue="false" />
+
+
+    </PreferenceCategory>
+
+    <Preference
+        android:key="update_from_online"
+        android:title="Sync Database from Online"
+        />
+
+</PreferenceScreen>
