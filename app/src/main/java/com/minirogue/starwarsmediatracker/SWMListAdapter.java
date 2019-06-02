@@ -19,7 +19,7 @@ class SWMListAdapter extends BaseAdapter{
 
     private MediaListViewModel mediaListViewModel;
 
-    public SWMListAdapter(MediaListViewModel mediaListViewModel){
+    SWMListAdapter(MediaListViewModel mediaListViewModel){
         this.mediaListViewModel = mediaListViewModel;
     }
 

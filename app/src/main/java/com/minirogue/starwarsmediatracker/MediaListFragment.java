@@ -23,7 +23,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.minirogue.starwarsmediatracker.database.MediaAndNotes;
 
 import java.util.List;
 
@@ -81,16 +80,13 @@ class MediaListFragment extends Fragment {
 
 
         builder.setView(filterChips);
-        builder.setPositiveButton("Set Filters", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                    /*mediaListViewModel.setFilters(currentFilters);
-                    chipGroup.removeAllViews();
-                    for (FilterObject newFilter : currentFilters){
-                        makeFilterChip(newFilter);
-                    }*/
-                dialog.dismiss();
-            }
+        builder.setPositiveButton("Set Filters", (dialog, which) -> {
+                /*mediaListViewModel.setFilters(currentFilters);
+                chipGroup.removeAllViews();
+                for (FilterObject newFilter : currentFilters){
+                    makeFilterChip(newFilter);
+                }*/
+            dialog.dismiss();
         });
         /*builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {//TODO cancel with oncancellistener to undo changes
             @Override
@@ -111,21 +107,11 @@ class MediaListFragment extends Fragment {
     private void makeCurrentFilterChip(final FilterObject filter) {
         final Chip filterChip = new Chip(ctx);
         filterChip.setText(filter.displayText);
-        filter.getLiveFilter().observe(this, new Observer<FilterObject>() {
-            @Override
-            public void onChanged(FilterObject filterObject) {
-                filterChip.setChipIcon(filter.isPositive() ? getResources().getDrawable(R.drawable.ic_filter_check) : getResources().getDrawable(R.drawable.ic_filter_x));
-            }
-        });
+        filter.getLiveFilter().observe(this, filterObject -> filterChip.setChipIcon(filter.isPositive() ? getResources().getDrawable(R.drawable.ic_filter_check) : getResources().getDrawable(R.drawable.ic_filter_x)));
         filterChip.setChipIconVisible(true);
         filterChip.setCloseIcon(getResources().getDrawable(R.drawable.ic_close));//TODO deprecated by getDrawable(int, Theme) in later apis
         filterChip.setCloseIconVisible(true);
-        filterChip.setOnCloseIconClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mediaListViewModel.removeFilter(filter);
-            }
-        });
+        filterChip.setOnCloseIconClickListener(view -> mediaListViewModel.removeFilter(filter));
         chipGroup.addView(filterChip);
     }
 
@@ -138,29 +124,21 @@ class MediaListFragment extends Fragment {
         } else{
             filterChip.setChipIconVisible(false);
         }
-        filter.getLiveFilter().observe(this, new Observer<FilterObject>() {
-            @Override
-            public void onChanged(FilterObject filterObject) {
-                filterChip.setChipIcon(filter.isPositive() ? getResources().getDrawable(R.drawable.ic_filter_check) : getResources().getDrawable(R.drawable.ic_filter_x));
-            }
-        });
-        filterChip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mediaListViewModel.isCurrentFilter(filter)){
-                    if (filter.isPositive()){
-                        filter.setPositive(false);
-                    } else{
-                        mediaListViewModel.removeFilter(filter);
-                        filter.setPositive(true);
-                        filterChip.setChipIconVisible(false);
-                    }
-                }
-                else{
-                    mediaListViewModel.addFilter(filter);
+        filter.getLiveFilter().observe(this, filterObject -> filterChip.setChipIcon(filter.isPositive() ? getResources().getDrawable(R.drawable.ic_filter_check) : getResources().getDrawable(R.drawable.ic_filter_x)));
+        filterChip.setOnClickListener(view -> {
+            if (mediaListViewModel.isCurrentFilter(filter)){
+                if (filter.isPositive()){
+                    filter.setPositive(false);
+                } else{
+                    mediaListViewModel.removeFilter(filter);
                     filter.setPositive(true);
-                    filterChip.setChipIconVisible(true);
+                    filterChip.setChipIconVisible(false);
                 }
+            }
+            else{
+                mediaListViewModel.addFilter(filter);
+                filter.setPositive(true);
+                filterChip.setChipIconVisible(true);
             }
         });
         return filterChip;

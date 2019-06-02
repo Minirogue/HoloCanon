@@ -20,7 +20,7 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
 
     private static final String TAG = "CSVImport";
 
-    public static final int SOURCE_ONLINE = 1;
+    private static final int SOURCE_ONLINE = 1;
     public static final int SOURCE_RAW_RESOURCES = 2;
     private WeakReference<Context> ctxRef;
     private HashMap<String, Integer> convertType = new HashMap<>();

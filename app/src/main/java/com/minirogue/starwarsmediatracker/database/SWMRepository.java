@@ -2,8 +2,6 @@ package com.minirogue.starwarsmediatracker.database;
 
 import android.app.Application;
 
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -15,7 +13,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import androidx.preference.PreferenceManager;
 import android.util.Log;
-import android.util.SparseArray;
 
 import com.minirogue.starwarsmediatracker.FilterObject;
 import com.minirogue.starwarsmediatracker.R;
@@ -62,12 +59,7 @@ public class SWMRepository {
         try {
             List<FilterObject> tempList = filters.getValue();
             tempList.add(filter);
-            filters.addSource(filter.getLiveFilter(), new Observer<FilterObject>() {
-                @Override
-                public void onChanged(FilterObject filterObject) {
-                    filters.postValue(filters.getValue());
-                }
-            });
+            filters.addSource(filter.getLiveFilter(), filterObject -> filters.postValue(filters.getValue()));
             filters.setValue(tempList);
         } catch (NullPointerException e){
             Log.e(TAG, "addFilter",e);
