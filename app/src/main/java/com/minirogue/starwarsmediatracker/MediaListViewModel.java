@@ -11,12 +11,12 @@ import com.minirogue.starwarsmediatracker.database.SWMRepository;
 
 import java.util.List;
 
-class ListMediaViewModel extends AndroidViewModel {
+class MediaListViewModel extends AndroidViewModel {
     private SWMRepository repository;
     private LiveData<List<FilterObject>> filters;
     private LiveData<List<FilterObject>> allFilters;
 
-    public ListMediaViewModel(@NonNull Application application) {
+    public MediaListViewModel(@NonNull Application application) {
         super(application);
         repository = new SWMRepository(application);
         filters = repository.getFilters();

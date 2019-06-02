@@ -17,10 +17,10 @@ class SWMListAdapter extends BaseAdapter{
 
     private List<MediaAndNotes> currentList = new ArrayList<>();
 
-    private ListMediaViewModel listMediaViewModel;
+    private MediaListViewModel mediaListViewModel;
 
-    public SWMListAdapter(ListMediaViewModel listMediaViewModel){
-        this.listMediaViewModel = listMediaViewModel;
+    SWMListAdapter(MediaListViewModel mediaListViewModel){
+        this.mediaListViewModel = mediaListViewModel;
     }
 
     public void setList(List<MediaAndNotes> currentList) {
@@ -59,7 +59,7 @@ class SWMListAdapter extends BaseAdapter{
 
         MediaAndNotes currentItem = currentList.get(position);
         titleTextView.setText(currentItem.mediaItem.getTitle());
-        typeTextView.setText(listMediaViewModel.convertTypeToString(currentItem.mediaItem.getType()));
+        typeTextView.setText(mediaListViewModel.convertTypeToString(currentItem.mediaItem.getType()));
 
         checkBoxWatchedRead.setChecked(currentItem.mediaNotes.isWatchedRead());
         checkBoxWantToWatchRead.setChecked(currentItem.mediaNotes.isWantToWatchRead());
@@ -69,26 +69,17 @@ class SWMListAdapter extends BaseAdapter{
         checkBoxWantToWatchRead.setTag(currentItem.mediaNotes);
         checkBoxOwned.setTag(currentItem.mediaNotes);
 
-        checkBoxOwned.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MediaNotes)view.getTag()).flipOwned();
-                listMediaViewModel.update((MediaNotes)view.getTag());
-            }
+        checkBoxOwned.setOnClickListener(view -> {
+            ((MediaNotes)view.getTag()).flipOwned();
+            mediaListViewModel.update((MediaNotes)view.getTag());
         });
-        checkBoxWatchedRead.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MediaNotes)view.getTag()).flipWatchedRead();
-                listMediaViewModel.update((MediaNotes)view.getTag());
-            }
+        checkBoxWatchedRead.setOnClickListener(view -> {
+            ((MediaNotes)view.getTag()).flipWatchedRead();
+            mediaListViewModel.update((MediaNotes)view.getTag());
         });
-        checkBoxWantToWatchRead.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MediaNotes)view.getTag()).flipWantToWatchRead();
-                listMediaViewModel.update((MediaNotes)view.getTag());
-            }
+        checkBoxWantToWatchRead.setOnClickListener(view -> {
+            ((MediaNotes)view.getTag()).flipWantToWatchRead();
+            mediaListViewModel.update((MediaNotes)view.getTag());
         });
 
 

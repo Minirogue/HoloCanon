@@ -20,18 +20,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.minirogue.starwarsmediatracker.database.MediaAndNotes;
 
 import java.util.List;
 
 class MediaListFragment extends Fragment {
 
     private SWMListAdapter adapter;
-    private ListMediaViewModel mediaListViewModel;
+    private MediaListViewModel mediaListViewModel;
     private ChipGroup chipGroup;
     private Context ctx;
 
@@ -40,14 +38,11 @@ class MediaListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_media_list, container, false);
-        mediaListViewModel = ViewModelProviders.of(this).get(ListMediaViewModel.class);
-        mediaListViewModel.getFilteredMediaAndNotes().observe(this, new Observer<List<MediaAndNotes>>() {
-            @Override
-            public void onChanged(List<MediaAndNotes> mediaAndNotes) {
-                Log.d("OBSERVER", "filters: " + mediaListViewModel.getFilters());
-                Log.d("OBSERVER", "List length " + mediaAndNotes.size());
-                adapter.setList(mediaAndNotes);
-            }
+        mediaListViewModel = ViewModelProviders.of(this).get(MediaListViewModel.class);
+        mediaListViewModel.getFilteredMediaAndNotes().observe(this, mediaAndNotes -> {
+            Log.d("OBSERVER", "filters: " + mediaListViewModel.getFilters().getValue());
+            Log.d("OBSERVER", "List length " + mediaAndNotes.size());
+            adapter.setList(mediaAndNotes);
         });
 
         ListView listView = fragmentView.findViewById(R.id.media_by_type_listview);
@@ -56,29 +51,16 @@ class MediaListFragment extends Fragment {
 
         adapter = new SWMListAdapter(mediaListViewModel);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(view.getContext(), ViewMediaItemActivity.class);
-                intent.putExtra(getString(R.string.intentMediaID), (int) adapter.getItemId(i));
-                Log.d("ListMedia", "Put " + adapter.getItemId(i) + " in intent");
-                startActivity(intent);
-            }
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            Intent intent = new Intent(view.getContext(), ViewMediaItemActivity.class);
+            intent.putExtra(getString(R.string.intentMediaID), (int) adapter.getItemId(i));
+            Log.d("ListMedia", "Put " + adapter.getItemId(i) + " in intent");
+            startActivity(intent);
         });
-        mediaListViewModel.getFilters().observe(this, new Observer<List<FilterObject>>() {
-            @Override
-            public void onChanged(List<FilterObject> filterObjects) {
-                fillChipGroup(filterObjects);
-            }
-        });
+        mediaListViewModel.getFilters().observe(this, this::fillChipGroup);
 
         FloatingActionButton floatingActionButton = fragmentView.findViewById(R.id.filter_floating_action_button);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectFilters();
-            }
-        });
+        floatingActionButton.setOnClickListener(view -> selectFilters());
 
         return fragmentView;
     }
@@ -89,28 +71,22 @@ class MediaListFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Choose Filters");
         final ChipGroup filterChips = new ChipGroup(ctx);
-        allFilters.observe(this, new Observer<List<FilterObject>>() {
-            @Override
-            public void onChanged(List<FilterObject> filterObjects) {
-                filterChips.removeAllViews();
-                for (FilterObject filter : filterObjects) {
-                    filterChips.addView(makeSelectableFilterChip(filter));
-                }
+        allFilters.observe(this, filterObjects -> {
+            filterChips.removeAllViews();
+            for (FilterObject filter : filterObjects) {
+                filterChips.addView(makeSelectableFilterChip(filter));
             }
         });
 
 
         builder.setView(filterChips);
-        builder.setPositiveButton("Set Filters", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                    /*mediaListViewModel.setFilters(currentFilters);
-                    chipGroup.removeAllViews();
-                    for (FilterObject newFilter : currentFilters){
-                        makeFilterChip(newFilter);
-                    }*/
-                dialog.dismiss();
-            }
+        builder.setPositiveButton("Set Filters", (dialog, which) -> {
+                /*mediaListViewModel.setFilters(currentFilters);
+                chipGroup.removeAllViews();
+                for (FilterObject newFilter : currentFilters){
+                    makeFilterChip(newFilter);
+                }*/
+            dialog.dismiss();
         });
         /*builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {//TODO cancel with oncancellistener to undo changes
             @Override
@@ -131,21 +107,11 @@ class MediaListFragment extends Fragment {
     private void makeCurrentFilterChip(final FilterObject filter) {
         final Chip filterChip = new Chip(ctx);
         filterChip.setText(filter.displayText);
-        filter.getLiveFilter().observe(this, new Observer<FilterObject>() {
-            @Override
-            public void onChanged(FilterObject filterObject) {
-                filterChip.setChipIcon(filter.isPositive() ? getResources().getDrawable(R.drawable.ic_filter_check) : getResources().getDrawable(R.drawable.ic_filter_x));
-            }
-        });
+        filter.getLiveFilter().observe(this, filterObject -> filterChip.setChipIcon(filter.isPositive() ? getResources().getDrawable(R.drawable.ic_filter_check) : getResources().getDrawable(R.drawable.ic_filter_x)));
         filterChip.setChipIconVisible(true);
         filterChip.setCloseIcon(getResources().getDrawable(R.drawable.ic_close));//TODO deprecated by getDrawable(int, Theme) in later apis
         filterChip.setCloseIconVisible(true);
-        filterChip.setOnCloseIconClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mediaListViewModel.removeFilter(filter);
-            }
-        });
+        filterChip.setOnCloseIconClickListener(view -> mediaListViewModel.removeFilter(filter));
         chipGroup.addView(filterChip);
     }
 
@@ -158,29 +124,21 @@ class MediaListFragment extends Fragment {
         } else{
             filterChip.setChipIconVisible(false);
         }
-        filter.getLiveFilter().observe(this, new Observer<FilterObject>() {
-            @Override
-            public void onChanged(FilterObject filterObject) {
-                filterChip.setChipIcon(filter.isPositive() ? getResources().getDrawable(R.drawable.ic_filter_check) : getResources().getDrawable(R.drawable.ic_filter_x));
-            }
-        });
-        filterChip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mediaListViewModel.isCurrentFilter(filter)){
-                    if (filter.isPositive()){
-                        filter.setPositive(false);
-                    } else{
-                        mediaListViewModel.removeFilter(filter);
-                        filter.setPositive(true);
-                        filterChip.setChipIconVisible(false);
-                    }
-                }
-                else{
-                    mediaListViewModel.addFilter(filter);
+        filter.getLiveFilter().observe(this, filterObject -> filterChip.setChipIcon(filter.isPositive() ? getResources().getDrawable(R.drawable.ic_filter_check) : getResources().getDrawable(R.drawable.ic_filter_x)));
+        filterChip.setOnClickListener(view -> {
+            if (mediaListViewModel.isCurrentFilter(filter)){
+                if (filter.isPositive()){
+                    filter.setPositive(false);
+                } else{
+                    mediaListViewModel.removeFilter(filter);
                     filter.setPositive(true);
-                    filterChip.setChipIconVisible(true);
+                    filterChip.setChipIconVisible(false);
                 }
+            }
+            else{
+                mediaListViewModel.addFilter(filter);
+                filter.setPositive(true);
+                filterChip.setChipIconVisible(true);
             }
         });
         return filterChip;

@@ -2,17 +2,20 @@ package com.minirogue.starwarsmediatracker.database;
 
 import android.app.Application;
 
-import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.Transformations;
 import androidx.sqlite.db.SimpleSQLiteQuery;
+
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import androidx.preference.PreferenceManager;
 import android.util.Log;
-import android.util.SparseArray;
 
 import com.minirogue.starwarsmediatracker.FilterObject;
+import com.minirogue.starwarsmediatracker.R;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -20,47 +23,27 @@ import java.util.List;
 
 public class SWMRepository {
     private final String TAG = "Repo";
-//    private DaoCharacter daoCharacter;
     private DaoMedia daoMedia;
-//    private LiveDataContainer<List<MediaAndNotes>> currentFilteredMediaAndNotes;
     private LiveData<List<MediaAndNotes>> filteredMediaAndNotes;
     private MediatorLiveData<List<FilterObject>> filters;
-    private LiveData<List<MediaType>> allMediaTypes;
-    private LiveData<SparseArray<String>> typeConverter;
+    private MutableLiveData<StringBuilder> permanentFilters;
+    private LiveData<List<FilterObject>> allFilters;
+    private Application application;
 
-    public SWMRepository(Application application){
+    public SWMRepository(final Application application){
+        this.application = application;
         MediaDatabase db = MediaDatabase.getMediaDataBase(application);
-//        daoCharacter = db.getDaoCharacter();
         daoMedia = db.getDaoMedia();
-        allMediaTypes = db.getDaoType().getAllMediaTypes();
-        Log.d(TAG, "AllMediaTypes set");
-        /*typeConverter = Transformations.map(allMediaTypes, new Function<List<MediaType>, SparseArray<String>>() {
-                    @Override
-                    public SparseArray<String> apply(List<MediaType> input) {
-                        SparseArray<String> converter = new SparseArray<>();
-                        for (MediaType mediaType : input){
-                            converter.append(mediaType.getId(), mediaType.getText());
-                        }
-                        Log.d(TAG, "TypeConverter set");
-                        return converter;
-                    }
-                });*/
-        /*typeConverter = new SparseArray<>();
-        for (MediaType mediaType : allMediaTypes){
-            typeConverter.append(mediaType.getId(), mediaType.getText());
-        }*/
-        //allMedia = daoMedia.getAll();
-        filteredMediaAndNotes = new MediatorLiveData<>();
-//        currentFilteredMediaAndNotes = new LiveDataContainer<>();
+        allFilters = FilterObject.getAllFilters(application);
         filters = new MediatorLiveData<>();
-        filters.setValue(new ArrayList<FilterObject>());
-        Log.d(TAG, "Filters set");
-        filteredMediaAndNotes = Transformations.switchMap(filters, new Function<List<FilterObject>, LiveData<List<MediaAndNotes>>>() {
-            @Override
-            public LiveData<List<MediaAndNotes>> apply(List<FilterObject> input) {
-                return daoMedia.getMediaAndNotesRawQuery(convertFiltersToQuery(input));
-            }
-        });
+        filters.setValue(new ArrayList<>());
+        permanentFilters = new MutableLiveData<>();
+        permanentFilters.setValue(new StringBuilder());
+        MediatorLiveData<List<FilterObject>> filterTracker = new MediatorLiveData<>();
+        filterTracker.addSource(filters, filterTracker::setValue);
+        filterTracker.addSource(permanentFilters, input ->  filterTracker.setValue(filters.getValue()));
+        filteredMediaAndNotes = Transformations.switchMap(filterTracker, input -> daoMedia.getMediaAndNotesRawQuery(convertFiltersToQuery(input)));
+        new Thread(this::buildPermanentFilters).start();
     }
     public void removeFilter(FilterObject filter){
         try {
@@ -76,12 +59,7 @@ public class SWMRepository {
         try {
             List<FilterObject> tempList = filters.getValue();
             tempList.add(filter);
-            filters.addSource(filter.getLiveFilter(), new Observer<FilterObject>() {
-                @Override
-                public void onChanged(FilterObject filterObject) {
-                    filters.postValue(filters.getValue());
-                }
-            });
+            filters.addSource(filter.getLiveFilter(), filterObject -> filters.postValue(filters.getValue()));
             filters.setValue(tempList);
         } catch (NullPointerException e){
             Log.e(TAG, "addFilter",e);
@@ -98,14 +76,7 @@ public class SWMRepository {
     }
 
     public String convertTypeToString(final int typeId){
-        List<MediaType> typeList = allMediaTypes.getValue();
-        if (typeList != null)
-            for (MediaType mediatype: typeList) {
-                if (mediatype.getId() == typeId) {
-                    return mediatype.getText();
-                }
-            }
-        return "MediaTypeNotfound";
+        return FilterObject.getTextForType(typeId);
     }
 
 
@@ -193,23 +164,98 @@ public class SWMRepository {
         }
         if (notesFilter.length() > 0){
             queryBuild.append(whereClause ? " AND (" : " WHERE (");
-            //noinspection UnusedAssignment
             whereClause = true;
             queryBuild.append(notesFilter);
+            queryBuild.append(")");
+        }
+        if (permanentFilters.getValue() != null && permanentFilters.getValue().length() > 0){
+            queryBuild.append(whereClause ? " AND (" : " WHERE (");
+            //noinspection UnusedAssignment
+            whereClause = true;
+            queryBuild.append(permanentFilters.getValue());
             queryBuild.append(")");
         }
         Log.d("ListAdapter", queryBuild.toString());
         return new SimpleSQLiteQuery(queryBuild.toString());
     }
 
-    /*public LiveData<List<MediaItem>> getAllMedia(){
-        return allMedia;
-    }*/
+    @SuppressWarnings("StatementWithEmptyBody")
+    private void buildPermanentFilters(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(application);
+        StringBuilder permFiltersBuilder = new StringBuilder();
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_movie), true)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(1);
+        }
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_novelization), false)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(2);
+        }
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_original_novel), true)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(3);
+        }
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_video_game), false)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(4);
+        }
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_youth), true)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(5);
+        }
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_audiobook), true)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(6);
+        }
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_single_comics), false)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(7);
+        }
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_TPB), true)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(8);
+        }
+        permanentFilters.postValue(permFiltersBuilder);
+    }
+
+
     public LiveData<List<MediaAndNotes>> getFilteredMediaAndNotes(){ return filteredMediaAndNotes; }
     public LiveData<List<FilterObject>> getFilters(){ return filters; }
 
     public LiveData<List<FilterObject>> getAllFilters(){
-        return FilterObject.getAllFilters(allMediaTypes);
+        return allFilters;
     }
 
     public void update(MediaNotes mediaNotes){

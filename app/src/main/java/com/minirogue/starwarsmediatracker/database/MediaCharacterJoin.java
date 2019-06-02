@@ -16,8 +16,8 @@ import org.jetbrains.annotations.NotNull;
                         childColumns = "characterId")})
 class MediaCharacterJoin {
 
-    final int mediaId;
-    final int characterId;
+    private final int mediaId;
+    private final int characterId;
 
     public MediaCharacterJoin(int mediaId, int characterId){
         this.mediaId = mediaId;

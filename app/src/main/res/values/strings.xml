@@ -16,4 +16,13 @@
     <string name="type_movie">Movie</string>
     <string name="type_book">Book</string>
     <string name="launcher_icon_description">Launcher Icon</string>
+    <string name="toggle_comic_settings">Toggle Comic Settings</string>
+    <string name="preferences_filter_TPB">TPB</string>
+    <string name="preferences_filter_single_comics">single_issue_comics</string>
+    <string name="preferences_filter_youth">youth</string>
+    <string name="preferences_filter_audiobook">audiobook</string>
+    <string name="preferences_filter_video_game">video game</string>
+    <string name="preferences_filter_original_novel">original novel</string>
+    <string name="preferences_filter_novelization">novelization</string>
+    <string name="preferences_filter_movie">movie</string>
 </resources>

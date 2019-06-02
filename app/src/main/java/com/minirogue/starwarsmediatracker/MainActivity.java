@@ -31,25 +31,22 @@ public class MainActivity extends AppCompatActivity {
 
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.nav_media:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                                new MediaListFragment()).commit();
-                        break;
-                    case R.id.nav_settings:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                                new SettingsFragment());
-                        break;
-                    default:
-                        Toast.makeText(getApplicationContext(),"Not yet implemented", Toast.LENGTH_SHORT).show();
-                        break;
-                }
-                drawer.closeDrawer(GravityCompat.START);
-                return true;
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()){
+                case R.id.nav_media:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            new MediaListFragment()).commit();
+                    break;
+                case R.id.nav_settings:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            new SettingsFragment()).commit();
+                    break;
+                default:
+                    Toast.makeText(getApplicationContext(),"Not yet implemented", Toast.LENGTH_SHORT).show();
+                    break;
             }
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
         });
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
