@@ -26,54 +26,27 @@ import java.util.List;
 
 public class SWMRepository {
     private final String TAG = "Repo";
-//    private DaoCharacter daoCharacter;
     private DaoMedia daoMedia;
-//    private LiveDataContainer<List<MediaAndNotes>> currentFilteredMediaAndNotes;
     private LiveData<List<MediaAndNotes>> filteredMediaAndNotes;
     private MediatorLiveData<List<FilterObject>> filters;
-    private LiveData<List<MediaType>> allMediaTypes;
-//    private LiveData<SparseArray<String>> typeConverter;
-    private LiveData<StringBuilder> permanentFilters;
+    private MutableLiveData<StringBuilder> permanentFilters;
+    private LiveData<List<FilterObject>> allFilters;
     private Application application;
 
     public SWMRepository(final Application application){
         this.application = application;
         MediaDatabase db = MediaDatabase.getMediaDataBase(application);
-//        daoCharacter = db.getDaoCharacter();
         daoMedia = db.getDaoMedia();
-        allMediaTypes = db.getDaoType().getAllMediaTypes();
-        Log.d(TAG, "AllMediaTypes set");
-        /*typeConverter = Transformations.map(allMediaTypes, new Function<List<MediaType>, SparseArray<String>>() {
-                    @Override
-                    public SparseArray<String> apply(List<MediaType> input) {
-                        SparseArray<String> converter = new SparseArray<>();
-                        for (MediaType mediaType : input){
-                            converter.append(mediaType.getId(), mediaType.getText());
-                        }
-                        Log.d(TAG, "TypeConverter set");
-                        return converter;
-                    }
-                });*/
-        /*typeConverter = new SparseArray<>();
-        for (MediaType mediaType : allMediaTypes){
-            typeConverter.append(mediaType.getId(), mediaType.getText());
-        }*/
-        //allMedia = daoMedia.getAll();
-        filteredMediaAndNotes = new MediatorLiveData<>();
-//        currentFilteredMediaAndNotes = new LiveDataContainer<>();
+        allFilters = FilterObject.getAllFilters(application);
         filters = new MediatorLiveData<>();
         filters.setValue(new ArrayList<>());
-        permanentFilters = Transformations.map(allMediaTypes, input -> buildPermanentFilters(application));
-        Log.d(TAG, "Filters set");
+        permanentFilters = new MutableLiveData<>();
+        permanentFilters.setValue(new StringBuilder());
         MediatorLiveData<List<FilterObject>> filterTracker = new MediatorLiveData<>();
         filterTracker.addSource(filters, filterTracker::setValue);
         filterTracker.addSource(permanentFilters, input ->  filterTracker.setValue(filters.getValue()));
-        filteredMediaAndNotes = Transformations.switchMap(filterTracker, new Function<List<FilterObject>, LiveData<List<MediaAndNotes>>>() {
-            @Override
-            public LiveData<List<MediaAndNotes>> apply(List<FilterObject> input) {
-                return daoMedia.getMediaAndNotesRawQuery(convertFiltersToQuery(input));
-            }
-        });
+        filteredMediaAndNotes = Transformations.switchMap(filterTracker, input -> daoMedia.getMediaAndNotesRawQuery(convertFiltersToQuery(input)));
+        new Thread(this::buildPermanentFilters).start();
     }
     public void removeFilter(FilterObject filter){
         try {
@@ -111,14 +84,7 @@ public class SWMRepository {
     }
 
     public String convertTypeToString(final int typeId){
-        List<MediaType> typeList = allMediaTypes.getValue();
-        if (typeList != null)
-            for (MediaType mediatype: typeList) {
-                if (mediatype.getId() == typeId) {
-                    return mediatype.getText();
-                }
-            }
-        return "MediaTypeNotfound";
+        return FilterObject.getTextForType(typeId);
     }
 
 
@@ -222,19 +188,9 @@ public class SWMRepository {
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
-    private StringBuilder buildPermanentFilters(Application application){
+    private void buildPermanentFilters(){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(application);
         StringBuilder permFiltersBuilder = new StringBuilder();
-        /*while (true){
-            if (allMediaTypes.getValue() != null){
-                break;
-            }
-        }*/
-        /*List<MediaType> typeList= allMediaTypes.getValue();
-        String[] typeNames = new String[typeList.size()];
-        for (MediaType type : typeList){
-            typeNames[type.getId()] = type.getText();
-        }*/
         if (!prefs.getBoolean(application.getString(R.string.preferences_filter_movie), true)){
             if(permFiltersBuilder.length() == 0){
             }else{
@@ -299,17 +255,15 @@ public class SWMRepository {
             permFiltersBuilder.append(" NOT type = ");
             permFiltersBuilder.append(8);
         }
-        return permFiltersBuilder;
+        permanentFilters.postValue(permFiltersBuilder);
     }
 
-    /*public LiveData<List<MediaItem>> getAllMedia(){
-        return allMedia;
-    }*/
+
     public LiveData<List<MediaAndNotes>> getFilteredMediaAndNotes(){ return filteredMediaAndNotes; }
     public LiveData<List<FilterObject>> getFilters(){ return filters; }
 
     public LiveData<List<FilterObject>> getAllFilters(){
-        return FilterObject.getAllFilters(application);
+        return allFilters;
     }
 
     public void update(MediaNotes mediaNotes){

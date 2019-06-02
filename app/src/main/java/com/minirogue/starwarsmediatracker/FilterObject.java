@@ -52,7 +52,7 @@ public class FilterObject {
     }
 
     public static LiveData<List<FilterObject>> getAllFilters(Application application) {
-        updateFilterList(application);
+        new Thread(() -> updateFilterList(application)).start();
         return allFilters;
     }
     static void updateFilterList(Application application){
@@ -94,7 +94,7 @@ public class FilterObject {
         }).start();
     }
 
-    private static String getTextForType(int i){//TODO want to have this automatically generated from database
+    public static String getTextForType(int i){//TODO want to have this automatically generated from database
         switch(i){
             case 1:
                 return "Movie";

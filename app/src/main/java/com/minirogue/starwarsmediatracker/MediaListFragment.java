@@ -20,7 +20,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,7 +30,7 @@ import java.util.List;
 class MediaListFragment extends Fragment {
 
     private SWMListAdapter adapter;
-    private ListMediaViewModel mediaListViewModel;
+    private MediaListViewModel mediaListViewModel;
     private ChipGroup chipGroup;
     private Context ctx;
 
@@ -40,14 +39,11 @@ class MediaListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_media_list, container, false);
-        mediaListViewModel = ViewModelProviders.of(this).get(ListMediaViewModel.class);
-        mediaListViewModel.getFilteredMediaAndNotes().observe(this, new Observer<List<MediaAndNotes>>() {
-            @Override
-            public void onChanged(List<MediaAndNotes> mediaAndNotes) {
-                Log.d("OBSERVER", "filters: " + mediaListViewModel.getFilters());
-                Log.d("OBSERVER", "List length " + mediaAndNotes.size());
-                adapter.setList(mediaAndNotes);
-            }
+        mediaListViewModel = ViewModelProviders.of(this).get(MediaListViewModel.class);
+        mediaListViewModel.getFilteredMediaAndNotes().observe(this, mediaAndNotes -> {
+            Log.d("OBSERVER", "filters: " + mediaListViewModel.getFilters().getValue());
+            Log.d("OBSERVER", "List length " + mediaAndNotes.size());
+            adapter.setList(mediaAndNotes);
         });
 
         ListView listView = fragmentView.findViewById(R.id.media_by_type_listview);
@@ -56,29 +52,16 @@ class MediaListFragment extends Fragment {
 
         adapter = new SWMListAdapter(mediaListViewModel);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(view.getContext(), ViewMediaItemActivity.class);
-                intent.putExtra(getString(R.string.intentMediaID), (int) adapter.getItemId(i));
-                Log.d("ListMedia", "Put " + adapter.getItemId(i) + " in intent");
-                startActivity(intent);
-            }
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            Intent intent = new Intent(view.getContext(), ViewMediaItemActivity.class);
+            intent.putExtra(getString(R.string.intentMediaID), (int) adapter.getItemId(i));
+            Log.d("ListMedia", "Put " + adapter.getItemId(i) + " in intent");
+            startActivity(intent);
         });
-        mediaListViewModel.getFilters().observe(this, new Observer<List<FilterObject>>() {
-            @Override
-            public void onChanged(List<FilterObject> filterObjects) {
-                fillChipGroup(filterObjects);
-            }
-        });
+        mediaListViewModel.getFilters().observe(this, this::fillChipGroup);
 
         FloatingActionButton floatingActionButton = fragmentView.findViewById(R.id.filter_floating_action_button);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectFilters();
-            }
-        });
+        floatingActionButton.setOnClickListener(view -> selectFilters());
 
         return fragmentView;
     }
@@ -89,13 +72,10 @@ class MediaListFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Choose Filters");
         final ChipGroup filterChips = new ChipGroup(ctx);
-        allFilters.observe(this, new Observer<List<FilterObject>>() {
-            @Override
-            public void onChanged(List<FilterObject> filterObjects) {
-                filterChips.removeAllViews();
-                for (FilterObject filter : filterObjects) {
-                    filterChips.addView(makeSelectableFilterChip(filter));
-                }
+        allFilters.observe(this, filterObjects -> {
+            filterChips.removeAllViews();
+            for (FilterObject filter : filterObjects) {
+                filterChips.addView(makeSelectableFilterChip(filter));
             }
         });
 
