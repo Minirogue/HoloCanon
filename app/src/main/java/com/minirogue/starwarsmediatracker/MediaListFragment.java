@@ -61,10 +61,14 @@ class MediaListFragment extends Fragment {
         });
         mediaListViewModel.getFilters().observe(this, this::fillChipGroup);
 
-        FloatingActionButton floatingActionButton = fragmentView.findViewById(R.id.filter_floating_action_button);
-        floatingActionButton.setOnClickListener(view -> selectFilters());
+        fragmentView.findViewById(R.id.filter_floating_action_button).setOnClickListener(view -> selectFilters());
+        fragmentView.findViewById(R.id.sort_floating_action_button).setOnClickListener(view -> selectSort());
 
         return fragmentView;
+    }
+
+    private void selectSort(){
+        mediaListViewModel.toggleSort();
     }
 
 

@@ -1,7 +1,5 @@
 package com.minirogue.starwarsmediatracker;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
@@ -16,12 +14,14 @@ import com.minirogue.starwarsmediatracker.database.*;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 class SWMListAdapter extends BaseAdapter{
 
 
     private List<MediaAndNotes> currentList = new ArrayList<>();
+    private HashMap<String, Drawable> cachedImgs = new HashMap<>();
 
     private MediaListViewModel mediaListViewModel;
 
@@ -106,7 +106,10 @@ class SWMListAdapter extends BaseAdapter{
 
         @Override
         protected Drawable doInBackground(String... strings) {
-            return mediaListViewModel.getCoverImageFromURL(strings[0]);
+            if (!cachedImgs.containsKey(strings[0])){
+                cachedImgs.put(strings[0], mediaListViewModel.getCoverImageFromURL(strings[0]));
+            }
+            return cachedImgs.get(strings[0]);
         }
 
         @Override
