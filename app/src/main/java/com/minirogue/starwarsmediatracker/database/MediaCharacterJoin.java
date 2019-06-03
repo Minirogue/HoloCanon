@@ -24,6 +24,14 @@ class MediaCharacterJoin {
         this.characterId = characterId;
     }
 
+    public int getMediaId() {
+        return mediaId;
+    }
+
+    public int getCharacterId() {
+        return characterId;
+    }
+
     @NotNull
     @Override
     public String toString() {

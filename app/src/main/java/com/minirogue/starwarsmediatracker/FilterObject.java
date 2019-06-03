@@ -57,7 +57,7 @@ public class FilterObject {
                 allFilters.postValue(createAllFilters(application));
             }else{
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(application);
-                boolean[] typeFilterActive = new boolean[9];
+                boolean[] typeFilterActive = new boolean[11];
                 typeFilterActive[1] = (prefs.getBoolean(application.getString(R.string.preferences_filter_movie), true));
                 typeFilterActive[2] = (prefs.getBoolean(application.getString(R.string.preferences_filter_novelization), false));
                 typeFilterActive[3] = (prefs.getBoolean(application.getString(R.string.preferences_filter_original_novel), true));
@@ -66,7 +66,9 @@ public class FilterObject {
                 typeFilterActive[6] = (prefs.getBoolean(application.getString(R.string.preferences_filter_audiobook), true));
                 typeFilterActive[7] = (prefs.getBoolean(application.getString(R.string.preferences_filter_single_comics), false));
                 typeFilterActive[8] = (prefs.getBoolean(application.getString(R.string.preferences_filter_TPB), true));
-                boolean[] typeFilterChecked = new boolean[9];
+                typeFilterActive[9] = (prefs.getBoolean(application.getString(R.string.preferences_filter_TV_Season), true));
+                typeFilterActive[10] = (prefs.getBoolean(application.getString(R.string.preferences_filter_TV_Episode), false));
+                boolean[] typeFilterChecked = new boolean[11];
                 List<FilterObject> currentList = allFilters.getValue();
                 Iterator<FilterObject> itr = currentList.iterator();
                 while (itr.hasNext()){
@@ -78,7 +80,7 @@ public class FilterObject {
                         typeFilterChecked[filter.id] = true;
                     }
                 }
-                for (int i = 1; i <=8; i++){
+                for (int i = 1; i <=10; i++){
                     if (!typeFilterChecked[i]){
                         currentList.add(new FilterObject(i, FILTERCOLUMN_TYPE, getTextForType(i)));
                     }
@@ -105,6 +107,10 @@ public class FilterObject {
                 return "Comic Book";
             case 8:
                 return "TPB";
+            case 9:
+                return "TV Season";
+            case 10:
+                return "TV Episode";
             default:
                 return "MediaTypeNotFound";
         }
@@ -137,6 +143,12 @@ public class FilterObject {
         if (prefs.getBoolean(application.getString(R.string.preferences_filter_TPB), true)){
             newAllFilters.add(new FilterObject(8,FILTERCOLUMN_TYPE, "TPB"));
         }
+        if (prefs.getBoolean(application.getString(R.string.preferences_filter_TV_Season), true)){
+            newAllFilters.add(new FilterObject(9,FILTERCOLUMN_TYPE, getTextForType(9)));
+        }
+        if (prefs.getBoolean(application.getString(R.string.preferences_filter_TV_Episode), false)){
+            newAllFilters.add(new FilterObject(10,FILTERCOLUMN_TYPE, getTextForType(10)));
+        }
         newAllFilters.add(new FilterObject(0, FILTERCOLUMN_OWNED, "Owned"));
         newAllFilters.add(new FilterObject(0, FILTERCOLUMN_HASREADWATCHED, "Read/Watched"));
         newAllFilters.add(new FilterObject(0, FILTERCOLUMN_WANTTOREADWATCH, "Want to Watch/Read"));
@@ -147,7 +159,7 @@ public class FilterObject {
         return positive;
     }
 
-    public void setPositive(boolean positive) {
+    void setPositive(boolean positive) {
         this.positive = positive;
         this.liveFilter.postValue(this);
     }

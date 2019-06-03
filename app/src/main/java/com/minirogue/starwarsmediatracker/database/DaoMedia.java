@@ -23,8 +23,10 @@ public interface DaoMedia {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insert (MediaItem mediaItem);
 
+    @Query("SELECT * FROM media_notes WHERE mediaId = :mediaId")
+    LiveData<MediaNotes> getMediaNotesById(int mediaId);
     @Query("SELECT * FROM media_items WHERE id = :mediaID LIMIT 1")
-    MediaItem getMediaItemById (int mediaID);
+    LiveData<MediaItem> getMediaItemById (int mediaID);
     @Query("SELECT * FROM media_items WHERE type = :type")
     List<MediaItem> getMediaByType(int type);
     @Query("SELECT * FROM media_items")

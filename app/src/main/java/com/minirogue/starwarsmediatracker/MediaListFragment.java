@@ -27,6 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 class MediaListFragment extends Fragment {
+    private static final String TAG = "Media List";
 
     private SWMListAdapter adapter;
     private MediaListViewModel mediaListViewModel;
@@ -52,10 +53,11 @@ class MediaListFragment extends Fragment {
         adapter = new SWMListAdapter(mediaListViewModel);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
-            Intent intent = new Intent(view.getContext(), ViewMediaItemActivity.class);
-            intent.putExtra(getString(R.string.intentMediaID), (int) adapter.getItemId(i));
-            Log.d("ListMedia", "Put " + adapter.getItemId(i) + " in intent");
-            startActivity(intent);
+            Log.d(TAG,"Item clicked: "+i);
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new ViewMediaItemFragment((int)adapter.getItemId(i)))
+                    .addToBackStack(null)
+                    .commit();
         });
         mediaListViewModel.getFilters().observe(this, this::fillChipGroup);
 

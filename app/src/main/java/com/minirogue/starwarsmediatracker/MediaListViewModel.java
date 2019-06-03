@@ -1,6 +1,11 @@
 package com.minirogue.starwarsmediatracker;
 
 import android.app.Application;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
+
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.annotation.NonNull;
@@ -50,5 +55,8 @@ class MediaListViewModel extends AndroidViewModel {
     }
     public String convertTypeToString(int typeId){
         return repository.convertTypeToString(typeId);
+    }
+    Drawable getCoverImageFromURL(String url){
+        return repository.getCoverImageFromURL(url);
     }
 }

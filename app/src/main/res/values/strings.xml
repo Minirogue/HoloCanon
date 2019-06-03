@@ -25,4 +25,6 @@
     <string name="preferences_filter_original_novel">original novel</string>
     <string name="preferences_filter_novelization">novelization</string>
     <string name="preferences_filter_movie">movie</string>
+    <string name="preferences_filter_TV_Episode">TV Episode</string>
+    <string name="preferences_filter_TV_Season">TV Season</string>
 </resources>

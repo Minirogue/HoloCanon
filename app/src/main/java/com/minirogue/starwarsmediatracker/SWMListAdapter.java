@@ -1,14 +1,20 @@
 package com.minirogue.starwarsmediatracker;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.minirogue.starwarsmediatracker.database.*;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,10 +62,12 @@ class SWMListAdapter extends BaseAdapter{
         CheckBox checkBoxWatchedRead = convertView.findViewById(R.id.checkbox_watched_or_read);
         CheckBox checkBoxWantToWatchRead = convertView.findViewById(R.id.checkbox_want_to_watch_or_read);
         CheckBox checkBoxOwned = convertView.findViewById(R.id.checkbox_owned);
+        ImageView coverImage = convertView.findViewById(R.id.image_cover);
 
         MediaAndNotes currentItem = currentList.get(position);
         titleTextView.setText(currentItem.mediaItem.getTitle());
         typeTextView.setText(mediaListViewModel.convertTypeToString(currentItem.mediaItem.getType()));
+        new SetImageViewFromURL(coverImage).execute(currentItem.mediaItem.getImageURL());
 
         checkBoxWatchedRead.setChecked(currentItem.mediaNotes.isWatchedRead());
         checkBoxWantToWatchRead.setChecked(currentItem.mediaNotes.isWantToWatchRead());
@@ -84,5 +92,25 @@ class SWMListAdapter extends BaseAdapter{
 
 
         return convertView;
+    }
+
+    private class SetImageViewFromURL extends AsyncTask<String, Void, Drawable>{
+        WeakReference<ImageView> imgView;
+
+        SetImageViewFromURL(ImageView imgView){
+            this.imgView = new WeakReference<>(imgView);
+        }
+
+        @Override
+        protected Drawable doInBackground(String... strings) {
+            return mediaListViewModel.getCoverImageFromURL(strings[0]);
+        }
+
+        @Override
+        protected void onPostExecute(Drawable aBitmap) {
+            if (aBitmap != null){
+                imgView.get().setImageDrawable(aBitmap);
+            }
+        }
     }
 }

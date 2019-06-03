@@ -21,6 +21,8 @@ public class MediaItem {
     private int type;
     @ColumnInfo(name = "description")
     private String description;
+    @ColumnInfo(name = "image")
+    private String imageURL;
 
     public int getId() {
         return id;
@@ -60,6 +62,14 @@ public class MediaItem {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     @NotNull

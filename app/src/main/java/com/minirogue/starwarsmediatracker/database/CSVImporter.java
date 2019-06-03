@@ -20,7 +20,7 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
 
     private static final String TAG = "CSVImport";
 
-    private static final int SOURCE_ONLINE = 1;
+    public static final int SOURCE_ONLINE = 1;
     public static final int SOURCE_RAW_RESOURCES = 2;
     private WeakReference<Context> ctxRef;
     private HashMap<String, Integer> convertType = new HashMap<>();
@@ -95,6 +95,7 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                             newItem.setTitle(row[i]);
                             break;
                         case "type":
+                            Log.d(TAG, row[i]);
                             newItem.setType(convertType.get(row[i]));
                             break;
                         case "description":
@@ -103,6 +104,8 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                         case "author":
                             newItem.setAuthor(row[i]);
                             break;
+                        case "image":
+                            newItem.setImageURL(row[i]);
                         default:
                             System.out.println("Unused header: " + header[i]);
                     }

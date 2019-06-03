@@ -9,7 +9,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.Transformations;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import androidx.preference.PreferenceManager;
 import android.util.Log;
@@ -17,7 +22,12 @@ import android.util.Log;
 import com.minirogue.starwarsmediatracker.FilterObject;
 import com.minirogue.starwarsmediatracker.R;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +88,10 @@ public class SWMRepository {
     public String convertTypeToString(final int typeId){
         return FilterObject.getTextForType(typeId);
     }
-
+    public LiveData<MediaItem> getLiveMediaItem(int itemId){
+        return daoMedia.getMediaItemById(itemId);
+    }
+    public LiveData<MediaNotes> getLiveMediaNotes(int itemId){ return daoMedia.getMediaNotesById(itemId);}
 
     @SuppressWarnings("StatementWithEmptyBody")
     private SimpleSQLiteQuery convertFiltersToQuery(List<FilterObject> filterList){
@@ -247,6 +260,22 @@ public class SWMRepository {
             permFiltersBuilder.append(" NOT type = ");
             permFiltersBuilder.append(8);
         }
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_TV_Season), true)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(9);
+        }
+        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_TV_Episode), true)){
+            if(permFiltersBuilder.length() == 0){
+            }else{
+                permFiltersBuilder.append(" AND ");
+            }
+            permFiltersBuilder.append(" NOT type = ");
+            permFiltersBuilder.append(10);
+        }
         permanentFilters.postValue(permFiltersBuilder);
     }
 
@@ -256,6 +285,40 @@ public class SWMRepository {
 
     public LiveData<List<FilterObject>> getAllFilters(){
         return allFilters;
+    }
+
+    public Drawable getCoverImageFromURL(String url){
+        if (url == null || url.equals("")){
+            return application.getDrawable(R.mipmap.ic_launcher);
+        }
+        Bitmap bitmap = null;
+        String filename = url.hashCode()+".PNG";
+        Log.d(TAG,filename);
+        try {
+            Log.d(TAG, "loading image from file");
+            FileInputStream fiStream = application.openFileInput(filename);
+            bitmap = BitmapFactory.decodeStream(fiStream);
+            fiStream.close();
+        } catch (Exception e) {
+            Log.d("GetCoverImage", "loading from file didn't work, trying from internet");
+            try {
+                Log.d(TAG, url);
+                InputStream inputStream = new URL(url).openStream();   // Download Image from URL
+                bitmap = BitmapFactory.decodeStream(inputStream);       // Decode Bitmap
+                inputStream.close();
+                FileOutputStream foStream = application.openFileOutput(filename, Context.MODE_PRIVATE);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, foStream);
+                foStream.close();
+                Log.d(TAG, String.valueOf(new File(filename).exists()));
+            } catch (Exception e2) {
+                Log.d("GetCoverImage", "Exception 1, Something went wrong!");
+                e2.printStackTrace();
+            }
+        }
+        if (bitmap == null){
+            return application.getDrawable(R.mipmap.ic_launcher);
+        }
+        return new BitmapDrawable(application.getResources(), bitmap);
     }
 
     public void update(MediaNotes mediaNotes){

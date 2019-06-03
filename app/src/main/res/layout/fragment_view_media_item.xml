@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/image_cover"
         android:src="@mipmap/ic_launcher"
         android:scaleType="centerInside"
-        android:layout_width="50dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="cover"/>
@@ -32,6 +32,13 @@
         android:layout_marginTop="10dp"
         android:text="@string/media_type"
         android:layout_marginLeft="30dp" />
+    <TextView
+        android:id="@+id/description_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/image_cover"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:padding="20dp"/>
 
 
     <TextView
@@ -46,8 +53,7 @@
         android:id="@+id/checkbox_watched_or_read"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:focusable="false"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/checkbox_want_to_watch_or_read"
         app:layout_constraintRight_toRightOf="parent"/>
 
     <TextView
@@ -58,14 +64,14 @@
         app:layout_constraintRight_toLeftOf="@id/checkbox_want_to_watch_or_read"
         app:layout_constraintTop_toTopOf="@id/checkbox_want_to_watch_or_read"
         app:layout_constraintBottom_toBottomOf="@id/checkbox_want_to_watch_or_read"
-         />
+        />
     <CheckBox
         android:id="@+id/checkbox_want_to_watch_or_read"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:focusable="false"
-        app:layout_constraintTop_toBottomOf="@id/checkbox_watched_or_read"
+        app:layout_constraintBottom_toTopOf="@id/checkbox_owned"
         app:layout_constraintRight_toRightOf="parent"/>
+
 
     <TextView
         android:id="@+id/text_owned"
@@ -80,10 +86,7 @@
         android:id="@+id/checkbox_owned"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:focusable="false"
-        app:layout_constraintTop_toBottomOf="@id/checkbox_want_to_watch_or_read"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -37,6 +37,14 @@
             android:key="@string/preferences_filter_video_game"
             android:title="Video Games"
             android:defaultValue="false" />
+        <SwitchPreference
+            android:key="@string/preferences_filter_TV_Season"
+            android:title="TV (Season)"
+            android:defaultValue="false" />
+        <SwitchPreference
+            android:key="@string/preferences_filter_TV_Episode"
+            android:title="TV (Episode)"
+            android:defaultValue="false" />
 
 
     </PreferenceCategory>
