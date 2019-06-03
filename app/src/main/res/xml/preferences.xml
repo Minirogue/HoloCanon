@@ -48,6 +48,23 @@
 
 
     </PreferenceCategory>
+    <PreferenceCategory
+        android:key="user_defined_notes"
+        android:title="Checkbox Names">
+        <EditTextPreference
+            android:key="@string/watched_read"
+            android:title="Checkbox 1"
+            android:summary="@string/watched_read"
+            android:defaultValue="@string/watched_read"/>
+        <EditTextPreference
+            android:key="@string/want_to_watch_read"
+            android:title="Checkbox 2"
+            android:defaultValue="@string/want_to_watch_read"/>
+        <EditTextPreference
+            android:key="@string/owned"
+            android:title="Checkbox 3"
+            android:defaultValue="@string/owned"/>
+    </PreferenceCategory>
 
     <Preference
         android:key="update_from_online"

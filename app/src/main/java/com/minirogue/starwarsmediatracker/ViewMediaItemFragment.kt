@@ -31,6 +31,9 @@ class ViewMediaItemFragment(private val itemId: Int) : Fragment(){
         val fragmentView = inflater.inflate(R.layout.fragment_view_media_item, container, false)
         viewModel.liveMediaItem.observe(this, Observer {item -> updateViews(item, fragmentView)})
         viewModel.liveMediaNotes.observe(this, Observer {notes -> updateViews(notes, fragmentView)})
+        fragmentView.text_watched_or_read.text = viewModel.getCheckBoxText(1)
+        fragmentView.text_want_to_watch_or_read.text = viewModel.getCheckBoxText(2)
+        fragmentView.text_owned.text = viewModel.getCheckBoxText(3)
         fragmentView.checkbox_owned.setOnClickListener { viewModel.toggleOwned() }
         fragmentView.checkbox_want_to_watch_or_read.setOnClickListener { viewModel.toggleWantToWatchRead() }
         fragmentView.checkbox_watched_or_read.setOnClickListener { viewModel.toggleWatchedRead() }

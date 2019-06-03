@@ -56,6 +56,9 @@ class SWMListAdapter extends BaseAdapter{
             //Log.d("Adapter", "convertView was null");
             convertView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.media_list_item, parent, false);
+            ((TextView)convertView.findViewById(R.id.text_watched_or_read)).setText(mediaListViewModel.getCheckboxText(1));
+            ((TextView)convertView.findViewById(R.id.text_want_to_watch_or_read)).setText(mediaListViewModel.getCheckboxText(2));
+            ((TextView)convertView.findViewById(R.id.text_owned)).setText(mediaListViewModel.getCheckboxText(3));
         }
         TextView titleTextView = convertView.findViewById(R.id.media_title);
         TextView typeTextView = convertView.findViewById(R.id.media_type);
