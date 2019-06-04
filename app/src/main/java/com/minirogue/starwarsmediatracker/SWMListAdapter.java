@@ -31,7 +31,17 @@ class SWMListAdapter extends BaseAdapter{
 
     public void setList(List<MediaAndNotes> currentList) {
         this.currentList = currentList;
+        new Thread(this::cacheCoverArt).start();
         notifyDataSetChanged();
+    }
+
+    private void cacheCoverArt(){
+        for (MediaAndNotes mediaAndNotes : currentList){
+            String url = mediaAndNotes.mediaItem.imageURL;
+            if (!cachedImgs.containsKey(url)) {
+                cachedImgs.put(url, mediaListViewModel.getCoverImageFromURL(url));
+            }
+        }
     }
 
     @Override
@@ -46,7 +56,7 @@ class SWMListAdapter extends BaseAdapter{
 
     @Override
     public long getItemId(int position) {
-        return currentList.get(position).mediaItem.getId();
+        return currentList.get(position).mediaItem.id;
     }
 
     @Override
@@ -68,9 +78,9 @@ class SWMListAdapter extends BaseAdapter{
         ImageView coverImage = convertView.findViewById(R.id.image_cover);
 
         MediaAndNotes currentItem = currentList.get(position);
-        titleTextView.setText(currentItem.mediaItem.getTitle());
-        typeTextView.setText(mediaListViewModel.convertTypeToString(currentItem.mediaItem.getType()));
-        new SetImageViewFromURL(coverImage).execute(currentItem.mediaItem.getImageURL());
+        titleTextView.setText(currentItem.mediaItem.title);
+        typeTextView.setText(mediaListViewModel.convertTypeToString(currentItem.mediaItem.type));
+        new SetImageViewFromURL(coverImage).execute(currentItem.mediaItem.imageURL);
 
         checkBoxWatchedRead.setChecked(currentItem.mediaNotes.isWatchedRead());
         checkBoxWantToWatchRead.setChecked(currentItem.mediaNotes.isWantToWatchRead());
@@ -97,7 +107,7 @@ class SWMListAdapter extends BaseAdapter{
         return convertView;
     }
 
-    private class SetImageViewFromURL extends AsyncTask<String, Void, Drawable>{
+    private class SetImageViewFromURL extends AsyncTask<String, Drawable, Drawable>{
         WeakReference<ImageView> imgView;
 
         SetImageViewFromURL(ImageView imgView){
@@ -107,9 +117,16 @@ class SWMListAdapter extends BaseAdapter{
         @Override
         protected Drawable doInBackground(String... strings) {
             if (!cachedImgs.containsKey(strings[0])){
+                publishProgress(mediaListViewModel.getApplication().getDrawable(R.mipmap.ic_launcher));
                 cachedImgs.put(strings[0], mediaListViewModel.getCoverImageFromURL(strings[0]));
             }
             return cachedImgs.get(strings[0]);
+        }
+
+        @Override
+        protected void onProgressUpdate(Drawable... values) {
+            super.onProgressUpdate(values);
+            imgView.get().setImageDrawable(values[0]);
         }
 
         @Override

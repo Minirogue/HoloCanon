@@ -89,23 +89,38 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                 for (int i = 0; i < row.length; i++) {
                     switch (header[i]) {
                         case "ID":
-                            newItem.setId(Integer.valueOf(row[i]));
+                            newItem.id = (Integer.valueOf(row[i]));
                             break;
                         case "title":
-                            newItem.setTitle(row[i]);
+                            newItem.title = (row[i]);
                             break;
                         case "type":
                             Log.d(TAG, row[i]);
-                            newItem.setType(convertType.get(row[i]));
+                            newItem.type = (convertType.get(row[i]));
                             break;
                         case "description":
-                            newItem.setDescription(row[i]);
+                            newItem.description = (row[i]);
                             break;
                         case "author":
-                            newItem.setAuthor(row[i]);
+                            newItem.author = (row[i]);
                             break;
                         case "image":
-                            newItem.setImageURL(row[i]);
+                            newItem.imageURL = (row[i]);
+                            break;
+                        case "released":
+                            if (row[i].equals("")){
+                                newItem.date = "99/99/9999";
+                            }else {
+                                newItem.date = (row[i]);
+                            }
+                            break;
+                        case "timeline_start":
+                            if (row[i].equals("")){
+                                newItem.timeline = 10000.0;
+                            } else {
+                                newItem.timeline = Double.valueOf(row[i]);
+                            }
+                            break;
                         default:
                             System.out.println("Unused header: " + header[i]);
                     }
@@ -113,7 +128,7 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                     if (insertSuccessful == -1){
                         db.getDaoMedia().update(newItem);
                     }
-                    db.getDaoMedia().insert(new MediaNotes(newItem.getId()));
+                    db.getDaoMedia().insert(new MediaNotes(newItem.id));
                 }
             }
         } catch (IOException ex) {

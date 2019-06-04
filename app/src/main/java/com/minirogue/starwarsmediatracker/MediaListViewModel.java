@@ -32,8 +32,7 @@ class MediaListViewModel extends AndroidViewModel {
     private LiveData<List<MediaAndNotes>> data;
     private MediatorLiveData<List<MediaAndNotes>> sortedData = new MediatorLiveData<>();
     private String[] checkboxText = new String[4];
-    private MutableLiveData<Comparator<MediaAndNotes>> comparator = new MutableLiveData<>();
-    private int compareType;
+    private MutableLiveData<SortStyle> sortStyle = new MutableLiveData<>();
 
     public MediaListViewModel(@NonNull Application application) {
         super(application);
@@ -45,43 +44,32 @@ class MediaListViewModel extends AndroidViewModel {
         checkboxText[2] = prefs.getString(application.getString(R.string.want_to_watch_read),application.getString(R.string.want_to_watch_read));
         checkboxText[3] = prefs.getString(application.getString(R.string.owned),application.getString(R.string.owned));
         data = repository.getFilteredMediaAndNotes();
-        comparator.setValue((mediaAndNotes, t1) -> mediaAndNotes.mediaItem.getTitle().compareTo(t1.mediaItem.getTitle()));
-        compareType = 0;
+        setSort(SortStyle.SORT_TITLE);
         sortedData.addSource(data, dat -> sort());
-        sortedData.addSource(comparator, comp -> sort());
+        sortedData.addSource(sortStyle, comp -> sort());
     }
 
     LiveData<List<FilterObject>> getAllFilters(){
         return allFilters;
     }
-    void toggleSort(){
-        switch(compareType){
-            case 0:
-                comparator.postValue((t1, t2) -> t2.mediaItem.getTitle().compareTo(t1.mediaItem.getTitle()));
-                compareType += 1;
-                break;
-            case 1:
-                comparator.postValue((t1, t2) -> FilterObject.getTextForType(t1.mediaItem.getType()).compareTo(FilterObject.getTextForType(t2.mediaItem.getType())));
-                compareType += 1;
-                break;
-            case 2:
-                comparator.postValue((t1, t2) -> FilterObject.getTextForType(t2.mediaItem.getType()).compareTo(FilterObject.getTextForType(t1.mediaItem.getType())));
-                compareType += 1;
-                break;
-            default:
-                comparator.postValue((t1, t2) -> t1.mediaItem.getTitle().compareTo(t2.mediaItem.getTitle()));
-                compareType = 0;
-                break;
-        }
+
+    void setSort(int newCompareType){
+        sortStyle.postValue(new SortStyle(newCompareType, true));
+    }
+    void reverseSort(){
+        sortStyle.postValue(sortStyle.getValue().reversed());
     }
 
     private void sort(){
         Log.d(TAG, "Sort called");
         List<MediaAndNotes> toBeSorted = data.getValue();
         if(toBeSorted != null) {
-            Collections.sort(toBeSorted, comparator.getValue());
+            Collections.sort(toBeSorted, sortStyle.getValue());
             sortedData.postValue(toBeSorted);
         }
+    }
+    LiveData<SortStyle> getSortStyle(){
+        return sortStyle;
     }
 
     void removeFilter(FilterObject filter){

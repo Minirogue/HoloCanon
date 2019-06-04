@@ -149,9 +149,9 @@ public class FilterObject {
         if (prefs.getBoolean(application.getString(R.string.preferences_filter_TV_Episode), false)){
             newAllFilters.add(new FilterObject(10,FILTERCOLUMN_TYPE, getTextForType(10)));
         }
-        newAllFilters.add(new FilterObject(0, FILTERCOLUMN_OWNED, "Owned"));
-        newAllFilters.add(new FilterObject(0, FILTERCOLUMN_HASREADWATCHED, "Read/Watched"));
-        newAllFilters.add(new FilterObject(0, FILTERCOLUMN_WANTTOREADWATCH, "Want to Watch/Read"));
+        newAllFilters.add(new FilterObject(0, FILTERCOLUMN_OWNED, prefs.getString(application.getString(R.string.owned),application.getString(R.string.owned))));
+        newAllFilters.add(new FilterObject(0, FILTERCOLUMN_HASREADWATCHED, prefs.getString(application.getString(R.string.watched_read),application.getString(R.string.watched_read))));
+        newAllFilters.add(new FilterObject(0, FILTERCOLUMN_WANTTOREADWATCH, prefs.getString(application.getString(R.string.want_to_watch_read),application.getString(R.string.want_to_watch_read))));
         return newAllFilters;
     }
 

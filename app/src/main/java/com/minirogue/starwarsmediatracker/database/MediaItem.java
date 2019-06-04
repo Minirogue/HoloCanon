@@ -12,65 +12,22 @@ public class MediaItem {
 
 
     @PrimaryKey
-    private int id;
+    public int id;
     @ColumnInfo(name = "title")
-    private String title;
+    public String title;
     @ColumnInfo(name = "author")
-    private String author;
+    public String author;
     @ColumnInfo(name = "type")
-    private int type;
+    public int type;
     @ColumnInfo(name = "description")
-    private String description;
+    public String description;
     @ColumnInfo(name = "image")
-    private String imageURL;
+    public String imageURL;
+    @ColumnInfo(name = "date")
+    public String date;
+    @ColumnInfo(name = "timeline")
+    public double timeline;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int newID){
-        this.id = newID;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
 
     @NotNull
     @Override

@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -32,7 +33,10 @@ class MediaListFragment extends Fragment {
     private SWMListAdapter adapter;
     private MediaListViewModel mediaListViewModel;
     private ChipGroup chipGroup;
+    private Chip sortChip;
+    private FloatingActionButton sortFAB;
     private Context ctx;
+    private PopupMenu sortMenu;
 
     //TODO too much on UI when initializing?
     @Nullable
@@ -46,9 +50,13 @@ class MediaListFragment extends Fragment {
             adapter.setList(mediaAndNotes);
         });
 
+        ctx = getActivity();
         ListView listView = fragmentView.findViewById(R.id.media_by_type_listview);
         chipGroup = fragmentView.findViewById(R.id.filter_chip_group);
-        ctx = getActivity();
+        makeCurrentSortChip();
+        sortFAB = fragmentView.findViewById(R.id.sort_floating_action_button);
+        makeSortMenu();
+        sortFAB.setOnClickListener(view -> sortMenu.show());
 
         adapter = new SWMListAdapter(mediaListViewModel);
         listView.setAdapter(adapter);
@@ -62,13 +70,17 @@ class MediaListFragment extends Fragment {
         mediaListViewModel.getFilters().observe(this, this::fillChipGroup);
 
         fragmentView.findViewById(R.id.filter_floating_action_button).setOnClickListener(view -> selectFilters());
-        fragmentView.findViewById(R.id.sort_floating_action_button).setOnClickListener(view -> selectSort());
 
         return fragmentView;
     }
 
-    private void selectSort(){
-        mediaListViewModel.toggleSort();
+    private void makeSortMenu(){
+//        mediaListViewModel.toggleSort();
+        sortMenu = new PopupMenu(ctx,sortFAB);
+        for (int style : SortStyle.Companion.getAllStyles()){
+            sortMenu.getMenu().add(0,style,0,SortStyle.Companion.getSortText(style));
+        }
+        sortMenu.setOnMenuItemClickListener(menuItem -> {mediaListViewModel.setSort(menuItem.getItemId()); return true;});
     }
 
 
@@ -86,12 +98,7 @@ class MediaListFragment extends Fragment {
 
 
         builder.setView(filterChips);
-        builder.setPositiveButton("Set Filters", (dialog, which) -> {
-                /*mediaListViewModel.setFilters(currentFilters);
-                chipGroup.removeAllViews();
-                for (FilterObject newFilter : currentFilters){
-                    makeFilterChip(newFilter);
-                }*/
+        builder.setPositiveButton("Done", (dialog, which) -> {
             dialog.dismiss();
         });
         /*builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {//TODO cancel with oncancellistener to undo changes
@@ -105,6 +112,7 @@ class MediaListFragment extends Fragment {
 
     private void fillChipGroup(List<FilterObject> filters) {
         chipGroup.removeAllViews();
+        chipGroup.addView(sortChip);
         for (FilterObject filter : filters) {
             makeCurrentFilterChip(filter);
         }
@@ -120,6 +128,23 @@ class MediaListFragment extends Fragment {
         filterChip.setOnCloseIconClickListener(view -> mediaListViewModel.removeFilter(filter));
         chipGroup.addView(filterChip);
     }
+    private void makeCurrentSortChip(){
+        sortChip = new Chip(ctx);
+        sortChip.setText("Placeholder");
+        sortChip.setChipIconVisible(true);
+        sortChip.setOnClickListener(view -> mediaListViewModel.reverseSort());
+        mediaListViewModel.getSortStyle().observe(this, this::updateSortChip);
+        chipGroup.addView(sortChip);
+    }
+    private void updateSortChip(SortStyle sortStyle){
+        sortChip.setText(sortStyle.getText());
+        if (sortStyle.isAscending()) {
+            sortChip.setChipIcon(getResources().getDrawable(R.drawable.ic_ascending_sort));
+        }else{
+            sortChip.setChipIcon(getResources().getDrawable(R.drawable.ic_descending_sort));
+        }
+    }
+
 
     private Chip makeSelectableFilterChip(final FilterObject filter) {
         final Chip filterChip = new Chip(ctx);
