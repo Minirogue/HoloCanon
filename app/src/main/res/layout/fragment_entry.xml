@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/welcome_textview"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:text="Updates in version 1.0: Initial release! Hooraaaay!"/>
+            android:text="@string/version_updates"/>
 
 
         <TextView

@@ -33,4 +33,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_message">Welcome to the Star Wars Canon Tracker app. I hope it is to your liking.</string>
     <string name="nav_about">About This App</string>
+    <string name="current_database_version">current database version</string>
+    <string name="version_updates">Updates in version 1.0: Initial release! Hooraaaay!</string>
 </resources>

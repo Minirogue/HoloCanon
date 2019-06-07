@@ -2,8 +2,6 @@ package com.minirogue.starwarsmediatracker
 
 import com.minirogue.starwarsmediatracker.database.MediaAndNotes
 import com.minirogue.starwarsmediatracker.database.MediaItem
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import kotlin.math.sign
 
 

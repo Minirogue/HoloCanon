@@ -1,9 +1,13 @@
 package com.minirogue.starwarsmediatracker.database;
 
+import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.preference.PreferenceManager;
 
 import com.minirogue.starwarsmediatracker.R;
 
@@ -22,20 +26,21 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
 
     public static final int SOURCE_ONLINE = 1;
     public static final int SOURCE_RAW_RESOURCES = 2;
-    private WeakReference<Context> ctxRef;
+    private WeakReference<Application> appRef;
     private HashMap<String, Integer> convertType = new HashMap<>();
+    private long newVersionId;
 
 
-    public CSVImporter(Context ctx){
-        ctxRef = new WeakReference<>(ctx.getApplicationContext());
+    public CSVImporter(Application application){
+        appRef = new WeakReference<>(application);
     }
 
     private void importCSVToMediaTypeTable(InputStream inputStream){
         Log.d(TAG, "starting media_type import");
-        Context ctx = ctxRef.get();
+        Application app = appRef.get();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
-            MediaDatabase db = MediaDatabase.getMediaDataBase(ctx);
+            MediaDatabase db = MediaDatabase.getMediaDataBase(app);
             MediaType mediaType;
             String[] header = reader.readLine().split(",");
             String csvLine;
@@ -76,10 +81,10 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
     }
 
     private void importCSVToMediaDatabase(InputStream inputStream){
-        Context ctx = ctxRef.get();
+        Application app = appRef.get();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
-            MediaDatabase db = MediaDatabase.getMediaDataBase(ctx);
+            MediaDatabase db = MediaDatabase.getMediaDataBase(app);
             MediaItem newItem;
             String[] header = reader.readLine().split(",");
             String csvLine;
@@ -114,7 +119,7 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                                 newItem.date = (row[i]);
                             }
                             break;
-                        case "timeline_start":
+                        case "timeline":
                             if (row[i].equals("")){
                                 newItem.timeline = 10000.0;
                             } else {
@@ -143,10 +148,10 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
     }
 
     private void importCSVToCharacterDatabase(InputStream inputStream){
-        Context ctx = ctxRef.get();
+        Application app = appRef.get();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
-            MediaDatabase db = MediaDatabase.getMediaDataBase(ctx);
+            MediaDatabase db = MediaDatabase.getMediaDataBase(app);
             DaoCharacter charDao = db.getDaoCharacter();
             charDao.clearMediaCharacterJoin();
             Character newCharacter;
@@ -193,13 +198,23 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
     }
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        Toast.makeText(appRef.get(), "Updating Database", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     protected Void doInBackground(Integer... params) {
-        Context ctx = ctxRef.get();
         InputStream inputStream;
         if (params[0] == SOURCE_ONLINE){
             try {
+                //update version number
+                URL url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1842257512&single=true&output=csv");
+                inputStream = url.openStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                newVersionId = Long.valueOf(reader.readLine().split(",")[0]);
                 //import the media types
-                URL url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1834840175&single=true&output=csv");
+                url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1834840175&single=true&output=csv");
                 inputStream = url.openStream();
                 importCSVToMediaTypeTable(inputStream);
                 //import the main media table
@@ -207,32 +222,35 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                 inputStream = url.openStream();
                 importCSVToMediaDatabase(inputStream);
                 //import the character table
-                url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1862227068&single=true&output=csv");
+                /*url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1862227068&single=true&output=csv");
                 inputStream = url.openStream();
-                importCSVToCharacterDatabase(inputStream);
+                importCSVToCharacterDatabase(inputStream);*/
             } catch (MalformedURLException ex) {
                 Log.e("DatabaseUpdate", ex.toString());
+                cancel(true);
                 return null;
             } catch (IOException ex) {
                 Log.e("DatabaseUpdate", ex.toString());
+                cancel(true);
                 return null;
             }
         }
-        else {
-            inputStream = ctx.getResources().openRawResource(R.raw.starwarsmediatypedb);
-            importCSVToMediaTypeTable(inputStream);
-            inputStream = ctx.getResources().openRawResource(R.raw.starwarsmediadb);
-            importCSVToMediaDatabase(inputStream);
-            inputStream = ctx.getResources().openRawResource(R.raw.starwarscharacterdb);
-            importCSVToCharacterDatabase(inputStream);
-        }
-
+        Application app = appRef.get();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(app);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putLong(app.getString(R.string.current_database_version),newVersionId);
+        editor.apply();
         return null;
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        Context ctx = ctxRef.get();
-        Toast.makeText(ctx, "Database updated", Toast.LENGTH_SHORT).show();
+        Toast.makeText(appRef.get(), "Database updated", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onCancelled(Void aVoid) {
+        super.onCancelled(aVoid);
+        Toast.makeText(appRef.get(), "Database not fully updated", Toast.LENGTH_SHORT).show();
     }
 }

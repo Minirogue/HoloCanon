@@ -5,7 +5,7 @@
         android:key="permanent_filters"
         android:title="Permanent Filters">
 
-        <SwitchPreference
+        <!--<SwitchPreference
             android:key="@string/preferences_filter_TPB"
             android:title="Trade Paperbacks (TPB)"
             android:defaultValue="true"/>
@@ -44,7 +44,7 @@
         <SwitchPreference
             android:key="@string/preferences_filter_TV_Episode"
             android:title="TV (Episode)"
-            android:defaultValue="false" />
+            android:defaultValue="false" />-->
 
 
     </PreferenceCategory>

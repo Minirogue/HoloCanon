@@ -34,6 +34,7 @@ import java.util.List;
 public class SWMRepository {
     private final String TAG = "Repo";
     private DaoMedia daoMedia;
+    private DaoType daoType;
     private LiveData<List<MediaAndNotes>> filteredMediaAndNotes;
     private MediatorLiveData<List<FilterObject>> filters;
     private MutableLiveData<StringBuilder> permanentFilters;
@@ -44,6 +45,7 @@ public class SWMRepository {
         this.application = application;
         MediaDatabase db = MediaDatabase.getMediaDataBase(application);
         daoMedia = db.getDaoMedia();
+        daoType = db.getDaoType();
         allFilters = FilterObject.getAllFilters(application);
         filters = new MediatorLiveData<>();
         filters.setValue(new ArrayList<>());
@@ -196,85 +198,15 @@ public class SWMRepository {
     private void buildPermanentFilters(){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(application);
         StringBuilder permFiltersBuilder = new StringBuilder();
-        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_movie), true)){
-            if(permFiltersBuilder.length() == 0){
-            }else{
-                permFiltersBuilder.append(" AND ");
+        for (MediaType type : daoType.getAllNonLive()) {
+            if (!prefs.getBoolean(type.getText(), true)) {
+                if (permFiltersBuilder.length() == 0) {
+                } else {
+                    permFiltersBuilder.append(" AND ");
+                }
+                permFiltersBuilder.append(" NOT type = ");
+                permFiltersBuilder.append(type.getId());
             }
-            permFiltersBuilder.append(" NOT type = ");
-            permFiltersBuilder.append(1);
-        }
-        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_novelization), false)){
-            if(permFiltersBuilder.length() == 0){
-            }else{
-                permFiltersBuilder.append(" AND ");
-            }
-            permFiltersBuilder.append(" NOT type = ");
-            permFiltersBuilder.append(2);
-        }
-        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_original_novel), true)){
-            if(permFiltersBuilder.length() == 0){
-            }else{
-                permFiltersBuilder.append(" AND ");
-            }
-            permFiltersBuilder.append(" NOT type = ");
-            permFiltersBuilder.append(3);
-        }
-        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_video_game), false)){
-            if(permFiltersBuilder.length() == 0){
-            }else{
-                permFiltersBuilder.append(" AND ");
-            }
-            permFiltersBuilder.append(" NOT type = ");
-            permFiltersBuilder.append(4);
-        }
-        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_youth), true)){
-            if(permFiltersBuilder.length() == 0){
-            }else{
-                permFiltersBuilder.append(" AND ");
-            }
-            permFiltersBuilder.append(" NOT type = ");
-            permFiltersBuilder.append(5);
-        }
-        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_audiobook), true)){
-            if(permFiltersBuilder.length() == 0){
-            }else{
-                permFiltersBuilder.append(" AND ");
-            }
-            permFiltersBuilder.append(" NOT type = ");
-            permFiltersBuilder.append(6);
-        }
-        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_single_comics), false)){
-            if(permFiltersBuilder.length() == 0){
-            }else{
-                permFiltersBuilder.append(" AND ");
-            }
-            permFiltersBuilder.append(" NOT type = ");
-            permFiltersBuilder.append(7);
-        }
-        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_TPB), true)){
-            if(permFiltersBuilder.length() == 0){
-            }else{
-                permFiltersBuilder.append(" AND ");
-            }
-            permFiltersBuilder.append(" NOT type = ");
-            permFiltersBuilder.append(8);
-        }
-        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_TV_Season), true)){
-            if(permFiltersBuilder.length() == 0){
-            }else{
-                permFiltersBuilder.append(" AND ");
-            }
-            permFiltersBuilder.append(" NOT type = ");
-            permFiltersBuilder.append(9);
-        }
-        if (!prefs.getBoolean(application.getString(R.string.preferences_filter_TV_Episode), true)){
-            if(permFiltersBuilder.length() == 0){
-            }else{
-                permFiltersBuilder.append(" AND ");
-            }
-            permFiltersBuilder.append(" NOT type = ");
-            permFiltersBuilder.append(10);
         }
         permanentFilters.postValue(permFiltersBuilder);
     }
