@@ -34,8 +34,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new EntryFragment()).commit();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new EntryFragment()).commit();
+        }
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -50,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.nav_settings:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                             new SettingsFragment()).commit();
+                    break;
+                case R.id.nav_about:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                            new EntryFragment()).commit();
                     break;
                 default:
                     Toast.makeText(getApplicationContext(),"Not yet implemented", Toast.LENGTH_SHORT).show();
