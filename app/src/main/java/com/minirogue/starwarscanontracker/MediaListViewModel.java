@@ -57,7 +57,7 @@ class MediaListViewModel extends AndroidViewModel {
     }
 
     private void sort(){
-        Log.d(TAG, "Sort called");
+        //Log.d(TAG, "Sort called");
         List<MediaAndNotes> toBeSorted = data.getValue();
         if(toBeSorted != null) {
             Collections.sort(toBeSorted, sortStyle.getValue());

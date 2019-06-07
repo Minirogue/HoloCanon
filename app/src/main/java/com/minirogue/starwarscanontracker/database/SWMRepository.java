@@ -63,7 +63,7 @@ public class SWMRepository {
             filters.removeSource(filter.getLiveFilter());
             filters.setValue(tempList);
         } catch (NullPointerException e){
-            Log.e(TAG, "removeFilter",e);
+            //Log.e(TAG, "removeFilter",e);
         }
     }
     public void addFilter(FilterObject filter){
@@ -73,7 +73,7 @@ public class SWMRepository {
             filters.addSource(filter.getLiveFilter(), filterObject -> filters.postValue(filters.getValue()));
             filters.setValue(tempList);
         } catch (NullPointerException e){
-            Log.e(TAG, "addFilter",e);
+            //Log.e(TAG, "addFilter",e);
         }
     }
 
@@ -81,7 +81,7 @@ public class SWMRepository {
         try {
             return filters.getValue().contains(filter);
         } catch (NullPointerException e){
-            Log.e(TAG, "isCurrentFilter",e);
+            //Log.e(TAG, "isCurrentFilter",e);
             return false;
         }
     }
@@ -189,7 +189,7 @@ public class SWMRepository {
             queryBuild.append(permanentFilters.getValue());
             queryBuild.append(")");
         }
-        Log.d("ListAdapter", queryBuild.toString());
+        //Log.d("ListAdapter", queryBuild.toString());
         return new SimpleSQLiteQuery(queryBuild.toString());
     }
 
@@ -224,25 +224,25 @@ public class SWMRepository {
         }
         Bitmap bitmap = null;
         String filename = url.hashCode()+".PNG";
-        Log.d(TAG,filename);
+        //Log.d(TAG,filename);
         try {
-            Log.d(TAG, "loading image from file");
+            //Log.d(TAG, "loading image from file");
             FileInputStream fiStream = application.openFileInput(filename);
             bitmap = BitmapFactory.decodeStream(fiStream);
             fiStream.close();
         } catch (Exception e) {
-            Log.d("GetCoverImage", "loading from file didn't work, trying from internet");
+            //Log.d("GetCoverImage", "loading from file didn't work, trying from internet");
             try {
-                Log.d(TAG, url);
+                //Log.d(TAG, url);
                 InputStream inputStream = new URL(url).openStream();   // Download Image from URL
                 bitmap = BitmapFactory.decodeStream(inputStream);       // Decode Bitmap
                 inputStream.close();
                 FileOutputStream foStream = application.openFileOutput(filename, Context.MODE_PRIVATE);
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, foStream);
                 foStream.close();
-                Log.d(TAG, String.valueOf(new File(filename).exists()));
+                //Log.d(TAG, String.valueOf(new File(filename).exists()));
             } catch (Exception e2) {
-                Log.d("GetCoverImage", "Exception 1, Something went wrong!");
+                //Log.d("GetCoverImage", "Exception 1, Something went wrong!");
                 e2.printStackTrace();
             }
         }

@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,8 +41,8 @@ class MediaListFragment extends Fragment {
         View fragmentView = inflater.inflate(R.layout.fragment_media_list, container, false);
         mediaListViewModel = ViewModelProviders.of(this).get(MediaListViewModel.class);
         mediaListViewModel.getFilteredMediaAndNotes().observe(this, mediaAndNotes -> {
-            Log.d("OBSERVER", "filters: " + mediaListViewModel.getFilters().getValue());
-            Log.d("OBSERVER", "List length " + mediaAndNotes.size());
+            //Log.d("OBSERVER", "filters: " + mediaListViewModel.getFilters().getValue());
+            //Log.d("OBSERVER", "List length " + mediaAndNotes.size());
             adapter.setList(mediaAndNotes);
         });
 
@@ -58,7 +57,7 @@ class MediaListFragment extends Fragment {
         adapter = new SWMListAdapter(mediaListViewModel);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
-            Log.d(TAG,"Item clicked: "+i);
+            //Log.d(TAG,"Item clicked: "+i);
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new ViewMediaItemFragment((int)adapter.getItemId(i)))
                     .addToBackStack(null)

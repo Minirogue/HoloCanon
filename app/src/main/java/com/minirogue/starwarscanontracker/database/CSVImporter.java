@@ -34,7 +34,7 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
     }
 
     private void importCSVToMediaTypeTable(InputStream inputStream){
-        Log.d(TAG, "starting media_type import");
+        //Log.d(TAG, "starting media_type import");
         Application app = appRef.get();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
@@ -49,11 +49,11 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                     switch (header[i]) {
                         case "id":
                             mediaType.setId(Integer.valueOf(row[i]));
-                            Log.d(TAG, "type ID'ed "+row[i]+" mapped to "+Integer.valueOf(row[i]));
+                            //Log.d(TAG, "type ID'ed "+row[i]+" mapped to "+Integer.valueOf(row[i]));
                             break;
                         case "media_type":
                             mediaType.setText(row[i]);
-                            Log.d(TAG, "text found "+row[i]);
+                            //Log.d(TAG, "text found "+row[i]);
                             break;
                         default:
                             System.out.println("Unused header: " + header[i]);
@@ -64,16 +64,16 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                     db.getDaoType().update(mediaType);
                 }
                 convertType.put(mediaType.getText(), mediaType.getId());
-                Log.d(TAG, "type added "+mediaType.getId()+" "+mediaType.getText());
+                //Log.d(TAG, "type added "+mediaType.getId()+" "+mediaType.getText());
             }
-            Log.d(TAG, "queried mediaTypeTable: "+db.getDaoType().getAllNonLive());
+            //Log.d(TAG, "queried mediaTypeTable: "+db.getDaoType().getAllNonLive());
         } catch (IOException ex) {
             throw new RuntimeException("Error reading CSV file: " + ex);
         } finally {
             try {
                 inputStream.close();
             } catch (IOException ex) {
-                Log.e("CSVImporter","Error while closing input stream from CSV file: " + ex);
+                //Log.e("CSVImporter","Error while closing input stream from CSV file: " + ex);
             }
         }
     }
@@ -98,7 +98,7 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                             newItem.title = (row[i]);
                             break;
                         case "type":
-                            Log.d(TAG, row[i]);
+                            //Log.d(TAG, row[i]);
                             newItem.type = (convertType.get(row[i]));
                             break;
                         case "description":
@@ -140,7 +140,7 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
             try {
                 inputStream.close();
             } catch (IOException ex) {
-                Log.e("CSVImporter","Error while closing input stream from CSV file: " + ex);
+                //Log.e("CSVImporter","Error while closing input stream from CSV file: " + ex);
             }
         }
     }
@@ -224,11 +224,11 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                 inputStream = url.openStream();
                 importCSVToCharacterDatabase(inputStream);*/
             } catch (MalformedURLException ex) {
-                Log.e("DatabaseUpdate", ex.toString());
+                //Log.e("DatabaseUpdate", ex.toString());
                 cancel(true);
                 return null;
             } catch (IOException ex) {
-                Log.e("DatabaseUpdate", ex.toString());
+                //Log.e("DatabaseUpdate", ex.toString());
                 cancel(true);
                 return null;
             }

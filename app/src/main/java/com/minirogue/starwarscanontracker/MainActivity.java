@@ -86,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
                     cancel(true);
                 }
             } catch (MalformedURLException ex) {
-                Log.e("MainActivity", ex.toString());
+                //Log.e("MainActivity", ex.toString());
             } catch (IOException ex) {
-                Log.e("MainActivity", ex.toString());
+                //Log.e("MainActivity", ex.toString());
             }
             return null;
         }
