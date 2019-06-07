@@ -1,5 +1,6 @@
-package com.minirogue.starwarsmediatracker.database;
+package com.minirogue.starwarscanontracker.database;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -16,7 +17,7 @@ public class Character {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(int id){
         this.id = id;
     }
 
@@ -28,6 +29,7 @@ public class Character {
         this.name = name;
     }
 
+    @NonNull
     @Override
     public String toString(){
         return (name==null ? "" : name);

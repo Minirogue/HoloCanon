@@ -1,4 +1,4 @@
-package com.minirogue.starwarsmediatracker;
+package com.minirogue.starwarscanontracker;
 
 import org.junit.Test;
 

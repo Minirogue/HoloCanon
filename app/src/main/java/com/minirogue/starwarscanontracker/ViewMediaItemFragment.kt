@@ -1,4 +1,4 @@
-package com.minirogue.starwarsmediatracker
+package com.minirogue.starwarscanontracker
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,8 +13,8 @@ import android.os.AsyncTask
 import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.minirogue.starwarsmediatracker.database.MediaItem
-import com.minirogue.starwarsmediatracker.database.MediaNotes
+import com.minirogue.starwarscanontracker.database.MediaItem
+import com.minirogue.starwarscanontracker.database.MediaNotes
 import kotlinx.android.synthetic.main.fragment_view_media_item.view.*
 import java.lang.ref.WeakReference
 
@@ -68,7 +68,7 @@ class ViewMediaItemFragment(private val itemId: Int) : Fragment(){
     }
 
 
-    internal inner class ViewMediaItemViewModelFactory(val application: Application, val itemId: Int) : ViewModelProvider.Factory {
+    internal inner class ViewMediaItemViewModelFactory(val application: Application, private val itemId: Int) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return ViewMediaItemViewModel(application, itemId) as T

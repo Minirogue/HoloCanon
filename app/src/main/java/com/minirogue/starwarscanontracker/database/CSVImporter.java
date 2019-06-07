@@ -1,7 +1,6 @@
-package com.minirogue.starwarsmediatracker.database;
+package com.minirogue.starwarscanontracker.database;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -9,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.preference.PreferenceManager;
 
-import com.minirogue.starwarsmediatracker.R;
+import com.minirogue.starwarscanontracker.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,7 +24,6 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
     private static final String TAG = "CSVImport";
 
     public static final int SOURCE_ONLINE = 1;
-    public static final int SOURCE_RAW_RESOURCES = 2;
     private WeakReference<Application> appRef;
     private HashMap<String, Integer> convertType = new HashMap<>();
     private long newVersionId;
@@ -147,7 +145,7 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
         }
     }
 
-    private void importCSVToCharacterDatabase(InputStream inputStream){
+    /*private void importCSVToCharacterDatabase(InputStream inputStream){
         Application app = appRef.get();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
@@ -195,7 +193,7 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                 Log.e("CSVImporter","Error while closing input stream from CSV file: " + ex);
             }
         }
-    }
+    }*/
 
     @Override
     protected void onPreExecute() {

@@ -1,11 +1,10 @@
-package com.minirogue.starwarsmediatracker.database;
+package com.minirogue.starwarscanontracker.database;
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.Transformations;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 
@@ -19,8 +18,8 @@ import android.os.AsyncTask;
 import androidx.preference.PreferenceManager;
 import android.util.Log;
 
-import com.minirogue.starwarsmediatracker.FilterObject;
-import com.minirogue.starwarsmediatracker.R;
+import com.minirogue.starwarscanontracker.FilterObject;
+import com.minirogue.starwarscanontracker.R;
 
 import java.io.File;
 import java.io.FileInputStream;

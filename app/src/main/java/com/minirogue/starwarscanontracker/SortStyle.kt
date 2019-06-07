@@ -1,7 +1,7 @@
-package com.minirogue.starwarsmediatracker
+package com.minirogue.starwarscanontracker
 
-import com.minirogue.starwarsmediatracker.database.MediaAndNotes
-import com.minirogue.starwarsmediatracker.database.MediaItem
+import com.minirogue.starwarscanontracker.database.MediaAndNotes
+import com.minirogue.starwarscanontracker.database.MediaItem
 import kotlin.math.sign
 
 
@@ -50,13 +50,13 @@ class SortStyle(private val style: Int, private val ascending: Boolean) : Compar
         }
     }
 
-    fun compareDates(item1: MediaItem, item2: MediaItem): Int{
-        if ((item1.date == null || item1.date.equals("")) || (item2.date == null || item2.date.equals(""))) {
-            if ((item1.date == null || item1.date.equals("")) && (item2.date == null || item2.date.equals(""))) {
+    private fun compareDates(item1: MediaItem, item2: MediaItem): Int{
+        if ((item1.date == null || item1.date == "") || (item2.date == null || item2.date == "")) {
+            if ((item1.date == null || item1.date == "") && (item2.date == null || item2.date == "")) {
                 return 0
-            } else if (item1.date == null || item1.date.equals("")) {
+            } else if (item1.date == null || item1.date == "") {
                 return 1
-            } else if (item2.date == null || item2.date.equals("")) {
+            } else if (item2.date == null || item2.date == "") {
                 return -1
             }
         }

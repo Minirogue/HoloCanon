@@ -1,4 +1,4 @@
-package com.minirogue.starwarsmediatracker.database;
+package com.minirogue.starwarscanontracker.database;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;

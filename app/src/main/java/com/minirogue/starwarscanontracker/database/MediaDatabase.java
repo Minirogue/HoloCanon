@@ -1,4 +1,4 @@
-package com.minirogue.starwarsmediatracker.database;
+package com.minirogue.starwarscanontracker.database;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -17,7 +17,7 @@ public abstract class MediaDatabase extends RoomDatabase {
     private static MediaDatabase databaseInstance;
 
     public abstract DaoMedia getDaoMedia();
-    public abstract DaoCharacter getDaoCharacter();
+    // --Commented out by Inspection (6/6/19 8:33 PM):public abstract DaoCharacter getDaoCharacter();
     public abstract DaoType getDaoType();
 
 
@@ -49,7 +49,9 @@ public abstract class MediaDatabase extends RoomDatabase {
     };
 
 
-    public static void destroyInstance(){
-        databaseInstance = null;
-    }
+// --Commented out by Inspection START (6/6/19 8:33 PM):
+//    public static void destroyInstance(){
+//        databaseInstance = null;
+//    }
+// --Commented out by Inspection STOP (6/6/19 8:33 PM)
 }

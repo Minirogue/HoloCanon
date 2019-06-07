@@ -1,4 +1,4 @@
-package com.minirogue.starwarsmediatracker;
+package com.minirogue.starwarscanontracker;
 
 import android.content.Context;
 import androidx.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.minirogue.starwarsmediatracker", appContext.getPackageName());
+        assertEquals("com.minirogue.starwarscanontracker", appContext.getPackageName());
     }
 }

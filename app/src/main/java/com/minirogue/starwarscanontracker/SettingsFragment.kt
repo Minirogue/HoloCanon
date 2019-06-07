@@ -1,12 +1,12 @@
-package com.minirogue.starwarsmediatracker
+package com.minirogue.starwarscanontracker
 
 import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
 import androidx.preference.*
-import com.minirogue.starwarsmediatracker.database.CSVImporter
-import com.minirogue.starwarsmediatracker.database.MediaDatabase
-import com.minirogue.starwarsmediatracker.database.MediaType
+import com.minirogue.starwarscanontracker.database.CSVImporter
+import com.minirogue.starwarscanontracker.database.MediaDatabase
+import com.minirogue.starwarscanontracker.database.MediaType
 import java.lang.ref.WeakReference
 
 
@@ -18,7 +18,7 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
 
-        SetTypePreferences(activity!!.applicationContext, findPreference<PreferenceCategory>("permanent_filters")!!).execute()
+        SetTypePreferences(activity!!.applicationContext, findPreference("permanent_filters")!!).execute()
         val checkboxone = findPreference<EditTextPreference>(getString(R.string.watched_read))
         checkboxone?.setSummaryProvider { checkboxone.text }
         val checkboxtwo = findPreference<EditTextPreference>(getString(R.string.want_to_watch_read))

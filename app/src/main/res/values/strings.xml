@@ -1,10 +1,8 @@
 <resources>
     <string name="app_name">Star Wars Media Tracker</string>
-    <string name="intentMediaID">media_id</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_media_list">Media List</string>
-    <string name="nav_filters">Filters</string>
+    <string name="nav_media_list">Canon List</string>
     <string name="nav_settings">Settings</string>
     <string name="sync_online">Sync with online database</string>
     <string name="media_title">Title</string>
@@ -13,26 +11,18 @@
     <string name="want_to_watch_read">Wishlist</string>
     <string name="owned">Owned</string>
     <string name="nav_subtext">Do or do not.</string>
-    <string name="type_movie">Movie</string>
-    <string name="type_book">Book</string>
     <string name="launcher_icon_description">Launcher Icon</string>
-    <string name="toggle_comic_settings">Toggle Comic Settings</string>
-    <string name="preferences_filter_TPB">TPB</string>
-    <string name="preferences_filter_single_comics">single_issue_comics</string>
-    <string name="preferences_filter_youth">youth</string>
-    <string name="preferences_filter_audiobook">audiobook</string>
-    <string name="preferences_filter_video_game">video game</string>
-    <string name="preferences_filter_original_novel">original novel</string>
-    <string name="preferences_filter_novelization">novelization</string>
-    <string name="preferences_filter_movie">movie</string>
-    <string name="preferences_filter_TV_Episode">TV Episode</string>
-    <string name="preferences_filter_TV_Season">TV Season</string>
     <string name="copyright_notice">This app is in no way affiliated with or endorsed by Disney or Lucasfilm. I do not claim to own Star Wars or any of its related copyrights or trademarks. The use of Star Wars content in this app is protected under Fair Use.</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="welcome_message">Welcome to the Star Wars Canon Tracker app. I hope it is to your liking.</string>
+    <string name="welcome_message">Welcome to the Star Wars Canon Tracker app. I hope it is to your liking.
+        Click on "Settings" in the navigation to change the text for the checkboxes and to permanently filter out
+        certain media types.</string>
     <string name="nav_about">About This App</string>
     <string name="current_database_version">current database version</string>
-    <string name="version_updates">Updates in version 1.0: Initial release! Hooraaaay!</string>
+    <string name="version_updates">Updates in version 1.0: Initial release! Hooraaaay!
+        I\'m still working on fixing up release dates, images, and timeline in the database.
+        It should automatically update when I do that.
+        This app downloads the database and images, so try not to use it without wifi for now.
+        Future versions will have an option to not download unless on wifi.</string>
+    <string name="cover_image_description">cover</string>
 </resources>

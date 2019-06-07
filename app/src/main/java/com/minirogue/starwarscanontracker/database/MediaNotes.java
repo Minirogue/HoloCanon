@@ -1,4 +1,4 @@
-package com.minirogue.starwarsmediatracker.database;
+package com.minirogue.starwarscanontracker.database;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -32,9 +32,11 @@ public class MediaNotes {
         return mediaId;
     }
 
-    public void setMediaId(int mediaId) {
-        this.mediaId = mediaId;
-    }
+// --Commented out by Inspection START (6/6/19 8:33 PM):
+//    public void setMediaId(int mediaId) {
+//        this.mediaId = mediaId;
+//    }
+// --Commented out by Inspection STOP (6/6/19 8:33 PM)
 
     public boolean isWantToWatchRead() {
         return wantToWatchRead;

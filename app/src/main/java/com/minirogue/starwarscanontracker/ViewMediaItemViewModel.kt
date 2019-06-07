@@ -1,19 +1,18 @@
-package com.minirogue.starwarsmediatracker
+package com.minirogue.starwarscanontracker
 
 import android.app.Application
-import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.preference.PreferenceManager
 import androidx.lifecycle.AndroidViewModel
-import com.minirogue.starwarsmediatracker.database.SWMRepository
+import com.minirogue.starwarscanontracker.database.SWMRepository
 
 
-class ViewMediaItemViewModel(application: Application, val itemId: Int): AndroidViewModel(application) {
+class ViewMediaItemViewModel(application: Application, itemId: Int): AndroidViewModel(application) {
 
     private val repository = SWMRepository(application)
-    val liveMediaItem = repository.getLiveMediaItem(itemId)
-    val liveMediaNotes = repository.getLiveMediaNotes(itemId)
-    val checkboxText = Array(4) {""}
+    val liveMediaItem = repository.getLiveMediaItem(itemId)!!
+    val liveMediaNotes = repository.getLiveMediaNotes(itemId)!!
+    private val checkboxText = Array(4) {""}
 
     init{
         val prefs = PreferenceManager.getDefaultSharedPreferences(application)

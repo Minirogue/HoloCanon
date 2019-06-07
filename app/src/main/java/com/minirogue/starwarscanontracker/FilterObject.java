@@ -1,4 +1,4 @@
-package com.minirogue.starwarsmediatracker;
+package com.minirogue.starwarscanontracker;
 
 
 import android.app.Application;
@@ -9,20 +9,18 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.preference.PreferenceManager;
 
-import com.minirogue.starwarsmediatracker.database.MediaDatabase;
-import com.minirogue.starwarsmediatracker.database.MediaType;
-import com.minirogue.starwarsmediatracker.database.SWMRepository;
+import com.minirogue.starwarscanontracker.database.MediaDatabase;
+import com.minirogue.starwarscanontracker.database.MediaType;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
  * POJO to define a filter for the media list
  */
 public class FilterObject {
-    public static final int FILTERTYPE_AND = 1;
-    public static final int FILTERTYPE_OR = 2;
+    // --Commented out by Inspection (6/6/19 8:33 PM// --Commented out by Inspection (6/6/19 8:33 PM):):public static final int FILTERTYPE_AND = 1;
+// --Commented out by Inspection (6/6/19 8:33 PM): // --Commented out by Inspection (6/6/19 8:33 PM):   public static final int FILTERTYPE_OR = 2;
     public static final int FILTERTYPE_NOT = 3;
 
     public static final String TAG = "FilterObject";
@@ -39,7 +37,7 @@ public class FilterObject {
     String displayText;
     private MutableLiveData<FilterObject> liveFilter;
     private static MediatorLiveData<List<FilterObject>> allFilters = new MediatorLiveData<>();
-    private static LiveData<List<MediaType>> allMediaTypes;
+    // --Commented out by Inspection (6/6/19 8:33 PM):private static LiveData<List<MediaType>> allMediaTypes;
     private static MutableLiveData<List<FilterObject>> notesFilters = new MutableLiveData<>();
     private static MutableLiveData<List<FilterObject>> typeFilters = new MutableLiveData<>();
 

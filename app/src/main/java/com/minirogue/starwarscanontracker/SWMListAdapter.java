@@ -1,4 +1,4 @@
-package com.minirogue.starwarsmediatracker;
+package com.minirogue.starwarscanontracker;
 
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -10,7 +10,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.minirogue.starwarsmediatracker.database.*;
+import com.minirogue.starwarscanontracker.database.*;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

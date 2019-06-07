@@ -1,13 +1,10 @@
-package com.minirogue.starwarsmediatracker;
+package com.minirogue.starwarscanontracker;
 
 import android.app.Application;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.ImageView;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -15,12 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.minirogue.starwarsmediatracker.database.MediaAndNotes;
-import com.minirogue.starwarsmediatracker.database.MediaNotes;
-import com.minirogue.starwarsmediatracker.database.SWMRepository;
+import com.minirogue.starwarscanontracker.database.MediaAndNotes;
+import com.minirogue.starwarscanontracker.database.MediaNotes;
+import com.minirogue.starwarscanontracker.database.SWMRepository;
 
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 class MediaListViewModel extends AndroidViewModel {

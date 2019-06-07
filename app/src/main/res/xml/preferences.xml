@@ -68,7 +68,7 @@
 
     <Preference
         android:key="update_from_online"
-        android:title="Sync Database from Online"
+        android:title="@string/sync_online"
         />
 
 </PreferenceScreen>

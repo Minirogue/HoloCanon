@@ -1,16 +1,13 @@
-package com.minirogue.starwarsmediatracker;
+package com.minirogue.starwarscanontracker;
 
 import android.app.AlertDialog;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.google.android.material.chip.Chip;
@@ -98,9 +95,7 @@ class MediaListFragment extends Fragment {
 
 
         builder.setView(filterChips);
-        builder.setPositiveButton("Done", (dialog, which) -> {
-            dialog.dismiss();
-        });
+        builder.setPositiveButton("Done", (dialog, which) -> dialog.dismiss());
         /*builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {//TODO cancel with oncancellistener to undo changes
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -130,7 +125,6 @@ class MediaListFragment extends Fragment {
     }
     private void makeCurrentSortChip(){
         sortChip = new Chip(ctx);
-        sortChip.setText("Placeholder");
         sortChip.setChipIconVisible(true);
         sortChip.setOnClickListener(view -> mediaListViewModel.reverseSort());
         mediaListViewModel.getSortStyle().observe(this, this::updateSortChip);

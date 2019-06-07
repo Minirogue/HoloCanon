@@ -22,17 +22,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/welcome_textview"
+            android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             android:text="@string/version_updates"/>
 
 
         <TextView
-            android:id="@+id/copyright_disclaimer_textview"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textview_updates"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/copyright_notice"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_updates"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/copyright_notice"
         />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
