@@ -56,7 +56,7 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                             //Log.d(TAG, "text found "+row[i]);
                             break;
                         default:
-                            System.out.println("Unused header: " + header[i]);
+                            //System.out.println("Unused header: " + header[i]);
                     }
                 }
                 long insertSuccessful = db.getDaoType().insert(mediaType);
@@ -125,7 +125,7 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                             }
                             break;
                         default:
-                            System.out.println("Unused header: " + header[i]);
+                            //System.out.println("Unused header: " + header[i]);
                     }
                     long insertSuccessful = db.getDaoMedia().insert(newItem);
                     if (insertSuccessful == -1){
