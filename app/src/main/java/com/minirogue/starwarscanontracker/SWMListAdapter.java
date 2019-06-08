@@ -80,10 +80,12 @@ class SWMListAdapter extends BaseAdapter{
         CheckBox checkBoxOwned = convertView.findViewById(R.id.checkbox_owned);
         ImageView coverImage = convertView.findViewById(R.id.image_cover);
 
+
         MediaAndNotes currentItem = currentList.get(position);
         titleTextView.setText(currentItem.mediaItem.title);
         typeTextView.setText(mediaListViewModel.convertTypeToString(currentItem.mediaItem.type));
-        new SetImageViewFromURL(coverImage).execute(currentItem.mediaItem.imageURL);
+        coverImage.setTag(currentItem);
+        new SetImageViewFromURL(coverImage, currentItem).execute(currentItem.mediaItem.imageURL);
 
         checkBoxWatchedRead.setChecked(currentItem.mediaNotes.isWatchedRead());
         checkBoxWantToWatchRead.setChecked(currentItem.mediaNotes.isWantToWatchRead());
@@ -112,9 +114,11 @@ class SWMListAdapter extends BaseAdapter{
 
     private class SetImageViewFromURL extends AsyncTask<String, Drawable, Drawable>{
         WeakReference<ImageView> imgRef;
+        MediaAndNotes object;
 
-        SetImageViewFromURL(ImageView imgView){
+        SetImageViewFromURL(ImageView imgView, MediaAndNotes object){
             this.imgRef = new WeakReference<>(imgView);
+            this.object = object;
         }
 
         @Override
@@ -143,7 +147,7 @@ class SWMListAdapter extends BaseAdapter{
         @Override
         protected void onPostExecute(Drawable aBitmap) {
             ImageView imgView = imgRef.get();
-            if (aBitmap != null && imgView != null){
+            if (aBitmap != null && imgView != null && (imgView.getTag() == object)){
                 imgView.setImageDrawable(aBitmap);
             }
         }

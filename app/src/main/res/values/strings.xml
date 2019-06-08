@@ -19,6 +19,11 @@
         certain media types.</string>
     <string name="nav_about">About This App</string>
     <string name="current_database_version">current database version</string>
+    <string name="update_0_1_5">Version 0.1.5: Some more stability fixes.
+    There was a crash involving clicking on a media item and opening the page for that item that should be fixed.
+    Images should load much smoother now.Plans for the coming updates: remembering filters, wifi-only downloading of database and images, updating database.
+        Don\'t forget to leave feedback or e-mail me through the play store entry so I know what else can be done to improve the app.
+    </string>
     <string name="update_0_1_4">Version 0.1.4: This update should improve stability (i.e. the app shouldn\'t crash so much anymore).</string>
     <string name="update_0_1_0">Version 0.1.0: Initial release! Hooraaaay!
         I\'m still working on fixing up release dates, images, and timeline in the database.

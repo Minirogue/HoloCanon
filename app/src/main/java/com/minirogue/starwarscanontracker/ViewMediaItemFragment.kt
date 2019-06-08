@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.ViewModel
 import android.app.Application
+import android.content.Context
 import android.graphics.drawable.Drawable
 import android.os.AsyncTask
 import android.widget.ImageView
@@ -22,21 +23,26 @@ import java.lang.ref.WeakReference
 class ViewMediaItemFragment(private val itemId: Int) : Fragment(){
 
 
-    private val viewModel: ViewMediaItemViewModel
-        get() {
-            return ViewModelProviders.of(this, ViewMediaItemViewModelFactory(activity!!.application, itemId)).get(ViewMediaItemViewModel::class.java)
-        }
+    private var viewModel: ViewMediaItemViewModel? = null
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        viewModel = ViewModelProviders.of(this, ViewMediaItemViewModelFactory(activity!!.application, itemId)).get(ViewMediaItemViewModel::class.java)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater.inflate(R.layout.fragment_view_media_item, container, false)
-        viewModel.liveMediaItem.observe(this, Observer {item -> updateViews(item, fragmentView)})
-        viewModel.liveMediaNotes.observe(this, Observer {notes -> updateViews(notes, fragmentView)})
-        fragmentView.text_watched_or_read.text = viewModel.getCheckBoxText(1)
-        fragmentView.text_want_to_watch_or_read.text = viewModel.getCheckBoxText(2)
-        fragmentView.text_owned.text = viewModel.getCheckBoxText(3)
-        fragmentView.checkbox_owned.setOnClickListener { viewModel.toggleOwned() }
-        fragmentView.checkbox_want_to_watch_or_read.setOnClickListener { viewModel.toggleWantToWatchRead() }
-        fragmentView.checkbox_watched_or_read.setOnClickListener { viewModel.toggleWatchedRead() }
+        viewModel?.let {viewModel ->
+            viewModel.liveMediaItem.observe(this, Observer { item -> updateViews(item, fragmentView) })
+            viewModel.liveMediaNotes.observe(this, Observer { notes -> updateViews(notes, fragmentView) })
+            fragmentView.text_watched_or_read.text = viewModel.getCheckBoxText(1)
+            fragmentView.text_want_to_watch_or_read.text = viewModel.getCheckBoxText(2)
+            fragmentView.text_owned.text = viewModel.getCheckBoxText(3)
+            fragmentView.checkbox_owned.setOnClickListener { viewModel.toggleOwned() }
+            fragmentView.checkbox_want_to_watch_or_read.setOnClickListener { viewModel.toggleWantToWatchRead() }
+            fragmentView.checkbox_watched_or_read.setOnClickListener { viewModel.toggleWatchedRead() }
+        }
         return fragmentView
     }
 
@@ -45,6 +51,7 @@ class ViewMediaItemFragment(private val itemId: Int) : Fragment(){
         fragmentView.media_title.text = item.title
         fragmentView.media_type.text = FilterObject.getTextForType(item.type)
         fragmentView.description_textview.text = item.description
+        fragmentView.release_date.text = item.date
     }
 
     private fun updateViews(notes : MediaNotes, fragmentView: View){
@@ -53,16 +60,17 @@ class ViewMediaItemFragment(private val itemId: Int) : Fragment(){
         fragmentView.checkbox_want_to_watch_or_read.isChecked = notes.isWantToWatchRead
     }
 
-    private inner class SetImageViewFromURL internal constructor(imgView: ImageView) : AsyncTask<String, Void, Drawable>() {
-        internal var imgView: WeakReference<ImageView> = WeakReference(imgView)
+    private inner class SetImageViewFromURL internal constructor(imgView: ImageView) : AsyncTask<String, Void, Drawable?>() {
+        internal var imgRef: WeakReference<ImageView> = WeakReference(imgView)
 
-        override fun doInBackground(vararg strings: String): Drawable {
-            return viewModel.getCoverImageFromURL(strings[0])
+        override fun doInBackground(vararg strings: String): Drawable? {
+             return viewModel?.getCoverImageFromURL(strings[0])
         }
 
         override fun onPostExecute(aBitmap: Drawable?) {
-            if (aBitmap != null) {
-                imgView.get()!!.setImageDrawable(aBitmap)
+            val imgView = imgRef.get()
+            if (aBitmap != null && imgView != null) {
+                imgView.setImageDrawable(aBitmap)
             }
         }
     }
