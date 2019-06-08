@@ -19,7 +19,8 @@
         certain media types.</string>
     <string name="nav_about">About This App</string>
     <string name="current_database_version">current database version</string>
-    <string name="version_updates">Updates in version 0.1.1: Initial release! Hooraaaay!
+    <string name="update_0_1_4">Version 0.1.4: This update should improve stability (i.e. the app shouldn\'t crash so much anymore).</string>
+    <string name="update_0_1_0">Version 0.1.0: Initial release! Hooraaaay!
         I\'m still working on fixing up release dates, images, and timeline in the database.
         It should automatically update when I do that.
         This app downloads the database and images, so try not to use it without wifi for now.

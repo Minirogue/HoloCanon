@@ -22,6 +22,7 @@ import android.widget.PopupMenu;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
+import java.util.Objects;
 
 class MediaListFragment extends Fragment {
     private static final String TAG = "Media List";
@@ -34,7 +35,12 @@ class MediaListFragment extends Fragment {
     private Context ctx;
     private PopupMenu sortMenu;
 
-    //TODO too much on UI when initializing?
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        ctx = getActivity();
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,7 +52,6 @@ class MediaListFragment extends Fragment {
             adapter.setList(mediaAndNotes);
         });
 
-        ctx = getActivity();
         ListView listView = fragmentView.findViewById(R.id.media_by_type_listview);
         chipGroup = fragmentView.findViewById(R.id.filter_chip_group);
         makeCurrentSortChip();
@@ -58,7 +63,7 @@ class MediaListFragment extends Fragment {
         listView.setAdapter(adapter);
         listView.setOnItemClickListener((adapterView, view, i, l) -> {
             //Log.d(TAG,"Item clicked: "+i);
-            getActivity().getSupportFragmentManager().beginTransaction()
+            Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new ViewMediaItemFragment((int)adapter.getItemId(i)))
                     .addToBackStack(null)
                     .commit();

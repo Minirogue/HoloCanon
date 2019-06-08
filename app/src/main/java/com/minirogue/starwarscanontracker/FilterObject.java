@@ -143,8 +143,14 @@ public class FilterObject {
 
     private static void combineAllFilters(){
         List<FilterObject> newAllFilters = new ArrayList<>();
-        newAllFilters.addAll(notesFilters.getValue());
-        newAllFilters.addAll(typeFilters.getValue());
+        List<FilterObject> someFilters = notesFilters.getValue();
+        if (someFilters != null) {
+            newAllFilters.addAll(someFilters);
+        }
+        List<FilterObject> someOtherFilters = typeFilters.getValue();
+        if (someOtherFilters != null) {
+            newAllFilters.addAll(someOtherFilters);
+        }
         allFilters.postValue(newAllFilters);
     }
 

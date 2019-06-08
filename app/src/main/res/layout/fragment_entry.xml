@@ -18,18 +18,27 @@
         android:text="@string/welcome_message"/>
 
         <TextView
-            android:id="@+id/textview_updates"
+            android:id="@+id/textview_update_0_1_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/welcome_textview"
             android:layout_marginTop="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:text="@string/version_updates"/>
+            android:text="@string/update_0_1_4"/>
+
+        <TextView
+            android:id="@+id/textview_update_0_1_0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/textview_update_0_1_4"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="@string/update_0_1_0"/>
 
 
         <TextView
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_updates"
+            app:layout_constraintTop_toBottomOf="@id/textview_update_0_1_0"
             android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

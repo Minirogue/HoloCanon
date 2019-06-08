@@ -53,7 +53,10 @@ class MediaListViewModel extends AndroidViewModel {
         sortStyle.postValue(new SortStyle(newCompareType, true));
     }
     void reverseSort(){
-        sortStyle.postValue(sortStyle.getValue().reversed());
+        SortStyle currentStyle = sortStyle.getValue();
+        if (currentStyle != null) {
+            sortStyle.postValue(sortStyle.getValue().reversed());
+        }
     }
 
     private void sort(){

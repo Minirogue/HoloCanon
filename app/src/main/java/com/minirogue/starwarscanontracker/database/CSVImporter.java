@@ -99,7 +99,12 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                             break;
                         case "type":
                             //Log.d(TAG, row[i]);
-                            newItem.type = (convertType.get(row[i]));
+                            Integer newType = convertType.get(row[i]);
+                            if (newType == null){
+                                newItem.type = -1;
+                            }else {
+                                newItem.type = (newType);
+                            }
                             break;
                         case "description":
                             newItem.description = (row[i]);

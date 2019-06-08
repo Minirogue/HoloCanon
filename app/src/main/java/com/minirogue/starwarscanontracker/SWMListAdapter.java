@@ -14,14 +14,15 @@ import com.minirogue.starwarscanontracker.database.*;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 class SWMListAdapter extends BaseAdapter{
 
 
     private List<MediaAndNotes> currentList = new ArrayList<>();
-    private HashMap<String, Drawable> cachedImgs = new HashMap<>();
+    private ConcurrentHashMap<String, Drawable> cachedImgs = new ConcurrentHashMap<>();
 
     private MediaListViewModel mediaListViewModel;
 
@@ -31,14 +32,16 @@ class SWMListAdapter extends BaseAdapter{
 
     public void setList(List<MediaAndNotes> currentList) {
         this.currentList = currentList;
-        new Thread(this::cacheCoverArt).start();
+        //TODO running the following thread precaches the images, which looks nice, but the iteration
+        // in cacheCoverArt() is NOT thread safe :(
+        //new Thread(this::cacheCoverArt).start();
         notifyDataSetChanged();
     }
 
     private void cacheCoverArt(){
         for (MediaAndNotes mediaAndNotes : currentList){
             String url = mediaAndNotes.mediaItem.imageURL;
-            if (!cachedImgs.containsKey(url)) {
+            if (url != null && !cachedImgs.containsKey(url)) {
                 cachedImgs.put(url, mediaListViewModel.getCoverImageFromURL(url));
             }
         }
@@ -108,31 +111,40 @@ class SWMListAdapter extends BaseAdapter{
     }
 
     private class SetImageViewFromURL extends AsyncTask<String, Drawable, Drawable>{
-        WeakReference<ImageView> imgView;
+        WeakReference<ImageView> imgRef;
 
         SetImageViewFromURL(ImageView imgView){
-            this.imgView = new WeakReference<>(imgView);
+            this.imgRef = new WeakReference<>(imgView);
         }
 
         @Override
         protected Drawable doInBackground(String... strings) {
+            if (strings[0] == null){
+                return mediaListViewModel.getApplication().getDrawable(R.mipmap.ic_launcher);
+            }
             if (!cachedImgs.containsKey(strings[0])){
                 publishProgress(mediaListViewModel.getApplication().getDrawable(R.mipmap.ic_launcher));
                 cachedImgs.put(strings[0], mediaListViewModel.getCoverImageFromURL(strings[0]));
+                return cachedImgs.get(strings[0]);
+            }else{
+                return cachedImgs.get(strings[0]);
             }
-            return cachedImgs.get(strings[0]);
         }
 
         @Override
         protected void onProgressUpdate(Drawable... values) {
             super.onProgressUpdate(values);
-            imgView.get().setImageDrawable(values[0]);
+            ImageView imgView = imgRef.get();
+            if (imgView != null && values[0] != null) {
+                imgView.setImageDrawable(values[0]);
+            }
         }
 
         @Override
         protected void onPostExecute(Drawable aBitmap) {
-            if (aBitmap != null){
-                imgView.get().setImageDrawable(aBitmap);
+            ImageView imgView = imgRef.get();
+            if (aBitmap != null && imgView != null){
+                imgView.setImageDrawable(aBitmap);
             }
         }
     }

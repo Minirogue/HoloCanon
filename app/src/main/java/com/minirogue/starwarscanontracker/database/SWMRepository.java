@@ -56,34 +56,30 @@ public class SWMRepository {
         filteredMediaAndNotes = Transformations.switchMap(filterTracker, input -> daoMedia.getMediaAndNotesRawQuery(convertFiltersToQuery(input)));
         new Thread(this::buildPermanentFilters).start();
     }
-    public void removeFilter(FilterObject filter){
-        try {
-            List<FilterObject> tempList = filters.getValue();
+    public void removeFilter(FilterObject filter) {
+        List<FilterObject> tempList = filters.getValue();
+        if (tempList != null) {
             tempList.remove(filter);
             filters.removeSource(filter.getLiveFilter());
             filters.setValue(tempList);
-        } catch (NullPointerException e){
-            //Log.e(TAG, "removeFilter",e);
+
         }
     }
     public void addFilter(FilterObject filter){
-        try {
             List<FilterObject> tempList = filters.getValue();
-            tempList.add(filter);
-            filters.addSource(filter.getLiveFilter(), filterObject -> filters.postValue(filters.getValue()));
-            filters.setValue(tempList);
-        } catch (NullPointerException e){
-            //Log.e(TAG, "addFilter",e);
-        }
+            if (tempList != null) {
+                tempList.add(filter);
+                filters.addSource(filter.getLiveFilter(), filterObject -> filters.postValue(filters.getValue()));
+                filters.setValue(tempList);
+            }
     }
 
     public boolean isCurrentFilter(FilterObject filter){
-        try {
-            return filters.getValue().contains(filter);
-        } catch (NullPointerException e){
-            //Log.e(TAG, "isCurrentFilter",e);
-            return false;
-        }
+            List<FilterObject> currentList = filters.getValue();
+                    if (currentList != null) {
+                        return currentList.contains(filter);
+                    }
+        return false;
     }
 
     public String convertTypeToString(final int typeId){

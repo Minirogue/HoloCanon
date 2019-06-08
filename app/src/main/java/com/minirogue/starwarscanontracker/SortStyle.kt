@@ -37,17 +37,32 @@ class SortStyle(private val style: Int, private val ascending: Boolean) : Compar
             }
         }
         val compNum : Int = when (style){
-            SORT_TITLE -> p0.mediaItem.title.compareTo(p1.mediaItem.title)
+            SORT_TITLE -> compareTitles(p0, p1)
             SORT_TYPE -> FilterObject.getTextForType(p0.mediaItem.type).compareTo(FilterObject.getTextForType(p1.mediaItem.type))
             SORT_TIMELINE -> sign(p0.mediaItem.timeline - p1.mediaItem.timeline).toInt()
             SORT_DATE -> compareDates(p0.mediaItem, p1.mediaItem)
-            else -> p0.mediaItem.title.compareTo(p1.mediaItem.title)
+            else -> compareTitles(p0,p1)
         }
         return if (ascending){
             compNum
         }else{
             -compNum
         }
+    }
+
+    private fun compareTitles(p0: MediaAndNotes, p1: MediaAndNotes): Int{
+        val title1 = p0.mediaItem.title
+        val title2 = p1.mediaItem.title
+        if (title1 == null || title2 == null) {
+            if (title1 == null && title2 == null) {
+                return 0
+            } else if (title1 == null) {
+                return 1
+            } else if (title2 == null) {
+                return -1
+            }
+        }
+        return title1.compareTo(title2)
     }
 
     private fun compareDates(item1: MediaItem, item2: MediaItem): Int{
