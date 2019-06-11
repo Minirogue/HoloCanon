@@ -37,7 +37,7 @@ class ViewMediaItemViewModel(application: Application, itemId: Int): AndroidView
         notes?.flipWantToWatchRead()
         repository.update(notes)
     }
-    fun getCoverImageFromURL(url: String?): Drawable {
+    fun getCoverImageFromURL(url: String?): Drawable? {
         return repository.getCoverImageFromURL(url)
     }
     fun getCheckBoxText(i: Int): String{
