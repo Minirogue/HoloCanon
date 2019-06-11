@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        new CSVImporter(getApplication()).execute(CSVImporter.SOURCE_ONLINE);
+        new CSVImporter(getApplication(), false).execute(CSVImporter.SOURCE_ONLINE);
     }
 
     @Override
@@ -83,54 +83,5 @@ public class MainActivity extends AppCompatActivity {
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-    }
-
-    private class CheckForUpdatedDatabase extends AsyncTask<Void, Void, Void> {
-
-        WeakReference<Application> appRef;
-
-        CheckForUpdatedDatabase(Application application){
-            appRef = new WeakReference<>(application);
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            try {
-                ConnectivityManager connMgr = (ConnectivityManager) appRef.get().getSystemService(Context.CONNECTIVITY_SERVICE);
-                if (!androidx.preference.PreferenceManager.getDefaultSharedPreferences(appRef.get()).getBoolean(appRef.get().getString(R.string.wifi_sync_setting), true) || !connMgr.isActiveNetworkMetered()) {
-                URL url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1842257512&single=true&output=csv");
-                InputStream inputStream = url.openStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                long newVersionId = Long.valueOf(reader.readLine().split(",")[0]);
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(appRef.get());
-                if (prefs.getLong(getString(R.string.current_database_version), 0) == newVersionId) {
-                    cancel(true);
-                }
-                }
-                else{
-                    cancel(true);
-                }
-            } catch (MalformedURLException ex) {
-                //Log.e("MainActivity", ex.toString());
-            } catch (IOException ex) {
-                //Log.e("MainActivity", ex.toString());
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            CSVImporter importer = new CSVImporter(appRef.get());
-            importer.execute(CSVImporter.SOURCE_ONLINE);
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)){
-            drawer.closeDrawer(GravityCompat.START);
-        }else {
-            super.onBackPressed();
-        }
     }
 }

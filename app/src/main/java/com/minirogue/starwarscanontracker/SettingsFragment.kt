@@ -29,7 +29,7 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
         if (preference?.key == "update_from_online"){
-            CSVImporter(this.activity!!.application).execute(CSVImporter.SOURCE_ONLINE)
+            CSVImporter(this.activity!!.application, true).execute(CSVImporter.SOURCE_ONLINE)
         }
         return super.onPreferenceTreeClick(preference)
     }

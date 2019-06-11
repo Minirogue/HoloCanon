@@ -21,7 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 
-public class CSVImporter extends AsyncTask<Integer, Void, Void> {
+public class CSVImporter extends AsyncTask<Integer, String, Void> {
 
     private static final String TAG = "CSVImport";
 
@@ -31,12 +31,14 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
     private ConnectivityManager connMgr;
     private HashMap<String, Integer> convertType = new HashMap<>();
     private long newVersionId;
+    private boolean forced;
 
 
-    public CSVImporter(Application application){
+    public CSVImporter(Application application, boolean forced){
         appRef = new WeakReference<>(application);
         connMgr = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
         wifiOnly = PreferenceManager.getDefaultSharedPreferences(appRef.get()).getBoolean(appRef.get().getString(R.string.wifi_sync_setting),true);
+        this.forced = forced;
     }
 
     private void importCSVToMediaTypeTable(InputStream inputStream){
@@ -214,31 +216,27 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
         }
     }*/
 
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        if (!wifiOnly || !connMgr.isActiveNetworkMetered()) {
-            Toast.makeText(appRef.get(), "Updating Database", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            cancel(true);
-        }
-    }
 
     @Override
     protected Void doInBackground(Integer... params) {
+        if (wifiOnly && connMgr.isActiveNetworkMetered()) {
+            cancel(true);
+            return null;
+        }
         InputStream inputStream = null;
         if (params[0] == SOURCE_ONLINE){
             try {
                 //update version number
-                if (isCancelled()){
-                    return null;
-                }
                 URL url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1842257512&single=true&output=csv");
                 inputStream = url.openStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                 newVersionId = Long.valueOf(reader.readLine().split(",")[0]);
                 inputStream.close();
+                if (!forced && newVersionId == PreferenceManager.getDefaultSharedPreferences(appRef.get()).getLong(appRef.get().getString(R.string.current_database_version),0)){
+                    cancel(true);
+                }else if (forced){
+                    publishProgress("Updating Database");
+                }
                 //import the media types
                 if (isCancelled()){
                     return null;
@@ -287,13 +285,23 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
     }
 
     @Override
+    protected void onProgressUpdate(String... values) {
+        super.onProgressUpdate(values);
+        Toast.makeText(appRef.get(), values[0], Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     protected void onPostExecute(Void aVoid) {
-        Toast.makeText(appRef.get(), "Database updated", Toast.LENGTH_LONG).show();
+        if (forced) {
+            Toast.makeText(appRef.get(), "Database updated successfully", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
     protected void onCancelled(Void aVoid) {
         super.onCancelled(aVoid);
-        Toast.makeText(appRef.get(), "Database not fully updated", Toast.LENGTH_LONG).show();
+        if (forced) {
+            Toast.makeText(appRef.get(), "Database update failed", Toast.LENGTH_LONG).show();
+        }
     }
 }
