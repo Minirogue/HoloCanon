@@ -66,9 +66,17 @@
             android:defaultValue="@string/owned"/>
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="sync_settings"
+        android:title="Database Sync Settings">
+        <SwitchPreference
+            android:key="@string/wifi_sync_setting"
+            android:title="Sync only on unmetered network"
+            android:defaultValue="true"/>
     <Preference
         android:key="update_from_online"
         android:title="@string/sync_online"
         />
+    </PreferenceCategory>
 
 </PreferenceScreen>

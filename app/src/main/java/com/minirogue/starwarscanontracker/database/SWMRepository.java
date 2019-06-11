@@ -2,6 +2,7 @@ package com.minirogue.starwarscanontracker.database;
 
 import android.app.Application;
 
+import androidx.core.net.ConnectivityManagerCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -14,6 +15,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.Network;
 import android.os.AsyncTask;
 import androidx.preference.PreferenceManager;
 import android.util.Log;
@@ -216,7 +219,7 @@ public class SWMRepository {
 
     public Drawable getCoverImageFromURL(String url){
         if (url == null || url.equals("")){
-            return application.getDrawable(R.mipmap.ic_launcher);
+            return null;
         }
         Bitmap bitmap = null;
         String filename = url.hashCode()+".PNG";
@@ -230,20 +233,23 @@ public class SWMRepository {
             //Log.d("GetCoverImage", "loading from file didn't work, trying from internet");
             try {
                 //Log.d(TAG, url);
-                InputStream inputStream = new URL(url).openStream();   // Download Image from URL
-                bitmap = BitmapFactory.decodeStream(inputStream);       // Decode Bitmap
-                inputStream.close();
-                FileOutputStream foStream = application.openFileOutput(filename, Context.MODE_PRIVATE);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, foStream);
-                foStream.close();
-                //Log.d(TAG, String.valueOf(new File(filename).exists()));
+                ConnectivityManager connMgr = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
+                if (!PreferenceManager.getDefaultSharedPreferences(application).getBoolean(application.getString(R.string.wifi_sync_setting), true) || !connMgr.isActiveNetworkMetered()) {
+                    InputStream inputStream = new URL(url).openStream();   // Download Image from URL
+                    bitmap = BitmapFactory.decodeStream(inputStream);       // Decode Bitmap
+                    inputStream.close();
+                    FileOutputStream foStream = application.openFileOutput(filename, Context.MODE_PRIVATE);
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, foStream);
+                    foStream.close();
+                    //Log.d(TAG, String.valueOf(new File(filename).exists()));
+                }
             } catch (Exception e2) {
                 //Log.d("GetCoverImage", "Exception 1, Something went wrong!");
                 e2.printStackTrace();
             }
         }
         if (bitmap == null){
-            return application.getDrawable(R.mipmap.ic_launcher);
+            return null;
         }
         return new BitmapDrawable(application.getResources(), bitmap);
     }

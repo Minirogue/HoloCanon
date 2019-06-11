@@ -1,7 +1,9 @@
 package com.minirogue.starwarscanontracker;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 
@@ -31,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        new CSVImporter(getApplication()).execute(CSVImporter.SOURCE_ONLINE);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -47,15 +55,21 @@ public class MainActivity extends AppCompatActivity {
             switch (menuItem.getItemId()){
                 case R.id.nav_media:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            new MediaListFragment()).commit();
+                            new MediaListFragment())
+                            .addToBackStack(null)
+                            .commit();
                     break;
                 case R.id.nav_settings:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            new SettingsFragment()).commit();
+                            new SettingsFragment())
+                            .addToBackStack(null)
+                            .commit();
                     break;
                 case R.id.nav_about:
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            new EntryFragment()).commit();
+                            new EntryFragment())
+                            .addToBackStack(null)
+                            .commit();
                     break;
                 default:
                     Toast.makeText(getApplicationContext(),"Not yet implemented", Toast.LENGTH_SHORT).show();
@@ -69,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        new CheckForUpdatedDatabase(getApplication()).execute();
     }
 
     private class CheckForUpdatedDatabase extends AsyncTask<Void, Void, Void> {
@@ -83,12 +96,18 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
+                ConnectivityManager connMgr = (ConnectivityManager) appRef.get().getSystemService(Context.CONNECTIVITY_SERVICE);
+                if (!androidx.preference.PreferenceManager.getDefaultSharedPreferences(appRef.get()).getBoolean(appRef.get().getString(R.string.wifi_sync_setting), true) || !connMgr.isActiveNetworkMetered()) {
                 URL url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1842257512&single=true&output=csv");
                 InputStream inputStream = url.openStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                 long newVersionId = Long.valueOf(reader.readLine().split(",")[0]);
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(appRef.get());
                 if (prefs.getLong(getString(R.string.current_database_version), 0) == newVersionId) {
+                    cancel(true);
+                }
+                }
+                else{
                     cancel(true);
                 }
             } catch (MalformedURLException ex) {

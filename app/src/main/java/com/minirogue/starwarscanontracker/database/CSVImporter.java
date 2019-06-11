@@ -1,7 +1,9 @@
 package com.minirogue.starwarscanontracker.database;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -25,12 +27,16 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
 
     public static final int SOURCE_ONLINE = 1;
     private WeakReference<Application> appRef;
+    private boolean wifiOnly;
+    private ConnectivityManager connMgr;
     private HashMap<String, Integer> convertType = new HashMap<>();
     private long newVersionId;
 
 
     public CSVImporter(Application application){
         appRef = new WeakReference<>(application);
+        connMgr = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
+        wifiOnly = PreferenceManager.getDefaultSharedPreferences(appRef.get()).getBoolean(appRef.get().getString(R.string.wifi_sync_setting),true);
     }
 
     private void importCSVToMediaTypeTable(InputStream inputStream){
@@ -65,6 +71,10 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                 }
                 convertType.put(mediaType.getText(), mediaType.getId());
                 //Log.d(TAG, "type added "+mediaType.getId()+" "+mediaType.getText());
+                if (wifiOnly && connMgr.isActiveNetworkMetered()){
+                    cancel(true);
+                    break;
+                }
             }
             //Log.d(TAG, "queried mediaTypeTable: "+db.getDaoType().getAllNonLive());
         } catch (IOException ex) {
@@ -132,11 +142,15 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                         default:
                             //System.out.println("Unused header: " + header[i]);
                     }
-                    long insertSuccessful = db.getDaoMedia().insert(newItem);
-                    if (insertSuccessful == -1){
-                        db.getDaoMedia().update(newItem);
-                    }
-                    db.getDaoMedia().insert(new MediaNotes(newItem.id));
+                }
+                long insertSuccessful = db.getDaoMedia().insert(newItem);
+                if (insertSuccessful == -1){
+                    db.getDaoMedia().update(newItem);
+                }
+                db.getDaoMedia().insert(new MediaNotes(newItem.id));
+                if (wifiOnly && connMgr.isActiveNetworkMetered()){
+                    cancel(true);
+                    break;
                 }
             }
         } catch (IOException ex) {
@@ -203,27 +217,44 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        Toast.makeText(appRef.get(), "Updating Database", Toast.LENGTH_SHORT).show();
+        if (!wifiOnly || !connMgr.isActiveNetworkMetered()) {
+            Toast.makeText(appRef.get(), "Updating Database", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            cancel(true);
+        }
     }
 
     @Override
     protected Void doInBackground(Integer... params) {
-        InputStream inputStream;
+        InputStream inputStream = null;
         if (params[0] == SOURCE_ONLINE){
             try {
                 //update version number
+                if (isCancelled()){
+                    return null;
+                }
                 URL url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1842257512&single=true&output=csv");
                 inputStream = url.openStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                 newVersionId = Long.valueOf(reader.readLine().split(",")[0]);
+                inputStream.close();
                 //import the media types
+                if (isCancelled()){
+                    return null;
+                }
                 url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1834840175&single=true&output=csv");
                 inputStream = url.openStream();
                 importCSVToMediaTypeTable(inputStream);
+                inputStream.close();
                 //import the main media table
+                if (isCancelled()){
+                    return null;
+                }
                 url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=0&single=true&output=csv");
                 inputStream = url.openStream();
                 importCSVToMediaDatabase(inputStream);
+                inputStream.close();
                 //import the character table
                 /*url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1862227068&single=true&output=csv");
                 inputStream = url.openStream();
@@ -237,6 +268,15 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
                 cancel(true);
                 return null;
             }
+            finally {
+                if (inputStream != null){
+                    try {
+                        inputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
         Application app = appRef.get();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(app);
@@ -248,12 +288,12 @@ public class CSVImporter extends AsyncTask<Integer, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        Toast.makeText(appRef.get(), "Database updated", Toast.LENGTH_SHORT).show();
+        Toast.makeText(appRef.get(), "Database updated", Toast.LENGTH_LONG).show();
     }
 
     @Override
     protected void onCancelled(Void aVoid) {
         super.onCancelled(aVoid);
-        Toast.makeText(appRef.get(), "Database not fully updated", Toast.LENGTH_SHORT).show();
+        Toast.makeText(appRef.get(), "Database not fully updated", Toast.LENGTH_LONG).show();
     }
 }

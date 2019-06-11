@@ -14,6 +14,7 @@ import com.minirogue.starwarscanontracker.database.*;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -128,8 +129,13 @@ class SWMListAdapter extends BaseAdapter{
             }
             if (!cachedImgs.containsKey(strings[0])){
                 publishProgress(mediaListViewModel.getApplication().getDrawable(R.mipmap.ic_launcher));
-                cachedImgs.put(strings[0], mediaListViewModel.getCoverImageFromURL(strings[0]));
-                return cachedImgs.get(strings[0]);
+                Drawable thumbnail = mediaListViewModel.getCoverImageFromURL(strings[0]);
+                if (thumbnail == null){
+                    return mediaListViewModel.getApplication().getDrawable(R.mipmap.ic_launcher);
+                }else{
+                    cachedImgs.put(strings[0], mediaListViewModel.getCoverImageFromURL(strings[0]));
+                    return thumbnail;
+                }
             }else{
                 return cachedImgs.get(strings[0]);
             }

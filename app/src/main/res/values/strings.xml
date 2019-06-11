@@ -4,7 +4,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_media_list">Canon List</string>
     <string name="nav_settings">Settings</string>
-    <string name="sync_online">Sync with online database</string>
+    <string name="sync_online">Sync database now</string>
     <string name="media_title">Title</string>
     <string name="media_type">type</string>
     <string name="watched_read">Completed</string>
@@ -19,6 +19,8 @@
         certain media types.</string>
     <string name="nav_about">About This App</string>
     <string name="current_database_version">current database version</string>
+    <string name="update_0_1_6">Version 0.1.6: Now restricts downloading of data to unmetered networks only. This feature can
+    be turned off in the settings.</string>
     <string name="update_0_1_5">Version 0.1.5: Some more stability fixes.
     There was a crash involving clicking on a media item and opening the page for that item that should be fixed.
     Images should load much smoother now.Plans for the coming updates: remembering filters, wifi-only downloading of database and images, updating database.
@@ -31,4 +33,5 @@
         This app downloads the database and images, so try not to use it without wifi for now.
         Future versions will have an option to not download unless on wifi.</string>
     <string name="cover_image_description">cover</string>
+    <string name="wifi_sync_setting">sync_wifi_only</string>
 </resources>
