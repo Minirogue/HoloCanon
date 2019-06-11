@@ -21,6 +21,7 @@
     <string name="current_database_version">current database version</string>
     <string name="update_0_1_6">Version 0.1.6: Now restricts downloading of data to unmetered networks only. This feature can
     be turned off in the settings.
+        Updating is now also done silently in the background unless forced from the settings menu.
     Some small modifications were made to the layout of the list items. Namely I made the thumbnail a little bigger and stopped long titles from crashing into the checkboxes.</string>
     <string name="update_0_1_5">Version 0.1.5: Some more stability fixes.
     There was a crash involving clicking on a media item and opening the page for that item that should be fixed.
