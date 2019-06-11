@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * POJO to define a filter for the media list
+ * defines a filter for the media list
  */
 public class FilterObject {
     // --Commented out by Inspection (6/6/19 8:33 PM// --Commented out by Inspection (6/6/19 8:33 PM):):public static final int FILTERTYPE_AND = 1;

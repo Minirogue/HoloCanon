@@ -20,10 +20,12 @@
     <string name="nav_about">About This App</string>
     <string name="current_database_version">current database version</string>
     <string name="update_0_1_6">Version 0.1.6: Now restricts downloading of data to unmetered networks only. This feature can
-    be turned off in the settings.</string>
+    be turned off in the settings.
+    Some small modifications were made to the layout of the list items. Namely I made the thumbnail a little bigger and stopped long titles from crashing into the checkboxes.</string>
     <string name="update_0_1_5">Version 0.1.5: Some more stability fixes.
     There was a crash involving clicking on a media item and opening the page for that item that should be fixed.
-    Images should load much smoother now.Plans for the coming updates: remembering filters, wifi-only downloading of database and images, updating database.
+    Images should load much smoother now.
+        Plans for the coming updates: remembering filters, wifi-only downloading of database and images, updating database.
         Don\'t forget to leave feedback or e-mail me through the play store entry so I know what else can be done to improve the app.
     </string>
     <string name="update_0_1_4">Version 0.1.4: This update should improve stability (i.e. the app shouldn\'t crash so much anymore).</string>
