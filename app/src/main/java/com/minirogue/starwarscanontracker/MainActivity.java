@@ -1,12 +1,5 @@
 package com.minirogue.starwarscanontracker;
 
-import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.os.AsyncTask;
-import android.preference.PreferenceManager;
-
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -14,19 +7,12 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.google.android.material.navigation.NavigationView;
 import com.minirogue.starwarscanontracker.database.CSVImporter;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.lang.ref.WeakReference;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new EntryFragment()).commit();
+            ImagePipelineConfig config = ImagePipelineConfig.newBuilder(getApplication())
+                    .setDownsampleEnabled(true)
+                    .build();
+            Fresco.initialize(getApplication(), config);
         }
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

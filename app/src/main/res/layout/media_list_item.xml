@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/tools">
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/image_cover"
         android:src="@mipmap/ic_launcher"
         android:scaleType="centerInside"
@@ -12,7 +13,18 @@
         android:layout_height="100dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/cover_image_description"/>
+        android:contentDescription="@string/cover_image_description"/>-->
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/image_cover"
+        android:layout_width="60dp"
+        android:layout_height="100dp"
+        fresco:placeholderImage="@drawable/ic_launcher_foreground"
+        fresco:placeholderImageScaleType="centerInside"
+        fresco:actualImageScaleType="centerInside"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <TextView
         android:id="@+id/media_title"
         android:layout_width="0dp"
@@ -33,7 +45,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
         android:text="@string/media_type"
-         />
+        android:layout_marginLeft="30dp" />
 
 
     <TextView

@@ -24,6 +24,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:scrollbars="vertical"
+        android:scrollbarSize="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/filter_chip_group" />
 

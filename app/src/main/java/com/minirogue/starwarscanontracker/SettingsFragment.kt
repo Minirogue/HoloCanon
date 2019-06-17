@@ -49,7 +49,7 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
                 newPref.title = type.text
                 newPref.key = type.text
                 newPref.order = type.id
-                catRef.get()!!.addPreference(newPref)
+                catRef.get()?.addPreference(newPref)
             }
         }
     }

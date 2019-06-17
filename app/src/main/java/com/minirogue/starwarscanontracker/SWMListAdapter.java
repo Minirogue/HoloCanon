@@ -1,7 +1,12 @@
 package com.minirogue.starwarscanontracker;
 
-import android.graphics.drawable.Drawable;
+import android.app.ActivityManager;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.ImageReader;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,40 +15,51 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
+import com.facebook.drawee.drawable.ScalingUtils;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.minirogue.starwarscanontracker.database.*;
 
 import java.lang.ref.WeakReference;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 class SWMListAdapter extends BaseAdapter{
 
+    private final String TAG = "Adapter";
 
     private List<MediaAndNotes> currentList = new ArrayList<>();
-    private ConcurrentHashMap<String, Drawable> cachedImgs = new ConcurrentHashMap<>();
-
+    private ConcurrentHashMap<String, Bitmap> cachedImgs = new ConcurrentHashMap<>();
     private MediaListViewModel mediaListViewModel;
+    private Thread cacheThread;
 
     SWMListAdapter(MediaListViewModel mediaListViewModel){
         this.mediaListViewModel = mediaListViewModel;
+        cacheThread = new Thread(this::manageCache);
+        cacheThread.start();
     }
 
     public void setList(List<MediaAndNotes> currentList) {
         this.currentList = currentList;
-        //TODO running the following thread precaches the images, which looks nice, but the iteration
-        // in cacheCoverArt() is NOT thread safe :(
-        //new Thread(this::cacheCoverArt).start();
+        cachedImgs.clear();
         notifyDataSetChanged();
     }
 
-    private void cacheCoverArt(){
-        for (MediaAndNotes mediaAndNotes : currentList){
-            String url = mediaAndNotes.mediaItem.imageURL;
-            if (url != null && !cachedImgs.containsKey(url)) {
-                cachedImgs.put(url, mediaListViewModel.getCoverImageFromURL(url));
+    private void manageCache(){
+        ActivityManager.MemoryInfo memoryInfo = new ActivityManager.MemoryInfo();
+        ActivityManager manager = (ActivityManager) mediaListViewModel.getApplication().getSystemService(Context.ACTIVITY_SERVICE);
+        while (true){
+            manager.getMemoryInfo(memoryInfo);
+            if (memoryInfo.lowMemory){
+                Log.d(TAG, "Low Memory, dumping image cache");
+                cachedImgs.clear();
             }
         }
     }
@@ -79,14 +95,21 @@ class SWMListAdapter extends BaseAdapter{
         CheckBox checkBoxWatchedRead = convertView.findViewById(R.id.checkbox_watched_or_read);
         CheckBox checkBoxWantToWatchRead = convertView.findViewById(R.id.checkbox_want_to_watch_or_read);
         CheckBox checkBoxOwned = convertView.findViewById(R.id.checkbox_owned);
-        ImageView coverImage = convertView.findViewById(R.id.image_cover);
-
+//        ImageView coverImage = convertView.findViewById(R.id.image_cover);
+        SimpleDraweeView coverImage = convertView.findViewById(R.id.image_cover);
 
         MediaAndNotes currentItem = currentList.get(position);
         titleTextView.setText(currentItem.mediaItem.title);
         typeTextView.setText(mediaListViewModel.convertTypeToString(currentItem.mediaItem.type));
-        coverImage.setTag(currentItem);
-        new SetImageViewFromURL(coverImage, currentItem).execute(currentItem.mediaItem.imageURL);
+//        coverImage.setTag(currentItem);
+//            new SetImageViewFromURL(coverImage, currentItem).execute(currentItem.mediaItem.imageURL);
+        coverImage.getHierarchy().setPlaceholderImage(R.drawable.ic_launcher_foreground, ScalingUtils.ScaleType.CENTER_INSIDE);
+        ImageRequest request = ImageRequestBuilder
+                    .newBuilderWithSource(Uri.parse(currentItem.mediaItem.imageURL))
+                    .setLowestPermittedRequestLevel(mediaListViewModel.isNetworkMetered() ? ImageRequest.RequestLevel.DISK_CACHE : ImageRequest.RequestLevel.FULL_FETCH)
+                    .build();
+            coverImage.setImageRequest(request);
+            coverImage.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE);
 
         checkBoxWatchedRead.setChecked(currentItem.mediaNotes.isWatchedRead());
         checkBoxWantToWatchRead.setChecked(currentItem.mediaNotes.isWantToWatchRead());
@@ -108,12 +131,10 @@ class SWMListAdapter extends BaseAdapter{
             ((MediaNotes)view.getTag()).flipWantToWatchRead();
             mediaListViewModel.update((MediaNotes)view.getTag());
         });
-
-
         return convertView;
     }
 
-    private class SetImageViewFromURL extends AsyncTask<String, Drawable, Drawable>{
+    private class SetImageViewFromURL extends AsyncTask<String, Bitmap, Bitmap>{
         WeakReference<ImageView> imgRef;
         MediaAndNotes object;
 
@@ -123,38 +144,40 @@ class SWMListAdapter extends BaseAdapter{
         }
 
         @Override
-        protected Drawable doInBackground(String... strings) {
+        protected Bitmap doInBackground(String... strings) {
             if (strings[0] == null){
-                return mediaListViewModel.getApplication().getDrawable(R.mipmap.ic_launcher);
+                return null;
             }
             if (!cachedImgs.containsKey(strings[0])){
-                publishProgress(mediaListViewModel.getApplication().getDrawable(R.mipmap.ic_launcher));
-                Drawable thumbnail = mediaListViewModel.getCoverImageFromURL(strings[0]);
-                if (thumbnail == null){
-                    return mediaListViewModel.getApplication().getDrawable(R.mipmap.ic_launcher);
-                }else{
-                    cachedImgs.put(strings[0], mediaListViewModel.getCoverImageFromURL(strings[0]));
-                    return thumbnail;
+                publishProgress(null);
+                ImageView imgView = imgRef.get();
+                Bitmap thumbnail = null;
+                if (imgView != null) {
+                    thumbnail = mediaListViewModel.getCoverImageFromURL(strings[0], imgView.getHeight(), imgView.getWidth());
                 }
+                if (thumbnail != null){
+                    cachedImgs.put(strings[0], thumbnail);
+                }
+                return thumbnail;
             }else{
                 return cachedImgs.get(strings[0]);
             }
         }
 
         @Override
-        protected void onProgressUpdate(Drawable... values) {
+        protected void onProgressUpdate(Bitmap... values) {
             super.onProgressUpdate(values);
             ImageView imgView = imgRef.get();
-            if (imgView != null && values[0] != null) {
-                imgView.setImageDrawable(values[0]);
+            if (imgView != null) {
+                imgView.setImageDrawable(ContextCompat.getDrawable(imgView.getContext(), R.drawable.ic_launcher_foreground));
             }
         }
 
         @Override
-        protected void onPostExecute(Drawable aBitmap) {
+        protected void onPostExecute(Bitmap aBitmap) {
             ImageView imgView = imgRef.get();
             if (aBitmap != null && imgView != null && (imgView.getTag() == object)){
-                imgView.setImageDrawable(aBitmap);
+                imgView.setImageBitmap(aBitmap);
             }
         }
     }

@@ -9,11 +9,15 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.ViewModel
 import android.app.Application
 import android.content.Context
-import android.graphics.drawable.Drawable
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.AsyncTask
 import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.facebook.drawee.drawable.ScalingUtils
+import com.facebook.imagepipeline.request.ImageRequest
+import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.minirogue.starwarscanontracker.database.MediaItem
 import com.minirogue.starwarscanontracker.database.MediaNotes
 import kotlinx.android.synthetic.main.fragment_view_media_item.view.*
@@ -47,11 +51,17 @@ class ViewMediaItemFragment(private val itemId: Int) : Fragment(){
     }
 
     private fun updateViews(item : MediaItem, fragmentView: View){
-        SetImageViewFromURL(fragmentView.image_cover).execute(item.imageURL)
         fragmentView.media_title.text = item.title
         fragmentView.media_type.text = FilterObject.getTextForType(item.type)
         fragmentView.description_textview.text = item.description
         fragmentView.release_date.text = item.date
+        fragmentView.image_cover.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground, ScalingUtils.ScaleType.CENTER_INSIDE)
+        val request = ImageRequestBuilder
+                .newBuilderWithSource(Uri.parse(item.imageURL))
+                .setLowestPermittedRequestLevel(if (viewModel!!.isNetworkMetered()) ImageRequest.RequestLevel.DISK_CACHE else ImageRequest.RequestLevel.FULL_FETCH)
+                .build()
+        fragmentView.image_cover.setImageRequest(request)
+        //SetImageViewFromURL(fragmentView.image_cover).execute(item.imageURL)
     }
 
     private fun updateViews(notes : MediaNotes, fragmentView: View){
@@ -60,17 +70,21 @@ class ViewMediaItemFragment(private val itemId: Int) : Fragment(){
         fragmentView.checkbox_want_to_watch_or_read.isChecked = notes.isWantToWatchRead
     }
 
-    private inner class SetImageViewFromURL internal constructor(imgView: ImageView) : AsyncTask<String, Void, Drawable?>() {
+    private inner class SetImageViewFromURL internal constructor(imgView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
         internal var imgRef: WeakReference<ImageView> = WeakReference(imgView)
 
-        override fun doInBackground(vararg strings: String): Drawable? {
-             return viewModel?.getCoverImageFromURL(strings[0])
+        override fun doInBackground(vararg strings: String): Bitmap? {
+            val imgView = imgRef.get()
+            if (imgView != null) {
+                return viewModel?.getCoverImageFromURL(strings[0], imgView.height, imgView.width)
+            }
+            return null
         }
 
-        override fun onPostExecute(aBitmap: Drawable?) {
+        override fun onPostExecute(aBitmap: Bitmap?) {
             val imgView = imgRef.get()
             if (aBitmap != null && imgView != null) {
-                imgView.setImageDrawable(aBitmap)
+                imgView.setImageBitmap(aBitmap)
             }
         }
     }

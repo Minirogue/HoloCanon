@@ -1,10 +1,12 @@
 package com.minirogue.starwarscanontracker;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -29,9 +31,11 @@ class MediaListViewModel extends AndroidViewModel {
     private MediatorLiveData<List<MediaAndNotes>> sortedData = new MediatorLiveData<>();
     private String[] checkboxText = new String[4];
     private MutableLiveData<SortStyle> sortStyle = new MutableLiveData<>();
+    private ConnectivityManager connMgr;
 
     public MediaListViewModel(@NonNull Application application) {
         super(application);
+        connMgr = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
         repository = new SWMRepository(application);
         filters = repository.getFilters();
         allFilters = repository.getAllFilters();
@@ -95,10 +99,15 @@ class MediaListViewModel extends AndroidViewModel {
     String convertTypeToString(int typeId){
         return repository.convertTypeToString(typeId);
     }
-    Drawable getCoverImageFromURL(String url){
-        return repository.getCoverImageFromURL(url);
+
+    Bitmap getCoverImageFromURL(String url, int height, int width){
+        return repository.getCoverImageFromURL(url, height, width);
     }
+
     String getCheckboxText(int boxNumber){
         return checkboxText[boxNumber];
+    }
+    boolean isNetworkMetered(){
+        return connMgr.isActiveNetworkMetered();
     }
 }

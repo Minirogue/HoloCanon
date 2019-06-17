@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.preference.PreferenceManager;
@@ -293,7 +292,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         if (forced) {
-            Toast.makeText(appRef.get(), "Database updated successfully", Toast.LENGTH_LONG).show();
+            Toast.makeText(appRef.get(), "Database updated", Toast.LENGTH_LONG).show();
         }
     }
 
