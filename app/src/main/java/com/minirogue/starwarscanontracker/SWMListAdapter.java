@@ -66,6 +66,9 @@ class SWMListAdapter extends RecyclerView.Adapter<SWMListAdapter.MediaViewHolder
                     .build();
             holder.coverImage.setImageRequest(request);
             holder.coverImage.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE);
+        }else {
+            holder.coverImage.setActualImageResource(R.drawable.ic_launcher_foreground);
+            holder.coverImage.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE);
         }
 
         holder.checkBoxWatchedRead.setChecked(currentItem.mediaNotes.isWatchedRead());
