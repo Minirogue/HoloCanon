@@ -3,14 +3,12 @@ package com.minirogue.starwarscanontracker;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.preference.PreferenceManager;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.annotation.NonNull;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -32,6 +30,7 @@ class MediaListViewModel extends AndroidViewModel {
     private String[] checkboxText = new String[4];
     private MutableLiveData<SortStyle> sortStyle = new MutableLiveData<>();
     private ConnectivityManager connMgr;
+    private boolean unmeteredOnly;
 
     public MediaListViewModel(@NonNull Application application) {
         super(application);
@@ -43,6 +42,7 @@ class MediaListViewModel extends AndroidViewModel {
         checkboxText[1] = prefs.getString(application.getString(R.string.watched_read),application.getString(R.string.watched_read));
         checkboxText[2] = prefs.getString(application.getString(R.string.want_to_watch_read),application.getString(R.string.want_to_watch_read));
         checkboxText[3] = prefs.getString(application.getString(R.string.owned),application.getString(R.string.owned));
+        unmeteredOnly = prefs.getBoolean(application.getString(R.string.setting_unmetered_sync_only), true);
         data = repository.getFilteredMediaAndNotes();
         setSort(SortStyle.SORT_TITLE);
         sortedData.addSource(data, dat -> sort());
@@ -100,14 +100,11 @@ class MediaListViewModel extends AndroidViewModel {
         return repository.convertTypeToString(typeId);
     }
 
-    Bitmap getCoverImageFromURL(String url, int height, int width){
-        return repository.getCoverImageFromURL(url, height, width);
-    }
 
     String getCheckboxText(int boxNumber){
         return checkboxText[boxNumber];
     }
-    boolean isNetworkMetered(){
-        return connMgr.isActiveNetworkMetered();
+    boolean isNetworkAllowed(){
+        return !connMgr.isActiveNetworkMetered() || !unmeteredOnly;
     }
 }

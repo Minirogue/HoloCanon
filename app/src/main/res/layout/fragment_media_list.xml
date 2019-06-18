@@ -37,8 +37,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_margin="16dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp" />
+         />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/sort_floating_action_button"
         android:layout_width="wrap_content"
@@ -47,7 +46,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@id/filter_floating_action_button"
         android:layout_margin="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp" />
+         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

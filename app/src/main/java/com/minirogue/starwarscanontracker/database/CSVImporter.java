@@ -36,7 +36,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
     public CSVImporter(Application application, boolean forced){
         appRef = new WeakReference<>(application);
         connMgr = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
-        wifiOnly = PreferenceManager.getDefaultSharedPreferences(appRef.get()).getBoolean(appRef.get().getString(R.string.wifi_sync_setting),true);
+        wifiOnly = PreferenceManager.getDefaultSharedPreferences(appRef.get()).getBoolean(appRef.get().getString(R.string.setting_unmetered_sync_only),true);
         this.forced = forced;
     }
 

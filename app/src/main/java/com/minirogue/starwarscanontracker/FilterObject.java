@@ -127,6 +127,10 @@ public class FilterObject {
                 return "TV Season";
             case 10:
                 return "TV Episode";
+            case 11:
+                return "Comic Adaptation";
+            case 12:
+                return "TPB Adaptation";
             default:
                 return "MediaTypeNotFound";
         }

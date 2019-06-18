@@ -1,35 +1,19 @@
 package com.minirogue.starwarscanontracker.database;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
+import androidx.preference.PreferenceManager;
 import androidx.sqlite.db.SimpleSQLiteQuery;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
-import android.os.AsyncTask;
-import android.util.Log;
-
-import androidx.preference.PreferenceManager;
-
 import com.minirogue.starwarscanontracker.FilterObject;
-import com.minirogue.starwarscanontracker.R;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -215,79 +199,6 @@ public class SWMRepository {
 
     public LiveData<List<FilterObject>> getAllFilters(){
         return allFilters;
-    }
-
-    public Bitmap getCoverImageFromURL(String url, int height, int width){
-        if (url == null || url.equals("")){
-            return null;
-        }
-        Bitmap bitmap = null;
-        String filename = url.hashCode()+".PNG";
-        String fullFilePath = new File(application.getFilesDir(), filename).getAbsolutePath();
-        //Log.d(TAG,filename);
-            //Log.d(TAG, "loading image from file");
-            // First decode with inJustDecodeBounds=true to check dimensions
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inJustDecodeBounds = true;
-                BitmapFactory.decodeFile(fullFilePath, options);
-                // Calculate inSampleSize
-                options.inSampleSize = calculateInSampleSize(options, width, height);
-
-                // Decode bitmap with inSampleSize set
-                options.inJustDecodeBounds = false;
-                bitmap = BitmapFactory.decodeFile(fullFilePath, options);
-        if (bitmap == null){
-            downloadCoverImage(url, filename);
-            options.inJustDecodeBounds = true;
-            BitmapFactory.decodeFile(fullFilePath, options);
-
-            // Calculate inSampleSize
-            options.inSampleSize = calculateInSampleSize(options, width, height);
-
-            // Decode bitmap with inSampleSize set
-            options.inJustDecodeBounds = false;
-            bitmap = BitmapFactory.decodeFile(fullFilePath, options);
-        }
-        return bitmap;
-    }
-
-    private synchronized void downloadCoverImage(String url, String filename){
-        try {
-            ConnectivityManager connMgr = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
-            if (!PreferenceManager.getDefaultSharedPreferences(application).getBoolean(application.getString(R.string.wifi_sync_setting), true) || !connMgr.isActiveNetworkMetered()) {
-                InputStream inputStream = new URL(url).openStream();   // Download Image from URL
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);       // Decode Bitmap
-                inputStream.close();
-                FileOutputStream foStream = application.openFileOutput(filename, Context.MODE_PRIVATE);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, foStream);
-                foStream.close();
-            }
-        } catch (Exception e2) {
-            //Log.d("GetCoverImage", "Exception 1, Something went wrong!");
-            e2.printStackTrace();
-        }
-    }
-
-    private int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight/inSampleSize) >= reqHeight && (halfWidth / inSampleSize) >= reqWidth) {
-                inSampleSize = inSampleSize*2;
-            }
-        }
-
-        return inSampleSize;
     }
 
 

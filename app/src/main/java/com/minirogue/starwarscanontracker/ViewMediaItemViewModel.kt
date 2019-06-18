@@ -2,8 +2,6 @@ package com.minirogue.starwarscanontracker
 
 import android.app.Application
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.preference.PreferenceManager
 import androidx.lifecycle.AndroidViewModel
@@ -17,12 +15,14 @@ class ViewMediaItemViewModel(application: Application, itemId: Int): AndroidView
     val liveMediaNotes = repository.getLiveMediaNotes(itemId)!!
     private val checkboxText = Array(4) {""}
     private val connMgr = application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    private val unmeteredOnly: Boolean
 
     init{
         val prefs = PreferenceManager.getDefaultSharedPreferences(application)
         checkboxText[1] = prefs.getString(application.getString(R.string.watched_read), application.getString(R.string.watched_read))?: ""
         checkboxText[2] = prefs.getString(application.getString(R.string.want_to_watch_read), application.getString(R.string.want_to_watch_read))?: ""
         checkboxText[3] = prefs.getString(application.getString(R.string.owned), application.getString(R.string.owned))?: ""
+        unmeteredOnly = prefs.getBoolean(application.getString(R.string.setting_unmetered_sync_only), true)
     }
 
 
@@ -42,16 +42,12 @@ class ViewMediaItemViewModel(application: Application, itemId: Int): AndroidView
         repository.update(notes)
     }
 
-    fun getCoverImageFromURL(url: String?, height: Int, width: Int): Bitmap? {
-        return repository.getCoverImageFromURL(url, height, width)
-    }
-
     fun getCheckBoxText(i: Int): String{
         return checkboxText[i]
     }
 
-    fun isNetworkMetered(): Boolean{
-        return connMgr.isActiveNetworkMetered
+    fun isNetworkAllowed(): Boolean{
+        return !connMgr.isActiveNetworkMetered || !unmeteredOnly
     }
 
 }

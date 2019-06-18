@@ -14,6 +14,7 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.google.android.material.navigation.NavigationView;
 import com.minirogue.starwarscanontracker.database.CSVImporter;
 
+
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;

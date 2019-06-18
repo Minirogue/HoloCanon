@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "characters")
-public class Character {
+class Character {
 
     @PrimaryKey
     private int id;

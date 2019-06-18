@@ -16,9 +16,10 @@
 
     <string name="welcome_message">Welcome to the Star Wars Canon Tracker app. I hope it is to your liking.
         Click on "Settings" in the navigation to change the text for the checkboxes and to permanently filter out
-        certain media types.</string>
+        certain media types. Feel free to send any corrections or suggestions for how to improve the app to DarthMerman@gmail.com.</string>
     <string name="nav_about">About This App</string>
     <string name="current_database_version">current database version</string>
+    <string name="update_1_0_0">Version 1.0.0: First full release.</string>
     <string name="update_0_1_6">Version 0.1.6: Now restricts downloading of data to unmetered networks only. This feature can
     be turned off in the settings.
         Updating is now also done silently in the background unless forced from the settings menu.
@@ -37,6 +38,7 @@
         This app downloads the database and images, so try not to use it without wifi for now.
         Future versions will have an option to not download unless on wifi.</string>
     <string name="cover_image_description">cover</string>
-    <string name="wifi_sync_setting">sync_wifi_only</string>
+    <string name="setting_unmetered_sync_only">sync_wifi_only</string>
     <string name="release_date">release date</string>
+    <string name="bundleItemId">item Id</string>
 </resources>

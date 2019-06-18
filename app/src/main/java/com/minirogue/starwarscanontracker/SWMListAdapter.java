@@ -48,7 +48,7 @@ class SWMListAdapter extends RecyclerView.Adapter<SWMListAdapter.MediaViewHolder
         ((TextView)itemView.findViewById(R.id.text_watched_or_read)).setText(mediaListViewModel.getCheckboxText(1));
         ((TextView)itemView.findViewById(R.id.text_want_to_watch_or_read)).setText(mediaListViewModel.getCheckboxText(2));
         ((TextView)itemView.findViewById(R.id.text_owned)).setText(mediaListViewModel.getCheckboxText(3));
-        return new MediaViewHolder(itemView, listener);
+        return new MediaViewHolder(itemView);
     }
 
     @Override
@@ -62,7 +62,7 @@ class SWMListAdapter extends RecyclerView.Adapter<SWMListAdapter.MediaViewHolder
         if (uriString != null && !uriString.equals("")) {
             ImageRequest request = ImageRequestBuilder
                     .newBuilderWithSource(Uri.parse(currentItem.mediaItem.imageURL))
-                    .setLowestPermittedRequestLevel(mediaListViewModel.isNetworkMetered() ? ImageRequest.RequestLevel.DISK_CACHE : ImageRequest.RequestLevel.FULL_FETCH)
+                    .setLowestPermittedRequestLevel(mediaListViewModel.isNetworkAllowed() ? ImageRequest.RequestLevel.FULL_FETCH : ImageRequest.RequestLevel.DISK_CACHE)
                     .build();
             holder.coverImage.setImageRequest(request);
             holder.coverImage.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE);
@@ -118,7 +118,7 @@ class SWMListAdapter extends RecyclerView.Adapter<SWMListAdapter.MediaViewHolder
         SimpleDraweeView coverImage;
 
 
-        MediaViewHolder(@NonNull View itemView, OnItemClickedListener listener) {
+        MediaViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.media_title);
             typeTextView = itemView.findViewById(R.id.media_type);

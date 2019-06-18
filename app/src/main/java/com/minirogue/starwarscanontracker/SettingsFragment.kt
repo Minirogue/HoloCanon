@@ -43,13 +43,16 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
         }
 
         override fun onPostExecute(result: List<MediaType>?) {
-            for (type in result!!){
-                val newPref = SwitchPreference(ctxRef.get())
-                newPref.setDefaultValue(true)
-                newPref.title = type.text
-                newPref.key = type.text
-                newPref.order = type.id
-                catRef.get()?.addPreference(newPref)
+            val ctx = ctxRef.get()
+            if (ctx!= null) {
+                for (type in result!!) {
+                    val newPref = CheckBoxPreference(ctxRef.get())
+                    newPref.setDefaultValue(true)
+                    newPref.title = type.text
+                    newPref.key = type.text
+                    newPref.order = type.id
+                    catRef.get()?.addPreference(newPref)
+                }
             }
         }
     }

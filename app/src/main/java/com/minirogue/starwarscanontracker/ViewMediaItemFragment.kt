@@ -1,42 +1,35 @@
 package com.minirogue.starwarscanontracker
 
+import android.app.Application
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.ViewModel
-import android.app.Application
-import android.content.Context
-import android.graphics.Bitmap
-import android.net.Uri
-import android.os.AsyncTask
-import android.widget.ImageView
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import com.facebook.drawee.drawable.ScalingUtils
 import com.facebook.imagepipeline.request.ImageRequest
 import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.minirogue.starwarscanontracker.database.MediaItem
 import com.minirogue.starwarscanontracker.database.MediaNotes
 import kotlinx.android.synthetic.main.fragment_view_media_item.view.*
-import java.lang.ref.WeakReference
 
 
-class ViewMediaItemFragment(private val itemId: Int) : Fragment(){
+class ViewMediaItemFragment : Fragment(){
 
 
     private var viewModel: ViewMediaItemViewModel? = null
 
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        viewModel = ViewModelProviders.of(this, ViewMediaItemViewModelFactory(activity!!.application, itemId)).get(ViewMediaItemViewModel::class.java)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater.inflate(R.layout.fragment_view_media_item, container, false)
+        val bundle = this.arguments
+        val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
+        viewModel = ViewModelProviders.of(this, ViewMediaItemViewModelFactory(activity!!.application, bundleItemId)).get(ViewMediaItemViewModel::class.java)
         viewModel?.let {viewModel ->
             viewModel.liveMediaItem.observe(this, Observer { item -> updateViews(item, fragmentView) })
             viewModel.liveMediaNotes.observe(this, Observer { notes -> updateViews(notes, fragmentView) })
@@ -58,9 +51,11 @@ class ViewMediaItemFragment(private val itemId: Int) : Fragment(){
         fragmentView.image_cover.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground, ScalingUtils.ScaleType.CENTER_INSIDE)
         val request = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(item.imageURL))
-                .setLowestPermittedRequestLevel(if (viewModel!!.isNetworkMetered()) ImageRequest.RequestLevel.DISK_CACHE else ImageRequest.RequestLevel.FULL_FETCH)
+                .setLowestPermittedRequestLevel(if (viewModel!!.isNetworkAllowed()) ImageRequest.RequestLevel.FULL_FETCH else ImageRequest.RequestLevel.DISK_CACHE)
                 .build()
         fragmentView.image_cover.setImageRequest(request)
+        fragmentView.image_cover.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_INSIDE
+
     }
 
     private fun updateViews(notes : MediaNotes, fragmentView: View){

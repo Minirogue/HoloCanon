@@ -1,26 +1,23 @@
 package com.minirogue.starwarscanontracker;
 
 import android.app.AlertDialog;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -37,7 +34,6 @@ public class MediaListFragment extends Fragment {
     private FloatingActionButton filterFAB;
     private Context ctx;
     private PopupMenu sortMenu;
-    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -64,7 +60,7 @@ public class MediaListFragment extends Fragment {
         sortFAB.setOnClickListener(view -> sortMenu.show());
         filterFAB = fragmentView.findViewById(R.id.filter_floating_action_button);
 
-        mLayoutManager = new LinearLayoutManager(fragmentView.getContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(fragmentView.getContext());
         adapter = new SWMListAdapter(mediaListViewModel);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
@@ -88,10 +84,16 @@ public class MediaListFragment extends Fragment {
                 }
             }
         });
-        adapter.setOnItemClickedListener(itemID -> Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new ViewMediaItemFragment(itemID))
+
+        adapter.setOnItemClickedListener(itemId -> {
+            ViewMediaItemFragment viewMediaItemFragment = new ViewMediaItemFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt(getString(R.string.bundleItemId), itemId);
+            viewMediaItemFragment.setArguments(bundle);
+            Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, viewMediaItemFragment)
                 .addToBackStack(null)
-                .commit());
+                .commit();});
 
         mediaListViewModel.getFilters().observe(this, this::fillChipGroup);
 
