@@ -16,7 +16,7 @@ class ViewMediaItemViewModel(application: Application, itemId: Int): AndroidView
     val liveMediaItem = repository.getLiveMediaItem(itemId)!!
     val liveMediaNotes = repository.getLiveMediaNotes(itemId)!!
     private val checkboxText = Array(4) {""}
-    val connMgr = application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    private val connMgr = application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     init{
         val prefs = PreferenceManager.getDefaultSharedPreferences(application)

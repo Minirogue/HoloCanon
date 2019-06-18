@@ -10,13 +10,15 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.PopupMenu;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,8 +34,10 @@ public class MediaListFragment extends Fragment {
     private ChipGroup chipGroup;
     private Chip sortChip;
     private FloatingActionButton sortFAB;
+    private FloatingActionButton filterFAB;
     private Context ctx;
     private PopupMenu sortMenu;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -52,22 +56,43 @@ public class MediaListFragment extends Fragment {
             adapter.setList(mediaAndNotes);
         });
 
-        ListView listView = fragmentView.findViewById(R.id.media_by_type_listview);
+        RecyclerView recyclerView = fragmentView.findViewById(R.id.media_recyclerview);
         chipGroup = fragmentView.findViewById(R.id.filter_chip_group);
         makeCurrentSortChip();
         sortFAB = fragmentView.findViewById(R.id.sort_floating_action_button);
         makeSortMenu();
         sortFAB.setOnClickListener(view -> sortMenu.show());
+        filterFAB = fragmentView.findViewById(R.id.filter_floating_action_button);
 
+        mLayoutManager = new LinearLayoutManager(fragmentView.getContext());
         adapter = new SWMListAdapter(mediaListViewModel);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener((adapterView, view, i, l) -> {
-            //Log.d(TAG,"Item clicked: "+i);
-            Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new ViewMediaItemFragment((int)adapter.getItemId(i)))
-                    .addToBackStack(null)
-                    .commit();
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0){//Scroll down
+                    sortFAB.hide();
+                    filterFAB.hide();
+                }else if (dy < 0) {//Scroll up
+                    sortFAB.show();
+                    filterFAB.show();
+                }
+            }
         });
+        adapter.setOnItemClickedListener(itemID -> Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, new ViewMediaItemFragment(itemID))
+                .addToBackStack(null)
+                .commit());
+
         mediaListViewModel.getFilters().observe(this, this::fillChipGroup);
 
         fragmentView.findViewById(R.id.filter_floating_action_button).setOnClickListener(view -> selectFilters());
@@ -172,6 +197,7 @@ public class MediaListFragment extends Fragment {
         });
         return filterChip;
     }
+
 }
 
 

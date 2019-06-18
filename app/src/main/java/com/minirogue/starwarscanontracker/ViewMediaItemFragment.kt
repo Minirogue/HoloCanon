@@ -61,32 +61,12 @@ class ViewMediaItemFragment(private val itemId: Int) : Fragment(){
                 .setLowestPermittedRequestLevel(if (viewModel!!.isNetworkMetered()) ImageRequest.RequestLevel.DISK_CACHE else ImageRequest.RequestLevel.FULL_FETCH)
                 .build()
         fragmentView.image_cover.setImageRequest(request)
-        //SetImageViewFromURL(fragmentView.image_cover).execute(item.imageURL)
     }
 
     private fun updateViews(notes : MediaNotes, fragmentView: View){
         fragmentView.checkbox_owned.isChecked = notes.isOwned
         fragmentView.checkbox_watched_or_read.isChecked = notes.isWatchedRead
         fragmentView.checkbox_want_to_watch_or_read.isChecked = notes.isWantToWatchRead
-    }
-
-    private inner class SetImageViewFromURL internal constructor(imgView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
-        internal var imgRef: WeakReference<ImageView> = WeakReference(imgView)
-
-        override fun doInBackground(vararg strings: String): Bitmap? {
-            val imgView = imgRef.get()
-            if (imgView != null) {
-                return viewModel?.getCoverImageFromURL(strings[0], imgView.height, imgView.width)
-            }
-            return null
-        }
-
-        override fun onPostExecute(aBitmap: Bitmap?) {
-            val imgView = imgRef.get()
-            if (aBitmap != null && imgView != null) {
-                imgView.setImageBitmap(aBitmap)
-            }
-        }
     }
 
 
