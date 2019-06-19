@@ -12,13 +12,19 @@
     <string name="owned">Owned</string>
     <string name="nav_subtext">Do or do not.</string>
     <string name="launcher_icon_description">Launcher Icon</string>
-    <string name="copyright_notice">This app is in no way affiliated with or endorsed by Disney or Lucasfilm. I do not claim to own Star Wars or any of its related copyrights or trademarks. The use of Star Wars content in this app is protected under Fair Use.</string>
+    <string name="copyright_notice">This app is in no way affiliated with or endorsed by Disney or Lucasfilm.
+        I do not claim to own Star Wars or any of its related copyrights or trademarks.
+        The use of Star Wars content in this app is protected under Fair Use.</string>
 
-    <string name="welcome_message">Welcome to the Star Wars Canon Tracker app. I hope it is to your liking.
+    <string name="welcome_message">Welcome to the Star Wars Canon Tracker app.
         Click on "Settings" in the navigation to change the text for the checkboxes and to permanently filter out
-        certain media types. Feel free to send any corrections or suggestions for how to improve the app to DarthMerman@gmail.com.</string>
+        certain media types. Please send any corrections or suggestions for how to improve the app to DarthMerman@gmail.com.
+        </string>
+    <string name="affiliate_notice">As an Amazon Associate I may earn money from qualifying purchases made through the links in this app.</string>
     <string name="nav_about">About This App</string>
     <string name="current_database_version">current database version</string>
+    <string name="update_1_0_1">Version 1.0.1: Added links to purchase items from Amazon to the canonical items pages.
+    Using these links to purchase things will help support this app. Also changed the color of the sort/filter buttons.</string>
     <string name="update_1_0_0">Version 1.0.0: First full release.</string>
     <string name="update_0_1_6">Version 0.1.6: Now restricts downloading of data to unmetered networks only. This feature can
     be turned off in the settings.
