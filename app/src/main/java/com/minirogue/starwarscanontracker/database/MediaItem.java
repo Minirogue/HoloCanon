@@ -27,6 +27,10 @@ public class MediaItem {
     public String date;
     @ColumnInfo(name = "timeline")
     public double timeline;
+    @ColumnInfo(name = "amazon_link")
+    public String amazonLink;
+    @ColumnInfo(name = "amazon_stream")
+    public String amazonStream;
 
 
     @NotNull

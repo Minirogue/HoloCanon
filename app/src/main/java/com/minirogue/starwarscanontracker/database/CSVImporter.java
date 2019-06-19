@@ -126,6 +126,12 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                         case "image":
                             newItem.imageURL = (row[i]);
                             break;
+                        case "amazon_link":
+                            newItem.amazonLink = (row[i]);
+                            break;
+                        case "amazon_stream":
+                            newItem.amazonStream = (row[i]);
+                            break;
                         case "released":
                             if (row[i].equals("")){
                                 newItem.date = "99/99/9999";

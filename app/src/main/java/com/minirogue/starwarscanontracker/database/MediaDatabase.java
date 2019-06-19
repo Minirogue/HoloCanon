@@ -1,5 +1,7 @@
 package com.minirogue.starwarscanontracker.database;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -7,11 +9,9 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import android.content.Context;
-
 @Database(entities = {MediaItem.class, Character.class, MediaCharacterJoin.class, MediaNotes.class,
                         MediaType.class},
-        version = 10)
+        version = 11)
 public abstract class MediaDatabase extends RoomDatabase {
 
     private static MediaDatabase databaseInstance;
@@ -25,11 +25,19 @@ public abstract class MediaDatabase extends RoomDatabase {
         if (databaseInstance == null) {
             databaseInstance =
                     Room.databaseBuilder(ctx.getApplicationContext(), MediaDatabase.class, "StarWars-database")
-                            .addMigrations(MIGRATE_8_9,MIGRATE_9_10)
+                            .addMigrations(MIGRATE_8_9,MIGRATE_9_10,MIGRATE_10_11)
                             .build();
         }
         return databaseInstance;
     }
+
+    private final static Migration MIGRATE_10_11 = new Migration(10,11){
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'amazon_link' TEXT DEFAULT ''");
+            database.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'amazon_stream' TEXT DEFAULT ''");
+        }
+    };
 
     private final static Migration MIGRATE_8_9 = new Migration(8,9) {
         @Override
