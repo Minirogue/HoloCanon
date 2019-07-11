@@ -29,7 +29,8 @@
     <string name="affiliate_notice">As an Amazon Associate I may earn money from qualifying purchases made through the links in this app.</string>
     <string name="nav_about">About This App</string>
     <string name="current_database_version">current database version</string>
-    <string name="update_1_0_2">Version 1.0.2: Changed app name to better comply with Google Play\'s rules.</string>
+    <string name="update_1_0_2">Version 1.0.2: Changed app name to better comply with Google Play\'s rules.
+        Cleaned up the individual item layout so the descriptions and reviews (that I\'m working on adding) show up cleanly.</string>
     <string name="update_1_0_1">Version 1.0.1: Added links to purchase items from Amazon to the canonical items pages.
     Using these links to purchase things will help support this app. Also changed the color of the sort/filter buttons.</string>
     <string name="update_1_0_0">Version 1.0.0: First full release.</string>

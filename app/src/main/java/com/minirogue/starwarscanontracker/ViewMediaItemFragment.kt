@@ -51,7 +51,8 @@ class ViewMediaItemFragment : Fragment(){
     private fun updateViews(item : MediaItem, fragmentView: View){
         fragmentView.media_title.text = item.title
         fragmentView.media_type.text = FilterObject.getTextForType(item.type)
-        fragmentView.description_textview.text = item.description
+        fragmentView.description_textview.text = "Description: "+item.description
+        fragmentView.review_textview.text = "My Review: "+item.review
         fragmentView.release_date.text = item.date
         fragmentView.image_cover.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground, ScalingUtils.ScaleType.CENTER_INSIDE)
         val request = ImageRequestBuilder

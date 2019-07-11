@@ -21,6 +21,8 @@ public class MediaItem {
     public int type;
     @ColumnInfo(name = "description")
     public String description;
+    @ColumnInfo(name = "review")
+    public String review;
     @ColumnInfo(name = "image")
     public String imageURL;
     @ColumnInfo(name = "date")

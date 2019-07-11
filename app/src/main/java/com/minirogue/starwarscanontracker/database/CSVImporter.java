@@ -118,7 +118,10 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                             }
                             break;
                         case "description":
-                            newItem.description = (row[i]);
+                            newItem.description = row[i].replace(";",",");
+                            break;
+                        case "review":
+                            newItem.review = row[i].replace(";",",");
                             break;
                         case "author":
                             newItem.author = (row[i]);

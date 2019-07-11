@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database(entities = {MediaItem.class, Character.class, MediaCharacterJoin.class, MediaNotes.class,
                         MediaType.class},
-        version = 11)
+        version = 12)
 public abstract class MediaDatabase extends RoomDatabase {
 
     private static MediaDatabase databaseInstance;
@@ -25,11 +25,18 @@ public abstract class MediaDatabase extends RoomDatabase {
         if (databaseInstance == null) {
             databaseInstance =
                     Room.databaseBuilder(ctx.getApplicationContext(), MediaDatabase.class, "StarWars-database")
-                            .addMigrations(MIGRATE_8_9,MIGRATE_9_10,MIGRATE_10_11)
+                            .addMigrations(MIGRATE_8_9,MIGRATE_9_10,MIGRATE_10_11,MIGRATE_11_12)
                             .build();
         }
         return databaseInstance;
     }
+
+    private final static Migration MIGRATE_11_12 = new Migration(11,12) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'review' TEXT DEFAULT ''");
+        }
+    };
 
     private final static Migration MIGRATE_10_11 = new Migration(10,11){
         @Override
