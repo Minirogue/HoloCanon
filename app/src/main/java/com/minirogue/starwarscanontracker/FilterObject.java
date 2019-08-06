@@ -4,6 +4,7 @@ package com.minirogue.starwarscanontracker;
 import android.app.Application;
 import android.content.SharedPreferences;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -48,6 +49,16 @@ public class FilterObject {
         this.displayText = displayText;
         this.liveFilter = new MutableLiveData<>();
         this.liveFilter.postValue(this);
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        } else {
+            FilterObject otherObj = (FilterObject)obj;
+            return otherObj.id == this.id && otherObj.column == this.column;
+        }
     }
 
     public static LiveData<List<FilterObject>> getAllFilters(Application application) {
