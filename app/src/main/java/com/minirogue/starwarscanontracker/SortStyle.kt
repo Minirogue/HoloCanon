@@ -5,7 +5,7 @@ import com.minirogue.starwarscanontracker.database.MediaItem
 import kotlin.math.sign
 
 
-class SortStyle(private val style: Int, private val ascending: Boolean) : Comparator<MediaAndNotes>{
+class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNotes>{
 
     companion object{
         const val SORT_TITLE = 1

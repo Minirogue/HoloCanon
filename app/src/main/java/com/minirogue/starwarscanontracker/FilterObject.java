@@ -34,14 +34,14 @@ public class FilterObject {
     public int id;
     public int column;
     private boolean positive;
-    String displayText;
+    public String displayText;
     private MutableLiveData<FilterObject> liveFilter;
     private static MediatorLiveData<List<FilterObject>> allFilters = new MediatorLiveData<>();
     // --Commented out by Inspection (6/6/19 8:33 PM):private static LiveData<List<MediaType>> allMediaTypes;
     private static MutableLiveData<List<FilterObject>> notesFilters = new MutableLiveData<>();
     private static MutableLiveData<List<FilterObject>> typeFilters = new MutableLiveData<>();
 
-    private FilterObject(int id, int column, String displayText) {
+    public FilterObject(int id, int column, String displayText) {
         this.id = id;
         this.column = column;
         this.positive = true;//May want to add a constructor with this boolean if we want to make a filter with false
@@ -54,14 +54,15 @@ public class FilterObject {
         new Thread(() -> updateFilterList(application)).start();
         return allFilters;
     }
-    private static void updateFilterList(Application application){
+
+    private static void updateFilterList(Application application) {
         new Thread(() -> {
             if (allFilters.getValue() == null) {
                 makeNotesFilters(application);
                 makeTypeFilters(application);
                 allFilters.addSource(typeFilters, value -> combineAllFilters());
                 allFilters.addSource(notesFilters, value -> combineAllFilters());
-            }else{
+            } else {
                 makeTypeFilters(application);
                 makeNotesFilters(application);
 /*
@@ -105,8 +106,8 @@ public class FilterObject {
         }).start();
     }
 
-    public static String getTextForType(int i){//TODO want to have this automatically generated from database
-        switch(i){
+    public static String getTextForType(int i) {//TODO want to have this automatically generated from database
+        switch (i) {
             case 1:
                 return "Movie";
             case 2:
@@ -136,16 +137,16 @@ public class FilterObject {
         }
     }
 
-    private static void makeNotesFilters(Application application){
+    private static void makeNotesFilters(Application application) {
         List<FilterObject> newNotesFilters = new ArrayList<>();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(application);
-        newNotesFilters.add(new FilterObject(0, FILTERCOLUMN_OWNED, prefs.getString(application.getString(R.string.owned),application.getString(R.string.owned))));
-        newNotesFilters.add(new FilterObject(0, FILTERCOLUMN_HASREADWATCHED, prefs.getString(application.getString(R.string.watched_read),application.getString(R.string.watched_read))));
-        newNotesFilters.add(new FilterObject(0, FILTERCOLUMN_WANTTOREADWATCH, prefs.getString(application.getString(R.string.want_to_watch_read),application.getString(R.string.want_to_watch_read))));
+        newNotesFilters.add(new FilterObject(0, FILTERCOLUMN_OWNED, prefs.getString(application.getString(R.string.owned), application.getString(R.string.owned))));
+        newNotesFilters.add(new FilterObject(0, FILTERCOLUMN_HASREADWATCHED, prefs.getString(application.getString(R.string.watched_read), application.getString(R.string.watched_read))));
+        newNotesFilters.add(new FilterObject(0, FILTERCOLUMN_WANTTOREADWATCH, prefs.getString(application.getString(R.string.want_to_watch_read), application.getString(R.string.want_to_watch_read))));
         notesFilters.postValue(newNotesFilters);
     }
 
-    private static void combineAllFilters(){
+    private static void combineAllFilters() {
         List<FilterObject> newAllFilters = new ArrayList<>();
         List<FilterObject> someFilters = notesFilters.getValue();
         if (someFilters != null) {
@@ -158,13 +159,13 @@ public class FilterObject {
         allFilters.postValue(newAllFilters);
     }
 
-    private static void makeTypeFilters(Application application){
+    private static void makeTypeFilters(Application application) {
         List<FilterObject> newTypeFilters = new ArrayList<>();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(application);
         List<MediaType> allMediaTypes = MediaDatabase.getMediaDataBase(application).getDaoType().getAllNonLive();
-        for (MediaType mediaType : allMediaTypes){
-            if (prefs.getBoolean(mediaType.getText(), true)){
-                newTypeFilters.add(new FilterObject(mediaType.getId(),FILTERCOLUMN_TYPE,mediaType.getText()));
+        for (MediaType mediaType : allMediaTypes) {
+            if (prefs.getBoolean(mediaType.getText(), true)) {
+                newTypeFilters.add(new FilterObject(mediaType.getId(), FILTERCOLUMN_TYPE, mediaType.getText()));
             }
         }
         typeFilters.postValue(newTypeFilters);
@@ -189,12 +190,12 @@ public class FilterObject {
         return positive;
     }
 
-    void setPositive(boolean positive) {
+    public void setPositive(boolean positive) {
         this.positive = positive;
         this.liveFilter.postValue(this);
     }
 
-    public LiveData<FilterObject> getLiveFilter(){
+    public LiveData<FilterObject> getLiveFilter() {
         return liveFilter;
     }
 }

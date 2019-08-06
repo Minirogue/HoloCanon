@@ -45,9 +45,9 @@ class SWMListAdapter extends RecyclerView.Adapter<SWMListAdapter.MediaViewHolder
     public MediaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.media_list_item, parent, false);
-        ((TextView)itemView.findViewById(R.id.text_watched_or_read)).setText(mediaListViewModel.getCheckboxText(1));
-        ((TextView)itemView.findViewById(R.id.text_want_to_watch_or_read)).setText(mediaListViewModel.getCheckboxText(2));
-        ((TextView)itemView.findViewById(R.id.text_owned)).setText(mediaListViewModel.getCheckboxText(3));
+        ((TextView)itemView.findViewById(R.id.text_watched_or_read)).setText(mediaListViewModel.getCheckboxText(0));
+        ((TextView)itemView.findViewById(R.id.text_want_to_watch_or_read)).setText(mediaListViewModel.getCheckboxText(1));
+        ((TextView)itemView.findViewById(R.id.text_owned)).setText(mediaListViewModel.getCheckboxText(2));
         return new MediaViewHolder(itemView);
     }
 

@@ -30,6 +30,9 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
         if (preference?.key == "update_from_online"){
             CSVImporter(this.activity!!.application, true).execute(CSVImporter.SOURCE_ONLINE)
+        }else if(preference?.parent?.key == "permanent_filters"){
+            //TODO clear filters
+            //GlobalScope.launch(Dispatchers.IO) { SWMRepository(activity!!.application).clearSavedFilters()}
         }
         return super.onPreferenceTreeClick(preference)
     }
