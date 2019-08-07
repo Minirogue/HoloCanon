@@ -45,12 +45,10 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
                 prefs.getString(application.getString(R.string.owned), application.getString(R.string.owned)))
         unmeteredOnly = prefs.getBoolean(application.getString(R.string.setting_unmetered_sync_only), true)
         data = repository.filteredMediaAndNotes
-        setSort(SortStyle.SORT_TITLE)
         viewModelScope.launch { val newSort = async{ getSavedSort()}
                                 sortStyle.postValue(newSort.await())}
         sortedData.addSource(data) { viewModelScope.launch {sort()} }
-        sortedData.addSource(sortStyle) { viewModelScope.launch {sort()
-                                             saveSort()}}
+        sortedData.addSource(sortStyle) { viewModelScope.launch {sort(); saveSort() }}
     }
 
     fun setSort(newCompareType: Int) {
@@ -66,7 +64,7 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
     private suspend fun getSavedSort(): SortStyle? = withContext(Dispatchers.IO) {
         val cacheFile = File(sortCacheFileName)
         if (!cacheFile.exists()){
-            null
+            SortStyle(SortStyle.SORT_TITLE, true)
         }else{
             val split = cacheFile.readText().split(" ")
             SortStyle(split[0].toInt(), split[1].toInt() == 1)
@@ -85,7 +83,7 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
         //Log.d(TAG, "Sort called");
         val toBeSorted = data.value
         if (toBeSorted != null) {
-            Collections.sort(toBeSorted, sortStyle.value)
+            Collections.sort(toBeSorted, sortStyle.value?: SortStyle(SortStyle.SORT_TITLE, true))
             sortedData.postValue(toBeSorted)
         }
     }

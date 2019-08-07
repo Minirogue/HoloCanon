@@ -11,8 +11,8 @@ import com.minirogue.starwarscanontracker.database.SWMRepository
 class ViewMediaItemViewModel(application: Application, itemId: Int): AndroidViewModel(application) {
 
     private val repository = SWMRepository(application)
-    val liveMediaItem = repository.getLiveMediaItem(itemId)!!
-    val liveMediaNotes = repository.getLiveMediaNotes(itemId)!!
+    val liveMediaItem = repository.getLiveMediaItem(itemId)
+    val liveMediaNotes = repository.getLiveMediaNotes(itemId)
     private val checkboxText = Array(4) {""}
     private val connMgr = application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val unmeteredOnly: Boolean
