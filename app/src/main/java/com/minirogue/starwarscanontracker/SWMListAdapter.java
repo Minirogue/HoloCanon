@@ -8,27 +8,33 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
-import com.minirogue.starwarscanontracker.database.*;
+import com.minirogue.starwarscanontracker.database.MediaAndNotes;
+import com.minirogue.starwarscanontracker.database.MediaItem;
+import com.minirogue.starwarscanontracker.database.MediaNotes;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class SWMListAdapter extends RecyclerView.Adapter<SWMListAdapter.MediaViewHolder> {
+class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.MediaViewHolder> {
 
     private final String TAG = "Adapter";
 
-    private List<MediaAndNotes> currentList = new ArrayList<>();
+    //private AsyncListDiffer<MediaAndNotes> listDiffer = new AsyncListDiffer<>(this, DiffCallback);
+    //private List<MediaAndNotes> currentList = new ArrayList<>();
     private OnItemClickedListener listener;
     private MediaListViewModel mediaListViewModel;
 
     SWMListAdapter(MediaListViewModel mediaListViewModel){
+        super(DiffCallback);
         this.mediaListViewModel = mediaListViewModel;
     }
 
@@ -38,6 +44,11 @@ class SWMListAdapter extends RecyclerView.Adapter<SWMListAdapter.MediaViewHolder
 
     interface OnItemClickedListener {
         void onItemClicked(int itemId);
+    }
+
+    @Override
+    public void submitList(@Nullable List<MediaAndNotes> list) {
+        super.submitList(new ArrayList<>(list));
     }
 
     @NonNull
@@ -53,7 +64,9 @@ class SWMListAdapter extends RecyclerView.Adapter<SWMListAdapter.MediaViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MediaViewHolder holder, int position) {
-        MediaAndNotes currentItem = currentList.get(position);
+        //MediaAndNotes currentItem = currentList.get(position);
+        //MediaAndNotes currentItem = listDiffer.getCurrentList().get(position);
+        MediaAndNotes currentItem = getItem(position);
         holder.itemView.setOnClickListener(view -> listener.onItemClicked(currentItem.mediaItem.id));
         holder.titleTextView.setText(currentItem.mediaItem.title);
         holder.typeTextView.setText(mediaListViewModel.convertTypeToString(currentItem.mediaItem.type));
@@ -93,22 +106,24 @@ class SWMListAdapter extends RecyclerView.Adapter<SWMListAdapter.MediaViewHolder
         });
     }
 
-    @Override
+    /*@Override
     public int getItemCount() {
-        return currentList.size();
-    }
+        //return currentList.size();
+        return listDiffer.getCurrentList().size();
+    }*/
 
-    public void setList(List<MediaAndNotes> newList) {
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCallback(this.currentList, newList));
+    /*public void setList(List<MediaAndNotes> newList) {
+        listDiffer.submitList(newList);
+        *//*DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCallback(this.currentList, newList));
         diffResult.dispatchUpdatesTo(this);
         currentList.clear();
-        currentList.addAll(newList);
-    }
+        currentList.addAll(newList);*//*
+    }*/
 
-    @Override
+    /*@Override
     public long getItemId(int position) {
-        return currentList.get(position).mediaItem.id;
-    }
+        return listDiffer.getCurrentList().get(position).mediaItem.id;
+    }*/
 
 
     static class MediaViewHolder extends RecyclerView.ViewHolder{
@@ -132,7 +147,35 @@ class SWMListAdapter extends RecyclerView.Adapter<SWMListAdapter.MediaViewHolder
         }
     }
 
-    static class DiffCallback extends DiffUtil.Callback{
+    static final DiffUtil.ItemCallback<MediaAndNotes> DiffCallback = new DiffUtil.ItemCallback<MediaAndNotes>(){
+        @Override
+        public boolean areItemsTheSame(@NonNull MediaAndNotes oldItem, @NonNull MediaAndNotes newItem) {
+            return oldItem.mediaItem.id == newItem.mediaItem.id;
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull MediaAndNotes oldItem, @NonNull MediaAndNotes newItem) {
+            MediaItem oldMedia = oldItem.mediaItem;
+            MediaItem newMedia = newItem.mediaItem;
+            MediaNotes oldNotes = oldItem.mediaNotes;
+            MediaNotes newNotes = newItem.mediaNotes;
+            boolean same = true;
+            if (oldNotes == null && newNotes!= null){
+                return false;
+            }else if (oldNotes != null && newNotes != null){
+                same = (oldNotes.isOwned() == newNotes.isOwned() &&
+                        oldNotes.isWantToWatchRead() == newNotes.isWantToWatchRead() &&
+                        oldNotes.isWatchedRead() == newNotes.isWatchedRead());
+            }
+            same &= (oldMedia.imageURL == null ? newMedia.imageURL == null : oldMedia.imageURL.equals(newMedia.imageURL) &&
+                    oldMedia.title == null ? newMedia.title == null :oldMedia.title.equals(newMedia.title) &&
+                    oldMedia.type == newMedia.type);
+            return same;
+        }
+    };
+
+
+    /*static class DiffCallback extends DiffUtil.Callback{
 
         List<MediaAndNotes> oldList;
         List<MediaAndNotes> newList;
@@ -180,6 +223,6 @@ class SWMListAdapter extends RecyclerView.Adapter<SWMListAdapter.MediaViewHolder
 //                    oldMedia.date.equals(newMedia.date) &&
 //                    oldMedia.timeline == (newMedia.timeline)
         }
-    }
+    }*/
 
 }

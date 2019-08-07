@@ -49,7 +49,8 @@ public class MediaListFragment extends Fragment {
         mediaListViewModel.getFilteredMediaAndNotes().observe(this, mediaAndNotes -> {
             //Log.d("OBSERVER", "filters: " + mediaListViewModel.getFilters().getValue());
             //Log.d("OBSERVER", "List length " + mediaAndNotes.size());
-            adapter.setList(mediaAndNotes);
+            //adapter.setList(mediaAndNotes);
+            adapter.submitList((mediaAndNotes));
         });
 
         RecyclerView recyclerView = fragmentView.findViewById(R.id.media_recyclerview);
