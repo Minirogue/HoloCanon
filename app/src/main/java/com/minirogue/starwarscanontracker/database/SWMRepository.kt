@@ -48,20 +48,21 @@ class SWMRepository(private val application: Application) {
         val everyFilter = async { getAllFilters() }
 
 
-        filterTracker.addSource(filters) {
-            GlobalScope.launch(Dispatchers.Default) {
-                currentQuery = convertFiltersToQuery(it)
-                saveFilters(it)
-                filterTracker.postValue(it)
+        withContext(Dispatchers.Main) {
+            filterTracker.addSource(filters) {
+                GlobalScope.launch(Dispatchers.Default) {
+                    currentQuery = convertFiltersToQuery(it)
+                    saveFilters(it)
+                    filterTracker.postValue(it)
+                }
+            }
+            filterTracker.addSource(permanentFilters) {
+                GlobalScope.launch(Dispatchers.Default) {
+                    currentQuery = convertFiltersToQuery(filters.value)
+                    filterTracker.postValue(filters.value)
+                }
             }
         }
-        filterTracker.addSource(permanentFilters) {
-            GlobalScope.launch(Dispatchers.Default) {
-                currentQuery = convertFiltersToQuery(filters.value)
-                filterTracker.postValue(filters.value)
-            }
-        }
-
         val currentFilters = savedFilters.await()
 
         for (thisfilter in currentFilters) {//TODO fix inefficient looping
