@@ -26,7 +26,7 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
     private val sortStyle = MutableLiveData<SortStyle>()
     private val connMgr: ConnectivityManager
     private val unmeteredOnly: Boolean
-    private val sortCacheFileName = application.cacheDir.toString()+"/sortCache"
+    private val sortCacheFileName = application.cacheDir.toString() + "/sortCache"
 
 
     val filteredMediaAndNotes: LiveData<List<MediaAndNotes>>
@@ -45,27 +45,31 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
                 prefs.getString(application.getString(R.string.owned), application.getString(R.string.owned)))
         unmeteredOnly = prefs.getBoolean(application.getString(R.string.setting_unmetered_sync_only), true)
         data = repository.filteredMediaAndNotes
-        viewModelScope.launch { val newSort = async{ getSavedSort()}
-                                sortStyle.postValue(newSort.await())}
-        sortedData.addSource(data) { viewModelScope.launch {sort()} }
-        sortedData.addSource(sortStyle) { viewModelScope.launch {sort(); saveSort() }}
+        viewModelScope.launch {
+            val newSort = async { getSavedSort() }
+            sortStyle.postValue(newSort.await())
+        }
+        sortedData.addSource(data) { viewModelScope.launch { sort() } }
+        sortedData.addSource(sortStyle) { viewModelScope.launch { sort(); saveSort() } }
     }
 
     fun setSort(newCompareType: Int) {
         sortStyle.postValue(SortStyle(newCompareType, true))
     }
+
     private suspend fun saveSort() = withContext(Dispatchers.IO) {
         val style = sortStyle.value
-        if (style != null){
+        if (style != null) {
             val cacheFile = File(sortCacheFileName)
-            cacheFile.writeText(style.style.toString()+" "+if (style.ascending) "1" else "0")
+            cacheFile.writeText(style.style.toString() + " " + if (style.ascending) "1" else "0")
         }
     }
+
     private suspend fun getSavedSort(): SortStyle? = withContext(Dispatchers.IO) {
         val cacheFile = File(sortCacheFileName)
-        if (!cacheFile.exists()){
+        if (!cacheFile.exists()) {
             SortStyle(SortStyle.SORT_TITLE, true)
-        }else{
+        } else {
             val split = cacheFile.readText().split(" ")
             SortStyle(split[0].toInt(), split[1].toInt() == 1)
         }
@@ -79,13 +83,15 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
         }
     }
 
+    @Synchronized
     private suspend fun sort() = withContext(Dispatchers.Default) {
         //Log.d(TAG, "Sort called");
-        val toBeSorted = data.value
-        if (toBeSorted != null) {
-            Collections.sort(toBeSorted, sortStyle.value?: SortStyle(SortStyle.SORT_TITLE, true))
-            sortedData.postValue(toBeSorted)
-        }
+            val toBeSorted = data.value
+            if (toBeSorted != null) {
+                Collections.sort(toBeSorted, sortStyle.value
+                        ?: SortStyle(SortStyle.SORT_TITLE, true))
+                sortedData.postValue(toBeSorted)
+            }
     }
 
     fun getSortStyle(): LiveData<SortStyle> {
