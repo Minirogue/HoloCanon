@@ -124,6 +124,6 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
     }
 
     companion object {
-        private val TAG = "MediaListViewModel"
+        private const val TAG = "MediaListViewModel"
     }
 }

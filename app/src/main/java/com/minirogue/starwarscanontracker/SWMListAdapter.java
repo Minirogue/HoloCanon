@@ -48,7 +48,11 @@ class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.MediaView
 
     @Override
     public void submitList(@Nullable List<MediaAndNotes> list) {
-        super.submitList(new ArrayList<>(list));
+        if (list != null) {
+            super.submitList(new ArrayList<>(list));
+        }else{
+            super.submitList(null);
+        }
     }
 
     @NonNull

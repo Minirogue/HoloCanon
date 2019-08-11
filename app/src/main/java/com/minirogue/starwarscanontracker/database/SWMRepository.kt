@@ -2,7 +2,6 @@ package com.minirogue.starwarscanontracker.database
 
 import android.app.Application
 import android.os.AsyncTask
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -42,7 +41,7 @@ class SWMRepository(private val application: Application) {
         }
     }
 
-    suspend fun initializeFilters() = withContext(Dispatchers.IO) {
+    private suspend fun initializeFilters() = withContext(Dispatchers.IO) {
         val permFilters = async { getPermanentFiltersAsStringBuilder() }
         val savedFilters = async { getSavedFilters() }
         val everyFilter = async { getAllFilters() }
@@ -67,7 +66,7 @@ class SWMRepository(private val application: Application) {
 
         for (thisfilter in currentFilters) {//TODO fix inefficient looping
             for (genericfilter in everyFilter.await()) {
-                if (thisfilter.equals(genericfilter)) {
+                if (thisfilter == genericfilter) {
                     thisfilter.displayText = genericfilter.displayText
                 }
             }
@@ -79,7 +78,7 @@ class SWMRepository(private val application: Application) {
         permanentFilters.postValue(permFilters.await())
     }
 
-    suspend fun getAllFilters(): MutableList<FilterObject> = withContext(Dispatchers.IO) {
+    private suspend fun getAllFilters(): MutableList<FilterObject> = withContext(Dispatchers.IO) {
         val typeFilters = async { makeTypeFilters() }
         val notesFilters = async { makeNotesFilters() }
         val allFilt = ArrayList<FilterObject>()
@@ -155,83 +154,89 @@ class SWMRepository(private val application: Application) {
             val typeFilter = StringBuilder()
             val notesFilter = StringBuilder()
             for (filter in filterList) {
-                if (filter.column == FilterObject.FILTERCOLUMN_CHARACTER) {
-                    if (characterFilter.length == 0) {
-                        joins.append(" INNER JOIN media_character_join ON media_items.id = media_character_join.mediaId ")
-                    } else {
-                        characterFilter.append(" AND ")
-                    }
-                    if (!filter.isPositive) {
-                        characterFilter.append(" NOT ")
-                    }
-                    characterFilter.append(" media_character_join.characterID = ")
-                    characterFilter.append(filter.id)
-                } else if (filter.column == FilterObject.FILTERCOLUMN_TYPE) {
-                    if (typeFilter.length == 0) {
-                        if (!filter.isPositive) {
-                            typeFilter.append(" NOT ")
-                        }
-                    } else {
-                        if (!filter.isPositive) {
-                            typeFilter.append(" AND NOT ")
+                when(filter.column) {
+                    FilterObject.FILTERCOLUMN_CHARACTER -> {
+                        if (characterFilter.isEmpty()) {
+                            joins.append(" INNER JOIN media_character_join ON media_items.id = media_character_join.mediaId ")
                         } else {
-                            typeFilter.append(" OR ")
+                            characterFilter.append(" AND ")
                         }
+                        if (!filter.isPositive) {
+                            characterFilter.append(" NOT ")
+                        }
+                        characterFilter.append(" media_character_join.characterID = ")
+                        characterFilter.append(filter.id)
                     }
-                    typeFilter.append(" type = ")
-                    typeFilter.append(filter.id)
-                } else if (filter.column == FilterObject.FILTERCOLUMN_OWNED) {
-                    if (notesFilter.length == 0) {
-                    } else {
-                        notesFilter.append(" AND ")
+                    FilterObject.FILTERCOLUMN_TYPE -> {
+                        if (typeFilter.isEmpty()) {
+                            if (!filter.isPositive) {
+                                typeFilter.append(" NOT ")
+                            }
+                        } else {
+                            if (!filter.isPositive) {
+                                typeFilter.append(" AND NOT ")
+                            } else {
+                                typeFilter.append(" OR ")
+                            }
+                        }
+                        typeFilter.append(" type = ")
+                        typeFilter.append(filter.id)
                     }
-                    if (!filter.isPositive) {
-                        notesFilter.append(" NOT ")
+                    FilterObject.FILTERCOLUMN_OWNED -> {
+                        if (notesFilter.isEmpty()) {
+                        } else {
+                            notesFilter.append(" AND ")
+                        }
+                        if (!filter.isPositive) {
+                            notesFilter.append(" NOT ")
+                        }
+                        notesFilter.append(" media_notes.owned = 1 ")
                     }
-                    notesFilter.append(" media_notes.owned = 1 ")
-                } else if (filter.column == FilterObject.FILTERCOLUMN_HASREADWATCHED) {
-                    if (notesFilter.length == 0) {
-                    } else {
-                        notesFilter.append(" AND ")
+                    FilterObject.FILTERCOLUMN_HASREADWATCHED -> {
+                        if (notesFilter.isEmpty()) {
+                        } else {
+                            notesFilter.append(" AND ")
+                        }
+                        if (!filter.isPositive) {
+                            notesFilter.append(" NOT ")
+                        }
+                        notesFilter.append(" media_notes.watched_or_read = 1 ")
                     }
-                    if (!filter.isPositive) {
-                        notesFilter.append(" NOT ")
+                    FilterObject.FILTERCOLUMN_WANTTOREADWATCH -> {
+                        if (notesFilter.isEmpty()) {
+                        } else {
+                            notesFilter.append(" AND ")
+                        }
+                        if (!filter.isPositive) {
+                            notesFilter.append(" NOT ")
+                        }
+                        notesFilter.append(" media_notes.want_to_watch_or_read = 1 ")
                     }
-                    notesFilter.append(" media_notes.watched_or_read = 1 ")
-                } else if (filter.column == FilterObject.FILTERCOLUMN_WANTTOREADWATCH) {
-                    if (notesFilter.length == 0) {
-                    } else {
-                        notesFilter.append(" AND ")
-                    }
-                    if (!filter.isPositive) {
-                        notesFilter.append(" NOT ")
-                    }
-                    notesFilter.append(" media_notes.want_to_watch_or_read = 1 ")
                 }
             }
             queryBuild.append("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId ")
             queryBuild.append(joins)
             var whereClause = false
-            if (characterFilter.length > 0) {
+            if (characterFilter.isNotEmpty()) {
 
                 queryBuild.append(if (whereClause) " AND (" else " WHERE (")
                 whereClause = true
                 queryBuild.append(characterFilter)
                 queryBuild.append(")")
             }
-            if (typeFilter.length > 0) {
+            if (typeFilter.isNotEmpty()) {
                 queryBuild.append(if (whereClause) " AND (" else " WHERE (")
                 whereClause = true
                 queryBuild.append(typeFilter)
                 queryBuild.append(")")
             }
-            if (notesFilter.length > 0) {
+            if (notesFilter.isNotEmpty()) {
                 queryBuild.append(if (whereClause) " AND (" else " WHERE (")
                 whereClause = true
                 queryBuild.append(notesFilter)
                 queryBuild.append(")")
             }
-            if (permanentFilters.value != null && permanentFilters.value!!.length > 0) {
+            if (permanentFilters.value != null && permanentFilters.value!!.isNotEmpty()) {
                 queryBuild.append(if (whereClause) " AND (" else " WHERE (")
 
                 whereClause = true
@@ -248,7 +253,7 @@ class SWMRepository(private val application: Application) {
         val permFiltersBuilder = StringBuilder()
         for (type in daoType.allNonLive) {
             if (!prefs.getBoolean(type.text, true)) {
-                if (permFiltersBuilder.length == 0) {
+                if (permFiltersBuilder.isEmpty()) {
                 } else {
                     permFiltersBuilder.append(" AND ")
                 }
@@ -263,7 +268,7 @@ class SWMRepository(private val application: Application) {
         return filters
     }
 
-    suspend fun saveFilters(filtersToSave: List<FilterObject>) = withContext(Dispatchers.IO) {
+    private suspend fun saveFilters(filtersToSave: List<FilterObject>) = withContext(Dispatchers.IO) {
         val cacheFile = File(filterCacheFileName)
         /*if (!cacheFile.exists()) {
             cacheFile.createNewFile()
@@ -282,13 +287,13 @@ class SWMRepository(private val application: Application) {
         cacheFile.writeText(sbuild.toString())
     }
 
-    suspend fun getSavedFilters(): MutableList<FilterObject> = withContext(Dispatchers.IO) {
+    private suspend fun getSavedFilters(): MutableList<FilterObject> = withContext(Dispatchers.IO) {
         val cacheFile = File(filterCacheFileName)
         if (!cacheFile.exists()) {
             ArrayList()
         } else {
             val filtersAsText = cacheFile.readText()
-            Log.d(TAG, filtersAsText)
+            //Log.d(TAG, filtersAsText)
             if (filtersAsText.isNotBlank()) {
                 val splitFilters = filtersAsText.split(",")
                 val filterList = ArrayList<FilterObject>()

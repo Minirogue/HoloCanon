@@ -25,9 +25,14 @@
         android:layout_marginTop="16dp"
         android:scrollbars="vertical"
         android:scrollbarSize="10dp"
-        app:fastScrollEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/filter_chip_group" />
+        <!--app:fastScrollEnabled="true"
+        app:fastScrollVerticalTrackDrawable="@drawable/fast_scroll_track"
+        app:fastScrollHorizontalTrackDrawable="@drawable/fast_scroll_track"
+        app:fastScrollVerticalThumbDrawable="@drawable/fast_scroll_thumb"
+        app:fastScrollHorizontalThumbDrawable="@drawable/fast_scroll_thumb"-->
+
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

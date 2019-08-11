@@ -38,8 +38,8 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
     }
 
     class SetTypePreferences(ctx : Context, category: PreferenceCategory) : AsyncTask<Void, Void, List<MediaType>>(){
-        private val ctxRef = WeakReference<Context>(ctx)
-        private val catRef = WeakReference<PreferenceCategory>(category)
+        private val ctxRef = WeakReference(ctx)
+        private val catRef = WeakReference(category)
 
         override fun doInBackground(vararg p0: Void?): List<MediaType> {
             return MediaDatabase.getMediaDataBase(ctxRef.get()).daoType.allNonLive

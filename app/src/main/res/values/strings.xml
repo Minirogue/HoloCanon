@@ -55,5 +55,5 @@
     <string name="setting_unmetered_sync_only">sync_wifi_only</string>
     <string name="release_date">release date</string>
     <string name="bundleItemId">item Id</string>
-    <string name="update_1_0_3">Version 1.0.3: Filters and sorting method should now persist when you return the the Canon List.</string>
+    <string name="update_1_0_3">Version 1.0.3: Filters and sorting method should now persist when you return to the Canon List.</string>
 </resources>
