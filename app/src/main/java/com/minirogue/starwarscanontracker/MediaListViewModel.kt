@@ -18,14 +18,14 @@ import java.util.*
 
 internal class MediaListViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository: SWMRepository
+    private val repository: SWMRepository = SWMRepository(application)
     val filters: LiveData<MutableList<FilterObject>>
     val allFilters: LiveData<List<FilterObject>>
     private val data: LiveData<List<MediaAndNotes>>
     private val sortedData = MediatorLiveData<List<MediaAndNotes>>()
     private val checkboxText: Array<String>
     private val sortStyle = MutableLiveData<SortStyle>()
-    private val connMgr: ConnectivityManager
+    private val connMgr: ConnectivityManager = application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val unmeteredOnly: Boolean
     private val sortCacheFileName = application.cacheDir.toString() + "/sortCache"
     private val sortQueue = OperationQueue()
@@ -37,8 +37,6 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
         get() = !connMgr.isActiveNetworkMetered || !unmeteredOnly
 
     init {
-        connMgr = application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        repository = SWMRepository(application)
         filters = repository.getFilters()
         allFilters = repository.allFilters
         val prefs = PreferenceManager.getDefaultSharedPreferences(application)
