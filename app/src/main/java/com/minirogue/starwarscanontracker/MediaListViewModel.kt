@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.preference.PreferenceManager
 import androidx.lifecycle.*
+import com.minirogue.starwarscanontracker.coroutinehelpers.OperationQueue
 import com.minirogue.starwarscanontracker.database.MediaAndNotes
 import com.minirogue.starwarscanontracker.database.MediaNotes
 import com.minirogue.starwarscanontracker.database.SWMRepository
@@ -27,6 +28,7 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
     private val connMgr: ConnectivityManager
     private val unmeteredOnly: Boolean
     private val sortCacheFileName = application.cacheDir.toString() + "/sortCache"
+    private val sortQueue = OperationQueue()
 
 
     val filteredMediaAndNotes: LiveData<List<MediaAndNotes>>
@@ -83,15 +85,16 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
         }
     }
 
-    @Synchronized
     private suspend fun sort() = withContext(Dispatchers.Default) {
         //Log.d(TAG, "Sort called");
+        sortQueue.afterPrevious {
             val toBeSorted = data.value
             if (toBeSorted != null) {
                 Collections.sort(toBeSorted, sortStyle.value
                         ?: SortStyle(SortStyle.SORT_TITLE, true))
                 sortedData.postValue(toBeSorted)
             }
+        }
     }
 
     fun getSortStyle(): LiveData<SortStyle> {
