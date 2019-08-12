@@ -49,14 +49,14 @@ class SWMRepository(private val application: Application) {
 
         withContext(Dispatchers.Main) {
             filterTracker.addSource(filters) {
-                GlobalScope.launch(Dispatchers.Default) {
+                launch(Dispatchers.Default) {
                     currentQuery = convertFiltersToQuery(it)
                     saveFilters(it)
                     filterTracker.postValue(it)
                 }
             }
             filterTracker.addSource(permanentFilters) {
-                GlobalScope.launch(Dispatchers.Default) {
+                launch(Dispatchers.Default) {
                     currentQuery = convertFiltersToQuery(filters.value)
                     filterTracker.postValue(filters.value)
                 }
