@@ -6,18 +6,18 @@ The easiest way to install the latest version is through the Google Play store a
 
 ## Usage
 The app has three main screens.
-*The entry screen ("About This App" in the drawer menu) displays a welcome message, recent updates, and disclaimers.
-*The Canon List is the main part of the app and lists all current canonical Star Wars material (assuming the database is up to date). The list supports multiple filtering and sorting options.
-*Settings is where you can permanently filter out certain media types that you do not wish to appear in the main list. You can also change the checkbox text to provide a more personalized way to mark content. Finally, you can force an update of your local media database here.
+* The entry screen ("About This App" in the drawer menu) displays a welcome message, recent updates, and disclaimers.
+* The Canon List is the main part of the app and lists all current canonical Star Wars material (assuming the database is up to date). The list supports multiple filtering and sorting options.
+* Settings is where you can permanently filter out certain media types that you do not wish to appear in the main list. You can also change the checkbox text to provide a more personalized way to mark content. Finally, you can force an update of your local media database here.
 
 ## TODO
 Here are some things that I plan to add to the app:
-*Saving current filters and sorting so they persist when the user returns to the Canon List screen.
-*Text search for the list. This should include searching all relevant text fields of the items.
-*Clean up the filter selection menu into filter groups with options to filter ONLY selected items or to filter OUT the selected items in a group.
-*Add some functionality for series.
-*Add filtering by publisher (seems like people aren't as into the IDW comics, I guess).
-*Add comments to code in case someone wants to contribute or if a potential employer wants to look at the code (Hi, still on the job market as of August 18, 2019).
+* Saving current filters and sorting so they persist when the user returns to the Canon List screen.
+* Text search for the list. This should include searching all relevant text fields of the items.
+* Clean up the filter selection menu into filter groups with options to filter ONLY selected items or to filter OUT the selected items in a group.
+* Add some functionality for series.
+* Add filtering by publisher (seems like people aren't as into the IDW comics, I guess).
+* Add comments to code in case someone wants to contribute or if a potential employer wants to look at the code (Hi, still on the job market as of August 18, 2019).
 
 ## License
 I'm still figuring out the correct license to use here and how to properly include it.
