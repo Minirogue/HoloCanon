@@ -19,6 +19,7 @@ Here are some things that I plan to add to the app:
 * Add filtering by publisher (seems like people aren't as into the IDW comics, I guess).
 * Add comments to code in case someone wants to contribute or if a potential employer wants to look at the code (Hi, still on the job market as of August 18, 2019).
 * Clean up fragment management (OOM error may be possible with current configuration)
+* Add syncing of user selections across devices
 
 ## License
 I'm still figuring out the correct license to use here and how to properly include it.
