@@ -5,30 +5,35 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.preference.PreferenceManager
 import androidx.lifecycle.*
-import com.minirogue.starwarscanontracker.coroutinehelpers.OperationQueue
 import com.minirogue.starwarscanontracker.database.MediaAndNotes
+import com.minirogue.starwarscanontracker.database.MediaItem
 import com.minirogue.starwarscanontracker.database.MediaNotes
 import com.minirogue.starwarscanontracker.database.SWMRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import java.io.File
 import java.util.*
+import kotlin.collections.ArrayList
 
 internal class MediaListViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: SWMRepository = SWMRepository(application)
-    val filters: LiveData<MutableList<FilterObject>>
-    val allFilters: LiveData<List<FilterObject>>
-    private val data: LiveData<List<MediaAndNotes>>
+    val filters = MutableLiveData<MutableList<FilterObject>>()
+    var allFilters: List<FilterObject> = ArrayList() //= FilterObject.getAllFilters(application) //TODO this can be managed better
+    private var data: LiveData<List<MediaAndNotes>> = MutableLiveData()
+    private val dataMediator = MediatorLiveData<List<MediaItem>>()
     private val sortedData = MediatorLiveData<List<MediaAndNotes>>()
     private val checkboxText: Array<String>
     private val sortStyle = MutableLiveData<SortStyle>()
     private val connMgr: ConnectivityManager = application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     private val unmeteredOnly: Boolean
     private val sortCacheFileName = application.cacheDir.toString() + "/sortCache"
-    private val sortQueue = OperationQueue()
+    //private val sortQueue = OperationQueue()
+    private var queryJob = Job()
+    private val queryMutex = Mutex()
+    private var sortJob = Job()
+    private val sortMutex = Mutex()
 
 
     val filteredMediaAndNotes: LiveData<List<MediaAndNotes>>
@@ -37,20 +42,31 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
         get() = !connMgr.isActiveNetworkMetered || !unmeteredOnly
 
     init {
-        filters = repository.getFilters()
-        allFilters = repository.allFilters
+        viewModelScope.launch { sortStyle.postValue(getSavedSort()) }
+        viewModelScope.launch {
+            val savedFilters = async { repository.getSavedFilters() }
+            val everyFilter = async { repository.getAllFilters() }
+            val currentFilters = savedFilters.await()
+            allFilters = everyFilter.await()
+            for (thisfilter in currentFilters) {//TODO fix inefficient looping
+                for (genericfilter in allFilters) {
+                    if (thisfilter == genericfilter) {
+                        thisfilter.displayText = genericfilter.displayText
+                        break
+                    }
+                }
+            }
+            filters.postValue(currentFilters)
+        }
         val prefs = PreferenceManager.getDefaultSharedPreferences(application)
         checkboxText = arrayOf(prefs.getString(application.getString(R.string.watched_read), application.getString(R.string.watched_read)),
                 prefs.getString(application.getString(R.string.want_to_watch_read), application.getString(R.string.want_to_watch_read)),
                 prefs.getString(application.getString(R.string.owned), application.getString(R.string.owned)))
         unmeteredOnly = prefs.getBoolean(application.getString(R.string.setting_unmetered_sync_only), true)
-        data = repository.filteredMediaAndNotes
-        viewModelScope.launch {
-            val newSort = async { getSavedSort() }
-            sortStyle.postValue(newSort.await())
-        }
-        sortedData.addSource(data) { viewModelScope.launch { sort() } }
+
+        dataMediator.addSource(filters) { viewModelScope.launch { updateQuery() } }
         sortedData.addSource(sortStyle) { viewModelScope.launch { sort(); saveSort() } }
+        sortedData.addSource(dataMediator) { }//dataMediator needs to be observed so the things it observes can trigger events
     }
 
     fun setSort(newCompareType: Int) {
@@ -79,36 +95,63 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
     fun reverseSort() {
         val currentStyle = sortStyle.value
         if (currentStyle != null) {
-            sortStyle.postValue(sortStyle.value!!.reversed())
+            sortStyle.postValue(currentStyle.reversed())
+        }
+    }
+
+    private suspend fun updateQuery() = withContext(Dispatchers.IO) {
+        queryMutex.withLock {
+            queryJob.cancelAndJoin()
+            queryJob = launch {
+                val newListLiveData = repository.getMediaListWithNotes(filters.value ?: ArrayList())
+                withContext(Dispatchers.Main) {
+                    dataMediator.removeSource(data)
+                    data = newListLiveData
+                    dataMediator.addSource(data) { viewModelScope.launch { sort() } }
+                }
+            }
         }
     }
 
     private suspend fun sort() = withContext(Dispatchers.Default) {
         //Log.d(TAG, "Sort called");
-        sortQueue.afterPrevious {
-            val toBeSorted = data.value
-            if (toBeSorted != null) {
-                Collections.sort(toBeSorted, sortStyle.value
-                        ?: SortStyle(SortStyle.SORT_TITLE, true))
-                sortedData.postValue(toBeSorted)
+        sortMutex.withLock {
+            sortJob.cancelAndJoin()
+            sortJob = launch {
+                val toBeSorted = data.value
+                if (toBeSorted != null) {
+                    Collections.sort(toBeSorted, sortStyle.value
+                            ?: SortStyle(SortStyle.SORT_TITLE, true))
+                    sortedData.postValue(toBeSorted)
+                }
             }
         }
+
     }
 
     fun getSortStyle(): LiveData<SortStyle> {
         return sortStyle
     }
 
-    fun removeFilter(filter: FilterObject) {
-        repository.removeFilter(filter)
+    fun removeFilter(filter: FilterObject) = viewModelScope.launch(Dispatchers.Default) {
+        val tempList = filters.value
+        if (tempList != null) {
+            tempList.remove(filter)
+            filters.postValue(tempList)
+        }
     }
 
-    fun addFilter(filter: FilterObject) {
-        repository.addFilter(filter)
+    fun addFilter(filter: FilterObject) = viewModelScope.launch(Dispatchers.Default) {
+        val tempList = filters.value
+        if (tempList != null) {
+            tempList.add(filter)
+            filters.postValue(tempList)
+        }
     }
 
     fun isCurrentFilter(filter: FilterObject): Boolean {
-        return repository.isCurrentFilter(filter)
+        val currentList = filters.value
+        return currentList?.contains(filter) ?: false
     }
 
     fun update(mediaNotes: MediaNotes) {

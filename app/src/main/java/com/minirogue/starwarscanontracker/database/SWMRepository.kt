@@ -3,14 +3,13 @@ package com.minirogue.starwarscanontracker.database
 import android.app.Application
 import android.os.AsyncTask
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.preference.PreferenceManager
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.minirogue.starwarscanontracker.FilterObject
 import com.minirogue.starwarscanontracker.R
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.lang.ref.WeakReference
 import java.util.*
@@ -19,30 +18,35 @@ class SWMRepository(private val application: Application) {
     private val TAG = "Repo"
     private val daoMedia: DaoMedia
     private val daoType: DaoType
-    val filteredMediaAndNotes: LiveData<List<MediaAndNotes>>
-    private val filters = MediatorLiveData<MutableList<FilterObject>>()
-    private val permanentFilters = MutableLiveData<StringBuilder>()
-    val allFilters: LiveData<List<FilterObject>>
+    //val filteredMediaAndNotes: LiveData<List<MediaAndNotes>>
+    //private val filters = MediatorLiveData<MutableList<FilterObject>>()
+    //private val permanentFilters = MutableLiveData<StringBuilder>()
+    //val allFilters: LiveData<List<FilterObject>>
     private val filterCacheFileName = application.cacheDir.toString() + "/filterCache"
-    private val filterTracker = MediatorLiveData<List<FilterObject>>()
-    private var currentQuery: SimpleSQLiteQuery? = null
+    //private val filterTracker = MediatorLiveData<List<FilterObject>>()
+    //private var currentQuery: SimpleSQLiteQuery? = null
 
 
     init {
         val db = MediaDatabase.getMediaDataBase(application)
         daoMedia = db.daoMedia
         daoType = db.daoType
-        allFilters = FilterObject.getAllFilters(application)
-        filters.value = ArrayList()
-        permanentFilters.value = StringBuilder()
-        filteredMediaAndNotes = Transformations.switchMap(filterTracker) { daoMedia.getMediaAndNotesRawQuery(currentQuery)}
-        GlobalScope.launch {
-            initializeFilters()
-        }
+        //allFilters = FilterObject.getAllFilters(application)
+        //filters.value = ArrayList()
+        //permanentFilters.value = StringBuilder()
+        //filteredMediaAndNotes = Transformations.switchMap(filterTracker) { daoMedia.getMediaAndNotesRawQuery(currentQuery)}
+//        GlobalScope.launch {
+//            initializeFilters()
+//        }
     }
 
-    private suspend fun initializeFilters() = withContext(Dispatchers.IO) {
-        val permFilters = async { getPermanentFiltersAsStringBuilder() }
+    suspend fun getMediaListWithNotes(filterList : List<FilterObject>): LiveData<List<MediaAndNotes>>{
+        val query = convertFiltersToQuery(filterList)
+        return daoMedia.getMediaAndNotesRawQuery(query)
+    }
+
+   /* private suspend fun initializeFilters() = withContext(Dispatchers.IO) {
+        //val permFilters = async { getPermanentFiltersAsStringBuilder() }
         val savedFilters = async { getSavedFilters() }
         val everyFilter = async { getAllFilters() }
 
@@ -64,21 +68,15 @@ class SWMRepository(private val application: Application) {
         }
         val currentFilters = savedFilters.await()
 
-        for (thisfilter in currentFilters) {//TODO fix inefficient looping
-            for (genericfilter in everyFilter.await()) {
-                if (thisfilter == genericfilter) {
-                    thisfilter.displayText = genericfilter.displayText
-                }
-            }
-        }
 
 
-        filters.postValue(currentFilters)
 
-        permanentFilters.postValue(permFilters.await())
-    }
+        //filters.postValue(currentFilters)
 
-    private suspend fun getAllFilters(): MutableList<FilterObject> = withContext(Dispatchers.IO) {
+        //permanentFilters.postValue(permFilters.await())
+    }*/
+
+    suspend fun getAllFilters(): MutableList<FilterObject> = withContext(Dispatchers.IO) {
         val typeFilters = async { makeTypeFilters() }
         val notesFilters = async { makeNotesFilters() }
         val allFilt = ArrayList<FilterObject>()
@@ -108,29 +106,7 @@ class SWMRepository(private val application: Application) {
         newTypeFilters
     }
 
-    fun removeFilter(filter: FilterObject) {
-        val tempList = filters.value
-        if (tempList != null) {
-            tempList.remove(filter)
-            filters.removeSource(filter.liveFilter)
-            filters.value = tempList
 
-        }
-    }
-
-    fun addFilter(filter: FilterObject) {
-        val tempList = filters.value
-        if (tempList != null) {
-            tempList.add(filter)
-            filters.addSource(filter.liveFilter) { filterObject -> filters.postValue(filters.value) }
-            filters.value = tempList
-        }
-    }
-
-    fun isCurrentFilter(filter: FilterObject): Boolean {
-        val currentList = filters.value
-        return currentList?.contains(filter) ?: false
-    }
 
     fun convertTypeToString(typeId: Int): String {
         return FilterObject.getTextForType(typeId)
@@ -144,7 +120,8 @@ class SWMRepository(private val application: Application) {
         return daoMedia.getMediaNotesById(itemId)
     }
 
-    private suspend fun convertFiltersToQuery(filterList: MutableList<FilterObject>?): SimpleSQLiteQuery = withContext(Dispatchers.Default) {
+    private suspend fun convertFiltersToQuery(filterList: List<FilterObject>): SimpleSQLiteQuery = withContext(Dispatchers.Default) {
+        val gettingPermanentFilters = async {getPermanentFiltersAsStringBuilder()}
         if (filterList == null){
             SimpleSQLiteQuery("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId")
         }else {
@@ -236,11 +213,12 @@ class SWMRepository(private val application: Application) {
                 queryBuild.append(notesFilter)
                 queryBuild.append(")")
             }
-            if (permanentFilters.value != null && permanentFilters.value!!.isNotEmpty()) {
+            val permanentFilters = gettingPermanentFilters.await()
+            if (permanentFilters.isNotEmpty()) {
                 queryBuild.append(if (whereClause) " AND (" else " WHERE (")
 
                 whereClause = true
-                queryBuild.append(permanentFilters.value)
+                queryBuild.append(permanentFilters)
                 queryBuild.append(")")
             }
             //Log.d("ListAdapter", queryBuild.toString());
@@ -248,7 +226,7 @@ class SWMRepository(private val application: Application) {
         }
     }
 
-    private fun getPermanentFiltersAsStringBuilder(): StringBuilder {
+    private suspend fun getPermanentFiltersAsStringBuilder(): StringBuilder = withContext(Dispatchers.IO) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(application)
         val permFiltersBuilder = StringBuilder()
         for (type in daoType.allNonLive) {
@@ -261,12 +239,12 @@ class SWMRepository(private val application: Application) {
                 permFiltersBuilder.append(type.id)
             }
         }
-        return permFiltersBuilder
+        permFiltersBuilder
     }
-
+/*
     fun getFilters(): LiveData<MutableList<FilterObject>> {
         return filters
-    }
+    }*/
 
     private suspend fun saveFilters(filtersToSave: List<FilterObject>) = withContext(Dispatchers.IO) {
         val cacheFile = File(filterCacheFileName)
@@ -287,7 +265,7 @@ class SWMRepository(private val application: Application) {
         cacheFile.writeText(sbuild.toString())
     }
 
-    private suspend fun getSavedFilters(): MutableList<FilterObject> = withContext(Dispatchers.IO) {
+    suspend fun getSavedFilters(): MutableList<FilterObject> = withContext(Dispatchers.IO) {
         val cacheFile = File(filterCacheFileName)
         if (!cacheFile.exists()) {
             ArrayList()

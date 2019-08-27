@@ -11,7 +11,6 @@ import android.widget.PopupMenu;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,7 +45,7 @@ public class MediaListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_media_list, container, false);
         mediaListViewModel = ViewModelProviders.of(this).get(MediaListViewModel.class);
-        mediaListViewModel.getFilteredMediaAndNotes().observe(this, mediaAndNotes -> {
+        mediaListViewModel.getFilteredMediaAndNotes().observe(getViewLifecycleOwner(), mediaAndNotes -> {
             //Log.d("OBSERVER", "filters: " + mediaListViewModel.getFilters().getValue());
             //Log.d("OBSERVER", "List length " + mediaAndNotes.size());
             //adapter.setList(mediaAndNotes);
@@ -114,16 +113,16 @@ public class MediaListFragment extends Fragment {
 
 
     private void selectFilters() {
-        LiveData<List<FilterObject>> allFilters = mediaListViewModel.getAllFilters();
+        List<FilterObject> allFilters = mediaListViewModel.getAllFilters();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Choose Filters");
         final ChipGroup filterChips = new ChipGroup(ctx);
-        allFilters.observe(this, filterObjects -> {
+        //allFilters.observe(this, filterObjects -> {
             filterChips.removeAllViews();
-            for (FilterObject filter : filterObjects) {
+            for (FilterObject filter : allFilters) {
                 filterChips.addView(makeSelectableFilterChip(filter));
             }
-        });
+        //});
 
 
         builder.setView(filterChips);
