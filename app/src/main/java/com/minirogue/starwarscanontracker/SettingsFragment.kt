@@ -13,7 +13,6 @@ import java.lang.ref.WeakReference
 class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnSharedPreferenceChangeListener */{
 
 
-
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
@@ -30,10 +29,11 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
         if (preference?.key == "update_from_online"){
             CSVImporter(this.activity!!.application, true).execute(CSVImporter.SOURCE_ONLINE)
-        }else if(preference?.parent?.key == "permanent_filters"){
-            //TODO clear filters
+        }/*else if(preference?.parent?.key == "permanent_filters"){
+            (activity as MainActivity).resetListFragment()
+            GlobalScope.launch {SWMRepository(activity!!.application).clearSavedFilters()}
             //GlobalScope.launch(Dispatchers.IO) { SWMRepository(activity!!.application).clearSavedFilters()}
-        }
+        }*/
         return super.onPreferenceTreeClick(preference)
     }
 

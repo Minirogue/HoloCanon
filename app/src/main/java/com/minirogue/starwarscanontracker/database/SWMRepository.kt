@@ -9,6 +9,8 @@ import com.minirogue.starwarscanontracker.FilterObject
 import com.minirogue.starwarscanontracker.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.lang.ref.WeakReference
@@ -25,6 +27,7 @@ class SWMRepository(private val application: Application) {
     private val filterCacheFileName = application.cacheDir.toString() + "/filterCache"
     //private val filterTracker = MediatorLiveData<List<FilterObject>>()
     //private var currentQuery: SimpleSQLiteQuery? = null
+    private val saveFiltersMutex = Mutex()
 
 
     init {
@@ -246,23 +249,25 @@ class SWMRepository(private val application: Application) {
         return filters
     }*/
 
-    private suspend fun saveFilters(filtersToSave: List<FilterObject>) = withContext(Dispatchers.IO) {
-        val cacheFile = File(filterCacheFileName)
-        /*if (!cacheFile.exists()) {
+    suspend fun saveFilters(filtersToSave: List<FilterObject>) = withContext(Dispatchers.IO) {
+        saveFiltersMutex.withLock {
+            val cacheFile = File(filterCacheFileName)
+            /*if (!cacheFile.exists()) {
             cacheFile.createNewFile()
         }*/
-        val sbuild = StringBuilder()
-        for (filter in filtersToSave) {
-            if (sbuild.isNotEmpty()) {
-                sbuild.append(",")
+            val sbuild = StringBuilder()
+            for (filter in filtersToSave) {
+                if (sbuild.isNotEmpty()) {
+                    sbuild.append(",")
+                }
+                sbuild.append(filter.column)
+                sbuild.append(" ")
+                sbuild.append(filter.id)
+                sbuild.append(" ")
+                sbuild.append(if (filter.isPositive) 1 else 0)
             }
-            sbuild.append(filter.column)
-            sbuild.append(" ")
-            sbuild.append(filter.id)
-            sbuild.append(" ")
-            sbuild.append(if (filter.isPositive) 1 else 0)
+            cacheFile.writeText(sbuild.toString())
         }
-        cacheFile.writeText(sbuild.toString())
     }
 
     suspend fun getSavedFilters(): MutableList<FilterObject> = withContext(Dispatchers.IO) {

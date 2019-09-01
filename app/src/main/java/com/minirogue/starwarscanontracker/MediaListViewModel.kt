@@ -73,6 +73,7 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
         sortStyle.postValue(SortStyle(newCompareType, true))
     }
 
+
     private suspend fun saveSort() = withContext(Dispatchers.IO) {
         val style = sortStyle.value
         if (style != null) {
@@ -96,6 +97,17 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
         val currentStyle = sortStyle.value
         if (currentStyle != null) {
             sortStyle.postValue(currentStyle.reversed())
+        }
+    }
+
+    fun checkForUpdatedPermFilters() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val newAllFilters = repository.getAllFilters()
+            if (allFilters != newAllFilters) {
+                //Log.d(TAG, "perm filters marked as changed, updating query")
+                allFilters = newAllFilters
+                updateQuery()
+            }
         }
     }
 
@@ -138,6 +150,7 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
         if (tempList != null) {
             tempList.remove(filter)
             filters.postValue(tempList)
+            repository.saveFilters(tempList)
         }
     }
 
@@ -146,7 +159,12 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
         if (tempList != null) {
             tempList.add(filter)
             filters.postValue(tempList)
+            repository.saveFilters(tempList)
         }
+    }
+
+    fun clearSavedFilters() {
+        GlobalScope.launch { repository.clearSavedFilters() }
     }
 
     fun isCurrentFilter(filter: FilterObject): Boolean {

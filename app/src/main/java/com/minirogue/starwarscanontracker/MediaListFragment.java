@@ -45,6 +45,7 @@ public class MediaListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_media_list, container, false);
         mediaListViewModel = ViewModelProviders.of(this).get(MediaListViewModel.class);
+        mediaListViewModel.checkForUpdatedPermFilters();
         mediaListViewModel.getFilteredMediaAndNotes().observe(getViewLifecycleOwner(), mediaAndNotes -> {
             //Log.d("OBSERVER", "filters: " + mediaListViewModel.getFilters().getValue());
             //Log.d("OBSERVER", "List length " + mediaAndNotes.size());
@@ -75,10 +76,10 @@ public class MediaListFragment extends Fragment {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0){//Scroll down
+                if (dy > 0) {//Scroll down
                     sortFAB.hide();
                     filterFAB.hide();
-                }else if (dy < 0) {//Scroll up
+                } else if (dy < 0) {//Scroll up
                     sortFAB.show();
                     filterFAB.show();
                 }
@@ -91,9 +92,10 @@ public class MediaListFragment extends Fragment {
             bundle.putInt(getString(R.string.bundleItemId), itemId);
             viewMediaItemFragment.setArguments(bundle);
             Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, viewMediaItemFragment)
-                .addToBackStack(null)
-                .commit();});
+                    .replace(R.id.fragment_container, viewMediaItemFragment)
+                    .addToBackStack(null)
+                    .commit();
+        });
 
         mediaListViewModel.getFilters().observe(this, this::fillChipGroup);
 
@@ -102,13 +104,16 @@ public class MediaListFragment extends Fragment {
         return fragmentView;
     }
 
-    private void makeSortMenu(){
+    private void makeSortMenu() {
 //        mediaListViewModel.toggleSort();
-        sortMenu = new PopupMenu(ctx,sortFAB);
-        for (int style : SortStyle.Companion.getAllStyles()){
-            sortMenu.getMenu().add(0,style,0,SortStyle.Companion.getSortText(style));
+        sortMenu = new PopupMenu(ctx, sortFAB);
+        for (int style : SortStyle.Companion.getAllStyles()) {
+            sortMenu.getMenu().add(0, style, 0, SortStyle.Companion.getSortText(style));
         }
-        sortMenu.setOnMenuItemClickListener(menuItem -> {mediaListViewModel.setSort(menuItem.getItemId()); return true;});
+        sortMenu.setOnMenuItemClickListener(menuItem -> {
+            mediaListViewModel.setSort(menuItem.getItemId());
+            return true;
+        });
     }
 
 
@@ -118,10 +123,10 @@ public class MediaListFragment extends Fragment {
         builder.setTitle("Choose Filters");
         final ChipGroup filterChips = new ChipGroup(ctx);
         //allFilters.observe(this, filterObjects -> {
-            filterChips.removeAllViews();
-            for (FilterObject filter : allFilters) {
-                filterChips.addView(makeSelectableFilterChip(filter));
-            }
+        filterChips.removeAllViews();
+        for (FilterObject filter : allFilters) {
+            filterChips.addView(makeSelectableFilterChip(filter));
+        }
         //});
 
 
@@ -154,18 +159,20 @@ public class MediaListFragment extends Fragment {
         filterChip.setOnCloseIconClickListener(view -> mediaListViewModel.removeFilter(filter));
         chipGroup.addView(filterChip);
     }
-    private void makeCurrentSortChip(){
+
+    private void makeCurrentSortChip() {
         sortChip = new Chip(ctx);
         sortChip.setChipIconVisible(true);
         sortChip.setOnClickListener(view -> mediaListViewModel.reverseSort());
         mediaListViewModel.getSortStyle().observe(this, this::updateSortChip);
         chipGroup.addView(sortChip);
     }
-    private void updateSortChip(SortStyle sortStyle){
+
+    private void updateSortChip(SortStyle sortStyle) {
         sortChip.setText(sortStyle.getText());
         if (sortStyle.isAscending()) {
             sortChip.setChipIcon(getResources().getDrawable(R.drawable.ic_ascending_sort));
-        }else{
+        } else {
             sortChip.setChipIcon(getResources().getDrawable(R.drawable.ic_descending_sort));
         }
     }
@@ -174,24 +181,23 @@ public class MediaListFragment extends Fragment {
     private Chip makeSelectableFilterChip(final FilterObject filter) {
         final Chip filterChip = new Chip(ctx);
         filterChip.setText(filter.displayText);
-        if(mediaListViewModel.isCurrentFilter(filter)){
+        if (mediaListViewModel.isCurrentFilter(filter)) {
             filterChip.setChipIcon(filter.isPositive() ? getResources().getDrawable(R.drawable.ic_filter_check) : getResources().getDrawable(R.drawable.ic_filter_x));
             filterChip.setChipIconVisible(true);
-        } else{
+        } else {
             filterChip.setChipIconVisible(false);
         }
         filter.getLiveFilter().observe(this, filterObject -> filterChip.setChipIcon(filter.isPositive() ? getResources().getDrawable(R.drawable.ic_filter_check) : getResources().getDrawable(R.drawable.ic_filter_x)));
         filterChip.setOnClickListener(view -> {
-            if (mediaListViewModel.isCurrentFilter(filter)){
-                if (filter.isPositive()){
+            if (mediaListViewModel.isCurrentFilter(filter)) {
+                if (filter.isPositive()) {
                     filter.setPositive(false);
-                } else{
+                } else {
                     mediaListViewModel.removeFilter(filter);
                     filter.setPositive(true);
                     filterChip.setChipIconVisible(false);
                 }
-            }
-            else{
+            } else {
                 mediaListViewModel.addFilter(filter);
                 filter.setPositive(true);
                 filterChip.setChipIconVisible(true);
@@ -199,7 +205,6 @@ public class MediaListFragment extends Fragment {
         });
         return filterChip;
     }
-
 }
 
 
