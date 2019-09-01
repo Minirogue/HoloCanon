@@ -1,14 +1,14 @@
 package com.minirogue.starwarscanontracker;
 
+import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-
-import android.os.Bundle;
-import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //check for update to database
         new CSVImporter(getApplication(), false).execute(CSVImporter.SOURCE_ONLINE);
     }
 
@@ -33,9 +34,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new EntryFragment()).commit();
+        if (savedInstanceState == null) {//if starting the app fresh, display the entry fragment
+            replaceFragment(ENTRY_TAG);
             ImagePipelineConfig config = ImagePipelineConfig.newBuilder(getApplication())
                     .setDownsampleEnabled(true)
                     .build();
