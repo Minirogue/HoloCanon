@@ -185,7 +185,7 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
         return checkboxText[boxNumber]
     }
 
-    companion object {
+    /*companion object {
         private const val TAG = "MediaListViewModel"
-    }
+    }*/
 }

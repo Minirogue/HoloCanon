@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class MediaListFragment extends Fragment {
-    private static final String TAG = "Media List";
+    //private static final String TAG = "Media List";
 
     private SWMListAdapter adapter;
     private MediaListViewModel mediaListViewModel;

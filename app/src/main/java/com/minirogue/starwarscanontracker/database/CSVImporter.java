@@ -20,9 +20,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 
+//TODO convert to kotlin and use coroutines
 public class CSVImporter extends AsyncTask<Integer, String, Void> {
 
-    private static final String TAG = "CSVImport";
+    //private static final String TAG = "CSVImport";
 
     public static final int SOURCE_ONLINE = 1;
     private WeakReference<Application> appRef;

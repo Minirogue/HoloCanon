@@ -14,6 +14,7 @@ class EntryFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val fragView = inflater.inflate(R.layout.fragment_entry, container, false)
+        //make the links in welcome_textview clickable
         fragView.welcome_textview.movementMethod = LinkMovementMethod.getInstance()
         return fragView
     }

@@ -26,7 +26,7 @@ import java.util.List;
 
 class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.MediaViewHolder> {
 
-    private final String TAG = "Adapter";
+    //private final String TAG = "Adapter";
 
     //private AsyncListDiffer<MediaAndNotes> listDiffer = new AsyncListDiffer<>(this, DiffCallback);
     //private List<MediaAndNotes> currentList = new ArrayList<>();

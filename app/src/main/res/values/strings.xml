@@ -25,7 +25,8 @@
     <string name="welcome_message">Welcome to &appname;, an unofficial canon tracker for the Star Wars universe.
         Click on "Settings" in the navigation to change the text for the checkboxes and to permanently filter out
         certain media types. Come find me on twitter <a href="https://twitter.com/holocanon">@HoloCanon</a>.
-        I\'ve also got a <a href="https://discord.gg/RxXvTfX">Discord server</a> set up, which would be a great way to make suggestions for this app.</string>
+        I\'ve also got a <a href="https://discord.gg/RxXvTfX">Discord server</a> set up, which would be a great way to make suggestions or report bugs for this app.
+        Additionally, if you have any bugs, requests, or corrections, you can e-mail me at <a href="mailto:DarthMerman@gmail.com">DarthMerman@gmail.com</a>.</string>
     <string name="affiliate_notice">As an Amazon Associate I may earn money from qualifying purchases made through the links in this app.</string>
     <string name="nav_about">About This App</string>
     <string name="current_database_version">current database version</string>
@@ -55,5 +56,8 @@
     <string name="setting_unmetered_sync_only">sync_wifi_only</string>
     <string name="release_date">release date</string>
     <string name="bundleItemId">item Id</string>
-    <string name="update_1_0_3">Version 1.0.3: Filters and sorting method should now persist when you return to the Canon List.</string>
+    <string name="update_1_0_3">Version 1.0.3: Filters and sorting method should now persist when you return to the Canon List.
+        I also changed some things under the hood, so if the app seems to be running slower or something isn\'t working as expected, then let me know (through my twitter/discord/e-mail, all listed above).</string>
+    <string name="description_header">Description:</string>
+    <string name="review_header">My Review:</string>
 </resources>
