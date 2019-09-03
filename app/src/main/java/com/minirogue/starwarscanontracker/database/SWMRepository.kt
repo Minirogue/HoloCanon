@@ -56,104 +56,101 @@ class SWMRepository(private val application: Application) {
         /*if (filterList == null) {
             SimpleSQLiteQuery("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId")
         } else {*/
-            val queryBuild = StringBuilder()
-            val joins = StringBuilder()
-            val characterFilter = StringBuilder()
-            val typeFilter = StringBuilder()
-            val notesFilter = StringBuilder()
-            for (filter in filterList) {
-                when (filter.column) {
-                    FilterObject.FILTERCOLUMN_CHARACTER -> {
-                        if (characterFilter.isEmpty()) {
-                            joins.append(" INNER JOIN media_character_join ON media_items.id = media_character_join.mediaId ")
-                        } else {
-                            characterFilter.append(" AND ")
-                        }
+        val queryBuild = StringBuilder()
+        val joins = StringBuilder()
+        val characterFilter = StringBuilder()
+        val typeFilter = StringBuilder()
+        val notesFilter = StringBuilder()
+        for (filter in filterList) {
+            when (filter.column) {
+                FilterObject.FILTERCOLUMN_CHARACTER -> {
+                    if (characterFilter.isEmpty()) {
+                        joins.append(" INNER JOIN media_character_join ON media_items.id = media_character_join.mediaId ")
+                    } else {
+                        characterFilter.append(" AND ")
+                    }
+                    if (!filter.isPositive) {
+                        characterFilter.append(" NOT ")
+                    }
+                    characterFilter.append(" media_character_join.characterID = ")
+                    characterFilter.append(filter.id)
+                }
+                FilterObject.FILTERCOLUMN_TYPE -> {
+                    if (typeFilter.isEmpty()) {
                         if (!filter.isPositive) {
-                            characterFilter.append(" NOT ")
+                            typeFilter.append(" NOT ")
                         }
-                        characterFilter.append(" media_character_join.characterID = ")
-                        characterFilter.append(filter.id)
-                    }
-                    FilterObject.FILTERCOLUMN_TYPE -> {
-                        if (typeFilter.isEmpty()) {
-                            if (!filter.isPositive) {
-                                typeFilter.append(" NOT ")
-                            }
-                        } else {
-                            if (!filter.isPositive) {
-                                typeFilter.append(" AND NOT ")
-                            } else {
-                                typeFilter.append(" OR ")
-                            }
-                        }
-                        typeFilter.append(" type = ")
-                        typeFilter.append(filter.id)
-                    }
-                    FilterObject.FILTERCOLUMN_OWNED -> {
-                        if (notesFilter.isEmpty()) {
-                        } else {
-                            notesFilter.append(" AND ")
-                        }
+                    } else {
                         if (!filter.isPositive) {
-                            notesFilter.append(" NOT ")
-                        }
-                        notesFilter.append(" media_notes.owned = 1 ")
-                    }
-                    FilterObject.FILTERCOLUMN_HASREADWATCHED -> {
-                        if (notesFilter.isEmpty()) {
+                            typeFilter.append(" AND NOT ")
                         } else {
-                            notesFilter.append(" AND ")
+                            typeFilter.append(" OR ")
                         }
-                        if (!filter.isPositive) {
-                            notesFilter.append(" NOT ")
-                        }
-                        notesFilter.append(" media_notes.watched_or_read = 1 ")
                     }
-                    FilterObject.FILTERCOLUMN_WANTTOREADWATCH -> {
-                        if (notesFilter.isEmpty()) {
-                        } else {
-                            notesFilter.append(" AND ")
-                        }
-                        if (!filter.isPositive) {
-                            notesFilter.append(" NOT ")
-                        }
-                        notesFilter.append(" media_notes.want_to_watch_or_read = 1 ")
+                    typeFilter.append(" type = ")
+                    typeFilter.append(filter.id)
+                }
+                FilterObject.FILTERCOLUMN_OWNED -> {
+                    if (notesFilter.isNotEmpty()) {
+                        notesFilter.append(" AND ")
                     }
+                    if (!filter.isPositive) {
+                        notesFilter.append(" NOT ")
+                    }
+                    notesFilter.append(" media_notes.owned = 1 ")
+                }
+                FilterObject.FILTERCOLUMN_HASREADWATCHED -> {
+                    if (notesFilter.isNotEmpty()) {
+                        notesFilter.append(" AND ")
+                    }
+                    if (!filter.isPositive) {
+                        notesFilter.append(" NOT ")
+                    }
+                    notesFilter.append(" media_notes.watched_or_read = 1 ")
+                }
+                FilterObject.FILTERCOLUMN_WANTTOREADWATCH -> {
+                    if (notesFilter.isNotEmpty()) {
+                        notesFilter.append(" AND ")
+                    }
+                    if (!filter.isPositive) {
+                        notesFilter.append(" NOT ")
+                    }
+                    notesFilter.append(" media_notes.want_to_watch_or_read = 1 ")
                 }
             }
-            queryBuild.append("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId ")
-            queryBuild.append(joins)
-            var whereClause = false
-            if (characterFilter.isNotEmpty()) {
+        }
+        queryBuild.append("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId ")
+        queryBuild.append(joins)
+        var whereClause = false
+        if (characterFilter.isNotEmpty()) {
 
-                queryBuild.append(if (whereClause) " AND (" else " WHERE (")
-                whereClause = true
-                queryBuild.append(characterFilter)
-                queryBuild.append(")")
-            }
-            if (typeFilter.isNotEmpty()) {
-                queryBuild.append(if (whereClause) " AND (" else " WHERE (")
-                whereClause = true
-                queryBuild.append(typeFilter)
-                queryBuild.append(")")
-            }
-            if (notesFilter.isNotEmpty()) {
-                queryBuild.append(if (whereClause) " AND (" else " WHERE (")
-                whereClause = true
-                queryBuild.append(notesFilter)
-                queryBuild.append(")")
-            }
-            val permanentFilters = gettingPermanentFilters.await()
-            if (permanentFilters.isNotEmpty()) {
-                queryBuild.append(if (whereClause) " AND (" else " WHERE (")
+            queryBuild.append(if (whereClause) " AND (" else " WHERE (")
+            whereClause = true
+            queryBuild.append(characterFilter)
+            queryBuild.append(")")
+        }
+        if (typeFilter.isNotEmpty()) {
+            queryBuild.append(if (whereClause) " AND (" else " WHERE (")
+            whereClause = true
+            queryBuild.append(typeFilter)
+            queryBuild.append(")")
+        }
+        if (notesFilter.isNotEmpty()) {
+            queryBuild.append(if (whereClause) " AND (" else " WHERE (")
+            whereClause = true
+            queryBuild.append(notesFilter)
+            queryBuild.append(")")
+        }
+        val permanentFilters = gettingPermanentFilters.await()
+        if (permanentFilters.isNotEmpty()) {
+            queryBuild.append(if (whereClause) " AND (" else " WHERE (")
 
-                whereClause = true
-                queryBuild.append(permanentFilters)
-                queryBuild.append(")")
-            }
-            //Log.d("ListAdapter", queryBuild.toString());
-            SimpleSQLiteQuery(queryBuild.toString())
+            whereClause = true
+            queryBuild.append(permanentFilters)
+            queryBuild.append(")")
+        }
+        //Log.d("ListAdapter", queryBuild.toString());
+        SimpleSQLiteQuery(queryBuild.toString())
         //}
     }
 

@@ -192,6 +192,7 @@ public class MediaListFragment extends Fragment {
             if (mediaListViewModel.isCurrentFilter(filter)) {
                 if (filter.isPositive()) {
                     filter.setPositive(false);
+                    mediaListViewModel.updateFilters();
                 } else {
                     mediaListViewModel.removeFilter(filter);
                     filter.setPositive(true);

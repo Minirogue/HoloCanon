@@ -73,6 +73,13 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
         sortStyle.postValue(SortStyle(newCompareType, true))
     }
 
+    fun updateFilters() {
+        val value = filters.value
+        if (value != null) {
+            filters.value = value
+        }
+    }
+
 
     private suspend fun saveSort() = withContext(Dispatchers.IO) {
         val style = sortStyle.value
