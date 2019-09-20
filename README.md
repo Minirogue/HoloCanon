@@ -20,6 +20,7 @@ Here are some things that I plan to add to the app:
 * Add comments to code in case someone wants to contribute or if a potential employer wants to look at the code (Hi, still on the job market as of September 20, 2019).
 * ~~Clean up fragment management (OOM error may be possible with current configuration)~~
 * Add syncing of user selections across devices. Temporary(?) solution could be to add import/export option.
+* Add donation button, in case the users ever decide to feel generous. No plans to ever implement paid features.
 
 ## License
 I'm still figuring out the correct license to use here and how to properly include it.
