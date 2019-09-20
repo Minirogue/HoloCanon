@@ -12,14 +12,14 @@ The app has three main screens.
 
 ## TODO
 Here are some things that I plan to add to the app:
-* Saving current filters and sorting so they persist when the user returns to the Canon List screen.
+* ~~Saving current filters and sorting so they persist when the user returns to the Canon List screen.~~
 * Text search for the list. This should include searching all relevant text fields of the items.
 * Clean up the filter selection menu into filter groups with options to filter ONLY selected items or to filter OUT the selected items in a group.
-* Add some functionality for series.
+* Add some functionality for series, including checking off an entire series.
 * Add filtering by publisher (seems like people aren't as into the IDW comics, I guess).
-* Add comments to code in case someone wants to contribute or if a potential employer wants to look at the code (Hi, still on the job market as of August 18, 2019).
-* Clean up fragment management (OOM error may be possible with current configuration)
-* Add syncing of user selections across devices
+* Add comments to code in case someone wants to contribute or if a potential employer wants to look at the code (Hi, still on the job market as of September 20, 2019).
+* ~~Clean up fragment management (OOM error may be possible with current configuration)~~
+* Add syncing of user selections across devices. Temporary(?) solution could be to add import/export option.
 
 ## License
 I'm still figuring out the correct license to use here and how to properly include it.
