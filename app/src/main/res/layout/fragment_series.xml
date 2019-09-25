@@ -52,7 +52,6 @@
             android:id="@+id/checkbox_watched_or_read"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:enabled="false"
             android:padding="16dp"
             app:layout_constraintBottom_toTopOf="@id/checkbox_want_to_watch_or_read"
             app:layout_constraintRight_toRightOf="parent" />
@@ -61,7 +60,6 @@
             android:id="@+id/checkbox_want_to_watch_or_read"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:enabled="false"
             android:padding="16dp"
             app:layout_constraintBottom_toTopOf="@id/checkbox_owned"
             app:layout_constraintRight_toRightOf="parent" />
@@ -70,7 +68,6 @@
             android:id="@+id/checkbox_owned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:enabled="false"
             android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
