@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewMediaItemFragment">
+    tools:context=".SeriesFragment">
 
     <ScrollView
-        android:id="@+id/review_and_description_holder"
+        android:id="@+id/description_holder"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/checkbox_holder"
-        app:layout_constraintTop_toBottomOf="@id/image_cover">
+        app:layout_constraintTop_toBottomOf="@id/series_image">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,43 +26,18 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp" />
 
-            <TextView
-                android:id="@+id/review_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp" />
         </LinearLayout>
     </ScrollView>
 
     <TextView
-        android:id="@+id/media_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/media_type"
-        app:layout_constraintLeft_toLeftOf="@id/media_title"
-        app:layout_constraintTop_toBottomOf="@id/media_title" />
-
-    <TextView
-        android:id="@+id/release_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/release_date"
-        app:layout_constraintLeft_toLeftOf="@id/media_type"
-        app:layout_constraintTop_toBottomOf="@id/media_type" />
-
-    <TextView
-        android:id="@+id/media_title"
+        android:id="@+id/series_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
         android:padding="16dp"
-        android:text="@string/media_title"
-        app:layout_constraintLeft_toRightOf="@id/image_cover"
+        android:text="@string/series_title"
+        app:layout_constraintLeft_toRightOf="@id/series_image"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,6 +52,7 @@
             android:id="@+id/checkbox_watched_or_read"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:padding="16dp"
             app:layout_constraintBottom_toTopOf="@id/checkbox_want_to_watch_or_read"
             app:layout_constraintRight_toRightOf="parent" />
@@ -85,6 +61,7 @@
             android:id="@+id/checkbox_want_to_watch_or_read"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:padding="16dp"
             app:layout_constraintBottom_toTopOf="@id/checkbox_owned"
             app:layout_constraintRight_toRightOf="parent" />
@@ -93,6 +70,7 @@
             android:id="@+id/checkbox_owned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:enabled="false"
             android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
@@ -127,35 +105,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/image_cover"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:id="@+id/series_image"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
         android:layout_margin="10dp"
-        android:contentDescription="@string/cover_image_description"
+        android:contentDescription="@string/series_image_description"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/media_title"
+        app:layout_constraintRight_toLeftOf="@id/series_title"
         app:layout_constraintTop_toTopOf="parent" />
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/view_series_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="@string/view_series"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/media_title"
-        android:visibility="invisible"/>
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/affiliate_links_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_shopping"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@id/checkbox_holder"
-        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

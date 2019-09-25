@@ -62,6 +62,19 @@ class ViewMediaItemFragment : Fragment(){
         fragmentView.image_cover.setImageRequest(request)
         fragmentView.image_cover.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_INSIDE
         makeShoppingMenu(item, fragmentView)
+        if (item.series > 0){
+            fragmentView.view_series_button.visibility = View.VISIBLE
+            fragmentView.view_series_button.setOnClickListener {
+                val seriesFragment = SeriesFragment()
+                val bundle = Bundle()
+                bundle.putInt(getString(R.string.bundleItemId), item.series)
+                seriesFragment.arguments = bundle
+                activity!!.supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, seriesFragment)
+                        .addToBackStack(null)
+                        .commit()
+            }
+        }
     }
 
     private fun updateViews(notes : MediaNotes, fragmentView: View){

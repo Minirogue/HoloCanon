@@ -10,28 +10,37 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database(entities = {MediaItem.class, Character.class, MediaCharacterJoin.class, MediaNotes.class,
-                        MediaType.class},
-        version = 12)
+                        MediaType.class, Series.class},
+        version = 13)
 public abstract class MediaDatabase extends RoomDatabase {
 
     private static MediaDatabase databaseInstance;
 
     public abstract DaoMedia getDaoMedia();
-    // --Commented out by Inspection (6/6/19 8:33 PM):public abstract DaoCharacter getDaoCharacter();
     public abstract DaoType getDaoType();
+    public abstract DaoSeries getDaoSeries();
 
 
     public static MediaDatabase getMediaDataBase(Context ctx){
         if (databaseInstance == null) {
             databaseInstance =
                     Room.databaseBuilder(ctx.getApplicationContext(), MediaDatabase.class, "StarWars-database")
-                            .addMigrations(MIGRATE_8_9,MIGRATE_9_10,MIGRATE_10_11,MIGRATE_11_12)
+                            .addMigrations(MIGRATE_8_9,MIGRATE_9_10,MIGRATE_10_11,MIGRATE_11_12,MIGRATE_12_13)
                             .build();
         }
         return databaseInstance;
     }
 
-    private final static Migration MIGRATE_11_12 = new Migration(11,12) {
+
+    final static Migration MIGRATE_12_13 = new Migration(12,13) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE IF NOT EXISTS 'series'('id' INTEGER NOT NULL, 'title' TEXT NOT NULL, 'description' TEXT NOT NULL, 'image' TEXT NOT NULL, PRIMARY KEY('id'))");
+            database.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'series' INTEGER NOT NULL DEFAULT -1");
+        }
+    };
+
+    final static Migration MIGRATE_11_12 = new Migration(11,12) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'review' TEXT DEFAULT ''");

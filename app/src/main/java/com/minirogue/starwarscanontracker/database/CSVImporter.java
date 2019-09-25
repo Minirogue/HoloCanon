@@ -30,18 +30,19 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
     private boolean wifiOnly;
     private ConnectivityManager connMgr;
     private HashMap<String, Integer> convertType = new HashMap<>();
+    private HashMap<String, Integer> convertSeries = new HashMap<>();
     private long newVersionId;
     private boolean forced;
 
 
-    public CSVImporter(Application application, boolean forced){
+    public CSVImporter(Application application, boolean forced) {
         appRef = new WeakReference<>(application);
         connMgr = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
-        wifiOnly = PreferenceManager.getDefaultSharedPreferences(appRef.get()).getBoolean(appRef.get().getString(R.string.setting_unmetered_sync_only),true);
+        wifiOnly = PreferenceManager.getDefaultSharedPreferences(appRef.get()).getBoolean(appRef.get().getString(R.string.setting_unmetered_sync_only), true);
         this.forced = forced;
     }
 
-    private void importCSVToMediaTypeTable(InputStream inputStream){
+    private void importCSVToMediaTypeTable(InputStream inputStream) {
         //Log.d(TAG, "starting media_type import");
         Application app = appRef.get();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -61,19 +62,19 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                             break;
                         case "media_type":
                             mediaType.setText(row[i]);
-                            //Log.d(TAG, "text found "+row[i]);
+                            //Log.d(TAG, "title found "+row[i]);
                             break;
                         default:
                             //System.out.println("Unused header: " + header[i]);
                     }
                 }
                 long insertSuccessful = db.getDaoType().insert(mediaType);
-                if (insertSuccessful == -1){
+                if (insertSuccessful == -1) {
                     db.getDaoType().update(mediaType);
                 }
                 convertType.put(mediaType.getText(), mediaType.getId());
-                //Log.d(TAG, "type added "+mediaType.getId()+" "+mediaType.getText());
-                if (wifiOnly && connMgr.isActiveNetworkMetered()){
+                //Log.d(TAG, "type added "+mediaType.getId()+" "+mediaType.getTitle());
+                if (wifiOnly && connMgr.isActiveNetworkMetered()) {
                     cancel(true);
                     break;
                 }
@@ -90,7 +91,61 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
         }
     }
 
-    private void importCSVToMediaDatabase(InputStream inputStream){
+    private void importCSVToSeriesTable(InputStream inputStream) {
+        //Log.d(TAG, "starting media_type import");
+        Application app = appRef.get();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        try {
+            MediaDatabase db = MediaDatabase.getMediaDataBase(app);
+            Series series;
+            String[] header = reader.readLine().split(",");
+            String csvLine;
+            while ((csvLine = reader.readLine()) != null) {
+                String[] row = csvLine.split(",");
+                series = new Series();
+                for (int i = 0; i < row.length; i++) {
+                    switch (header[i]) {
+                        case "id":
+                            series.setId(Integer.valueOf(row[i]));
+                            break;
+                        case "name":
+                            series.setTitle(row[i]);
+                            break;
+                        case "image":
+                            series.setImageURL(row[i]);
+                            break;
+                        case "description":
+                            series.setDescription(row[i].replace(";", ","));
+                            break;
+                        default:
+                            //System.out.println("Unused header: " + header[i]);
+                    }
+                }
+                long insertSuccessful = db.getDaoSeries().insert(series);
+                if (insertSuccessful == -1) {
+                    db.getDaoSeries().update(series);
+                }
+                convertSeries.put(series.getTitle(), series.getId());
+                //Log.d(TAG, "type added "+mediaType.getId()+" "+mediaType.getTitle());
+                if (wifiOnly && connMgr.isActiveNetworkMetered()) {
+                    cancel(true);
+                    break;
+                }
+            }
+            //Log.d(TAG, "queried mediaTypeTable: "+db.getDaoType().getAllNonLive());
+        } catch (IOException ex) {
+            throw new RuntimeException("Error reading CSV file: " + ex);
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException ex) {
+                //Log.e("CSVImporter","Error while closing input stream from CSV file: " + ex);
+            }
+        }
+    }
+
+
+    private void importCSVToMediaDatabase(InputStream inputStream) {
         Application app = appRef.get();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
@@ -109,20 +164,33 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                         case "title":
                             newItem.title = (row[i]);
                             break;
+                        case "series":
+                            Integer newSeries = convertSeries.get(row[i]);
+                            //convertSeries.get(key) returns null if there is no mapping for the key
+                            if (newSeries == null) {
+                                newItem.series = -1;
+                            } else {
+                                newItem.series = (newSeries);
+                            }
+                            break;
                         case "type":
-                            //Log.d(TAG, row[i]);
                             Integer newType = convertType.get(row[i]);
-                            if (newType == null){
+                            //convertType.get(key) returns null if there is no mapping for the key
+                            if (newType == null) {
                                 newItem.type = -1;
-                            }else {
+                            } else {
                                 newItem.type = (newType);
                             }
                             break;
                         case "description":
-                            newItem.description = row[i].replace(";",",");
+                            //semicolons are used as placeholders for commas in the database
+                            // to not break the CSV format
+                            newItem.description = row[i].replace(";", ",");
                             break;
                         case "review":
-                            newItem.review = row[i].replace(";",",");
+                            //semicolons are used as placeholders for commas in the database
+                            // to not break the CSV format
+                            newItem.review = row[i].replace(";", ",");
                             break;
                         case "author":
                             newItem.author = (row[i]);
@@ -137,14 +205,15 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                             newItem.amazonStream = (row[i]);
                             break;
                         case "released":
-                            if (row[i].equals("")){
+                            if (row[i].equals("")) {
+                                //default value for release date
                                 newItem.date = "99/99/9999";
-                            }else {
+                            } else {
                                 newItem.date = (row[i]);
                             }
                             break;
                         case "timeline":
-                            if (row[i].equals("")){
+                            if (row[i].equals("")) {
                                 newItem.timeline = 10000.0;
                             } else {
                                 newItem.timeline = Double.valueOf(row[i]);
@@ -155,11 +224,11 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                     }
                 }
                 long insertSuccessful = db.getDaoMedia().insert(newItem);
-                if (insertSuccessful == -1){
+                if (insertSuccessful == -1) {
                     db.getDaoMedia().update(newItem);
                 }
                 db.getDaoMedia().insert(new MediaNotes(newItem.id));
-                if (wifiOnly && connMgr.isActiveNetworkMetered()){
+                if (wifiOnly && connMgr.isActiveNetworkMetered()) {
                     cancel(true);
                     break;
                 }
@@ -233,7 +302,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
             return null;
         }
         InputStream inputStream = null;
-        if (params[0] == SOURCE_ONLINE){
+        if (params[0] == SOURCE_ONLINE) {
             try {
                 //update version number
                 URL url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1842257512&single=true&output=csv");
@@ -241,21 +310,29 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
                 newVersionId = Long.valueOf(reader.readLine().split(",")[0]);
                 inputStream.close();
-                if (!forced && newVersionId == PreferenceManager.getDefaultSharedPreferences(appRef.get()).getLong(appRef.get().getString(R.string.current_database_version),0)){
+                if (!forced && newVersionId == PreferenceManager.getDefaultSharedPreferences(appRef.get()).getLong(appRef.get().getString(R.string.current_database_version), 0)) {
                     cancel(true);
-                }else if (forced){
+                } else if (forced) {
                     publishProgress("Updating Database");
                 }
                 //import the media types
-                if (isCancelled()){
+                if (isCancelled()) {
                     return null;
                 }
                 url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1834840175&single=true&output=csv");
                 inputStream = url.openStream();
                 importCSVToMediaTypeTable(inputStream);
                 inputStream.close();
+                //import the series table
+                if (isCancelled()) {
+                    return null;
+                }
+                url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=485468234&single=true&output=csv");
+                inputStream = url.openStream();
+                importCSVToSeriesTable(inputStream);
+                inputStream.close();
                 //import the main media table
-                if (isCancelled()){
+                if (isCancelled()) {
                     return null;
                 }
                 url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=0&single=true&output=csv");
@@ -274,9 +351,8 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 //Log.e("DatabaseUpdate", ex.toString());
                 cancel(true);
                 return null;
-            }
-            finally {
-                if (inputStream != null){
+            } finally {
+                if (inputStream != null) {
                     try {
                         inputStream.close();
                     } catch (IOException e) {
@@ -288,7 +364,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
         Application app = appRef.get();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(app);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putLong(app.getString(R.string.current_database_version),newVersionId);
+        editor.putLong(app.getString(R.string.current_database_version), newVersionId);
         editor.apply();
         return null;
     }

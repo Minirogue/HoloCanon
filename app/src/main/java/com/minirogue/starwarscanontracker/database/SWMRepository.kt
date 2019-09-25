@@ -7,11 +7,9 @@ import androidx.preference.PreferenceManager
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.minirogue.starwarscanontracker.FilterObject
 import com.minirogue.starwarscanontracker.R
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
+import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withContext
 import java.io.File
 import java.lang.ref.WeakReference
 import java.util.*
@@ -22,15 +20,20 @@ class SWMRepository(private val application: Application) {
     //The DAOs used to access the database
     private val daoMedia: DaoMedia
     private val daoType: DaoType
+    private val daoSeries: DaoSeries
 
     //Variables to help manage saving of current filters
     private val filterCacheFileName = application.cacheDir.toString() + "/filterCache"
     private val saveFiltersMutex = Mutex()
 
+    //A Mutex in case notes are being updated concurrently (e.g. user clicks on two separate checkboxes for a series)
+    private val updatingNotesMutex = Mutex()
+
     init {
         val db = MediaDatabase.getMediaDataBase(application)
         daoMedia = db.daoMedia
         daoType = db.daoType
+        daoSeries = db.daoSeries
     }
 
     /**
@@ -196,7 +199,7 @@ class SWMRepository(private val application: Application) {
     }
 
     /**
-     * Converts a MediaType id to text for that type
+     * Converts a MediaType id to title for that type
      *
      * @param typeId the id corresponding to a MediaType
      */
@@ -214,12 +217,54 @@ class SWMRepository(private val application: Application) {
     }
 
     /**
+     * Returns LiveData containing a List of MediaItems belonging to the Series with seriesId
+     */
+    fun getLiveNotesBySeries(seriesId: Int): LiveData<List<MediaNotes>> {
+        return daoMedia.getMediaNotesBySeries(seriesId)
+    }
+
+    /**
+     * Returns LiveData containing the Series corresponding the the seriesId
+     */
+    fun getLiveSeries(seriesId: Int): LiveData<Series> {
+        return daoSeries.getLiveSeries(seriesId)
+    }
+
+    /**
      * Returns MediaNotes associated to the given MediaItem id
      *
      * @param itemId the id associated to the MediaItem for which the MediaNotes are desired
      */
     fun getLiveMediaNotes(itemId: Int): LiveData<MediaNotes> {
         return daoMedia.getMediaNotesById(itemId)
+    }
+
+    fun setSeriesWantToWatchRead(seriesId: Int, newValue: Boolean) = GlobalScope.launch(Dispatchers.Default) {
+        updatingNotesMutex.withLock {
+            val listOfNotes = daoMedia.getMediaNotesBySeriesNonLive(seriesId)
+            for (notes in listOfNotes) {
+                notes.isWantToWatchRead = newValue
+                daoMedia.update(notes)
+            }
+        }
+    }
+    fun setSeriesOwned(seriesId: Int, newValue: Boolean) = GlobalScope.launch(Dispatchers.Default) {
+        updatingNotesMutex.withLock {
+            val listOfNotes = daoMedia.getMediaNotesBySeriesNonLive(seriesId)
+            for (notes in listOfNotes) {
+                notes.isOwned = newValue
+                daoMedia.update(notes)
+            }
+        }
+    }
+    fun setSeriesWatchedRead(seriesId: Int, newValue: Boolean) = GlobalScope.launch(Dispatchers.Default) {
+        updatingNotesMutex.withLock {
+            val listOfNotes = daoMedia.getMediaNotesBySeriesNonLive(seriesId)
+            for (notes in listOfNotes) {
+                notes.isWatchedRead = newValue
+                daoMedia.update(notes)
+            }
+        }
     }
 
     /**

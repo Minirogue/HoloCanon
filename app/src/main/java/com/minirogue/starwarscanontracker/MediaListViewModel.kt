@@ -30,9 +30,9 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
     private val unmeteredOnly: Boolean
     private val sortCacheFileName = application.cacheDir.toString() + "/sortCache"
     //private val sortQueue = OperationQueue()
-    private var queryJob = Job()
+    private var queryJob: Job = Job()
     private val queryMutex = Mutex()
-    private var sortJob = Job()
+    private var sortJob: Job = Job()
     private val sortMutex = Mutex()
 
 

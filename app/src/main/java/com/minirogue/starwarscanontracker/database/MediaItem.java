@@ -15,6 +15,8 @@ public class MediaItem {
     public int id;
     @ColumnInfo(name = "title")
     public String title;
+    @ColumnInfo(name = "series")
+    public int series;
     @ColumnInfo(name = "author")
     public String author;
     @ColumnInfo(name = "type")

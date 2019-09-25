@@ -28,7 +28,16 @@ public interface DaoMedia {
     LiveData<MediaNotes> getMediaNotesById(int mediaId);
     @Query("SELECT * FROM media_items WHERE id = :mediaID LIMIT 1")
     LiveData<MediaItem> getMediaItemById (int mediaID);
-// --Commented out by Inspection START (6/6/19 7:11 PM):
+    @Query("SELECT * FROM media_items WHERE series = :series")
+    LiveData<MediaItem> getMediaItemsBySeries(int series);
+    @Query("SELECT media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId WHERE media_items.series = :series")
+    LiveData<List<MediaNotes>> getMediaNotesBySeries(int series);
+
+    @Query("SELECT media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId WHERE media_items.series = :series")
+    List<MediaNotes> getMediaNotesBySeriesNonLive(int series);
+
+
+    // --Commented out by Inspection START (6/6/19 7:11 PM):
 //    @Query("SELECT * FROM media_items WHERE type = :type")
 //    List<MediaItem> getMediaByType(int type);
 // --Commented out by Inspection STOP (6/6/19 7:11 PM)

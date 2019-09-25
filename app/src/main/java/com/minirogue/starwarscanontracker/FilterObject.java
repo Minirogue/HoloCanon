@@ -136,8 +136,8 @@ public class FilterObject {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(application);
         List<MediaType> allMediaTypes = MediaDatabase.getMediaDataBase(application).getDaoType().getAllNonLive();
         for (MediaType mediaType : allMediaTypes) {
-            if (prefs.getBoolean(mediaType.getText(), true)) {
-                newTypeFilters.add(new FilterObject(mediaType.getId(), FILTERCOLUMN_TYPE, mediaType.getText()));
+            if (prefs.getBoolean(mediaType.getTitle(), true)) {
+                newTypeFilters.add(new FilterObject(mediaType.getId(), FILTERCOLUMN_TYPE, mediaType.getTitle()));
             }
         }
         typeFilters.postValue(newTypeFilters);
