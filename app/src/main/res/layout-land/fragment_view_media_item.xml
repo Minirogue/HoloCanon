@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewMediaItemFragment">
+    tools:context=".view.fragment.ViewMediaItemFragment">
 
     <ScrollView
         android:id="@+id/review_and_description_holder"
