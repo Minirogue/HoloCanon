@@ -19,11 +19,11 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
 
 
         SetTypePreferences(activity!!.applicationContext, findPreference("permanent_filters")!!).execute()
-        val checkboxone = findPreference<EditTextPreference>(getString(R.string.watched_read))
+        val checkboxone = findPreference<EditTextPreference>(getString(R.string.checkbox1_default_text))
         checkboxone?.setSummaryProvider { checkboxone.text }
-        val checkboxtwo = findPreference<EditTextPreference>(getString(R.string.want_to_watch_read))
+        val checkboxtwo = findPreference<EditTextPreference>(getString(R.string.checkbox2_default_text))
         checkboxtwo?.setSummaryProvider { checkboxtwo.text }
-        val checkboxthree = findPreference<EditTextPreference>(getString(R.string.owned))
+        val checkboxthree = findPreference<EditTextPreference>(getString(R.string.checkbox3_default_text))
         checkboxthree?.setSummaryProvider { checkboxthree.text }
     }
 

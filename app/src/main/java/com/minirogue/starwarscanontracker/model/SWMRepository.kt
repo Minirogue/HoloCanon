@@ -2,7 +2,8 @@ package com.minirogue.starwarscanontracker.model
 
 import android.app.Application
 import android.os.AsyncTask
-import android.util.SparseArray
+import android.util.Log
+import android.util.SparseBooleanArray
 import androidx.lifecycle.LiveData
 import androidx.preference.PreferenceManager
 import androidx.sqlite.db.SimpleSQLiteQuery
@@ -11,6 +12,7 @@ import com.minirogue.starwarscanontracker.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.model.room.dao.DaoSeries
 import com.minirogue.starwarscanontracker.model.room.dao.DaoType
 import com.minirogue.starwarscanontracker.model.room.entity.*
+import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter
 import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
 import kotlinx.coroutines.*
 import org.koin.core.KoinComponent
@@ -53,23 +55,23 @@ class SWMRepository() : KoinComponent {
      * @param filterList the list of Filters to apply to the query
      */
     private suspend fun convertFiltersToQuery(filterList: List<FilterObject>): SimpleSQLiteQuery = withContext(Dispatchers.Default) {
+        Log.d("makeQuery", filterList.toString())
         val gettingPermanentFilters = async { getPermanentFiltersAsStringBuilder() }
-        /*if (filterList == null) {
-            SimpleSQLiteQuery("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId")
-        } else {*/
-        val filterTypeIsPositive = SparseArray<Boolean>()
+        val filterTypeIsPositive = SparseBooleanArray()
         for (filterType in daoFilter.getAllFilterTypesNonLive()) {
-            filterTypeIsPositive.setValueAt(filterType.typeId, filterType.isFilterPositive)
+            Log.d("makeQuery", filterType.getText()+filterType.typeId)
+            filterTypeIsPositive.put(filterType.typeId, filterType.isFilterPositive)
         }
         val queryBuild = StringBuilder()
         val joins = StringBuilder()
-        val characterFilter = StringBuilder()
+        //val characterFilter = StringBuilder()
+        val seriesFilter = StringBuilder()
         val typeFilter = StringBuilder()
         val notesFilter = StringBuilder()
         for (filter in filterList) {
             if (filter.active) {
                 when (filter.filterType) {
-                    FilterType.FILTERCOLUMN_CHARACTER -> {
+                   /* FilterType.FILTERCOLUMN_CHARACTER -> {
                         if (characterFilter.isEmpty()) {
                             joins.append(" INNER JOIN media_character_join ON media_items.id = media_character_join.mediaId ")
                         } else {
@@ -80,6 +82,21 @@ class SWMRepository() : KoinComponent {
                         }
                         characterFilter.append(" media_character_join.characterID = ")
                         characterFilter.append(filter.id)
+                    }*/
+                    FilterType.FILTERCOLUMN_SERIES -> {
+                        if (seriesFilter.isEmpty()) {
+                            if (!filterTypeIsPositive[filter.filterType]) {
+                                seriesFilter.append(" NOT ")
+                            }
+                        } else {
+                            if (!filterTypeIsPositive[filter.filterType]) {
+                                seriesFilter.append(" AND NOT ")
+                            } else {
+                                seriesFilter.append(" OR ")
+                            }
+                        }
+                        seriesFilter.append(" series = ")
+                        seriesFilter.append(filter.id)
                     }
                     FilterType.FILTERCOLUMN_TYPE -> {
                         if (typeFilter.isEmpty()) {
@@ -97,9 +114,13 @@ class SWMRepository() : KoinComponent {
                         typeFilter.append(filter.id)
                     }
                     FilterType.FILTERCOLUMN_OWNED -> {
+                        Log.d("makeQuery", ""+filter.filterType + " filter owned")
                         if (notesFilter.isNotEmpty()) {
                             notesFilter.append(" AND ")
                         }
+                        Log.d("makeQuery", "Oh man, we about to get null")
+                        Log.d("makeQuery", "is it the SparseArray? $filterTypeIsPositive")
+                        Log.d("makeQuery", "is it the filter? $filter")
                         if (!filterTypeIsPositive[filter.filterType]) {
                             notesFilter.append(" NOT ")
                         }
@@ -129,11 +150,17 @@ class SWMRepository() : KoinComponent {
         queryBuild.append("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId ")
         queryBuild.append(joins)
         var whereClause = false
-        if (characterFilter.isNotEmpty()) {
+        /*if (characterFilter.isNotEmpty()) {
 
             queryBuild.append(if (whereClause) " AND (" else " WHERE (")
             whereClause = true
             queryBuild.append(characterFilter)
+            queryBuild.append(")")
+        }*/
+        if (seriesFilter.isNotEmpty()){
+            queryBuild.append(if (whereClause) " AND (" else " WHERE (")
+            whereClause = true
+            queryBuild.append(seriesFilter)
             queryBuild.append(")")
         }
         if (typeFilter.isNotEmpty()) {
@@ -290,7 +317,7 @@ class SWMRepository() : KoinComponent {
         daoFilter.update(filterType)
     }
 
-    fun getActiveFilters(): LiveData<List<FilterObject>> {
+    fun getActiveFilters(): LiveData<List<FullFilter>> {
         return daoFilter.getActiveFilters()
     }
 

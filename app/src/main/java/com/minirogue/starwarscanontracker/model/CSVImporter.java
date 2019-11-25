@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.preference.PreferenceManager;
 
 import com.minirogue.starwarscanontracker.model.room.MediaDatabase;
+import com.minirogue.starwarscanontracker.model.room.dao.DaoSeries;
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject;
 import com.minirogue.starwarscanontracker.R;
 import com.minirogue.starwarscanontracker.model.room.dao.DaoFilter;
@@ -408,30 +409,37 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
         }
     }
 
-    private void updateFilters(){
+    private void updateFilters() {
         DaoFilter daoFilter = MediaDatabase.getMediaDataBase(appRef.get()).getDaoFilter();
         DaoType daoType = MediaDatabase.getMediaDataBase(appRef.get()).getDaoType();
+        DaoSeries daoSeries = MediaDatabase.getMediaDataBase(appRef.get()).getDaoSeries();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(appRef.get());
+        Application app = appRef.get();
+
 
         //add checkbox filters
         daoFilter.insert(new FilterType(FILTERCOLUMN_OWNED, true));
-        daoFilter.insert(new FilterObject(1,FILTERCOLUMN_OWNED,false, "this text shouldn't be visible"));
+        daoFilter.insert(new FilterObject(1, FILTERCOLUMN_OWNED, false, prefs.getString(app.getString(R.string.checkbox1_default_text), app.getString(R.string.checkbox1_default_text))));
 
         daoFilter.insert(new FilterType(FILTERCOLUMN_WANTTOREADWATCH, true));
-        daoFilter.insert(new FilterObject(1,FILTERCOLUMN_WANTTOREADWATCH,false, "this text shouldn't be visible"));
+        daoFilter.insert(new FilterObject(1, FILTERCOLUMN_WANTTOREADWATCH, false, prefs.getString(app.getString(R.string.checkbox2_default_text), app.getString(R.string.checkbox2_default_text))));
 
         daoFilter.insert(new FilterType(FILTERCOLUMN_HASREADWATCHED, true));
-        daoFilter.insert(new FilterObject(1,FILTERCOLUMN_HASREADWATCHED,false, "this text shouldn't be visible"));
+        daoFilter.insert(new FilterObject(1, FILTERCOLUMN_HASREADWATCHED, false, prefs.getString(app.getString(R.string.checkbox3_default_text), app.getString(R.string.checkbox3_default_text))));
 
         //MediaType filters
         daoFilter.insert(new FilterType(FILTERCOLUMN_TYPE, true));
         List<MediaType> mediaTypes = daoType.getAllNonLive();
-        for (MediaType mediaType : mediaTypes){
+        for (MediaType mediaType : mediaTypes) {
             daoFilter.insert(new FilterObject(mediaType.getId(), FILTERCOLUMN_TYPE, false, mediaType.getText()));
         }
 
         //Series filters
         daoFilter.insert(new FilterType(FILTERCOLUMN_SERIES, true));
-        //TODO
+        List<Series> seriesList = daoSeries.getAllNonLive();
+        for (Series series : seriesList){
+            daoFilter.insert(new FilterObject(series.getId(), FILTERCOLUMN_SERIES, false, series.getTitle()));
+        }
 
     }
 }

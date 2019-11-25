@@ -49,9 +49,9 @@ class SeriesFragment : Fragment() {
 
     fun setTextBoxes(fragmentView: View, application: Application){
         val prefs = PreferenceManager.getDefaultSharedPreferences(application)
-        fragmentView.text_watched_or_read.text = prefs.getString(application.getString(R.string.watched_read), application.getString(R.string.watched_read))?: ""
-        fragmentView.text_want_to_watch_or_read.text = prefs.getString(application.getString(R.string.want_to_watch_read), application.getString(R.string.want_to_watch_read))?: ""
-        fragmentView.text_owned.text = prefs.getString(application.getString(R.string.owned), application.getString(R.string.owned))?: ""
+        fragmentView.text_watched_or_read.text = prefs.getString(application.getString(R.string.checkbox1_default_text), application.getString(R.string.checkbox1_default_text))?: ""
+        fragmentView.text_want_to_watch_or_read.text = prefs.getString(application.getString(R.string.checkbox2_default_text), application.getString(R.string.checkbox2_default_text))?: ""
+        fragmentView.text_owned.text = prefs.getString(application.getString(R.string.checkbox3_default_text), application.getString(R.string.checkbox3_default_text))?: ""
     }
 
     fun updateViews(series: Series, fragmentView: View){

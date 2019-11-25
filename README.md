@@ -20,6 +20,7 @@ Here are some things that I plan to add to the app:
 * Add comments to code in case someone wants to contribute or if a potential employer wants to look at the code (Hi, still on the job market as of August 18, 2019).
 * Clean up fragment management (OOM error may be possible with current configuration)
 * Add syncing of user selections across devices
+* Add Hardcover, Omnibus, and info-books to database
 
 ## License
 I'm still figuring out the correct license to use here and how to properly include it.

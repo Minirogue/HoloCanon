@@ -17,6 +17,7 @@ class MigrationTest {
             MediaDatabase::class.java.canonicalName,
             FrameworkSQLiteOpenHelperFactory())
 
+
     @Test
     @Throws(IOException::class)
     fun migrate11To12() {
@@ -53,6 +54,25 @@ class MigrationTest {
         }
 
         db = testHelper.runMigrationsAndValidate(TEST_DB, 14, true, MediaDatabase.MIGRATE_13_14)
+
+    }
+
+    @Test
+    @Throws(IOException::class)
+    fun dataValidation13to14(){
+
+    }
+
+    @Test
+    @Throws(IOException::class)
+    fun migrate14To15() {
+        var db = testHelper.createDatabase(TEST_DB, 14).apply {
+            //use execSQL() to populate room
+
+            close()
+        }
+
+        db = testHelper.runMigrationsAndValidate(TEST_DB, 15, true, MediaDatabase.MIGRATE_14_15)
 
     }
 }

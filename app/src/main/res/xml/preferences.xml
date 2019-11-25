@@ -52,18 +52,18 @@
         android:key="user_defined_notes"
         android:title="Checkbox Names">
         <EditTextPreference
-            android:key="@string/watched_read"
+            android:key="@string/checkbox1_default_text"
             android:title="Checkbox 1"
-            android:summary="@string/watched_read"
-            android:defaultValue="@string/watched_read"/>
+            android:summary="@string/checkbox1_default_text"
+            android:defaultValue="@string/checkbox1_default_text"/>
         <EditTextPreference
-            android:key="@string/want_to_watch_read"
+            android:key="@string/checkbox2_default_text"
             android:title="Checkbox 2"
-            android:defaultValue="@string/want_to_watch_read"/>
+            android:defaultValue="@string/checkbox2_default_text"/>
         <EditTextPreference
-            android:key="@string/owned"
+            android:key="@string/checkbox3_default_text"
             android:title="Checkbox 3"
-            android:defaultValue="@string/owned"/>
+            android:defaultValue="@string/checkbox3_default_text"/>
     </PreferenceCategory>
 
     <PreferenceCategory

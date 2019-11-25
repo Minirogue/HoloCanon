@@ -102,7 +102,7 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
         queryMutex.withLock {
             queryJob.cancelAndJoin()
             queryJob = launch {
-                val newListLiveData = repository.getMediaListWithNotes(activeFilters.value ?: ArrayList())
+                val newListLiveData = repository.getMediaListWithNotes(activeFilters.value?.map {it.filterObject}?: ArrayList())
                 withContext(Dispatchers.Main) {
                     dataMediator.removeSource(data)
                     data = newListLiveData

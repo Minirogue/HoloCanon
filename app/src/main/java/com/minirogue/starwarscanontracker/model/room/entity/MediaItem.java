@@ -3,6 +3,7 @@ package com.minirogue.starwarscanontracker.model.room.entity;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
@@ -10,7 +11,9 @@ import org.jetbrains.annotations.NotNull;
 @Entity(tableName = "media_items",
         foreignKeys = @ForeignKey(entity = MediaType.class,
                 parentColumns = "id",
-                childColumns = "type"))
+                childColumns = "type"),
+        indices = {@Index("type"),
+                @Index("series")})
 public class MediaItem {
     //This class represents the room entries
 

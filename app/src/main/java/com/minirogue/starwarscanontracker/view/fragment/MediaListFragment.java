@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 
@@ -22,16 +21,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.minirogue.starwarscanontracker.view.adapter.FilterSubMenuAdapter;
+import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter;
+import com.minirogue.starwarscanontracker.view.FilterChip;
+import com.minirogue.starwarscanontracker.view.activity.MainActivity;
 import com.minirogue.starwarscanontracker.view.adapter.SWMListAdapter;
-import com.minirogue.starwarscanontracker.view.adapter.FilterMenuAdapter;
-import com.minirogue.starwarscanontracker.model.room.entity.FilterObject;
-import com.minirogue.starwarscanontracker.model.room.entity.FilterType;
 import com.minirogue.starwarscanontracker.R;
 import com.minirogue.starwarscanontracker.model.SortStyle;
 import com.minirogue.starwarscanontracker.viewmodel.MediaListViewModel;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
@@ -46,13 +42,11 @@ public class MediaListFragment extends Fragment {
     private FloatingActionButton sortFAB;
     private FloatingActionButton filterFAB;
     private Context ctx;
-    private PopupMenu sortMenu;
-    private PopupWindow filterMenu;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        ctx = getActivity();
+        ctx = this.getContext();
     }
 
     @Nullable
@@ -62,22 +56,19 @@ public class MediaListFragment extends Fragment {
         Log.d(TAG, "onCreateView: getting viewmodel");
         mediaListViewModel = ViewModelProviders.of(this).get(MediaListViewModel.class);
         Log.d(TAG, "onCreateView: viewmodel gotten");
-        mediaListViewModel.getFilteredMediaAndNotes().observe(getViewLifecycleOwner(), mediaAndNotes -> {
-            adapter.submitList((mediaAndNotes));
-        });
+        mediaListViewModel.getFilteredMediaAndNotes().observe(getViewLifecycleOwner(), mediaAndNotes -> adapter.submitList((mediaAndNotes)));
 
         RecyclerView recyclerView = fragmentView.findViewById(R.id.media_recyclerview);
         chipGroup = fragmentView.findViewById(R.id.filter_chip_group);
         makeCurrentSortChip();
         sortFAB = fragmentView.findViewById(R.id.sort_floating_action_button);
-        makeSortMenu();
-        sortFAB.setOnClickListener(view -> sortMenu.show());
+        PopupMenu sortMenu = makeSortMenu();
+        sortFAB.setOnClickListener(view -> {
+            sortMenu.show();
+        });
         filterFAB = fragmentView.findViewById(R.id.filter_floating_action_button);
-        makeFilterMenu(inflater);
-        int[] filterFABLocation = new int[]{0,0};
-        filterFAB.getLocationOnScreen(filterFABLocation);
-        filterFAB.setOnClickListener(view -> filterMenu.showAtLocation(filterFAB, Gravity.BOTTOM|Gravity.END, filterFABLocation[0] + filterFAB.getLeft(), filterFABLocation[1] + filterFAB.getRight()));
-        //filterFAB.setOnClickListener(view -> filterMenu.showAsDropDown(filterFAB));
+        filterFAB.setOnClickListener(stuff -> ((MainActivity) getActivity()).replaceFragment(MainActivity.FILTERS_TAG));
+
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(fragmentView.getContext());
         adapter = new SWMListAdapter(mediaListViewModel);
@@ -105,111 +96,59 @@ public class MediaListFragment extends Fragment {
         });
 
         adapter.setOnItemClickedListener(itemId -> {
-            ViewMediaItemFragment viewMediaItemFragment = new ViewMediaItemFragment();
-            Bundle bundle = new Bundle();
-            bundle.putInt(getString(R.string.bundleItemId), itemId);
-            viewMediaItemFragment.setArguments(bundle);
-            Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, viewMediaItemFragment)
-                    .addToBackStack(null)
-                    .commit();
+                ViewMediaItemFragment viewMediaItemFragment = new ViewMediaItemFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt(getString(R.string.bundleItemId), itemId);
+                viewMediaItemFragment.setArguments(bundle);
+                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, viewMediaItemFragment)
+                        .addToBackStack(null)
+                        .commit();
         });
 
         mediaListViewModel.getActiveFilters().observe(getViewLifecycleOwner(), this::setFilterChips);
 
-        //fragmentView.findViewById(R.id.filter_floating_action_button).setOnClickListener(view -> selectFilters());
-
         return fragmentView;
     }
 
-    private void makeSortMenu() {
+    private PopupMenu makeSortMenu() {
 //        mediaListViewModel.toggleSort();
+        PopupMenu newSortMenu;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//fix the gravity for APIs that support it
-            sortMenu = new PopupMenu(ctx, sortFAB, Gravity.BOTTOM|Gravity.END);
-        }else{
-            sortMenu = new PopupMenu(ctx, sortFAB);
+            newSortMenu = new PopupMenu(ctx, sortFAB, Gravity.END);
+        } else {
+            newSortMenu = new PopupMenu(ctx, sortFAB);
         }
         for (int style : SortStyle.Companion.getAllStyles()) {
-            sortMenu.getMenu().add(0, style, 0, SortStyle.Companion.getSortText(style));
+            newSortMenu.getMenu().add(0, style, 0, SortStyle.Companion.getSortText(style));
         }
-        sortMenu.setOnMenuItemClickListener(menuItem -> {
+        newSortMenu.setOnMenuItemClickListener(menuItem -> {
             mediaListViewModel.setSort(menuItem.getItemId());
             return true;
         });
+        return newSortMenu;
     }
 
-    private void makeFilterMenu(LayoutInflater inflater) {
-        View filterMenuView = inflater.inflate(R.layout.filter_popup_menu, null);
-//        filterMenuView.measure(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        RecyclerView recyclerView = filterMenuView.findViewById(R.id.filter_menu_recyclerview);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ctx, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setHasFixedSize(true);
-        FilterMenuAdapter filterMenuAdapter = new FilterMenuAdapter();
-        recyclerView.setAdapter(filterMenuAdapter);
-        mediaListViewModel.getFilterTypes().observe(getViewLifecycleOwner(), filterMenuAdapter::updateList);
-
-        filterMenuAdapter.setOnClickListeners(new FilterMenuAdapter.OnClickListeners() {
-            @Override
-            public void onFilterTypeClicked(@NotNull FilterType filterType) {
-                showFilterSubMenu(filterType);
-            }
-
-            @Override
-            public void onFilterTypeSwitchClicked(@NotNull FilterType filterType) {
-                mediaListViewModel.switchFilterType(filterType);
-            }
-        });
-
-        filterMenu = new PopupWindow(filterMenuView);
-        filterMenu.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        filterMenu.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
-    }
-
-    private void showFilterSubMenu(FilterType filterType) {
-        View filterSubMenuView = LayoutInflater.from(ctx).inflate(R.layout.filter_popup_submenu, null);
-
-        RecyclerView recyclerView = filterSubMenuView.findViewById(R.id.filter_submenu_recyclerview);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(ctx, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setHasFixedSize(true);
-        FilterSubMenuAdapter filterSubMenuAdapter = new FilterSubMenuAdapter();
-        recyclerView.setAdapter(filterSubMenuAdapter);
-        mediaListViewModel.getFiltersOfType(filterType.getTypeId()).observe(getViewLifecycleOwner(), filterSubMenuAdapter::updateList);
-
-        filterSubMenuAdapter.setOnClickListener(filterObject -> mediaListViewModel.swapFilterIsActive(filterObject));
-
-        PopupWindow filterSubMenu = new PopupWindow(filterSubMenuView);
-        filterSubMenu.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        filterSubMenu.setWidth(WindowManager.LayoutParams.WRAP_CONTENT);
-        filterSubMenu.showAtLocation(getView(), Gravity.CENTER, 0, 0);
-    }
-
-
-
-
-    private void setFilterChips(List<FilterObject> filters) {
+    private void setFilterChips(List<FullFilter> filters) {
         chipGroup.removeAllViews();
         chipGroup.addView(sortChip);
-        for (FilterObject filter : filters) {
+        for (FullFilter filter : filters) {
             chipGroup.addView(makeCurrentFilterChip(filter));
         }
     }
 
-    private Chip makeCurrentFilterChip(final FilterObject filter) {
-        final Chip filterChip = new Chip(ctx);
-        filterChip.setText(filter.displayText);
-        filterChip.setChipIconVisible(true);
-        filterChip.setCloseIcon(getResources().getDrawable(R.drawable.ic_close));
-        filterChip.setCloseIconVisible(true);
-        filterChip.setOnCloseIconClickListener(view -> mediaListViewModel.deactivateFilter(filter));
+    private Chip makeCurrentFilterChip(final FullFilter fullFilter) {
+        Chip filterChip = new FilterChip(fullFilter, ctx);
+        filterChip.setOnCloseIconClickListener(view -> mediaListViewModel.deactivateFilter(fullFilter.getFilterObject()));
         return filterChip;
     }
 
     private void makeCurrentSortChip() {
         sortChip = new Chip(ctx);
         sortChip.setChipIconVisible(true);
-        sortChip.setOnClickListener(view -> mediaListViewModel.reverseSort());
+        sortChip.setOnClickListener(view -> {
+            mediaListViewModel.reverseSort();
+        });
         mediaListViewModel.getSortStyle().observe(getViewLifecycleOwner(), this::updateSortChip);
         chipGroup.addView(sortChip);
     }

@@ -31,9 +31,9 @@ val roomModule = module {
 val preferencesModule = module {
     single { PreferenceManager.getDefaultSharedPreferences(androidApplication()) }
     factory(named("checkboxes")) {
-        arrayOf(get<SharedPreferences>().getString(androidApplication().getString(R.string.watched_read), androidApplication().getString(R.string.watched_read)),
-                get<SharedPreferences>().getString(androidApplication().getString(R.string.want_to_watch_read), androidApplication().getString(R.string.want_to_watch_read)),
-                get<SharedPreferences>().getString(androidApplication().getString(R.string.owned), androidApplication().getString(R.string.owned)))
+        arrayOf(get<SharedPreferences>().getString(androidApplication().getString(R.string.checkbox1_default_text), androidApplication().getString(R.string.checkbox1_default_text)),
+                get<SharedPreferences>().getString(androidApplication().getString(R.string.checkbox2_default_text), androidApplication().getString(R.string.checkbox2_default_text)),
+                get<SharedPreferences>().getString(androidApplication().getString(R.string.checkbox3_default_text), androidApplication().getString(R.string.checkbox3_default_text)))
     }
     factory(named("unmetered_only")) { get<SharedPreferences>().getBoolean(androidContext().getString(R.string.setting_unmetered_sync_only), true) }
 }

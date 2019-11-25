@@ -22,9 +22,9 @@ class ViewMediaItemViewModel(application: Application, itemId: Int): AndroidView
 
     init{
         val prefs = PreferenceManager.getDefaultSharedPreferences(application)
-        checkboxText[1] = prefs.getString(application.getString(R.string.watched_read), application.getString(R.string.watched_read))?: ""
-        checkboxText[2] = prefs.getString(application.getString(R.string.want_to_watch_read), application.getString(R.string.want_to_watch_read))?: ""
-        checkboxText[3] = prefs.getString(application.getString(R.string.owned), application.getString(R.string.owned))?: ""
+        checkboxText[1] = prefs.getString(application.getString(R.string.checkbox1_default_text), application.getString(R.string.checkbox1_default_text))?: ""
+        checkboxText[2] = prefs.getString(application.getString(R.string.checkbox2_default_text), application.getString(R.string.checkbox2_default_text))?: ""
+        checkboxText[3] = prefs.getString(application.getString(R.string.checkbox3_default_text), application.getString(R.string.checkbox3_default_text))?: ""
         unmeteredOnly = prefs.getBoolean(application.getString(R.string.setting_unmetered_sync_only), true)
     }
 

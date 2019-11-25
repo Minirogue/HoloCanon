@@ -112,7 +112,7 @@
             android:id="@+id/text_watched_or_read"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/watched_read"
+            android:text="@string/checkbox1_default_text"
             app:layout_constraintBottom_toBottomOf="@id/checkbox_watched_or_read"
             app:layout_constraintRight_toLeftOf="@id/checkbox_watched_or_read"
             app:layout_constraintTop_toTopOf="@id/checkbox_watched_or_read" />
@@ -122,7 +122,7 @@
             android:id="@+id/text_owned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/owned"
+            android:text="@string/checkbox3_default_text"
             app:layout_constraintBottom_toBottomOf="@id/checkbox_owned"
             app:layout_constraintRight_toLeftOf="@id/checkbox_owned"
             app:layout_constraintTop_toTopOf="@id/checkbox_owned" />
@@ -131,7 +131,7 @@
             android:id="@+id/text_want_to_watch_or_read"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/want_to_watch_read"
+            android:text="@string/checkbox2_default_text"
             app:layout_constraintBottom_toBottomOf="@id/checkbox_want_to_watch_or_read"
             app:layout_constraintRight_toLeftOf="@id/checkbox_want_to_watch_or_read"
             app:layout_constraintTop_toTopOf="@id/checkbox_want_to_watch_or_read" />

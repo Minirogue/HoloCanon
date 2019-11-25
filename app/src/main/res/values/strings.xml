@@ -13,9 +13,9 @@
     <string name="sync_online">Sync database now</string>
     <string name="media_title">Title</string>
     <string name="media_type">type</string>
-    <string name="watched_read">Completed</string>
-    <string name="want_to_watch_read">Wishlist</string>
-    <string name="owned">Owned</string>
+    <string name="checkbox1_default_text">Completed</string>
+    <string name="checkbox2_default_text">Wishlist</string>
+    <string name="checkbox3_default_text">Owned</string>
     <string name="nav_subtext">Do or do not.</string>
     <string name="launcher_icon_description">Launcher Icon</string>
     <string name="copyright_notice">This app is in no way affiliated with or endorsed by Disney or Lucasfilm.
@@ -66,4 +66,5 @@
     <string name="series_title">series title</string>
     <string name="series_image_description">series image</string>
     <string name="view_series">View Series</string>
+    <string name="nav_filters">Filters</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.minirogue.starwarscanontracker.model.room.entity;
 
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -35,6 +36,12 @@ public class FilterObject {
         this.filterType = filterType;
         this.active = active;
         this.displayText = displayText;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return ("id: "+id+" filterType: "+filterType+" active: "+active+" displayText"+ displayText);
     }
 
     /**

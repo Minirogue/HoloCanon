@@ -16,6 +16,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.minirogue.starwarscanontracker.R;
 import com.minirogue.starwarscanontracker.model.CSVImporter;
 import com.minirogue.starwarscanontracker.view.fragment.EntryFragment;
+import com.minirogue.starwarscanontracker.view.fragment.FilterSelectionFragment;
 import com.minirogue.starwarscanontracker.view.fragment.MediaListFragment;
 import com.minirogue.starwarscanontracker.view.fragment.SettingsFragment;
 
@@ -28,8 +29,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String CANON_LIST_TAG = "canon_list";
     private static final String SETTINGS_TAG = "settings";
     private static final String ENTRY_TAG = "entry";
+    public static final String FILTERS_TAG = "filters";
 
     private DrawerLayout drawer;
+    private NavigationView navigationView;
 
     @Override
     protected void onResume() {
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
 
         //When the user opens a fresh instance of the app
         if (savedInstanceState == null) {
@@ -57,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
         //Set up the toolbar and navigation drawer
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.nav_media:
@@ -69,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.nav_about:
                     replaceFragment(ENTRY_TAG);
+                    break;
+                case R.id.nav_filters:
+                    replaceFragment(FILTERS_TAG);
                     break;
                 default:
                     Toast.makeText(getApplicationContext(), "Not yet implemented", Toast.LENGTH_SHORT).show();
@@ -86,18 +92,18 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Replaces the displayed fragment with one associated to the given tag.
-     *
+     * <p>
      * Checks to see if a Fragment associated to the tag already exists, then replaces the displayed
      * fragment with that one, if it exists, or a new Fragment of the appropriate type.
      *
      * @param tag a String associated to the type of Fragment that is to be displayed
      */
-    private void replaceFragment(String tag) {
+    public void replaceFragment(String tag) {
         //Check if an instance of the desired Fragment already exists somewhere on the backstack
         Fragment frag = getSupportFragmentManager().findFragmentByTag(tag);
         //If the fragment doesn't already exist, create a new one
-        if (frag == null){
-            switch (tag){
+        if (frag == null) {
+            switch (tag) {
                 case CANON_LIST_TAG:
                     frag = new MediaListFragment();
                     break;
@@ -106,6 +112,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case ENTRY_TAG:
                     frag = new EntryFragment();
+                    break;
+                case FILTERS_TAG:
+                    frag = new FilterSelectionFragment();
                     break;
                 default:
                     Toast.makeText(getApplicationContext(), "Not yet implemented", Toast.LENGTH_SHORT).show();
@@ -120,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
      * Performs the actual logic of replacing the active Fragment.
      *
      * @param newFrag the fragment to be displayed
-     * @param tag the tag to associate to newFrag
+     * @param tag     the tag to associate to newFrag
      */
     private void replaceFragment(Fragment newFrag, String tag) {
         getSupportFragmentManager().beginTransaction()
@@ -129,4 +138,6 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+
 }
+

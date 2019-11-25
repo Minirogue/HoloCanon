@@ -23,7 +23,7 @@ import com.minirogue.starwarscanontracker.model.room.join.MediaCharacterJoin;
 
 @Database(entities = {MediaItem.class, com.minirogue.starwarscanontracker.model.room.entity.Character.class, MediaCharacterJoin.class, MediaNotes.class,
                         MediaType.class, Series.class, FilterObject.class, FilterType.class},
-        version = 14)
+        version = 15)
 
 public abstract class MediaDatabase extends RoomDatabase {
 
@@ -39,17 +39,32 @@ public abstract class MediaDatabase extends RoomDatabase {
         if (databaseInstance == null) {
             databaseInstance =
                     Room.databaseBuilder(ctx.getApplicationContext(), MediaDatabase.class, "StarWars-room")
-                            .addMigrations(MIGRATE_8_9,MIGRATE_9_10,MIGRATE_10_11,MIGRATE_11_12,MIGRATE_12_13,MIGRATE_13_14)
+                            .addMigrations(MIGRATE_8_9,MIGRATE_9_10,MIGRATE_10_11,MIGRATE_11_12,MIGRATE_12_13,MIGRATE_13_14,MIGRATE_14_15)
                             .build();
         }
         return databaseInstance;
     }
+
+    final static Migration MIGRATE_14_15 = new Migration(14,15) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("CREATE INDEX IF NOT EXISTS `index_media_items_type` ON `media_items` (`type`)");
+            database.execSQL("CREATE INDEX IF NOT EXISTS `index_media_items_series` ON `media_items` (`series`)");
+        }
+    };
 
     final static Migration MIGRATE_13_14 = new Migration(13,14) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("CREATE TABLE IF NOT EXISTS `filter_object` (`filter_id` INTEGER NOT NULL, `type_id` INTEGER NOT NULL, `is_active` INTEGER NOT NULL, `filter_text` TEXT, PRIMARY KEY(`filter_id`), FOREIGN KEY(`type_id`) REFERENCES `filter_type`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )");
             database.execSQL("CREATE TABLE IF NOT EXISTS `filter_type` (`id` INTEGER NOT NULL, `is_positive` INTEGER NOT NULL, PRIMARY KEY(`id`))");
+            //Create temp table to migrate foreignkey
+            database.execSQL("CREATE TABLE IF NOT EXISTS `temp_table` (`id` INTEGER NOT NULL, `title` TEXT, `series` INTEGER NOT NULL, `author` TEXT, `type` INTEGER NOT NULL, `description` TEXT, `review` TEXT, `image` TEXT, `date` TEXT, `timeline` REAL NOT NULL, `amazon_link` TEXT, `amazon_stream` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`type`) REFERENCES `media_types`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )");
+            database.execSQL("INSERT INTO `temp_table` (id, title, series, author, type, description, review,image, date,timeline,amazon_link,amazon_stream)"+
+                    "SELECT id, title, series, author, type, description, review,image, date,timeline, amazon_link, amazon_stream FROM media_items");
+            database.execSQL("DROP TABLE media_items");
+            database.execSQL("ALTER TABLE temp_table RENAME TO media_items");
+
         }
     };
 
