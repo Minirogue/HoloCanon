@@ -198,6 +198,9 @@ class SWMRepository() : KoinComponent {
      */
     fun getAllFilterTypes(): LiveData<List<FilterType>> = daoFilter.getAllFilterTypes()
 
+    fun getAllMediaTypes(): LiveData<List<MediaType>> = daoType.allMediaTypes
+    fun getAllMediaTypesNonLive(): List<MediaType> = daoType.allNonLive
+
     /**
      * Converts a MediaType id to title for that type
      *

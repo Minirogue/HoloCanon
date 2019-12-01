@@ -50,6 +50,12 @@ public abstract class MediaDatabase extends RoomDatabase {
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             database.execSQL("CREATE INDEX IF NOT EXISTS `index_media_items_type` ON `media_items` (`type`)");
             database.execSQL("CREATE INDEX IF NOT EXISTS `index_media_items_series` ON `media_items` (`series`)");
+            //migrate primarykey of filter_object
+            database.execSQL("CREATE TABLE IF NOT EXISTS `temp_table` (`filter_id` INTEGER NOT NULL, `type_id` INTEGER NOT NULL, `is_active` INTEGER NOT NULL, `filter_text` TEXT, PRIMARY KEY(`filter_id`, `type_id`), FOREIGN KEY(`type_id`) REFERENCES `filter_type`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )");
+            database.execSQL("INSERT INTO `temp_table` (filter_id, type_id, is_active, filter_text) "+
+                    "SELECT filter_id, type_id, is_active, filter_text FROM filter_object");
+            database.execSQL("DROP TABLE filter_object");
+            database.execSQL("ALTER TABLE temp_table RENAME TO filter_object");
         }
     };
 
@@ -60,7 +66,7 @@ public abstract class MediaDatabase extends RoomDatabase {
             database.execSQL("CREATE TABLE IF NOT EXISTS `filter_type` (`id` INTEGER NOT NULL, `is_positive` INTEGER NOT NULL, PRIMARY KEY(`id`))");
             //Create temp table to migrate foreignkey
             database.execSQL("CREATE TABLE IF NOT EXISTS `temp_table` (`id` INTEGER NOT NULL, `title` TEXT, `series` INTEGER NOT NULL, `author` TEXT, `type` INTEGER NOT NULL, `description` TEXT, `review` TEXT, `image` TEXT, `date` TEXT, `timeline` REAL NOT NULL, `amazon_link` TEXT, `amazon_stream` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`type`) REFERENCES `media_types`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )");
-            database.execSQL("INSERT INTO `temp_table` (id, title, series, author, type, description, review,image, date,timeline,amazon_link,amazon_stream)"+
+            database.execSQL("INSERT INTO `temp_table` (id, title, series, author, type, description, review,image, date,timeline,amazon_link,amazon_stream) "+
                     "SELECT id, title, series, author, type, description, review,image, date,timeline, amazon_link, amazon_stream FROM media_items");
             database.execSQL("DROP TABLE media_items");
             database.execSQL("ALTER TABLE temp_table RENAME TO media_items");

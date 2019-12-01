@@ -14,6 +14,7 @@ import static androidx.room.ForeignKey.CASCADE;
  * defines a filter for the media list
  */
 @Entity(tableName = "filter_object",
+        primaryKeys = {"filter_id", "type_id"},
         foreignKeys = @ForeignKey(entity = FilterType.class,
                 parentColumns = "id",
                 childColumns = "type_id",
@@ -21,7 +22,6 @@ import static androidx.room.ForeignKey.CASCADE;
 public class FilterObject {
     public static final String TAG = "FilterObject";
 
-    @PrimaryKey
     @ColumnInfo(name = "filter_id")
     public int id;
     @ColumnInfo(name = "type_id")

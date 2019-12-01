@@ -47,7 +47,7 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
         holder.itemView.setOnClickListener { isExpanded.put(currentItem.typeId, !getIsExpanded(currentItem)); notifyItemChanged(position) }
         holder.textView.text = currentItem.getText()
         holder.switch.isChecked = currentItem.isFilterPositive
-        holder.switch.text = if (currentItem.isFilterPositive) "only" else "all except"
+        holder.switch.text = if (currentItem.isFilterPositive) "show only selected" else "show all except selected"
         holder.switch.setOnClickListener { listener.onFilterTypeSwitchClicked(currentItem) }
 
         val chipGroup = holder.itemView.filter_selection_chipgroup

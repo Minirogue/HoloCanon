@@ -17,14 +17,14 @@ interface DaoFilter {
     @Update
     fun update(filterType: FilterType)
 
-    @Query("SELECT * FROM filter_object")
-    fun getAllFilters(): LiveData<List<FilterObject>>
+    @Query("SELECT * FROM filter_type")
+    fun getAllFilterTypes(): LiveData<List<FilterType>>
 
-//    @Query("SELECT * FROM filter_object WHERE is_active=1")
-//    fun getActiveFilters(): LiveData<List<FilterObject>>
+    @Query("SELECT * FROM filter_type")
+    fun getAllFilterTypesNonLive(): List<FilterType>
 
-    @Query("SELECT * FROM filter_object WHERE type_id=:typeId")
-    fun getFiltersWithType(typeId: Int): LiveData<List<FilterObject>>
+    @Query("SELECT * FROM filter_type WHERE id=:id LIMIT 1")
+    fun getFilterType(id: Int): FilterType
 
 
     //FilterObjects:
@@ -34,14 +34,14 @@ interface DaoFilter {
     @Update
     fun update(filterObject: FilterObject)
 
-    @Query("SELECT * FROM filter_type")
-    fun getAllFilterTypes(): LiveData<List<FilterType>>
+    @Query("SELECT * FROM filter_object")
+    fun getAllFilters(): LiveData<List<FilterObject>>
 
-    @Query("SELECT * FROM filter_type")
-    fun getAllFilterTypesNonLive(): List<FilterType>
+    @Query("SELECT * FROM filter_object WHERE filter_id=:filterId AND type_id=:typeId LIMIT 1")
+    fun getFilter(filterId: Int, typeId: Int): FilterObject?
 
-    @Query("SELECT * FROM filter_type WHERE id=:id LIMIT 1")
-    fun getFilterType(id: Int): FilterType
+    @Query("SELECT * FROM filter_object WHERE type_id=:typeId")
+    fun getFiltersWithType(typeId: Int): LiveData<List<FilterObject>>
 
     //FullFilter
     @Query("SELECT filter_object.*,filter_type.is_positive FROM filter_object INNER JOIN filter_type ON filter_object.type_id = filter_type.id WHERE filter_object.is_active = 1")

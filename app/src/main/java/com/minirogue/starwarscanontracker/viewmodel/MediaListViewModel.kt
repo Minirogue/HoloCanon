@@ -2,9 +2,9 @@ package com.minirogue.starwarscanontracker.viewmodel
 
 import android.app.Application
 import android.net.ConnectivityManager
+import android.util.SparseArray
 import androidx.lifecycle.*
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
-import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.model.SortStyle
 import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
@@ -33,13 +33,13 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
 
     //filtering
     val activeFilters = repository.getActiveFilters()
-    val filterTypes = repository.getAllFilterTypes()
 
     //The data requested by the user
     private var data: LiveData<List<MediaAndNotes>> = MutableLiveData()
     private val sortedData = MediatorLiveData<List<MediaAndNotes>>()
     val filteredMediaAndNotes: LiveData<List<MediaAndNotes>>
         get() = sortedData
+    private val mediaTypeToString = SparseArray<String>()
 
     //The current method of sorting
     private val _sortStyle = MutableLiveData<SortStyle>()
@@ -62,8 +62,12 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
 
     init {
         viewModelScope.launch { _sortStyle.postValue(getSavedSort()) }
+        viewModelScope.launch(Dispatchers.Default) {
+            val mediaTypes = repository.getAllMediaTypesNonLive()
+            mediaTypes.forEach { mediaTypeToString.put(it.id, it.text) }
+        }
         dataMediator.addSource(activeFilters) { viewModelScope.launch { updateQuery() } }
-        dataMediator.addSource(filterTypes) { viewModelScope.launch { updateQuery() } }
+        dataMediator.addSource(repository.getAllFilterTypes()) { viewModelScope.launch { updateQuery() } }
         sortedData.addSource(sortStyle) { viewModelScope.launch { sort(); saveSort() } }
         sortedData.addSource(dataMediator) { }//dataMediator needs to be observed so the things it observes can trigger events
     }
@@ -102,7 +106,8 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
         queryMutex.withLock {
             queryJob.cancelAndJoin()
             queryJob = launch {
-                val newListLiveData = repository.getMediaListWithNotes(activeFilters.value?.map {it.filterObject}?: ArrayList())
+                val newListLiveData = repository.getMediaListWithNotes(activeFilters.value?.map { it.filterObject }
+                        ?: ArrayList())
                 withContext(Dispatchers.Main) {
                     dataMediator.removeSource(data)
                     data = newListLiveData
@@ -132,28 +137,16 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
     }
 
     fun convertTypeToString(typeId: Int): String {
-        return repository.convertTypeToString(typeId)
+        return mediaTypeToString[typeId, ""]
     }
 
     fun getCheckboxText(boxNumber: Int): String {
         return checkboxText[boxNumber]
     }
 
-    fun getFiltersOfType(type: Int): LiveData<List<FilterObject>> = repository.getFiltersOfType(type)
-
-    fun swapFilterIsActive(filterObject: FilterObject) = viewModelScope.launch(Dispatchers.Default) {
-        filterObject.active = !filterObject.active
-        repository.update(filterObject)
-    }
-
     fun deactivateFilter(filterObject: FilterObject) = viewModelScope.launch(Dispatchers.Default) {
         filterObject.active = false
         repository.update(filterObject)
-    }
-
-    fun switchFilterType(filterType: FilterType) = viewModelScope.launch(Dispatchers.Default) {
-        filterType.isFilterPositive = !filterType.isFilterPositive
-        repository.update(filterType)
     }
 
     /*companion object {
