@@ -59,7 +59,7 @@ class SWMRepository() : KoinComponent {
         val gettingPermanentFilters = async { getPermanentFiltersAsStringBuilder() }
         val filterTypeIsPositive = SparseBooleanArray()
         for (filterType in daoFilter.getAllFilterTypesNonLive()) {
-            Log.d("makeQuery", filterType.getText()+filterType.typeId)
+            //Log.d("makeQuery", filterType.getText()+filterType.typeId)
             filterTypeIsPositive.put(filterType.typeId, filterType.isFilterPositive)
         }
         val queryBuild = StringBuilder()

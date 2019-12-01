@@ -23,7 +23,7 @@ import com.minirogue.starwarscanontracker.model.room.join.MediaCharacterJoin;
 
 @Database(entities = {MediaItem.class, com.minirogue.starwarscanontracker.model.room.entity.Character.class, MediaCharacterJoin.class, MediaNotes.class,
                         MediaType.class, Series.class, FilterObject.class, FilterType.class},
-        version = 15)
+        version = 16)
 
 public abstract class MediaDatabase extends RoomDatabase {
 
@@ -39,11 +39,18 @@ public abstract class MediaDatabase extends RoomDatabase {
         if (databaseInstance == null) {
             databaseInstance =
                     Room.databaseBuilder(ctx.getApplicationContext(), MediaDatabase.class, "StarWars-room")
-                            .addMigrations(MIGRATE_8_9,MIGRATE_9_10,MIGRATE_10_11,MIGRATE_11_12,MIGRATE_12_13,MIGRATE_13_14,MIGRATE_14_15)
+                            .addMigrations(MIGRATE_8_9,MIGRATE_9_10,MIGRATE_10_11,MIGRATE_11_12,MIGRATE_12_13,MIGRATE_13_14,MIGRATE_14_15,MIGRATE_15_16)
                             .build();
         }
         return databaseInstance;
     }
+
+    final static Migration MIGRATE_15_16 = new Migration(15,16) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE 'filter_type' ADD COLUMN 'text' TEXT NOT NULL DEFAULT ''");
+        }
+    };
 
     final static Migration MIGRATE_14_15 = new Migration(14,15) {
         @Override

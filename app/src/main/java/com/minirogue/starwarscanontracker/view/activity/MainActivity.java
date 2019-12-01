@@ -15,6 +15,7 @@ import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.google.android.material.navigation.NavigationView;
 import com.minirogue.starwarscanontracker.R;
 import com.minirogue.starwarscanontracker.model.CSVImporter;
+import com.minirogue.starwarscanontracker.model.FilterUpdater;
 import com.minirogue.starwarscanontracker.view.fragment.EntryFragment;
 import com.minirogue.starwarscanontracker.view.fragment.FilterSelectionFragment;
 import com.minirogue.starwarscanontracker.view.fragment.MediaListFragment;
@@ -37,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        //Update filters based one current information
+        (new FilterUpdater()).updateFilters();
         //check for update to room
         new CSVImporter(getApplication(), false).execute(CSVImporter.SOURCE_ONLINE);
     }

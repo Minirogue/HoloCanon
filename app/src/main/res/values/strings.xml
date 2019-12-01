@@ -60,7 +60,8 @@
         I also changed some things under the hood, so if the app seems to be running slower or something isn\'t working as expected, then let me know (through my twitter/discord/e-mail, all listed above).</string>
     <string name="update_1_0_4">Version 1.0.4: Added a series page for relevant items, which can be accessed through any item in that series.
         This means can now check off the entire Clone Wars series at once (hooray!).
-        Changed the filter selection menu which should allow for better control over filters.</string>
+        Changed the filter selection menu which should allow for better control over filters.
+        Also added series filtering (let me know if there are any discrepancies or missing series).</string>
     <string name="description_header">Description: </string>
     <string name="review_header">My Review: </string>
     <string name="series_title">series title</string>

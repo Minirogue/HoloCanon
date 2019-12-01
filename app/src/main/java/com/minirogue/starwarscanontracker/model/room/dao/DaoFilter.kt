@@ -12,10 +12,18 @@ interface DaoFilter {
 
     //FilterTypes:
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(filterType: FilterType)
+    fun insert(filterType: FilterType): Long
 
     @Update
     fun update(filterType: FilterType)
+
+    @Transaction
+    fun upsert(filterType: FilterType){
+        val success = insert(filterType)
+        if (success < 0){
+            update(filterType)
+        }
+    }
 
     @Query("SELECT * FROM filter_type")
     fun getAllFilterTypes(): LiveData<List<FilterType>>

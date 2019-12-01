@@ -45,16 +45,16 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
     override fun onBindViewHolder(holder: FilterTypeViewHolder, position: Int) {
         val currentItem = typeList[position]
         holder.itemView.setOnClickListener { isExpanded.put(currentItem.typeId, !getIsExpanded(currentItem)); notifyItemChanged(position) }
-        holder.textView.text = currentItem.getText()
+        holder.textView.text = currentItem.text
         holder.switch.isChecked = currentItem.isFilterPositive
-        holder.switch.text = if (currentItem.isFilterPositive) "show only selected" else "show all except selected"
+        holder.switch.text = if (currentItem.isFilterPositive) "filter in" else "filter out"
         holder.switch.setOnClickListener { listener.onFilterTypeSwitchClicked(currentItem) }
 
         val chipGroup = holder.itemView.filter_selection_chipgroup
         listener.setFilterGroupObservation(chipGroup, currentItem)
 
         holder.itemView.collapsible_subview.visibility = if (getIsExpanded(currentItem)) View.VISIBLE else View.GONE
-        holder.expandIcon.setImageDrawable(holder.itemView.resources.getDrawable(R.drawable.ic_arrow_drop_down))
+        holder.expandIcon.rotation = if (getIsExpanded(currentItem)) 0.toFloat() else (-90).toFloat()
         //holder.itemView.setOnClickListener { listener.onFilterTypeClicked(currentItem) }
     }
 

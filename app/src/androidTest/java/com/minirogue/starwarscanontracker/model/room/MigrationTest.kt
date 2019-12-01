@@ -75,4 +75,16 @@ class MigrationTest {
         db = testHelper.runMigrationsAndValidate(TEST_DB, 15, true, MediaDatabase.MIGRATE_14_15)
 
     }
+    @Test
+    @Throws(IOException::class)
+    fun migrate15To16() {
+        var db = testHelper.createDatabase(TEST_DB, 15).apply {
+            //use execSQL() to populate room
+
+            close()
+        }
+
+        db = testHelper.runMigrationsAndValidate(TEST_DB, 16, true, MediaDatabase.MIGRATE_15_16)
+
+    }
 }

@@ -315,7 +315,6 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
     @Override
     protected Void doInBackground(Integer... params) {
         if (wifiOnly && connMgr.isActiveNetworkMetered()) {
-            updateFilters();
             cancel(true);
             return null;
         }
@@ -384,7 +383,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putLong(app.getString(R.string.current_database_version), newVersionId);
         editor.apply();
-        updateFilters();
+        (new FilterUpdater()).updateFilters();
         return null;
     }
 
@@ -407,75 +406,5 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
         if (forced) {
             Toast.makeText(appRef.get(), "Database update failed", Toast.LENGTH_LONG).show();
         }
-    }
-
-    private void updateFilters() {
-        DaoFilter daoFilter = MediaDatabase.getMediaDataBase(appRef.get()).getDaoFilter();
-        DaoType daoType = MediaDatabase.getMediaDataBase(appRef.get()).getDaoType();
-        DaoSeries daoSeries = MediaDatabase.getMediaDataBase(appRef.get()).getDaoSeries();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(appRef.get());
-        Application app = appRef.get();
-
-        FilterObject tempFilter;
-        //add checkbox filters
-        daoFilter.insert(new FilterType(FILTERCOLUMN_OWNED, true));
-        tempFilter = daoFilter.getFilter(1, FILTERCOLUMN_OWNED);
-        if (tempFilter == null){
-            tempFilter = new FilterObject(1, FILTERCOLUMN_OWNED, false, prefs.getString(app.getString(R.string.checkbox1_default_text), app.getString(R.string.checkbox1_default_text)));
-            daoFilter.insert(tempFilter);
-        } else{
-            tempFilter.displayText = prefs.getString(app.getString(R.string.checkbox1_default_text), app.getString(R.string.checkbox1_default_text));
-            daoFilter.update(tempFilter);
-        }
-
-
-        daoFilter.insert(new FilterType(FILTERCOLUMN_WANTTOREADWATCH, true));
-        tempFilter = daoFilter.getFilter(1, FILTERCOLUMN_WANTTOREADWATCH);
-        if (tempFilter == null){
-            tempFilter = new FilterObject(1, FILTERCOLUMN_WANTTOREADWATCH, false, prefs.getString(app.getString(R.string.checkbox2_default_text), app.getString(R.string.checkbox2_default_text)));
-            daoFilter.insert(tempFilter);
-        } else{
-            tempFilter.displayText = prefs.getString(app.getString(R.string.checkbox2_default_text), app.getString(R.string.checkbox2_default_text));
-            daoFilter.update(tempFilter);
-        }
-
-        daoFilter.insert(new FilterType(FILTERCOLUMN_HASREADWATCHED, true));
-        tempFilter = daoFilter.getFilter(1, FILTERCOLUMN_HASREADWATCHED);
-        if (tempFilter == null){
-            tempFilter = new FilterObject(1, FILTERCOLUMN_HASREADWATCHED, false,  prefs.getString(app.getString(R.string.checkbox3_default_text), app.getString(R.string.checkbox3_default_text)));
-            daoFilter.insert(tempFilter);
-        } else{
-            tempFilter.displayText =  prefs.getString(app.getString(R.string.checkbox3_default_text), app.getString(R.string.checkbox3_default_text));
-            daoFilter.update(tempFilter);
-        }
-
-        //MediaType filters
-        daoFilter.insert(new FilterType(FILTERCOLUMN_TYPE, true));
-        List<MediaType> mediaTypes = daoType.getAllNonLive();
-        for (MediaType mediaType : mediaTypes) {
-            tempFilter = daoFilter.getFilter(mediaType.getId(), FILTERCOLUMN_TYPE);
-            if (tempFilter == null){
-                tempFilter = new FilterObject(mediaType.getId(), FILTERCOLUMN_TYPE, false, mediaType.getText());
-                daoFilter.insert(tempFilter);
-            } else{
-                tempFilter.displayText = mediaType.getText();
-                daoFilter.update(tempFilter);
-            }
-        }
-
-        //Series filters
-        daoFilter.insert(new FilterType(FILTERCOLUMN_SERIES, true));
-        List<Series> seriesList = daoSeries.getAllNonLive();
-        for (Series series : seriesList){
-            tempFilter = daoFilter.getFilter(series.getId(), FILTERCOLUMN_SERIES);
-            if (tempFilter == null){
-                tempFilter = new FilterObject(series.getId(), FILTERCOLUMN_SERIES, false, series.getTitle());
-                daoFilter.insert(tempFilter);
-            } else{
-                tempFilter.displayText = series.getTitle();
-                daoFilter.update(tempFilter);
-            }
-        }
-
     }
 }

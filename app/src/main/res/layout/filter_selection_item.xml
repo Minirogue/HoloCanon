@@ -23,7 +23,9 @@
         app:layout_constraintTop_toTopOf="@id/filter_type_textview"
         app:layout_constraintBottom_toBottomOf="@id/filter_type_textview"
         app:layout_constraintLeft_toRightOf="@id/filter_type_textview"
-        android:id="@+id/filtergroup_expand_icon" />
+        android:id="@+id/filtergroup_expand_icon"
+        android:src="@drawable/ic_arrow_drop_down"
+        android:rotation="-90"/>
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/type_switch"
