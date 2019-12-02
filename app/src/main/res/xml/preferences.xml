@@ -1,82 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:key="permanent_filters"
-        android:title="Permanent Filters">
 
-        <!--<SwitchPreference
-            android:key="@string/preferences_filter_TPB"
-            android:title="Trade Paperbacks (TPB)"
-            android:defaultValue="true"/>
-        <SwitchPreference
-            android:key="@string/preferences_filter_single_comics"
-            android:title="Single Issue Comics"
-            android:defaultValue="false"/>
-        <SwitchPreference
-            android:key="@string/preferences_filter_youth"
-            android:title="Youth"
-            android:defaultValue="true" />
-        <SwitchPreference
-            android:key="@string/preferences_filter_audiobook"
-            android:title="Audiobook"
-            android:defaultValue="true" />
-        <SwitchPreference
-            android:key="@string/preferences_filter_movie"
-            android:title="Movie"
-            android:defaultValue="true" />
-        <SwitchPreference
-            android:key="@string/preferences_filter_novelization"
-            android:title="Novelization"
-            android:defaultValue="false" />
-        <SwitchPreference
-            android:key="@string/preferences_filter_original_novel"
-            android:title="Original Novel"
-            android:defaultValue="true" />
-        <SwitchPreference
-            android:key="@string/preferences_filter_video_game"
-            android:title="Video Games"
-            android:defaultValue="false" />
-        <SwitchPreference
-            android:key="@string/preferences_filter_TV_Season"
-            android:title="TV (Season)"
-            android:defaultValue="false" />
-        <SwitchPreference
-            android:key="@string/preferences_filter_TV_Episode"
-            android:title="TV (Episode)"
-            android:defaultValue="false" />-->
-
-
-    </PreferenceCategory>
     <PreferenceCategory
         android:key="user_defined_notes"
-        android:title="Checkbox Names">
+        android:title="User-Defined Filters">
         <EditTextPreference
+            android:defaultValue="@string/checkbox1_default_text"
             android:key="@string/checkbox1_default_text"
-            android:title="Checkbox 1"
             android:summary="@string/checkbox1_default_text"
-            android:defaultValue="@string/checkbox1_default_text"/>
+            android:title="User-Defined Filter 1" />
         <EditTextPreference
+            android:defaultValue="@string/checkbox2_default_text"
             android:key="@string/checkbox2_default_text"
-            android:title="Checkbox 2"
-            android:defaultValue="@string/checkbox2_default_text"/>
+            android:title="User-Defined Filter 2" />
         <EditTextPreference
+            android:defaultValue="@string/checkbox3_default_text"
             android:key="@string/checkbox3_default_text"
-            android:title="Checkbox 3"
-            android:defaultValue="@string/checkbox3_default_text"/>
+            android:title="User-Defined Filter 3" />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="permanent_filters"
+        android:title="Included Media Types" />
+
 
     <PreferenceCategory
         android:key="sync_settings"
         android:title="Database Sync Settings">
         <SwitchPreference
+            android:defaultValue="true"
             android:key="@string/setting_unmetered_sync_only"
-            android:title="Sync only on unmetered network"
-            android:defaultValue="true"/>
-    <Preference
-        android:key="update_from_online"
-        android:title="@string/sync_online"
-        />
+            android:title="Sync only on unmetered network" />
+        <Preference
+            android:key="update_from_online"
+            android:title="@string/sync_online" />
     </PreferenceCategory>
 
 </PreferenceScreen>
