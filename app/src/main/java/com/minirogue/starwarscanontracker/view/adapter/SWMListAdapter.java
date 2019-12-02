@@ -33,7 +33,7 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
     //private AsyncListDiffer<MediaAndNotes> listDiffer = new AsyncListDiffer<>(this, DiffCallback);
     //private List<MediaAndNotes> currentList = new ArrayList<>();
     private OnItemClickedListener listener;
-    private MediaListViewModel mediaListViewModel;
+    private final MediaListViewModel mediaListViewModel;
     private String[] checkBoxText = new String[]{"", "", ""};
 
     public SWMListAdapter(MediaListViewModel mediaListViewModel) {
@@ -141,15 +141,15 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
 
     static class MediaViewHolder extends RecyclerView.ViewHolder {
 
-        TextView titleTextView;
-        TextView typeTextView;
-        CheckBox checkBoxWatchedRead;
-        CheckBox checkBoxWantToWatchRead;
-        CheckBox checkBoxOwned;
-        SimpleDraweeView coverImage;
-        TextView textCheckBox1;
-        TextView textCheckBox2;
-        TextView textCheckBox3;
+        final TextView titleTextView;
+        final TextView typeTextView;
+        final CheckBox checkBoxWatchedRead;
+        final CheckBox checkBoxWantToWatchRead;
+        final CheckBox checkBoxOwned;
+        final SimpleDraweeView coverImage;
+        final TextView textCheckBox1;
+        final TextView textCheckBox2;
+        final TextView textCheckBox3;
 
 
         MediaViewHolder(@NonNull View itemView) {
@@ -166,7 +166,7 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
         }
     }
 
-    static final DiffUtil.ItemCallback<MediaAndNotes> DiffCallback = new DiffUtil.ItemCallback<MediaAndNotes>() {
+    private static final DiffUtil.ItemCallback<MediaAndNotes> DiffCallback = new DiffUtil.ItemCallback<MediaAndNotes>() {
         @Override
         public boolean areItemsTheSame(@NonNull MediaAndNotes oldItem, @NonNull MediaAndNotes newItem) {
             return oldItem.mediaItem.id == newItem.mediaItem.id;

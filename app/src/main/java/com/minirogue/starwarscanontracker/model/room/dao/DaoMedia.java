@@ -15,46 +15,24 @@ import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes;
 
 import java.util.List;
 
+@SuppressWarnings("UnusedReturnValue")
 @Dao
 public interface DaoMedia {
 //This class defines the insert, query, update, and delete methods for the room
 
-// --Commented out by Inspection START (6/6/19 7:11 PM):
-//    @RawQuery(observedEntities = MediaItem.class)
-//    LiveData<List<MediaItem>> getMediaFromRawQuery(SupportSQLiteQuery query);
-// --Commented out by Inspection STOP (6/6/19 7:11 PM)
-    @RawQuery(observedEntities = {MediaItem.class, MediaNotes.class})
-    LiveData<List<MediaAndNotes>> getMediaAndNotesRawQuery(SupportSQLiteQuery query);
+
+    //The following are used for MediaItems
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    long insert (MediaItem mediaItem);
+    long insert(MediaItem mediaItem);
+
+    @Update
+    void update(MediaItem mediaItem);
 
     @Query("SELECT * FROM media_notes WHERE mediaId = :mediaId")
     LiveData<MediaNotes> getMediaNotesById(int mediaId);
+
     @Query("SELECT * FROM media_items WHERE id = :mediaID LIMIT 1")
-    LiveData<MediaItem> getMediaItemById (int mediaID);
-    @Query("SELECT * FROM media_items WHERE series = :series")
-    LiveData<MediaItem> getMediaItemsBySeries(int series);
-    @Query("SELECT media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId WHERE media_items.series = :series")
-    LiveData<List<MediaNotes>> getMediaNotesBySeries(int series);
-
-    @Query("SELECT media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId WHERE media_items.series = :series")
-    List<MediaNotes> getMediaNotesBySeriesNonLive(int series);
-
-
-    // --Commented out by Inspection START (6/6/19 7:11 PM):
-//    @Query("SELECT * FROM media_items WHERE type = :type")
-//    List<MediaItem> getMediaByType(int type);
-// --Commented out by Inspection STOP (6/6/19 7:11 PM)
-// --Commented out by Inspection START (6/6/19 7:11 PM):
-//    @Query("SELECT * FROM media_items")
-//    LiveData<List<MediaItem>> getAll();
-// --Commented out by Inspection STOP (6/6/19 7:11 PM)
-    @Update
-    void update (MediaItem mediaItem);
-// --Commented out by Inspection START (6/6/19 7:11 PM):
-//    @Delete
-//    void delete (MediaItem mediaItem);
-// --Commented out by Inspection STOP (6/6/19 7:11 PM)
+    LiveData<MediaItem> getMediaItemById(int mediaID);
 
 
     //The following are for MediaNotes interactions
@@ -63,10 +41,15 @@ public interface DaoMedia {
 
     @Update
     void update(MediaNotes um);
-// --Commented out by Inspection START (6/6/19 8:33 PM):
-//    @Delete
-//    void delete(MediaNotes um);
-// --Commented out by Inspection STOP (6/6/19 8:33 PM)
 
+    @Query("SELECT media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId WHERE media_items.series = :series")
+    LiveData<List<MediaNotes>> getMediaNotesBySeries(int series);
+
+    @Query("SELECT media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId WHERE media_items.series = :series")
+    List<MediaNotes> getMediaNotesBySeriesNonLive(int series);
+
+    //The following return MediaAndNotes objects
+    @RawQuery(observedEntities = {MediaItem.class, MediaNotes.class})
+    LiveData<List<MediaAndNotes>> getMediaAndNotesRawQuery(SupportSQLiteQuery query);
 
 }

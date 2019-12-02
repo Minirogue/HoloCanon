@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
-import android.widget.PopupWindow;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -63,11 +62,9 @@ public class MediaListFragment extends Fragment {
         makeCurrentSortChip();
         sortFAB = fragmentView.findViewById(R.id.sort_floating_action_button);
         PopupMenu sortMenu = makeSortMenu();
-        sortFAB.setOnClickListener(view -> {
-            sortMenu.show();
-        });
+        sortFAB.setOnClickListener(view -> sortMenu.show());
         filterFAB = fragmentView.findViewById(R.id.filter_floating_action_button);
-        filterFAB.setOnClickListener(stuff -> ((MainActivity) getActivity()).replaceFragment(MainActivity.FILTERS_TAG));
+        filterFAB.setOnClickListener(stuff -> ((MainActivity) Objects.requireNonNull(getActivity())).replaceFragment(MainActivity.FILTERS_TAG));
 
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(fragmentView.getContext());
@@ -147,9 +144,7 @@ public class MediaListFragment extends Fragment {
     private void makeCurrentSortChip() {
         sortChip = new Chip(ctx);
         sortChip.setChipIconVisible(true);
-        sortChip.setOnClickListener(view -> {
-            mediaListViewModel.reverseSort();
-        });
+        sortChip.setOnClickListener(view -> mediaListViewModel.reverseSort());
         mediaListViewModel.getSortStyle().observe(getViewLifecycleOwner(), this::updateSortChip);
         chipGroup.addView(sortChip);
     }

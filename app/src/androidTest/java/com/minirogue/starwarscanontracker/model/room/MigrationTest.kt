@@ -9,7 +9,7 @@ import java.io.IOException
 
 //@RunWith(AndroidJUnit4::class)
 class MigrationTest {
-    val TEST_DB = "test_database"
+    private val TEST_DB = "test_database"
 
     @get:Rule
     val testHelper: MigrationTestHelper = MigrationTestHelper(

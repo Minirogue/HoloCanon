@@ -43,7 +43,7 @@ class FilterSelectionFragment : Fragment() {
 
             override fun setFilterGroupObservation(chipGroup: ChipGroup, filterType: FilterType) {
                 viewModel.getFiltersOfType(filterType).observe(viewLifecycleOwner, Observer { filters ->
-                    chipGroup.removeAllViews();
+                    chipGroup.removeAllViews()
                     filters.forEach {
                         if (!it.filterObject.active) {
                             val filterChip = FilterChip(it, fragmentView.context)

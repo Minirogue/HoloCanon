@@ -11,6 +11,7 @@ import com.minirogue.starwarscanontracker.model.room.entity.MediaType;
 
 import java.util.List;
 
+@SuppressWarnings("UnusedReturnValue")
 @Dao
 public interface DaoType {
     @Insert(onConflict = OnConflictStrategy.IGNORE)

@@ -6,7 +6,6 @@ import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -20,7 +19,7 @@ import static androidx.room.ForeignKey.CASCADE;
                 childColumns = "type_id",
                 onDelete = CASCADE))
 public class FilterObject {
-    public static final String TAG = "FilterObject";
+    //public static final String TAG = "FilterObject";
 
     @ColumnInfo(name = "filter_id")
     public int id;

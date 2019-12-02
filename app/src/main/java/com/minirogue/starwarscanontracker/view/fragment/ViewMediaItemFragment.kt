@@ -1,6 +1,5 @@
 package com.minirogue.starwarscanontracker.view.fragment
 
-import android.app.Application
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -16,56 +15,59 @@ import androidx.lifecycle.ViewModelProviders
 import com.facebook.drawee.drawable.ScalingUtils
 import com.facebook.imagepipeline.request.ImageRequest
 import com.facebook.imagepipeline.request.ImageRequestBuilder
-import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.viewmodel.ViewMediaItemViewModel
+import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
+import com.minirogue.starwarscanontracker.viewmodel.ViewMediaItemViewModel
 import kotlinx.android.synthetic.main.fragment_view_media_item.view.*
 
 
+class ViewMediaItemFragment : Fragment() {
 
+    companion object {
+        private const val MENU_ITEM_AMAZON_BUY = 1
+        private const val MENU_ITEM_AMAZON_STREAM = 2
+    }
 
-class ViewMediaItemFragment : Fragment(){
-
-    private val MENU_ITEM_AMAZON_BUY = 1
-    private val MENU_ITEM_AMAZON_STREAM = 2
-    private var viewModel: ViewMediaItemViewModel? = null
+    private lateinit var viewModel: ViewMediaItemViewModel
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater.inflate(R.layout.fragment_view_media_item, container, false)
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
-        viewModel = ViewModelProviders.of(this, ViewMediaItemViewModelFactory(activity!!.application, bundleItemId)).get(ViewMediaItemViewModel::class.java)
-        viewModel?.let {viewModel ->
-            viewModel.liveMediaItem.observe(viewLifecycleOwner, Observer { item -> updateViews(item, fragmentView) })
-            viewModel.liveMediaNotes.observe(viewLifecycleOwner, Observer { notes -> updateViews(notes, fragmentView) })
-            fragmentView.text_checkbox_1.text = viewModel.getCheckBoxText(1)
-            fragmentView.text_checkbox_2.text = viewModel.getCheckBoxText(2)
-            fragmentView.text_checkbox_3.text = viewModel.getCheckBoxText(3)
-            fragmentView.checkbox_3.setOnClickListener { viewModel.toggleOwned() }
-            fragmentView.checkbox_2.setOnClickListener { viewModel.toggleWantToWatchRead() }
-            fragmentView.checkbox_1.setOnClickListener { viewModel.toggleWatchedRead() }
-        }
+        viewModel = ViewModelProviders.of(this, ViewMediaItemViewModelFactory(bundleItemId)).get(ViewMediaItemViewModel::class.java)
+        viewModel.liveMediaItem.observe(viewLifecycleOwner, Observer { item -> updateViews(item, fragmentView) })
+        viewModel.liveMediaNotes.observe(viewLifecycleOwner, Observer { notes -> updateViews(notes, fragmentView) })
+        viewModel.checkBoxText.observe(viewLifecycleOwner, Observer { arr ->
+            fragmentView.text_checkbox_1.text = arr[0]
+            fragmentView.text_checkbox_2.text = arr[1]
+            fragmentView.text_checkbox_3.text = arr[2]
+        })
+
+        fragmentView.checkbox_3.setOnClickListener { viewModel.toggleOwned() }
+        fragmentView.checkbox_2.setOnClickListener { viewModel.toggleWantToWatchRead() }
+        fragmentView.checkbox_1.setOnClickListener { viewModel.toggleWatchedRead() }
+
         return fragmentView
     }
 
-    private fun updateViews(item : MediaItem, fragmentView: View){
+    private fun updateViews(item: MediaItem, fragmentView: View) {
         fragmentView.media_title.text = item.title
         fragmentView.media_type.text = FilterObject.getTextForType(item.type)
-        fragmentView.description_textview.text = getString(R.string.description_header)+item.description
-        fragmentView.review_textview.text = getString(R.string.review_header)+item.review
+        fragmentView.description_textview.text = getString(R.string.description_header) + item.description
+        fragmentView.review_textview.text = getString(R.string.review_header) + item.review
         fragmentView.release_date.text = item.date
         fragmentView.image_cover.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground, ScalingUtils.ScaleType.CENTER_INSIDE)
         val request = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(item.imageURL))
-                .setLowestPermittedRequestLevel(if (viewModel!!.isNetworkAllowed()) ImageRequest.RequestLevel.FULL_FETCH else ImageRequest.RequestLevel.DISK_CACHE)
+                .setLowestPermittedRequestLevel(if (viewModel.isNetworkAllowed()) ImageRequest.RequestLevel.FULL_FETCH else ImageRequest.RequestLevel.DISK_CACHE)
                 .build()
         fragmentView.image_cover.setImageRequest(request)
         fragmentView.image_cover.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_INSIDE
         makeShoppingMenu(item, fragmentView)
-        if (item.series > 0){
+        if (item.series > 0) {
             fragmentView.view_series_button.visibility = View.VISIBLE
             fragmentView.view_series_button.setOnClickListener {
                 val seriesFragment = SeriesFragment()
@@ -80,7 +82,7 @@ class ViewMediaItemFragment : Fragment(){
         }
     }
 
-    private fun updateViews(notes : MediaNotes, fragmentView: View){
+    private fun updateViews(notes: MediaNotes, fragmentView: View) {
         fragmentView.checkbox_3.isChecked = notes.isOwned
         fragmentView.checkbox_1.isChecked = notes.isWatchedRead
         fragmentView.checkbox_2.isChecked = notes.isWantToWatchRead
@@ -92,7 +94,7 @@ class ViewMediaItemFragment : Fragment(){
             fragView.affiliate_links_fab.show()
             shoppingMenu.menu.add(0, MENU_ITEM_AMAZON_BUY, 0, "Buy on Amazon")
         }
-        if (item.amazonStream != null && item.amazonStream != ""){
+        if (item.amazonStream != null && item.amazonStream != "") {
             fragView.affiliate_links_fab.show()
             shoppingMenu.menu.add(0, MENU_ITEM_AMAZON_STREAM, 0, "Stream on Amazon Video")
         }
@@ -110,10 +112,10 @@ class ViewMediaItemFragment : Fragment(){
     }
 
 
-    internal inner class ViewMediaItemViewModelFactory(val application: Application, private val itemId: Int) : ViewModelProvider.Factory {
+    internal inner class ViewMediaItemViewModelFactory(private val itemId: Int) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return ViewMediaItemViewModel(application, itemId) as T
+            return ViewMediaItemViewModel(itemId) as T
         }
     }
 }

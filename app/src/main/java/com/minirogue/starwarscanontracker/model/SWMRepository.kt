@@ -16,13 +16,13 @@ import com.minirogue.starwarscanontracker.model.room.entity.*
 import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter
 import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
 import kotlinx.coroutines.*
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import org.koin.core.KoinComponent
+import org.koin.core.inject
 import java.lang.ref.WeakReference
 
-class SWMRepository() : KoinComponent {
+class SWMRepository : KoinComponent {
     //private val TAG = "Repo"
 
     private val application: Application by inject()
@@ -190,26 +190,12 @@ class SWMRepository() : KoinComponent {
     }
 
     /**
-     * Returns a LiveData of a List of all possible FilterObjects, except for ones listed as permanent filters
-     */
-    fun getAllFilters(): LiveData<List<FilterObject>> = daoFilter.getAllFilters()
-
-    /**
      * Returns a LiveData of a List of all FilterType objects
      */
     fun getAllFilterTypes(): LiveData<List<FilterType>> = daoFilter.getAllFilterTypes()
 
-    fun getAllMediaTypes(): LiveData<List<MediaType>> = daoType.allMediaTypes
     fun getAllMediaTypesNonLive(): List<MediaType> = daoType.allNonLive
 
-    /**
-     * Converts a MediaType id to title for that type
-     *
-     * @param typeId the id corresponding to a MediaType
-     */
-    fun convertTypeToString(typeId: Int): String {
-        return FilterObject.getTextForType(typeId)
-    }
 
     /**
      * Returns LiveData containing the MediaItem corresponding to the given id.

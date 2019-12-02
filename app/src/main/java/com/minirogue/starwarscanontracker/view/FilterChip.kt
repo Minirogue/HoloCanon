@@ -1,8 +1,6 @@
 package com.minirogue.starwarscanontracker.view
 
 import android.content.Context
-import android.graphics.Color
-import androidx.core.graphics.drawable.DrawableCompat
 import com.google.android.material.chip.Chip
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter

@@ -31,13 +31,13 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
     //private static final String TAG = "CSVImport";
 
     public static final int SOURCE_ONLINE = 1;
-    private WeakReference<Application> appRef;
-    private boolean wifiOnly;
-    private ConnectivityManager connMgr;
-    private HashMap<String, Integer> convertType = new HashMap<>();
-    private HashMap<String, Integer> convertSeries = new HashMap<>();
+    private final WeakReference<Application> appRef;
+    private final boolean wifiOnly;
+    private final ConnectivityManager connMgr;
+    private final HashMap<String, Integer> convertType = new HashMap<>();
+    private final HashMap<String, Integer> convertSeries = new HashMap<>();
     private long newVersionId;
-    private boolean forced;
+    private final boolean forced;
 
 
     public CSVImporter(Application application, boolean forced) {

@@ -1,15 +1,11 @@
 package com.minirogue.starwarscanontracker.viewmodel
 
-import android.app.Application
-import android.content.Context
 import android.net.ConnectivityManager
-import android.preference.PreferenceManager
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.model.SWMRepository
+import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -18,18 +14,17 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import org.koin.core.qualifier.named
 
-class SeriesViewModel(application: Application, val seriesId: Int) : AndroidViewModel(application), KoinComponent {
+class SeriesViewModel(private val seriesId: Int) : ViewModel(), KoinComponent {
     private val repository: SWMRepository by inject()
     val liveSeries = repository.getLiveSeries(seriesId)
     val liveSeriesNotes = MediatorLiveData<Array<Boolean>>()
-    private val connMgr = application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    private val unmeteredOnly: Boolean
+    private val connMgr: ConnectivityManager by inject()
+    private val unmeteredOnly: Boolean by inject(named("unmetered_only"))
     private val notesParsingMutex = Mutex()
 
     init {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(application)
-        unmeteredOnly = prefs.getBoolean(application.getString(R.string.setting_unmetered_sync_only), true)
         liveSeriesNotes.addSource(repository.getLiveNotesBySeries(seriesId)) {
             viewModelScope.launch {
                 updateSeriesNotes(it)
@@ -59,7 +54,7 @@ class SeriesViewModel(application: Application, val seriesId: Int) : AndroidView
     }
 
 
-    suspend fun updateSeriesNotes(fullNotes: List<MediaNotes>) = withContext(Dispatchers.Default) {
+    private suspend fun updateSeriesNotes(fullNotes: List<MediaNotes>) = withContext(Dispatchers.Default) {
         notesParsingMutex.withLock {
             val checkBoxOne = async {
                 var checked = true
