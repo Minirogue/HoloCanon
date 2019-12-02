@@ -2,7 +2,6 @@ package com.minirogue.starwarscanontracker.model
 
 import android.app.Application
 import android.os.AsyncTask
-import android.util.Log
 import android.util.SparseBooleanArray
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
@@ -56,11 +55,9 @@ class SWMRepository : KoinComponent {
      * @param filterList the list of Filters to apply to the query
      */
     private suspend fun convertFiltersToQuery(filterList: List<FilterObject>): SimpleSQLiteQuery = withContext(Dispatchers.Default) {
-        Log.d("makeQuery", filterList.toString())
         val gettingPermanentFilters = async { getPermanentFiltersAsStringBuilder() }
         val filterTypeIsPositive = SparseBooleanArray()
         for (filterType in daoFilter.getAllFilterTypesNonLive()) {
-            //Log.d("makeQuery", filterType.getText()+filterType.typeId)
             filterTypeIsPositive.put(filterType.typeId, filterType.isFilterPositive)
         }
         val queryBuild = StringBuilder()
@@ -114,20 +111,16 @@ class SWMRepository : KoinComponent {
                         typeFilter.append(" type = ")
                         typeFilter.append(filter.id)
                     }
-                    FilterType.FILTERCOLUMN_CHECKBOX_ONE -> {
-                        Log.d("makeQuery", ""+filter.filterType + " filter owned")
+                    FilterType.FILTERCOLUMN_CHECKBOX_THREE -> {
                         if (notesFilter.isNotEmpty()) {
                             notesFilter.append(" AND ")
                         }
-                        Log.d("makeQuery", "Oh man, we about to get null")
-                        Log.d("makeQuery", "is it the SparseArray? $filterTypeIsPositive")
-                        Log.d("makeQuery", "is it the filter? $filter")
                         if (!filterTypeIsPositive[filter.filterType]) {
                             notesFilter.append(" NOT ")
                         }
                         notesFilter.append(" media_notes.owned = 1 ")
                     }
-                    FilterType.FILTERCOLUMN_CHECKBOX_THREE -> {
+                    FilterType.FILTERCOLUMN_CHECKBOX_ONE -> {
                         if (notesFilter.isNotEmpty()) {
                             notesFilter.append(" AND ")
                         }
@@ -184,7 +177,6 @@ class SWMRepository : KoinComponent {
             queryBuild.append(permanentFilters)
             queryBuild.append(")")
         }
-        //Log.d("ListAdapter", queryBuild.toString());
         SimpleSQLiteQuery(queryBuild.toString())
         //}
     }
