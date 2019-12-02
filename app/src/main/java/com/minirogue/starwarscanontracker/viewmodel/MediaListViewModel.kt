@@ -10,6 +10,7 @@ import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.model.SWMRepository
+import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -28,7 +29,6 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
     private val dataMediator = MediatorLiveData<List<MediaItem>>()
     private val repository: SWMRepository by inject()
     private val connMgr: ConnectivityManager by inject()
-    private val checkboxText: Array<String> by inject(named("checkboxes"))
     private val unmeteredOnly: Boolean by inject(named("unmetered_only"))
 
     //filtering
@@ -45,6 +45,9 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
     private val _sortStyle = MutableLiveData<SortStyle>()
     val sortStyle: LiveData<SortStyle>
         get() = _sortStyle
+
+    //Checkbox text
+    val checkBoxText = repository.getCheckBoxText()
 
     //Variables for handling exactly one query and sort job at a time
     private var queryJob: Job = Job()
@@ -140,9 +143,6 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
         return mediaTypeToString[typeId, ""]
     }
 
-    fun getCheckboxText(boxNumber: Int): String {
-        return checkboxText[boxNumber]
-    }
 
     fun deactivateFilter(filterObject: FilterObject) = viewModelScope.launch(Dispatchers.Default) {
         filterObject.active = false

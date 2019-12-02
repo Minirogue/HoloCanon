@@ -39,9 +39,9 @@ class SeriesFragment : Fragment() {
         viewModel?.let {viewModel ->
             viewModel.liveSeries.observe(viewLifecycleOwner, Observer { series -> updateViews(series, fragmentView) })
             viewModel.liveSeriesNotes.observe(viewLifecycleOwner, Observer { notes -> updateViews(notes, fragmentView) })
-            fragmentView.checkbox_owned.setOnClickListener { viewModel.toggleOwned() }
-            fragmentView.checkbox_want_to_watch_or_read.setOnClickListener { viewModel.toggleWantToWatchRead() }
-            fragmentView.checkbox_watched_or_read.setOnClickListener { viewModel.toggleWatchedRead() }
+            fragmentView.checkbox_3.setOnClickListener { viewModel.toggleOwned() }
+            fragmentView.checkbox_2.setOnClickListener { viewModel.toggleWantToWatchRead() }
+            fragmentView.checkbox_1.setOnClickListener { viewModel.toggleWatchedRead() }
         }
         return fragmentView
 
@@ -49,9 +49,9 @@ class SeriesFragment : Fragment() {
 
     fun setTextBoxes(fragmentView: View, application: Application){
         val prefs = PreferenceManager.getDefaultSharedPreferences(application)
-        fragmentView.text_watched_or_read.text = prefs.getString(application.getString(R.string.checkbox1_default_text), application.getString(R.string.checkbox1_default_text))?: ""
-        fragmentView.text_want_to_watch_or_read.text = prefs.getString(application.getString(R.string.checkbox2_default_text), application.getString(R.string.checkbox2_default_text))?: ""
-        fragmentView.text_owned.text = prefs.getString(application.getString(R.string.checkbox3_default_text), application.getString(R.string.checkbox3_default_text))?: ""
+        fragmentView.text_checkbox_1.text = prefs.getString(application.getString(R.string.checkbox1_default_text), application.getString(R.string.checkbox1_default_text))?: ""
+        fragmentView.text_checkbox_2.text = prefs.getString(application.getString(R.string.checkbox2_default_text), application.getString(R.string.checkbox2_default_text))?: ""
+        fragmentView.text_checkbox_3.text = prefs.getString(application.getString(R.string.checkbox3_default_text), application.getString(R.string.checkbox3_default_text))?: ""
     }
 
     fun updateViews(series: Series, fragmentView: View){
@@ -66,9 +66,9 @@ class SeriesFragment : Fragment() {
         fragmentView.series_image.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_INSIDE
     }
     fun updateViews(notes: Array<Boolean>, fragmentView: View){
-        fragmentView.checkbox_watched_or_read.isChecked = notes[0]
-        fragmentView.checkbox_want_to_watch_or_read.isChecked = notes[1]
-        fragmentView.checkbox_owned.isChecked = notes[2]
+        fragmentView.checkbox_1.isChecked = notes[0]
+        fragmentView.checkbox_2.isChecked = notes[1]
+        fragmentView.checkbox_3.isChecked = notes[2]
     }
 
 

@@ -41,12 +41,12 @@ class ViewMediaItemFragment : Fragment(){
         viewModel?.let {viewModel ->
             viewModel.liveMediaItem.observe(viewLifecycleOwner, Observer { item -> updateViews(item, fragmentView) })
             viewModel.liveMediaNotes.observe(viewLifecycleOwner, Observer { notes -> updateViews(notes, fragmentView) })
-            fragmentView.text_watched_or_read.text = viewModel.getCheckBoxText(1)
-            fragmentView.text_want_to_watch_or_read.text = viewModel.getCheckBoxText(2)
-            fragmentView.text_owned.text = viewModel.getCheckBoxText(3)
-            fragmentView.checkbox_owned.setOnClickListener { viewModel.toggleOwned() }
-            fragmentView.checkbox_want_to_watch_or_read.setOnClickListener { viewModel.toggleWantToWatchRead() }
-            fragmentView.checkbox_watched_or_read.setOnClickListener { viewModel.toggleWatchedRead() }
+            fragmentView.text_checkbox_1.text = viewModel.getCheckBoxText(1)
+            fragmentView.text_checkbox_2.text = viewModel.getCheckBoxText(2)
+            fragmentView.text_checkbox_3.text = viewModel.getCheckBoxText(3)
+            fragmentView.checkbox_3.setOnClickListener { viewModel.toggleOwned() }
+            fragmentView.checkbox_2.setOnClickListener { viewModel.toggleWantToWatchRead() }
+            fragmentView.checkbox_1.setOnClickListener { viewModel.toggleWatchedRead() }
         }
         return fragmentView
     }
@@ -81,9 +81,9 @@ class ViewMediaItemFragment : Fragment(){
     }
 
     private fun updateViews(notes : MediaNotes, fragmentView: View){
-        fragmentView.checkbox_owned.isChecked = notes.isOwned
-        fragmentView.checkbox_watched_or_read.isChecked = notes.isWatchedRead
-        fragmentView.checkbox_want_to_watch_or_read.isChecked = notes.isWantToWatchRead
+        fragmentView.checkbox_3.isChecked = notes.isOwned
+        fragmentView.checkbox_1.isChecked = notes.isWatchedRead
+        fragmentView.checkbox_2.isChecked = notes.isWantToWatchRead
     }
 
     private fun makeShoppingMenu(item: MediaItem, fragView: View) {

@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.preference.*
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.model.CSVImporter
+import com.minirogue.starwarscanontracker.model.FilterUpdater
 import com.minirogue.starwarscanontracker.model.room.MediaDatabase
 import com.minirogue.starwarscanontracker.model.room.entity.MediaType
 import java.lang.ref.WeakReference
@@ -61,8 +62,12 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        FilterUpdater().updateJustCheckboxFilters()
+    }
 
-   /*   override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {
+    /*   override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {
     }
 
    override fun onResume() {

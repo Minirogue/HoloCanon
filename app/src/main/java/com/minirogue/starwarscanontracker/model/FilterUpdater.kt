@@ -65,30 +65,30 @@ class FilterUpdater : KoinComponent {
     private suspend fun updateCheckboxFilters() = withContext(Dispatchers.Default) {
         var tempFilter: FilterObject?
         //add checkbox filters
-        daoFilter.upsert(FilterType(FilterType.FILTERCOLUMN_OWNED, true, checkboxText[0]))
-        tempFilter = daoFilter.getFilter(1, FilterType.FILTERCOLUMN_OWNED)
+        daoFilter.upsert(FilterType(FilterType.FILTERCOLUMN_CHECKBOX_ONE, true, checkboxText[0]))
+        tempFilter = daoFilter.getFilter(1, FilterType.FILTERCOLUMN_CHECKBOX_ONE)
         if (tempFilter == null) {
-            tempFilter = FilterObject(1, FilterType.FILTERCOLUMN_OWNED, false, checkboxText[0])
+            tempFilter = FilterObject(1, FilterType.FILTERCOLUMN_CHECKBOX_ONE, false, checkboxText[0])
             daoFilter.insert(tempFilter)
         } else {
             tempFilter.displayText = checkboxText[0]
             daoFilter.update(tempFilter)
         }
 
-        daoFilter.upsert(FilterType(FilterType.FILTERCOLUMN_WANTTOREADWATCH, true, checkboxText[1]))
-        tempFilter = daoFilter.getFilter(1, FilterType.FILTERCOLUMN_WANTTOREADWATCH)
+        daoFilter.upsert(FilterType(FilterType.FILTERCOLUMN_CHECKBOX_TWO, true, checkboxText[1]))
+        tempFilter = daoFilter.getFilter(1, FilterType.FILTERCOLUMN_CHECKBOX_TWO)
         if (tempFilter == null) {
-            tempFilter = FilterObject(1, FilterType.FILTERCOLUMN_WANTTOREADWATCH, false, checkboxText[1])
+            tempFilter = FilterObject(1, FilterType.FILTERCOLUMN_CHECKBOX_TWO, false, checkboxText[1])
             daoFilter.insert(tempFilter)
         } else {
             tempFilter.displayText = checkboxText[1]
             daoFilter.update(tempFilter)
         }
 
-        daoFilter.upsert(FilterType(FilterType.FILTERCOLUMN_HASREADWATCHED, true, checkboxText[2]))
-        tempFilter = daoFilter.getFilter(1, FilterType.FILTERCOLUMN_HASREADWATCHED)
+        daoFilter.upsert(FilterType(FilterType.FILTERCOLUMN_CHECKBOX_THREE, true, checkboxText[2]))
+        tempFilter = daoFilter.getFilter(1, FilterType.FILTERCOLUMN_CHECKBOX_THREE)
         if (tempFilter == null) {
-            tempFilter = FilterObject(1, FilterType.FILTERCOLUMN_HASREADWATCHED, false, checkboxText[2])
+            tempFilter = FilterObject(1, FilterType.FILTERCOLUMN_CHECKBOX_THREE, false, checkboxText[2])
             daoFilter.insert(tempFilter)
         } else {
             tempFilter.displayText = checkboxText[2]

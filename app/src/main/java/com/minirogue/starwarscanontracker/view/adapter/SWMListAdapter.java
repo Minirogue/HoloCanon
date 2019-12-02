@@ -34,13 +34,19 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
     //private List<MediaAndNotes> currentList = new ArrayList<>();
     private OnItemClickedListener listener;
     private MediaListViewModel mediaListViewModel;
+    private String[] checkBoxText = new String[]{"", "", ""};
 
-    public SWMListAdapter(MediaListViewModel mediaListViewModel){
+    public SWMListAdapter(MediaListViewModel mediaListViewModel) {
         super(DiffCallback);
         this.mediaListViewModel = mediaListViewModel;
     }
 
-    public void setOnItemClickedListener(OnItemClickedListener newListener){
+    public void updateCheckBoxText(String[] newCheckBoxText) {
+        checkBoxText = newCheckBoxText;
+        notifyDataSetChanged();
+    }
+
+    public void setOnItemClickedListener(OnItemClickedListener newListener) {
         listener = newListener;
     }
 
@@ -52,7 +58,7 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
     public void submitList(@Nullable List<MediaAndNotes> list) {
         if (list != null) {
             super.submitList(new ArrayList<>(list));
-        }else{
+        } else {
             super.submitList(null);
         }
     }
@@ -62,14 +68,15 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
     public MediaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.media_list_item, parent, false);
-        ((TextView)itemView.findViewById(R.id.text_watched_or_read)).setText(mediaListViewModel.getCheckboxText(0));
-        ((TextView)itemView.findViewById(R.id.text_want_to_watch_or_read)).setText(mediaListViewModel.getCheckboxText(1));
-        ((TextView)itemView.findViewById(R.id.text_owned)).setText(mediaListViewModel.getCheckboxText(2));
         return new MediaViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MediaViewHolder holder, int position) {
+        holder.textCheckBox1.setText(checkBoxText[0]);
+        holder.textCheckBox2.setText(checkBoxText[1]);
+        holder.textCheckBox3.setText(checkBoxText[2]);
+
         //MediaAndNotes currentItem = currentList.get(position);
         //MediaAndNotes currentItem = listDiffer.getCurrentList().get(position);
         MediaAndNotes currentItem = getItem(position);
@@ -85,7 +92,7 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
                     .build();
             holder.coverImage.setImageRequest(request);
             holder.coverImage.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE);
-        }else {
+        } else {
             holder.coverImage.setActualImageResource(R.drawable.ic_launcher_foreground);
             holder.coverImage.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE);
         }
@@ -99,16 +106,16 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
         holder.checkBoxOwned.setTag(currentItem.mediaNotes);
 
         holder.checkBoxOwned.setOnClickListener(view -> {
-            ((MediaNotes)view.getTag()).flipOwned();
-            mediaListViewModel.update((MediaNotes)view.getTag());
+            ((MediaNotes) view.getTag()).flipOwned();
+            mediaListViewModel.update((MediaNotes) view.getTag());
         });
         holder.checkBoxWatchedRead.setOnClickListener(view -> {
-            ((MediaNotes)view.getTag()).flipWatchedRead();
-            mediaListViewModel.update((MediaNotes)view.getTag());
+            ((MediaNotes) view.getTag()).flipWatchedRead();
+            mediaListViewModel.update((MediaNotes) view.getTag());
         });
         holder.checkBoxWantToWatchRead.setOnClickListener(view -> {
-            ((MediaNotes)view.getTag()).flipWantToWatchRead();
-            mediaListViewModel.update((MediaNotes)view.getTag());
+            ((MediaNotes) view.getTag()).flipWantToWatchRead();
+            mediaListViewModel.update((MediaNotes) view.getTag());
         });
     }
 
@@ -132,7 +139,7 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
     }*/
 
 
-    static class MediaViewHolder extends RecyclerView.ViewHolder{
+    static class MediaViewHolder extends RecyclerView.ViewHolder {
 
         TextView titleTextView;
         TextView typeTextView;
@@ -140,20 +147,26 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
         CheckBox checkBoxWantToWatchRead;
         CheckBox checkBoxOwned;
         SimpleDraweeView coverImage;
+        TextView textCheckBox1;
+        TextView textCheckBox2;
+        TextView textCheckBox3;
 
 
         MediaViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.media_title);
             typeTextView = itemView.findViewById(R.id.media_type);
-            checkBoxWatchedRead = itemView.findViewById(R.id.checkbox_watched_or_read);
-            checkBoxWantToWatchRead = itemView.findViewById(R.id.checkbox_want_to_watch_or_read);
-            checkBoxOwned = itemView.findViewById(R.id.checkbox_owned);
+            checkBoxWatchedRead = itemView.findViewById(R.id.checkbox_1);
+            checkBoxWantToWatchRead = itemView.findViewById(R.id.checkbox_2);
+            checkBoxOwned = itemView.findViewById(R.id.checkbox_3);
             coverImage = itemView.findViewById(R.id.image_cover);
+            textCheckBox1 = itemView.findViewById(R.id.text_checkbox_1);
+            textCheckBox2 = itemView.findViewById(R.id.text_checkbox_2);
+            textCheckBox3 = itemView.findViewById(R.id.text_checkbox_3);
         }
     }
 
-    static final DiffUtil.ItemCallback<MediaAndNotes> DiffCallback = new DiffUtil.ItemCallback<MediaAndNotes>(){
+    static final DiffUtil.ItemCallback<MediaAndNotes> DiffCallback = new DiffUtil.ItemCallback<MediaAndNotes>() {
         @Override
         public boolean areItemsTheSame(@NonNull MediaAndNotes oldItem, @NonNull MediaAndNotes newItem) {
             return oldItem.mediaItem.id == newItem.mediaItem.id;
@@ -166,15 +179,15 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
             MediaNotes oldNotes = oldItem.mediaNotes;
             MediaNotes newNotes = newItem.mediaNotes;
             boolean same = true;
-            if (oldNotes == null && newNotes!= null){
+            if (oldNotes == null && newNotes != null) {
                 return false;
-            }else if (oldNotes != null && newNotes != null){
+            } else if (oldNotes != null && newNotes != null) {
                 same = (oldNotes.isOwned() == newNotes.isOwned() &&
                         oldNotes.isWantToWatchRead() == newNotes.isWantToWatchRead() &&
                         oldNotes.isWatchedRead() == newNotes.isWatchedRead());
             }
             same &= (oldMedia.imageURL == null ? newMedia.imageURL == null : oldMedia.imageURL.equals(newMedia.imageURL) &&
-                    oldMedia.title == null ? newMedia.title == null :oldMedia.title.equals(newMedia.title) &&
+                    oldMedia.title == null ? newMedia.title == null : oldMedia.title.equals(newMedia.title) &&
                     oldMedia.type == newMedia.type);
             return same;
         }

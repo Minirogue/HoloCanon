@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fresco="http://schemas.android.com/tools">
+    xmlns:fresco="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <!--<ImageView
         android:id="@+id/image_cover"
@@ -19,88 +19,89 @@
         android:id="@+id/image_cover"
         android:layout_width="60dp"
         android:layout_height="100dp"
-        fresco:placeholderImage="@drawable/ic_launcher_foreground"
-        fresco:placeholderImageScaleType="centerInside"
-        fresco:actualImageScaleType="centerInside"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        fresco:actualImageScaleType="centerInside"
+        fresco:placeholderImage="@drawable/ic_launcher_foreground"
+        fresco:placeholderImageScaleType="centerInside" />
 
     <TextView
         android:id="@+id/media_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/image_cover"
-        app:layout_constraintLeft_toRightOf="@id/image_cover"
-        app:layout_constraintRight_toLeftOf="@id/text_watched_or_read"
-        android:padding="10dp"
-        android:maxLines="1"
         android:ellipsize="end"
-        android:text="@string/media_title"/>
+        android:maxLines="1"
+        android:padding="10dp"
+        android:text="@string/media_title"
+        app:layout_constraintLeft_toRightOf="@id/image_cover"
+        app:layout_constraintRight_toLeftOf="@id/text_checkbox_1"
+        app:layout_constraintTop_toTopOf="@id/image_cover" />
+
     <TextView
         android:id="@+id/media_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/media_title"
-        app:layout_constraintLeft_toLeftOf="@id/media_title"
         android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
         android:text="@string/media_type"
-        android:layout_marginLeft="30dp" />
+        app:layout_constraintLeft_toLeftOf="@id/media_title"
+        app:layout_constraintTop_toBottomOf="@id/media_title" />
 
 
     <TextView
-        android:id="@+id/text_watched_or_read"
+        android:id="@+id/text_checkbox_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/checkbox1_default_text"
-        app:layout_constraintRight_toLeftOf="@id/checkbox_watched_or_read"
-        app:layout_constraintTop_toTopOf="@id/checkbox_watched_or_read"
-        app:layout_constraintBottom_toBottomOf="@id/checkbox_watched_or_read" />
+        app:layout_constraintBottom_toBottomOf="@id/checkbox_1"
+        app:layout_constraintRight_toLeftOf="@id/checkbox_1"
+        app:layout_constraintTop_toTopOf="@id/checkbox_1" />
+
     <CheckBox
-        android:id="@+id/checkbox_watched_or_read"
+        android:id="@+id/checkbox_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:focusable="false"
-        app:layout_constraintTop_toTopOf="parent"
+        android:padding="5dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:padding="5dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_want_to_watch_or_read"
+        android:id="@+id/text_checkbox_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/checkbox2_default_text"
-        app:layout_constraintRight_toLeftOf="@id/checkbox_want_to_watch_or_read"
-        app:layout_constraintTop_toTopOf="@id/checkbox_want_to_watch_or_read"
-        app:layout_constraintBottom_toBottomOf="@id/checkbox_want_to_watch_or_read"
-         />
+        app:layout_constraintBottom_toBottomOf="@id/checkbox_2"
+        app:layout_constraintRight_toLeftOf="@id/checkbox_2"
+        app:layout_constraintTop_toTopOf="@id/checkbox_2" />
+
     <CheckBox
-        android:id="@+id/checkbox_want_to_watch_or_read"
+        android:id="@+id/checkbox_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:focusable="false"
-        app:layout_constraintTop_toBottomOf="@id/checkbox_watched_or_read"
+        android:padding="5dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:padding="5dp"/>
+        app:layout_constraintTop_toBottomOf="@id/checkbox_1" />
 
     <TextView
-        android:id="@+id/text_owned"
+        android:id="@+id/text_checkbox_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/checkbox3_default_text"
-        app:layout_constraintRight_toLeftOf="@id/checkbox_owned"
-        app:layout_constraintTop_toTopOf="@id/checkbox_owned"
-        app:layout_constraintBottom_toBottomOf="@id/checkbox_owned"
-        />
+        app:layout_constraintBottom_toBottomOf="@id/checkbox_3"
+        app:layout_constraintRight_toLeftOf="@id/checkbox_3"
+        app:layout_constraintTop_toTopOf="@id/checkbox_3" />
+
     <CheckBox
-        android:id="@+id/checkbox_owned"
+        android:id="@+id/checkbox_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:focusable="false"
-        app:layout_constraintTop_toBottomOf="@id/checkbox_want_to_watch_or_read"
+        android:padding="5dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:padding="5dp"/>
-
+        app:layout_constraintTop_toBottomOf="@id/checkbox_2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

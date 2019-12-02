@@ -96,17 +96,18 @@ public class MediaListFragment extends Fragment {
         });
 
         adapter.setOnItemClickedListener(itemId -> {
-                ViewMediaItemFragment viewMediaItemFragment = new ViewMediaItemFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt(getString(R.string.bundleItemId), itemId);
-                viewMediaItemFragment.setArguments(bundle);
-                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, viewMediaItemFragment)
-                        .addToBackStack(null)
-                        .commit();
+            ViewMediaItemFragment viewMediaItemFragment = new ViewMediaItemFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt(getString(R.string.bundleItemId), itemId);
+            viewMediaItemFragment.setArguments(bundle);
+            Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, viewMediaItemFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
-
+        mediaListViewModel.getCheckBoxText().observe(getViewLifecycleOwner(), adapter::updateCheckBoxText);
         mediaListViewModel.getActiveFilters().observe(getViewLifecycleOwner(), this::setFilterChips);
+
 
         return fragmentView;
     }

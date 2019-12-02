@@ -5,6 +5,7 @@ import android.os.AsyncTask
 import android.util.Log
 import android.util.SparseBooleanArray
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import androidx.preference.PreferenceManager
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.minirogue.starwarscanontracker.model.room.dao.DaoFilter
@@ -113,7 +114,7 @@ class SWMRepository() : KoinComponent {
                         typeFilter.append(" type = ")
                         typeFilter.append(filter.id)
                     }
-                    FilterType.FILTERCOLUMN_OWNED -> {
+                    FilterType.FILTERCOLUMN_CHECKBOX_ONE -> {
                         Log.d("makeQuery", ""+filter.filterType + " filter owned")
                         if (notesFilter.isNotEmpty()) {
                             notesFilter.append(" AND ")
@@ -126,7 +127,7 @@ class SWMRepository() : KoinComponent {
                         }
                         notesFilter.append(" media_notes.owned = 1 ")
                     }
-                    FilterType.FILTERCOLUMN_HASREADWATCHED -> {
+                    FilterType.FILTERCOLUMN_CHECKBOX_THREE -> {
                         if (notesFilter.isNotEmpty()) {
                             notesFilter.append(" AND ")
                         }
@@ -135,7 +136,7 @@ class SWMRepository() : KoinComponent {
                         }
                         notesFilter.append(" media_notes.watched_or_read = 1 ")
                     }
-                    FilterType.FILTERCOLUMN_WANTTOREADWATCH -> {
+                    FilterType.FILTERCOLUMN_CHECKBOX_TWO -> {
                         if (notesFilter.isNotEmpty()) {
                             notesFilter.append(" AND ")
                         }
@@ -326,6 +327,20 @@ class SWMRepository() : KoinComponent {
 
     fun getFiltersOfType(typeId: Int): LiveData<List<FilterObject>> {
         return daoFilter.getFiltersWithType(typeId)
+    }
+
+    fun getCheckBoxText(): LiveData<Array<String>> {
+        return Transformations.map(daoFilter.getCheckBoxFilterTypes()) {filterTypeList ->
+            val checkboxTextArr = arrayOf("", "", "")
+            filterTypeList.forEach {
+                when (it.typeId) {
+                    FilterType.FILTERCOLUMN_CHECKBOX_ONE -> checkboxTextArr[0] = it.text
+                    FilterType.FILTERCOLUMN_CHECKBOX_TWO -> checkboxTextArr[1] = it.text
+                    FilterType.FILTERCOLUMN_CHECKBOX_THREE -> checkboxTextArr[2] = it.text
+                }
+            }
+            checkboxTextArr
+        }
     }
 
     //TODO convert this to a coroutine

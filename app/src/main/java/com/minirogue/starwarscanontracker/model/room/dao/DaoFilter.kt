@@ -25,6 +25,9 @@ interface DaoFilter {
         }
     }
 
+    @Query("SELECT * FROM filter_type WHERE id=3 OR id=4 OR id=5")
+    fun getCheckBoxFilterTypes(): LiveData<List<FilterType>>
+
     @Query("SELECT * FROM filter_type")
     fun getAllFilterTypes(): LiveData<List<FilterType>>
 
@@ -54,5 +57,4 @@ interface DaoFilter {
     //FullFilter
     @Query("SELECT filter_object.*,filter_type.is_positive FROM filter_object INNER JOIN filter_type ON filter_object.type_id = filter_type.id WHERE filter_object.is_active = 1")
     fun getActiveFilters(): LiveData<List<FullFilter>>
-
 }

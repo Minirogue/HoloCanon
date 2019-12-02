@@ -10,12 +10,7 @@ import android.widget.Toast;
 import androidx.preference.PreferenceManager;
 
 import com.minirogue.starwarscanontracker.model.room.MediaDatabase;
-import com.minirogue.starwarscanontracker.model.room.dao.DaoSeries;
-import com.minirogue.starwarscanontracker.model.room.entity.FilterObject;
 import com.minirogue.starwarscanontracker.R;
-import com.minirogue.starwarscanontracker.model.room.dao.DaoFilter;
-import com.minirogue.starwarscanontracker.model.room.dao.DaoType;
-import com.minirogue.starwarscanontracker.model.room.entity.FilterType;
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem;
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes;
 import com.minirogue.starwarscanontracker.model.room.entity.MediaType;
@@ -29,13 +24,6 @@ import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.List;
-
-import static com.minirogue.starwarscanontracker.model.room.entity.FilterType.FILTERCOLUMN_HASREADWATCHED;
-import static com.minirogue.starwarscanontracker.model.room.entity.FilterType.FILTERCOLUMN_OWNED;
-import static com.minirogue.starwarscanontracker.model.room.entity.FilterType.FILTERCOLUMN_SERIES;
-import static com.minirogue.starwarscanontracker.model.room.entity.FilterType.FILTERCOLUMN_TYPE;
-import static com.minirogue.starwarscanontracker.model.room.entity.FilterType.FILTERCOLUMN_WANTTOREADWATCH;
 
 //TODO convert to kotlin and use coroutines
 public class CSVImporter extends AsyncTask<Integer, String, Void> {
