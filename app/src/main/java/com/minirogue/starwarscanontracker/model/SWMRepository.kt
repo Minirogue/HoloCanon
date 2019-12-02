@@ -1,11 +1,12 @@
 package com.minirogue.starwarscanontracker.model
 
 import android.app.Application
+import android.content.SharedPreferences
 import android.os.AsyncTask
 import android.util.SparseBooleanArray
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import androidx.preference.PreferenceManager
+import androidx.lifecycle.liveData
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.minirogue.starwarscanontracker.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.model.room.dao.DaoMedia
@@ -31,6 +32,9 @@ class SWMRepository : KoinComponent {
     private val daoType: DaoType by inject()
     private val daoFilter: DaoFilter by inject()
     private val daoSeries: DaoSeries by inject()
+
+    //preferences
+    private val sharedPreferences: SharedPreferences by inject()
 
 
     //A Mutex in case notes are being updated concurrently (e.g. user clicks on two separate checkboxes for a series)
@@ -69,18 +73,18 @@ class SWMRepository : KoinComponent {
         for (filter in filterList) {
             if (filter.active) {
                 when (filter.filterType) {
-                   /* FilterType.FILTERCOLUMN_CHARACTER -> {
-                        if (characterFilter.isEmpty()) {
-                            joins.append(" INNER JOIN media_character_join ON media_items.id = media_character_join.mediaId ")
-                        } else {
-                            characterFilter.append(" AND ")
-                        }
-                        if (!filterTypeIsPositive[filter.filterType]) {
-                            characterFilter.append(" NOT ")
-                        }
-                        characterFilter.append(" media_character_join.characterID = ")
-                        characterFilter.append(filter.id)
-                    }*/
+                    /* FilterType.FILTERCOLUMN_CHARACTER -> {
+                         if (characterFilter.isEmpty()) {
+                             joins.append(" INNER JOIN media_character_join ON media_items.id = media_character_join.mediaId ")
+                         } else {
+                             characterFilter.append(" AND ")
+                         }
+                         if (!filterTypeIsPositive[filter.filterType]) {
+                             characterFilter.append(" NOT ")
+                         }
+                         characterFilter.append(" media_character_join.characterID = ")
+                         characterFilter.append(filter.id)
+                     }*/
                     FilterType.FILTERCOLUMN_SERIES -> {
                         if (seriesFilter.isEmpty()) {
                             if (!filterTypeIsPositive[filter.filterType]) {
@@ -151,7 +155,7 @@ class SWMRepository : KoinComponent {
             queryBuild.append(characterFilter)
             queryBuild.append(")")
         }*/
-        if (seriesFilter.isNotEmpty()){
+        if (seriesFilter.isNotEmpty()) {
             queryBuild.append(if (whereClause) " AND (" else " WHERE (")
             whereClause = true
             queryBuild.append(seriesFilter)
@@ -259,10 +263,9 @@ class SWMRepository : KoinComponent {
      * of "AND NOT type = " statements for use in a room query.
      */
     private suspend fun getPermanentFiltersAsStringBuilder(): StringBuilder = withContext(Dispatchers.IO) {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(application)
         val permFiltersBuilder = StringBuilder()
         for (type in daoType.allNonLive) {
-            if (!prefs.getBoolean(type.text, true)) {
+            if (!sharedPreferences.getBoolean(type.text, true)) {
                 if (permFiltersBuilder.isNotEmpty()) {
                     permFiltersBuilder.append(" AND ")
                 }
@@ -271,6 +274,17 @@ class SWMRepository : KoinComponent {
             }
         }
         permFiltersBuilder
+    }
+
+    private suspend fun getPermanentFilters(): List<FilterObject> = withContext(Dispatchers.IO) {
+        val filterList = ArrayList<FilterObject>()
+        for (type in daoType.allNonLive) {
+            if (!sharedPreferences.getBoolean(type.text, true)) {
+                filterList.add(daoFilter.getFilter(type.id, FilterType.FILTERCOLUMN_TYPE)
+                        ?: FilterObject(-1, -1, false, ""))
+            }
+        }
+        filterList
     }
 
 
@@ -299,16 +313,41 @@ class SWMRepository : KoinComponent {
         daoFilter.update(filterType)
     }
 
-    fun getActiveFilters(): LiveData<List<FullFilter>> {
-        return daoFilter.getActiveFilters()
+    fun getActiveFilters(): LiveData<List<FullFilter>> = liveData(Dispatchers.Default) {
+        val permFilters =  getPermanentFilters()
+        val source:LiveData<List<FullFilter>> = Transformations.map(daoFilter.getActiveFilters()) {
+            val newList = ArrayList<FullFilter>()
+            for (fullFilter in it) {
+                if (fullFilter.filterObject !in permFilters){
+                    newList.add(fullFilter)
+                }
+            }
+            newList
+        }
+        emitSource(source)
     }
 
-    fun getFiltersOfType(typeId: Int): LiveData<List<FilterObject>> {
-        return daoFilter.getFiltersWithType(typeId)
+    fun getFiltersOfType(typeId: Int): LiveData<List<FilterObject>> = liveData(Dispatchers.Default) {
+        if (typeId == FilterType.FILTERCOLUMN_TYPE) {
+            val permFilters =  getPermanentFilters()
+            val source:LiveData<List<FilterObject>> = Transformations.map(daoFilter.getFiltersWithType(typeId)) {
+                val newList = ArrayList<FilterObject>()
+                for (filterObject in it) {
+                    if (filterObject !in permFilters){
+                        newList.add(filterObject)
+                    }
+                }
+                newList
+            }
+            emitSource(source)
+        } else {
+            emitSource(daoFilter.getFiltersWithType(typeId))
+        }
     }
+
 
     fun getCheckBoxText(): LiveData<Array<String>> {
-        return Transformations.map(daoFilter.getCheckBoxFilterTypes()) {filterTypeList ->
+        return Transformations.map(daoFilter.getCheckBoxFilterTypes()) { filterTypeList ->
             val checkboxTextArr = arrayOf("", "", "")
             filterTypeList.forEach {
                 when (it.typeId) {
