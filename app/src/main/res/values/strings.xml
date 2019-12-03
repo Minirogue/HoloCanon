@@ -16,7 +16,8 @@
     <string name="checkbox1_default_text">Completed</string>
     <string name="checkbox2_default_text">Wishlist</string>
     <string name="checkbox3_default_text">Owned</string>
-    <string name="nav_subtext">Do or do not.</string>
+<!--    <string name="nav_subtext">Do or do not.</string>-->
+    <string name="nav_subtext">This is the way.</string>
     <string name="launcher_icon_description">Launcher Icon</string>
     <string name="copyright_notice">This app is in no way affiliated with or endorsed by Disney or Lucasfilm.
         I do not claim to own Star Wars or any of its related copyrights or trademarks.
