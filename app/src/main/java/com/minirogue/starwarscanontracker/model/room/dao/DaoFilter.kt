@@ -17,14 +17,6 @@ interface DaoFilter {
     @Update
     fun update(filterType: FilterType)
 
-    @Transaction
-    fun upsert(filterType: FilterType){
-        val success = insert(filterType)
-        if (success < 0){
-            update(filterType)
-        }
-    }
-
     @Query("SELECT * FROM filter_type WHERE id=3 OR id=4 OR id=5")
     fun getCheckBoxFilterTypes(): LiveData<List<FilterType>>
 

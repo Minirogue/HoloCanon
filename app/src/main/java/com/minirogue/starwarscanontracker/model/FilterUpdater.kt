@@ -30,8 +30,14 @@ class FilterUpdater : KoinComponent {
 
     private suspend fun updateSeriesFilters() = withContext(Dispatchers.Default) {
         var tempFilter: FilterObject?
+        val seriesFilterText = "Series"
 
-        daoFilter.upsert(FilterType(FilterType.FILTERCOLUMN_SERIES, true, "Series"))
+        val insertWorked = daoFilter.insert(FilterType(FilterType.FILTERCOLUMN_SERIES, true, seriesFilterText))
+        if (insertWorked < 0){
+            val filterType = daoFilter.getFilterType(FilterType.FILTERCOLUMN_SERIES)
+            filterType.text = seriesFilterText
+        }
+
         val seriesList = daoSeries.getAllNonLive()
         for (series in seriesList) {
             tempFilter = daoFilter.getFilter(series.id, FilterType.FILTERCOLUMN_SERIES)
@@ -47,8 +53,14 @@ class FilterUpdater : KoinComponent {
 
     private suspend fun updateMediaTypeFilters() = withContext(Dispatchers.Default) {
         var tempFilter: FilterObject?
+        val mediaTypeText = "Media Type"
 
-        daoFilter.upsert(FilterType(FilterType.FILTERCOLUMN_TYPE, true, "Media Type"))
+        val insertWorked = daoFilter.insert(FilterType(FilterType.FILTERCOLUMN_TYPE, true, mediaTypeText))
+        if (insertWorked < 0){
+            val filterType = daoFilter.getFilterType(FilterType.FILTERCOLUMN_TYPE)
+            filterType.text = mediaTypeText
+        }
+
         val mediaTypes = daoType.allNonLive
         for (mediaType in mediaTypes) {
             tempFilter = daoFilter.getFilter(mediaType.id, FilterType.FILTERCOLUMN_TYPE)
@@ -65,7 +77,12 @@ class FilterUpdater : KoinComponent {
     private suspend fun updateCheckboxFilters() = withContext(Dispatchers.Default) {
         var tempFilter: FilterObject?
         //add checkbox filters
-        daoFilter.upsert(FilterType(FilterType.FILTERCOLUMN_CHECKBOX_ONE, true, checkboxText[0]))
+        var insertWorked = daoFilter.insert(FilterType(FilterType.FILTERCOLUMN_CHECKBOX_ONE, true, checkboxText[0]))
+        if (insertWorked < 0){
+            val filterType = daoFilter.getFilterType(FilterType.FILTERCOLUMN_CHECKBOX_ONE)
+            filterType.text = checkboxText[0]
+        }
+
         tempFilter = daoFilter.getFilter(1, FilterType.FILTERCOLUMN_CHECKBOX_ONE)
         if (tempFilter == null) {
             tempFilter = FilterObject(1, FilterType.FILTERCOLUMN_CHECKBOX_ONE, false, checkboxText[0])
@@ -75,7 +92,11 @@ class FilterUpdater : KoinComponent {
             daoFilter.update(tempFilter)
         }
 
-        daoFilter.upsert(FilterType(FilterType.FILTERCOLUMN_CHECKBOX_TWO, true, checkboxText[1]))
+        insertWorked = daoFilter.insert(FilterType(FilterType.FILTERCOLUMN_CHECKBOX_TWO, true, checkboxText[1]))
+        if (insertWorked < 0){
+            val filterType = daoFilter.getFilterType(FilterType.FILTERCOLUMN_CHECKBOX_TWO)
+            filterType.text = checkboxText[1]
+        }
         tempFilter = daoFilter.getFilter(1, FilterType.FILTERCOLUMN_CHECKBOX_TWO)
         if (tempFilter == null) {
             tempFilter = FilterObject(1, FilterType.FILTERCOLUMN_CHECKBOX_TWO, false, checkboxText[1])
@@ -85,7 +106,11 @@ class FilterUpdater : KoinComponent {
             daoFilter.update(tempFilter)
         }
 
-        daoFilter.upsert(FilterType(FilterType.FILTERCOLUMN_CHECKBOX_THREE, true, checkboxText[2]))
+        insertWorked = daoFilter.insert(FilterType(FilterType.FILTERCOLUMN_CHECKBOX_THREE, true, checkboxText[2]))
+        if (insertWorked < 0){
+            val filterType = daoFilter.getFilterType(FilterType.FILTERCOLUMN_CHECKBOX_THREE)
+            filterType.text = checkboxText[2]
+        }
         tempFilter = daoFilter.getFilter(1, FilterType.FILTERCOLUMN_CHECKBOX_THREE)
         if (tempFilter == null) {
             tempFilter = FilterObject(1, FilterType.FILTERCOLUMN_CHECKBOX_THREE, false, checkboxText[2])

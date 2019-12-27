@@ -300,14 +300,14 @@ class SWMRepository : KoinComponent {
     }
 
     /**
-     * Update FilterObject in the room.
+     * Persist a FilterObject to the database.
      */
     fun update(filterObject: FilterObject) = GlobalScope.launch(Dispatchers.Default) {
         daoFilter.update(filterObject)
     }
 
     /**
-     * Update FilterObject in the room.
+     * Persist a FilterType to the database.
      */
     fun update(filterType: FilterType) = GlobalScope.launch(Dispatchers.Default) {
         daoFilter.update(filterType)
