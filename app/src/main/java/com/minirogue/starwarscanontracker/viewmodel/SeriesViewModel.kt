@@ -1,30 +1,33 @@
 package com.minirogue.starwarscanontracker.viewmodel
 
-import android.net.ConnectivityManager
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.model.SWMRepository
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
+import com.minirogue.starwarscanontracker.model.room.entity.Series
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import org.koin.core.KoinComponent
-import org.koin.core.inject
-import org.koin.core.qualifier.named
+import javax.inject.Inject
 
-class SeriesViewModel(private val seriesId: Int) : ViewModel(), KoinComponent {
-    private val repository: SWMRepository by inject()
-    val liveSeries = repository.getLiveSeries(seriesId)
+
+class SeriesViewModel @Inject constructor(private val repository: SWMRepository, private val connMgr: MyConnectivityManager) : ViewModel() {
+
+    private var seriesId: Int = -1
+    lateinit var liveSeries: LiveData<Series>
     val liveSeriesNotes = MediatorLiveData<Array<Boolean>>()
-    private val connMgr: ConnectivityManager by inject()
-    private val unmeteredOnly: Boolean by inject(named("unmetered_only"))
     private val notesParsingMutex = Mutex()
 
-    init {
+
+    fun setSeriesId(seriesId: Int){
+        this.seriesId = seriesId
+        liveSeries = repository.getLiveSeries(seriesId)
         liveSeriesNotes.addSource(repository.getLiveNotesBySeries(seriesId)) {
             viewModelScope.launch {
                 updateSeriesNotes(it)
@@ -90,8 +93,6 @@ class SeriesViewModel(private val seriesId: Int) : ViewModel(), KoinComponent {
         }
     }
 
-    fun isNetworkAllowed(): Boolean {
-        return !connMgr.isActiveNetworkMetered || !unmeteredOnly
-    }
+    fun isNetworkAllowed() = connMgr.isNetworkAllowed()
 
 }

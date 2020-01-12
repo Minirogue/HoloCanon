@@ -9,29 +9,35 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.facebook.drawee.drawable.ScalingUtils
 import com.facebook.imagepipeline.request.ImageRequest
 import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.minirogue.starwarscanontracker.R
+import com.minirogue.starwarscanontracker.application.CanonTrackerApplication
 import com.minirogue.starwarscanontracker.model.room.entity.Series
 import com.minirogue.starwarscanontracker.viewmodel.SeriesViewModel
 import kotlinx.android.synthetic.main.fragment_series.view.*
+import javax.inject.Inject
 
 
 class SeriesFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var viewModel: SeriesViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val fragmentView = inflater.inflate(R.layout.fragment_series, container, false)
+        (activity!!.application as CanonTrackerApplication).appComponent.inject(this)
         setTextBoxes(fragmentView, activity!!.application)
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
-        viewModel = ViewModelProviders.of(this, SeriesViewModelFactory(bundleItemId)).get(SeriesViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(SeriesViewModel::class.java)
+        if (bundleItemId != -1) viewModel.setSeriesId(bundleItemId)
         viewModel.liveSeries.observe(viewLifecycleOwner, Observer { series -> updateViews(series, fragmentView) })
         viewModel.liveSeriesNotes.observe(viewLifecycleOwner, Observer { notes -> updateViews(notes, fragmentView) })
         fragmentView.checkbox_3.setOnClickListener { viewModel.toggleOwned() }
@@ -71,11 +77,11 @@ class SeriesFragment : Fragment() {
     }
 
 
-    internal inner class SeriesViewModelFactory(private val itemId: Int) : ViewModelProvider.Factory {
+    /*internal inner class SeriesViewModelFactory(private val itemId: Int, private val application: CanonTrackerApplication) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return SeriesViewModel(itemId) as T
+            return SeriesViewModel(itemId, application) as T
         }
-    }
+    }*/
 
 }

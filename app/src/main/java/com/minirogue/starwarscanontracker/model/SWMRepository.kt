@@ -1,6 +1,5 @@
 package com.minirogue.starwarscanontracker.model
 
-import android.app.Application
 import android.content.SharedPreferences
 import android.os.AsyncTask
 import android.util.SparseBooleanArray
@@ -18,23 +17,15 @@ import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 import java.lang.ref.WeakReference
+import javax.inject.Inject
 
-class SWMRepository : KoinComponent {
+class SWMRepository @Inject constructor(val daoMedia: DaoMedia,
+                                        val daoType: DaoType,
+                                        val daoFilter: DaoFilter,
+                                        val daoSeries: DaoSeries,
+                                        val sharedPreferences: SharedPreferences) {
     //private val TAG = "Repo"
-
-    private val application: Application by inject()
-
-    //The DAOs used to access the room
-    private val daoMedia: DaoMedia by inject()
-    private val daoType: DaoType by inject()
-    private val daoFilter: DaoFilter by inject()
-    private val daoSeries: DaoSeries by inject()
-
-    //preferences
-    private val sharedPreferences: SharedPreferences by inject()
 
 
     //A Mutex in case notes are being updated concurrently (e.g. user clicks on two separate checkboxes for a series)
@@ -314,11 +305,11 @@ class SWMRepository : KoinComponent {
     }
 
     fun getActiveFilters(): LiveData<List<FullFilter>> = liveData(Dispatchers.Default) {
-        val permFilters =  getPermanentFilters()
-        val source:LiveData<List<FullFilter>> = Transformations.map(daoFilter.getActiveFilters()) {
+        val permFilters = getPermanentFilters()
+        val source: LiveData<List<FullFilter>> = Transformations.map(daoFilter.getActiveFilters()) {
             val newList = ArrayList<FullFilter>()
             for (fullFilter in it) {
-                if (fullFilter.filterObject !in permFilters){
+                if (fullFilter.filterObject !in permFilters) {
                     newList.add(fullFilter)
                 }
             }
@@ -329,11 +320,11 @@ class SWMRepository : KoinComponent {
 
     fun getFiltersOfType(typeId: Int): LiveData<List<FilterObject>> = liveData(Dispatchers.Default) {
         if (typeId == FilterType.FILTERCOLUMN_TYPE) {
-            val permFilters =  getPermanentFilters()
-            val source:LiveData<List<FilterObject>> = Transformations.map(daoFilter.getFiltersWithType(typeId)) {
+            val permFilters = getPermanentFilters()
+            val source: LiveData<List<FilterObject>> = Transformations.map(daoFilter.getFiltersWithType(typeId)) {
                 val newList = ArrayList<FilterObject>()
                 for (filterObject in it) {
-                    if (filterObject !in permFilters){
+                    if (filterObject !in permFilters) {
                         newList.add(filterObject)
                     }
                 }

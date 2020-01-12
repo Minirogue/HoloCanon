@@ -1,21 +1,38 @@
 package com.minirogue.starwarscanontracker.application
 
 import android.app.Application
-import com.minirogue.starwarscanontracker.koin.appModule
-import com.minirogue.starwarscanontracker.koin.preferencesModule
-import com.minirogue.starwarscanontracker.koin.roomModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
+import com.minirogue.starwarscanontracker.dagger.AppComponent
+import com.minirogue.starwarscanontracker.dagger.AppModule
+import com.minirogue.starwarscanontracker.dagger.DaggerAppComponent
+import com.minirogue.starwarscanontracker.dagger.RoomModule
+
 
 class CanonTrackerApplication : Application() {
+
+    lateinit var appComponent: AppComponent
+
+
     override fun onCreate() {
         super.onCreate()
-        //initialize Koin for dependency injection
+        appComponent = initDagger(this)
+
+    }
+
+    //Initialize Dagger2 for dependency injection
+    private fun initDagger(app: CanonTrackerApplication): AppComponent =
+            DaggerAppComponent.builder()
+                    .appModule(AppModule(app))
+                    .roomModule(RoomModule(app))
+                    .build()
+}
+
+
+//Initialize Koin for dependency injection
+/*
+    private fun initKoin() {
         startKoin {
             androidLogger()
             androidContext(this@CanonTrackerApplication)
             modules(listOf(appModule, roomModule, preferencesModule))
         }
-    }
-}
+*/

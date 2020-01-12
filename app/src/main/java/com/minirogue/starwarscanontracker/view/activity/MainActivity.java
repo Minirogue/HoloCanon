@@ -3,23 +3,23 @@ package com.minirogue.starwarscanontracker.view.activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
+import com.google.android.material.navigation.NavigationView;
+import com.minirogue.starwarscanontracker.R;
+import com.minirogue.starwarscanontracker.application.CanonTrackerApplication;
+import com.minirogue.starwarscanontracker.model.CSVImporter;
+import com.minirogue.starwarscanontracker.view.fragment.EntryFragment;
+import com.minirogue.starwarscanontracker.view.fragment.FilterSelectionFragment;
+import com.minirogue.starwarscanontracker.view.fragment.MediaListFragment;
+import com.minirogue.starwarscanontracker.view.fragment.SettingsFragment;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.imagepipeline.core.ImagePipelineConfig;
-import com.google.android.material.navigation.NavigationView;
-import com.minirogue.starwarscanontracker.R;
-import com.minirogue.starwarscanontracker.model.CSVImporter;
-import com.minirogue.starwarscanontracker.model.FilterUpdater;
-import com.minirogue.starwarscanontracker.view.fragment.EntryFragment;
-import com.minirogue.starwarscanontracker.view.fragment.FilterSelectionFragment;
-import com.minirogue.starwarscanontracker.view.fragment.MediaListFragment;
-import com.minirogue.starwarscanontracker.view.fragment.SettingsFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         //Update filters based one current information
-        (new FilterUpdater()).updateFilters();
+        ((CanonTrackerApplication)getApplication()).getAppComponent().injectFilterUpdater().updateFilters();
         //check for update to room
         new CSVImporter(getApplication(), false).execute(CSVImporter.SOURCE_ONLINE);
     }

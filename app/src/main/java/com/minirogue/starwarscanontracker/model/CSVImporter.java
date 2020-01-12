@@ -7,10 +7,9 @@ import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import androidx.preference.PreferenceManager;
-
-import com.minirogue.starwarscanontracker.model.room.MediaDatabase;
 import com.minirogue.starwarscanontracker.R;
+import com.minirogue.starwarscanontracker.application.CanonTrackerApplication;
+import com.minirogue.starwarscanontracker.model.room.MediaDatabase;
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem;
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes;
 import com.minirogue.starwarscanontracker.model.room.entity.MediaType;
@@ -24,6 +23,8 @@ import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
+
+import androidx.preference.PreferenceManager;
 
 //TODO convert to kotlin and use coroutines
 public class CSVImporter extends AsyncTask<Integer, String, Void> {
@@ -371,7 +372,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putLong(app.getString(R.string.current_database_version), newVersionId);
         editor.apply();
-        (new FilterUpdater()).updateFilters();
+        ((CanonTrackerApplication)app).getAppComponent().injectFilterUpdater().updateFilters();
         return null;
     }
 

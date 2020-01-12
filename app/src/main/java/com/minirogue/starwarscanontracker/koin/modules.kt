@@ -1,3 +1,4 @@
+/*
 package com.minirogue.starwarscanontracker.koin
 
 import android.content.Context
@@ -36,4 +37,4 @@ val preferencesModule = module {
                 get<SharedPreferences>().getString(androidApplication().getString(R.string.checkbox3_default_text), androidApplication().getString(R.string.checkbox3_default_text)))
     }
     factory(named("unmetered_only")) { get<SharedPreferences>().getBoolean(androidContext().getString(R.string.setting_unmetered_sync_only), true) }
-}
+}*/

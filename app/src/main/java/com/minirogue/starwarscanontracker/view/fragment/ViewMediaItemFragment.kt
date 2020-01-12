@@ -9,18 +9,19 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.facebook.drawee.drawable.ScalingUtils
 import com.facebook.imagepipeline.request.ImageRequest
 import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.minirogue.starwarscanontracker.R
+import com.minirogue.starwarscanontracker.application.CanonTrackerApplication
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.viewmodel.ViewMediaItemViewModel
 import kotlinx.android.synthetic.main.fragment_view_media_item.view.*
+import javax.inject.Inject
 
 
 class ViewMediaItemFragment : Fragment() {
@@ -30,14 +31,19 @@ class ViewMediaItemFragment : Fragment() {
         private const val MENU_ITEM_AMAZON_STREAM = 2
     }
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     private lateinit var viewModel: ViewMediaItemViewModel
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater.inflate(R.layout.fragment_view_media_item, container, false)
+        (activity!!.application as CanonTrackerApplication).appComponent.inject(this)
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
-        viewModel = ViewModelProviders.of(this, ViewMediaItemViewModelFactory(bundleItemId)).get(ViewMediaItemViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ViewMediaItemViewModel::class.java)
+        if (bundleItemId != -1) viewModel.setItemId(bundleItemId)
         viewModel.liveMediaItem.observe(viewLifecycleOwner, Observer { item -> updateViews(item, fragmentView) })
         viewModel.liveMediaNotes.observe(viewLifecycleOwner, Observer { notes -> updateViews(notes, fragmentView) })
         viewModel.checkBoxText.observe(viewLifecycleOwner, Observer { arr ->
@@ -112,10 +118,10 @@ class ViewMediaItemFragment : Fragment() {
     }
 
 
-    internal inner class ViewMediaItemViewModelFactory(private val itemId: Int) : ViewModelProvider.Factory {
+    /*internal inner class ViewMediaItemViewModelFactory(private val itemId: Int, private val application: CanonTrackerApplication) : ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return ViewMediaItemViewModel(itemId) as T
+            return ViewMediaItemViewModel(itemId, application) as T
         }
-    }
+    }*/
 }

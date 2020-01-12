@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt' //annotation processor that works with kotlin as well as java
+
 
 def keystorePropsFile = rootProject.file('keystore.properties')
 
@@ -86,14 +88,18 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0-rc03'
     api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0'
 
-    //Koin (dependency injection)
+    /*Koin (dependency injection)
     implementation "org.koin:koin-android:2.0.1"
     androidTestImplementation "org.koin:koin-test:2.0.1"
-    implementation "org.koin:koin-android-viewmodel:2.0.1"
+    implementation "org.koin:koin-android-viewmodel:2.0.1"*/
+
+    //Dagger2(dependency injection)
+    kapt 'com.google.dagger:dagger-compiler:2.16'
+    implementation 'com.google.dagger:dagger:2.16'
 
     //Room (databases)
     implementation 'androidx.room:room-runtime:2.2.3'
-    annotationProcessor 'androidx.room:room-compiler:2.2.3'
+    kapt 'androidx.room:room-compiler:2.2.3'
     androidTestImplementation 'android.arch.persistence.room:testing:1.1.1'
 
     //Fresco (image loading)

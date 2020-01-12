@@ -1,18 +1,17 @@
 package com.minirogue.starwarscanontracker.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 import com.minirogue.starwarscanontracker.model.SWMRepository
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter
-import org.koin.core.KoinComponent
-import org.koin.core.inject
+import javax.inject.Inject
 
-internal class FilterSelectionViewModel(application: Application) : AndroidViewModel(application), KoinComponent {
 
-    private val repository: SWMRepository by inject()
+class FilterSelectionViewModel @Inject constructor(private val repository: SWMRepository) : ViewModel() {
+
+
     val filterTypes = repository.getAllFilterTypes()
 
 

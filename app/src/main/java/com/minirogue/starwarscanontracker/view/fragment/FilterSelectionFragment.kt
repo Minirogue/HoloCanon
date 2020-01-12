@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.minirogue.starwarscanontracker.R
+import com.minirogue.starwarscanontracker.application.CanonTrackerApplication
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter
@@ -19,14 +21,19 @@ import com.minirogue.starwarscanontracker.view.FilterChip
 import com.minirogue.starwarscanontracker.view.adapter.FilterSelectionAdapter
 import com.minirogue.starwarscanontracker.viewmodel.FilterSelectionViewModel
 import kotlinx.android.synthetic.main.fragment_filter_selection.view.*
+import javax.inject.Inject
 
 class FilterSelectionFragment : Fragment() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private lateinit var viewModel: FilterSelectionViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater.inflate(R.layout.fragment_filter_selection, container, false)
-        viewModel = ViewModelProviders.of(this).get(FilterSelectionViewModel::class.java)
+        (activity!!.application as CanonTrackerApplication).appComponent.inject(this)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(FilterSelectionViewModel::class.java)
         val recyclerView = fragmentView.general_recyclerview
 
         val activeChipGroup = fragmentView.selected_chipgroup

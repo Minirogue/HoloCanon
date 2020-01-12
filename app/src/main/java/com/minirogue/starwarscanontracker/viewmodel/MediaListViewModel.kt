@@ -1,9 +1,9 @@
 package com.minirogue.starwarscanontracker.viewmodel
 
 import android.app.Application
-import android.net.ConnectivityManager
 import android.util.SparseArray
 import androidx.lifecycle.*
+import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.model.SWMRepository
 import com.minirogue.starwarscanontracker.model.SortStyle
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
@@ -13,19 +13,13 @@ import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import org.koin.core.KoinComponent
-import org.koin.core.inject
-import org.koin.core.qualifier.named
 import java.io.File
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-internal class MediaListViewModel(application: Application) : AndroidViewModel(application), KoinComponent {
+class MediaListViewModel @Inject constructor(private val repository: SWMRepository, private val connMgr: MyConnectivityManager, application: Application) : ViewModel() {
 
-    private val dataMediator = MediatorLiveData<List<MediaItem>>()
-    private val repository: SWMRepository by inject()
-    private val connMgr: ConnectivityManager by inject()
-    private val unmeteredOnly: Boolean by inject(named("unmetered_only"))
 
     //filtering
     val activeFilters = repository.getActiveFilters()
@@ -36,6 +30,7 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
     val filteredMediaAndNotes: LiveData<List<MediaAndNotes>>
         get() = sortedData
     private val mediaTypeToString = SparseArray<String>()
+    private val dataMediator = MediatorLiveData<List<MediaItem>>()
 
     //The current method of sorting
     private val _sortStyle = MutableLiveData<SortStyle>()
@@ -55,8 +50,7 @@ internal class MediaListViewModel(application: Application) : AndroidViewModel(a
     private val sortCacheFileName = application.cacheDir.toString() + "/sortCache"
 
     //Whether or not network calls are currently allowed. Used for fetching images.
-    val isNetworkAllowed: Boolean
-        get() = !connMgr.isActiveNetworkMetered || !unmeteredOnly
+    fun isNetworkAllowed(): Boolean = connMgr.isNetworkAllowed()
 
 
     init {

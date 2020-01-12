@@ -1,43 +1,49 @@
 package com.minirogue.starwarscanontracker.viewmodel
 
-import android.net.ConnectivityManager
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.model.SWMRepository
-import org.koin.core.KoinComponent
-import org.koin.core.inject
-import org.koin.core.qualifier.named
+import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
+import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
+import javax.inject.Inject
 
 
-class ViewMediaItemViewModel(itemId: Int): ViewModel(), KoinComponent {
+class ViewMediaItemViewModel @Inject constructor(private val repository: SWMRepository,
+                                                 private val connMgr: MyConnectivityManager) : ViewModel() {
 
-    private val repository : SWMRepository by inject()
-    val liveMediaItem = repository.getLiveMediaItem(itemId)
-    val liveMediaNotes = repository.getLiveMediaNotes(itemId)
+
+
+
+    lateinit var liveMediaItem : LiveData<MediaItem>
+    lateinit var liveMediaNotes : LiveData<MediaNotes>
     val checkBoxText = repository.getCheckBoxText()
-    private val connMgr: ConnectivityManager by inject()
-    private val unmeteredOnly: Boolean by inject(named("unmetered_only"))
 
+    fun setItemId(itemId: Int){
+        liveMediaItem = repository.getLiveMediaItem(itemId)
+        liveMediaNotes = repository.getLiveMediaNotes(itemId)
+    }
 
-
-    fun toggleOwned(){
+    fun toggleOwned() {
         val notes = liveMediaNotes.value
         notes?.flipOwned()
         repository.update(notes)
     }
-    fun toggleWatchedRead(){
+
+    fun toggleWatchedRead() {
         val notes = liveMediaNotes.value
         notes?.flipWatchedRead()
         repository.update(notes)
     }
-    fun toggleWantToWatchRead(){
+
+    fun toggleWantToWatchRead() {
         val notes = liveMediaNotes.value
         notes?.flipWantToWatchRead()
         repository.update(notes)
     }
 
 
-    fun isNetworkAllowed(): Boolean{
-        return !connMgr.isActiveNetworkMetered || !unmeteredOnly
-    }
+    fun isNetworkAllowed() = connMgr.isNetworkAllowed()
+
 
 }

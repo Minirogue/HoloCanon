@@ -10,26 +10,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.minirogue.starwarscanontracker.R;
+import com.minirogue.starwarscanontracker.application.CanonTrackerApplication;
+import com.minirogue.starwarscanontracker.model.SortStyle;
 import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter;
 import com.minirogue.starwarscanontracker.view.FilterChip;
 import com.minirogue.starwarscanontracker.view.activity.MainActivity;
 import com.minirogue.starwarscanontracker.view.adapter.SWMListAdapter;
-import com.minirogue.starwarscanontracker.R;
-import com.minirogue.starwarscanontracker.model.SortStyle;
 import com.minirogue.starwarscanontracker.viewmodel.MediaListViewModel;
 
 import java.util.List;
 import java.util.Objects;
+
+import javax.inject.Inject;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MediaListFragment extends Fragment {
     private static final String TAG = "Media List";
@@ -42,6 +46,9 @@ public class MediaListFragment extends Fragment {
     private FloatingActionButton filterFAB;
     private Context ctx;
 
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -52,8 +59,9 @@ public class MediaListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_media_list, container, false);
+        ((CanonTrackerApplication)getActivity().getApplication()).appComponent.inject(this);
         Log.d(TAG, "onCreateView: getting viewmodel");
-        mediaListViewModel = ViewModelProviders.of(this).get(MediaListViewModel.class);
+        mediaListViewModel = ViewModelProviders.of(this, viewModelFactory).get(MediaListViewModel.class);
         Log.d(TAG, "onCreateView: viewmodel gotten");
         mediaListViewModel.getFilteredMediaAndNotes().observe(getViewLifecycleOwner(), mediaAndNotes -> adapter.submitList((mediaAndNotes)));
 
