@@ -37,7 +37,7 @@ public interface DaoMedia {
 
     //The following are for MediaNotes interactions
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(MediaNotes um);
+    long insert(MediaNotes um);
 
     @Update
     void update(MediaNotes um);
@@ -51,5 +51,8 @@ public interface DaoMedia {
     //The following return MediaAndNotes objects
     @RawQuery(observedEntities = {MediaItem.class, MediaNotes.class})
     LiveData<List<MediaAndNotes>> getMediaAndNotesRawQuery(SupportSQLiteQuery query);
+
+    @Query("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId")
+    List<MediaAndNotes> getAllMediaAndNotes();
 
 }

@@ -3,6 +3,13 @@ package com.minirogue.starwarscanontracker.view.activity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.google.android.material.navigation.NavigationView;
@@ -14,17 +21,10 @@ import com.minirogue.starwarscanontracker.view.fragment.FilterSelectionFragment;
 import com.minirogue.starwarscanontracker.view.fragment.MediaListFragment;
 import com.minirogue.starwarscanontracker.view.fragment.SettingsFragment;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-
 
 public class MainActivity extends AppCompatActivity {
 
-    //private static final String TAG = "MainActivity";
+    private static final String TAG = "MainActivity";
 
     //the following are definitions for the tags associated to each of the main Fragments
     private static final String CANON_LIST_TAG = "canon_list";
@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
         //When the user opens a fresh instance of the app
         if (savedInstanceState == null) {
+            //small fix for some of the beta users around version 1.0.4
+            fixDatabaseName();
             //initialize the fragment to the entry fragment
             replaceFragment(ENTRY_TAG);
             //initialize Fresco
@@ -139,6 +141,11 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.fragment_container, newFrag, tag)
                 .addToBackStack(null)
                 .commit();
+    }
+
+
+    private void fixDatabaseName(){
+        (((CanonTrackerApplication)getApplication()).getAppComponent().injectTransferDatabase()).checkAndTransferFrom("StarWars-room");
     }
 
 

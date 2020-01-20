@@ -20,11 +20,11 @@ import kotlinx.coroutines.sync.withLock
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
-class SWMRepository @Inject constructor(val daoMedia: DaoMedia,
-                                        val daoType: DaoType,
-                                        val daoFilter: DaoFilter,
-                                        val daoSeries: DaoSeries,
-                                        val sharedPreferences: SharedPreferences) {
+class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
+                                        private val daoType: DaoType,
+                                        private val daoFilter: DaoFilter,
+                                        private val daoSeries: DaoSeries,
+                                        private val sharedPreferences: SharedPreferences) {
     //private val TAG = "Repo"
 
 

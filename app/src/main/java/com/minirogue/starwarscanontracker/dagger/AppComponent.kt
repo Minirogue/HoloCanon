@@ -1,6 +1,7 @@
 package com.minirogue.starwarscanontracker.dagger
 
 import com.minirogue.starwarscanontracker.model.FilterUpdater
+import com.minirogue.starwarscanontracker.model.TransferDatabase
 import com.minirogue.starwarscanontracker.view.activity.MainActivity
 import com.minirogue.starwarscanontracker.view.fragment.*
 import com.minirogue.starwarscanontracker.viewmodel.FilterSelectionViewModel
@@ -32,6 +33,7 @@ interface AppComponent {
 
     //Database Management
     fun injectFilterUpdater(): FilterUpdater
+    fun injectTransferDatabase(): TransferDatabase
 
 
 }
