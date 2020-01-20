@@ -27,7 +27,9 @@ import com.minirogue.starwarscanontracker.model.room.join.MediaCharacterJoin;
 
 public abstract class MediaDatabase extends RoomDatabase {
 
-    public static final String DATABASE_NAME = "StarWars-database";
+    private static final String DATABASE_NAME = "StarWars-database";
+    private static final String LATEST_PREPACKAGED_DATABASE = "schema16_ver13.db";
+
     private static MediaDatabase databaseInstance;
 
     public abstract DaoMedia getDaoMedia();
@@ -40,6 +42,7 @@ public abstract class MediaDatabase extends RoomDatabase {
         if (databaseInstance == null) {
             databaseInstance =
                     Room.databaseBuilder(ctx.getApplicationContext(), MediaDatabase.class, DATABASE_NAME)
+                            .createFromAsset("database/" + LATEST_PREPACKAGED_DATABASE)
                             .addMigrations(MIGRATE_8_9, MIGRATE_9_10, MIGRATE_10_11, MIGRATE_11_12, MIGRATE_12_13,
                                     MIGRATE_13_14, MIGRATE_14_15, MIGRATE_15_16)
                             .build();
