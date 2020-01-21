@@ -16,16 +16,13 @@ import java.util.List;
 public interface DaoType {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     long insert(MediaType mediaType);
+
     @Update
     void update(MediaType mediaType);
-// --Commented out by Inspection START (6/6/19 8:33 PM):
-//// --Commented out by Inspection START (6/6/19 8:33 PM):
-////    @Delete
-////    void delete(MediaType mediaType);
-//// --Commented out by Inspection STOP (6/6/19 8:33 PM)
-// --Commented out by Inspection STOP (6/6/19 8:33 PM)
+
     @Query("SELECT * FROM media_types")
     LiveData<List<MediaType>> getAllMediaTypes();
+
     @Query("SELECT * FROM media_types")
     List<MediaType> getAllNonLive();
 }

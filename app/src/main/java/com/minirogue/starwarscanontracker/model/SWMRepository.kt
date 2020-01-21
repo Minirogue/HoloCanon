@@ -336,6 +336,7 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
         }
     }
 
+    suspend fun getFilter(id: Int, typeId: Int): FilterObject? = withContext(Dispatchers.Default) {daoFilter.getFilter(id,typeId)}
 
     fun getCheckBoxText(): LiveData<Array<String>> {
         return Transformations.map(daoFilter.getCheckBoxFilterTypes()) { filterTypeList ->

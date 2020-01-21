@@ -47,17 +47,12 @@ public class MediaListFragment extends Fragment {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        ctx = this.getContext();
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_media_list, container, false);
-        ((CanonTrackerApplication)getActivity().getApplication()).appComponent.inject(this);
+        ctx = fragmentView.getContext();
+        ((CanonTrackerApplication) getActivity().getApplication()).appComponent.inject(this);
         mediaListViewModel = ViewModelProviders.of(this, viewModelFactory).get(MediaListViewModel.class);
         mediaListViewModel.getFilteredMediaAndNotes().observe(getViewLifecycleOwner(), mediaAndNotes -> adapter.submitList((mediaAndNotes)));
 

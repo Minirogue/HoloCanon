@@ -11,16 +11,17 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import javax.inject.Inject
 
-class TransferDatabase @Inject constructor(val correctNamedDatabase: MediaDatabase, val ctx : Context) {
+class TransferDatabase @Inject constructor(private val correctNamedDatabase: MediaDatabase, private val ctx : Context) {
 
-    private val TAG = "DatabaseTransfer"
-
+    companion object {
+        private const val TAG = "DatabaseTransfer"
+    }
     fun checkAndTransferFrom(wrongName: String){
         GlobalScope.launch{transferFrom(wrongName)}
     }
 
-    suspend fun transferFrom(wrongName: String) = withContext(Dispatchers.Default){
-        val wrongNamedDatabaseFile = File(ctx.getDatabasePath(wrongName).getAbsolutePath())
+    private suspend fun transferFrom(wrongName: String) = withContext(Dispatchers.Default){
+        val wrongNamedDatabaseFile = File(ctx.getDatabasePath(wrongName).absolutePath)
         if (wrongNamedDatabaseFile.exists()) {
             Log.i(TAG, "Incorrectly named database detected. Attempting to transfer data to correct database.")
             val wrongDatabase = MediaDatabase.getDatabaseByName(wrongName, ctx)
@@ -42,22 +43,22 @@ class TransferDatabase @Inject constructor(val correctNamedDatabase: MediaDataba
         }
     }
 
-    suspend fun updateSeries(wrongDatabase: MediaDatabase) = withContext(Dispatchers.Default){
+    private suspend fun updateSeries(wrongDatabase: MediaDatabase) = withContext(Dispatchers.Default){
         Log.i(TAG, "starting series insertion")
         val allSeries = wrongDatabase.daoSeries.getAllNonLive()
         allSeries.forEach { correctNamedDatabase.daoSeries.insert(it) }
         Log.i(TAG, "series insertion complete")
     }
 
-    suspend fun updateType(wrongDatabase: MediaDatabase) = withContext(Dispatchers.Default){
+    private suspend fun updateType(wrongDatabase: MediaDatabase) = withContext(Dispatchers.Default){
         Log.i(TAG, "starting mediatype insertion")
-        val allSeries = wrongDatabase.daoType.getAllNonLive()
+        val allSeries = wrongDatabase.daoType.allNonLive
         allSeries.forEach { correctNamedDatabase.daoType.insert(it) }
         Log.i(TAG, "mediatype insertion complete")
 
     }
 
-    suspend fun updateItemsAndNotes(allItemsAndNotes: List<MediaAndNotes>) = withContext(Dispatchers.Default){
+    private suspend fun updateItemsAndNotes(allItemsAndNotes: List<MediaAndNotes>) = withContext(Dispatchers.Default){
         Log.i(TAG, "updating medaitems and notes")
         allItemsAndNotes.forEach {
             if (correctNamedDatabase.daoMedia.insert(it.mediaItem) < 0){

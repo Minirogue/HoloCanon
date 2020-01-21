@@ -1,5 +1,6 @@
 package com.minirogue.starwarscanontracker.view.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -59,11 +60,12 @@ class ViewMediaItemFragment : Fragment() {
         return fragmentView
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateViews(item: MediaItem, fragmentView: View) {
         fragmentView.media_title.text = item.title
         fragmentView.media_type.text = FilterObject.getTextForType(item.type)
-        fragmentView.description_textview.text = getString(R.string.description_header) + item.description
-        fragmentView.review_textview.text = getString(R.string.review_header) + item.review
+        fragmentView.description_textview.text = getString(R.string.description_header) + " " + item.description
+        //fragmentView.review_textview.text = getString(R.string.review_header) + " " + item.review
         fragmentView.release_date.text = item.date
         fragmentView.image_cover.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground, ScalingUtils.ScaleType.CENTER_INSIDE)
         val request = ImageRequestBuilder

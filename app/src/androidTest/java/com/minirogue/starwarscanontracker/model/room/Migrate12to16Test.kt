@@ -135,7 +135,7 @@ class Migrate12to16Test {
 
         db = testHelper.runMigrationsAndValidate(TEST_DB, 16, true, MediaDatabase.MIGRATE_12_13, MediaDatabase.MIGRATE_13_14, MediaDatabase.MIGRATE_14_15, MediaDatabase.MIGRATE_15_16)
 
-        var cursor = db.query("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId")
+        val cursor = db.query("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId")
         cursor.moveToPosition(0)
         assertEquals(cursor.getInt(cursor.getColumnIndex("id")), itemId)
         assertEquals(cursor.getString(cursor.getColumnIndex("title")), title)

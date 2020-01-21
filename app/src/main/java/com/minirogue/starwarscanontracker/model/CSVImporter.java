@@ -7,6 +7,8 @@ import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import androidx.preference.PreferenceManager;
+
 import com.minirogue.starwarscanontracker.R;
 import com.minirogue.starwarscanontracker.application.CanonTrackerApplication;
 import com.minirogue.starwarscanontracker.model.room.MediaDatabase;
@@ -23,8 +25,6 @@ import java.lang.ref.WeakReference;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-
-import androidx.preference.PreferenceManager;
 
 //TODO convert to kotlin and use coroutines
 public class CSVImporter extends AsyncTask<Integer, String, Void> {
@@ -168,7 +168,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                             newItem.id = (Integer.valueOf(row[i]));
                             break;
                         case "title":
-                            newItem.title = row[i].replace(";",",");
+                            newItem.title = row[i].replace(";", ",");
                             break;
                         case "series":
                             Integer newSeries = convertSeries.get(row[i]);
@@ -372,7 +372,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putLong(app.getString(R.string.current_database_version), newVersionId);
         editor.apply();
-        ((CanonTrackerApplication)app).getAppComponent().injectFilterUpdater().updateFilters();
+        ((CanonTrackerApplication) app).getAppComponent().injectFilterUpdater().updateFilters();
         return null;
     }
 

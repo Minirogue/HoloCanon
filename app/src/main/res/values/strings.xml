@@ -6,10 +6,6 @@
 
 <resources>
     <string name="app_name">&appname;</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_media_list">Canon List</string>
-    <string name="nav_settings">Settings</string>
     <string name="sync_online">Sync database now</string>
     <string name="media_title">Title</string>
     <string name="media_type">type</string>
@@ -17,25 +13,25 @@
     <string name="launcher_icon_description">HoloCanon Icon</string>
 
 
-    <string name="nav_about">About This App</string>
     <string name="current_database_version">current database version</string>
 
     <string name="cover_image_description">cover</string>
     <string name="setting_unmetered_sync_only">sync_wifi_only</string>
     <string name="release_date">release date</string>
     <string name="bundleItemId">item Id</string>
-    <string name="update_1_0_3">Version 1.0.3: Filters and sorting method should now persist when you return to the Canon List.
-        I also changed some things under the hood, so if the app seems to be running slower or something isn\'t working as expected, then let me know (through my twitter/discord/e-mail, all listed above).</string>
-    <string name="update_1_0_4">Version 1.0.4: Added a series page for relevant items, which can be accessed through any item in that series.
-        This means can now check off the entire Clone Wars series at once (hooray!).
-        Changed the filter selection menu which should allow for better control over filters.
-        Also added series filtering (let me know if there are any discrepancies or missing series).</string>
+
+
     <string name="description_header">Description: </string>
-    <string name="review_header">My Review: </string>
     <string name="series_title">series title</string>
     <string name="series_image_description">series image</string>
     <string name="view_series">View Series</string>
+
+    <!--navigation-->
+    <string name="nav_home">Home</string>
+    <string name="nav_media_list">Canon List</string>
     <string name="nav_filters">Filters</string>
+    <string name="nav_about">About</string>
+    <string name="nav_settings">Settings</string>
 
     <!--preference keys-->
     <string name="checkbox1_default_text">Completed</string>
@@ -80,6 +76,7 @@
     <string name="update_1_2_0">Version 1.2.0: Added filtering by series and a series page for relevant items, which can be accessed through any item in that series.
         This means can now check off the entire Clone Wars series at once (hooray!).
         Changed the filter selection menu which should allow for better control over filters.
+        Got rid of the reviews (I don\'t think anyone here wants my opinions :P).
         The app now comes with a prepackaged database (loaded on the first run of the app).</string>
     <string name="update_1_0_3">Version 1.0.3: Filters and sorting method should now persist when you return to the Canon List.
         I also changed some things under the hood, so if the app seems to be running slower or something isn\'t working as expected, then let me know (through my twitter/discord/e-mail, all listed above).</string>
@@ -97,8 +94,7 @@
     There was a crash involving clicking on a media item and opening the page for that item that should be fixed.
     Images should load much smoother now.
         Plans for the coming updates: remembering filters, wifi-only downloading of database and images, updating database.
-        Don\'t forget to leave feedback or e-mail me through the play store entry so I know what else can be done to improve the app.
-    </string>
+        Don\'t forget to leave feedback or e-mail me through the play store entry so I know what else can be done to improve the app.</string>
     <string name="update_0_1_4">Version 0.1.4: This update should improve stability (i.e. the app shouldn\'t crash so much anymore).</string>
     <string name="update_0_1_0">Version 0.1.0: Initial release! Hooraaaay!
         I\'m still working on fixing up release dates, images, and timeline in the database.

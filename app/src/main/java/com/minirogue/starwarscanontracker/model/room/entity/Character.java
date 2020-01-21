@@ -9,30 +9,15 @@ import androidx.room.PrimaryKey;
 public class Character {
 
     @PrimaryKey
-    private int id;
+    public int id;
     @ColumnInfo
-    private String name;
+    public String name;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id){
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @NonNull
     @Override
-    public String toString(){
-        return (name==null ? "" : name);
+    public String toString() {
+        return (name == null ? "" : name);
     }
 
 }

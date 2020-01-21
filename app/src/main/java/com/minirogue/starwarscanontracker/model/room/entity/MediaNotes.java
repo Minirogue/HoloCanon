@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "media_notes",
         foreignKeys = {@ForeignKey(entity = MediaItem.class,
-                                    parentColumns = "id",
-                                    childColumns = "mediaId",
-                                    onDelete = ForeignKey.CASCADE)})
+                parentColumns = "id",
+                childColumns = "mediaId",
+                onDelete = ForeignKey.CASCADE)})
 public class MediaNotes {
 
     @PrimaryKey
@@ -21,7 +21,7 @@ public class MediaNotes {
     @ColumnInfo(name = "owned")
     private boolean owned;
 
-    public MediaNotes(int mediaId){
+    public MediaNotes(int mediaId) {
         this.mediaId = mediaId;
         wantToWatchRead = false;
         watchedRead = false;
@@ -32,11 +32,6 @@ public class MediaNotes {
         return mediaId;
     }
 
-// --Commented out by Inspection START (6/6/19 8:33 PM):
-//    public void setMediaId(int mediaId) {
-//        this.mediaId = mediaId;
-//    }
-// --Commented out by Inspection STOP (6/6/19 8:33 PM)
 
     public boolean isWantToWatchRead() {
         return wantToWatchRead;
@@ -45,7 +40,8 @@ public class MediaNotes {
     public void setWantToWatchRead(boolean wantToWatchRead) {
         this.wantToWatchRead = wantToWatchRead;
     }
-    public void flipWantToWatchRead(){
+
+    public void flipWantToWatchRead() {
         wantToWatchRead = !wantToWatchRead;
     }
 
@@ -56,7 +52,8 @@ public class MediaNotes {
     public void setWatchedRead(boolean watchedRead) {
         this.watchedRead = watchedRead;
     }
-    public void flipWatchedRead(){
+
+    public void flipWatchedRead() {
         watchedRead = !watchedRead;
     }
 
@@ -67,7 +64,8 @@ public class MediaNotes {
     public void setOwned(boolean owned) {
         this.owned = owned;
     }
-    public void flipOwned(){
+
+    public void flipOwned() {
         owned = !owned;
     }
 }

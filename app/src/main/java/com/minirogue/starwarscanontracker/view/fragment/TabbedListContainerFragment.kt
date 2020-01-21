@@ -40,16 +40,16 @@ class TabbedListContainerFragment : Fragment() {
 
 
         val adapter = MyAdapter(childFragmentManager)
-        adapter.addFragment(HomeFragment(), "Home")
-        adapter.addFragment(MediaListFragment(), "Canon List")
-        adapter.addFragment(FilterSelectionFragment(), "Filters")
+        adapter.addFragment(HomeFragment(), getString(R.string.nav_home))
+        adapter.addFragment(MediaListFragment(), getString(R.string.nav_media_list))
+        adapter.addFragment(FilterSelectionFragment(), getString(R.string.nav_filters))
         //adapter.addFragment(SettingsFragment(), "Settings")
         viewPager.adapter = adapter
 
 
     }
 
-    internal class MyAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
+    internal class MyAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         private val mFragmentList = ArrayList<Fragment>()
         private val mFragmentTitleList = ArrayList<String>()
 
