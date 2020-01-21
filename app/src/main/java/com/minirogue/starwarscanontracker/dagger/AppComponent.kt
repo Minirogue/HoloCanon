@@ -19,7 +19,7 @@ interface AppComponent {
     fun inject(mainActivity: MainActivity)
 
     //Fragments
-    fun inject(entryFragment: EntryFragment)
+    fun inject(aboutFragment: AboutFragment)
     fun inject(filterSelectionFragment: FilterSelectionFragment)
     fun inject(mediaListFragment: MediaListFragment)
     fun inject(seriesFragment: SeriesFragment)

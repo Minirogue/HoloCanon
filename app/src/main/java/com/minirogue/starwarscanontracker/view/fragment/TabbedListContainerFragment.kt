@@ -40,8 +40,10 @@ class TabbedListContainerFragment : Fragment() {
 
 
         val adapter = MyAdapter(childFragmentManager)
+        adapter.addFragment(HomeFragment(), "Home")
         adapter.addFragment(MediaListFragment(), "Canon List")
         adapter.addFragment(FilterSelectionFragment(), "Filters")
+        //adapter.addFragment(SettingsFragment(), "Settings")
         viewPager.adapter = adapter
 
 

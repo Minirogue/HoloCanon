@@ -13,24 +13,76 @@
     <string name="sync_online">Sync database now</string>
     <string name="media_title">Title</string>
     <string name="media_type">type</string>
+
+    <string name="launcher_icon_description">HoloCanon Icon</string>
+
+
+    <string name="nav_about">About This App</string>
+    <string name="current_database_version">current database version</string>
+
+    <string name="cover_image_description">cover</string>
+    <string name="setting_unmetered_sync_only">sync_wifi_only</string>
+    <string name="release_date">release date</string>
+    <string name="bundleItemId">item Id</string>
+    <string name="update_1_0_3">Version 1.0.3: Filters and sorting method should now persist when you return to the Canon List.
+        I also changed some things under the hood, so if the app seems to be running slower or something isn\'t working as expected, then let me know (through my twitter/discord/e-mail, all listed above).</string>
+    <string name="update_1_0_4">Version 1.0.4: Added a series page for relevant items, which can be accessed through any item in that series.
+        This means can now check off the entire Clone Wars series at once (hooray!).
+        Changed the filter selection menu which should allow for better control over filters.
+        Also added series filtering (let me know if there are any discrepancies or missing series).</string>
+    <string name="description_header">Description: </string>
+    <string name="review_header">My Review: </string>
+    <string name="series_title">series title</string>
+    <string name="series_image_description">series image</string>
+    <string name="view_series">View Series</string>
+    <string name="nav_filters">Filters</string>
+
+    <!--preference keys-->
     <string name="checkbox1_default_text">Completed</string>
     <string name="checkbox2_default_text">Wishlist</string>
     <string name="checkbox3_default_text">Owned</string>
-<!--    <string name="nav_subtext">Do or do not.</string>-->
-    <string name="nav_subtext">This is the way.</string>
-    <string name="launcher_icon_description">Launcher Icon</string>
+
+    <!--quotes-->
+    <string-array name="quotes">
+        <item>Do or do not. There is no try.</item>
+        <item>This is the way.</item>
+        <item>I have spoken.</item>
+        <item>Grakkus isn\'t like other Hutts.</item>
+    </string-array>
+
+    <!--home fragment-->
+    <string name="welcome_message"><p>Welcome to &appname;, an unofficial canon tracker for the Star Wars universe.</p>
+
+        \n\n<p>Come find me on Twitter <a href="https://twitter.com/holocanon">@HoloCanon</a> or on my <a href="https://discord.gg/RxXvTfX">Discord server</a>.
+            These are great ways to make suggestions, alert me to any bugs or incorrect data, and to keep updated on the app in general.
+            If you\'d prefer more personal or private contact, you can e-mail me at <a href="mailto:DarthMerman@gmail.com">DarthMerman@gmail.com</a>.</p>
+
+        \n\n<p>The purpose of this app is to make it easier to keep track of all of the currently canonical content in the Star Wars universe.
+        I usually filter out "completed" items and then choose a media type or a series I\'m interested in to see what is left for me to read (or watch).
+        The list can be sorted by release date, title, media type, or in-universe timeline (which is a constant work-in-progress).
+        I\'m always open to suggestions for more filtering/sorting methods.</p>
+
+        \n\n<p>Images and database updates only download on unmetered (usually wifi) networks by default.
+        This behavior can be changed in the settings, where you can also force a database sync.</p>
+
+        \n\n<p>In settings you can also change the text associated to the checkboxes as well as permanently filter out certain media types (such as "youth").</p>
+
+        \n\n<p>Below are notes for the latest update. To see previous update notes, tap the question mark in the top corner.</p></string>
+
+    <!--about-->
     <string name="copyright_notice">This app is in no way affiliated with or endorsed by Disney or Lucasfilm.
         I do not claim to own Star Wars or any of its related copyrights or trademarks.
         The use of Star Wars content in this app is protected under Fair Use.</string>
-
-    <string name="welcome_message">Welcome to &appname;, an unofficial canon tracker for the Star Wars universe.
-        Click on "Settings" in the navigation to change the text for the checkboxes and to permanently filter out
-        certain media types. Come find me on twitter <a href="https://twitter.com/holocanon">@HoloCanon</a>.
-        I\'ve also got a <a href="https://discord.gg/RxXvTfX">Discord server</a> set up, which would be a great way to make suggestions or report bugs for this app.
-        Additionally, if you have any bugs, requests, or corrections, you can e-mail me at <a href="mailto:DarthMerman@gmail.com">DarthMerman@gmail.com</a>.</string>
     <string name="affiliate_notice">As an Amazon Associate I may earn money from qualifying purchases made through the links in this app.</string>
-    <string name="nav_about">About This App</string>
-    <string name="current_database_version">current database version</string>
+
+
+    <!--update messages-->
+    <string name="update_1_2_0">Version 1.2.0: Added filtering by series and a series page for relevant items, which can be accessed through any item in that series.
+        This means can now check off the entire Clone Wars series at once (hooray!).
+        Changed the filter selection menu which should allow for better control over filters.
+        The app now comes with a prepackaged database (loaded on the first run of the app).</string>
+    <string name="update_1_0_3">Version 1.0.3: Filters and sorting method should now persist when you return to the Canon List.
+        I also changed some things under the hood, so if the app seems to be running slower or something isn\'t working as expected, then let me know (through my twitter/discord/e-mail, all listed above).</string>
     <string name="update_1_0_2">Version 1.0.2: Changed app name to better comply with Google Play\'s rules.
         Cleaned up the individual item layout so the descriptions and reviews (that I\'m working on adding) show up cleanly.</string>
     <string name="update_1_0_1">Version 1.0.1: Added links to purchase items from Amazon to the canonical items pages.
@@ -53,20 +105,4 @@
         It should automatically update when I do that.
         This app downloads the database and images, so try not to use it without wifi for now.
         Future versions will have an option to not download unless on wifi.</string>
-    <string name="cover_image_description">cover</string>
-    <string name="setting_unmetered_sync_only">sync_wifi_only</string>
-    <string name="release_date">release date</string>
-    <string name="bundleItemId">item Id</string>
-    <string name="update_1_0_3">Version 1.0.3: Filters and sorting method should now persist when you return to the Canon List.
-        I also changed some things under the hood, so if the app seems to be running slower or something isn\'t working as expected, then let me know (through my twitter/discord/e-mail, all listed above).</string>
-    <string name="update_1_0_4">Version 1.0.4: Added a series page for relevant items, which can be accessed through any item in that series.
-        This means can now check off the entire Clone Wars series at once (hooray!).
-        Changed the filter selection menu which should allow for better control over filters.
-        Also added series filtering (let me know if there are any discrepancies or missing series).</string>
-    <string name="description_header">Description: </string>
-    <string name="review_header">My Review: </string>
-    <string name="series_title">series title</string>
-    <string name="series_image_description">series image</string>
-    <string name="view_series">View Series</string>
-    <string name="nav_filters">Filters</string>
 </resources>
