@@ -7,16 +7,25 @@ import androidx.preference.*
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.application.CanonTrackerApplication
 import com.minirogue.starwarscanontracker.model.CSVImporter
+import com.minirogue.starwarscanontracker.model.SWMRepository
 import com.minirogue.starwarscanontracker.model.room.MediaDatabase
+import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.model.room.entity.MediaType
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
+import javax.inject.Inject
 
 
-class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnSharedPreferenceChangeListener */{
+class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnSharedPreferenceChangeListener */ {
 
+    @Inject
+    lateinit var repo: SWMRepository
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
+        (activity!!.application as CanonTrackerApplication).appComponent.inject(this)
 
 
         SetTypePreferences(activity!!.applicationContext, findPreference("permanent_filters")!!).execute()
@@ -29,17 +38,21 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
     }
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
-        if (preference?.key == "update_from_online"){
+        if (preference?.key == "update_from_online") {
             CSVImporter(this.activity!!.application, true).execute(CSVImporter.SOURCE_ONLINE)
-        }/*else if(preference?.parent?.key == "permanent_filters"){
-            (activity as MainActivity).resetListFragment()
-            GlobalScope.launch {SWMRepository(activity!!.application).clearSavedFilters()}
-            //GlobalScope.launch(Dispatchers.IO) { SWMRepository(activity!!.application).clearSavedFilters()}
-        }*/
+        } else if (preference?.parent?.key == "permanent_filters") {
+            GlobalScope.launch(Dispatchers.Default) {
+                val filter = repo.getFilter(preference.order,FilterType.FILTERCOLUMN_TYPE)
+                filter?.let {
+                    filter.active = false
+                    repo.update(filter)
+                }
+            }
+        }
         return super.onPreferenceTreeClick(preference)
     }
 
-    class SetTypePreferences(ctx : Context, category: PreferenceCategory) : AsyncTask<Void, Void, List<MediaType>>(){
+    class SetTypePreferences(ctx: Context, category: PreferenceCategory) : AsyncTask<Void, Void, List<MediaType>>() {
         private val ctxRef = WeakReference(ctx)
         private val catRef = WeakReference(category)
 
@@ -49,7 +62,7 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
 
         override fun onPostExecute(result: List<MediaType>?) {
             val ctx = ctxRef.get()
-            if (ctx!= null) {
+            if (ctx != null) {
                 for (type in result!!) {
                     val newPref = CheckBoxPreference(ctxRef.get())
                     newPref.setDefaultValue(true)

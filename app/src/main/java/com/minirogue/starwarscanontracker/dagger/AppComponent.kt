@@ -24,6 +24,7 @@ interface AppComponent {
     fun inject(mediaListFragment: MediaListFragment)
     fun inject(seriesFragment: SeriesFragment)
     fun inject(viewMediaItemFragment: ViewMediaItemFragment)
+    fun inject(settingsFragment: SettingsFragment)
 
     //ViewModels
     fun inject(filterSelectionViewModel: FilterSelectionViewModel)
