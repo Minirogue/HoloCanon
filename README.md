@@ -1,8 +1,10 @@
 # SWMediaTracker (published as HoloCanon)
 An Android app for tracking consumption of canonical Star Wars media. I started writing this app for myself to help me pick out books when I went to the library. Eventually, I realized there might be others out there who wish to use it, so I cleaned it up for production and it is currently published on the Google Play store at https://play.google.com/store/apps/details?id=com.minirogue.starwarscanontracker.
 
+
 ## Installation
 The easiest way to install the latest version is through the Google Play store at the link above. Otherwise, you will need to compile the APK from this code and sideload it yourself (surely you can find a guide online for how to do this).
+
 
 ## Usage
 The app has four main screens.
@@ -26,6 +28,7 @@ Here are some things that I plan to add to the app:
 * Clean up the backend to use RESTful API requests and JSONs.
 * Add Hardcover, Omnibus, and reference books to database.
 * ~~Import initial database from assets.~~
+* Expand support for different screen sizes (particularly tablets).
 
 ## License
 I'm still figuring out the correct license to use here and how to properly include it.
