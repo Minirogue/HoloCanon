@@ -31,13 +31,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        //initialize the fragment to the entry fragment
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, TabbedListContainerFragment())
-                .commit()
 
         //When the user opens a fresh instance of the app
         if (savedInstanceState == null) {
+            //initialize the fragment to the entry fragment
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, TabbedListContainerFragment())
+                    .commit()
             //small fix for some of the beta users around version 1.0.4
             fixDatabaseName()
             //initialize Fresco
@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
 
-        private val TAG = "MainActivity"
+        private const val TAG = "MainActivity"
 
         //the following are definitions for the tags associated to each of the main Fragments
         private const val SETTINGS_TAG = "settings"
