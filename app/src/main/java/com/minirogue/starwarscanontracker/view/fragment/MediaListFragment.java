@@ -3,29 +3,11 @@ package com.minirogue.starwarscanontracker.view.fragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupMenu;
-
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.minirogue.starwarscanontracker.R;
-import com.minirogue.starwarscanontracker.application.CanonTrackerApplication;
-import com.minirogue.starwarscanontracker.model.SortStyle;
-import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter;
-import com.minirogue.starwarscanontracker.view.FilterChip;
-import com.minirogue.starwarscanontracker.view.activity.MainActivity;
-import com.minirogue.starwarscanontracker.view.adapter.SWMListAdapter;
-import com.minirogue.starwarscanontracker.viewmodel.MediaListViewModel;
-
-import java.util.List;
-import java.util.Objects;
-
-import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +17,22 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.minirogue.starwarscanontracker.R;
+import com.minirogue.starwarscanontracker.application.CanonTrackerApplication;
+import com.minirogue.starwarscanontracker.model.SortStyle;
+import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter;
+import com.minirogue.starwarscanontracker.view.FilterChip;
+import com.minirogue.starwarscanontracker.view.adapter.SWMListAdapter;
+import com.minirogue.starwarscanontracker.viewmodel.MediaListViewModel;
+
+import java.util.List;
+import java.util.Objects;
+
+import javax.inject.Inject;
+
 public class MediaListFragment extends Fragment {
     private static final String TAG = "Media List";
 
@@ -43,7 +41,7 @@ public class MediaListFragment extends Fragment {
     private ChipGroup chipGroup;
     private Chip sortChip;
     private FloatingActionButton sortFAB;
-    private FloatingActionButton filterFAB;
+    //private FloatingActionButton filterFAB;
     private Context ctx;
 
     @Inject
@@ -60,9 +58,7 @@ public class MediaListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_media_list, container, false);
         ((CanonTrackerApplication)getActivity().getApplication()).appComponent.inject(this);
-        Log.d(TAG, "onCreateView: getting viewmodel");
         mediaListViewModel = ViewModelProviders.of(this, viewModelFactory).get(MediaListViewModel.class);
-        Log.d(TAG, "onCreateView: viewmodel gotten");
         mediaListViewModel.getFilteredMediaAndNotes().observe(getViewLifecycleOwner(), mediaAndNotes -> adapter.submitList((mediaAndNotes)));
 
         RecyclerView recyclerView = fragmentView.findViewById(R.id.media_recyclerview);
@@ -71,8 +67,8 @@ public class MediaListFragment extends Fragment {
         sortFAB = fragmentView.findViewById(R.id.sort_floating_action_button);
         PopupMenu sortMenu = makeSortMenu();
         sortFAB.setOnClickListener(view -> sortMenu.show());
-        filterFAB = fragmentView.findViewById(R.id.filter_floating_action_button);
-        filterFAB.setOnClickListener(stuff -> ((MainActivity) Objects.requireNonNull(getActivity())).replaceFragment(MainActivity.FILTERS_TAG));
+        //filterFAB = fragmentView.findViewById(R.id.filter_floating_action_button);
+        //filterFAB.setOnClickListener(stuff -> ((MainActivity) Objects.requireNonNull(getActivity())).replaceFragment(MainActivity.FILTERS_TAG));
 
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(fragmentView.getContext());
@@ -92,10 +88,10 @@ public class MediaListFragment extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
                 if (dy > 0) {//Scroll down
                     sortFAB.hide();
-                    filterFAB.hide();
+                    //filterFAB.hide();
                 } else if (dy < 0) {//Scroll up
                     sortFAB.show();
-                    filterFAB.show();
+                    //filterFAB.show();
                 }
             }
         });
@@ -108,7 +104,7 @@ public class MediaListFragment extends Fragment {
             Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, viewMediaItemFragment)
                     .addToBackStack(null)
-                    .commit();
+                    .commit();//TODO this should be handled by the activity
         });
         mediaListViewModel.getCheckBoxText().observe(getViewLifecycleOwner(), adapter::updateCheckBoxText);
         mediaListViewModel.getActiveFilters().observe(getViewLifecycleOwner(), this::setFilterChips);

@@ -18,8 +18,8 @@ import com.minirogue.starwarscanontracker.application.CanonTrackerApplication;
 import com.minirogue.starwarscanontracker.model.CSVImporter;
 import com.minirogue.starwarscanontracker.view.fragment.EntryFragment;
 import com.minirogue.starwarscanontracker.view.fragment.FilterSelectionFragment;
-import com.minirogue.starwarscanontracker.view.fragment.MediaListFragment;
 import com.minirogue.starwarscanontracker.view.fragment.SettingsFragment;
+import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -78,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.nav_about:
                     replaceFragment(ENTRY_TAG);
                     break;
-                case R.id.nav_filters:
+                /*case R.id.nav_filters:
                     replaceFragment(FILTERS_TAG);
-                    break;
+                    break;*/
                 default:
                     Toast.makeText(getApplicationContext(), "Not yet implemented", Toast.LENGTH_SHORT).show();
                     break;
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         if (frag == null) {
             switch (tag) {
                 case CANON_LIST_TAG:
-                    frag = new MediaListFragment();
+                    frag = new TabbedListContainerFragment();
                     break;
                 case SETTINGS_TAG:
                     frag = new SettingsFragment();
