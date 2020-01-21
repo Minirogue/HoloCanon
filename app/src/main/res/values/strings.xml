@@ -74,7 +74,7 @@
 
     <!--update messages-->
     <string name="update_1_2_0">Version 1.2.0: Added filtering by series and a series page for relevant items, which can be accessed through any item in that series.
-        This means can now check off the entire Clone Wars series at once (hooray!).
+        This means you can now check off the entire Clone Wars series at once (hooray!).
         Changed the filter selection menu which should allow for better control over filters.
         Got rid of the reviews (I don\'t think anyone here wants my opinions :P).
         The app now comes with a prepackaged database (loaded on the first run of the app).</string>
