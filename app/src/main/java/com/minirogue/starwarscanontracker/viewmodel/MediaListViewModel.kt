@@ -20,7 +20,6 @@ import kotlin.collections.ArrayList
 
 class MediaListViewModel @Inject constructor(private val repository: SWMRepository, private val connMgr: MyConnectivityManager, application: Application) : ViewModel() {
 
-
     //filtering
     val activeFilters = repository.getActiveFilters()
 
@@ -80,7 +79,7 @@ class MediaListViewModel @Inject constructor(private val repository: SWMReposito
     private suspend fun getSavedSort(): SortStyle? = withContext(Dispatchers.IO) {
         val cacheFile = File(sortCacheFileName)
         if (!cacheFile.exists()) {
-            SortStyle(SortStyle.SORT_TITLE, true)
+            SortStyle(SortStyle.DEFAULT_STYLE, true)
         } else {
             val split = cacheFile.readText().split(" ")
             SortStyle(split[0].toInt(), split[1].toInt() == 1)
@@ -118,7 +117,7 @@ class MediaListViewModel @Inject constructor(private val repository: SWMReposito
                 val toBeSorted = data.value
                 if (toBeSorted != null) {
                     Collections.sort(toBeSorted, _sortStyle.value
-                            ?: SortStyle(SortStyle.SORT_TITLE, true))
+                            ?: SortStyle(SortStyle.DEFAULT_STYLE, true))
                     sortedData.postValue(toBeSorted)
                 }
             }

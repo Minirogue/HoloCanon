@@ -1,8 +1,8 @@
 package com.minirogue.starwarscanontracker.model
 
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
-import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
+import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
 import kotlin.math.sign
 
 
@@ -13,6 +13,7 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
         const val SORT_TIMELINE = 2
         const val SORT_TYPE = 3
         const val SORT_DATE = 4
+        const val DEFAULT_STYLE = SORT_DATE
         fun getSortText(sortType: Int): String {
             return when (sortType) {
                 SORT_TITLE -> "Title"
