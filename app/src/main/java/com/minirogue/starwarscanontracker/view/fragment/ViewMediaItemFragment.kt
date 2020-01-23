@@ -17,9 +17,9 @@ import com.facebook.imagepipeline.request.ImageRequest
 import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.application.CanonTrackerApplication
-import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
+import com.minirogue.starwarscanontracker.model.room.entity.MediaType
 import com.minirogue.starwarscanontracker.viewmodel.ViewMediaItemViewModel
 import kotlinx.android.synthetic.main.fragment_view_media_item.view.*
 import javax.inject.Inject
@@ -47,6 +47,7 @@ class ViewMediaItemFragment : Fragment() {
         if (bundleItemId != -1) viewModel.setItemId(bundleItemId)
         viewModel.liveMediaItem.observe(viewLifecycleOwner, Observer { item -> updateViews(item, fragmentView) })
         viewModel.liveMediaNotes.observe(viewLifecycleOwner, Observer { notes -> updateViews(notes, fragmentView) })
+        viewModel.liveMediaType.observe(viewLifecycleOwner, Observer { mediaType -> updateView(mediaType, fragmentView) })
         viewModel.checkBoxText.observe(viewLifecycleOwner, Observer { arr ->
             fragmentView.text_checkbox_1.text = arr[0]
             fragmentView.text_checkbox_2.text = arr[1]
@@ -63,17 +64,16 @@ class ViewMediaItemFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun updateViews(item: MediaItem, fragmentView: View) {
         fragmentView.media_title.text = item.title
-        fragmentView.media_type.text = FilterObject.getTextForType(item.type)
-        fragmentView.description_textview.text = getString(R.string.description_header) + " " + item.description
+        fragmentView.description_textview.text = if (item.description.isNotBlank()) getString(R.string.description_header) + " " + item.description else ""
         //fragmentView.review_textview.text = getString(R.string.review_header) + " " + item.review
         fragmentView.release_date.text = item.date
-        fragmentView.image_cover.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground, ScalingUtils.ScaleType.CENTER_INSIDE)
+        fragmentView.image_cover.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground, ScalingUtils.ScaleType.FIT_CENTER)
         val request = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(item.imageURL))
                 .setLowestPermittedRequestLevel(if (viewModel.isNetworkAllowed()) ImageRequest.RequestLevel.FULL_FETCH else ImageRequest.RequestLevel.DISK_CACHE)
                 .build()
         fragmentView.image_cover.setImageRequest(request)
-        fragmentView.image_cover.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_INSIDE
+        fragmentView.image_cover.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.FIT_CENTER
         makeShoppingMenu(item, fragmentView)
         if (item.series > 0) {
             fragmentView.view_series_button.visibility = View.VISIBLE
@@ -94,6 +94,10 @@ class ViewMediaItemFragment : Fragment() {
         fragmentView.checkbox_3.isChecked = notes.isOwned
         fragmentView.checkbox_1.isChecked = notes.isWatchedRead
         fragmentView.checkbox_2.isChecked = notes.isWantToWatchRead
+    }
+
+    private fun updateView(mediaType: MediaType?, fragmentView: View) {
+        fragmentView.media_type.text = mediaType?.text ?: ""
     }
 
     private fun makeShoppingMenu(item: MediaItem, fragView: View) {

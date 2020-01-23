@@ -25,4 +25,8 @@ public interface DaoType {
 
     @Query("SELECT * FROM media_types")
     List<MediaType> getAllNonLive();
+
+    @Query("SELECT * FROM media_types WHERE id=:typeId")
+    LiveData<MediaType> getLiveMediaType(int typeId);
+
 }

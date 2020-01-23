@@ -182,6 +182,8 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
     fun getAllFilterTypes(): LiveData<List<FilterType>> = daoFilter.getAllFilterTypes()
 
     fun getAllMediaTypesNonLive(): List<MediaType> = daoType.allNonLive
+    fun getAllMediaTypesLive(): LiveData<List<MediaType>> = daoType.allMediaTypes
+    fun getLiveMediaType(itemId: Int): LiveData<MediaType?> = daoType.getLiveMediaType(itemId)
 
 
     /**
