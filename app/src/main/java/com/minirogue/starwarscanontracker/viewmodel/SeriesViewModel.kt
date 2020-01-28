@@ -7,8 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.model.PrefsRepo
 import com.minirogue.starwarscanontracker.model.SWMRepository
+import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
+import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.model.room.entity.Series
+import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -24,19 +27,23 @@ class SeriesViewModel @Inject constructor(private val repository: SWMRepository,
 
     private var seriesId: Int = -1
     lateinit var liveSeries: LiveData<Series>
+    val seriesList = MediatorLiveData<List<MediaAndNotes>>()
     val liveSeriesNotes = MediatorLiveData<Array<Boolean>>()
     val checkBoxNames = repository.getCheckBoxText()
     val checkBoxVisibility = prefsRepo.checkBoxVisibility
     private val notesParsingMutex = Mutex()
 
 
-    fun setSeriesId(seriesId: Int){
+    fun setSeriesId(seriesId: Int) {
         this.seriesId = seriesId
         liveSeries = repository.getLiveSeries(seriesId)
         liveSeriesNotes.addSource(repository.getLiveNotesBySeries(seriesId)) {
             viewModelScope.launch {
                 updateSeriesNotes(it)
             }
+        }
+        viewModelScope.launch {
+            seriesList.addSource(repository.getMediaListWithNotes(listOf(FilterObject(seriesId, FilterType.FILTERCOLUMN_SERIES, true, "series filter")))) { mediaAndNotesList -> seriesList.postValue(mediaAndNotesList)}
         }
     }
 

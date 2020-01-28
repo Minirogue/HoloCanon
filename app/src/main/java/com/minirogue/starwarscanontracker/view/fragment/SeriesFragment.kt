@@ -15,8 +15,10 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.application.CanonTrackerApplication
 import com.minirogue.starwarscanontracker.model.room.entity.Series
+import com.minirogue.starwarscanontracker.view.adapter.SeriesListAdapter
 import com.minirogue.starwarscanontracker.viewmodel.SeriesViewModel
 import kotlinx.android.synthetic.main.fragment_series.view.*
+import java.util.*
 import javax.inject.Inject
 
 
@@ -43,8 +45,25 @@ class SeriesFragment : Fragment() {
         fragmentView.checkbox_2.setOnClickListener { viewModel.toggleWantToWatchRead() }
         fragmentView.checkbox_1.setOnClickListener { viewModel.toggleWatchedRead() }
 
-        return fragmentView
 
+        val recyclerView = fragmentView.series_recyclerview
+        val adapter = SeriesListAdapter()
+        adapter.setOnItemClickedListener { itemId: Int ->
+            val viewMediaItemFragment = ViewMediaItemFragment()
+            val bundle = Bundle()
+            bundle.putInt(getString(R.string.bundleItemId), itemId)
+            viewMediaItemFragment.arguments = bundle
+            Objects.requireNonNull(activity)!!.supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, viewMediaItemFragment)
+                    .addToBackStack(null)
+                    .commit() //TODO this should be handled by the activity
+        }
+        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = adapter
+        viewModel.seriesList.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
+
+
+        return fragmentView
     }
 
     private fun setCheckBoxVisibility(visibility: BooleanArray, fragmentView: View){
@@ -61,7 +80,7 @@ class SeriesFragment : Fragment() {
 
     private fun updateViews(series: Series, fragmentView: View) {
         fragmentView.series_title.text = series.title
-        fragmentView.description_textview.text = series.description
+        //fragmentView.description_textview.text = series.description
         fragmentView.series_image.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground, ScalingUtils.ScaleType.CENTER_INSIDE)
         val request = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(series.imageURL))
@@ -76,13 +95,5 @@ class SeriesFragment : Fragment() {
         fragmentView.checkbox_2.isChecked = notes[1]
         fragmentView.checkbox_3.isChecked = notes[2]
     }
-
-
-    /*internal inner class SeriesViewModelFactory(private val itemId: Int, private val application: CanonTrackerApplication) : ViewModelProvider.Factory {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return SeriesViewModel(itemId, application) as T
-        }
-    }*/
 
 }

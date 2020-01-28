@@ -6,38 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".view.fragment.SeriesFragment">
 
-    <ScrollView
-        android:id="@+id/description_holder"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/series_recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/checkbox_holder"
         app:layout_constraintTop_toBottomOf="@id/series_image">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/description_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp" />
-
-        </LinearLayout>
-    </ScrollView>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
         android:id="@+id/series_title"
+        style="@style/TextAppearance.AppCompat.Headline"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"
         android:padding="16dp"
         android:text="@string/series_title"
-        app:layout_constraintLeft_toRightOf="@id/series_image"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -112,12 +103,11 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/series_image"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="200dp"
         android:layout_margin="10dp"
         android:contentDescription="@string/series_image_description"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/series_title"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/series_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
