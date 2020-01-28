@@ -43,7 +43,7 @@ interface DaoFilter {
     @Query("SELECT * FROM filter_object WHERE filter_id=:filterId AND type_id=:typeId LIMIT 1")
     fun getFilter(filterId: Int, typeId: Int): FilterObject?
 
-    @Query("SELECT * FROM filter_object WHERE type_id=:typeId")
+    @Query("SELECT * FROM filter_object WHERE type_id=:typeId ORDER BY filter_text")
     fun getFiltersWithType(typeId: Int): LiveData<List<FilterObject>>
 
     //FullFilter
