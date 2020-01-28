@@ -102,6 +102,7 @@ public class MediaListFragment extends Fragment {
                     .commit();//TODO this should be handled by the activity
         });
         mediaListViewModel.getCheckBoxText().observe(getViewLifecycleOwner(), adapter::updateCheckBoxText);
+        mediaListViewModel.getCheckBoxVisibility().observe(getViewLifecycleOwner(), adapter::updateCheckBoxVisible);
         mediaListViewModel.getActiveFilters().observe(getViewLifecycleOwner(), this::setFilterChips);
 
 

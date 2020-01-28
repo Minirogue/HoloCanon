@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
+import com.minirogue.starwarscanontracker.model.PrefsRepo
 import com.minirogue.starwarscanontracker.model.SWMRepository
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
@@ -12,7 +13,8 @@ import javax.inject.Inject
 
 
 class ViewMediaItemViewModel @Inject constructor(private val repository: SWMRepository,
-                                                 private val connMgr: MyConnectivityManager) : ViewModel() {
+                                                 private val connMgr: MyConnectivityManager,
+                                                 prefsRepo: PrefsRepo) : ViewModel() {
 
 
 
@@ -21,6 +23,7 @@ class ViewMediaItemViewModel @Inject constructor(private val repository: SWMRepo
     lateinit var liveMediaNotes : LiveData<MediaNotes>
     lateinit var liveMediaType : LiveData<MediaType?>
     val checkBoxText = repository.getCheckBoxText()
+    val checkBoxVisibility = prefsRepo.checkBoxVisibility
 
     fun setItemId(itemId: Int){
         liveMediaItem = repository.getLiveMediaItem(itemId)

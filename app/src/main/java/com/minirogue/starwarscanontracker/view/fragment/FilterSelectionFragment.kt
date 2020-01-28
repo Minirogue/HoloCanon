@@ -66,11 +66,23 @@ class FilterSelectionFragment : Fragment() {
                 viewModel.flipFilterType(filterType)
             }
         })
-        recyclerView.setHasFixedSize(true)
+        recyclerView.setHasFixedSize(false)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = mLayoutManager
 
-
+        viewModel.checkBoxVisibilty.observe(viewLifecycleOwner, Observer { visibility ->
+            val list = ArrayList<Int>()
+            if (!visibility[0]) {
+                list.add(FilterType.FILTERCOLUMN_CHECKBOX_ONE)
+            }
+            if (!visibility[1]) {
+                list.add(FilterType.FILTERCOLUMN_CHECKBOX_TWO)
+            }
+            if (!visibility[2]) {
+                list.add(FilterType.FILTERCOLUMN_CHECKBOX_THREE)
+            }
+            adapter.updateExcludedTypes(list)
+        })
         viewModel.filterTypes.observe(viewLifecycleOwner, Observer { filterTypes -> adapter.updateList(filterTypes) })
 
         return fragmentView

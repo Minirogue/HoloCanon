@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
+import com.minirogue.starwarscanontracker.model.PrefsRepo
 import com.minirogue.starwarscanontracker.model.SWMRepository
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.model.room.entity.Series
@@ -17,11 +18,15 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
-class SeriesViewModel @Inject constructor(private val repository: SWMRepository, private val connMgr: MyConnectivityManager) : ViewModel() {
+class SeriesViewModel @Inject constructor(private val repository: SWMRepository,
+                                          prefsRepo: PrefsRepo,
+                                          private val connMgr: MyConnectivityManager) : ViewModel() {
 
     private var seriesId: Int = -1
     lateinit var liveSeries: LiveData<Series>
     val liveSeriesNotes = MediatorLiveData<Array<Boolean>>()
+    val checkBoxNames = repository.getCheckBoxText()
+    val checkBoxVisibility = prefsRepo.checkBoxVisibility
     private val notesParsingMutex = Mutex()
 
 

@@ -1,9 +1,7 @@
 package com.minirogue.starwarscanontracker.view.fragment
 
-import android.app.Application
 import android.net.Uri
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,13 +31,14 @@ class SeriesFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val fragmentView = inflater.inflate(R.layout.fragment_series, container, false)
         (activity!!.application as CanonTrackerApplication).appComponent.inject(this)
-        setTextBoxes(fragmentView, activity!!.application)
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(SeriesViewModel::class.java)
         if (bundleItemId != -1) viewModel.setSeriesId(bundleItemId)
         viewModel.liveSeries.observe(viewLifecycleOwner, Observer { series -> updateViews(series, fragmentView) })
         viewModel.liveSeriesNotes.observe(viewLifecycleOwner, Observer { notes -> updateViews(notes, fragmentView) })
+        viewModel.checkBoxNames.observe(viewLifecycleOwner, Observer { names -> setCheckBoxNames(names, fragmentView) })
+        viewModel.checkBoxVisibility.observe(viewLifecycleOwner, Observer { visibility -> setCheckBoxVisibility(visibility, fragmentView) })
         fragmentView.checkbox_3.setOnClickListener { viewModel.toggleOwned() }
         fragmentView.checkbox_2.setOnClickListener { viewModel.toggleWantToWatchRead() }
         fragmentView.checkbox_1.setOnClickListener { viewModel.toggleWatchedRead() }
@@ -48,14 +47,16 @@ class SeriesFragment : Fragment() {
 
     }
 
-    private fun setTextBoxes(fragmentView: View, application: Application) {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(application)
-        fragmentView.text_checkbox_1.text = prefs.getString(application.getString(R.string.checkbox1_default_text), application.getString(R.string.checkbox1_default_text))
-                ?: ""
-        fragmentView.text_checkbox_2.text = prefs.getString(application.getString(R.string.checkbox2_default_text), application.getString(R.string.checkbox2_default_text))
-                ?: ""
-        fragmentView.text_checkbox_3.text = prefs.getString(application.getString(R.string.checkbox3_default_text), application.getString(R.string.checkbox3_default_text))
-                ?: ""
+    private fun setCheckBoxVisibility(visibility: BooleanArray, fragmentView: View){
+        fragmentView.checkbox_1_holder.visibility = if (visibility[0]) View.VISIBLE else View.GONE
+        fragmentView.checkbox_2_holder.visibility = if (visibility[1]) View.VISIBLE else View.GONE
+        fragmentView.checkbox_3_holder.visibility = if (visibility[2]) View.VISIBLE else View.GONE
+    }
+
+    private fun setCheckBoxNames(names: Array<String>, fragmentView: View) {
+        fragmentView.text_checkbox_1.text = names[0]
+        fragmentView.text_checkbox_2.text = names[1]
+        fragmentView.text_checkbox_3.text = names[2]
     }
 
     private fun updateViews(series: Series, fragmentView: View) {

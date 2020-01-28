@@ -35,6 +35,7 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
     private OnItemClickedListener listener;
     private final MediaListViewModel mediaListViewModel;
     private String[] checkBoxText = new String[]{"", "", ""};
+    private boolean[] isCheckBoxActive = new boolean[]{true, true, true};
 
     public SWMListAdapter(MediaListViewModel mediaListViewModel) {
         super(DiffCallback);
@@ -43,6 +44,11 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
 
     public void updateCheckBoxText(String[] newCheckBoxText) {
         checkBoxText = newCheckBoxText;
+        notifyDataSetChanged();
+    }
+
+    public void updateCheckBoxVisible(boolean[] newIsCheckboxActive){
+        this.isCheckBoxActive = newIsCheckboxActive;
         notifyDataSetChanged();
     }
 
@@ -73,16 +79,22 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
 
     @Override
     public void onBindViewHolder(@NonNull MediaViewHolder holder, int position) {
-        holder.textCheckBox1.setText(checkBoxText[0]);
-        holder.textCheckBox2.setText(checkBoxText[1]);
-        holder.textCheckBox3.setText(checkBoxText[2]);
-
-        //MediaAndNotes currentItem = currentList.get(position);
-        //MediaAndNotes currentItem = listDiffer.getCurrentList().get(position);
         MediaAndNotes currentItem = getItem(position);
         holder.itemView.setOnClickListener(view -> listener.onItemClicked(currentItem.mediaItem.id));
         holder.titleTextView.setText(currentItem.mediaItem.title);
+        holder.dateTextView.setText(currentItem.mediaItem.date);
         holder.typeTextView.setText(mediaListViewModel.convertTypeToString(currentItem.mediaItem.type));
+        switch (currentItem.mediaItem.type){
+            case 10: //TV Episode TODO: do not hardcode this.
+                holder.extraInfoTextView.setVisibility(View.VISIBLE);
+                holder.extraInfoTextView.setText("Testing textview");
+                break;
+            default:
+                holder.extraInfoTextView.setVisibility((View.INVISIBLE));
+                break;
+        }
+
+        //cover image
         holder.coverImage.getHierarchy().setPlaceholderImage(R.drawable.ic_launcher_foreground, ScalingUtils.ScaleType.CENTER_INSIDE);
         String uriString = currentItem.mediaItem.imageURL;
         if (uriString != null && !uriString.equals("")) {
@@ -97,14 +109,25 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
             holder.coverImage.getHierarchy().setActualImageScaleType(ScalingUtils.ScaleType.CENTER_INSIDE);
         }
 
+        holder.userDefinedView1.setVisibility(isCheckBoxActive[0]? View.VISIBLE: View.GONE);
+        holder.userDefinedView2.setVisibility(isCheckBoxActive[1]? View.VISIBLE: View.GONE);
+        holder.userDefinedView3.setVisibility(isCheckBoxActive[2]? View.VISIBLE: View.GONE);
+
+
+        //Set checkbox text
+        holder.textCheckBox1.setText(checkBoxText[0]);
+        holder.textCheckBox2.setText(checkBoxText[1]);
+        holder.textCheckBox3.setText(checkBoxText[2]);
+        //Set checks
         holder.checkBoxWatchedRead.setChecked(currentItem.mediaNotes.isWatchedRead());
         holder.checkBoxWantToWatchRead.setChecked(currentItem.mediaNotes.isWantToWatchRead());
         holder.checkBoxOwned.setChecked(currentItem.mediaNotes.isOwned());
-
+        //TODO the following should be changed to better align with separation of duties.
+        //Store the MediaNotes object in the View so it can be sent back to get updated in the database
         holder.checkBoxWatchedRead.setTag(currentItem.mediaNotes);
         holder.checkBoxWantToWatchRead.setTag(currentItem.mediaNotes);
         holder.checkBoxOwned.setTag(currentItem.mediaNotes);
-
+        //Set onclicklistener to update checked status
         holder.checkBoxOwned.setOnClickListener(view -> {
             ((MediaNotes) view.getTag()).flipOwned();
             mediaListViewModel.update((MediaNotes) view.getTag());
@@ -119,30 +142,13 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
         });
     }
 
-    /*@Override
-    public int getItemCount() {
-        //return currentList.size();
-        return listDiffer.getCurrentList().size();
-    }*/
-
-    /*public void setList(List<MediaAndNotes> newList) {
-        listDiffer.submitList(newList);
-        *//*DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new DiffCallback(this.currentList, newList));
-        diffResult.dispatchUpdatesTo(this);
-        currentList.clear();
-        currentList.addAll(newList);*//*
-    }*/
-
-    /*@Override
-    public long getItemId(int position) {
-        return listDiffer.getCurrentList().get(position).mediaItem.id;
-    }*/
-
 
     static class MediaViewHolder extends RecyclerView.ViewHolder {
 
         final TextView titleTextView;
         final TextView typeTextView;
+        final TextView dateTextView;
+        final TextView extraInfoTextView;
         final CheckBox checkBoxWatchedRead;
         final CheckBox checkBoxWantToWatchRead;
         final CheckBox checkBoxOwned;
@@ -150,12 +156,17 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
         final TextView textCheckBox1;
         final TextView textCheckBox2;
         final TextView textCheckBox3;
+        final View userDefinedView1;
+        final View userDefinedView2;
+        final View userDefinedView3;
 
 
         MediaViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.media_title);
             typeTextView = itemView.findViewById(R.id.media_type);
+            dateTextView = itemView.findViewById(R.id.date_textview);
+            extraInfoTextView = itemView.findViewById(R.id.extra_info);
             checkBoxWatchedRead = itemView.findViewById(R.id.checkbox_1);
             checkBoxWantToWatchRead = itemView.findViewById(R.id.checkbox_2);
             checkBoxOwned = itemView.findViewById(R.id.checkbox_3);
@@ -163,6 +174,9 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
             textCheckBox1 = itemView.findViewById(R.id.text_checkbox_1);
             textCheckBox2 = itemView.findViewById(R.id.text_checkbox_2);
             textCheckBox3 = itemView.findViewById(R.id.text_checkbox_3);
+            userDefinedView1 = itemView.findViewById(R.id.user_1_sublayout);
+            userDefinedView2 = itemView.findViewById(R.id.user_2_sublayout);
+            userDefinedView3 = itemView.findViewById(R.id.user_3_sublayout);
         }
     }
 
@@ -188,7 +202,8 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
             }
             same &= (oldMedia.imageURL == null ? newMedia.imageURL == null : oldMedia.imageURL.equals(newMedia.imageURL) &&
                     oldMedia.title == null ? newMedia.title == null : oldMedia.title.equals(newMedia.title) &&
-                    oldMedia.type == newMedia.type);
+                    oldMedia.type == newMedia.type &&
+                    oldMedia.date.equals(newMedia.date));
             return same;
         }
     };

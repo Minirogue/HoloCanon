@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.SparseArray
 import androidx.lifecycle.*
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
+import com.minirogue.starwarscanontracker.model.PrefsRepo
 import com.minirogue.starwarscanontracker.model.SWMRepository
 import com.minirogue.starwarscanontracker.model.SortStyle
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
@@ -18,7 +19,10 @@ import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class MediaListViewModel @Inject constructor(private val repository: SWMRepository, private val connMgr: MyConnectivityManager, application: Application) : ViewModel() {
+class MediaListViewModel @Inject constructor(private val repository: SWMRepository,
+                                             private val connMgr: MyConnectivityManager,
+                                             private val prefsRepo: PrefsRepo,
+                                             application: Application) : ViewModel() {
 
     //filtering
     val activeFilters = repository.getActiveFilters()
@@ -36,8 +40,9 @@ class MediaListViewModel @Inject constructor(private val repository: SWMReposito
     val sortStyle: LiveData<SortStyle>
         get() = _sortStyle
 
-    //Checkbox text
+    //Checkbox settings
     val checkBoxText = repository.getCheckBoxText()
+    val checkBoxVisibility: LiveData<BooleanArray> = prefsRepo.checkBoxVisibility
 
     //Variables for handling exactly one query and sort job at a time
     private var queryJob: Job = Job()

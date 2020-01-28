@@ -2,6 +2,7 @@ package com.minirogue.starwarscanontracker.viewmodel
 
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.minirogue.starwarscanontracker.model.PrefsRepo
 import com.minirogue.starwarscanontracker.model.SWMRepository
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.model.room.entity.FilterType
@@ -9,10 +10,12 @@ import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter
 import javax.inject.Inject
 
 
-class FilterSelectionViewModel @Inject constructor(private val repository: SWMRepository) : ViewModel() {
+class FilterSelectionViewModel @Inject constructor(private val repository: SWMRepository,
+                                                   prefsRepo: PrefsRepo) : ViewModel() {
 
 
     val filterTypes = repository.getAllFilterTypes()
+    val checkBoxVisibilty = prefsRepo.checkBoxVisibility
 
 
     fun flipFilterType(filterType: FilterType) {

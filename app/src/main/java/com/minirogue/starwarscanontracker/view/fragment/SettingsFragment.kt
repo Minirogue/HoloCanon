@@ -3,6 +3,7 @@ package com.minirogue.starwarscanontracker.view.fragment
 import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import androidx.preference.*
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.application.CanonTrackerApplication
@@ -19,6 +20,10 @@ import javax.inject.Inject
 
 
 class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnSharedPreferenceChangeListener */ {
+
+    companion object{
+        private const val TAG = "SettingsFragment"
+    }
 
     @Inject
     lateinit var repo: SWMRepository
@@ -78,6 +83,7 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
     override fun onPause() {
         super.onPause()
         (activity!!.application as CanonTrackerApplication).appComponent.injectFilterUpdater().updateJustCheckboxFilters()
+        Log.d(TAG, "onPause called in SettingsFragment")
     }
 
     /*   override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {

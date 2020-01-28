@@ -53,12 +53,19 @@ class ViewMediaItemFragment : Fragment() {
             fragmentView.text_checkbox_2.text = arr[1]
             fragmentView.text_checkbox_3.text = arr[2]
         })
+        viewModel.checkBoxVisibility.observe(viewLifecycleOwner, Observer { visibilityArray -> updateViews(visibilityArray, fragmentView)})
 
         fragmentView.checkbox_3.setOnClickListener { viewModel.toggleOwned() }
         fragmentView.checkbox_2.setOnClickListener { viewModel.toggleWantToWatchRead() }
         fragmentView.checkbox_1.setOnClickListener { viewModel.toggleWatchedRead() }
 
         return fragmentView
+    }
+
+    private fun updateViews(visibilityArray: BooleanArray, fragmentView: View){
+        fragmentView.checkbox_1_holder.visibility = if (visibilityArray[0]) View.VISIBLE else View.GONE
+        fragmentView.checkbox_2_holder.visibility = if (visibilityArray[1]) View.VISIBLE else View.GONE
+        fragmentView.checkbox_3_holder.visibility = if (visibilityArray[2]) View.VISIBLE else View.GONE
     }
 
     @SuppressLint("SetTextI18n")

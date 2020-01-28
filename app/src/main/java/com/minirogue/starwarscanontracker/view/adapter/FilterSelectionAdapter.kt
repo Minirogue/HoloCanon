@@ -9,9 +9,9 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
-import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
+import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import kotlinx.android.synthetic.main.filter_selection_item.view.*
 
 class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.FilterTypeViewHolder>() {
@@ -19,12 +19,32 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
     private lateinit var listener: OnClickListeners
     private val typeList = mutableListOf<FilterType>()
     private val isExpanded = SparseBooleanArray()
+    private val excludedTypes = ArrayList<Int>()
 
 
     fun updateList(newList: List<FilterType>) {
         typeList.clear()
-        typeList.addAll(newList)
+        for (item in newList){
+            if (item.typeId !in excludedTypes){
+                typeList.add(item)
+            }
+        }
         notifyDataSetChanged()
+    }
+
+    fun updateExcludedTypes(newExcludedTypes: List<Int>) {
+        excludedTypes.clear()
+        excludedTypes.addAll(newExcludedTypes)
+        cleanTypeList()
+        notifyDataSetChanged()
+    }
+
+    private fun cleanTypeList() {
+        for (type in typeList) {
+            if (type.typeId in excludedTypes) {
+                typeList.remove(type)
+            }
+        }
     }
 
     fun setOnClickListeners(newListener: OnClickListeners) {

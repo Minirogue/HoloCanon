@@ -101,4 +101,7 @@
         It should automatically update when I do that.
         This app downloads the database and images, so try not to use it without wifi for now.
         Future versions will have an option to not download unless on wifi.</string>
+    <string name="user_filter_3_active">user_filter_3_active</string>
+    <string name="user_filter_2_active">user_filter_2_active</string>
+    <string name="user_filter_1_active">user_filter_1_active</string>
 </resources>
