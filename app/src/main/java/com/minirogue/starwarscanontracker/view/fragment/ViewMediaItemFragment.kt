@@ -98,9 +98,9 @@ class ViewMediaItemFragment : Fragment() {
     }
 
     private fun updateViews(notes: MediaNotes, fragmentView: View) {
-        fragmentView.checkbox_3.isChecked = notes.isOwned
-        fragmentView.checkbox_1.isChecked = notes.isWatchedRead
-        fragmentView.checkbox_2.isChecked = notes.isWantToWatchRead
+        fragmentView.checkbox_3.isChecked = notes.isUserChecked3
+        fragmentView.checkbox_1.isChecked = notes.isUserChecked1
+        fragmentView.checkbox_2.isChecked = notes.isUserChecked2
     }
 
     private fun updateView(mediaType: MediaType?, fragmentView: View) {

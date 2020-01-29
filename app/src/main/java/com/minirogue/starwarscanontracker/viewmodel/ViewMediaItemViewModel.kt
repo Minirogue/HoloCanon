@@ -33,19 +33,19 @@ class ViewMediaItemViewModel @Inject constructor(private val repository: SWMRepo
 
     fun toggleOwned() {
         val notes = liveMediaNotes.value
-        notes?.flipOwned()
+        notes?.flipCheck3()
         repository.update(notes)
     }
 
     fun toggleWatchedRead() {
         val notes = liveMediaNotes.value
-        notes?.flipWatchedRead()
+        notes?.flipCheck1()
         repository.update(notes)
     }
 
     fun toggleWantToWatchRead() {
         val notes = liveMediaNotes.value
-        notes?.flipWantToWatchRead()
+        notes?.flipCheck2()
         repository.update(notes)
     }
 

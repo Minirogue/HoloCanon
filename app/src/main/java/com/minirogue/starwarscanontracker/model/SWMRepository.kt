@@ -220,7 +220,7 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
         updatingNotesMutex.withLock {
             val listOfNotes = daoMedia.getMediaNotesBySeriesNonLive(seriesId)
             for (notes in listOfNotes) {
-                notes.isWantToWatchRead = newValue
+                notes.isUserChecked2 = newValue
                 daoMedia.update(notes)
             }
         }
@@ -230,7 +230,7 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
         updatingNotesMutex.withLock {
             val listOfNotes = daoMedia.getMediaNotesBySeriesNonLive(seriesId)
             for (notes in listOfNotes) {
-                notes.isOwned = newValue
+                notes.isUserChecked3 = newValue
                 daoMedia.update(notes)
             }
         }
@@ -240,7 +240,7 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
         updatingNotesMutex.withLock {
             val listOfNotes = daoMedia.getMediaNotesBySeriesNonLive(seriesId)
             for (notes in listOfNotes) {
-                notes.isWatchedRead = newValue
+                notes.isUserChecked1 = newValue
                 daoMedia.update(notes)
             }
         }

@@ -74,7 +74,7 @@ class MigrationTest {
 
     }
 
-/*    @Test
+    @Test
     @Throws(IOException::class)
     fun migrate16To17() {
         var db = testHelper.createDatabase(TEST_DB, 16).apply {
@@ -84,8 +84,9 @@ class MigrationTest {
         }
 
         db = testHelper.runMigrationsAndValidate(TEST_DB, 17, true, MediaDatabase.MIGRATE_16_17)
+    }
 
-    }*/
+
 
     @Test
     @Throws(IOException::class)

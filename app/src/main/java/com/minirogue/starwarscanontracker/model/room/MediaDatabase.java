@@ -23,7 +23,7 @@ import com.minirogue.starwarscanontracker.model.room.join.MediaCharacterJoin;
 
 @Database(entities = {MediaItem.class, com.minirogue.starwarscanontracker.model.room.entity.Character.class, MediaCharacterJoin.class, MediaNotes.class,
         MediaType.class, Series.class, FilterObject.class, FilterType.class},
-        version = 16)
+        version = 17)
 
 public abstract class MediaDatabase extends RoomDatabase {
 
@@ -44,7 +44,7 @@ public abstract class MediaDatabase extends RoomDatabase {
                     Room.databaseBuilder(ctx.getApplicationContext(), MediaDatabase.class, DATABASE_NAME)
                             .createFromAsset("database/" + LATEST_PREPACKAGED_DATABASE)
                             .addMigrations(MIGRATE_8_9, MIGRATE_9_10, MIGRATE_10_11, MIGRATE_11_12, MIGRATE_12_13,
-                                    MIGRATE_13_14, MIGRATE_14_15, MIGRATE_15_16)
+                                    MIGRATE_13_14, MIGRATE_14_15, MIGRATE_15_16, MIGRATE_16_17)
                             .build();
         }
         return databaseInstance;
@@ -61,9 +61,16 @@ public abstract class MediaDatabase extends RoomDatabase {
     public static MediaDatabase getDatabaseByName(String name, Context ctx) {
         return Room.databaseBuilder(ctx.getApplicationContext(), MediaDatabase.class, name)
                 .addMigrations(MIGRATE_8_9, MIGRATE_9_10, MIGRATE_10_11, MIGRATE_11_12, MIGRATE_12_13,
-                        MIGRATE_13_14, MIGRATE_14_15, MIGRATE_15_16)
+                        MIGRATE_13_14, MIGRATE_14_15, MIGRATE_15_16, MIGRATE_16_17)
                 .build();
     }
+
+    final static Migration MIGRATE_16_17 = new Migration(16, 17) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+
+        }
+    };
 
     final static Migration MIGRATE_15_16 = new Migration(15, 16) {
         @Override

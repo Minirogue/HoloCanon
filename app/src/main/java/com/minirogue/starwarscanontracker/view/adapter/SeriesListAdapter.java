@@ -91,9 +91,9 @@ public class SeriesListAdapter extends ListAdapter<MediaAndNotes, SeriesListAdap
             if (oldNotes == null && newNotes != null) {
                 return false;
             } else if (oldNotes != null && newNotes != null) {
-                same = (oldNotes.isOwned() == newNotes.isOwned() &&
-                        oldNotes.isWantToWatchRead() == newNotes.isWantToWatchRead() &&
-                        oldNotes.isWatchedRead() == newNotes.isWatchedRead());
+                same = (oldNotes.isUserChecked3() == newNotes.isUserChecked3() &&
+                        oldNotes.isUserChecked2() == newNotes.isUserChecked2() &&
+                        oldNotes.isUserChecked1() == newNotes.isUserChecked1());
             }
             same &= (oldMedia.imageURL == null ? newMedia.imageURL == null : oldMedia.imageURL.equals(newMedia.imageURL) &&
                     oldMedia.title == null ? newMedia.title == null : oldMedia.title.equals(newMedia.title) &&

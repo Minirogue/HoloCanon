@@ -74,7 +74,7 @@ class SeriesViewModel @Inject constructor(private val repository: SWMRepository,
             val checkBoxOne = async {
                 var checked = true
                 for (notes in fullNotes) {
-                    if (!notes.isWatchedRead) {
+                    if (!notes.isUserChecked1) {
                         checked = false
                         break
                     }
@@ -84,7 +84,7 @@ class SeriesViewModel @Inject constructor(private val repository: SWMRepository,
             val checkBoxTwo = async {
                 var checked = true
                 for (notes in fullNotes) {
-                    if (!notes.isWantToWatchRead) {
+                    if (!notes.isUserChecked2) {
                         checked = false
                         break
                     }
@@ -94,7 +94,7 @@ class SeriesViewModel @Inject constructor(private val repository: SWMRepository,
             val checkBoxThree = async {
                 var checked = true
                 for (notes in fullNotes) {
-                    if (!notes.isOwned) {
+                    if (!notes.isUserChecked3) {
                         checked = false
                         break
                     }

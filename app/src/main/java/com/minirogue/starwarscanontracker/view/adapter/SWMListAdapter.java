@@ -32,7 +32,7 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
 
     //private AsyncListDiffer<MediaAndNotes> listDiffer = new AsyncListDiffer<>(this, DiffCallback);
     //private List<MediaAndNotes> currentList = new ArrayList<>();
-    private OnItemClickedListener listener;
+    private OnClickListener listener;
     private final MediaListViewModel mediaListViewModel;
     private String[] checkBoxText = new String[]{"", "", ""};
     private boolean[] isCheckBoxActive = new boolean[]{true, true, true};
@@ -52,12 +52,15 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
         notifyDataSetChanged();
     }
 
-    public void setOnItemClickedListener(OnItemClickedListener newListener) {
+    public void setOnClickListener(OnClickListener newListener) {
         listener = newListener;
     }
 
-    public interface OnItemClickedListener {
+    public interface OnClickListener {
         void onItemClicked(int itemId);
+        void onCheckbox1Clicked(MediaNotes mediaNotes);
+        void onCheckbox2Clicked(MediaNotes mediaNotes);
+        void onCheckbox3Clicked(MediaNotes mediaNotes);
     }
 
     @Override
@@ -83,6 +86,7 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
         holder.itemView.setOnClickListener(view -> listener.onItemClicked(currentItem.mediaItem.id));
         holder.titleTextView.setText(currentItem.mediaItem.title);
         holder.dateTextView.setText(currentItem.mediaItem.date);
+        //TODO get rid of ViewModel reference here.
         holder.typeTextView.setText(mediaListViewModel.convertTypeToString(currentItem.mediaItem.type));
         switch (currentItem.mediaItem.type){
 //            case 10: //TV Episode TODO: do not hardcode this.
@@ -98,6 +102,7 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
         holder.coverImage.getHierarchy().setPlaceholderImage(R.drawable.ic_launcher_foreground, ScalingUtils.ScaleType.CENTER_INSIDE);
         String uriString = currentItem.mediaItem.imageURL;
         if (uriString != null && !uriString.equals("")) {
+            //TODO replace viewmodel reference here
             ImageRequest request = ImageRequestBuilder
                     .newBuilderWithSource(Uri.parse(currentItem.mediaItem.imageURL))
                     .setLowestPermittedRequestLevel(mediaListViewModel.isNetworkAllowed() ? ImageRequest.RequestLevel.FULL_FETCH : ImageRequest.RequestLevel.DISK_CACHE)
@@ -119,27 +124,17 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
         holder.textCheckBox2.setText(checkBoxText[1]);
         holder.textCheckBox3.setText(checkBoxText[2]);
         //Set checks
-        holder.checkBoxWatchedRead.setChecked(currentItem.mediaNotes.isWatchedRead());
-        holder.checkBoxWantToWatchRead.setChecked(currentItem.mediaNotes.isWantToWatchRead());
-        holder.checkBoxOwned.setChecked(currentItem.mediaNotes.isOwned());
-        //TODO the following should be changed to better align with separation of duties.
+        holder.checkBoxWatchedRead.setChecked(currentItem.mediaNotes.isUserChecked1());
+        holder.checkBoxWantToWatchRead.setChecked(currentItem.mediaNotes.isUserChecked2());
+        holder.checkBoxOwned.setChecked(currentItem.mediaNotes.isUserChecked3());
         //Store the MediaNotes object in the View so it can be sent back to get updated in the database
         holder.checkBoxWatchedRead.setTag(currentItem.mediaNotes);
         holder.checkBoxWantToWatchRead.setTag(currentItem.mediaNotes);
         holder.checkBoxOwned.setTag(currentItem.mediaNotes);
         //Set onclicklistener to update checked status
-        holder.checkBoxOwned.setOnClickListener(view -> {
-            ((MediaNotes) view.getTag()).flipOwned();
-            mediaListViewModel.update((MediaNotes) view.getTag());
-        });
-        holder.checkBoxWatchedRead.setOnClickListener(view -> {
-            ((MediaNotes) view.getTag()).flipWatchedRead();
-            mediaListViewModel.update((MediaNotes) view.getTag());
-        });
-        holder.checkBoxWantToWatchRead.setOnClickListener(view -> {
-            ((MediaNotes) view.getTag()).flipWantToWatchRead();
-            mediaListViewModel.update((MediaNotes) view.getTag());
-        });
+        holder.checkBoxWatchedRead.setOnClickListener(view -> listener.onCheckbox1Clicked((MediaNotes) view.getTag()));
+        holder.checkBoxWantToWatchRead.setOnClickListener(view -> listener.onCheckbox2Clicked((MediaNotes) view.getTag()));
+        holder.checkBoxOwned.setOnClickListener(view -> listener.onCheckbox3Clicked((MediaNotes) view.getTag()));
     }
 
 
@@ -196,9 +191,9 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
             if (oldNotes == null && newNotes != null) {
                 return false;
             } else if (oldNotes != null && newNotes != null) {
-                same = (oldNotes.isOwned() == newNotes.isOwned() &&
-                        oldNotes.isWantToWatchRead() == newNotes.isWantToWatchRead() &&
-                        oldNotes.isWatchedRead() == newNotes.isWatchedRead());
+                same = (oldNotes.isUserChecked3() == newNotes.isUserChecked3() &&
+                        oldNotes.isUserChecked2() == newNotes.isUserChecked2() &&
+                        oldNotes.isUserChecked1() == newNotes.isUserChecked1());
             }
             same &= (oldMedia.imageURL == null ? newMedia.imageURL == null : oldMedia.imageURL.equals(newMedia.imageURL) &&
                     oldMedia.title == null ? newMedia.title == null : oldMedia.title.equals(newMedia.title) &&

@@ -23,6 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.minirogue.starwarscanontracker.R;
 import com.minirogue.starwarscanontracker.application.CanonTrackerApplication;
 import com.minirogue.starwarscanontracker.model.SortStyle;
+import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes;
 import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter;
 import com.minirogue.starwarscanontracker.view.FilterChip;
 import com.minirogue.starwarscanontracker.view.adapter.SWMListAdapter;
@@ -41,7 +42,6 @@ public class MediaListFragment extends Fragment {
     private ChipGroup chipGroup;
     private Chip sortChip;
     private FloatingActionButton sortFAB;
-    //private FloatingActionButton filterFAB;
     private Context ctx;
 
     @Inject
@@ -62,8 +62,6 @@ public class MediaListFragment extends Fragment {
         sortFAB = fragmentView.findViewById(R.id.sort_floating_action_button);
         PopupMenu sortMenu = makeSortMenu();
         sortFAB.setOnClickListener(view -> sortMenu.show());
-        //filterFAB = fragmentView.findViewById(R.id.filter_floating_action_button);
-        //filterFAB.setOnClickListener(stuff -> ((MainActivity) Objects.requireNonNull(getActivity())).replaceFragment(MainActivity.FILTERS_TAG));
 
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(fragmentView.getContext());
@@ -83,23 +81,42 @@ public class MediaListFragment extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
                 if (dy > 0) {//Scroll down
                     sortFAB.hide();
-                    //filterFAB.hide();
                 } else if (dy < 0) {//Scroll up
                     sortFAB.show();
-                    //filterFAB.show();
                 }
             }
         });
 
-        adapter.setOnItemClickedListener(itemId -> {
-            ViewMediaItemFragment viewMediaItemFragment = new ViewMediaItemFragment();
-            Bundle bundle = new Bundle();
-            bundle.putInt(getString(R.string.bundleItemId), itemId);
-            viewMediaItemFragment.setArguments(bundle);
-            Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, viewMediaItemFragment)
-                    .addToBackStack(null)
-                    .commit();//TODO this should be handled by the activity
+        adapter.setOnClickListener(new SWMListAdapter.OnClickListener() {
+            @Override
+            public void onItemClicked(int itemId) {
+                ViewMediaItemFragment viewMediaItemFragment = new ViewMediaItemFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt(getString(R.string.bundleItemId), itemId);
+                viewMediaItemFragment.setArguments(bundle);
+                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, viewMediaItemFragment)
+                        .addToBackStack(null)
+                        .commit();//TODO this should be handled by the activity
+            }
+
+            @Override
+            public void onCheckbox1Clicked(MediaNotes mediaNotes) {
+                mediaNotes.flipCheck1();
+                mediaListViewModel.update(mediaNotes);
+            }
+
+            @Override
+            public void onCheckbox2Clicked(MediaNotes mediaNotes) {
+                mediaNotes.flipCheck2();
+                mediaListViewModel.update(mediaNotes);
+            }
+
+            @Override
+            public void onCheckbox3Clicked(MediaNotes mediaNotes) {
+                mediaNotes.flipCheck3();
+                mediaListViewModel.update(mediaNotes);
+            }
         });
         mediaListViewModel.getCheckBoxText().observe(getViewLifecycleOwner(), adapter::updateCheckBoxText);
         mediaListViewModel.getCheckBoxVisibility().observe(getViewLifecycleOwner(), adapter::updateCheckBoxVisible);

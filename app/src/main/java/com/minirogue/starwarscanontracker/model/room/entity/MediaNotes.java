@@ -15,17 +15,17 @@ public class MediaNotes {
     @PrimaryKey
     private int mediaId;
     @ColumnInfo(name = "want_to_watch_or_read")
-    private boolean wantToWatchRead;
+    private boolean userChecked2;
     @ColumnInfo(name = "watched_or_read")
-    private boolean watchedRead;
+    private boolean userChecked1;
     @ColumnInfo(name = "owned")
-    private boolean owned;
+    private boolean userChecked3;
 
     public MediaNotes(int mediaId) {
         this.mediaId = mediaId;
-        wantToWatchRead = false;
-        watchedRead = false;
-        owned = false;
+        userChecked2 = false;
+        userChecked1 = false;
+        userChecked3 = false;
     }
 
     public int getMediaId() {
@@ -33,39 +33,39 @@ public class MediaNotes {
     }
 
 
-    public boolean isWantToWatchRead() {
-        return wantToWatchRead;
+    public boolean isUserChecked2() {
+        return userChecked2;
     }
 
-    public void setWantToWatchRead(boolean wantToWatchRead) {
-        this.wantToWatchRead = wantToWatchRead;
+    public void setUserChecked2(boolean userChecked2) {
+        this.userChecked2 = userChecked2;
     }
 
-    public void flipWantToWatchRead() {
-        wantToWatchRead = !wantToWatchRead;
+    public void flipCheck2() {
+        userChecked2 = !userChecked2;
     }
 
-    public boolean isWatchedRead() {
-        return watchedRead;
+    public boolean isUserChecked1() {
+        return userChecked1;
     }
 
-    public void setWatchedRead(boolean watchedRead) {
-        this.watchedRead = watchedRead;
+    public void setUserChecked1(boolean userChecked1) {
+        this.userChecked1 = userChecked1;
     }
 
-    public void flipWatchedRead() {
-        watchedRead = !watchedRead;
+    public void flipCheck1() {
+        userChecked1 = !userChecked1;
     }
 
-    public boolean isOwned() {
-        return owned;
+    public boolean isUserChecked3() {
+        return userChecked3;
     }
 
-    public void setOwned(boolean owned) {
-        this.owned = owned;
+    public void setUserChecked3(boolean userChecked3) {
+        this.userChecked3 = userChecked3;
     }
 
-    public void flipOwned() {
-        owned = !owned;
+    public void flipCheck3() {
+        userChecked3 = !userChecked3;
     }
 }
