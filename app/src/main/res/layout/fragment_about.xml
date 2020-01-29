@@ -6,9 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.fragment.AboutFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/copyright_notice"
@@ -20,6 +21,12 @@
             android:text="@string/copyright_notice"
             />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:text="@string/update_1_2_1"
+            />
 
         <TextView
             android:id="@+id/textview_update_1_2_0"
@@ -64,5 +71,5 @@
             android:text="@string/update_1_0_0"/>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </ScrollView>

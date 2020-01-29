@@ -13,7 +13,6 @@
     <string name="launcher_icon_description">HoloCanon Icon</string>
 
 
-    <string name="current_database_version">current database version</string>
 
     <string name="cover_image_description">cover</string>
     <string name="setting_unmetered_sync_only">sync_wifi_only</string>
@@ -34,9 +33,13 @@
     <string name="nav_settings">Settings</string>
 
     <!--preference keys-->
+    <string name="current_database_version">current database version</string>
     <string name="checkbox1_default_text">Completed</string>
     <string name="checkbox2_default_text">Wishlist</string>
     <string name="checkbox3_default_text">Owned</string>
+    <string name="user_filter_3_active">user_filter_3_active</string>
+    <string name="user_filter_2_active">user_filter_2_active</string>
+    <string name="user_filter_1_active">user_filter_1_active</string>
 
     <!--quotes-->
     <string-array name="quotes">
@@ -73,6 +76,12 @@
 
 
     <!--update messages-->
+    <string name="update_1_2_1">Version 1.2.1: Changed how items are displayed in the canon list.
+    Filter selection is now sorted alphabetically.
+    Canon list sorting now defaults to release date.
+    Fixed bug where user-defined filter names were not properly updating.
+    Can now hide unused user-defined filters.
+    The series view now includes a list of items in that series.</string>
     <string name="update_1_2_0">Version 1.2.0: Added filtering by series and a series page for relevant items, which can be accessed through any item in that series.
         This means you can now check off the entire Clone Wars series at once (hooray!).
         Changed the filter selection menu which should allow for better control over filters.
@@ -101,7 +110,5 @@
         It should automatically update when I do that.
         This app downloads the database and images, so try not to use it without wifi for now.
         Future versions will have an option to not download unless on wifi.</string>
-    <string name="user_filter_3_active">user_filter_3_active</string>
-    <string name="user_filter_2_active">user_filter_2_active</string>
-    <string name="user_filter_1_active">user_filter_1_active</string>
+
 </resources>
