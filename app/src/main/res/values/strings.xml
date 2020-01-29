@@ -4,7 +4,7 @@
     ]>
 
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">&appname;</string>
     <string name="sync_online">Sync database now</string>
     <string name="media_title">Title</string>
@@ -42,7 +42,7 @@
     <string name="user_filter_1_active">user_filter_1_active</string>
 
     <!--quotes-->
-    <string-array name="quotes">
+    <string-array name="quotes" tools:ignore="UnusedResources">
         <item>Do or do not. There is no try.</item>
         <item>This is the way.</item>
         <item>I have spoken.</item>

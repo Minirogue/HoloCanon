@@ -18,7 +18,6 @@ import com.minirogue.starwarscanontracker.model.room.entity.Series
 import com.minirogue.starwarscanontracker.view.adapter.SeriesListAdapter
 import com.minirogue.starwarscanontracker.viewmodel.SeriesViewModel
 import kotlinx.android.synthetic.main.fragment_series.view.*
-import java.util.*
 import javax.inject.Inject
 
 
@@ -53,7 +52,7 @@ class SeriesFragment : Fragment() {
             val bundle = Bundle()
             bundle.putInt(getString(R.string.bundleItemId), itemId)
             viewMediaItemFragment.arguments = bundle
-            Objects.requireNonNull(activity)!!.supportFragmentManager.beginTransaction()
+            activity!!.supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, viewMediaItemFragment)
                     .addToBackStack(null)
                     .commit() //TODO this should be handled by the activity

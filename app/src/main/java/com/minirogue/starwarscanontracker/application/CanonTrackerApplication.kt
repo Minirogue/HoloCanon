@@ -25,14 +25,3 @@ class CanonTrackerApplication : Application() {
                     .roomModule(RoomModule(app))
                     .build()
 }
-
-
-//Initialize Koin for dependency injection
-/*
-    private fun initKoin() {
-        startKoin {
-            androidLogger()
-            androidContext(this@CanonTrackerApplication)
-            modules(listOf(appModule, roomModule, preferencesModule))
-        }
-*/

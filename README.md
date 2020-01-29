@@ -18,7 +18,7 @@ Here are some things that I plan to add to the app:
 * ~~Saving current filters and sorting so they persist when the user returns to the Canon List screen.~~
 * Text search for the list. This should include searching all relevant text fields of the items.
 * ~~Clean up the filter selection menu into filter groups with options to filter ONLY selected items or to filter OUT the selected items in a group.~~
-* Filter selection could probably still be cleaned up further.
+* ~~Filter selection could probably still be cleaned up further.~~
 * ~~Add some functionality for series, including checking off an entire series.~~
 * Add filtering by publisher (seems like people aren't as into the IDW comics, I guess).
 * Add comments to code in case someone wants to contribute or if a potential employer wants to look at the code (Hi, still on the job market as of January, 2019).

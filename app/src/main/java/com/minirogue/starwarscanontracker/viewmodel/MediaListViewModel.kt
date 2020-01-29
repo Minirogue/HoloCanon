@@ -21,7 +21,7 @@ import kotlin.collections.ArrayList
 
 class MediaListViewModel @Inject constructor(private val repository: SWMRepository,
                                              private val connMgr: MyConnectivityManager,
-                                             private val prefsRepo: PrefsRepo,
+                                             prefsRepo: PrefsRepo,
                                              application: Application) : ViewModel() {
 
     //filtering

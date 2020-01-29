@@ -1,7 +1,6 @@
 package com.minirogue.starwarscanontracker.model
 
 import android.content.SharedPreferences
-import android.os.AsyncTask
 import android.util.SparseBooleanArray
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
@@ -17,7 +16,6 @@ import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
@@ -288,7 +286,7 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
      */
     fun update(mediaNotes: MediaNotes?) {
         if (mediaNotes != null) {
-            UpdateMediaNotes(daoMedia).execute(mediaNotes)
+            GlobalScope.launch(Dispatchers.Default) {daoMedia.update(mediaNotes)}
         }
     }
 
@@ -351,16 +349,6 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
                 }
             }
             checkboxTextArr
-        }
-    }
-
-    //TODO convert this to a coroutine
-    private class UpdateMediaNotes internal constructor(daoMedia: DaoMedia) : AsyncTask<MediaNotes, Void, Void>() {
-        internal var wrDaoMedia: WeakReference<DaoMedia> = WeakReference(daoMedia)
-
-        override fun doInBackground(vararg mediaNotes: MediaNotes): Void? {
-            wrDaoMedia.get()?.update(mediaNotes[0])
-            return null
         }
     }
 

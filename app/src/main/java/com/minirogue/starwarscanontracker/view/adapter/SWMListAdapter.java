@@ -85,10 +85,10 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
         holder.dateTextView.setText(currentItem.mediaItem.date);
         holder.typeTextView.setText(mediaListViewModel.convertTypeToString(currentItem.mediaItem.type));
         switch (currentItem.mediaItem.type){
-            case 10: //TV Episode TODO: do not hardcode this.
-                holder.extraInfoTextView.setVisibility(View.VISIBLE);
-                holder.extraInfoTextView.setText("Testing textview");
-                break;
+//            case 10: //TV Episode TODO: do not hardcode this.
+//                holder.extraInfoTextView.setVisibility(View.VISIBLE);
+//                holder.extraInfoTextView.setText("Testing textview");
+//                break;
             default:
                 holder.extraInfoTextView.setVisibility((View.INVISIBLE));
                 break;
@@ -207,56 +207,5 @@ public class SWMListAdapter extends ListAdapter<MediaAndNotes, SWMListAdapter.Me
             return same;
         }
     };
-
-
-    /*static class DiffCallback extends DiffUtil.Callback{
-
-        List<MediaAndNotes> oldList;
-        List<MediaAndNotes> newList;
-
-
-        DiffCallback(List<MediaAndNotes> oldList, List<MediaAndNotes> newList){
-            this.oldList = oldList;
-            this.newList = newList;
-        }
-
-        @Override
-        public int getOldListSize() {
-            return this.oldList.size();
-        }
-
-        @Override
-        public int getNewListSize() {
-            return this.newList.size();
-        }
-
-        @Override
-        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-            return oldList.get(oldItemPosition).mediaItem.id == newList.get(newItemPosition).mediaItem.id;
-        }
-
-        @Override
-        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-            MediaItem oldMedia = oldList.get(oldItemPosition).mediaItem;
-            MediaItem newMedia = newList.get(newItemPosition).mediaItem;
-            MediaNotes oldNotes = oldList.get(oldItemPosition).mediaNotes;
-            MediaNotes newNotes = newList.get(newItemPosition).mediaNotes;
-            boolean same = true;
-            if (oldNotes == null && newNotes!= null){
-                return false;
-            }else if (oldNotes != null && newNotes != null){
-                same = (oldNotes.isOwned() == newNotes.isOwned() &&
-                        oldNotes.isWantToWatchRead() == newNotes.isWantToWatchRead() &&
-                        oldNotes.isWatchedRead() == newNotes.isWatchedRead());
-            }
-            same &= (oldMedia.imageURL == null ? newMedia.imageURL == null : oldMedia.imageURL.equals(newMedia.imageURL) &&
-                    oldMedia.title == null ? newMedia.title == null :oldMedia.title.equals(newMedia.title) &&
-                    oldMedia.type == newMedia.type);
-            return same;
-
-//                    oldMedia.date.equals(newMedia.date) &&
-//                    oldMedia.timeline == (newMedia.timeline)
-        }
-    }*/
 
 }
