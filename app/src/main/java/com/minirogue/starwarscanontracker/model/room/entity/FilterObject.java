@@ -61,7 +61,7 @@ public class FilterObject {
         }
     }
 
-    public static String getTextForType(int i) {//TODO want to have this automatically generated from room
+    /*public static String getTextForType(int i) {
         switch (i) {
             case 1:
                 return "Movie";
@@ -90,5 +90,5 @@ public class FilterObject {
             default:
                 return "MediaTypeNotFound";
         }
-    }
+    }*/
 }

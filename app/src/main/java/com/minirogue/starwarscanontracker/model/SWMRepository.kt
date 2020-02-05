@@ -200,6 +200,8 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
         return daoMedia.getMediaNotesBySeries(seriesId)
     }
 
+    //fun getFilterTypeIdToTextMap(): LiveData<Map<Int, String>> = Transformations.map()
+
     /**
      * Returns LiveData containing the Series corresponding the the seriesId
      */

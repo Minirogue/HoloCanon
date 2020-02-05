@@ -1,6 +1,5 @@
 package com.minirogue.starwarscanontracker.model
 
-import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
 import kotlin.math.sign
@@ -24,7 +23,7 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
             }
         }
         fun getAllStyles(): Array<Int>{
-            return arrayOf(SORT_TITLE, SORT_TYPE, SORT_TIMELINE, SORT_DATE)
+            return arrayOf(SORT_TITLE, SORT_TIMELINE, SORT_DATE)
         }
     }
 
@@ -40,7 +39,7 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
         }
         val compNum : Int = when (style){
             SORT_TITLE -> compareTitles(p0, p1)
-            SORT_TYPE -> FilterObject.getTextForType(p0.mediaItem.type).compareTo(FilterObject.getTextForType(p1.mediaItem.type))
+            //SORT_TYPE -> FilterObject.getTextForType(p0.mediaItem.type).compareTo(FilterObject.getTextForType(p1.mediaItem.type))
             SORT_TIMELINE -> sign(p0.mediaItem.timeline - p1.mediaItem.timeline).toInt()
             SORT_DATE -> compareDates(p0.mediaItem, p1.mediaItem)
             else -> compareTitles(p0,p1)
