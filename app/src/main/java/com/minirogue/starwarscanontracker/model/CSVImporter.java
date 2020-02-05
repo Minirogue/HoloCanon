@@ -12,6 +12,7 @@ import androidx.preference.PreferenceManager;
 import com.minirogue.starwarscanontracker.R;
 import com.minirogue.starwarscanontracker.application.CanonTrackerApplication;
 import com.minirogue.starwarscanontracker.model.room.MediaDatabase;
+import com.minirogue.starwarscanontracker.model.room.entity.Company;
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem;
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes;
 import com.minirogue.starwarscanontracker.model.room.entity.MediaType;
@@ -37,6 +38,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
     private final ConnectivityManager connMgr;
     private final HashMap<String, Integer> convertType = new HashMap<>();
     private final HashMap<String, Integer> convertSeries = new HashMap<>();
+    private final HashMap<String, Integer> convertCompany = new HashMap<>();
     private long newVersionId;
     private final boolean forced;
 
@@ -150,6 +152,54 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
         }
     }
 
+    private void importCSVToCompanyTable(InputStream inputStream) {
+        //Log.d(TAG, "starting media_type import");
+        Application app = appRef.get();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        try {
+            MediaDatabase db = MediaDatabase.getMediaDataBase(app);
+            Company company;
+            String[] header = reader.readLine().split(",");
+            String csvLine;
+            while ((csvLine = reader.readLine()) != null) {
+                String[] row = csvLine.split(",");
+                int id = 0;
+                String name = "";
+                for (int i = 0; i < row.length; i++) {
+                    switch (header[i]) {
+                        case "id":
+                            id = (Integer.valueOf(row[i]));
+                            break;
+                        case "name":
+                            name = (row[i]);
+                        default:
+                            //System.out.println("Unused header: " + header[i]);
+                    }
+                }
+                company = new Company(id, name);
+                long insertSuccessful = db.getDaoCompany().insert(company);
+                if (insertSuccessful == -1) {
+                    db.getDaoCompany().update(company);
+                }
+                convertCompany.put(company.getCompanyName(), company.getId());
+                //Log.d(TAG, "type added "+mediaType.getId()+" "+mediaType.getTitle());
+                if (wifiOnly && connMgr.isActiveNetworkMetered()) {
+                    cancel(true);
+                    break;
+                }
+            }
+            //Log.d(TAG, "queried mediaTypeTable: "+db.getDaoType().getAllNonLive());
+        } catch (IOException ex) {
+            throw new RuntimeException("Error reading CSV file: " + ex);
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException ex) {
+                //Log.e("CSVImporter","Error while closing input stream from CSV file: " + ex);
+            }
+        }
+    }
+
 
     private void importCSVToMediaDatabase(InputStream inputStream) {
         Application app = appRef.get();
@@ -223,6 +273,14 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                                 newItem.timeline = 10000.0;
                             } else {
                                 newItem.timeline = Double.valueOf(row[i]);
+                            }
+                            break;
+                        case "publisher":
+                            Integer newCompany = convertCompany.get(row[i]);
+                            if (newCompany == null) {
+                                newItem.publisher = -1;
+                            } else {
+                                newItem.publisher = newCompany;
                             }
                             break;
                         default:
@@ -336,6 +394,14 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=485468234&single=true&output=csv");
                 inputStream = url.openStream();
                 importCSVToSeriesTable(inputStream);
+                inputStream.close();
+                //import the main media table
+                if (isCancelled()) {
+                    return null;
+                }
+                url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1639412894&single=true&output=csv");
+                inputStream = url.openStream();
+                importCSVToCompanyTable(inputStream);
                 inputStream.close();
                 //import the main media table
                 if (isCancelled()) {

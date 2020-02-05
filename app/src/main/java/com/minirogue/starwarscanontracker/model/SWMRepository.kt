@@ -58,6 +58,7 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
         //val characterFilter = StringBuilder()
         val seriesFilter = StringBuilder()
         val typeFilter = StringBuilder()
+        val publisherFilter = StringBuilder()
         val notesFilter = StringBuilder()
         for (filter in filterList) {
             if (filter.active) {
@@ -103,6 +104,20 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
                         }
                         typeFilter.append(" type = ")
                         typeFilter.append(filter.id)
+                    }
+                    FilterType.FILTERCOLUMN_PUBLISHER -> {
+                        if (publisherFilter.isEmpty()) {
+                            if (!filterTypeIsPositive[filter.filterType]) {
+                                publisherFilter.append(" NOT ")
+                            }
+                        } else {
+                            if (!filterTypeIsPositive[filter.filterType]) {
+                                publisherFilter.append(" AND NOT ")
+                            } else {
+                                publisherFilter.append(" OR ")
+                            }
+                        }
+                        publisherFilter.append(" publisher = ${filter.id} ")
                     }
                     FilterType.FILTERCOLUMN_CHECKBOX_THREE -> {
                         if (notesFilter.isNotEmpty()) {
@@ -154,6 +169,12 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
             queryBuild.append(if (whereClause) " AND (" else " WHERE (")
             whereClause = true
             queryBuild.append(typeFilter)
+            queryBuild.append(")")
+        }
+        if (publisherFilter.isNotEmpty()) {
+            queryBuild.append(if (whereClause) " AND (" else " WHERE (")
+            whereClause = true
+            queryBuild.append(publisherFilter)
             queryBuild.append(")")
         }
         if (notesFilter.isNotEmpty()) {
