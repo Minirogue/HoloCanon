@@ -1,7 +1,6 @@
 package com.minirogue.starwarscanontracker.view.fragment;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,6 +32,9 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
+
+import me.zhanghai.android.fastscroll.FastScroller;
+import me.zhanghai.android.fastscroll.FastScrollerBuilder;
 
 public class MediaListFragment extends Fragment {
     private static final String TAG = "Media List";
@@ -118,10 +120,11 @@ public class MediaListFragment extends Fragment {
                 mediaListViewModel.update(mediaNotes);
             }
         });
+        FastScroller fastScroller = new FastScrollerBuilder(recyclerView).build();
+
         mediaListViewModel.getCheckBoxText().observe(getViewLifecycleOwner(), adapter::updateCheckBoxText);
         mediaListViewModel.getCheckBoxVisibility().observe(getViewLifecycleOwner(), adapter::updateCheckBoxVisible);
         mediaListViewModel.getActiveFilters().observe(getViewLifecycleOwner(), this::setFilterChips);
-
 
         return fragmentView;
     }
@@ -129,11 +132,7 @@ public class MediaListFragment extends Fragment {
     private PopupMenu makeSortMenu() {
 //        mediaListViewModel.toggleSort();
         PopupMenu newSortMenu;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//fix the gravity for APIs that support it
-            newSortMenu = new PopupMenu(ctx, sortFAB, Gravity.END);
-        } else {
-            newSortMenu = new PopupMenu(ctx, sortFAB);
-        }
+        newSortMenu = new PopupMenu(ctx, sortFAB, Gravity.END);
         for (int style : SortStyle.Companion.getAllStyles()) {
             newSortMenu.getMenu().add(0, style, 0, SortStyle.Companion.getSortText(style));
         }
