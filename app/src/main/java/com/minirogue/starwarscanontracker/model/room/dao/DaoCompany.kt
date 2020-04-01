@@ -1,15 +1,12 @@
 package com.minirogue.starwarscanontracker.model.room.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.minirogue.starwarscanontracker.model.room.entity.Company
 
 @Dao
 interface DaoCompany {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(company: Company): Long
 
     @Update
