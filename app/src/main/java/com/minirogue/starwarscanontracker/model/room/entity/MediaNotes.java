@@ -13,7 +13,7 @@ import androidx.room.PrimaryKey;
 public class MediaNotes {
 
     @PrimaryKey
-    private int mediaId;
+    private final int mediaId;
     @ColumnInfo(name = "want_to_watch_or_read")
     private boolean userChecked2;
     @ColumnInfo(name = "watched_or_read")
