@@ -7,7 +7,6 @@ apply plugin: 'kotlin-kapt' //annotation processor that works with kotlin as wel
 def keystorePropsFile = rootProject.file('keystore.properties')
 
 
-
 android {
     if (keystorePropsFile.exists()) {
         def keystoreProps = new Properties()
@@ -19,6 +18,9 @@ android {
                 keyAlias keystoreProps['keyAlias']
                 keyPassword keystoreProps['keyPassword']
             }
+        }
+        viewBinding {
+            enabled = true
         }
     }
 
