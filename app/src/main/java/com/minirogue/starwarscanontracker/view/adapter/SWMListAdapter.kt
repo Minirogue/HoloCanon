@@ -102,7 +102,7 @@ class SWMListAdapter(
                 isChecked = notes.isBox2Checked
                 visibility = View.VISIBLE
                 tag = notes
-                setOnClickListener { view: View -> listener.onCheckbox1Clicked(view.tag as MediaNotes) }
+                setOnClickListener { view: View -> listener.onCheckbox2Clicked(view.tag as MediaNotes) }
             } else {
                 visibility = View.GONE
             }
@@ -113,7 +113,7 @@ class SWMListAdapter(
                 isChecked = notes.isBox3Checked
                 visibility = View.VISIBLE
                 tag = notes
-                setOnClickListener { view: View -> listener.onCheckbox1Clicked(view.tag as MediaNotes) }
+                setOnClickListener { view: View -> listener.onCheckbox3Clicked(view.tag as MediaNotes) }
             } else {
                 visibility = View.GONE
             }

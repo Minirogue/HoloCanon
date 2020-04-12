@@ -25,16 +25,12 @@ public class SeriesListAdapter extends ListAdapter<MediaAndNotes, SeriesListAdap
     //private List<MediaAndNotes> currentList = new ArrayList<>();
     private OnItemClickedListener listener;
 
-
-    public SeriesListAdapter() {
+    public SeriesListAdapter(OnItemClickedListener listener) {
         super(DiffCallback);
+        this.listener = listener;
     }
 
-    public void setOnItemClickedListener(OnItemClickedListener newListener) {
-        listener = newListener;
-    }
-
-    interface OnItemClickedListener {
+    public interface OnItemClickedListener {
         void onItemClicked(int itemId);
     }
 

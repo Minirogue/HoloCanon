@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -46,8 +47,7 @@ class SeriesFragment : Fragment() {
 
 
         val recyclerView = fragmentView.series_recyclerview
-        val adapter = SeriesListAdapter()
-        adapter.setOnItemClickedListener { itemId: Int ->
+        val adapter = SeriesListAdapter(SeriesListAdapter.OnItemClickedListener { itemId ->
             val viewMediaItemFragment = ViewMediaItemFragment()
             val newBundle = Bundle()
             newBundle.putInt(getString(R.string.bundleItemId), itemId)
@@ -56,7 +56,7 @@ class SeriesFragment : Fragment() {
                     .replace(R.id.fragment_container, viewMediaItemFragment)
                     .addToBackStack(null)
                     .commit() //TODO this should be handled by the activity
-        }
+        })
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
         viewModel.seriesList.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })

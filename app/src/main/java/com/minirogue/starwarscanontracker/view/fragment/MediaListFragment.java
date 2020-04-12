@@ -124,7 +124,7 @@ public class MediaListFragment extends Fragment {
             }
         });
 
-        FastScroller fastScroller = new FastScrollerBuilder(recyclerView).build();
+        new FastScrollerBuilder(recyclerView).build();
 
         mediaListViewModel.getCheckBoxText().observe(getViewLifecycleOwner(), adapter::updateCheckBoxText);
         mediaListViewModel.getCheckBoxVisibility().observe(getViewLifecycleOwner(), adapter::updateCheckBoxVisible);
