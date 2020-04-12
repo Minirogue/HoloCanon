@@ -30,19 +30,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="16dp"
-            android:scrollbarSize="10dp"
-            android:scrollbars="vertical" />
-        <!--app:fastScrollEnabled="true"
-        app:fastScrollVerticalTrackDrawable="@drawable/fast_scroll_track"
-        app:fastScrollHorizontalTrackDrawable="@drawable/fast_scroll_track"
-        app:fastScrollVerticalThumbDrawable="@drawable/fast_scroll_thumb"
-        app:fastScrollHorizontalThumbDrawable="@drawable/fast_scroll_thumb"-->
+            tools:listitem="@layout/media_list_item"/>
 
-        <LinearLayout
+
+        <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -52,13 +46,7 @@
                 android:layout_margin="16dp"
                 android:src="@drawable/ic_sort" />
 
-            <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/filter_floating_action_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:src="@drawable/ic_filter" />-->
-        </LinearLayout>
+        </FrameLayout>
 
 
     </RelativeLayout>

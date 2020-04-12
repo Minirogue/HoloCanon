@@ -1,5 +1,6 @@
 package com.minirogue.starwarscanontracker.model
 
+import com.minirogue.starwarscanontracker.model.room.dao.DaoCompany
 import com.minirogue.starwarscanontracker.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.model.room.dao.DaoSeries
 import com.minirogue.starwarscanontracker.model.room.dao.DaoType
@@ -16,6 +17,7 @@ import javax.inject.Named
 class FilterUpdater @Inject constructor(private val daoFilter: DaoFilter,
                                         private val daoType: DaoType,
                                         private val daoSeries: DaoSeries,
+                                        private val daoCompany: DaoCompany,
                                         @Named("checkboxes") private val injectedCheckboxText: Array<String>) {
 
 
@@ -23,9 +25,34 @@ class FilterUpdater @Inject constructor(private val daoFilter: DaoFilter,
         launch { updateSeriesFilters() }
         launch { updateCheckboxFilters() }
         launch { updateMediaTypeFilters() }
+        launch { updatePublisherFilters()}
     }
 
     fun updateJustCheckboxFilters() = GlobalScope.launch(Dispatchers.Default) { updateCheckboxFilters() }
+
+    private suspend fun updatePublisherFilters() = withContext(Dispatchers.Default) {
+        var tempFilter: FilterObject?
+        val publisherFilterText = "Publisher"
+
+        val insertWorked = daoFilter.insert(FilterType(FilterType.FILTERCOLUMN_PUBLISHER, true, publisherFilterText))
+        if (insertWorked < 0){
+            val filterType = daoFilter.getFilterType(FilterType.FILTERCOLUMN_PUBLISHER)
+            filterType.text = publisherFilterText
+            daoFilter.update(filterType)
+        }
+
+        val companyList = daoCompany.getAllNonLive()
+        for (company in companyList){
+            tempFilter = daoFilter.getFilter(company.id, FilterType.FILTERCOLUMN_PUBLISHER)
+            if (tempFilter == null) {
+                tempFilter = FilterObject(company.id, FilterType.FILTERCOLUMN_PUBLISHER, false, company.companyName)
+                daoFilter.insert(tempFilter)
+            } else{
+                tempFilter.displayText = company.companyName
+                daoFilter.update(tempFilter)
+            }
+        }
+    }
 
     private suspend fun updateSeriesFilters() = withContext(Dispatchers.Default) {
         var tempFilter: FilterObject?

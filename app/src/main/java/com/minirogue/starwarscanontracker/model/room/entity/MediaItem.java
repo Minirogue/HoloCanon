@@ -9,9 +9,13 @@ import androidx.room.PrimaryKey;
 import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "media_items",
-        foreignKeys = @ForeignKey(entity = MediaType.class,
+        foreignKeys = {@ForeignKey(entity = MediaType.class,
                 parentColumns = "id",
-                childColumns = "type"),
+                childColumns = "type")/*,
+        @ForeignKey(entity = Company.class,
+        parentColumns = "id",
+        childColumns = "publisher",
+        onDelete = ForeignKey.SET_DEFAULT)*/},
         indices = {@Index("type"),
                 @Index("series")})
 public class MediaItem {
@@ -42,6 +46,8 @@ public class MediaItem {
     public String amazonLink;
     @ColumnInfo(name = "amazon_stream")
     public String amazonStream;
+    @ColumnInfo(name = "publisher")
+    public int publisher;
 
 
     @NotNull

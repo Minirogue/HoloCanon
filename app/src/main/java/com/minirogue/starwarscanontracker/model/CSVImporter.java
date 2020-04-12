@@ -12,6 +12,7 @@ import androidx.preference.PreferenceManager;
 import com.minirogue.starwarscanontracker.R;
 import com.minirogue.starwarscanontracker.application.CanonTrackerApplication;
 import com.minirogue.starwarscanontracker.model.room.MediaDatabase;
+import com.minirogue.starwarscanontracker.model.room.entity.Company;
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem;
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes;
 import com.minirogue.starwarscanontracker.model.room.entity.MediaType;
@@ -22,7 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 
@@ -37,6 +37,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
     private final ConnectivityManager connMgr;
     private final HashMap<String, Integer> convertType = new HashMap<>();
     private final HashMap<String, Integer> convertSeries = new HashMap<>();
+    private final HashMap<String, Integer> convertCompany = new HashMap<>();
     private long newVersionId;
     private final boolean forced;
 
@@ -63,7 +64,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 for (int i = 0; i < row.length; i++) {
                     switch (header[i]) {
                         case "id":
-                            mediaType.setId(Integer.valueOf(row[i]));
+                            mediaType.setId(Integer.parseInt(row[i]));
                             //Log.d(TAG, "type ID'ed "+row[i]+" mapped to "+Integer.valueOf(row[i]));
                             break;
                         case "media_type":
@@ -112,7 +113,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 for (int i = 0; i < row.length; i++) {
                     switch (header[i]) {
                         case "id":
-                            series.setId(Integer.valueOf(row[i]));
+                            series.setId(Integer.parseInt(row[i]));
                             break;
                         case "name":
                             series.setTitle(row[i]);
@@ -150,6 +151,54 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
         }
     }
 
+    private void importCSVToCompanyTable(InputStream inputStream) {
+        //Log.d(TAG, "starting media_type import");
+        Application app = appRef.get();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        try {
+            MediaDatabase db = MediaDatabase.getMediaDataBase(app);
+            Company company;
+            String[] header = reader.readLine().split(",");
+            String csvLine;
+            while ((csvLine = reader.readLine()) != null) {
+                String[] row = csvLine.split(",");
+                int id = 0;
+                String name = "";
+                for (int i = 0; i < row.length; i++) {
+                    switch (header[i]) {
+                        case "id":
+                            id = (Integer.parseInt(row[i]));
+                            break;
+                        case "name":
+                            name = (row[i]);
+                        default:
+                            //System.out.println("Unused header: " + header[i]);
+                    }
+                }
+                company = new Company(id, name);
+                long insertSuccessful = db.getDaoCompany().insert(company);
+                if (insertSuccessful == -1) {
+                    db.getDaoCompany().update(company);
+                }
+                convertCompany.put(company.getCompanyName(), company.getId());
+                //Log.d(TAG, "type added "+mediaType.getId()+" "+mediaType.getTitle());
+                if (wifiOnly && connMgr.isActiveNetworkMetered()) {
+                    cancel(true);
+                    break;
+                }
+            }
+            //Log.d(TAG, "queried mediaTypeTable: "+db.getDaoType().getAllNonLive());
+        } catch (IOException ex) {
+            throw new RuntimeException("Error reading CSV file: " + ex);
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException ex) {
+                //Log.e("CSVImporter","Error while closing input stream from CSV file: " + ex);
+            }
+        }
+    }
+
 
     private void importCSVToMediaDatabase(InputStream inputStream) {
         Application app = appRef.get();
@@ -165,7 +214,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 for (int i = 0; i < row.length; i++) {
                     switch (header[i]) {
                         case "ID":
-                            newItem.id = (Integer.valueOf(row[i]));
+                            newItem.id = (Integer.parseInt(row[i]));
                             break;
                         case "title":
                             newItem.title = row[i].replace(";", ",");
@@ -222,7 +271,15 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                             if (row[i].equals("")) {
                                 newItem.timeline = 10000.0;
                             } else {
-                                newItem.timeline = Double.valueOf(row[i]);
+                                newItem.timeline = Double.parseDouble(row[i]);
+                            }
+                            break;
+                        case "publisher":
+                            Integer newCompany = convertCompany.get(row[i]);
+                            if (newCompany == null) {
+                                newItem.publisher = -1;
+                            } else {
+                                newItem.publisher = newCompany;
                             }
                             break;
                         default:
@@ -314,7 +371,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 URL url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1842257512&single=true&output=csv");
                 inputStream = url.openStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                newVersionId = Long.valueOf(reader.readLine().split(",")[0]);
+                newVersionId = Long.parseLong(reader.readLine().split(",")[0]);
                 inputStream.close();
                 if (!forced && newVersionId == PreferenceManager.getDefaultSharedPreferences(appRef.get()).getLong(appRef.get().getString(R.string.current_database_version), 0)) {
                     cancel(true);
@@ -341,6 +398,14 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 if (isCancelled()) {
                     return null;
                 }
+                url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1639412894&single=true&output=csv");
+                inputStream = url.openStream();
+                importCSVToCompanyTable(inputStream);
+                inputStream.close();
+                //import the main media table
+                if (isCancelled()) {
+                    return null;
+                }
                 url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=0&single=true&output=csv");
                 inputStream = url.openStream();
                 importCSVToMediaDatabase(inputStream);
@@ -349,10 +414,6 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 /*url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1862227068&single=true&output=csv");
                 inputStream = url.openStream();
                 importCSVToCharacterDatabase(inputStream);*/
-            } catch (MalformedURLException ex) {
-                //Log.e("DatabaseUpdate", ex.toString());
-                cancel(true);
-                return null;
             } catch (IOException ex) {
                 //Log.e("DatabaseUpdate", ex.toString());
                 cancel(true);

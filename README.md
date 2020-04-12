@@ -21,9 +21,10 @@ Here are some things that I plan to add to the app:
 * ~~Filter selection could probably still be cleaned up further.~~
 * ~~Add some functionality for series, including checking off an entire series.~~
 * Add filtering by publisher (seems like people aren't as into the IDW comics, I guess).
-* Add comments to code in case someone wants to contribute or if a potential employer wants to look at the code (Hi, still on the job market as of January, 2019).
+* Add comments to code.
 * ~~Clean up fragment management (OOM error may be possible with current configuration)~~
 * Add syncing of user selections across devices. Temporary(?) solution could be to add import/export option.
+* Add option to export a list of checked/unchecked items to a txt or pdf.
 * Add donation button, in case the users ever decide to feel generous. No plans to ever implement paid features.
 * Clean up the backend to use RESTful API requests and JSONs.
 * Add Hardcover, Omnibus, and reference books to database.

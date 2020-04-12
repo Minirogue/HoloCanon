@@ -4,10 +4,7 @@ import android.app.Application
 import android.content.SharedPreferences
 import com.minirogue.starwarscanontracker.model.SWMRepository
 import com.minirogue.starwarscanontracker.model.room.MediaDatabase
-import com.minirogue.starwarscanontracker.model.room.dao.DaoFilter
-import com.minirogue.starwarscanontracker.model.room.dao.DaoMedia
-import com.minirogue.starwarscanontracker.model.room.dao.DaoSeries
-import com.minirogue.starwarscanontracker.model.room.dao.DaoType
+import com.minirogue.starwarscanontracker.model.room.dao.*
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -51,6 +48,12 @@ class RoomModule(app : Application) {
     @Singleton
     fun provideDaoSeries(database: MediaDatabase) : DaoSeries {
         return database.daoSeries
+    }
+
+    @Provides
+    @Singleton
+    fun provideDaoCompany(database: MediaDatabase): DaoCompany {
+        return database.daoCompany
     }
 
 }

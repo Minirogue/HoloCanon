@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -24,11 +25,11 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:padding="8dp"
-        android:text="@string/media_title"
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@id/image_cover"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/image_cover" />
+        app:layout_constraintTop_toTopOf="@id/image_cover"
+        tools:text="An interesting title"/>
 
     <TextView
         android:id="@+id/date_textview"

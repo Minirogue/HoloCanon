@@ -9,10 +9,12 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.minirogue.starwarscanontracker.model.room.dao.DaoCompany;
 import com.minirogue.starwarscanontracker.model.room.dao.DaoFilter;
 import com.minirogue.starwarscanontracker.model.room.dao.DaoMedia;
 import com.minirogue.starwarscanontracker.model.room.dao.DaoSeries;
 import com.minirogue.starwarscanontracker.model.room.dao.DaoType;
+import com.minirogue.starwarscanontracker.model.room.entity.Company;
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject;
 import com.minirogue.starwarscanontracker.model.room.entity.FilterType;
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem;
@@ -22,7 +24,7 @@ import com.minirogue.starwarscanontracker.model.room.entity.Series;
 import com.minirogue.starwarscanontracker.model.room.join.MediaCharacterJoin;
 
 @Database(entities = {MediaItem.class, com.minirogue.starwarscanontracker.model.room.entity.Character.class, MediaCharacterJoin.class, MediaNotes.class,
-        MediaType.class, Series.class, FilterObject.class, FilterType.class},
+        MediaType.class, Series.class, FilterObject.class, FilterType.class, Company.class},
         version = 17)
 
 public abstract class MediaDatabase extends RoomDatabase {
@@ -36,6 +38,7 @@ public abstract class MediaDatabase extends RoomDatabase {
     public abstract DaoType getDaoType();
     public abstract DaoSeries getDaoSeries();
     public abstract DaoFilter getDaoFilter();
+    public abstract DaoCompany getDaoCompany();
 
 
     public static MediaDatabase getMediaDataBase(Context ctx) {
@@ -68,7 +71,8 @@ public abstract class MediaDatabase extends RoomDatabase {
     final static Migration MIGRATE_16_17 = new Migration(16, 17) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-
+            database.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'publisher' INTEGER NOT NULL DEFAULT 0");
+            database.execSQL("CREATE TABLE IF NOT EXISTS `companies` (`id` INTEGER NOT NULL, `companyName` TEXT NOT NULL, PRIMARY KEY(`id`))");
         }
     };
 

@@ -14,6 +14,7 @@ class FilterType(@PrimaryKey@ColumnInfo(name = "id") val typeId: Int, @ColumnInf
         const val FILTERCOLUMN_CHECKBOX_TWO = 4
         const val FILTERCOLUMN_CHECKBOX_THREE = 5
         const val FILTERCOLUMN_SERIES = 6
+        const val FILTERCOLUMN_PUBLISHER = 7
     }
 
 }
