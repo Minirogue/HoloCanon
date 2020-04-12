@@ -57,7 +57,7 @@ android {
 ext {
     daggerVersion = '2.16'
     androidXTestVersion = '1.2.0'
-    jUnitVersion = '4.12'
+    jUnitVersion = '4.13'
 }
 
 dependencies {
