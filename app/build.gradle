@@ -54,6 +54,11 @@ android {
     }
 }
 
+ext {
+    daggerVersion = '2.16'
+    androidXTestVersion = '1.2.0'
+    jUnitVersion = '4.13'
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -64,19 +69,19 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.preference:preference:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    //implementation 'com.android.billingclient:billing:2.1.0'
 
     //Fastscroll: https://github.com/zhanghai/AndroidFastScroll
     implementation 'me.zhanghai.android.fastscroll:library:1.1.1'
 
     //Testing
-    androidTestImplementation 'androidx.test:core:1.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test:rules:1.2.0'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation "junit:junit:$jUnitVersion"
+    testImplementation "junit:junit:$jUnitVersion"
+    androidTestImplementation "androidx.test:core:$androidXTestVersion"
+    androidTestImplementation "androidx.test:rules:$androidXTestVersion"
+    androidTestImplementation "androidx.test:runner:$androidXTestVersion"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-    testImplementation 'junit:junit:4.12'
+
 
 
     //Kotlin
@@ -91,8 +96,8 @@ dependencies {
     api 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
 
     //Dagger2(dependency injection)
-    kapt 'com.google.dagger:dagger-compiler:2.16'
-    implementation 'com.google.dagger:dagger:2.16'
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation "com.google.dagger:dagger:$daggerVersion"
 
     //Room (databases)
     implementation 'androidx.room:room-runtime:2.2.5'
