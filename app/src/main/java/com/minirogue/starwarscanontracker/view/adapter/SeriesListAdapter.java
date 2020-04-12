@@ -34,7 +34,7 @@ public class SeriesListAdapter extends ListAdapter<MediaAndNotes, SeriesListAdap
         listener = newListener;
     }
 
-    public interface OnItemClickedListener {
+    interface OnItemClickedListener {
         void onItemClicked(int itemId);
     }
 

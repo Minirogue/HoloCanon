@@ -35,7 +35,6 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import me.zhanghai.android.fastscroll.FastScroller;
 import me.zhanghai.android.fastscroll.FastScrollerBuilder;
 
 public class MediaListFragment extends Fragment {
