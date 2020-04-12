@@ -49,23 +49,23 @@ class ViewMediaItemFragment : Fragment() {
         viewModel.liveMediaNotes.observe(viewLifecycleOwner, Observer { notes -> updateViews(notes, fragmentView) })
         viewModel.liveMediaType.observe(viewLifecycleOwner, Observer { mediaType -> updateView(mediaType, fragmentView) })
         viewModel.checkBoxText.observe(viewLifecycleOwner, Observer { arr ->
-            fragmentView.text_checkbox_1.text = arr[0]
-            fragmentView.text_checkbox_2.text = arr[1]
-            fragmentView.text_checkbox_3.text = arr[2]
+            fragmentView.checkbox_1.text = arr[0]
+            fragmentView.checkbox_2.text = arr[1]
+            fragmentView.checkbox_3.text = arr[2]
         })
         viewModel.checkBoxVisibility.observe(viewLifecycleOwner, Observer { visibilityArray -> updateViews(visibilityArray, fragmentView)})
 
-        fragmentView.checkbox_3.setOnClickListener { viewModel.toggleOwned() }
-        fragmentView.checkbox_2.setOnClickListener { viewModel.toggleWantToWatchRead() }
-        fragmentView.checkbox_1.setOnClickListener { viewModel.toggleWatchedRead() }
+        fragmentView.checkbox_3.setOnClickListener { viewModel.toggleCheckbox3() }
+        fragmentView.checkbox_2.setOnClickListener { viewModel.toggleCheckbox2() }
+        fragmentView.checkbox_1.setOnClickListener { viewModel.toggleCheckbox1() }
 
         return fragmentView
     }
 
     private fun updateViews(visibilityArray: BooleanArray, fragmentView: View){
-        fragmentView.checkbox_1_holder.visibility = if (visibilityArray[0]) View.VISIBLE else View.GONE
-        fragmentView.checkbox_2_holder.visibility = if (visibilityArray[1]) View.VISIBLE else View.GONE
-        fragmentView.checkbox_3_holder.visibility = if (visibilityArray[2]) View.VISIBLE else View.GONE
+        fragmentView.checkbox_1.visibility = if (visibilityArray[0]) View.VISIBLE else View.GONE
+        fragmentView.checkbox_2.visibility = if (visibilityArray[1]) View.VISIBLE else View.GONE
+        fragmentView.checkbox_3.visibility = if (visibilityArray[2]) View.VISIBLE else View.GONE
     }
 
     @SuppressLint("SetTextI18n")
@@ -98,9 +98,9 @@ class ViewMediaItemFragment : Fragment() {
     }
 
     private fun updateViews(notes: MediaNotes, fragmentView: View) {
-        fragmentView.checkbox_3.isChecked = notes.isUserChecked3
-        fragmentView.checkbox_1.isChecked = notes.isUserChecked1
-        fragmentView.checkbox_2.isChecked = notes.isUserChecked2
+        fragmentView.checkbox_3.isChecked = notes.isBox3Checked
+        fragmentView.checkbox_1.isChecked = notes.isBox1Checked
+        fragmentView.checkbox_2.isChecked = notes.isBox2Checked
     }
 
     private fun updateView(mediaType: MediaType?, fragmentView: View) {
@@ -109,11 +109,11 @@ class ViewMediaItemFragment : Fragment() {
 
     private fun makeShoppingMenu(item: MediaItem, fragView: View) {
         val shoppingMenu = PopupMenu(fragView.context, fragView.affiliate_links_fab)
-        if (item.amazonLink != null && item.amazonLink != "") {
+        if (item.amazonLink != "") {
             fragView.affiliate_links_fab.show()
             shoppingMenu.menu.add(0, MENU_ITEM_AMAZON_BUY, 0, "Buy on Amazon")
         }
-        if (item.amazonStream != null && item.amazonStream != "") {
+        if (item.amazonStream != "") {
             fragView.affiliate_links_fab.show()
             shoppingMenu.menu.add(0, MENU_ITEM_AMAZON_STREAM, 0, "Stream on Amazon Video")
         }

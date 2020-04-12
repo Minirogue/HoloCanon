@@ -78,7 +78,6 @@ class MigrationTest {
     @Throws(IOException::class)
     fun migrate16To17() {
         var db = testHelper.createDatabase(TEST_DB, 16).apply {
-            //use execSQL() to populate room
 
             close()
         }
@@ -91,8 +90,6 @@ class MigrationTest {
     @Test
     @Throws(IOException::class)
     fun migrate13To14() {
-
-
         var db = testHelper.createDatabase(TEST_DB, 13)
 
         //Insert series entry

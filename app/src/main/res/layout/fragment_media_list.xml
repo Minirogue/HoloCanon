@@ -21,33 +21,27 @@
     </HorizontalScrollView>
 
 
-    <RelativeLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/media_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/media_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
-            tools:listitem="@layout/media_list_item"/>
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        tools:listitem="@layout/media_list_item" />
 
 
-        <FrameLayout
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/sort_floating_action_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true">
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_sort" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/sort_floating_action_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:src="@drawable/ic_sort" />
+    </FrameLayout>
 
-        </FrameLayout>
-
-
-    </RelativeLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -17,40 +17,38 @@ class ViewMediaItemViewModel @Inject constructor(private val repository: SWMRepo
                                                  prefsRepo: PrefsRepo) : ViewModel() {
 
 
-
-
-    lateinit var liveMediaItem : LiveData<MediaItem>
-    lateinit var liveMediaNotes : LiveData<MediaNotes>
-    lateinit var liveMediaType : LiveData<MediaType?>
+    lateinit var liveMediaItem: LiveData<MediaItem>
+    lateinit var liveMediaNotes: LiveData<MediaNotes>
+    lateinit var liveMediaType: LiveData<MediaType?>
     val checkBoxText = repository.getCheckBoxText()
     val checkBoxVisibility = prefsRepo.checkBoxVisibility
 
-    fun setItemId(itemId: Int){
+    fun setItemId(itemId: Int) {
         liveMediaItem = repository.getLiveMediaItem(itemId)
         liveMediaNotes = repository.getLiveMediaNotes(itemId)
-        liveMediaType = Transformations.switchMap(liveMediaItem) {mediaItem: MediaItem? -> repository.getLiveMediaType(mediaItem?.type ?: -1)}
+        liveMediaType = Transformations.switchMap(liveMediaItem) { mediaItem: MediaItem? ->
+            repository.getLiveMediaType(mediaItem?.type ?: -1)
+        }
     }
 
-    fun toggleOwned() {
-        val notes = liveMediaNotes.value
-        notes?.flipCheck3()
-        repository.update(notes)
-    }
-
-    fun toggleWatchedRead() {
+    fun toggleCheckbox1() {
         val notes = liveMediaNotes.value
         notes?.flipCheck1()
         repository.update(notes)
     }
 
-    fun toggleWantToWatchRead() {
+    fun toggleCheckbox2() {
         val notes = liveMediaNotes.value
         notes?.flipCheck2()
         repository.update(notes)
     }
 
+    fun toggleCheckbox3() {
+        val notes = liveMediaNotes.value
+        notes?.flipCheck3()
+        repository.update(notes)
+    }
 
     fun isNetworkAllowed() = connMgr.isNetworkAllowed()
-
 
 }

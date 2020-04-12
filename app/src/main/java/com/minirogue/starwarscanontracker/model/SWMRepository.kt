@@ -126,7 +126,7 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
                         if (!filterTypeIsPositive[filter.filterType]) {
                             notesFilter.append(" NOT ")
                         }
-                        notesFilter.append(" media_notes.owned = 1 ")
+                        notesFilter.append(" media_notes.checkbox_3 = 1 ")
                     }
                     FilterType.FILTERCOLUMN_CHECKBOX_ONE -> {
                         if (notesFilter.isNotEmpty()) {
@@ -135,7 +135,7 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
                         if (!filterTypeIsPositive[filter.filterType]) {
                             notesFilter.append(" NOT ")
                         }
-                        notesFilter.append(" media_notes.watched_or_read = 1 ")
+                        notesFilter.append(" media_notes.checkbox_1 = 1 ")
                     }
                     FilterType.FILTERCOLUMN_CHECKBOX_TWO -> {
                         if (notesFilter.isNotEmpty()) {
@@ -144,12 +144,12 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
                         if (!filterTypeIsPositive[filter.filterType]) {
                             notesFilter.append(" NOT ")
                         }
-                        notesFilter.append(" media_notes.want_to_watch_or_read = 1 ")
+                        notesFilter.append(" media_notes.checkbox_2 = 1 ")
                     }
                 }
             }
         }
-        queryBuild.append("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId ")
+        queryBuild.append("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.media_id ")
         queryBuild.append(joins)
         var whereClause = false
         /*if (characterFilter.isNotEmpty()) {
@@ -239,31 +239,31 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
         return daoMedia.getMediaNotesById(itemId)
     }
 
-    fun setSeriesWantToWatchRead(seriesId: Int, newValue: Boolean) = GlobalScope.launch(Dispatchers.Default) {
+    fun setSeriesCheckbox2(seriesId: Int, newValue: Boolean) = GlobalScope.launch(Dispatchers.Default) {
         updatingNotesMutex.withLock {
             val listOfNotes = daoMedia.getMediaNotesBySeriesNonLive(seriesId)
             for (notes in listOfNotes) {
-                notes.isUserChecked2 = newValue
+                notes.isBox2Checked = newValue
                 daoMedia.update(notes)
             }
         }
     }
 
-    fun setSeriesOwned(seriesId: Int, newValue: Boolean) = GlobalScope.launch(Dispatchers.Default) {
+    fun setSeriesCheckbox3(seriesId: Int, newValue: Boolean) = GlobalScope.launch(Dispatchers.Default) {
         updatingNotesMutex.withLock {
             val listOfNotes = daoMedia.getMediaNotesBySeriesNonLive(seriesId)
             for (notes in listOfNotes) {
-                notes.isUserChecked3 = newValue
+                notes.isBox3Checked = newValue
                 daoMedia.update(notes)
             }
         }
     }
 
-    fun setSeriesWatchedRead(seriesId: Int, newValue: Boolean) = GlobalScope.launch(Dispatchers.Default) {
+    fun setSeriesCheckbox1(seriesId: Int, newValue: Boolean) = GlobalScope.launch(Dispatchers.Default) {
         updatingNotesMutex.withLock {
             val listOfNotes = daoMedia.getMediaNotesBySeriesNonLive(seriesId)
             for (notes in listOfNotes) {
-                notes.isUserChecked1 = newValue
+                notes.isBox1Checked = newValue
                 daoMedia.update(notes)
             }
         }
@@ -309,7 +309,7 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
      */
     fun update(mediaNotes: MediaNotes?) {
         if (mediaNotes != null) {
-            GlobalScope.launch(Dispatchers.Default) {daoMedia.update(mediaNotes)}
+            GlobalScope.launch(Dispatchers.Default) { daoMedia.update(mediaNotes) }
         }
     }
 
@@ -359,7 +359,7 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
         }
     }
 
-    suspend fun getFilter(id: Int, typeId: Int): FilterObject? = withContext(Dispatchers.Default) {daoFilter.getFilter(id,typeId)}
+    suspend fun getFilter(id: Int, typeId: Int): FilterObject? = withContext(Dispatchers.Default) { daoFilter.getFilter(id, typeId) }
 
     fun getCheckBoxText(): LiveData<Array<String>> {
         return Transformations.map(daoFilter.getCheckBoxFilterTypes()) { filterTypeList ->

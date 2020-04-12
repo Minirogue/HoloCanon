@@ -5,12 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.drawee.drawable.ScalingUtils
-import com.facebook.drawee.view.DraweeView
 import com.facebook.drawee.view.SimpleDraweeView
 import com.facebook.imagepipeline.request.ImageRequest
 import com.facebook.imagepipeline.request.ImageRequestBuilder
@@ -90,7 +88,7 @@ class SWMListAdapter(
         with(checkbox1) {
             if (isCheckBoxActive[0]) {
                 text = checkBoxText[0]
-                isChecked = notes.isUserChecked1
+                isChecked = notes.isBox1Checked
                 visibility = View.VISIBLE
                 tag = notes
                 setOnClickListener { view: View -> listener.onCheckbox1Clicked(view.tag as MediaNotes) }
@@ -101,7 +99,7 @@ class SWMListAdapter(
         with(checkbox2) {
             if (isCheckBoxActive[1]) {
                 text = checkBoxText[1]
-                isChecked = notes.isUserChecked2
+                isChecked = notes.isBox2Checked
                 visibility = View.VISIBLE
                 tag = notes
                 setOnClickListener { view: View -> listener.onCheckbox1Clicked(view.tag as MediaNotes) }
@@ -112,7 +110,7 @@ class SWMListAdapter(
         with(checkbox3) {
             if (isCheckBoxActive[2]) {
                 text = checkBoxText[2]
-                isChecked = notes.isUserChecked3
+                isChecked = notes.isBox3Checked
                 visibility = View.VISIBLE
                 tag = notes
                 setOnClickListener { view: View -> listener.onCheckbox1Clicked(view.tag as MediaNotes) }

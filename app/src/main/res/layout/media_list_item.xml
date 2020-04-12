@@ -9,11 +9,11 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/image_cover"
-        android:layout_width="70dp"
-        android:layout_height="120dp"
+        android:layout_width="90dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/media_title"
         fresco:actualImageScaleType="centerInside"
         fresco:placeholderImage="@drawable/ic_launcher_foreground"
         fresco:placeholderImageScaleType="centerInside" />
@@ -26,9 +26,9 @@
         android:maxLines="1"
         android:padding="8dp"
         android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@id/image_cover"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/image_cover"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="An interesting title" />
 
     <TextView
@@ -37,7 +37,8 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         app:layout_constraintLeft_toRightOf="@id/image_cover"
-        app:layout_constraintTop_toBottomOf="@id/media_title" />
+        app:layout_constraintTop_toBottomOf="@id/media_title"
+        tools:text="04/25/1989" />
 
     <TextView
         android:id="@+id/media_type"
@@ -60,7 +61,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="end"
         android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/media_title">
 
@@ -71,7 +74,7 @@
             android:button="@null"
             android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
             android:focusable="false"
-            android:padding="5dp"
+            android:padding="@dimen/checkbox_padding"
             tools:text="@string/checkbox1_default_text" />
 
         <CheckBox
@@ -81,8 +84,8 @@
             android:button="@null"
             android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
             android:focusable="false"
-            android:padding="5dp"
-            tools:text="@string/checkbox3_default_text" />
+            android:padding="@dimen/checkbox_padding"
+            tools:text="@string/checkbox2_default_text" />
 
         <CheckBox
             android:id="@+id/checkbox_3"
@@ -91,8 +94,8 @@
             android:button="@null"
             android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
             android:focusable="false"
-            android:padding="5dp"
-            tools:text="@string/checkbox2_default_text" />
+            android:padding="@dimen/checkbox_padding"
+            tools:text="@string/checkbox3_default_text" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

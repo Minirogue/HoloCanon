@@ -8,4 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <dimen name="checkbox_padding">8dp</dimen>
+
 </resources>
