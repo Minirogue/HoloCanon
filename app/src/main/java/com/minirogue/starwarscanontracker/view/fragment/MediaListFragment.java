@@ -33,7 +33,6 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import me.zhanghai.android.fastscroll.FastScroller;
 import me.zhanghai.android.fastscroll.FastScrollerBuilder;
 
 public class MediaListFragment extends Fragment {
@@ -120,7 +119,7 @@ public class MediaListFragment extends Fragment {
                 mediaListViewModel.update(mediaNotes);
             }
         });
-        FastScroller fastScroller = new FastScrollerBuilder(recyclerView).build();
+        new FastScrollerBuilder(recyclerView).build();
 
         mediaListViewModel.getCheckBoxText().observe(getViewLifecycleOwner(), adapter::updateCheckBoxText);
         mediaListViewModel.getCheckBoxVisibility().observe(getViewLifecycleOwner(), adapter::updateCheckBoxVisible);

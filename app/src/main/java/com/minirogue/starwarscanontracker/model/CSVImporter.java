@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 
@@ -65,7 +64,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 for (int i = 0; i < row.length; i++) {
                     switch (header[i]) {
                         case "id":
-                            mediaType.setId(Integer.valueOf(row[i]));
+                            mediaType.setId(Integer.parseInt(row[i]));
                             //Log.d(TAG, "type ID'ed "+row[i]+" mapped to "+Integer.valueOf(row[i]));
                             break;
                         case "media_type":
@@ -114,7 +113,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 for (int i = 0; i < row.length; i++) {
                     switch (header[i]) {
                         case "id":
-                            series.setId(Integer.valueOf(row[i]));
+                            series.setId(Integer.parseInt(row[i]));
                             break;
                         case "name":
                             series.setTitle(row[i]);
@@ -168,7 +167,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 for (int i = 0; i < row.length; i++) {
                     switch (header[i]) {
                         case "id":
-                            id = (Integer.valueOf(row[i]));
+                            id = (Integer.parseInt(row[i]));
                             break;
                         case "name":
                             name = (row[i]);
@@ -215,7 +214,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 for (int i = 0; i < row.length; i++) {
                     switch (header[i]) {
                         case "ID":
-                            newItem.id = (Integer.valueOf(row[i]));
+                            newItem.id = (Integer.parseInt(row[i]));
                             break;
                         case "title":
                             newItem.title = row[i].replace(";", ",");
@@ -272,7 +271,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                             if (row[i].equals("")) {
                                 newItem.timeline = 10000.0;
                             } else {
-                                newItem.timeline = Double.valueOf(row[i]);
+                                newItem.timeline = Double.parseDouble(row[i]);
                             }
                             break;
                         case "publisher":
@@ -372,7 +371,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 URL url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1842257512&single=true&output=csv");
                 inputStream = url.openStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                newVersionId = Long.valueOf(reader.readLine().split(",")[0]);
+                newVersionId = Long.parseLong(reader.readLine().split(",")[0]);
                 inputStream.close();
                 if (!forced && newVersionId == PreferenceManager.getDefaultSharedPreferences(appRef.get()).getLong(appRef.get().getString(R.string.current_database_version), 0)) {
                     cancel(true);
@@ -415,10 +414,6 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 /*url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1862227068&single=true&output=csv");
                 inputStream = url.openStream();
                 importCSVToCharacterDatabase(inputStream);*/
-            } catch (MalformedURLException ex) {
-                //Log.e("DatabaseUpdate", ex.toString());
-                cancel(true);
-                return null;
             } catch (IOException ex) {
                 //Log.e("DatabaseUpdate", ex.toString());
                 cancel(true);
