@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -45,6 +47,38 @@ public class MediaListFragment extends Fragment {
     private FloatingActionButton sortFAB;
     private Context ctx;
 
+    private SWMListAdapter.OnClickListener adapterClickListener = new SWMListAdapter.OnClickListener() {
+        @Override
+        public void onItemClicked(int itemId) {
+            ViewMediaItemFragment viewMediaItemFragment = new ViewMediaItemFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt(getString(R.string.bundleItemId), itemId);
+            viewMediaItemFragment.setArguments(bundle);
+            Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, viewMediaItemFragment)
+                    .addToBackStack(null)
+                    .commit();//TODO this should be handled by the activity
+        }
+
+        @Override
+        public void onCheckbox1Clicked(MediaNotes mediaNotes) {
+            mediaNotes.flipCheck1();
+            mediaListViewModel.update(mediaNotes);
+        }
+
+        @Override
+        public void onCheckbox2Clicked(MediaNotes mediaNotes) {
+            mediaNotes.flipCheck2();
+            mediaListViewModel.update(mediaNotes);
+        }
+
+        @Override
+        public void onCheckbox3Clicked(MediaNotes mediaNotes) {
+            mediaNotes.flipCheck3();
+            mediaListViewModel.update(mediaNotes);
+        }
+    };
+
     @Inject
     ViewModelProvider.Factory viewModelFactory;
 
@@ -66,10 +100,12 @@ public class MediaListFragment extends Fragment {
 
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(fragmentView.getContext());
-        adapter = new SWMListAdapter(mediaListViewModel);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), LinearLayout.VERTICAL);
+        adapter = new SWMListAdapter(mediaListViewModel, adapterClickListener);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -88,37 +124,6 @@ public class MediaListFragment extends Fragment {
             }
         });
 
-        adapter.setOnClickListener(new SWMListAdapter.OnClickListener() {
-            @Override
-            public void onItemClicked(int itemId) {
-                ViewMediaItemFragment viewMediaItemFragment = new ViewMediaItemFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt(getString(R.string.bundleItemId), itemId);
-                viewMediaItemFragment.setArguments(bundle);
-                Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, viewMediaItemFragment)
-                        .addToBackStack(null)
-                        .commit();//TODO this should be handled by the activity
-            }
-
-            @Override
-            public void onCheckbox1Clicked(MediaNotes mediaNotes) {
-                mediaNotes.flipCheck1();
-                mediaListViewModel.update(mediaNotes);
-            }
-
-            @Override
-            public void onCheckbox2Clicked(MediaNotes mediaNotes) {
-                mediaNotes.flipCheck2();
-                mediaListViewModel.update(mediaNotes);
-            }
-
-            @Override
-            public void onCheckbox3Clicked(MediaNotes mediaNotes) {
-                mediaNotes.flipCheck3();
-                mediaListViewModel.update(mediaNotes);
-            }
-        });
         new FastScrollerBuilder(recyclerView).build();
 
         mediaListViewModel.getCheckBoxText().observe(getViewLifecycleOwner(), adapter::updateCheckBoxText);

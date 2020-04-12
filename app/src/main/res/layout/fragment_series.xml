@@ -36,68 +36,37 @@
         android:id="@+id/checkbox_holder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="end"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
-        <LinearLayout
-            android:id="@+id/checkbox_1_holder"
-            android:layout_width="match_parent"
+        <CheckBox
+            android:id="@+id/checkbox_1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:orientation="horizontal">
+            android:button="@null"
+            android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+            android:padding="@dimen/checkbox_padding"
+            tools:text="@string/checkbox1_default_text" />
 
-            <TextView
-                android:id="@+id/text_checkbox_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/checkbox1_default_text" />
-
-            <CheckBox
-                android:id="@+id/checkbox_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="12dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/checkbox_2_holder"
-            android:layout_width="match_parent"
+        <CheckBox
+            android:id="@+id/checkbox_2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:orientation="horizontal">
+            android:button="@null"
+            android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+            android:padding="@dimen/checkbox_padding"
+            tools:text="@string/checkbox2_default_text" />
 
-            <TextView
-                android:id="@+id/text_checkbox_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/checkbox2_default_text" />
-
-            <CheckBox
-                android:id="@+id/checkbox_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="12dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/checkbox_3_holder"
-            android:layout_width="match_parent"
+        <CheckBox
+            android:id="@+id/checkbox_3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end">
-
-            <TextView
-                android:id="@+id/text_checkbox_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/checkbox3_default_text" />
-
-            <CheckBox
-                android:id="@+id/checkbox_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="12dp" />
-        </LinearLayout>
+            android:button="@null"
+            android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+            android:padding="@dimen/checkbox_padding"
+            tools:text="@string/checkbox3_default_text" />
 
     </LinearLayout>
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -40,23 +41,22 @@ class SeriesFragment : Fragment() {
         viewModel.liveSeriesNotes.observe(viewLifecycleOwner, Observer { notes -> updateViews(notes, fragmentView) })
         viewModel.checkBoxNames.observe(viewLifecycleOwner, Observer { names -> setCheckBoxNames(names, fragmentView) })
         viewModel.checkBoxVisibility.observe(viewLifecycleOwner, Observer { visibility -> setCheckBoxVisibility(visibility, fragmentView) })
-        fragmentView.checkbox_3.setOnClickListener { viewModel.toggleOwned() }
-        fragmentView.checkbox_2.setOnClickListener { viewModel.toggleWantToWatchRead() }
-        fragmentView.checkbox_1.setOnClickListener { viewModel.toggleWatchedRead() }
+        fragmentView.checkbox_3.setOnClickListener { viewModel.toggleCheckbox3() }
+        fragmentView.checkbox_2.setOnClickListener { viewModel.toggleCheckbox2() }
+        fragmentView.checkbox_1.setOnClickListener { viewModel.toggleCheckbox1() }
 
 
         val recyclerView = fragmentView.series_recyclerview
-        val adapter = SeriesListAdapter()
-        adapter.setOnItemClickedListener { itemId: Int ->
+        val adapter = SeriesListAdapter(SeriesListAdapter.OnItemClickedListener { itemId ->
             val viewMediaItemFragment = ViewMediaItemFragment()
-            val bundle = Bundle()
-            bundle.putInt(getString(R.string.bundleItemId), itemId)
-            viewMediaItemFragment.arguments = bundle
+            val newBundle = Bundle()
+            newBundle.putInt(getString(R.string.bundleItemId), itemId)
+            viewMediaItemFragment.arguments = newBundle
             activity!!.supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, viewMediaItemFragment)
                     .addToBackStack(null)
                     .commit() //TODO this should be handled by the activity
-        }
+        })
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
         viewModel.seriesList.observe(viewLifecycleOwner, Observer { adapter.submitList(it) })
@@ -66,15 +66,15 @@ class SeriesFragment : Fragment() {
     }
 
     private fun setCheckBoxVisibility(visibility: BooleanArray, fragmentView: View){
-        fragmentView.checkbox_1_holder.visibility = if (visibility[0]) View.VISIBLE else View.GONE
-        fragmentView.checkbox_2_holder.visibility = if (visibility[1]) View.VISIBLE else View.GONE
-        fragmentView.checkbox_3_holder.visibility = if (visibility[2]) View.VISIBLE else View.GONE
+        fragmentView.checkbox_1.visibility = if (visibility[0]) View.VISIBLE else View.GONE
+        fragmentView.checkbox_2.visibility = if (visibility[1]) View.VISIBLE else View.GONE
+        fragmentView.checkbox_3.visibility = if (visibility[2]) View.VISIBLE else View.GONE
     }
 
     private fun setCheckBoxNames(names: Array<String>, fragmentView: View) {
-        fragmentView.text_checkbox_1.text = names[0]
-        fragmentView.text_checkbox_2.text = names[1]
-        fragmentView.text_checkbox_3.text = names[2]
+        fragmentView.checkbox_1.text = names[0]
+        fragmentView.checkbox_2.text = names[1]
+        fragmentView.checkbox_3.text = names[2]
     }
 
     private fun updateViews(series: Series, fragmentView: View) {

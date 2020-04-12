@@ -28,7 +28,7 @@ public interface DaoMedia {
     @Update
     void update(MediaItem mediaItem);
 
-    @Query("SELECT * FROM media_notes WHERE mediaId = :mediaId")
+    @Query("SELECT * FROM media_notes WHERE media_id = :mediaId")
     LiveData<MediaNotes> getMediaNotesById(int mediaId);
 
     @Query("SELECT * FROM media_items WHERE id = :mediaID LIMIT 1")
@@ -42,17 +42,17 @@ public interface DaoMedia {
     @Update
     void update(MediaNotes um);
 
-    @Query("SELECT media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId WHERE media_items.series = :series")
+    @Query("SELECT media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.media_id WHERE media_items.series = :series")
     LiveData<List<MediaNotes>> getMediaNotesBySeries(int series);
 
-    @Query("SELECT media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId WHERE media_items.series = :series")
+    @Query("SELECT media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.media_id WHERE media_items.series = :series")
     List<MediaNotes> getMediaNotesBySeriesNonLive(int series);
 
     //The following return MediaAndNotes objects
     @RawQuery(observedEntities = {MediaItem.class, MediaNotes.class})
     LiveData<List<MediaAndNotes>> getMediaAndNotesRawQuery(SupportSQLiteQuery query);
 
-    @Query("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId")
+    @Query("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.media_id")
     List<MediaAndNotes> getAllMediaAndNotes();
 
 }

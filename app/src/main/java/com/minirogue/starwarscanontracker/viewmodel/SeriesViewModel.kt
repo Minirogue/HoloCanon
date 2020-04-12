@@ -43,38 +43,37 @@ class SeriesViewModel @Inject constructor(private val repository: SWMRepository,
             }
         }
         viewModelScope.launch {
-            seriesList.addSource(repository.getMediaListWithNotes(listOf(FilterObject(seriesId, FilterType.FILTERCOLUMN_SERIES, true, "series filter")))) { mediaAndNotesList -> seriesList.postValue(mediaAndNotesList)}
+            seriesList.addSource(repository.getMediaListWithNotes(listOf(FilterObject(seriesId, FilterType.FILTERCOLUMN_SERIES, true, "series filter")))) { mediaAndNotesList -> seriesList.postValue(mediaAndNotesList) }
         }
     }
 
-    fun toggleWatchedRead() {
+    fun toggleCheckbox1() {
         val oldVal = liveSeriesNotes.value?.get(0)
         if (oldVal != null) {
-            repository.setSeriesWatchedRead(seriesId, !oldVal)
+            repository.setSeriesCheckbox1(seriesId, !oldVal)
         }
     }
 
-    fun toggleWantToWatchRead() {
+    fun toggleCheckbox2() {
         val oldVal = liveSeriesNotes.value?.get(1)
         if (oldVal != null) {
-            repository.setSeriesWantToWatchRead(seriesId, !oldVal)
+            repository.setSeriesCheckbox2(seriesId, !oldVal)
         }
     }
 
-    fun toggleOwned() {
+    fun toggleCheckbox3() {
         val oldVal = liveSeriesNotes.value?.get(2)
         if (oldVal != null) {
-            repository.setSeriesOwned(seriesId, !oldVal)
+            repository.setSeriesCheckbox3(seriesId, !oldVal)
         }
     }
-
 
     private suspend fun updateSeriesNotes(fullNotes: List<MediaNotes>) = withContext(Dispatchers.Default) {
         notesParsingMutex.withLock {
             val checkBoxOne = async {
                 var checked = true
                 for (notes in fullNotes) {
-                    if (!notes.isUserChecked1) {
+                    if (!notes.isBox1Checked) {
                         checked = false
                         break
                     }
@@ -84,7 +83,7 @@ class SeriesViewModel @Inject constructor(private val repository: SWMRepository,
             val checkBoxTwo = async {
                 var checked = true
                 for (notes in fullNotes) {
-                    if (!notes.isUserChecked2) {
+                    if (!notes.isBox2Checked) {
                         checked = false
                         break
                     }
@@ -94,7 +93,7 @@ class SeriesViewModel @Inject constructor(private val repository: SWMRepository,
             val checkBoxThree = async {
                 var checked = true
                 for (notes in fullNotes) {
-                    if (!notes.isUserChecked3) {
+                    if (!notes.isBox3Checked) {
                         checked = false
                         break
                     }

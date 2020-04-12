@@ -54,28 +54,11 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
     private fun compareTitles(p0: MediaAndNotes, p1: MediaAndNotes): Int{
         val title1 = p0.mediaItem.title
         val title2 = p1.mediaItem.title
-        if (title1 == null || title2 == null) {
-            if (title1 == null && title2 == null) {
-                return 0
-            } else if (title1 == null) {
-                return 1
-            } else if (title2 == null) {
-                return -1
-            }
-        }
+
         return title1.compareTo(title2)
     }
 
     private fun compareDates(item1: MediaItem, item2: MediaItem): Int{
-        if ((item1.date == null || item1.date == "") || (item2.date == null || item2.date == "")) {
-            if ((item1.date == null || item1.date == "") && (item2.date == null || item2.date == "")) {
-                return 0
-            } else if (item1.date == null || item1.date == "") {
-                return 1
-            } else if (item2.date == null || item2.date == "") {
-                return -1
-            }
-        }
         val splitDate1 = item1.date.split("/")
         val splitDate2 = item2.date.split("/")
         var compare = (splitDate1[2].toInt()-splitDate2[2].toInt())

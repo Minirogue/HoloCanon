@@ -214,72 +214,72 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 for (int i = 0; i < row.length; i++) {
                     switch (header[i]) {
                         case "ID":
-                            newItem.id = (Integer.parseInt(row[i]));
+                            newItem.setId(Integer.parseInt(row[i]));
                             break;
                         case "title":
-                            newItem.title = row[i].replace(";", ",");
+                            newItem.setTitle(row[i].replace(";", ","));
                             break;
                         case "series":
                             Integer newSeries = convertSeries.get(row[i]);
                             //convertSeries.get(key) returns null if there is no mapping for the key
                             if (newSeries == null) {
-                                newItem.series = -1;
+                                newItem.setSeries(-1);
                             } else {
-                                newItem.series = (newSeries);
+                                newItem.setSeries(newSeries);
                             }
                             break;
                         case "type":
                             Integer newType = convertType.get(row[i]);
                             //convertType.get(key) returns null if there is no mapping for the key
                             if (newType == null) {
-                                newItem.type = -1;
+                                newItem.setType(-1);
                             } else {
-                                newItem.type = (newType);
+                                newItem.setType(newType);
                             }
                             break;
                         case "description":
                             //semicolons are used as placeholders for commas in the room
                             // to not break the CSV format
-                            newItem.description = row[i].replace(";", ",");
+                            newItem.setDescription(row[i].replace(";", ","));
                             break;
                         case "review":
                             //semicolons are used as placeholders for commas in the room
                             // to not break the CSV format
-                            newItem.review = row[i].replace(";", ",");
+                            newItem.setReview(row[i].replace(";", ","));
                             break;
                         case "author":
-                            newItem.author = (row[i]);
+                            newItem.setAuthor(row[i]);
                             break;
                         case "image":
-                            newItem.imageURL = (row[i]);
+                            newItem.setImageURL(row[i]);
                             break;
                         case "amazon_link":
-                            newItem.amazonLink = (row[i]);
+                            newItem.setAmazonLink(row[i]);
                             break;
                         case "amazon_stream":
-                            newItem.amazonStream = (row[i]);
+                            newItem.setAmazonStream(row[i]);
                             break;
                         case "released":
                             if (row[i].equals("")) {
                                 //default value for release date
-                                newItem.date = "99/99/9999";
+                                newItem.setDate("99/99/9999");
                             } else {
-                                newItem.date = (row[i]);
+                                newItem.setDate(row[i]);
                             }
                             break;
                         case "timeline":
                             if (row[i].equals("")) {
-                                newItem.timeline = 10000.0;
+                                newItem.setTimeline(10000.0);
                             } else {
-                                newItem.timeline = Double.parseDouble(row[i]);
+                                newItem.setTimeline(Double.parseDouble(row[i]));
                             }
                             break;
                         case "publisher":
                             Integer newCompany = convertCompany.get(row[i]);
                             if (newCompany == null) {
-                                newItem.publisher = -1;
+                                newItem.setPublisher(-1);
                             } else {
-                                newItem.publisher = newCompany;
+                                newItem.setPublisher(newCompany);
                             }
                             break;
                         default:
@@ -290,7 +290,7 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
                 if (insertSuccessful == -1) {
                     db.getDaoMedia().update(newItem);
                 }
-                db.getDaoMedia().insert(new MediaNotes(newItem.id));
+                db.getDaoMedia().insert(new MediaNotes(newItem.getId(), false, false, false));
                 if (wifiOnly && connMgr.isActiveNetworkMetered()) {
                     cancel(true);
                     break;

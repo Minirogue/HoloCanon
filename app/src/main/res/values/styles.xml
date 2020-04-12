@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ListItemTitle" parent="@android:style/TextAppearance.Large">
+        android:ellipsize="end"
+        android:maxLines="1"
+    </style>
+
+    <dimen name="checkbox_padding">8dp</dimen>
+
 </resources>

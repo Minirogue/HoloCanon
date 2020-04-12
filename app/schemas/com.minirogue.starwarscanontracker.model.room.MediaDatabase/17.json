@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 17,
-    "identityHash": "206cece9e42466a7555998281e61f953",
+    "identityHash": "e210b8fc31d29fa40bb9d6e6cc6739d2",
     "entities": [
       {
         "tableName": "media_items",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT, `series` INTEGER NOT NULL, `author` TEXT, `type` INTEGER NOT NULL, `description` TEXT, `review` TEXT, `image` TEXT, `date` TEXT, `timeline` REAL NOT NULL, `amazon_link` TEXT, `amazon_stream` TEXT, `publisher` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`type`) REFERENCES `media_types`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL DEFAULT '', `series` INTEGER NOT NULL, `author` TEXT NOT NULL DEFAULT '', `type` INTEGER NOT NULL, `description` TEXT NOT NULL DEFAULT '', `review` TEXT NOT NULL DEFAULT '', `image` TEXT NOT NULL DEFAULT '', `date` TEXT NOT NULL DEFAULT '99/99/9999', `timeline` REAL NOT NULL, `amazon_link` TEXT NOT NULL DEFAULT '', `amazon_stream` TEXT NOT NULL DEFAULT '', `publisher` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`type`) REFERENCES `media_types`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id",
@@ -18,7 +18,8 @@
             "fieldPath": "title",
             "columnName": "title",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true,
+            "defaultValue": "''"
           },
           {
             "fieldPath": "series",
@@ -30,7 +31,8 @@
             "fieldPath": "author",
             "columnName": "author",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true,
+            "defaultValue": "''"
           },
           {
             "fieldPath": "type",
@@ -42,25 +44,29 @@
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true,
+            "defaultValue": "''"
           },
           {
             "fieldPath": "review",
             "columnName": "review",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true,
+            "defaultValue": "''"
           },
           {
             "fieldPath": "imageURL",
             "columnName": "image",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true,
+            "defaultValue": "''"
           },
           {
             "fieldPath": "date",
             "columnName": "date",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true,
+            "defaultValue": "'99/99/9999'"
           },
           {
             "fieldPath": "timeline",
@@ -72,13 +78,15 @@
             "fieldPath": "amazonLink",
             "columnName": "amazon_link",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true,
+            "defaultValue": "''"
           },
           {
             "fieldPath": "amazonStream",
             "columnName": "amazon_stream",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true,
+            "defaultValue": "''"
           },
           {
             "fieldPath": "publisher",
@@ -203,36 +211,36 @@
       },
       {
         "tableName": "media_notes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mediaId` INTEGER NOT NULL, `want_to_watch_or_read` INTEGER NOT NULL, `watched_or_read` INTEGER NOT NULL, `owned` INTEGER NOT NULL, PRIMARY KEY(`mediaId`), FOREIGN KEY(`mediaId`) REFERENCES `media_items`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`media_id` INTEGER NOT NULL, `checkbox_1` INTEGER NOT NULL, `checkbox_2` INTEGER NOT NULL, `checkbox_3` INTEGER NOT NULL, PRIMARY KEY(`media_id`), FOREIGN KEY(`media_id`) REFERENCES `media_items`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "mediaId",
-            "columnName": "mediaId",
+            "columnName": "media_id",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "userChecked2",
-            "columnName": "want_to_watch_or_read",
+            "fieldPath": "isBox1Checked",
+            "columnName": "checkbox_1",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "userChecked1",
-            "columnName": "watched_or_read",
+            "fieldPath": "isBox2Checked",
+            "columnName": "checkbox_2",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "userChecked3",
-            "columnName": "owned",
+            "fieldPath": "isBox3Checked",
+            "columnName": "checkbox_3",
             "affinity": "INTEGER",
             "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "mediaId"
+            "media_id"
           ],
           "autoGenerate": false
         },
@@ -243,7 +251,7 @@
             "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
-              "mediaId"
+              "media_id"
             ],
             "referencedColumns": [
               "id"
@@ -400,7 +408,7 @@
       },
       {
         "tableName": "companies",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `companyName` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `company_name` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -410,7 +418,7 @@
           },
           {
             "fieldPath": "companyName",
-            "columnName": "companyName",
+            "columnName": "company_name",
             "affinity": "TEXT",
             "notNull": true
           }
@@ -428,7 +436,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '206cece9e42466a7555998281e61f953')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e210b8fc31d29fa40bb9d6e6cc6739d2')"
     ]
   }
 }
