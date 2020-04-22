@@ -30,9 +30,9 @@ class SWMListAdapter(
 
     interface AdapterInterface {
         fun onItemClicked(itemId: Int)
-        fun onCheckbox1Clicked(mediaNotes: MediaNotes?)
-        fun onCheckbox2Clicked(mediaNotes: MediaNotes?)
-        fun onCheckbox3Clicked(mediaNotes: MediaNotes?)
+        fun onCheckbox1Clicked(mediaNotes: MediaNotes)
+        fun onCheckbox2Clicked(mediaNotes: MediaNotes)
+        fun onCheckbox3Clicked(mediaNotes: MediaNotes)
         fun getMediaTypeString(mediaTypeId: Int): String
         fun getSeriesString(seriesId: Int): String
         fun isNetworkAllowed(): Boolean
