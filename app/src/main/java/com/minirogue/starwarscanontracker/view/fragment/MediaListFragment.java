@@ -85,6 +85,13 @@ public class MediaListFragment extends Fragment {
             return mediaListViewModel.convertTypeToString(mediaTypeId);
         }
 
+        @NotNull
+        @Override
+        public String getSeriesString(int seriesId) {
+            //TODO
+            return "Series not found";
+        }
+
         @Override
         public boolean isNetworkAllowed() {
             return mediaListViewModel.isNetworkAllowed();

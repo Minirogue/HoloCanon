@@ -2,7 +2,7 @@ package com.minirogue.starwarscanontracker.dagger
 
 import android.app.Application
 import android.content.SharedPreferences
-import com.minirogue.starwarscanontracker.model.SWMRepository
+import com.minirogue.starwarscanontracker.model.repository.SWMRepository
 import com.minirogue.starwarscanontracker.model.room.MediaDatabase
 import com.minirogue.starwarscanontracker.model.room.dao.*
 import dagger.Module
@@ -22,7 +22,7 @@ class RoomModule(app : Application) {
 
     @Provides
     @Singleton
-    fun provideRepository(daoMedia: DaoMedia, daoType: DaoType, daoFilter: DaoFilter, daoSeries: DaoSeries, sharedPreferences: SharedPreferences) : SWMRepository{
+    fun provideRepository(daoMedia: DaoMedia, daoType: DaoType, daoFilter: DaoFilter, daoSeries: DaoSeries, sharedPreferences: SharedPreferences): SWMRepository {
         return SWMRepository(daoMedia, daoType, daoFilter, daoSeries, sharedPreferences)
     }
 

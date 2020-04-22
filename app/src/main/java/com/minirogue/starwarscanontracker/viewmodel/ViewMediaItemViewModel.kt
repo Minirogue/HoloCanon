@@ -5,7 +5,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.model.PrefsRepo
-import com.minirogue.starwarscanontracker.model.SWMRepository
+import com.minirogue.starwarscanontracker.model.repository.SWMRepository
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.model.room.entity.MediaType

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.model.PrefsRepo
-import com.minirogue.starwarscanontracker.model.SWMRepository
+import com.minirogue.starwarscanontracker.model.repository.SWMRepository
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes

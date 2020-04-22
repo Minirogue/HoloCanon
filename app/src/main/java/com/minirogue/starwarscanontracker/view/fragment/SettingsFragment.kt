@@ -8,7 +8,7 @@ import androidx.preference.*
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.application.CanonTrackerApplication
 import com.minirogue.starwarscanontracker.model.CSVImporter
-import com.minirogue.starwarscanontracker.model.SWMRepository
+import com.minirogue.starwarscanontracker.model.repository.SWMRepository
 import com.minirogue.starwarscanontracker.model.room.MediaDatabase
 import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.model.room.entity.MediaType
@@ -30,10 +30,10 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
-        (activity!!.application as CanonTrackerApplication).appComponent.inject(this)
+        (requireActivity().application as CanonTrackerApplication).appComponent.inject(this)
 
 
-        SetTypePreferences(activity!!.applicationContext, findPreference("permanent_filters")!!).execute()
+        SetTypePreferences(requireActivity().applicationContext, findPreference("permanent_filters")!!).execute()
         val checkboxone = findPreference<EditTextPreference>(getString(R.string.checkbox1_default_text))
         checkboxone?.setSummaryProvider { checkboxone.text }
         val checkboxtwo = findPreference<EditTextPreference>(getString(R.string.checkbox2_default_text))
@@ -44,7 +44,7 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
         if (preference?.key == "update_from_online") {
-            CSVImporter(this.activity!!.application, true).execute(CSVImporter.SOURCE_ONLINE)
+            CSVImporter(requireActivity().application, true).execute(CSVImporter.SOURCE_ONLINE)
         } else if (preference?.parent?.key == "permanent_filters") {
             GlobalScope.launch(Dispatchers.Default) {
                 val filter = repo.getFilter(preference.order,FilterType.FILTERCOLUMN_TYPE)
@@ -82,7 +82,7 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
 
     override fun onPause() {
         super.onPause()
-        (activity!!.application as CanonTrackerApplication).appComponent.injectFilterUpdater().updateJustCheckboxFilters()
+        (requireActivity().application as CanonTrackerApplication).appComponent.injectFilterUpdater().updateJustCheckboxFilters()
         Log.d(TAG, "onPause called in SettingsFragment")
     }
 

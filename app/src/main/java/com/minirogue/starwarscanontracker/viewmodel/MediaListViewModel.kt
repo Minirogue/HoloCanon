@@ -5,8 +5,9 @@ import android.util.SparseArray
 import androidx.lifecycle.*
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.model.PrefsRepo
-import com.minirogue.starwarscanontracker.model.SWMRepository
 import com.minirogue.starwarscanontracker.model.SortStyle
+import com.minirogue.starwarscanontracker.model.repository.SWMRepository
+import com.minirogue.starwarscanontracker.model.repository.SeriesRepository
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
@@ -20,6 +21,7 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 class MediaListViewModel @Inject constructor(private val repository: SWMRepository,
+                                             private val seriesRepository: SeriesRepository,
                                              private val connMgr: MyConnectivityManager,
                                              prefsRepo: PrefsRepo,
                                              application: Application) : ViewModel() {
@@ -137,6 +139,7 @@ class MediaListViewModel @Inject constructor(private val repository: SWMReposito
         return mediaTypeToString[typeId, ""]
     }
 
+    suspend fun getSeriesString(seriesId: Int): String = seriesRepository.getSeriesStringById(seriesId)
 
     fun deactivateFilter(filterObject: FilterObject) = viewModelScope.launch(Dispatchers.Default) {
         filterObject.active = false

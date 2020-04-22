@@ -34,6 +34,7 @@ class SWMListAdapter(
         fun onCheckbox2Clicked(mediaNotes: MediaNotes?)
         fun onCheckbox3Clicked(mediaNotes: MediaNotes?)
         fun getMediaTypeString(mediaTypeId: Int): String
+        fun getSeriesString(seriesId: Int): String
         fun isNetworkAllowed(): Boolean
     }
 
@@ -79,8 +80,12 @@ class SWMListAdapter(
         mediaTitle.text = mediaItem.title
         dateTextview.text = mediaItem.date
         mediaType.text = adapterInterface.getMediaTypeString(mediaItem.type)
-        //TODO improve metadata presentation
-        extraInfo.visibility = View.INVISIBLE
+//        if (mediaItem.series > 0) {
+//            series.text = adapterInterface.getSeriesString(mediaItem.series)
+//            series.visibility = View.VISIBLE
+//        } else {
+        series.visibility = View.INVISIBLE
+//        }
     }
 
     private fun bindCheckBoxes(checkbox1: CheckBox, checkbox2: CheckBox, checkbox3: CheckBox, notes: MediaNotes) {
