@@ -1,4 +1,4 @@
-package com.minirogue.starwarscanontracker.model
+package com.minirogue.starwarscanontracker.model.repository
 
 import android.content.SharedPreferences
 import android.util.SparseBooleanArray

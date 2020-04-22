@@ -9,8 +9,9 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/image_cover"
-        android:layout_width="90dp"
-        android:layout_height="0dp"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/media_title"
@@ -20,10 +21,10 @@
 
     <TextView
         android:id="@+id/media_title"
+        style="@style/ListItemTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        style="@style/ListItemTitle"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -44,13 +45,11 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:text="@string/media_type"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/date_textview"
-        app:layout_constraintLeft_toRightOf="@id/date_textview"
-        app:layout_constraintTop_toTopOf="@id/date_textview" />
+        app:layout_constraintLeft_toRightOf="@id/image_cover"
+        app:layout_constraintTop_toBottomOf="@id/date_textview" />
 
     <TextView
-        android:id="@+id/extra_info"
+        android:id="@+id/series"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="@id/date_textview"

@@ -30,8 +30,9 @@ import com.minirogue.starwarscanontracker.view.FilterChip;
 import com.minirogue.starwarscanontracker.view.adapter.SWMListAdapter;
 import com.minirogue.starwarscanontracker.viewmodel.MediaListViewModel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -47,14 +48,14 @@ public class MediaListFragment extends Fragment {
     private FloatingActionButton sortFAB;
     private Context ctx;
 
-    private SWMListAdapter.OnClickListener adapterClickListener = new SWMListAdapter.OnClickListener() {
+    private SWMListAdapter.AdapterInterface adapterInterface = new SWMListAdapter.AdapterInterface() {
         @Override
         public void onItemClicked(int itemId) {
             ViewMediaItemFragment viewMediaItemFragment = new ViewMediaItemFragment();
             Bundle bundle = new Bundle();
             bundle.putInt(getString(R.string.bundleItemId), itemId);
             viewMediaItemFragment.setArguments(bundle);
-            Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction()
+            getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, viewMediaItemFragment)
                     .addToBackStack(null)
                     .commit();//TODO this should be handled by the activity
@@ -76,6 +77,24 @@ public class MediaListFragment extends Fragment {
         public void onCheckbox3Clicked(MediaNotes mediaNotes) {
             mediaNotes.flipCheck3();
             mediaListViewModel.update(mediaNotes);
+        }
+
+        @NotNull
+        @Override
+        public String getMediaTypeString(int mediaTypeId) {
+            return mediaListViewModel.convertTypeToString(mediaTypeId);
+        }
+
+        @NotNull
+        @Override
+        public String getSeriesString(int seriesId) {
+            //TODO
+            return "Series not found";
+        }
+
+        @Override
+        public boolean isNetworkAllowed() {
+            return mediaListViewModel.isNetworkAllowed();
         }
     };
 
@@ -101,7 +120,7 @@ public class MediaListFragment extends Fragment {
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(fragmentView.getContext());
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), LinearLayout.VERTICAL);
-        adapter = new SWMListAdapter(mediaListViewModel, adapterClickListener);
+        adapter = new SWMListAdapter(adapterInterface);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(mLayoutManager);

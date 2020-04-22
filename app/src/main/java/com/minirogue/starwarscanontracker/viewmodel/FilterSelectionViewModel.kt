@@ -3,7 +3,7 @@ package com.minirogue.starwarscanontracker.viewmodel
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.minirogue.starwarscanontracker.model.PrefsRepo
-import com.minirogue.starwarscanontracker.model.SWMRepository
+import com.minirogue.starwarscanontracker.model.repository.SWMRepository
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter
