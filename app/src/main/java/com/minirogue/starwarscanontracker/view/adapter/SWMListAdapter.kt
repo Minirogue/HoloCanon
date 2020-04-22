@@ -17,12 +17,10 @@ import com.minirogue.starwarscanontracker.databinding.MediaListItemBinding
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
-import com.minirogue.starwarscanontracker.viewmodel.MediaListViewModel
 import java.util.*
 
 class SWMListAdapter(
-        private val mediaListViewModel: MediaListViewModel,
-        private val listener: OnClickListener
+        private val adapterInterface: AdapterInterface
 ) : ListAdapter<MediaAndNotes, SWMListAdapter.MediaViewHolder>(DiffCallback) {
     //private final String TAG = "adapter";
     //private AsyncListDiffer<MediaAndNotes> listDiffer = new AsyncListDiffer<>(this, DiffCallback);
@@ -30,11 +28,13 @@ class SWMListAdapter(
     private var checkBoxText = arrayOf("", "", "")
     private var isCheckBoxActive = booleanArrayOf(true, true, true)
 
-    interface OnClickListener {
+    interface AdapterInterface {
         fun onItemClicked(itemId: Int)
         fun onCheckbox1Clicked(mediaNotes: MediaNotes?)
         fun onCheckbox2Clicked(mediaNotes: MediaNotes?)
         fun onCheckbox3Clicked(mediaNotes: MediaNotes?)
+        fun getMediaTypeString(mediaTypeId: Int): String
+        fun isNetworkAllowed(): Boolean
     }
 
     fun updateCheckBoxText(newCheckBoxText: Array<String>) {
@@ -63,7 +63,7 @@ class SWMListAdapter(
     override fun onBindViewHolder(holder: MediaViewHolder, position: Int) {
         getItem(position)?.let { currentItem: MediaAndNotes ->
             with(holder) {
-                itemView.setOnClickListener { listener.onItemClicked(currentItem.mediaItem.id) }
+                itemView.setOnClickListener { adapterInterface.onItemClicked(currentItem.mediaItem.id) }
 
                 with(binding) {
                     bindTextViews(this, currentItem.mediaItem)
@@ -78,8 +78,7 @@ class SWMListAdapter(
     private fun bindTextViews(binding: MediaListItemBinding, mediaItem: MediaItem) = with(binding) {
         mediaTitle.text = mediaItem.title
         dateTextview.text = mediaItem.date
-        //TODO get rid of ViewModel reference here.
-        mediaType.text = mediaListViewModel.convertTypeToString(mediaItem.type)
+        mediaType.text = adapterInterface.getMediaTypeString(mediaItem.type)
         //TODO improve metadata presentation
         extraInfo.visibility = View.INVISIBLE
     }
@@ -91,7 +90,7 @@ class SWMListAdapter(
                 isChecked = notes.isBox1Checked
                 visibility = View.VISIBLE
                 tag = notes
-                setOnClickListener { view: View -> listener.onCheckbox1Clicked(view.tag as MediaNotes) }
+                setOnClickListener { view: View -> adapterInterface.onCheckbox1Clicked(view.tag as MediaNotes) }
             } else {
                 visibility = View.GONE
             }
@@ -102,7 +101,7 @@ class SWMListAdapter(
                 isChecked = notes.isBox2Checked
                 visibility = View.VISIBLE
                 tag = notes
-                setOnClickListener { view: View -> listener.onCheckbox2Clicked(view.tag as MediaNotes) }
+                setOnClickListener { view: View -> adapterInterface.onCheckbox2Clicked(view.tag as MediaNotes) }
             } else {
                 visibility = View.GONE
             }
@@ -113,7 +112,7 @@ class SWMListAdapter(
                 isChecked = notes.isBox3Checked
                 visibility = View.VISIBLE
                 tag = notes
-                setOnClickListener { view: View -> listener.onCheckbox3Clicked(view.tag as MediaNotes) }
+                setOnClickListener { view: View -> adapterInterface.onCheckbox3Clicked(view.tag as MediaNotes) }
             } else {
                 visibility = View.GONE
             }
@@ -123,10 +122,9 @@ class SWMListAdapter(
     private fun bindCoverImage(imageView: SimpleDraweeView, imageUrl: String) = with(imageView) {
         hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground, ScalingUtils.ScaleType.CENTER_INSIDE)
         if (imageUrl != "") {
-            //TODO replace viewmodel reference here
             val request = ImageRequestBuilder
                     .newBuilderWithSource(Uri.parse(imageUrl))
-                    .setLowestPermittedRequestLevel(if (mediaListViewModel.isNetworkAllowed()) ImageRequest.RequestLevel.FULL_FETCH else ImageRequest.RequestLevel.DISK_CACHE)
+                    .setLowestPermittedRequestLevel(if (adapterInterface.isNetworkAllowed()) ImageRequest.RequestLevel.FULL_FETCH else ImageRequest.RequestLevel.DISK_CACHE)
                     .build()
             setImageRequest(request)
             hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_INSIDE
