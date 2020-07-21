@@ -115,6 +115,6 @@ dependencies {
     androidTestImplementation 'android.arch.persistence.room:testing:1.1.1'
 
     //Fresco (image loading)
-    implementation 'com.facebook.fresco:fresco:1.13.0'
+    implementation 'com.facebook.fresco:fresco:2.3.0'
 
 }
