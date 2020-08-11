@@ -23,7 +23,7 @@ public class SeriesListAdapter extends ListAdapter<MediaAndNotes, SeriesListAdap
 
     //private AsyncListDiffer<MediaAndNotes> listDiffer = new AsyncListDiffer<>(this, DiffCallback);
     //private List<MediaAndNotes> currentList = new ArrayList<>();
-    private OnItemClickedListener listener;
+    private final OnItemClickedListener listener;
 
     public SeriesListAdapter(OnItemClickedListener listener) {
         super(DiffCallback);

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -32,7 +31,7 @@ class SeriesFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val fragmentView = inflater.inflate(R.layout.fragment_series, container, false)
-        (activity!!.application as CanonTrackerApplication).appComponent.inject(this)
+        (requireActivity().application as CanonTrackerApplication).appComponent.inject(this)
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(SeriesViewModel::class.java)
@@ -52,7 +51,7 @@ class SeriesFragment : Fragment() {
             val newBundle = Bundle()
             newBundle.putInt(getString(R.string.bundleItemId), itemId)
             viewMediaItemFragment.arguments = newBundle
-            activity!!.supportFragmentManager.beginTransaction()
+            requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, viewMediaItemFragment)
                     .addToBackStack(null)
                     .commit() //TODO this should be handled by the activity
