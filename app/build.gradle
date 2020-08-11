@@ -19,16 +19,13 @@ android {
                 keyPassword keystoreProps['keyPassword']
             }
         }
-        buildFeatures {
-            viewBinding true
-        }
     }
 
-    compileSdkVersion 29
+    compileSdkVersion 30
     defaultConfig {
         applicationId "com.minirogue.starwarscanontracker"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 22
         versionName "1.2.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -46,7 +43,7 @@ android {
         release {
             debuggable false
             minifyEnabled true
-            //signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -56,6 +53,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    buildFeatures {
+        viewBinding true
     }
 }
 
@@ -92,8 +93,6 @@ dependencies {
     androidTestImplementation "androidx.test:rules:$androidXTestVersion"
     androidTestImplementation "androidx.test:runner:$androidXTestVersion"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
-
 
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
