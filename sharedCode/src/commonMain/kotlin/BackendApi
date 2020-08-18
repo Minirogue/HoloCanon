@@ -1,3 +1,0 @@
-expect class BackendApi {
-    suspend fun getMedia(): Int
-}

@@ -1,3 +1,0 @@
-actual class BackendApi{
-    actual suspend fun getMedia() = 1
-}
