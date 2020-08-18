@@ -32,7 +32,7 @@ class FilterSelectionFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater.inflate(R.layout.fragment_filter_selection, container, false)
-        (activity!!.application as CanonTrackerApplication).appComponent.inject(this)
+        (requireActivity().application as CanonTrackerApplication).appComponent.inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(FilterSelectionViewModel::class.java)
         val recyclerView = fragmentView.general_recyclerview
 
@@ -89,7 +89,7 @@ class FilterSelectionFragment : Fragment() {
     }
 
     private fun makeCurrentFilterChip(fullFilter: FullFilter): Chip {
-        val filterChip: Chip = FilterChip(fullFilter, view!!.context)
+        val filterChip: Chip = FilterChip(fullFilter, requireView().context)
         filterChip.setOnCloseIconClickListener { viewModel.deactivateFilter(fullFilter.filterObject) }
         return filterChip
     }

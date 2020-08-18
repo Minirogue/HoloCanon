@@ -40,7 +40,7 @@ class ViewMediaItemFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater.inflate(R.layout.fragment_view_media_item, container, false)
-        (activity!!.application as CanonTrackerApplication).appComponent.inject(this)
+        (requireActivity().application as CanonTrackerApplication).appComponent.inject(this)
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ViewMediaItemViewModel::class.java)
@@ -89,7 +89,7 @@ class ViewMediaItemFragment : Fragment() {
                 val bundle = Bundle()
                 bundle.putInt(getString(R.string.bundleItemId), item.series)
                 seriesFragment.arguments = bundle
-                activity!!.supportFragmentManager.beginTransaction()
+                requireActivity().supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, seriesFragment)
                         .addToBackStack(null)
                         .commit()
