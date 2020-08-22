@@ -2,11 +2,11 @@
 
 buildscript { 
     ext.kotlin_version = '1.4.0'
+    ext.ktor_version = '1.4.0'
 
     repositories {
         google()
         jcenter()
-        
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.0.1'
