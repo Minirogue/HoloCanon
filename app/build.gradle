@@ -83,7 +83,7 @@ dependencies {
     implementation 'me.zhanghai.android.fastscroll:library:1.1.4'
 
     //Testing
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation "junit:junit:$jUnitVersion"
     testImplementation "junit:junit:$jUnitVersion"
     androidTestImplementation "androidx.test:core:$androidXTestVersion"
