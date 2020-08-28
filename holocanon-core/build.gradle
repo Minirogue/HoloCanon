@@ -1,0 +1,16 @@
+plugins {
+    id 'org.jetbrains.kotlin.multiplatform'
+    //kotlin("plugin.serialization")
+}
+
+kotlin {
+    jvm()
+    sourceSets["commonMain"].dependencies {
+        //implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:${rootProject.ext.get("kotlinxSerializationVersion")}")
+        //implementation("org.jetbrains.kotlinx:kotlinx-serialization-protobuf:${rootProject.ext.get("kotlinxSerializationVersion")}")
+    }
+    sourceSets["jvmMain"].dependencies {
+        //implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:${rootProject.ext.get("kotlinxSerializationVersion")}")
+        //implementation("org.jetbrains.kotlinx:kotlinx-serialization-protobuf:${rootProject.ext.get("kotlinxSerializationVersion")}")
+    }
+}

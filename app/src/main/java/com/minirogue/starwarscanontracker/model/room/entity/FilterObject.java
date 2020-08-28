@@ -76,7 +76,7 @@ public class FilterObject {
             case 6:
                 return "Audiobook";
             case 7:
-                return "Comic Book";
+                return "Comic model.Book";
             case 8:
                 return "TPB";
             case 9:

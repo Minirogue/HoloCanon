@@ -73,7 +73,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //Multiplatform Code
-    implementation project(":sharedCode")
+    implementation project(":holocanon-core")
 
     //Android
     implementation 'androidx.appcompat:appcompat:1.2.0'
