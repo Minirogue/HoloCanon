@@ -1,7 +1,9 @@
-plugins{
-    id "org.jetbrains.kotlin.jvm"
+plugins {
+    id "org.jetbrains.kotlin.multiplatform"
     id 'application'
 }
+//NOTE multiplatform is necessary here because a jvm project won't
+// properly compile the multiplatform holocanon-core dependency
 
 mainClassName = 'MainKt'
 
@@ -13,13 +15,28 @@ mainClassName = 'MainKt'
 //compileTestKotlin {
 //    kotlinOptions.jvmTarget = "1.8"
 //}
+kotlin {
+    jvm()
+    sourceSets["commonMain"].dependencies {
+        implementation(project(":holocanon-core"))
+    }
+    sourceSets["jvmMain"].dependencies {
+        // Kotlin
+        implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion"
+
+        // Ktor
+        implementation "io.ktor:ktor-server-core:$ktor_version"
+        implementation "io.ktor:ktor-server-netty:$ktor_version"
+        //implementation "io.ktor:ktor-serialization:$ktor_version"
+        implementation("ch.qos.logback:logback-classic:1.2.3")
+    }
+}
 
 dependencies {
     // Model
-    implementation(project(":holocanon-core"))
 
     // Kotlin
-   // implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion"
+    // implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:$kotlinxSerializationVersion"
 
     // Ktor
 //    implementation "io.ktor:ktor-server-core:$ktor_version"
