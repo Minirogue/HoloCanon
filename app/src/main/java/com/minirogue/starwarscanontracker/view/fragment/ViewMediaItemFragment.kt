@@ -9,22 +9,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
 import com.facebook.drawee.drawable.ScalingUtils
 import com.facebook.imagepipeline.request.ImageRequest
 import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.application.CanonTrackerApplication
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.model.room.entity.MediaType
 import com.minirogue.starwarscanontracker.viewmodel.ViewMediaItemViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_view_media_item.view.*
-import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class ViewMediaItemFragment : Fragment() {
 
     companion object {
@@ -32,28 +29,23 @@ class ViewMediaItemFragment : Fragment() {
         private const val MENU_ITEM_AMAZON_STREAM = 2
     }
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private lateinit var viewModel: ViewMediaItemViewModel
+    private val viewModel: ViewMediaItemViewModel by viewModels()
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater.inflate(R.layout.fragment_view_media_item, container, false)
-        (requireActivity().application as CanonTrackerApplication).appComponent.inject(this)
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ViewMediaItemViewModel::class.java)
         if (bundleItemId != -1) viewModel.setItemId(bundleItemId)
-        viewModel.liveMediaItem.observe(viewLifecycleOwner, Observer { item -> updateViews(item, fragmentView) })
-        viewModel.liveMediaNotes.observe(viewLifecycleOwner, Observer { notes -> updateViews(notes, fragmentView) })
-        viewModel.liveMediaType.observe(viewLifecycleOwner, Observer { mediaType -> updateView(mediaType, fragmentView) })
-        viewModel.checkBoxText.observe(viewLifecycleOwner, Observer { arr ->
+        viewModel.liveMediaItem.observe(viewLifecycleOwner, { item -> updateViews(item, fragmentView) })
+        viewModel.liveMediaNotes.observe(viewLifecycleOwner, { notes -> updateViews(notes, fragmentView) })
+        viewModel.liveMediaType.observe(viewLifecycleOwner, { mediaType -> updateView(mediaType, fragmentView) })
+        viewModel.checkBoxText.observe(viewLifecycleOwner, { arr ->
             fragmentView.checkbox_1.text = arr[0]
             fragmentView.checkbox_2.text = arr[1]
             fragmentView.checkbox_3.text = arr[2]
         })
-        viewModel.checkBoxVisibility.observe(viewLifecycleOwner, Observer { visibilityArray -> updateViews(visibilityArray, fragmentView)})
+        viewModel.checkBoxVisibility.observe(viewLifecycleOwner, { visibilityArray -> updateViews(visibilityArray, fragmentView) })
 
         fragmentView.checkbox_3.setOnClickListener { viewModel.toggleCheckbox3() }
         fragmentView.checkbox_2.setOnClickListener { viewModel.toggleCheckbox2() }

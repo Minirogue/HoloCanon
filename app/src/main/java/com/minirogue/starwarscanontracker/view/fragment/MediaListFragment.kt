@@ -4,16 +4,14 @@ import android.os.Bundle
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.PopupMenu
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.application.CanonTrackerApplication
 import com.minirogue.starwarscanontracker.databinding.FragmentMediaListBinding
 import com.minirogue.starwarscanontracker.model.SortStyle
 import com.minirogue.starwarscanontracker.model.SortStyle.Companion.getAllStyles
@@ -25,16 +23,15 @@ import com.minirogue.starwarscanontracker.view.adapter.SWMListAdapter
 import com.minirogue.starwarscanontracker.view.adapter.SWMListAdapter.AdapterInterface
 import com.minirogue.starwarscanontracker.view.viewBinding
 import com.minirogue.starwarscanontracker.viewmodel.MediaListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class MediaListFragment : Fragment() {
     private val layoutId = R.layout.fragment_media_list
     private val binding by viewBinding(FragmentMediaListBinding::bind)
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val mediaListViewModel by viewModels<MediaListViewModel> { viewModelFactory }
+    private val mediaListViewModel: MediaListViewModel by viewModels()
 
     private lateinit var sortChip: Chip
 
@@ -87,7 +84,6 @@ class MediaListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity().application as CanonTrackerApplication).appComponent.inject(this)
         sortChip = makeCurrentSortChip()
         setupSortMenu()
 
@@ -96,13 +92,13 @@ class MediaListFragment : Fragment() {
             adapter = SWMListAdapter(adapterInterface).also {
                 mediaListViewModel.filteredMediaAndNotes.observe(
                         viewLifecycleOwner,
-                        Observer { mediaAndNotes -> it.submitList(mediaAndNotes) })
+                        { mediaAndNotes -> it.submitList(mediaAndNotes) })
                 mediaListViewModel.checkBoxText.observe(
                         viewLifecycleOwner,
-                        Observer { newCheckBoxText -> it.updateCheckBoxText(newCheckBoxText) })
+                        { newCheckBoxText -> it.updateCheckBoxText(newCheckBoxText) })
                 mediaListViewModel.checkBoxVisibility.observe(
                         viewLifecycleOwner,
-                        Observer { newIsCheckboxActive -> it.updateCheckBoxVisible(newIsCheckboxActive) })
+                        { newIsCheckboxActive -> it.updateCheckBoxVisible(newIsCheckboxActive) })
             }
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
@@ -121,7 +117,7 @@ class MediaListFragment : Fragment() {
 
         mediaListViewModel.activeFilters.observe(
                 viewLifecycleOwner,
-                Observer { filters: List<FullFilter> -> setFilterChips(filters) })
+                { filters: List<FullFilter> -> setFilterChips(filters) })
     }
 
     private fun setupSortMenu() {
@@ -157,7 +153,7 @@ class MediaListFragment : Fragment() {
                 setOnClickListener { mediaListViewModel.reverseSort() }
                 mediaListViewModel.sortStyle.observe(
                         viewLifecycleOwner,
-                        Observer { sortStyle: SortStyle -> updateSortChip(sortStyle) }
+                        { sortStyle: SortStyle -> updateSortChip(sortStyle) }
                 )
             }.also {
                 binding.filterChipGroup.addView(it)
@@ -166,9 +162,9 @@ class MediaListFragment : Fragment() {
     private fun updateSortChip(sortStyle: SortStyle) = with(sortChip) {
         text = sortStyle.getText()
         chipIcon = if (sortStyle.isAscending()) {
-            resources.getDrawable(R.drawable.ic_ascending_sort, null)
+            ResourcesCompat.getDrawable(resources, R.drawable.ic_ascending_sort, null)
         } else {
-            resources.getDrawable(R.drawable.ic_descending_sort, null)
+            ResourcesCompat.getDrawable(resources, R.drawable.ic_descending_sort, null)
         }
     }
 }

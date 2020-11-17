@@ -1,5 +1,6 @@
 package com.minirogue.starwarscanontracker.viewmodel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
@@ -18,12 +19,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 
-class SeriesViewModel @Inject constructor(private val repository: SWMRepository,
-                                          prefsRepo: PrefsRepo,
-                                          private val connMgr: MyConnectivityManager) : ViewModel() {
+class SeriesViewModel @ViewModelInject constructor(private val repository: SWMRepository,
+                                                   prefsRepo: PrefsRepo,
+                                                   private val connMgr: MyConnectivityManager) : ViewModel() {
 
     private var seriesId: Int = -1
     lateinit var liveSeries: LiveData<Series>

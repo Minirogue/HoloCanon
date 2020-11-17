@@ -1,11 +1,10 @@
 package com.minirogue.starwarscanontracker.usecase
 
-import android.app.Application
 import com.minirogue.starwarscanontracker.model.CSVImporter
 import javax.inject.Inject
 
-class UpdateMediaDatabaseUseCase @Inject constructor(private val application: Application) {
+class UpdateMediaDatabaseUseCase @Inject constructor(private val csvImporter: CSVImporter) {
     operator fun invoke(forced: Boolean = false) {
-        CSVImporter(application, forced).execute(CSVImporter.SOURCE_ONLINE)
+        csvImporter.execute(forced)
     }
 }

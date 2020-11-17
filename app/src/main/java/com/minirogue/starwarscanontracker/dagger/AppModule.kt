@@ -8,26 +8,21 @@ import androidx.preference.PreferenceManager
 import com.minirogue.starwarscanontracker.R
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Named
-import javax.inject.Singleton
 
 @Module
-class AppModule(private val theApplication: Application) {
+@InstallIn(ApplicationComponent::class)
+object AppModule {
 
     @Provides
-    @Singleton
-    fun provideContext(): Context = theApplication
+    fun provideContext(application: Application): Context = application
 
     @Provides
-    @Singleton
-    fun provideApplication(): Application = theApplication
-
-    @Provides
-    @Singleton
     fun provideSharedPreferences(app: Application): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(app)
 
     @Provides
-    @Singleton
     fun provideConnManager(app: Application): ConnectivityManager {
         return app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }

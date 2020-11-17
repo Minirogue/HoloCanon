@@ -5,40 +5,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.application.CanonTrackerApplication
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter
 import com.minirogue.starwarscanontracker.view.FilterChip
 import com.minirogue.starwarscanontracker.view.adapter.FilterSelectionAdapter
 import com.minirogue.starwarscanontracker.viewmodel.FilterSelectionViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_filter_selection.view.*
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class FilterSelectionFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private lateinit var viewModel: FilterSelectionViewModel
+    private val viewModel: FilterSelectionViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val fragmentView = inflater.inflate(R.layout.fragment_filter_selection, container, false)
-        (requireActivity().application as CanonTrackerApplication).appComponent.inject(this)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(FilterSelectionViewModel::class.java)
         val recyclerView = fragmentView.general_recyclerview
 
         val activeChipGroup = fragmentView.selected_chipgroup
 
-        viewModel.getActiveFilters().observe(viewLifecycleOwner, Observer { activeFilters -> activeChipGroup.removeAllViews(); activeFilters.forEach { activeChipGroup.addView(makeCurrentFilterChip(it)) } })
+        viewModel.getActiveFilters().observe(viewLifecycleOwner, { activeFilters -> activeChipGroup.removeAllViews(); activeFilters.forEach { activeChipGroup.addView(makeCurrentFilterChip(it)) } })
 
         val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(fragmentView.context)
         val adapter = FilterSelectionAdapter()
@@ -48,7 +41,7 @@ class FilterSelectionFragment : Fragment() {
             }
 
             override fun setFilterGroupObservation(chipGroup: ChipGroup, filterType: FilterType) {
-                viewModel.getFiltersOfType(filterType).observe(viewLifecycleOwner, Observer { filters ->
+                viewModel.getFiltersOfType(filterType).observe(viewLifecycleOwner, { filters ->
                     chipGroup.removeAllViews()
                     filters.forEach {
                         if (!it.filterObject.active) {
@@ -70,7 +63,7 @@ class FilterSelectionFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = mLayoutManager
 
-        viewModel.checkBoxVisibilty.observe(viewLifecycleOwner, Observer { visibility ->
+        viewModel.checkBoxVisibilty.observe(viewLifecycleOwner, { visibility ->
             val list = ArrayList<Int>()
             if (!visibility[0]) {
                 list.add(FilterType.FILTERCOLUMN_CHECKBOX_ONE)
@@ -83,7 +76,7 @@ class FilterSelectionFragment : Fragment() {
             }
             adapter.updateExcludedTypes(list)
         })
-        viewModel.filterTypes.observe(viewLifecycleOwner, Observer { filterTypes -> adapter.updateList(filterTypes) })
+        viewModel.filterTypes.observe(viewLifecycleOwner, { filterTypes -> adapter.updateList(filterTypes) })
 
         return fragmentView
     }
@@ -93,5 +86,4 @@ class FilterSelectionFragment : Fragment() {
         filterChip.setOnCloseIconClickListener { viewModel.deactivateFilter(fullFilter.filterObject) }
         return filterChip
     }
-
 }

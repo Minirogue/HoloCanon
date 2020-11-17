@@ -10,8 +10,9 @@ import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.minirogue.starwarscanontracker.R
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class TabbedListContainerFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,7 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt' //annotation processor that works with kotlin as well as java
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
 
 
 def keystorePropsFile = rootProject.file('keystore.properties')
@@ -32,7 +34,7 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
         sourceSets {
@@ -61,13 +63,13 @@ android {
 }
 
 ext {
-    daggerVersion = '2.29.1'
     androidXTestVersion = '1.3.0'
     jUnitVersion = '4.13.1'
     coroutinesVersion = '1.4.1'
     roomVersion = '2.2.5'
     lifecycleVersion = '2.2.0'
     appCompatVersion = '1.2.0'
+    jetpackHiltVersion = '1.0.0-alpha02'
 }
 
 dependencies {
@@ -104,9 +106,13 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
 
-    // Dagger2(dependency injection)
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
-    implementation "com.google.dagger:dagger:$daggerVersion"
+    // dependency injection
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$jetpackHiltVersion"
+    kapt "androidx.hilt:hilt-compiler:$jetpackHiltVersion"
+
+
 
     // Room (databases)
     implementation "androidx.room:room-runtime:$roomVersion"

@@ -6,19 +6,20 @@ import android.os.Bundle
 import android.util.Log
 import androidx.preference.*
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.application.CanonTrackerApplication
+import com.minirogue.starwarscanontracker.model.FilterUpdater
 import com.minirogue.starwarscanontracker.model.repository.SWMRepository
 import com.minirogue.starwarscanontracker.model.room.MediaDatabase
 import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.model.room.entity.MediaType
 import com.minirogue.starwarscanontracker.usecase.UpdateMediaDatabaseUseCase
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnSharedPreferenceChangeListener */ {
 
     companion object {
@@ -31,9 +32,11 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
     @Inject
     lateinit var updateMediaDatabaseUseCase: UpdateMediaDatabaseUseCase
 
+    @Inject
+    lateinit var filterUpdater: FilterUpdater
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
-        (requireActivity().application as CanonTrackerApplication).appComponent.inject(this)
 
 
         SetTypePreferences(requireActivity().applicationContext, findPreference("permanent_filters")!!).execute()
@@ -50,7 +53,7 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
             updateMediaDatabaseUseCase(true)
         } else if (preference?.parent?.key == "permanent_filters") {
             GlobalScope.launch(Dispatchers.Default) {
-                val filter = repo.getFilter(preference.order,FilterType.FILTERCOLUMN_TYPE)
+                val filter = repo.getFilter(preference.order, FilterType.FILTERCOLUMN_TYPE)
                 filter?.let {
                     filter.active = false
                     repo.update(filter)
@@ -85,7 +88,7 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
 
     override fun onPause() {
         super.onPause()
-        (requireActivity().application as CanonTrackerApplication).appComponent.injectFilterUpdater().updateJustCheckboxFilters()
+        filterUpdater.updateJustCheckboxFilters()
         Log.d(TAG, "onPause called in SettingsFragment")
     }
 
@@ -101,6 +104,4 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
         super.onPause()
         preferenceScreen.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
     }*/
-
-
 }

@@ -10,23 +10,27 @@ import androidx.fragment.app.Fragment
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.core.ImagePipelineConfig
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.application.CanonTrackerApplication
+import com.minirogue.starwarscanontracker.model.FilterUpdater
 import com.minirogue.starwarscanontracker.usecase.UpdateMediaDatabaseUseCase
 import com.minirogue.starwarscanontracker.view.fragment.AboutFragment
 import com.minirogue.starwarscanontracker.view.fragment.SettingsFragment
 import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var updateMediaDatabaseUseCase: UpdateMediaDatabaseUseCase
 
+    @Inject
+    lateinit var filterUpdater: FilterUpdater
+
     override fun onResume() {
         super.onResume()
         //Update filters based one current information
-        (application as CanonTrackerApplication).appComponent.injectFilterUpdater().updateFilters()
+        filterUpdater.updateFilters()
         //check for update to room
         updateMediaDatabaseUseCase()
     }
@@ -41,8 +45,6 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, TabbedListContainerFragment())
                     .commit()
-            //small fix for some of the beta users around version 1.0.4
-            fixDatabaseName()
             //initialize Fresco
             val config = ImagePipelineConfig.newBuilder(application)
                     .setDownsampleEnabled(true)
@@ -115,11 +117,6 @@ class MainActivity : AppCompatActivity() {
                 .commit()
     }
 
-
-    private fun fixDatabaseName() {
-        (application as CanonTrackerApplication).appComponent.injectTransferDatabase().checkAndTransferFrom("StarWars-room")
-    }
-
     companion object {
 
         private const val TAG = "MainActivity"
@@ -129,7 +126,5 @@ class MainActivity : AppCompatActivity() {
         private const val ABOUT_TAG = "about"
         private const val MAIN_TABBED = "main_tabbed"
     }
-
-
 }
 
