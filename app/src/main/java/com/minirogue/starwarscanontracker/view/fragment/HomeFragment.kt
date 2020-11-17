@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.minirogue.starwarscanontracker.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -19,6 +21,4 @@ class HomeFragment : Fragment() {
         fragView.welcome_textview.movementMethod = LinkMovementMethod.getInstance()
         return fragView
     }
-
-
 }

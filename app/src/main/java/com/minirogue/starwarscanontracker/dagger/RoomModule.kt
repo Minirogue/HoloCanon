@@ -1,59 +1,42 @@
 package com.minirogue.starwarscanontracker.dagger
 
 import android.app.Application
-import android.content.SharedPreferences
-import com.minirogue.starwarscanontracker.model.repository.SWMRepository
 import com.minirogue.starwarscanontracker.model.room.MediaDatabase
 import com.minirogue.starwarscanontracker.model.room.dao.*
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 
 @Module
-class RoomModule(app : Application) {
-
-    private val theDatabase: MediaDatabase = MediaDatabase.getMediaDataBase(app)
-
-    @Provides
-    @Singleton
-    fun provideDatabase() : MediaDatabase{
-        return theDatabase
-    }
+@InstallIn(ApplicationComponent::class)
+object RoomModule {
 
     @Provides
-    @Singleton
-    fun provideRepository(daoMedia: DaoMedia, daoType: DaoType, daoFilter: DaoFilter, daoSeries: DaoSeries, sharedPreferences: SharedPreferences): SWMRepository {
-        return SWMRepository(daoMedia, daoType, daoFilter, daoSeries, sharedPreferences)
-    }
+    fun provideDatabase(application: Application): MediaDatabase = MediaDatabase.getMediaDataBase(application)
 
     @Provides
-    @Singleton
-    fun provideDaoMedia(database: MediaDatabase) : DaoMedia {
+    fun provideDaoMedia(database: MediaDatabase): DaoMedia {
         return database.daoMedia
     }
 
     @Provides
-    @Singleton
-    fun provideDaoType(database: MediaDatabase) : DaoType {
+    fun provideDaoType(database: MediaDatabase): DaoType {
         return database.daoType
     }
 
     @Provides
-    @Singleton
-    fun provideDaoFilter(database: MediaDatabase) : DaoFilter {
+    fun provideDaoFilter(database: MediaDatabase): DaoFilter {
         return database.daoFilter
     }
 
     @Provides
-    @Singleton
-    fun provideDaoSeries(database: MediaDatabase) : DaoSeries {
+    fun provideDaoSeries(database: MediaDatabase): DaoSeries {
         return database.daoSeries
     }
 
     @Provides
-    @Singleton
     fun provideDaoCompany(database: MediaDatabase): DaoCompany {
         return database.daoCompany
     }
-
 }

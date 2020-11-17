@@ -2,6 +2,7 @@ package com.minirogue.starwarscanontracker.viewmodel
 
 import android.app.Application
 import android.util.SparseArray
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.model.PrefsRepo
@@ -17,14 +18,13 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.io.File
 import java.util.*
-import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class MediaListViewModel @Inject constructor(private val repository: SWMRepository,
-                                             private val seriesRepository: SeriesRepository,
-                                             private val connMgr: MyConnectivityManager,
-                                             prefsRepo: PrefsRepo,
-                                             application: Application) : ViewModel() {
+class MediaListViewModel @ViewModelInject constructor(private val repository: SWMRepository,
+                                                      private val seriesRepository: SeriesRepository,
+                                                      private val connMgr: MyConnectivityManager,
+                                                      prefsRepo: PrefsRepo,
+                                                      application: Application) : ViewModel() {
 
     //filtering
     val activeFilters = repository.getActiveFilters()

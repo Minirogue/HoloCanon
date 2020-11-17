@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.preference.PreferenceManager;
 
 import com.minirogue.starwarscanontracker.R;
-import com.minirogue.starwarscanontracker.application.CanonTrackerApplication;
 import com.minirogue.starwarscanontracker.model.room.MediaDatabase;
 import com.minirogue.starwarscanontracker.model.room.entity.Company;
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem;
@@ -26,12 +25,13 @@ import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.HashMap;
 
+import javax.inject.Inject;
+
 //TODO convert to kotlin and use coroutines
-public class CSVImporter extends AsyncTask<Integer, String, Void> {
+public class CSVImporter extends AsyncTask<Boolean, String, Void> {
 
     //private static final String TAG = "CSVImport";
 
-    public static final int SOURCE_ONLINE = 1;
     private final WeakReference<Application> appRef;
     private final boolean wifiOnly;
     private final ConnectivityManager connMgr;
@@ -39,14 +39,15 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
     private final HashMap<String, Integer> convertSeries = new HashMap<>();
     private final HashMap<String, Integer> convertCompany = new HashMap<>();
     private long newVersionId;
-    private final boolean forced;
+    private boolean forced = false;
+    private final FilterUpdater filterUpdater;
 
-
-    public CSVImporter(Application application, boolean forced) {
+    @Inject
+    public CSVImporter(Application application, FilterUpdater filterUpdater) {
         appRef = new WeakReference<>(application);
         connMgr = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
         wifiOnly = PreferenceManager.getDefaultSharedPreferences(appRef.get()).getBoolean(appRef.get().getString(R.string.setting_unmetered_sync_only), true);
-        this.forced = forced;
+        this.filterUpdater = filterUpdater;
     }
 
     private void importCSVToMediaTypeTable(InputStream inputStream) {
@@ -359,81 +360,81 @@ public class CSVImporter extends AsyncTask<Integer, String, Void> {
 
 
     @Override
-    protected Void doInBackground(Integer... params) {
+    protected Void doInBackground(Boolean... params) {
+        this.forced = params[0];
         if (wifiOnly && connMgr.isActiveNetworkMetered()) {
             cancel(true);
             return null;
         }
         InputStream inputStream = null;
-        if (params[0] == SOURCE_ONLINE) {
-            try {
-                //update version number
-                URL url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1842257512&single=true&output=csv");
-                inputStream = url.openStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                newVersionId = Long.parseLong(reader.readLine().split(",")[0]);
-                inputStream.close();
-                if (!forced && newVersionId == PreferenceManager.getDefaultSharedPreferences(appRef.get()).getLong(appRef.get().getString(R.string.current_database_version), 0)) {
-                    cancel(true);
-                } else if (forced) {
-                    publishProgress("Updating Database");
-                }
-                //import the media types
-                if (isCancelled()) {
-                    return null;
-                }
-                url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1834840175&single=true&output=csv");
-                inputStream = url.openStream();
-                importCSVToMediaTypeTable(inputStream);
-                inputStream.close();
-                //import the series table
-                if (isCancelled()) {
-                    return null;
-                }
-                url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=485468234&single=true&output=csv");
-                inputStream = url.openStream();
-                importCSVToSeriesTable(inputStream);
-                inputStream.close();
-                //import the main media table
-                if (isCancelled()) {
-                    return null;
-                }
-                url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1639412894&single=true&output=csv");
-                inputStream = url.openStream();
-                importCSVToCompanyTable(inputStream);
-                inputStream.close();
-                //import the main media table
-                if (isCancelled()) {
-                    return null;
-                }
-                url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=0&single=true&output=csv");
-                inputStream = url.openStream();
-                importCSVToMediaDatabase(inputStream);
-                inputStream.close();
-                //import the character table
+        try {
+            //update version number
+            URL url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1842257512&single=true&output=csv");
+            inputStream = url.openStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            newVersionId = Long.parseLong(reader.readLine().split(",")[0]);
+            inputStream.close();
+            if (!forced && newVersionId == PreferenceManager.getDefaultSharedPreferences(appRef.get()).getLong(appRef.get().getString(R.string.current_database_version), 0)) {
+                cancel(true);
+            } else if (forced) {
+                publishProgress("Updating Database");
+            }
+            //import the media types
+            if (isCancelled()) {
+                return null;
+            }
+            url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1834840175&single=true&output=csv");
+            inputStream = url.openStream();
+            importCSVToMediaTypeTable(inputStream);
+            inputStream.close();
+            //import the series table
+            if (isCancelled()) {
+                return null;
+            }
+            url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=485468234&single=true&output=csv");
+            inputStream = url.openStream();
+            importCSVToSeriesTable(inputStream);
+            inputStream.close();
+            //import the main media table
+            if (isCancelled()) {
+                return null;
+            }
+            url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1639412894&single=true&output=csv");
+            inputStream = url.openStream();
+            importCSVToCompanyTable(inputStream);
+            inputStream.close();
+            //import the main media table
+            if (isCancelled()) {
+                return null;
+            }
+            url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=0&single=true&output=csv");
+            inputStream = url.openStream();
+            importCSVToMediaDatabase(inputStream);
+            inputStream.close();
+            //import the character table
                 /*url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1862227068&single=true&output=csv");
                 inputStream = url.openStream();
                 importCSVToCharacterDatabase(inputStream);*/
-            } catch (IOException ex) {
-                //Log.e("DatabaseUpdate", ex.toString());
-                cancel(true);
-                return null;
-            } finally {
-                if (inputStream != null) {
-                    try {
-                        inputStream.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+        } catch (IOException ex) {
+            //Log.e("DatabaseUpdate", ex.toString());
+            cancel(true);
+            return null;
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }
+
         Application app = appRef.get();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(app);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putLong(app.getString(R.string.current_database_version), newVersionId);
         editor.apply();
-        ((CanonTrackerApplication) app).getAppComponent().injectFilterUpdater().updateFilters();
+        filterUpdater.updateFilters();
         return null;
     }
 
