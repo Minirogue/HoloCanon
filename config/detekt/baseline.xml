@@ -1,5 +1,20 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-  <ManuallySuppressedIssues></ManuallySuppressedIssues>
-  <CurrentIssues></CurrentIssues>
+    <ManuallySuppressedIssues></ManuallySuppressedIssues>
+    <CurrentIssues>
+        <ID>ArrayPrimitive:SeriesFragment.kt$SeriesFragment$Array&lt;Boolean&gt;</ID>
+        <ID>ArrayPrimitive:SortStyle.kt$SortStyle.Companion$Array&lt;Int&gt;</ID>
+        <ID>ComplexMethod:SWMRepository.kt$SWMRepository$ private suspend fun
+            convertFiltersToQuery(filterList: List&lt;FilterObject&gt;): SimpleSQLiteQuery
+        </ID>
+        <ID>LongMethod:SWMRepository.kt$SWMRepository$ private suspend fun
+            convertFiltersToQuery(filterList: List&lt;FilterObject&gt;): SimpleSQLiteQuery
+        </ID>
+        <ID>ReturnCount:SortStyle.kt$SortStyle$override fun compare(p0: MediaAndNotes?, p1:
+            MediaAndNotes?): Int
+        </ID>
+        <ID>TooManyFunctions:DaoFilter.kt$DaoFilter</ID>
+        <ID>TooManyFunctions:MediaListViewModel.kt$MediaListViewModel : ViewModel</ID>
+        <ID>TooManyFunctions:SWMRepository.kt$SWMRepository</ID>
+    </CurrentIssues>
 </SmellBaseline>

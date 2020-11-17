@@ -45,7 +45,8 @@ class ViewMediaItemFragment : Fragment() {
             fragmentView.checkbox_2.text = arr[1]
             fragmentView.checkbox_3.text = arr[2]
         })
-        viewModel.checkBoxVisibility.observe(viewLifecycleOwner, { visibilityArray -> updateViews(visibilityArray, fragmentView) })
+        viewModel.checkBoxVisibility.observe(viewLifecycleOwner,
+                { visibilityArray -> updateViews(visibilityArray, fragmentView) })
 
         fragmentView.checkbox_3.setOnClickListener { viewModel.toggleCheckbox3() }
         fragmentView.checkbox_2.setOnClickListener { viewModel.toggleCheckbox2() }
@@ -54,7 +55,7 @@ class ViewMediaItemFragment : Fragment() {
         return fragmentView
     }
 
-    private fun updateViews(visibilityArray: BooleanArray, fragmentView: View){
+    private fun updateViews(visibilityArray: BooleanArray, fragmentView: View) {
         fragmentView.checkbox_1.visibility = if (visibilityArray[0]) View.VISIBLE else View.GONE
         fragmentView.checkbox_2.visibility = if (visibilityArray[1]) View.VISIBLE else View.GONE
         fragmentView.checkbox_3.visibility = if (visibilityArray[2]) View.VISIBLE else View.GONE
@@ -63,13 +64,18 @@ class ViewMediaItemFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun updateViews(item: MediaItem, fragmentView: View) {
         fragmentView.media_title.text = item.title
-        fragmentView.description_textview.text = if (item.description.isNotBlank()) getString(R.string.description_header) + " " + item.description else ""
+        fragmentView.description_textview.text = if (item.description.isNotBlank()) {
+            getString(R.string.description_header) + " " + item.description
+        } else ""
         //fragmentView.review_textview.text = getString(R.string.review_header) + " " + item.review
         fragmentView.release_date.text = item.date
-        fragmentView.image_cover.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground, ScalingUtils.ScaleType.FIT_CENTER)
+        fragmentView.image_cover.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground,
+                ScalingUtils.ScaleType.FIT_CENTER)
         val request = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(item.imageURL))
-                .setLowestPermittedRequestLevel(if (viewModel.isNetworkAllowed()) ImageRequest.RequestLevel.FULL_FETCH else ImageRequest.RequestLevel.DISK_CACHE)
+                .setLowestPermittedRequestLevel(if (viewModel.isNetworkAllowed()) {
+                    ImageRequest.RequestLevel.FULL_FETCH
+                } else ImageRequest.RequestLevel.DISK_CACHE)
                 .build()
         fragmentView.image_cover.setImageRequest(request)
         fragmentView.image_cover.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.FIT_CENTER
@@ -121,12 +127,4 @@ class ViewMediaItemFragment : Fragment() {
         }
         fragView.affiliate_links_fab.setOnClickListener { shoppingMenu.show() }
     }
-
-
-    /*internal inner class ViewMediaItemViewModelFactory(private val itemId: Int, private val application: CanonTrackerApplication) : ViewModelProvider.Factory {
-
-        override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return ViewMediaItemViewModel(itemId, application) as T
-        }
-    }*/
 }

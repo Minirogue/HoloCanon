@@ -20,11 +20,13 @@ import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MediaListViewModel @ViewModelInject constructor(private val repository: SWMRepository,
-                                                      private val seriesRepository: SeriesRepository,
-                                                      private val connMgr: MyConnectivityManager,
-                                                      prefsRepo: PrefsRepo,
-                                                      application: Application) : ViewModel() {
+class MediaListViewModel @ViewModelInject constructor(
+        private val repository: SWMRepository,
+        private val seriesRepository: SeriesRepository,
+        private val connMgr: MyConnectivityManager,
+        prefsRepo: PrefsRepo,
+        application: Application,
+) : ViewModel() {
 
     //filtering
     val activeFilters = repository.getActiveFilters()
@@ -68,7 +70,8 @@ class MediaListViewModel @ViewModelInject constructor(private val repository: SW
         dataMediator.addSource(activeFilters) { viewModelScope.launch { updateQuery() } }
         dataMediator.addSource(repository.getAllFilterTypes()) { viewModelScope.launch { updateQuery() } }
         sortedData.addSource(sortStyle) { viewModelScope.launch { sort(); saveSort() } }
-        sortedData.addSource(dataMediator) { }//dataMediator needs to be observed so the things it observes can trigger events
+        //dataMediator needs to be observed so the things it observes can trigger events
+        sortedData.addSource(dataMediator) { }
     }
 
     fun setSort(newCompareType: Int) {

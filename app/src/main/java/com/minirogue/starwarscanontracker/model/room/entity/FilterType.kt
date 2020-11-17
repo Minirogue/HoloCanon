@@ -5,7 +5,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "filter_type")
-class FilterType(@PrimaryKey@ColumnInfo(name = "id") val typeId: Int, @ColumnInfo(name = "is_positive") var isFilterPositive: Boolean, @ColumnInfo(name = "text") var text: String) {
+class FilterType(
+        @PrimaryKey @ColumnInfo(name = "id") val typeId: Int,
+        @ColumnInfo(name = "is_positive") var isFilterPositive: Boolean,
+        @ColumnInfo(name = "text") var text: String,
+) {
 
     companion object {
         const val FILTERCOLUMN_TYPE = 1
@@ -16,5 +20,4 @@ class FilterType(@PrimaryKey@ColumnInfo(name = "id") val typeId: Int, @ColumnInf
         const val FILTERCOLUMN_SERIES = 6
         const val FILTERCOLUMN_PUBLISHER = 7
     }
-
 }

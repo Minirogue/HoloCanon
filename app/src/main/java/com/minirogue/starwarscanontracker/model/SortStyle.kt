@@ -39,7 +39,6 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
         }
         val compNum : Int = when (style){
             SORT_TITLE -> compareTitles(p0, p1)
-            //SORT_TYPE -> FilterObject.getTextForType(p0.mediaItem.type).compareTo(FilterObject.getTextForType(p1.mediaItem.type))
             SORT_TIMELINE -> sign(p0.mediaItem.timeline - p1.mediaItem.timeline).toInt()
             SORT_DATE -> compareDates(p0.mediaItem, p1.mediaItem)
             else -> compareTitles(p0,p1)
