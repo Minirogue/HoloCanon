@@ -44,6 +44,8 @@ class SWMRepository @Inject constructor(
         return daoMedia.getMediaAndNotesRawQuery(query)
     }
 
+    // TODO
+    @Suppress("LongMethod", "ComplexMethod")
     /**
      * Returns a SimpleSQLiteQuery based on the given filters and the stored permanent filters
      *
