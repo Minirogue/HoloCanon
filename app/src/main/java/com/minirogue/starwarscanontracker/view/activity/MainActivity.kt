@@ -11,21 +11,24 @@ import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.core.ImagePipelineConfig
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.application.CanonTrackerApplication
-import com.minirogue.starwarscanontracker.model.CSVImporter
+import com.minirogue.starwarscanontracker.usecase.UpdateMediaDatabaseUseCase
 import com.minirogue.starwarscanontracker.view.fragment.AboutFragment
 import com.minirogue.starwarscanontracker.view.fragment.SettingsFragment
 import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment
+import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity() {
 
+    @Inject
+    lateinit var updateMediaDatabaseUseCase: UpdateMediaDatabaseUseCase
 
     override fun onResume() {
         super.onResume()
         //Update filters based one current information
         (application as CanonTrackerApplication).appComponent.injectFilterUpdater().updateFilters()
         //check for update to room
-        CSVImporter(application, false).execute(CSVImporter.SOURCE_ONLINE)
+        updateMediaDatabaseUseCase()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

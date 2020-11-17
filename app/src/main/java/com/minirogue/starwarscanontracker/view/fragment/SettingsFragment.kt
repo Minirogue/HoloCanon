@@ -7,11 +7,11 @@ import android.util.Log
 import androidx.preference.*
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.application.CanonTrackerApplication
-import com.minirogue.starwarscanontracker.model.CSVImporter
 import com.minirogue.starwarscanontracker.model.repository.SWMRepository
 import com.minirogue.starwarscanontracker.model.room.MediaDatabase
 import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.model.room.entity.MediaType
+import com.minirogue.starwarscanontracker.usecase.UpdateMediaDatabaseUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -21,12 +21,15 @@ import javax.inject.Inject
 
 class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnSharedPreferenceChangeListener */ {
 
-    companion object{
+    companion object {
         private const val TAG = "SettingsFragment"
     }
 
     @Inject
     lateinit var repo: SWMRepository
+
+    @Inject
+    lateinit var updateMediaDatabaseUseCase: UpdateMediaDatabaseUseCase
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
@@ -44,7 +47,7 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
 
     override fun onPreferenceTreeClick(preference: Preference?): Boolean {
         if (preference?.key == "update_from_online") {
-            CSVImporter(requireActivity().application, true).execute(CSVImporter.SOURCE_ONLINE)
+            updateMediaDatabaseUseCase(true)
         } else if (preference?.parent?.key == "permanent_filters") {
             GlobalScope.launch(Dispatchers.Default) {
                 val filter = repo.getFilter(preference.order,FilterType.FILTERCOLUMN_TYPE)
