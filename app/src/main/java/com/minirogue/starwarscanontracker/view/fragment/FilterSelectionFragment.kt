@@ -31,7 +31,12 @@ class FilterSelectionFragment : Fragment() {
 
         val activeChipGroup = fragmentView.selected_chipgroup
 
-        viewModel.getActiveFilters().observe(viewLifecycleOwner, { activeFilters -> activeChipGroup.removeAllViews(); activeFilters.forEach { activeChipGroup.addView(makeCurrentFilterChip(it)) } })
+        viewModel.getActiveFilters().observe(viewLifecycleOwner,
+                { activeFilters ->
+                    activeChipGroup.removeAllViews(); activeFilters.forEach {
+                    activeChipGroup.addView(makeCurrentFilterChip(it))
+                }
+                })
 
         val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(fragmentView.context)
         val adapter = FilterSelectionAdapter()

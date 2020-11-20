@@ -20,7 +20,8 @@ object AppModule {
     fun provideContext(application: Application): Context = application
 
     @Provides
-    fun provideSharedPreferences(app: Application): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(app)
+    fun provideSharedPreferences(app: Application): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(
+            app)
 
     @Provides
     fun provideConnManager(app: Application): ConnectivityManager {
@@ -30,10 +31,10 @@ object AppModule {
     @Provides
     @Named("checkboxes")
     fun provideCheckboxNames(sharedPreferences: SharedPreferences, app: Application): Array<String> = arrayOf(
-            sharedPreferences.getString(app.getString(R.string.checkbox1_default_text), app.getString(R.string.checkbox1_default_text))!!,
-            sharedPreferences.getString(app.getString(R.string.checkbox2_default_text), app.getString(R.string.checkbox2_default_text))!!,
-            sharedPreferences.getString(app.getString(R.string.checkbox3_default_text), app.getString(R.string.checkbox3_default_text))!!)
-
-
-
+            sharedPreferences.getString(app.getString(R.string.checkbox1_default_text),
+                    app.getString(R.string.checkbox1_default_text))!!,
+            sharedPreferences.getString(app.getString(R.string.checkbox2_default_text),
+                    app.getString(R.string.checkbox2_default_text))!!,
+            sharedPreferences.getString(app.getString(R.string.checkbox3_default_text),
+                    app.getString(R.string.checkbox3_default_text))!!)
 }

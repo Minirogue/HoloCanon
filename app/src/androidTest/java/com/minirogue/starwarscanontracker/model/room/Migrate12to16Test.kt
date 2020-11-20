@@ -50,8 +50,10 @@ class Migrate12to16Test {
         val timeline = -1.25
         val amazon_link = "url to buy"
         val amazon_stream = "url to stream"
-        db.execSQL("INSERT INTO media_items (id, title, author, type, description, review, image, date, timeline, amazon_link, amazon_stream) " +
-                "VALUES ($itemId, '$title', '$author', $type, '$description', '$review', '$image', '$date', $timeline, '$amazon_link', '$amazon_stream')")
+        db.execSQL("INSERT INTO media_items (id, title, author, type, description, review, image, " +
+                "date, timeline, amazon_link, amazon_stream) " +
+                "VALUES ($itemId, '$title', '$author', $type, '$description', '$review', '$image', " +
+                "'$date', $timeline, '$amazon_link', '$amazon_stream')")
 
         //Insert media_notes entry
         val wantToWatchRead = 1
@@ -63,7 +65,15 @@ class Migrate12to16Test {
         db.close()
 
 
-        db = testHelper.runMigrationsAndValidate(TEST_DB, 16, true, MediaDatabase.MIGRATE_12_13, MediaDatabase.MIGRATE_13_14, MediaDatabase.MIGRATE_14_15, MediaDatabase.MIGRATE_15_16)
+        db = testHelper.runMigrationsAndValidate(
+                TEST_DB,
+                16,
+                true,
+                MediaDatabase.MIGRATE_12_13,
+                MediaDatabase.MIGRATE_13_14,
+                MediaDatabase.MIGRATE_14_15,
+                MediaDatabase.MIGRATE_15_16
+        )
 
         var cursor = db.query("SELECT * FROM media_items WHERE id=$itemId")
         cursor.moveToPosition(0)
@@ -120,8 +130,10 @@ class Migrate12to16Test {
         val timeline = -1.25
         val amazon_link = "url to buy"
         val amazon_stream = "url to stream"
-        db.execSQL("INSERT INTO media_items (id, title, author, type, description, review, image, date, timeline, amazon_link, amazon_stream) " +
-                "VALUES ($itemId, '$title', '$author', $type, '$description', '$review', '$image', '$date', $timeline, '$amazon_link', '$amazon_stream')")
+        db.execSQL("INSERT INTO media_items (id, title, author, type, description, review, image, date," +
+                " timeline, amazon_link, amazon_stream) " +
+                "VALUES ($itemId, '$title', '$author', $type, '$description', '$review', '$image', '$date'," +
+                " $timeline, '$amazon_link', '$amazon_stream')")
 
         //Insert media_notes entry
         val wantToWatchRead = 1
@@ -133,9 +145,16 @@ class Migrate12to16Test {
         db.close()
 
 
-        db = testHelper.runMigrationsAndValidate(TEST_DB, 16, true, MediaDatabase.MIGRATE_12_13, MediaDatabase.MIGRATE_13_14, MediaDatabase.MIGRATE_14_15, MediaDatabase.MIGRATE_15_16)
+        db = testHelper.runMigrationsAndValidate(TEST_DB,
+                16,
+                true,
+                MediaDatabase.MIGRATE_12_13,
+                MediaDatabase.MIGRATE_13_14,
+                MediaDatabase.MIGRATE_14_15,
+                MediaDatabase.MIGRATE_15_16)
 
-        val cursor = db.query("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.mediaId")
+        val cursor = db.query("SELECT media_items.*,media_notes.* FROM media_items " +
+                "INNER JOIN media_notes ON media_items.id = media_notes.mediaId")
         cursor.moveToPosition(0)
         assertEquals(cursor.getInt(cursor.getColumnIndex("id")), itemId)
         assertEquals(cursor.getString(cursor.getColumnIndex("title")), title)
@@ -154,5 +173,4 @@ class Migrate12to16Test {
         assertEquals(cursor.getInt(cursor.getColumnIndex("watched_or_read")), watchedOrRead)
         assertEquals(cursor.getInt(cursor.getColumnIndex("owned")), owned)
     }
-
 }

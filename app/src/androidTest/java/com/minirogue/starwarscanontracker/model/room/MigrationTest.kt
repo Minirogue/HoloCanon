@@ -31,7 +31,6 @@ class MigrationTest {
         }
 
         db = testHelper.runMigrationsAndValidate(TEST_DB, 12, true, MediaDatabase.MIGRATE_11_12)
-
     }
 
     @Test
@@ -44,7 +43,6 @@ class MigrationTest {
         }
 
         db = testHelper.runMigrationsAndValidate(TEST_DB, 13, true, MediaDatabase.MIGRATE_12_13)
-
     }
 
 
@@ -58,7 +56,6 @@ class MigrationTest {
         }
 
         db = testHelper.runMigrationsAndValidate(TEST_DB, 15, true, MediaDatabase.MIGRATE_14_15)
-
     }
 
     @Test
@@ -71,7 +68,6 @@ class MigrationTest {
         }
 
         db = testHelper.runMigrationsAndValidate(TEST_DB, 16, true, MediaDatabase.MIGRATE_15_16)
-
     }
 
     @Test
@@ -84,7 +80,6 @@ class MigrationTest {
 
         db = testHelper.runMigrationsAndValidate(TEST_DB, 17, true, MediaDatabase.MIGRATE_16_17)
     }
-
 
 
     @Test
@@ -117,8 +112,10 @@ class MigrationTest {
         val timeline = -1.25
         val amazon_link = "url to buy"
         val amazon_stream = "url to stream"
-        db.execSQL("INSERT INTO media_items (id, title, series, author, type, description, review, image, date, timeline, amazon_link, amazon_stream) " +
-                "VALUES ($itemId, '$title', $seriesId, '$author', $type, '$description', '$review', '$image', '$date', $timeline, '$amazon_link', '$amazon_stream')")
+        db.execSQL("INSERT INTO media_items (id, title, series, author, type, description, review, image," +
+                " date, timeline, amazon_link, amazon_stream) " +
+                "VALUES ($itemId, '$title', $seriesId, '$author', $type, '$description', '$review', '$image'," +
+                " '$date', $timeline, '$amazon_link', '$amazon_stream')")
 
         //Insert media_notes entry
         val wantToWatchRead = 1
@@ -154,5 +151,4 @@ class MigrationTest {
         assertEquals(cursor.getInt(cursor.getColumnIndex("watched_or_read")), watchedOrRead)
         assertEquals(cursor.getInt(cursor.getColumnIndex("owned")), owned)
     }
-
 }

@@ -22,8 +22,10 @@ class SeriesFragment : Fragment() {
 
     private val viewModel: SeriesViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?,
+    ): View? {
         val fragmentView = inflater.inflate(R.layout.fragment_series, container, false)
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
@@ -31,7 +33,8 @@ class SeriesFragment : Fragment() {
         viewModel.liveSeries.observe(viewLifecycleOwner, { series -> updateViews(series, fragmentView) })
         viewModel.liveSeriesNotes.observe(viewLifecycleOwner, { notes -> updateViews(notes, fragmentView) })
         viewModel.checkBoxNames.observe(viewLifecycleOwner, { names -> setCheckBoxNames(names, fragmentView) })
-        viewModel.checkBoxVisibility.observe(viewLifecycleOwner, { visibility -> setCheckBoxVisibility(visibility, fragmentView) })
+        viewModel.checkBoxVisibility.observe(viewLifecycleOwner,
+                { visibility -> setCheckBoxVisibility(visibility, fragmentView) })
         fragmentView.checkbox_3.setOnClickListener { viewModel.toggleCheckbox3() }
         fragmentView.checkbox_2.setOnClickListener { viewModel.toggleCheckbox2() }
         fragmentView.checkbox_1.setOnClickListener { viewModel.toggleCheckbox1() }
@@ -71,10 +74,13 @@ class SeriesFragment : Fragment() {
     private fun updateViews(series: Series, fragmentView: View) {
         fragmentView.series_title.text = series.title
         //fragmentView.description_textview.text = series.description
-        fragmentView.series_image.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground, ScalingUtils.ScaleType.CENTER_INSIDE)
+        fragmentView.series_image.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground,
+                ScalingUtils.ScaleType.CENTER_INSIDE)
         val request = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(series.imageURL))
-                .setLowestPermittedRequestLevel(if (viewModel.isNetworkAllowed()) ImageRequest.RequestLevel.FULL_FETCH else ImageRequest.RequestLevel.DISK_CACHE)
+                .setLowestPermittedRequestLevel(if (viewModel.isNetworkAllowed()) {
+                    ImageRequest.RequestLevel.FULL_FETCH
+                } else ImageRequest.RequestLevel.DISK_CACHE)
                 .build()
         fragmentView.series_image.setImageRequest(request)
         fragmentView.series_image.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_INSIDE

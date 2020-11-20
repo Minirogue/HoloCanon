@@ -22,11 +22,14 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
                 else -> "SortTypeNotFound"
             }
         }
-        fun getAllStyles(): Array<Int>{
+
+        fun getAllStyles(): Array<Int> {
             return arrayOf(SORT_TITLE, SORT_TIMELINE, SORT_DATE)
         }
     }
 
+    // TODO
+    @Suppress("ReturnCount")
     override fun compare(p0: MediaAndNotes?, p1: MediaAndNotes?): Int {
         if (p0 == null || p1 == null) {
             if (p0 == null && p1 == null) {
@@ -39,7 +42,6 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
         }
         val compNum : Int = when (style){
             SORT_TITLE -> compareTitles(p0, p1)
-            //SORT_TYPE -> FilterObject.getTextForType(p0.mediaItem.type).compareTo(FilterObject.getTextForType(p1.mediaItem.type))
             SORT_TIMELINE -> sign(p0.mediaItem.timeline - p1.mediaItem.timeline).toInt()
             SORT_DATE -> compareDates(p0.mediaItem, p1.mediaItem)
             else -> compareTitles(p0,p1)

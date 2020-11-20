@@ -18,11 +18,13 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
 
-class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
-                                        private val daoType: DaoType,
-                                        private val daoFilter: DaoFilter,
-                                        private val daoSeries: DaoSeries,
-                                        private val sharedPreferences: SharedPreferences) {
+class SWMRepository @Inject constructor(
+        private val daoMedia: DaoMedia,
+        private val daoType: DaoType,
+        private val daoFilter: DaoFilter,
+        private val daoSeries: DaoSeries,
+        private val sharedPreferences: SharedPreferences,
+) {
     //private val TAG = "Repo"
 
 
@@ -42,12 +44,15 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
         return daoMedia.getMediaAndNotesRawQuery(query)
     }
 
+    // TODO
+    @Suppress("LongMethod", "ComplexMethod")
     /**
      * Returns a SimpleSQLiteQuery based on the given filters and the stored permanent filters
      *
      * @param filterList the list of Filters to apply to the query
      */
-    private suspend fun convertFiltersToQuery(filterList: List<FilterObject>): SimpleSQLiteQuery = withContext(Dispatchers.Default) {
+    private suspend fun convertFiltersToQuery(filterList: List<FilterObject>): SimpleSQLiteQuery = withContext(
+            Dispatchers.Default) {
         val gettingPermanentFilters = async { getPermanentFiltersAsStringBuilder() }
         val filterTypeIsPositive = SparseBooleanArray()
         for (filterType in daoFilter.getAllFilterTypesNonLive()) {
@@ -55,7 +60,6 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
         }
         val queryBuild = StringBuilder()
         val joins = StringBuilder()
-        //val characterFilter = StringBuilder()
         val seriesFilter = StringBuilder()
         val typeFilter = StringBuilder()
         val publisherFilter = StringBuilder()
@@ -63,18 +67,6 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
         for (filter in filterList) {
             if (filter.active) {
                 when (filter.filterType) {
-                    /* FilterType.FILTERCOLUMN_CHARACTER -> {
-                         if (characterFilter.isEmpty()) {
-                             joins.append(" INNER JOIN media_character_join ON media_items.id = media_character_join.mediaId ")
-                         } else {
-                             characterFilter.append(" AND ")
-                         }
-                         if (!filterTypeIsPositive[filter.filterType]) {
-                             characterFilter.append(" NOT ")
-                         }
-                         characterFilter.append(" media_character_join.characterID = ")
-                         characterFilter.append(filter.id)
-                     }*/
                     FilterType.FILTERCOLUMN_SERIES -> {
                         if (seriesFilter.isEmpty()) {
                             if (!filterTypeIsPositive[filter.filterType]) {
@@ -149,7 +141,8 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
                 }
             }
         }
-        queryBuild.append("SELECT media_items.*,media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.media_id ")
+        queryBuild.append("SELECT media_items.*,media_notes.* FROM media_items " +
+                "INNER JOIN media_notes ON media_items.id = media_notes.media_id ")
         queryBuild.append(joins)
         var whereClause = false
         /*if (characterFilter.isNotEmpty()) {
@@ -359,7 +352,10 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
         }
     }
 
-    suspend fun getFilter(id: Int, typeId: Int): FilterObject? = withContext(Dispatchers.Default) { daoFilter.getFilter(id, typeId) }
+    suspend fun getFilter(id: Int, typeId: Int): FilterObject? = withContext(Dispatchers.Default) {
+        daoFilter.getFilter(id,
+                typeId)
+    }
 
     fun getCheckBoxText(): LiveData<Array<String>> {
         return Transformations.map(daoFilter.getCheckBoxFilterTypes()) { filterTypeList ->
@@ -374,5 +370,4 @@ class SWMRepository @Inject constructor(private val daoMedia: DaoMedia,
             checkboxTextArr
         }
     }
-
 }

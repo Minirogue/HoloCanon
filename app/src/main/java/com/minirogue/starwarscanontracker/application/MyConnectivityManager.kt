@@ -6,10 +6,13 @@ import android.net.ConnectivityManager
 import com.minirogue.starwarscanontracker.R
 import javax.inject.Inject
 
-class MyConnectivityManager @Inject constructor(private val connMgr: ConnectivityManager, private val prefs: SharedPreferences, private val app: Application) {
+class MyConnectivityManager @Inject constructor(
+        private val connMgr: ConnectivityManager,
+        private val prefs: SharedPreferences,
+        private val app: Application,
+) {
 
     private fun unmeteredOnly(): Boolean = prefs.getBoolean(app.getString(R.string.setting_unmetered_sync_only), true)
 
     fun isNetworkAllowed(): Boolean = !connMgr.isActiveNetworkMetered || !unmeteredOnly()
-
 }

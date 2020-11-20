@@ -10,8 +10,10 @@ import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter
 
 
-class FilterSelectionViewModel @ViewModelInject constructor(private val repository: SWMRepository,
-                                                            prefsRepo: PrefsRepo) : ViewModel() {
+class FilterSelectionViewModel @ViewModelInject constructor(
+        private val repository: SWMRepository,
+        prefsRepo: PrefsRepo,
+) : ViewModel() {
 
 
     val filterTypes = repository.getAllFilterTypes()
@@ -27,18 +29,23 @@ class FilterSelectionViewModel @ViewModelInject constructor(private val reposito
         filterObject.active = !filterObject.active
         repository.update(filterObject)
     }
-    fun setFilterInactive(filterObject: FilterObject){
+
+    fun setFilterInactive(filterObject: FilterObject) {
         filterObject.active = false
         repository.update(filterObject)
     }
 
-    fun getFiltersOfType(filterType: FilterType) = Transformations.map(repository.getFiltersOfType(filterType.typeId)) { filterList -> filterList.map { FullFilter(it, filterType.isFilterPositive) } }
+    fun getFiltersOfType(filterType: FilterType) = Transformations
+            .map(repository.getFiltersOfType(filterType.typeId)) { filterList ->
+                filterList.map {
+                    FullFilter(it, filterType.isFilterPositive)
+                }
+            }
 
     fun getActiveFilters() = repository.getActiveFilters()
 
-    fun deactivateFilter(filterObject: FilterObject){
+    fun deactivateFilter(filterObject: FilterObject) {
         filterObject.active = false
         repository.update(filterObject)
     }
-
 }

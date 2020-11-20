@@ -21,9 +21,11 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 
 
-class SeriesViewModel @ViewModelInject constructor(private val repository: SWMRepository,
-                                                   prefsRepo: PrefsRepo,
-                                                   private val connMgr: MyConnectivityManager) : ViewModel() {
+class SeriesViewModel @ViewModelInject constructor(
+        private val repository: SWMRepository,
+        prefsRepo: PrefsRepo,
+        private val connMgr: MyConnectivityManager,
+) : ViewModel() {
 
     private var seriesId: Int = -1
     lateinit var liveSeries: LiveData<Series>
@@ -43,7 +45,10 @@ class SeriesViewModel @ViewModelInject constructor(private val repository: SWMRe
             }
         }
         viewModelScope.launch {
-            seriesList.addSource(repository.getMediaListWithNotes(listOf(FilterObject(seriesId, FilterType.FILTERCOLUMN_SERIES, true, "series filter")))) { mediaAndNotesList -> seriesList.postValue(mediaAndNotesList) }
+            seriesList.addSource(repository.getMediaListWithNotes(listOf(FilterObject(seriesId,
+                    FilterType.FILTERCOLUMN_SERIES,
+                    true,
+                    "series filter")))) { mediaAndNotesList -> seriesList.postValue(mediaAndNotesList) }
         }
     }
 
@@ -105,5 +110,4 @@ class SeriesViewModel @ViewModelInject constructor(private val repository: SWMRe
     }
 
     fun isNetworkAllowed() = connMgr.isNetworkAllowed()
-
 }

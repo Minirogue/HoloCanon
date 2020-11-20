@@ -6,11 +6,13 @@ import androidx.lifecycle.LiveData
 
 //Note, this class used from https://stackoverflow.com/a/53028546/4802422
 //Frankly, it should be part of the Android lifecycle components
-abstract class SharedPreferenceLiveData<T>(val sharedPrefs: SharedPreferences,
-                                           val key: String,
-                                           val defValue: T) : LiveData<T>() {
+abstract class SharedPreferenceLiveData<T>(
+        val sharedPrefs: SharedPreferences,
+        val key: String,
+        val defValue: T,
+) : LiveData<T>() {
 
-    private val preferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { sharedPreferences, key ->
+    private val preferenceChangeListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
         if (key == this.key) {
             value = getValueFromPreferences(key, defValue)
         }
@@ -42,7 +44,8 @@ class SharedPreferenceStringLiveData(sharedPrefs: SharedPreferences, key: String
 
 class SharedPreferenceBooleanLiveData(sharedPrefs: SharedPreferences, key: String, defValue: Boolean) :
         SharedPreferenceLiveData<Boolean>(sharedPrefs, key, defValue) {
-    override fun getValueFromPreferences(key: String, defValue: Boolean): Boolean = sharedPrefs.getBoolean(key, defValue)
+    override fun getValueFromPreferences(key: String, defValue: Boolean): Boolean = sharedPrefs.getBoolean(key,
+            defValue)
 }
 
 class SharedPreferenceFloatLiveData(sharedPrefs: SharedPreferences, key: String, defValue: Float) :
@@ -57,7 +60,10 @@ class SharedPreferenceLongLiveData(sharedPrefs: SharedPreferences, key: String, 
 
 class SharedPreferenceStringSetLiveData(sharedPrefs: SharedPreferences, key: String, defValue: Set<String>) :
         SharedPreferenceLiveData<Set<String>>(sharedPrefs, key, defValue) {
-    override fun getValueFromPreferences(key: String, defValue: Set<String>): Set<String> = sharedPrefs.getStringSet(key, defValue)!!
+    override fun getValueFromPreferences(
+            key: String,
+            defValue: Set<String>,
+    ): Set<String> = sharedPrefs.getStringSet(key, defValue)!!
 }
 
 fun SharedPreferences.intLiveData(key: String, defValue: Int): SharedPreferenceLiveData<Int> {

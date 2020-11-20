@@ -24,8 +24,8 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
 
     fun updateList(newList: List<FilterType>) {
         typeList.clear()
-        for (item in newList){
-            if (item.typeId !in excludedTypes){
+        for (item in newList) {
+            if (item.typeId !in excludedTypes) {
                 typeList.add(item)
             }
         }
@@ -64,7 +64,10 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
 
     override fun onBindViewHolder(holder: FilterTypeViewHolder, position: Int) {
         val currentItem = typeList[position]
-        holder.itemView.setOnClickListener { isExpanded.put(currentItem.typeId, !getIsExpanded(currentItem)); notifyItemChanged(position) }
+        holder.itemView.setOnClickListener {
+            isExpanded.put(currentItem.typeId,
+                    !getIsExpanded(currentItem)); notifyItemChanged(position)
+        }
         holder.textView.text = currentItem.text
         holder.switch.isChecked = currentItem.isFilterPositive
         holder.switch.text = if (currentItem.isFilterPositive) "filter in" else "filter out"

@@ -20,7 +20,7 @@ import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
 import java.util.*
 
 class SWMListAdapter(
-        private val adapterInterface: AdapterInterface
+        private val adapterInterface: AdapterInterface,
 ) : ListAdapter<MediaAndNotes, SWMListAdapter.MediaViewHolder>(DiffCallback) {
     //private final String TAG = "adapter";
     //private AsyncListDiffer<MediaAndNotes> listDiffer = new AsyncListDiffer<>(this, DiffCallback);
@@ -129,7 +129,9 @@ class SWMListAdapter(
         if (imageUrl != "") {
             val request = ImageRequestBuilder
                     .newBuilderWithSource(Uri.parse(imageUrl))
-                    .setLowestPermittedRequestLevel(if (adapterInterface.isNetworkAllowed()) ImageRequest.RequestLevel.FULL_FETCH else ImageRequest.RequestLevel.DISK_CACHE)
+                    .setLowestPermittedRequestLevel(if (adapterInterface.isNetworkAllowed()) {
+                        ImageRequest.RequestLevel.FULL_FETCH
+                    } else ImageRequest.RequestLevel.DISK_CACHE)
                     .build()
             setImageRequest(request)
             hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_INSIDE
@@ -142,14 +144,15 @@ class SWMListAdapter(
     class MediaViewHolder(val binding: MediaListItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     companion object {
-        private val DiffCallback: DiffUtil.ItemCallback<MediaAndNotes> = object : DiffUtil.ItemCallback<MediaAndNotes>() {
-            override fun areItemsTheSame(oldItem: MediaAndNotes, newItem: MediaAndNotes): Boolean {
-                return oldItem.mediaItem.id == newItem.mediaItem.id
-            }
+        private val DiffCallback: DiffUtil.ItemCallback<MediaAndNotes> =
+                object : DiffUtil.ItemCallback<MediaAndNotes>() {
+                    override fun areItemsTheSame(oldItem: MediaAndNotes, newItem: MediaAndNotes): Boolean {
+                        return oldItem.mediaItem.id == newItem.mediaItem.id
+                    }
 
-            override fun areContentsTheSame(oldItem: MediaAndNotes, newItem: MediaAndNotes): Boolean {
-                return oldItem == newItem
-            }
-        }
+                    override fun areContentsTheSame(oldItem: MediaAndNotes, newItem: MediaAndNotes): Boolean {
+                        return oldItem == newItem
+                    }
+                }
     }
 }

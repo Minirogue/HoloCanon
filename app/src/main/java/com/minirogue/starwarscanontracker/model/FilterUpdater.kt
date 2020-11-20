@@ -14,18 +14,20 @@ import javax.inject.Inject
 import javax.inject.Named
 
 
-class FilterUpdater @Inject constructor(private val daoFilter: DaoFilter,
-                                        private val daoType: DaoType,
-                                        private val daoSeries: DaoSeries,
-                                        private val daoCompany: DaoCompany,
-                                        @Named("checkboxes") private val injectedCheckboxText: Array<String>) {
+class FilterUpdater @Inject constructor(
+        private val daoFilter: DaoFilter,
+        private val daoType: DaoType,
+        private val daoSeries: DaoSeries,
+        private val daoCompany: DaoCompany,
+        @Named("checkboxes") private val injectedCheckboxText: Array<String>,
+) {
 
 
     fun updateFilters() = GlobalScope.launch(Dispatchers.Default) {
         launch { updateSeriesFilters() }
         launch { updateCheckboxFilters() }
         launch { updateMediaTypeFilters() }
-        launch { updatePublisherFilters()}
+        launch { updatePublisherFilters() }
     }
 
     fun updateJustCheckboxFilters() = GlobalScope.launch(Dispatchers.Default) { updateCheckboxFilters() }
@@ -35,19 +37,19 @@ class FilterUpdater @Inject constructor(private val daoFilter: DaoFilter,
         val publisherFilterText = "Publisher"
 
         val insertWorked = daoFilter.insert(FilterType(FilterType.FILTERCOLUMN_PUBLISHER, true, publisherFilterText))
-        if (insertWorked < 0){
+        if (insertWorked < 0) {
             val filterType = daoFilter.getFilterType(FilterType.FILTERCOLUMN_PUBLISHER)
             filterType.text = publisherFilterText
             daoFilter.update(filterType)
         }
 
         val companyList = daoCompany.getAllNonLive()
-        for (company in companyList){
+        for (company in companyList) {
             tempFilter = daoFilter.getFilter(company.id, FilterType.FILTERCOLUMN_PUBLISHER)
             if (tempFilter == null) {
                 tempFilter = FilterObject(company.id, FilterType.FILTERCOLUMN_PUBLISHER, false, company.companyName)
                 daoFilter.insert(tempFilter)
-            } else{
+            } else {
                 tempFilter.displayText = company.companyName
                 daoFilter.update(tempFilter)
             }
@@ -105,7 +107,9 @@ class FilterUpdater @Inject constructor(private val daoFilter: DaoFilter,
     private suspend fun updateCheckboxFilters() = withContext(Dispatchers.Default) {
         var tempFilter: FilterObject?
         //add checkbox filters
-        var insertWorked = daoFilter.insert(FilterType(FilterType.FILTERCOLUMN_CHECKBOX_ONE, true, injectedCheckboxText[0]))
+        var insertWorked = daoFilter.insert(FilterType(FilterType.FILTERCOLUMN_CHECKBOX_ONE,
+                true,
+                injectedCheckboxText[0]))
         if (insertWorked < 0) {
             val filterType = daoFilter.getFilterType(FilterType.FILTERCOLUMN_CHECKBOX_ONE)
             filterType.text = injectedCheckboxText[0]
@@ -136,7 +140,9 @@ class FilterUpdater @Inject constructor(private val daoFilter: DaoFilter,
             daoFilter.update(tempFilter)
         }
 
-        insertWorked = daoFilter.insert(FilterType(FilterType.FILTERCOLUMN_CHECKBOX_THREE, true, injectedCheckboxText[2]))
+        insertWorked = daoFilter.insert(FilterType(FilterType.FILTERCOLUMN_CHECKBOX_THREE,
+                true,
+                injectedCheckboxText[2]))
         if (insertWorked < 0) {
             val filterType = daoFilter.getFilterType(FilterType.FILTERCOLUMN_CHECKBOX_THREE)
             filterType.text = injectedCheckboxText[2]

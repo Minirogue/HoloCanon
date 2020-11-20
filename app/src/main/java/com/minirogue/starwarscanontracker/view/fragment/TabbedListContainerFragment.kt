@@ -34,8 +34,6 @@ class TabbedListContainerFragment : Fragment() {
     }
 
 
-
-
     // Add Fragments to Tabs
     private fun setupViewPager(viewPager: ViewPager) {
 
@@ -46,11 +44,10 @@ class TabbedListContainerFragment : Fragment() {
         adapter.addFragment(FilterSelectionFragment(), getString(R.string.nav_filters))
         //adapter.addFragment(SettingsFragment(), "Settings")
         viewPager.adapter = adapter
-
-
     }
 
-    internal class MyAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+    internal class MyAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager,
+            BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
         private val mFragmentList = ArrayList<Fragment>()
         private val mFragmentTitleList = ArrayList<String>()
 
@@ -71,5 +68,4 @@ class TabbedListContainerFragment : Fragment() {
             return mFragmentTitleList[position]
         }
     }
-
 }
