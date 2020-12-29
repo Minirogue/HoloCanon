@@ -4,7 +4,7 @@ buildscript {
     ext {
         kotlin_version = '1.4.21'
         hiltVersion = '2.30.1-alpha'
-        detektVersion = '1.14.2'
+        detektVersion = '1.15.0'
     }
 
     repositories {
