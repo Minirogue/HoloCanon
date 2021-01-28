@@ -34,7 +34,7 @@ ext {
     roomVersion = '2.2.6'
     lifecycleVersion = '2.2.0'
     appCompatVersion = '1.2.0'
-    jetpackHiltVersion = '1.0.0-alpha02'
+    jetpackHiltVersion = '1.0.0-alpha03'
 }
 
 allprojects {
