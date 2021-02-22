@@ -28,10 +28,10 @@ class MediaListViewModel @ViewModelInject constructor(
         application: Application,
 ) : ViewModel() {
 
-    //filtering
+    // filtering
     val activeFilters = repository.getActiveFilters()
 
-    //The data requested by the user
+    // The data requested by the user
     private var data: LiveData<List<MediaAndNotes>> = MutableLiveData()
     private val sortedData = MediatorLiveData<List<MediaAndNotes>>()
     val filteredMediaAndNotes: LiveData<List<MediaAndNotes>>
@@ -39,25 +39,25 @@ class MediaListViewModel @ViewModelInject constructor(
     private val mediaTypeToString = SparseArray<String>()
     private val dataMediator = MediatorLiveData<List<MediaItem>>()
 
-    //The current method of sorting
+    // The current method of sorting
     private val _sortStyle = MutableLiveData<SortStyle>()
     val sortStyle: LiveData<SortStyle>
         get() = _sortStyle
 
-    //Checkbox settings
+    // Checkbox settings
     val checkBoxText = repository.getCheckBoxText()
     val checkBoxVisibility: LiveData<BooleanArray> = prefsRepo.checkBoxVisibility
 
-    //Variables for handling exactly one query and sort job at a time
+    // Variables for handling exactly one query and sort job at a time
     private var queryJob: Job = Job()
     private val queryMutex = Mutex()
     private var sortJob: Job = Job()
     private val sortMutex = Mutex()
 
-    //The file where the current sorting method is stored
+    // The file where the current sorting method is stored
     private val sortCacheFileName = application.cacheDir.toString() + "/sortCache"
 
-    //Whether or not network calls are currently allowed. Used for fetching images.
+    // Whether or not network calls are currently allowed. Used for fetching images.
     fun isNetworkAllowed(): Boolean = connMgr.isNetworkAllowed()
 
 
@@ -120,7 +120,7 @@ class MediaListViewModel @ViewModelInject constructor(
     }
 
     private suspend fun sort() = withContext(Dispatchers.Default) {
-        //Log.d(TAG, "Sort called");
+        // Log.d(TAG, "Sort called");
         sortMutex.withLock {
             sortJob.cancelAndJoin()
             sortJob = launch {
@@ -128,7 +128,7 @@ class MediaListViewModel @ViewModelInject constructor(
                 if (toBeSorted != null) {
                     Collections.sort(toBeSorted, _sortStyle.value
                             ?: SortStyle(SortStyle.DEFAULT_STYLE, true))
-                    sortedData.postValue(toBeSorted)
+                    sortedData.postValue(toBeSorted!!) // TODO this non-null assertion shouldn't be necessary
                 }
             }
         }
