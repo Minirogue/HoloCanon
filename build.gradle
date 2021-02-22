@@ -32,7 +32,7 @@ ext {
     jUnitVersion = '4.13.2'
     coroutinesVersion = '1.4.1'
     roomVersion = '2.2.6'
-    lifecycleVersion = '2.2.0'
+    lifecycleVersion = '2.3.0'
     appCompatVersion = '1.2.0'
     jetpackHiltVersion = '1.0.0-alpha02'
 }
