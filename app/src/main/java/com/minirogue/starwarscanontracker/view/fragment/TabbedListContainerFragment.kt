@@ -5,67 +5,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 import com.minirogue.starwarscanontracker.R
-import dagger.hilt.android.AndroidEntryPoint
+import com.minirogue.starwarscanontracker.databinding.FragmentTabbedListContainerBinding
 
-@AndroidEntryPoint
 class TabbedListContainerFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        retainInstance = true
+    private enum class TabInfo(val tabNameRes: Int, val fragmentCreator: () -> Fragment) {
+        // The order here defines the order of the tabs
+        HOME(R.string.nav_home, { HomeFragment() }),
+        MEDIA_LIST(R.string.nav_media_list, { MediaListFragment() }),
+        FILTERS(R.string.nav_filters, { FilterSelectionFragment() }),
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_tabbed_list_container, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val binding = FragmentTabbedListContainerBinding.inflate(inflater, container, false)
         // Setting ViewPager for each Tabs
-        val viewPager = view.findViewById(R.id.viewpager) as ViewPager
-        setupViewPager(viewPager)
-        // Set Tabs inside Toolbar
-        val tabs = view.findViewById(R.id.result_tabs) as TabLayout
-        tabs.setupWithViewPager(viewPager)
+        binding.viewpager.adapter = MainTabAdapter(this)
+        // Connect tabs to viewpager
+        TabLayoutMediator(binding.resultTabs, binding.viewpager) { tab, position ->
+            tab.text = getString(TabInfo.values()[position].tabNameRes)
+        }.attach()
 
-
-        return view
+        return binding.root
     }
 
+    private class MainTabAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-    // Add Fragments to Tabs
-    private fun setupViewPager(viewPager: ViewPager) {
+        override fun getItemCount(): Int = TabInfo.values().size
 
-
-        val adapter = MyAdapter(childFragmentManager)
-        adapter.addFragment(HomeFragment(), getString(R.string.nav_home))
-        adapter.addFragment(MediaListFragment(), getString(R.string.nav_media_list))
-        adapter.addFragment(FilterSelectionFragment(), getString(R.string.nav_filters))
-        //adapter.addFragment(SettingsFragment(), "Settings")
-        viewPager.adapter = adapter
-    }
-
-    internal class MyAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager,
-            BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
-        private val mFragmentList = ArrayList<Fragment>()
-        private val mFragmentTitleList = ArrayList<String>()
-
-        override fun getItem(position: Int): Fragment {
-            return mFragmentList[position]
-        }
-
-        override fun getCount(): Int {
-            return mFragmentList.size
-        }
-
-        fun addFragment(fragment: Fragment, title: String) {
-            mFragmentList.add(fragment)
-            mFragmentTitleList.add(title)
-        }
-
-        override fun getPageTitle(position: Int): CharSequence? {
-            return mFragmentTitleList[position]
-        }
+        override fun createFragment(position: Int): Fragment = TabInfo.values()[position].fragmentCreator()
     }
 }
