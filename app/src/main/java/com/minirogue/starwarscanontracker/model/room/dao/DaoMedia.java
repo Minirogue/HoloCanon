@@ -1,17 +1,17 @@
 package com.minirogue.starwarscanontracker.model.room.dao;
 
 import androidx.lifecycle.LiveData;
-import androidx.sqlite.db.SupportSQLiteQuery;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.RawQuery;
 import androidx.room.Update;
+import androidx.sqlite.db.SupportSQLiteQuery;
 
-import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes;
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem;
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes;
+import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes;
 
 import java.util.List;
 

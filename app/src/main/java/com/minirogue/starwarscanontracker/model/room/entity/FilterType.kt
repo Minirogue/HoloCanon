@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "filter_type")
 class FilterType(
-        @PrimaryKey @ColumnInfo(name = "id") val typeId: Int,
-        @ColumnInfo(name = "is_positive") var isFilterPositive: Boolean,
-        @ColumnInfo(name = "text") var text: String,
+    @PrimaryKey @ColumnInfo(name = "id") val typeId: Int,
+    @ColumnInfo(name = "is_positive") var isFilterPositive: Boolean,
+    @ColumnInfo(name = "text") var text: String,
 ) {
 
     companion object {

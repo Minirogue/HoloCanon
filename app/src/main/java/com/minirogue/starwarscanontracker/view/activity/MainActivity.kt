@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             // initialize the fragment to the entry fragment
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, TabbedListContainerFragment())
-                    .commit()
+                .replace(R.id.fragment_container, TabbedListContainerFragment())
+                .commit()
         }
 
         // Set up the toolbar and navigation drawer
@@ -105,9 +105,9 @@ class MainActivity : AppCompatActivity() {
      */
     private fun replaceFragment(newFrag: Fragment, tag: String) {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, newFrag, tag)
-                .addToBackStack(null)
-                .commit()
+            .replace(R.id.fragment_container, newFrag, tag)
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {
