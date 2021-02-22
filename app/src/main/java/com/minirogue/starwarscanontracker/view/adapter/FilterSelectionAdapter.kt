@@ -4,15 +4,11 @@ import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
-import com.minirogue.starwarscanontracker.R
+import com.minirogue.starwarscanontracker.databinding.FilterSelectionItemBinding
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.model.room.entity.FilterType
-import kotlinx.android.synthetic.main.filter_selection_item.view.*
 
 class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.FilterTypeViewHolder>() {
 
@@ -20,7 +16,6 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
     private val typeList = mutableListOf<FilterType>()
     private val isExpanded = SparseBooleanArray()
     private val excludedTypes = ArrayList<Int>()
-
 
     fun updateList(newList: List<FilterType>) {
         typeList.clear()
@@ -58,8 +53,8 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterTypeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.filter_selection_item, parent, false)
-        return FilterTypeViewHolder(view)
+        val binding = FilterSelectionItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return FilterTypeViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: FilterTypeViewHolder, position: Int) {
@@ -68,17 +63,17 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
             isExpanded.put(currentItem.typeId,
                     !getIsExpanded(currentItem)); notifyItemChanged(position)
         }
-        holder.textView.text = currentItem.text
-        holder.switch.isChecked = currentItem.isFilterPositive
-        holder.switch.text = if (currentItem.isFilterPositive) "filter in" else "filter out"
-        holder.switch.setOnClickListener { listener.onFilterTypeSwitchClicked(currentItem) }
+        holder.binding.filterTypeTextview.text = currentItem.text
+        holder.binding.typeSwitch.isChecked = currentItem.isFilterPositive
+        holder.binding.typeSwitch.text = if (currentItem.isFilterPositive) "filter in" else "filter out"
+        holder.binding.typeSwitch.setOnClickListener { listener.onFilterTypeSwitchClicked(currentItem) }
 
-        val chipGroup = holder.itemView.filter_selection_chipgroup
+        val chipGroup = holder.binding.filterSelectionChipgroup
         listener.setFilterGroupObservation(chipGroup, currentItem)
 
-        holder.itemView.collapsible_subview.visibility = if (getIsExpanded(currentItem)) View.VISIBLE else View.GONE
-        holder.expandIcon.rotation = if (getIsExpanded(currentItem)) 0.toFloat() else (-90).toFloat()
-        //holder.itemView.setOnClickListener { listener.onFilterTypeClicked(currentItem) }
+        holder.binding.collapsibleSubview.visibility = if (getIsExpanded(currentItem)) View.VISIBLE else View.GONE
+        holder.binding.filtergroupExpandIcon.rotation = if (getIsExpanded(currentItem)) 0.toFloat() else (-90).toFloat()
+        // holder.itemView.setOnClickListener { listener.onFilterTypeClicked(currentItem) }
     }
 
     private fun getIsExpanded(type: FilterType) = isExpanded.get(type.typeId, false)
@@ -87,10 +82,5 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
         return typeList.size
     }
 
-    class FilterTypeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        val textView: TextView = itemView.filter_type_textview
-        val switch: SwitchCompat = itemView.type_switch
-        val expandIcon: ImageView = itemView.filtergroup_expand_icon
-    }
+    class FilterTypeViewHolder(val binding: FilterSelectionItemBinding) : RecyclerView.ViewHolder(binding.root)
 }

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.minirogue.starwarscanontracker.R
+import com.minirogue.starwarscanontracker.databinding.FragmentFilterSelectionBinding
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter
@@ -18,18 +18,19 @@ import com.minirogue.starwarscanontracker.view.FilterChip
 import com.minirogue.starwarscanontracker.view.adapter.FilterSelectionAdapter
 import com.minirogue.starwarscanontracker.viewmodel.FilterSelectionViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_filter_selection.view.*
 
 @AndroidEntryPoint
 class FilterSelectionFragment : Fragment() {
 
     private val viewModel: FilterSelectionViewModel by viewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val fragmentView = inflater.inflate(R.layout.fragment_filter_selection, container, false)
-        val recyclerView = fragmentView.general_recyclerview
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val fragmentBinding = FragmentFilterSelectionBinding.inflate(inflater, container, false)
+        val fragmentContext = fragmentBinding.root.context
 
-        val activeChipGroup = fragmentView.selected_chipgroup
+        val recyclerView = fragmentBinding.generalRecyclerview
+
+        val activeChipGroup = fragmentBinding.selectedChipgroup
 
         viewModel.getActiveFilters().observe(viewLifecycleOwner,
                 { activeFilters ->
@@ -38,7 +39,7 @@ class FilterSelectionFragment : Fragment() {
                 }
                 })
 
-        val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(fragmentView.context)
+        val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(fragmentContext)
         val adapter = FilterSelectionAdapter()
         adapter.setOnClickListeners(object : FilterSelectionAdapter.OnClickListeners {
             override fun onFilterClicked(filterObject: FilterObject) {
@@ -50,7 +51,7 @@ class FilterSelectionFragment : Fragment() {
                     chipGroup.removeAllViews()
                     filters.forEach {
                         if (!it.filterObject.active) {
-                            val filterChip = FilterChip(it, fragmentView.context)
+                            val filterChip = FilterChip(it, fragmentContext)
                             val filterObject = it.filterObject
                             filterChip.setOnClickListener { viewModel.flipFilterActive(filterObject) }
                             filterChip.setOnCloseIconClickListener { viewModel.setFilterInactive(filterObject) }
@@ -83,7 +84,7 @@ class FilterSelectionFragment : Fragment() {
         })
         viewModel.filterTypes.observe(viewLifecycleOwner, { filterTypes -> adapter.updateList(filterTypes) })
 
-        return fragmentView
+        return fragmentBinding.root
     }
 
     private fun makeCurrentFilterChip(fullFilter: FullFilter): Chip {

@@ -14,12 +14,12 @@ import com.facebook.drawee.drawable.ScalingUtils
 import com.facebook.imagepipeline.request.ImageRequest
 import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.minirogue.starwarscanontracker.R
+import com.minirogue.starwarscanontracker.databinding.FragmentViewMediaItemBinding
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.model.room.entity.MediaType
 import com.minirogue.starwarscanontracker.viewmodel.ViewMediaItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_view_media_item.view.*
 
 @AndroidEntryPoint
 class ViewMediaItemFragment : Fragment() {
@@ -31,45 +31,44 @@ class ViewMediaItemFragment : Fragment() {
 
     private val viewModel: ViewMediaItemViewModel by viewModels()
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val fragmentView = inflater.inflate(R.layout.fragment_view_media_item, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val fragmentBinding = FragmentViewMediaItemBinding.inflate(inflater, container, false)
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
         if (bundleItemId != -1) viewModel.setItemId(bundleItemId)
-        viewModel.liveMediaItem.observe(viewLifecycleOwner, { item -> updateViews(item, fragmentView) })
-        viewModel.liveMediaNotes.observe(viewLifecycleOwner, { notes -> updateViews(notes, fragmentView) })
-        viewModel.liveMediaType.observe(viewLifecycleOwner, { mediaType -> updateView(mediaType, fragmentView) })
+        viewModel.liveMediaItem.observe(viewLifecycleOwner, { item -> updateViews(item, fragmentBinding) })
+        viewModel.liveMediaNotes.observe(viewLifecycleOwner, { notes -> updateViews(notes, fragmentBinding) })
+        viewModel.liveMediaType.observe(viewLifecycleOwner, { mediaType -> updateView(mediaType, fragmentBinding) })
         viewModel.checkBoxText.observe(viewLifecycleOwner, { arr ->
-            fragmentView.checkbox_1.text = arr[0]
-            fragmentView.checkbox_2.text = arr[1]
-            fragmentView.checkbox_3.text = arr[2]
+            fragmentBinding.checkbox1.text = arr[0]
+            fragmentBinding.checkbox2.text = arr[1]
+            fragmentBinding.checkbox3.text = arr[2]
         })
         viewModel.checkBoxVisibility.observe(viewLifecycleOwner,
-                { visibilityArray -> updateViews(visibilityArray, fragmentView) })
+                { visibilityArray -> updateViews(visibilityArray, fragmentBinding) })
 
-        fragmentView.checkbox_3.setOnClickListener { viewModel.toggleCheckbox3() }
-        fragmentView.checkbox_2.setOnClickListener { viewModel.toggleCheckbox2() }
-        fragmentView.checkbox_1.setOnClickListener { viewModel.toggleCheckbox1() }
+        fragmentBinding.checkbox3.setOnClickListener { viewModel.toggleCheckbox3() }
+        fragmentBinding.checkbox2.setOnClickListener { viewModel.toggleCheckbox2() }
+        fragmentBinding.checkbox1.setOnClickListener { viewModel.toggleCheckbox1() }
 
-        return fragmentView
+        return fragmentBinding.root
     }
 
-    private fun updateViews(visibilityArray: BooleanArray, fragmentView: View) {
-        fragmentView.checkbox_1.visibility = if (visibilityArray[0]) View.VISIBLE else View.GONE
-        fragmentView.checkbox_2.visibility = if (visibilityArray[1]) View.VISIBLE else View.GONE
-        fragmentView.checkbox_3.visibility = if (visibilityArray[2]) View.VISIBLE else View.GONE
+    private fun updateViews(visibilityArray: BooleanArray, fragmentBinding: FragmentViewMediaItemBinding) {
+        fragmentBinding.checkbox1.visibility = if (visibilityArray[0]) View.VISIBLE else View.GONE
+        fragmentBinding.checkbox2.visibility = if (visibilityArray[1]) View.VISIBLE else View.GONE
+        fragmentBinding.checkbox3.visibility = if (visibilityArray[2]) View.VISIBLE else View.GONE
     }
 
     @SuppressLint("SetTextI18n")
-    private fun updateViews(item: MediaItem, fragmentView: View) {
-        fragmentView.media_title.text = item.title
-        fragmentView.description_textview.text = if (item.description.isNotBlank()) {
+    private fun updateViews(item: MediaItem, fragmentBinding: FragmentViewMediaItemBinding) {
+        fragmentBinding.mediaTitle.text = item.title
+        fragmentBinding.descriptionTextview.text = if (item.description.isNotBlank()) {
             getString(R.string.description_header) + " " + item.description
         } else ""
-        //fragmentView.review_textview.text = getString(R.string.review_header) + " " + item.review
-        fragmentView.release_date.text = item.date
-        fragmentView.image_cover.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground,
+        // fragmentView.review_textview.text = getString(R.string.review_header) + " " + item.review
+        fragmentBinding.releaseDate.text = item.date
+        fragmentBinding.imageCover.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground,
                 ScalingUtils.ScaleType.FIT_CENTER)
         val request = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(item.imageURL))
@@ -77,12 +76,12 @@ class ViewMediaItemFragment : Fragment() {
                     ImageRequest.RequestLevel.FULL_FETCH
                 } else ImageRequest.RequestLevel.DISK_CACHE)
                 .build()
-        fragmentView.image_cover.setImageRequest(request)
-        fragmentView.image_cover.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.FIT_CENTER
-        makeShoppingMenu(item, fragmentView)
+        fragmentBinding.imageCover.setImageRequest(request)
+        fragmentBinding.imageCover.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.FIT_CENTER
+        makeShoppingMenu(item, fragmentBinding)
         if (item.series > 0) {
-            fragmentView.view_series_button.visibility = View.VISIBLE
-            fragmentView.view_series_button.setOnClickListener {
+            fragmentBinding.viewSeriesButton.visibility = View.VISIBLE
+            fragmentBinding.viewSeriesButton.setOnClickListener {
                 val seriesFragment = SeriesFragment()
                 val bundle = Bundle()
                 bundle.putInt(getString(R.string.bundleItemId), item.series)
@@ -95,24 +94,24 @@ class ViewMediaItemFragment : Fragment() {
         }
     }
 
-    private fun updateViews(notes: MediaNotes, fragmentView: View) {
-        fragmentView.checkbox_3.isChecked = notes.isBox3Checked
-        fragmentView.checkbox_1.isChecked = notes.isBox1Checked
-        fragmentView.checkbox_2.isChecked = notes.isBox2Checked
+    private fun updateViews(notes: MediaNotes, fragmentBinding: FragmentViewMediaItemBinding) {
+        fragmentBinding.checkbox3.isChecked = notes.isBox3Checked
+        fragmentBinding.checkbox1.isChecked = notes.isBox1Checked
+        fragmentBinding.checkbox2.isChecked = notes.isBox2Checked
     }
 
-    private fun updateView(mediaType: MediaType?, fragmentView: View) {
-        fragmentView.media_type.text = mediaType?.text ?: ""
+    private fun updateView(mediaType: MediaType?, fragmentBinding: FragmentViewMediaItemBinding) {
+        fragmentBinding.mediaType.text = mediaType?.text ?: ""
     }
 
-    private fun makeShoppingMenu(item: MediaItem, fragView: View) {
-        val shoppingMenu = PopupMenu(fragView.context, fragView.affiliate_links_fab)
+    private fun makeShoppingMenu(item: MediaItem, fragmentBinding: FragmentViewMediaItemBinding) {
+        val shoppingMenu = PopupMenu(fragmentBinding.root.context, fragmentBinding.affiliateLinksFab)
         if (item.amazonLink != "") {
-            fragView.affiliate_links_fab.show()
+            fragmentBinding.affiliateLinksFab.show()
             shoppingMenu.menu.add(0, MENU_ITEM_AMAZON_BUY, 0, "Buy on Amazon")
         }
         if (item.amazonStream != "") {
-            fragView.affiliate_links_fab.show()
+            fragmentBinding.affiliateLinksFab.show()
             shoppingMenu.menu.add(0, MENU_ITEM_AMAZON_STREAM, 0, "Stream on Amazon Video")
         }
         shoppingMenu.setOnMenuItemClickListener { menuItem ->
@@ -125,6 +124,6 @@ class ViewMediaItemFragment : Fragment() {
             startActivity(browserIntent)
             true
         }
-        fragView.affiliate_links_fab.setOnClickListener { shoppingMenu.show() }
+        fragmentBinding.affiliateLinksFab.setOnClickListener { shoppingMenu.show() }
     }
 }
