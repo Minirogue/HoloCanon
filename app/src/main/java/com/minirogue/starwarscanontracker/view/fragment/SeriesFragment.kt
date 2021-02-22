@@ -1,15 +1,13 @@
 package com.minirogue.starwarscanontracker.view.fragment
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.facebook.drawee.drawable.ScalingUtils
-import com.facebook.imagepipeline.request.ImageRequest
-import com.facebook.imagepipeline.request.ImageRequestBuilder
+import coil.load
+import coil.request.CachePolicy
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.databinding.FragmentSeriesBinding
 import com.minirogue.starwarscanontracker.model.room.entity.Series
@@ -31,7 +29,7 @@ class SeriesFragment : Fragment() {
         viewModel.liveSeriesNotes.observe(viewLifecycleOwner, { notes -> updateViews(notes, fragmentBinding) })
         viewModel.checkBoxNames.observe(viewLifecycleOwner, { names -> setCheckBoxNames(names, fragmentBinding) })
         viewModel.checkBoxVisibility.observe(viewLifecycleOwner,
-                { visibility -> setCheckBoxVisibility(visibility, fragmentBinding) })
+            { visibility -> setCheckBoxVisibility(visibility, fragmentBinding) })
         fragmentBinding.checkbox3.setOnClickListener { viewModel.toggleCheckbox3() }
         fragmentBinding.checkbox2.setOnClickListener { viewModel.toggleCheckbox2() }
         fragmentBinding.checkbox1.setOnClickListener { viewModel.toggleCheckbox1() }
@@ -43,9 +41,9 @@ class SeriesFragment : Fragment() {
             newBundle.putInt(getString(R.string.bundleItemId), itemId)
             viewMediaItemFragment.arguments = newBundle
             requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, viewMediaItemFragment)
-                    .addToBackStack(null)
-                    .commit() // TODO this should be handled by the activity
+                .replace(R.id.fragment_container, viewMediaItemFragment)
+                .addToBackStack(null)
+                .commit() // TODO this should be handled by the activity
         }
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
@@ -68,17 +66,13 @@ class SeriesFragment : Fragment() {
 
     private fun updateViews(series: Series, fragmentBinding: FragmentSeriesBinding) {
         fragmentBinding.seriesTitle.text = series.title
-        // fragmentView.description_textview.text = series.description
-        fragmentBinding.seriesImage.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground,
-                ScalingUtils.ScaleType.CENTER_INSIDE)
-        val request = ImageRequestBuilder
-                .newBuilderWithSource(Uri.parse(series.imageURL))
-                .setLowestPermittedRequestLevel(if (viewModel.isNetworkAllowed()) {
-                    ImageRequest.RequestLevel.FULL_FETCH
-                } else ImageRequest.RequestLevel.DISK_CACHE)
-                .build()
-        fragmentBinding.seriesImage.setImageRequest(request)
-        fragmentBinding.seriesImage.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_INSIDE
+
+        fragmentBinding.seriesImage.load(series.imageURL) {
+            placeholder(R.drawable.ic_launcher_foreground)
+            if (viewModel.isNetworkAllowed()) {
+                networkCachePolicy(CachePolicy.ENABLED)
+            } else networkCachePolicy(CachePolicy.DISABLED)
+        }
     }
 
     private fun updateViews(notes: Array<Boolean>, fragmentBinding: FragmentSeriesBinding) {

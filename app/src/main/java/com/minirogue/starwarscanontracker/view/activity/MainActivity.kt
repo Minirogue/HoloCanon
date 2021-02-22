@@ -7,8 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import com.facebook.drawee.backends.pipeline.Fresco
-import com.facebook.imagepipeline.core.ImagePipelineConfig
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.model.FilterUpdater
 import com.minirogue.starwarscanontracker.usecase.UpdateMediaDatabaseUseCase
@@ -29,9 +27,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        //Update filters based one current information
+        // Update filters based one current information
         filterUpdater.updateFilters()
-        //check for update to room
+        // check for update to room
         updateMediaDatabaseUseCase()
     }
 
@@ -39,20 +37,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //When the user opens a fresh instance of the app
+        // When the user opens a fresh instance of the app
         if (savedInstanceState == null) {
-            //initialize the fragment to the entry fragment
+            // initialize the fragment to the entry fragment
             supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, TabbedListContainerFragment())
                     .commit()
-            //initialize Fresco
-            val config = ImagePipelineConfig.newBuilder(application)
-                    .setDownsampleEnabled(true)
-                    .build()
-            Fresco.initialize(application, config)
         }
 
-        //Set up the toolbar and navigation drawer
+        // Set up the toolbar and navigation drawer
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
     }
@@ -83,16 +76,16 @@ class MainActivity : AppCompatActivity() {
      * @param tag a String associated to the type of Fragment that is to be displayed
      */
     private fun replaceFragment(tag: String) {
-        //Check if an instance of the desired Fragment already exists somewhere on the backstack
+        // Check if an instance of the desired Fragment already exists somewhere on the backstack
         var frag = supportFragmentManager.findFragmentByTag(tag)
-        //If the fragment doesn't already exist, create a new one
+        // If the fragment doesn't already exist, create a new one
         if (frag == null) {
             frag = when (tag) {
-                //CANON_LIST_TAG -> TabbedListContainerFragment()
+                // CANON_LIST_TAG -> TabbedListContainerFragment()
                 SETTINGS_TAG -> SettingsFragment()
-                //HOME_TAG -> HomeFragment()
+                // HOME_TAG -> HomeFragment()
                 ABOUT_TAG -> AboutFragment()
-                //FILTERS_TAG -> FilterSelectionFragment()
+                // FILTERS_TAG -> FilterSelectionFragment()
                 MAIN_TABBED -> TabbedListContainerFragment()
                 else -> {
                     Toast.makeText(applicationContext, "Not yet implemented", Toast.LENGTH_SHORT).show()
@@ -100,7 +93,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        //Call the function to actually replace the fragment
+        // Call the function to actually replace the fragment
         replaceFragment(frag, tag)
     }
 
@@ -121,10 +114,9 @@ class MainActivity : AppCompatActivity() {
 
         private const val TAG = "MainActivity"
 
-        //the following are definitions for the tags associated to each of the main Fragments
+        // the following are definitions for the tags associated to each of the main Fragments
         private const val SETTINGS_TAG = "settings"
         private const val ABOUT_TAG = "about"
         private const val MAIN_TABBED = "main_tabbed"
     }
 }
-
