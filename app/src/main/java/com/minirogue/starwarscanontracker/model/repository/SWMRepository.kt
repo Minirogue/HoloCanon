@@ -44,7 +44,7 @@ class SWMRepository @Inject constructor(
     }
 
     // TODO
-    @Suppress("LongMethod", "ComplexMethod")
+    @Suppress("LongMethod", "ComplexMethod", "BlockingMethodInNonBlockingContext")
     /**
      * Returns a SimpleSQLiteQuery based on the given filters and the stored permanent filters
      *
@@ -193,7 +193,6 @@ class SWMRepository @Inject constructor(
     fun getAllFilterTypes(): LiveData<List<FilterType>> = daoFilter.getAllFilterTypes()
 
     fun getAllMediaTypesNonLive(): List<MediaType> = daoType.allNonLive
-    fun getAllMediaTypesLive(): LiveData<List<MediaType>> = daoType.allMediaTypes
     fun getLiveMediaType(itemId: Int): LiveData<MediaType?> = daoType.getLiveMediaType(itemId)
 
     /**

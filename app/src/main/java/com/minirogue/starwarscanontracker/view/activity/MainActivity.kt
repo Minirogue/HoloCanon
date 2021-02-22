@@ -112,8 +112,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
 
-        private const val TAG = "MainActivity"
-
         // the following are definitions for the tags associated to each of the main Fragments
         private const val SETTINGS_TAG = "settings"
         private const val ABOUT_TAG = "about"

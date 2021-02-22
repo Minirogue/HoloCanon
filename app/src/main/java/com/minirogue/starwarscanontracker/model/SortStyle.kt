@@ -9,13 +9,11 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
     companion object {
         const val SORT_TITLE = 1
         const val SORT_TIMELINE = 2
-        const val SORT_TYPE = 3
         const val SORT_DATE = 4
         const val DEFAULT_STYLE = SORT_DATE
         fun getSortText(sortType: Int): String {
             return when (sortType) {
                 SORT_TITLE -> "Title"
-                SORT_TYPE -> "Media Type"
                 SORT_TIMELINE -> "Timeline"
                 SORT_DATE -> "Date Released"
                 else -> "SortTypeNotFound"
