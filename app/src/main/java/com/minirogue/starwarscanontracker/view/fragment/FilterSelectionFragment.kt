@@ -69,7 +69,7 @@ class FilterSelectionFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = mLayoutManager
 
-        viewModel.checkBoxVisibilty.observe(viewLifecycleOwner, { visibility ->
+        viewModel.checkBoxVisibility.observe(viewLifecycleOwner, { visibility ->
             val list = ArrayList<Int>()
             if (!visibility[0]) {
                 list.add(FilterType.FILTERCOLUMN_CHECKBOX_ONE)

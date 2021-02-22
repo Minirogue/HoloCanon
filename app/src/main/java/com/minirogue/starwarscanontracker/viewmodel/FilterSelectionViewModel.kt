@@ -17,7 +17,7 @@ class FilterSelectionViewModel @Inject constructor(
 ) : ViewModel() {
 
     val filterTypes = repository.getAllFilterTypes()
-    val checkBoxVisibilty = prefsRepo.checkBoxVisibility
+    val checkBoxVisibility = prefsRepo.checkBoxVisibility
 
     fun flipFilterType(filterType: FilterType) {
         filterType.isFilterPositive = !filterType.isFilterPositive
