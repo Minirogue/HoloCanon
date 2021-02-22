@@ -11,36 +11,32 @@ import com.facebook.drawee.drawable.ScalingUtils
 import com.facebook.imagepipeline.request.ImageRequest
 import com.facebook.imagepipeline.request.ImageRequestBuilder
 import com.minirogue.starwarscanontracker.R
+import com.minirogue.starwarscanontracker.databinding.FragmentSeriesBinding
 import com.minirogue.starwarscanontracker.model.room.entity.Series
 import com.minirogue.starwarscanontracker.view.adapter.SeriesListAdapter
 import com.minirogue.starwarscanontracker.viewmodel.SeriesViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_series.view.*
 
 @AndroidEntryPoint
 class SeriesFragment : Fragment() {
 
     private val viewModel: SeriesViewModel by viewModels()
 
-    override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?,
-    ): View? {
-        val fragmentView = inflater.inflate(R.layout.fragment_series, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        val fragmentBinding = FragmentSeriesBinding.inflate(inflater, container, false)
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
         if (bundleItemId != -1) viewModel.setSeriesId(bundleItemId)
-        viewModel.liveSeries.observe(viewLifecycleOwner, { series -> updateViews(series, fragmentView) })
-        viewModel.liveSeriesNotes.observe(viewLifecycleOwner, { notes -> updateViews(notes, fragmentView) })
-        viewModel.checkBoxNames.observe(viewLifecycleOwner, { names -> setCheckBoxNames(names, fragmentView) })
+        viewModel.liveSeries.observe(viewLifecycleOwner, { series -> updateViews(series, fragmentBinding) })
+        viewModel.liveSeriesNotes.observe(viewLifecycleOwner, { notes -> updateViews(notes, fragmentBinding) })
+        viewModel.checkBoxNames.observe(viewLifecycleOwner, { names -> setCheckBoxNames(names, fragmentBinding) })
         viewModel.checkBoxVisibility.observe(viewLifecycleOwner,
-                { visibility -> setCheckBoxVisibility(visibility, fragmentView) })
-        fragmentView.checkbox_3.setOnClickListener { viewModel.toggleCheckbox3() }
-        fragmentView.checkbox_2.setOnClickListener { viewModel.toggleCheckbox2() }
-        fragmentView.checkbox_1.setOnClickListener { viewModel.toggleCheckbox1() }
+                { visibility -> setCheckBoxVisibility(visibility, fragmentBinding) })
+        fragmentBinding.checkbox3.setOnClickListener { viewModel.toggleCheckbox3() }
+        fragmentBinding.checkbox2.setOnClickListener { viewModel.toggleCheckbox2() }
+        fragmentBinding.checkbox1.setOnClickListener { viewModel.toggleCheckbox1() }
 
-
-        val recyclerView = fragmentView.series_recyclerview
+        val recyclerView = fragmentBinding.seriesRecyclerview
         val adapter = SeriesListAdapter { itemId ->
             val viewMediaItemFragment = ViewMediaItemFragment()
             val newBundle = Bundle()
@@ -49,32 +45,31 @@ class SeriesFragment : Fragment() {
             requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, viewMediaItemFragment)
                     .addToBackStack(null)
-                    .commit() //TODO this should be handled by the activity
+                    .commit() // TODO this should be handled by the activity
         }
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
         viewModel.seriesList.observe(viewLifecycleOwner, { adapter.submitList(it) })
 
-
-        return fragmentView
+        return fragmentBinding.root
     }
 
-    private fun setCheckBoxVisibility(visibility: BooleanArray, fragmentView: View) {
-        fragmentView.checkbox_1.visibility = if (visibility[0]) View.VISIBLE else View.GONE
-        fragmentView.checkbox_2.visibility = if (visibility[1]) View.VISIBLE else View.GONE
-        fragmentView.checkbox_3.visibility = if (visibility[2]) View.VISIBLE else View.GONE
+    private fun setCheckBoxVisibility(visibility: BooleanArray, fragmentBinding: FragmentSeriesBinding) {
+        fragmentBinding.checkbox1.visibility = if (visibility[0]) View.VISIBLE else View.GONE
+        fragmentBinding.checkbox2.visibility = if (visibility[1]) View.VISIBLE else View.GONE
+        fragmentBinding.checkbox3.visibility = if (visibility[2]) View.VISIBLE else View.GONE
     }
 
-    private fun setCheckBoxNames(names: Array<String>, fragmentView: View) {
-        fragmentView.checkbox_1.text = names[0]
-        fragmentView.checkbox_2.text = names[1]
-        fragmentView.checkbox_3.text = names[2]
+    private fun setCheckBoxNames(names: Array<String>, fragmentBinding: FragmentSeriesBinding) {
+        fragmentBinding.checkbox1.text = names[0]
+        fragmentBinding.checkbox2.text = names[1]
+        fragmentBinding.checkbox3.text = names[2]
     }
 
-    private fun updateViews(series: Series, fragmentView: View) {
-        fragmentView.series_title.text = series.title
-        //fragmentView.description_textview.text = series.description
-        fragmentView.series_image.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground,
+    private fun updateViews(series: Series, fragmentBinding: FragmentSeriesBinding) {
+        fragmentBinding.seriesTitle.text = series.title
+        // fragmentView.description_textview.text = series.description
+        fragmentBinding.seriesImage.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground,
                 ScalingUtils.ScaleType.CENTER_INSIDE)
         val request = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(series.imageURL))
@@ -82,13 +77,13 @@ class SeriesFragment : Fragment() {
                     ImageRequest.RequestLevel.FULL_FETCH
                 } else ImageRequest.RequestLevel.DISK_CACHE)
                 .build()
-        fragmentView.series_image.setImageRequest(request)
-        fragmentView.series_image.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_INSIDE
+        fragmentBinding.seriesImage.setImageRequest(request)
+        fragmentBinding.seriesImage.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_INSIDE
     }
 
-    private fun updateViews(notes: Array<Boolean>, fragmentView: View) {
-        fragmentView.checkbox_1.isChecked = notes[0]
-        fragmentView.checkbox_2.isChecked = notes[1]
-        fragmentView.checkbox_3.isChecked = notes[2]
+    private fun updateViews(notes: Array<Boolean>, fragmentBinding: FragmentSeriesBinding) {
+        fragmentBinding.checkbox1.isChecked = notes[0]
+        fragmentBinding.checkbox2.isChecked = notes[1]
+        fragmentBinding.checkbox3.isChecked = notes[2]
     }
 }
