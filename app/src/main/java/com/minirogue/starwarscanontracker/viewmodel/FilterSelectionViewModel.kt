@@ -1,6 +1,5 @@
 package com.minirogue.starwarscanontracker.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.minirogue.starwarscanontracker.model.PrefsRepo
@@ -8,17 +7,17 @@ import com.minirogue.starwarscanontracker.model.repository.SWMRepository
 import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-
-class FilterSelectionViewModel @ViewModelInject constructor(
-        private val repository: SWMRepository,
-        prefsRepo: PrefsRepo,
+@HiltViewModel
+class FilterSelectionViewModel @Inject constructor(
+    private val repository: SWMRepository,
+    prefsRepo: PrefsRepo,
 ) : ViewModel() {
-
 
     val filterTypes = repository.getAllFilterTypes()
     val checkBoxVisibilty = prefsRepo.checkBoxVisibility
-
 
     fun flipFilterType(filterType: FilterType) {
         filterType.isFilterPositive = !filterType.isFilterPositive
@@ -36,11 +35,11 @@ class FilterSelectionViewModel @ViewModelInject constructor(
     }
 
     fun getFiltersOfType(filterType: FilterType) = Transformations
-            .map(repository.getFiltersOfType(filterType.typeId)) { filterList ->
-                filterList.map {
-                    FullFilter(it, filterType.isFilterPositive)
-                }
+        .map(repository.getFiltersOfType(filterType.typeId)) { filterList ->
+            filterList.map {
+                FullFilter(it, filterType.isFilterPositive)
             }
+        }
 
     fun getActiveFilters() = repository.getActiveFilters()
 

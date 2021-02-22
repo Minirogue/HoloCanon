@@ -2,7 +2,6 @@ package com.minirogue.starwarscanontracker.viewmodel
 
 import android.app.Application
 import android.util.SparseArray
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.model.PrefsRepo
@@ -13,19 +12,22 @@ import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.io.File
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class MediaListViewModel @ViewModelInject constructor(
-        private val repository: SWMRepository,
-        private val seriesRepository: SeriesRepository,
-        private val connMgr: MyConnectivityManager,
-        prefsRepo: PrefsRepo,
-        application: Application,
+@HiltViewModel
+class MediaListViewModel @Inject constructor(
+    private val repository: SWMRepository,
+    private val seriesRepository: SeriesRepository,
+    private val connMgr: MyConnectivityManager,
+    prefsRepo: PrefsRepo,
+    application: Application,
 ) : ViewModel() {
 
     // filtering
@@ -60,7 +62,6 @@ class MediaListViewModel @ViewModelInject constructor(
     // Whether or not network calls are currently allowed. Used for fetching images.
     fun isNetworkAllowed(): Boolean = connMgr.isNetworkAllowed()
 
-
     init {
         viewModelScope.launch { _sortStyle.postValue(getSavedSort()) }
         viewModelScope.launch(Dispatchers.Default) {
@@ -70,7 +71,7 @@ class MediaListViewModel @ViewModelInject constructor(
         dataMediator.addSource(activeFilters) { viewModelScope.launch { updateQuery() } }
         dataMediator.addSource(repository.getAllFilterTypes()) { viewModelScope.launch { updateQuery() } }
         sortedData.addSource(sortStyle) { viewModelScope.launch { sort(); saveSort() } }
-        //dataMediator needs to be observed so the things it observes can trigger events
+        // dataMediator needs to be observed so the things it observes can trigger events
         sortedData.addSource(dataMediator) { }
     }
 
@@ -86,7 +87,7 @@ class MediaListViewModel @ViewModelInject constructor(
         }
     }
 
-    private suspend fun getSavedSort(): SortStyle? = withContext(Dispatchers.IO) {
+    private suspend fun getSavedSort(): SortStyle = withContext(Dispatchers.IO) {
         val cacheFile = File(sortCacheFileName)
         if (!cacheFile.exists()) {
             SortStyle(SortStyle.DEFAULT_STYLE, true)
@@ -95,7 +96,6 @@ class MediaListViewModel @ViewModelInject constructor(
             SortStyle(split[0].toInt(), split[1].toInt() == 1)
         }
     }
-
 
     fun reverseSort() {
         val currentStyle = _sortStyle.value
@@ -109,7 +109,7 @@ class MediaListViewModel @ViewModelInject constructor(
             queryJob.cancelAndJoin()
             queryJob = launch {
                 val newListLiveData = repository.getMediaListWithNotes(activeFilters.value?.map { it.filterObject }
-                        ?: ArrayList())
+                    ?: ArrayList())
                 withContext(Dispatchers.Main) {
                     dataMediator.removeSource(data)
                     data = newListLiveData
@@ -127,7 +127,7 @@ class MediaListViewModel @ViewModelInject constructor(
                 val toBeSorted = data.value
                 if (toBeSorted != null) {
                     Collections.sort(toBeSorted, _sortStyle.value
-                            ?: SortStyle(SortStyle.DEFAULT_STYLE, true))
+                        ?: SortStyle(SortStyle.DEFAULT_STYLE, true))
                     sortedData.postValue(toBeSorted!!) // TODO this non-null assertion shouldn't be necessary
                 }
             }
