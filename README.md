@@ -15,20 +15,13 @@ The app has four main screens.
 
 ## TODO
 Here are some things that I plan to add to the app:
-* ~~Saving current filters and sorting so they persist when the user returns to the Canon List screen.~~
 * Text search for the list. This should include searching all relevant text fields of the items.
-* ~~Clean up the filter selection menu into filter groups with options to filter ONLY selected items or to filter OUT the selected items in a group.~~
-* ~~Filter selection could probably still be cleaned up further.~~
-* ~~Add some functionality for series, including checking off an entire series.~~
-* Add filtering by publisher (seems like people aren't as into the IDW comics, I guess).
 * Add comments to code.
-* ~~Clean up fragment management (OOM error may be possible with current configuration)~~
 * Add syncing of user selections across devices. Temporary(?) solution could be to add import/export option.
 * Add option to export a list of checked/unchecked items to a txt or pdf.
 * Add donation button, in case the users ever decide to feel generous. No plans to ever implement paid features.
-* Clean up the backend to use RESTful API requests and JSONs.
+* Clean up the backend to use http requests and JSONs.
 * Add Hardcover, Omnibus, and reference books to database.
-* ~~Import initial database from assets.~~
 * Expand support for different screen sizes (particularly tablets).
 
 ## License

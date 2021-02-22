@@ -1,6 +1,5 @@
 package com.minirogue.starwarscanontracker.viewmodel
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
@@ -13,18 +12,20 @@ import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.model.room.entity.Series
 import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-
-class SeriesViewModel @ViewModelInject constructor(
-        private val repository: SWMRepository,
-        prefsRepo: PrefsRepo,
-        private val connMgr: MyConnectivityManager,
+@HiltViewModel
+class SeriesViewModel @Inject constructor(
+    private val repository: SWMRepository,
+    prefsRepo: PrefsRepo,
+    private val connMgr: MyConnectivityManager,
 ) : ViewModel() {
 
     private var seriesId: Int = -1
@@ -34,7 +35,6 @@ class SeriesViewModel @ViewModelInject constructor(
     val checkBoxNames = repository.getCheckBoxText()
     val checkBoxVisibility = prefsRepo.checkBoxVisibility
     private val notesParsingMutex = Mutex()
-
 
     fun setSeriesId(seriesId: Int) {
         this.seriesId = seriesId
@@ -46,9 +46,9 @@ class SeriesViewModel @ViewModelInject constructor(
         }
         viewModelScope.launch {
             seriesList.addSource(repository.getMediaListWithNotes(listOf(FilterObject(seriesId,
-                    FilterType.FILTERCOLUMN_SERIES,
-                    true,
-                    "series filter")))) { mediaAndNotesList -> seriesList.postValue(mediaAndNotesList) }
+                FilterType.FILTERCOLUMN_SERIES,
+                true,
+                "series filter")))) { mediaAndNotesList -> seriesList.postValue(mediaAndNotesList) }
         }
     }
 

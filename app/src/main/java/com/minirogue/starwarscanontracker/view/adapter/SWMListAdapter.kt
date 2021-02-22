@@ -1,17 +1,15 @@
 package com.minirogue.starwarscanontracker.view.adapter
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.facebook.drawee.drawable.ScalingUtils
-import com.facebook.drawee.view.SimpleDraweeView
-import com.facebook.imagepipeline.request.ImageRequest
-import com.facebook.imagepipeline.request.ImageRequestBuilder
+import coil.load
+import coil.request.CachePolicy
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.databinding.MediaListItemBinding
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
@@ -20,11 +18,8 @@ import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
 import java.util.*
 
 class SWMListAdapter(
-        private val adapterInterface: AdapterInterface,
+    private val adapterInterface: AdapterInterface,
 ) : ListAdapter<MediaAndNotes, SWMListAdapter.MediaViewHolder>(DiffCallback) {
-    //private final String TAG = "adapter";
-    //private AsyncListDiffer<MediaAndNotes> listDiffer = new AsyncListDiffer<>(this, DiffCallback);
-    //private List<MediaAndNotes> currentList = new ArrayList<>();
     private var checkBoxText = arrayOf("", "", "")
     private var isCheckBoxActive = booleanArrayOf(true, true, true)
 
@@ -75,7 +70,6 @@ class SWMListAdapter(
         }
     }
 
-
     private fun bindTextViews(binding: MediaListItemBinding, mediaItem: MediaItem) = with(binding) {
         mediaTitle.text = mediaItem.title
         dateTextview.text = mediaItem.date
@@ -124,20 +118,16 @@ class SWMListAdapter(
         }
     }
 
-    private fun bindCoverImage(imageView: SimpleDraweeView, imageUrl: String) = with(imageView) {
-        hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground, ScalingUtils.ScaleType.CENTER_INSIDE)
-        if (imageUrl != "") {
-            val request = ImageRequestBuilder
-                    .newBuilderWithSource(Uri.parse(imageUrl))
-                    .setLowestPermittedRequestLevel(if (adapterInterface.isNetworkAllowed()) {
-                        ImageRequest.RequestLevel.FULL_FETCH
-                    } else ImageRequest.RequestLevel.DISK_CACHE)
-                    .build()
-            setImageRequest(request)
-            hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_INSIDE
+    private fun bindCoverImage(imageView: ImageView, imageUrl: String) {
+        if (imageUrl.isNotBlank()) {
+            imageView.load(imageUrl) {
+                placeholder(R.drawable.ic_launcher_foreground)
+                if (adapterInterface.isNetworkAllowed()) {
+                    networkCachePolicy(CachePolicy.ENABLED)
+                } else networkCachePolicy(CachePolicy.DISABLED)
+            }
         } else {
-            setActualImageResource(R.drawable.ic_launcher_foreground)
-            hierarchy.actualImageScaleType = ScalingUtils.ScaleType.CENTER_INSIDE
+            imageView.load(R.drawable.ic_launcher_foreground)
         }
     }
 
@@ -145,14 +135,14 @@ class SWMListAdapter(
 
     companion object {
         private val DiffCallback: DiffUtil.ItemCallback<MediaAndNotes> =
-                object : DiffUtil.ItemCallback<MediaAndNotes>() {
-                    override fun areItemsTheSame(oldItem: MediaAndNotes, newItem: MediaAndNotes): Boolean {
-                        return oldItem.mediaItem.id == newItem.mediaItem.id
-                    }
-
-                    override fun areContentsTheSame(oldItem: MediaAndNotes, newItem: MediaAndNotes): Boolean {
-                        return oldItem == newItem
-                    }
+            object : DiffUtil.ItemCallback<MediaAndNotes>() {
+                override fun areItemsTheSame(oldItem: MediaAndNotes, newItem: MediaAndNotes): Boolean {
+                    return oldItem.mediaItem.id == newItem.mediaItem.id
                 }
+
+                override fun areContentsTheSame(oldItem: MediaAndNotes, newItem: MediaAndNotes): Boolean {
+                    return oldItem == newItem
+                }
+            }
     }
 }

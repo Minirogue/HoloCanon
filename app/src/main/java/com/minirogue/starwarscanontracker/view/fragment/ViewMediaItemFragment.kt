@@ -10,9 +10,8 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.facebook.drawee.drawable.ScalingUtils
-import com.facebook.imagepipeline.request.ImageRequest
-import com.facebook.imagepipeline.request.ImageRequestBuilder
+import coil.load
+import coil.request.CachePolicy
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.databinding.FragmentViewMediaItemBinding
 import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
@@ -45,7 +44,7 @@ class ViewMediaItemFragment : Fragment() {
             fragmentBinding.checkbox3.text = arr[2]
         })
         viewModel.checkBoxVisibility.observe(viewLifecycleOwner,
-                { visibilityArray -> updateViews(visibilityArray, fragmentBinding) })
+            { visibilityArray -> updateViews(visibilityArray, fragmentBinding) })
 
         fragmentBinding.checkbox3.setOnClickListener { viewModel.toggleCheckbox3() }
         fragmentBinding.checkbox2.setOnClickListener { viewModel.toggleCheckbox2() }
@@ -66,18 +65,13 @@ class ViewMediaItemFragment : Fragment() {
         fragmentBinding.descriptionTextview.text = if (item.description.isNotBlank()) {
             getString(R.string.description_header) + " " + item.description
         } else ""
-        // fragmentView.review_textview.text = getString(R.string.review_header) + " " + item.review
         fragmentBinding.releaseDate.text = item.date
-        fragmentBinding.imageCover.hierarchy.setPlaceholderImage(R.drawable.ic_launcher_foreground,
-                ScalingUtils.ScaleType.FIT_CENTER)
-        val request = ImageRequestBuilder
-                .newBuilderWithSource(Uri.parse(item.imageURL))
-                .setLowestPermittedRequestLevel(if (viewModel.isNetworkAllowed()) {
-                    ImageRequest.RequestLevel.FULL_FETCH
-                } else ImageRequest.RequestLevel.DISK_CACHE)
-                .build()
-        fragmentBinding.imageCover.setImageRequest(request)
-        fragmentBinding.imageCover.hierarchy.actualImageScaleType = ScalingUtils.ScaleType.FIT_CENTER
+        fragmentBinding.imageCover.load(item.imageURL) {
+            placeholder(R.drawable.ic_launcher_foreground)
+            if (viewModel.isNetworkAllowed()) {
+                networkCachePolicy(CachePolicy.ENABLED)
+            } else networkCachePolicy(CachePolicy.DISABLED)
+        }
         makeShoppingMenu(item, fragmentBinding)
         if (item.series > 0) {
             fragmentBinding.viewSeriesButton.visibility = View.VISIBLE
@@ -87,9 +81,9 @@ class ViewMediaItemFragment : Fragment() {
                 bundle.putInt(getString(R.string.bundleItemId), item.series)
                 seriesFragment.arguments = bundle
                 requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, seriesFragment)
-                        .addToBackStack(null)
-                        .commit()
+                    .replace(R.id.fragment_container, seriesFragment)
+                    .addToBackStack(null)
+                    .commit()
             }
         }
     }
