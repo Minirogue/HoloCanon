@@ -3,8 +3,6 @@ package com.minirogue.starwarscanontracker.model.repository
 import android.content.SharedPreferences
 import android.util.SparseBooleanArray
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.liveData
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.minirogue.starwarscanontracker.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.model.room.dao.DaoMedia
@@ -14,6 +12,8 @@ import com.minirogue.starwarscanontracker.model.room.entity.*
 import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter
 import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
@@ -25,7 +25,6 @@ class SWMRepository @Inject constructor(
     private val daoSeries: DaoSeries,
     private val sharedPreferences: SharedPreferences,
 ) {
-    // private val TAG = "Repo"
 
     // A Mutex in case notes are being updated concurrently (e.g. user clicks on two separate checkboxes for a series)
     private val updatingNotesMutex = Mutex()
@@ -144,13 +143,6 @@ class SWMRepository @Inject constructor(
             "INNER JOIN media_notes ON media_items.id = media_notes.media_id ")
         queryBuild.append(joins)
         var whereClause = false
-        /*if (characterFilter.isNotEmpty()) {
-
-            queryBuild.append(if (whereClause) " AND (" else " WHERE (")
-            whereClause = true
-            queryBuild.append(characterFilter)
-            queryBuild.append(")")
-        }*/
         if (seriesFilter.isNotEmpty()) {
             queryBuild.append(if (whereClause) " AND (" else " WHERE (")
             whereClause = true
@@ -184,13 +176,12 @@ class SWMRepository @Inject constructor(
             queryBuild.append(")")
         }
         SimpleSQLiteQuery(queryBuild.toString())
-        // }
     }
 
     /**
      * Returns a LiveData of a List of all FilterType objects
      */
-    fun getAllFilterTypes(): LiveData<List<FilterType>> = daoFilter.getAllFilterTypes()
+    fun getAllFilterTypes(): Flow<List<FilterType>> = daoFilter.getAllFilterTypes()
 
     fun getAllMediaTypesNonLive(): List<MediaType> = daoType.allNonLive
     fun getLiveMediaType(itemId: Int): LiveData<MediaType?> = daoType.getLiveMediaType(itemId)
@@ -211,14 +202,10 @@ class SWMRepository @Inject constructor(
         return daoMedia.getMediaNotesBySeries(seriesId)
     }
 
-    // fun getFilterTypeIdToTextMap(): LiveData<Map<Int, String>> = Transformations.map()
-
     /**
      * Returns LiveData containing the Series corresponding the the seriesId
      */
-    fun getLiveSeries(seriesId: Int): LiveData<Series> {
-        return daoSeries.getLiveSeries(seriesId)
-    }
+    fun getLiveSeries(seriesId: Int): Flow<Series> = daoSeries.getLiveSeries(seriesId)
 
     /**
      * Returns MediaNotes associated to the given MediaItem id
@@ -316,36 +303,14 @@ class SWMRepository @Inject constructor(
         daoFilter.update(filterType)
     }
 
-    fun getActiveFilters(): LiveData<List<FullFilter>> = liveData(Dispatchers.Default) {
-        val permFilters = getPermanentFilters()
-        val source: LiveData<List<FullFilter>> = Transformations.map(daoFilter.getActiveFilters()) {
-            val newList = ArrayList<FullFilter>()
-            for (fullFilter in it) {
-                if (fullFilter.filterObject !in permFilters) {
-                    newList.add(fullFilter)
-                }
-            }
-            newList
-        }
-        emitSource(source)
+    fun getActiveFilters(): Flow<List<FullFilter>> = daoFilter.getActiveFilters().map {
+        it.filter { fullFilter -> fullFilter.filterObject !in getPermanentFilters() }
     }
 
-    fun getFiltersOfType(typeId: Int): LiveData<List<FilterObject>> = liveData(Dispatchers.Default) {
+    fun getFiltersOfType(typeId: Int): Flow<List<FilterObject>> = daoFilter.getFiltersWithType(typeId).map {
         if (typeId == FilterType.FILTERCOLUMN_TYPE) {
-            val permFilters = getPermanentFilters()
-            val source: LiveData<List<FilterObject>> = Transformations.map(daoFilter.getFiltersWithType(typeId)) {
-                val newList = ArrayList<FilterObject>()
-                for (filterObject in it) {
-                    if (filterObject !in permFilters) {
-                        newList.add(filterObject)
-                    }
-                }
-                newList
-            }
-            emitSource(source)
-        } else {
-            emitSource(daoFilter.getFiltersWithType(typeId))
-        }
+            it.filter { filterObject -> filterObject !in getPermanentFilters() }
+        } else it
     }
 
     suspend fun getFilter(id: Int, typeId: Int): FilterObject? = withContext(Dispatchers.Default) {
@@ -353,17 +318,15 @@ class SWMRepository @Inject constructor(
             typeId)
     }
 
-    fun getCheckBoxText(): LiveData<Array<String>> {
-        return Transformations.map(daoFilter.getCheckBoxFilterTypes()) { filterTypeList ->
-            val checkboxTextArr = arrayOf("", "", "")
+    fun getCheckBoxText(): Flow<Array<String>> = daoFilter.getCheckBoxFilterTypes().map { filterTypeList ->
+        arrayOf("", "", "").apply {
             filterTypeList.forEach {
                 when (it.typeId) {
-                    FilterType.FILTERCOLUMN_CHECKBOX_ONE -> checkboxTextArr[0] = it.text
-                    FilterType.FILTERCOLUMN_CHECKBOX_TWO -> checkboxTextArr[1] = it.text
-                    FilterType.FILTERCOLUMN_CHECKBOX_THREE -> checkboxTextArr[2] = it.text
+                    FilterType.FILTERCOLUMN_CHECKBOX_ONE -> this[0] = it.text
+                    FilterType.FILTERCOLUMN_CHECKBOX_TWO -> this[1] = it.text
+                    FilterType.FILTERCOLUMN_CHECKBOX_THREE -> this[2] = it.text
                 }
             }
-            checkboxTextArr
         }
     }
 }

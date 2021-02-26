@@ -7,6 +7,8 @@ import android.widget.PopupMenu
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -92,7 +94,7 @@ class MediaListFragment : Fragment() {
                 mediaListViewModel.filteredMediaAndNotes.observe(
                     viewLifecycleOwner,
                     { mediaAndNotes -> it.submitList(mediaAndNotes) })
-                mediaListViewModel.checkBoxText.observe(
+                mediaListViewModel.checkBoxText.asLiveData(lifecycleScope.coroutineContext).observe(
                     viewLifecycleOwner,
                     { newCheckBoxText -> it.updateCheckBoxText(newCheckBoxText) })
                 mediaListViewModel.checkBoxVisibility.observe(

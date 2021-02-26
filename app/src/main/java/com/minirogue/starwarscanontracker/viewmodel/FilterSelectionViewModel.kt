@@ -1,6 +1,5 @@
 package com.minirogue.starwarscanontracker.viewmodel
 
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.minirogue.starwarscanontracker.model.PrefsRepo
 import com.minirogue.starwarscanontracker.model.repository.SWMRepository
@@ -8,6 +7,8 @@ import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,8 +35,8 @@ class FilterSelectionViewModel @Inject constructor(
         repository.update(filterObject)
     }
 
-    fun getFiltersOfType(filterType: FilterType) = Transformations
-        .map(repository.getFiltersOfType(filterType.typeId)) { filterList ->
+    fun getFiltersOfType(filterType: FilterType): Flow<List<FullFilter>> =
+        repository.getFiltersOfType(filterType.typeId).map { filterList ->
             filterList.map {
                 FullFilter(it, filterType.isFilterPositive)
             }

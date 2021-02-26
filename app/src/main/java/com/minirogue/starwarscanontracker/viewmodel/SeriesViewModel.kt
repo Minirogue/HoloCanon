@@ -1,9 +1,6 @@
 package com.minirogue.starwarscanontracker.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.model.PrefsRepo
 import com.minirogue.starwarscanontracker.model.repository.SWMRepository
@@ -38,7 +35,7 @@ class SeriesViewModel @Inject constructor(
 
     fun setSeriesId(seriesId: Int) {
         this.seriesId = seriesId
-        liveSeries = repository.getLiveSeries(seriesId)
+        liveSeries = repository.getLiveSeries(seriesId).asLiveData(viewModelScope.coroutineContext)
         liveSeriesNotes.addSource(repository.getLiveNotesBySeries(seriesId)) {
             viewModelScope.launch {
                 updateSeriesNotes(it)
