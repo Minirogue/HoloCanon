@@ -40,7 +40,7 @@ public class FilterObject {
     @NonNull
     @Override
     public String toString() {
-        return ("id: "+id+" filterType: "+filterType+" active: "+active+" displayText"+ displayText);
+        return ("id: " + id + " filterType: " + filterType + " active: " + active + " displayText" + displayText);
     }
 
     /**

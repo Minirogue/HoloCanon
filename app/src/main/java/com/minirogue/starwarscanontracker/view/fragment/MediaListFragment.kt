@@ -41,11 +41,11 @@ class MediaListFragment : Fragment() {
             val bundle = Bundle()
             bundle.putInt(getString(R.string.bundleItemId), itemId)
             viewMediaItemFragment.arguments = bundle
-            //TODO this should be handled by the activity or swapped to navigation components
+            // TODO this should be handled by the activity or swapped to navigation components
             requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, viewMediaItemFragment)
-                    .addToBackStack(null)
-                    .commit()
+                .replace(R.id.fragment_container, viewMediaItemFragment)
+                .addToBackStack(null)
+                .commit()
         }
 
         override fun onCheckbox1Clicked(mediaNotes: MediaNotes) {
@@ -68,7 +68,7 @@ class MediaListFragment : Fragment() {
         }
 
         override fun getSeriesString(seriesId: Int): String {
-            //TODO
+            // TODO
             return "Series not found"
         }
 
@@ -76,7 +76,6 @@ class MediaListFragment : Fragment() {
             return mediaListViewModel.isNetworkAllowed()
         }
     }
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(layoutId, container, false)
@@ -91,23 +90,23 @@ class MediaListFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = SWMListAdapter(adapterInterface).also {
                 mediaListViewModel.filteredMediaAndNotes.observe(
-                        viewLifecycleOwner,
-                        { mediaAndNotes -> it.submitList(mediaAndNotes) })
+                    viewLifecycleOwner,
+                    { mediaAndNotes -> it.submitList(mediaAndNotes) })
                 mediaListViewModel.checkBoxText.observe(
-                        viewLifecycleOwner,
-                        { newCheckBoxText -> it.updateCheckBoxText(newCheckBoxText) })
+                    viewLifecycleOwner,
+                    { newCheckBoxText -> it.updateCheckBoxText(newCheckBoxText) })
                 mediaListViewModel.checkBoxVisibility.observe(
-                        viewLifecycleOwner,
-                        { newIsCheckboxActive -> it.updateCheckBoxVisible(newIsCheckboxActive) })
+                    viewLifecycleOwner,
+                    { newIsCheckboxActive -> it.updateCheckBoxVisible(newIsCheckboxActive) })
             }
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
-                    if (dy > 0) { //Scroll down
+                    if (dy > 0) { // Scroll down
                         binding.sortFloatingActionButton.hide()
-                    } else if (dy < 0) { //Scroll up
+                    } else if (dy < 0) { // Scroll up
                         binding.sortFloatingActionButton.show()
                     }
                 }
@@ -116,8 +115,8 @@ class MediaListFragment : Fragment() {
         }
 
         mediaListViewModel.activeFilters.observe(
-                viewLifecycleOwner,
-                { filters: List<FullFilter> -> setFilterChips(filters) })
+            viewLifecycleOwner,
+            { filters: List<FullFilter> -> setFilterChips(filters) })
     }
 
     private fun setupSortMenu() {
@@ -148,16 +147,16 @@ class MediaListFragment : Fragment() {
     }
 
     private fun makeCurrentSortChip(): Chip =
-            Chip(context).apply {
-                isChipIconVisible = true
-                setOnClickListener { mediaListViewModel.reverseSort() }
-                mediaListViewModel.sortStyle.observe(
-                        viewLifecycleOwner,
-                        { sortStyle: SortStyle -> updateSortChip(sortStyle) }
-                )
-            }.also {
-                binding.filterChipGroup.addView(it)
-            }
+        Chip(context).apply {
+            isChipIconVisible = true
+            setOnClickListener { mediaListViewModel.reverseSort() }
+            mediaListViewModel.sortStyle.observe(
+                viewLifecycleOwner,
+                { sortStyle: SortStyle -> updateSortChip(sortStyle) }
+            )
+        }.also {
+            binding.filterChipGroup.addView(it)
+        }
 
     private fun updateSortChip(sortStyle: SortStyle) = with(sortChip) {
         text = sortStyle.getText()

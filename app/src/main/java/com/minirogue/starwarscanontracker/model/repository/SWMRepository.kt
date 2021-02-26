@@ -19,16 +19,15 @@ import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
 
 class SWMRepository @Inject constructor(
-        private val daoMedia: DaoMedia,
-        private val daoType: DaoType,
-        private val daoFilter: DaoFilter,
-        private val daoSeries: DaoSeries,
-        private val sharedPreferences: SharedPreferences,
+    private val daoMedia: DaoMedia,
+    private val daoType: DaoType,
+    private val daoFilter: DaoFilter,
+    private val daoSeries: DaoSeries,
+    private val sharedPreferences: SharedPreferences,
 ) {
-    //private val TAG = "Repo"
+    // private val TAG = "Repo"
 
-
-    //A Mutex in case notes are being updated concurrently (e.g. user clicks on two separate checkboxes for a series)
+    // A Mutex in case notes are being updated concurrently (e.g. user clicks on two separate checkboxes for a series)
     private val updatingNotesMutex = Mutex()
 
     /**
@@ -45,14 +44,14 @@ class SWMRepository @Inject constructor(
     }
 
     // TODO
-    @Suppress("LongMethod", "ComplexMethod")
+    @Suppress("LongMethod", "ComplexMethod", "BlockingMethodInNonBlockingContext")
     /**
      * Returns a SimpleSQLiteQuery based on the given filters and the stored permanent filters
      *
      * @param filterList the list of Filters to apply to the query
      */
     private suspend fun convertFiltersToQuery(filterList: List<FilterObject>): SimpleSQLiteQuery = withContext(
-            Dispatchers.Default) {
+        Dispatchers.Default) {
         val gettingPermanentFilters = async { getPermanentFiltersAsStringBuilder() }
         val filterTypeIsPositive = SparseBooleanArray()
         for (filterType in daoFilter.getAllFilterTypesNonLive()) {
@@ -142,7 +141,7 @@ class SWMRepository @Inject constructor(
             }
         }
         queryBuild.append("SELECT media_items.*,media_notes.* FROM media_items " +
-                "INNER JOIN media_notes ON media_items.id = media_notes.media_id ")
+            "INNER JOIN media_notes ON media_items.id = media_notes.media_id ")
         queryBuild.append(joins)
         var whereClause = false
         /*if (characterFilter.isNotEmpty()) {
@@ -185,7 +184,7 @@ class SWMRepository @Inject constructor(
             queryBuild.append(")")
         }
         SimpleSQLiteQuery(queryBuild.toString())
-        //}
+        // }
     }
 
     /**
@@ -194,9 +193,7 @@ class SWMRepository @Inject constructor(
     fun getAllFilterTypes(): LiveData<List<FilterType>> = daoFilter.getAllFilterTypes()
 
     fun getAllMediaTypesNonLive(): List<MediaType> = daoType.allNonLive
-    fun getAllMediaTypesLive(): LiveData<List<MediaType>> = daoType.allMediaTypes
     fun getLiveMediaType(itemId: Int): LiveData<MediaType?> = daoType.getLiveMediaType(itemId)
-
 
     /**
      * Returns LiveData containing the MediaItem corresponding to the given id.
@@ -214,7 +211,7 @@ class SWMRepository @Inject constructor(
         return daoMedia.getMediaNotesBySeries(seriesId)
     }
 
-    //fun getFilterTypeIdToTextMap(): LiveData<Map<Int, String>> = Transformations.map()
+    // fun getFilterTypeIdToTextMap(): LiveData<Map<Int, String>> = Transformations.map()
 
     /**
      * Returns LiveData containing the Series corresponding the the seriesId
@@ -288,12 +285,11 @@ class SWMRepository @Inject constructor(
         for (type in daoType.allNonLive) {
             if (!sharedPreferences.getBoolean(type.text, true)) {
                 filterList.add(daoFilter.getFilter(type.id, FilterType.FILTERCOLUMN_TYPE)
-                        ?: FilterObject(-1, -1, false, ""))
+                    ?: FilterObject(-1, -1, false, ""))
             }
         }
         filterList
     }
-
 
     /**
      * Update a MediaNotes entry in the room.
@@ -354,7 +350,7 @@ class SWMRepository @Inject constructor(
 
     suspend fun getFilter(id: Int, typeId: Int): FilterObject? = withContext(Dispatchers.Default) {
         daoFilter.getFilter(id,
-                typeId)
+            typeId)
     }
 
     fun getCheckBoxText(): LiveData<Array<String>> {

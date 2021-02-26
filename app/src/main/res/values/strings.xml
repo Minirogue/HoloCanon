@@ -72,8 +72,6 @@
     <string name="copyright_notice">This app is in no way affiliated with or endorsed by Disney or Lucasfilm.
         I do not claim to own Star Wars or any of its related copyrights or trademarks.
         The use of Star Wars content in this app is protected under Fair Use.</string>
-    <string name="affiliate_notice">As an Amazon Associate I may earn money from qualifying purchases made through the links in this app.</string>
-
 
     <!--update messages-->
     <string name="update_1_2_1">Version 1.2.1: Changed how items are displayed in the canon list.
@@ -112,5 +110,6 @@
         Future versions will have an option to not download unless on wifi.</string>
     <string name="cover_art">Cover art</string>
     <string name="how_to_buy">how to buy</string>
+    <string name="sort_method">sort method</string>
 
 </resources>

@@ -38,7 +38,6 @@ public class CSVImporter extends AsyncTask<Boolean, String, Void> {
     private final HashMap<String, Integer> convertType = new HashMap<>();
     private final HashMap<String, Integer> convertSeries = new HashMap<>();
     private final HashMap<String, Integer> convertCompany = new HashMap<>();
-    private long newVersionId;
     private boolean forced = false;
     private final FilterUpdater filterUpdater;
 
@@ -367,6 +366,7 @@ public class CSVImporter extends AsyncTask<Boolean, String, Void> {
             return null;
         }
         InputStream inputStream = null;
+        long newVersionId;
         try {
             //update version number
             URL url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1842257512&single=true&output=csv");

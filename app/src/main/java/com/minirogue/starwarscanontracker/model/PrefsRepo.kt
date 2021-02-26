@@ -8,8 +8,8 @@ import com.minirogue.starwarscanontracker.application.SharedPreferenceBooleanLiv
 import javax.inject.Inject
 
 class PrefsRepo @Inject constructor(
-        sharedPreferences: SharedPreferences,
-        application: Application,
+    sharedPreferences: SharedPreferences,
+    application: Application,
 ) {
 
     private val _checkBoxVisibility = booleanArrayOf(true, true, true)
@@ -17,13 +17,13 @@ class PrefsRepo @Inject constructor(
 
     init {
         checkBoxVisibility.addSource(SharedPreferenceBooleanLiveData(sharedPreferences,
-                application.getString(R.string.user_filter_1_active),
-                true)) { _checkBoxVisibility[0] = it; checkBoxVisibility.postValue(_checkBoxVisibility) }
+            application.getString(R.string.user_filter_1_active),
+            true)) { _checkBoxVisibility[0] = it; checkBoxVisibility.postValue(_checkBoxVisibility) }
         checkBoxVisibility.addSource(SharedPreferenceBooleanLiveData(sharedPreferences,
-                application.getString(R.string.user_filter_2_active),
-                true)) { _checkBoxVisibility[1] = it; checkBoxVisibility.postValue(_checkBoxVisibility) }
+            application.getString(R.string.user_filter_2_active),
+            true)) { _checkBoxVisibility[1] = it; checkBoxVisibility.postValue(_checkBoxVisibility) }
         checkBoxVisibility.addSource(SharedPreferenceBooleanLiveData(sharedPreferences,
-                application.getString(R.string.user_filter_3_active),
-                true)) { _checkBoxVisibility[2] = it; checkBoxVisibility.postValue(_checkBoxVisibility) }
+            application.getString(R.string.user_filter_3_active),
+            true)) { _checkBoxVisibility[2] = it; checkBoxVisibility.postValue(_checkBoxVisibility) }
     }
 }
