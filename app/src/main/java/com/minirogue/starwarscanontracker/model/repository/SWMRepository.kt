@@ -43,7 +43,7 @@ class SWMRepository @Inject constructor(
     }
 
     // TODO
-    @Suppress("LongMethod", "ComplexMethod")
+    @Suppress("LongMethod", "ComplexMethod", "BlockingMethodInNonBlockingContext")
     /**
      * Returns a SimpleSQLiteQuery based on the given filters and the stored permanent filters
      *

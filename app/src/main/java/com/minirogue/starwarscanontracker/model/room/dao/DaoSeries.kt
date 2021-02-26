@@ -17,6 +17,7 @@ interface DaoSeries {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(series: Series): Long
+
     @Update
     fun update(series: Series)
 }

@@ -61,7 +61,7 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
         val currentItem = typeList[position]
         holder.itemView.setOnClickListener {
             isExpanded.put(currentItem.typeId,
-                    !getIsExpanded(currentItem)); notifyItemChanged(position)
+                !getIsExpanded(currentItem)); notifyItemChanged(position)
         }
         holder.binding.filterTypeTextview.text = currentItem.text
         holder.binding.typeSwitch.isChecked = currentItem.isFilterPositive
