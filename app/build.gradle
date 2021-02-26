@@ -103,11 +103,10 @@ dependencies {
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$jetpackHiltVersion"
     kapt "androidx.hilt:hilt-compiler:$jetpackHiltVersion"
 
-
-
     // Room (databases)
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
     // Image loading (image loading)

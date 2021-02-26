@@ -31,7 +31,7 @@ class MediaListViewModel @Inject constructor(
 ) : ViewModel() {
 
     // filtering
-    val activeFilters = repository.getActiveFilters()
+    val activeFilters = repository.getActiveFilters().asLiveData(viewModelScope.coroutineContext)
 
     // The data requested by the user
     private var data: LiveData<List<MediaAndNotes>> = MutableLiveData()
@@ -69,7 +69,8 @@ class MediaListViewModel @Inject constructor(
             mediaTypes.forEach { mediaTypeToString.put(it.id, it.text) }
         }
         dataMediator.addSource(activeFilters) { viewModelScope.launch { updateQuery() } }
-        dataMediator.addSource(repository.getAllFilterTypes()) { viewModelScope.launch { updateQuery() } }
+        dataMediator.addSource(repository.getAllFilterTypes()
+            .asLiveData(viewModelScope.coroutineContext)) { viewModelScope.launch { updateQuery() } }
         sortedData.addSource(sortStyle) { viewModelScope.launch { sort(); saveSort() } }
         // dataMediator needs to be observed so the things it observes can trigger events
         sortedData.addSource(dataMediator) { }

@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
@@ -32,12 +34,12 @@ class FilterSelectionFragment : Fragment() {
 
         val activeChipGroup = fragmentBinding.selectedChipgroup
 
-        viewModel.getActiveFilters().observe(viewLifecycleOwner,
-                { activeFilters ->
-                    activeChipGroup.removeAllViews(); activeFilters.forEach {
-                    activeChipGroup.addView(makeCurrentFilterChip(it))
-                }
-                })
+        viewModel.getActiveFilters().asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner,
+            { activeFilters ->
+                activeChipGroup.removeAllViews(); activeFilters.forEach {
+                activeChipGroup.addView(makeCurrentFilterChip(it))
+            }
+            })
 
         val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(fragmentContext)
         val adapter = FilterSelectionAdapter()
@@ -47,18 +49,20 @@ class FilterSelectionFragment : Fragment() {
             }
 
             override fun setFilterGroupObservation(chipGroup: ChipGroup, filterType: FilterType) {
-                viewModel.getFiltersOfType(filterType).observe(viewLifecycleOwner, { filters ->
-                    chipGroup.removeAllViews()
-                    filters.forEach {
-                        if (!it.filterObject.active) {
-                            val filterChip = FilterChip(it, fragmentContext)
-                            val filterObject = it.filterObject
-                            filterChip.setOnClickListener { viewModel.flipFilterActive(filterObject) }
-                            filterChip.setOnCloseIconClickListener { viewModel.setFilterInactive(filterObject) }
-                            chipGroup.addView(filterChip)
+                viewModel.getFiltersOfType(filterType).asLiveData(lifecycleScope.coroutineContext).observe(
+                    viewLifecycleOwner,
+                    { filters ->
+                        chipGroup.removeAllViews()
+                        filters.forEach {
+                            if (!it.filterObject.active) {
+                                val filterChip = FilterChip(it, fragmentContext)
+                                val filterObject = it.filterObject
+                                filterChip.setOnClickListener { viewModel.flipFilterActive(filterObject) }
+                                filterChip.setOnCloseIconClickListener { viewModel.setFilterInactive(filterObject) }
+                                chipGroup.addView(filterChip)
+                            }
                         }
-                    }
-                })
+                    })
             }
 
             override fun onFilterTypeSwitchClicked(filterType: FilterType) {
@@ -82,7 +86,8 @@ class FilterSelectionFragment : Fragment() {
             }
             adapter.updateExcludedTypes(list)
         })
-        viewModel.filterTypes.observe(viewLifecycleOwner, { filterTypes -> adapter.updateList(filterTypes) })
+        viewModel.filterTypes.asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner,
+            { filterTypes -> adapter.updateList(filterTypes) })
 
         return fragmentBinding.root
     }

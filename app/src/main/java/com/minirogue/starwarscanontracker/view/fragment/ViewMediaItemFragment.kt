@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.request.CachePolicy
 import com.minirogue.starwarscanontracker.R
@@ -38,7 +40,7 @@ class ViewMediaItemFragment : Fragment() {
         viewModel.liveMediaItem.observe(viewLifecycleOwner, { item -> updateViews(item, fragmentBinding) })
         viewModel.liveMediaNotes.observe(viewLifecycleOwner, { notes -> updateViews(notes, fragmentBinding) })
         viewModel.liveMediaType.observe(viewLifecycleOwner, { mediaType -> updateView(mediaType, fragmentBinding) })
-        viewModel.checkBoxText.observe(viewLifecycleOwner, { arr ->
+        viewModel.checkBoxText.asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner, { arr ->
             fragmentBinding.checkbox1.text = arr[0]
             fragmentBinding.checkbox2.text = arr[1]
             fragmentBinding.checkbox3.text = arr[2]
