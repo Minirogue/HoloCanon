@@ -1,11 +1,11 @@
 package com.minirogue.starwarscanontracker.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.minirogue.starwarscanontracker.model.PrefsRepo
-import com.minirogue.starwarscanontracker.model.repository.SWMRepository
-import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
-import com.minirogue.starwarscanontracker.model.room.entity.FilterType
-import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter
+import com.minirogue.starwarscanontracker.core.model.PrefsRepo
+import com.minirogue.starwarscanontracker.core.model.repository.SWMRepository
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
+import com.minirogue.starwarscanontracker.core.model.room.pojo.FullFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

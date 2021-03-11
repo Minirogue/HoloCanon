@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.chip.Chip
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter
+import com.minirogue.starwarscanontracker.core.model.room.pojo.FullFilter
 
 class FilterChip(fullFilter: FullFilter, ctx: Context) : Chip(ctx) {
 

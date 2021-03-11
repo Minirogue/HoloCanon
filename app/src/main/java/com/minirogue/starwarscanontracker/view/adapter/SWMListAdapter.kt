@@ -12,9 +12,9 @@ import coil.load
 import coil.request.CachePolicy
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.databinding.MediaListItemBinding
-import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
-import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
-import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
+import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
 import java.util.*
 
 class SWMListAdapter(

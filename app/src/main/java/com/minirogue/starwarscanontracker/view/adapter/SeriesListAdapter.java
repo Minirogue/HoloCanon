@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minirogue.starwarscanontracker.R;
-import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes;
+import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes;
 
 import java.util.ArrayList;
 import java.util.List;

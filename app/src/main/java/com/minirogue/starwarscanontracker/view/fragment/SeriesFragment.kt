@@ -12,7 +12,7 @@ import coil.load
 import coil.request.CachePolicy
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.databinding.FragmentSeriesBinding
-import com.minirogue.starwarscanontracker.model.room.entity.Series
+import com.minirogue.starwarscanontracker.core.model.room.entity.Series
 import com.minirogue.starwarscanontracker.view.adapter.SeriesListAdapter
 import com.minirogue.starwarscanontracker.viewmodel.SeriesViewModel
 import dagger.hilt.android.AndroidEntryPoint

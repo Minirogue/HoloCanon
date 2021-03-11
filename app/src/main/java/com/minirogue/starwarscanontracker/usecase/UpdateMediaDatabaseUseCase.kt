@@ -1,6 +1,6 @@
 package com.minirogue.starwarscanontracker.usecase
 
-import com.minirogue.starwarscanontracker.model.CSVImporter
+import com.minirogue.starwarscanontracker.core.model.CSVImporter
 import javax.inject.Inject
 
 class UpdateMediaDatabaseUseCase @Inject constructor(private val csvImporter: CSVImporter) {
