@@ -92,7 +92,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
     // lifecycle components
-    implementation "androidx.fragment:fragment-ktx:1.3.0" //for lazy viewmodel instantiation
+    implementation "androidx.fragment:fragment-ktx:1.3.1" //for lazy viewmodel instantiation
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion" // TODO deprecate
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
