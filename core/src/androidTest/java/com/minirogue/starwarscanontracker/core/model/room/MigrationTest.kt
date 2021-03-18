@@ -1,9 +1,8 @@
-package com.minirogue.starwarscanontracker.core.mod.model.room
+package com.minirogue.starwarscanontracker.core.model.room
 
 import androidx.room.testing.MigrationTestHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.platform.app.InstrumentationRegistry
-import com.minirogue.starwarscanontracker.core.model.room.MediaDatabase
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
