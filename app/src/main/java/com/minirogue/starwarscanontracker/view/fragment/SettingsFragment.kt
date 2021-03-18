@@ -11,7 +11,7 @@ import com.minirogue.starwarscanontracker.core.model.repository.SWMRepository
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaType
 import com.minirogue.starwarscanontracker.core.usecase.GetAllMediaTypesUseCase
-import com.minirogue.starwarscanontracker.usecase.UpdateMediaDatabaseUseCase
+import com.minirogue.usecase.UpdateMediaDatabaseUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

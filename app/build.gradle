@@ -22,13 +22,6 @@ android {
         }
     }
 
-    hilt {
-        // https://github.com/google/dagger/issues/1991
-        // https://github.com/google/dagger/issues/970
-        enableExperimentalClasspathAggregation = true
-    }
-
-
     compileSdkVersion 30
     defaultConfig {
         applicationId "com.minirogue.starwarscanontracker"
@@ -67,6 +60,7 @@ dependencies {
 
     // Project Modules
     implementation project(":core")
+    implementation project(":usecase")
 
     // Android
     implementation "androidx.appcompat:appcompat:$appCompatVersion"

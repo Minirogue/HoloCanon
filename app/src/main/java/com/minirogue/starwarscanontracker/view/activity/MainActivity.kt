@@ -9,10 +9,10 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.FilterUpdater
-import com.minirogue.starwarscanontracker.usecase.UpdateMediaDatabaseUseCase
 import com.minirogue.starwarscanontracker.view.fragment.AboutFragment
 import com.minirogue.starwarscanontracker.view.fragment.SettingsFragment
 import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment
+import com.minirogue.usecase.UpdateMediaDatabaseUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
