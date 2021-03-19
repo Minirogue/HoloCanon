@@ -10,7 +10,7 @@ import com.minirogue.starwarscanontracker.core.model.FilterUpdater
 import com.minirogue.starwarscanontracker.core.model.repository.SWMRepository
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaType
-import com.minirogue.starwarscanontracker.core.usecase.GetAllMediaTypesUseCase
+import com.minirogue.usecase.GetAllMediaTypesUseCase
 import com.minirogue.usecase.UpdateMediaDatabaseUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -77,7 +77,7 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
         private val catRef = WeakReference(category)
 
         override fun doInBackground(vararg p0: Void?): List<MediaType> {
-            return ctxRef.get()?.let { getAllMediaTypesUseCase(it) } ?: emptyList()
+            return ctxRef.get()?.let { getAllMediaTypesUseCase() } ?: emptyList()
         }
 
         override fun onPostExecute(result: List<MediaType>?) {
