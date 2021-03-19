@@ -15,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.databinding.FragmentMediaListBinding
-import com.minirogue.starwarscanontracker.model.SortStyle
-import com.minirogue.starwarscanontracker.model.SortStyle.Companion.getAllStyles
-import com.minirogue.starwarscanontracker.model.SortStyle.Companion.getSortText
-import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
-import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter
+import com.minirogue.starwarscanontracker.core.model.SortStyle
+import com.minirogue.starwarscanontracker.core.model.SortStyle.Companion.getAllStyles
+import com.minirogue.starwarscanontracker.core.model.SortStyle.Companion.getSortText
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
+import com.minirogue.starwarscanontracker.core.model.room.pojo.FullFilter
 import com.minirogue.starwarscanontracker.view.FilterChip
 import com.minirogue.starwarscanontracker.view.adapter.SWMListAdapter
 import com.minirogue.starwarscanontracker.view.adapter.SWMListAdapter.AdapterInterface

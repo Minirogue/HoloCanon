@@ -15,10 +15,10 @@ import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.request.CachePolicy
 import com.minirogue.starwarscanontracker.R
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaType
 import com.minirogue.starwarscanontracker.databinding.FragmentViewMediaItemBinding
-import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
-import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
-import com.minirogue.starwarscanontracker.model.room.entity.MediaType
 import com.minirogue.starwarscanontracker.viewmodel.ViewMediaItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

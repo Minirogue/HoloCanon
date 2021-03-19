@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.minirogue.starwarscanontracker.databinding.FragmentFilterSelectionBinding
-import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
-import com.minirogue.starwarscanontracker.model.room.entity.FilterType
-import com.minirogue.starwarscanontracker.model.room.pojo.FullFilter
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
+import com.minirogue.starwarscanontracker.core.model.room.pojo.FullFilter
 import com.minirogue.starwarscanontracker.view.FilterChip
 import com.minirogue.starwarscanontracker.view.adapter.FilterSelectionAdapter
 import com.minirogue.starwarscanontracker.viewmodel.FilterSelectionViewModel

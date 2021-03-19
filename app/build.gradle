@@ -30,15 +30,6 @@ android {
         versionCode 22
         versionName "1.2.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
-            }
-        }
-        sourceSets {
-            androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
-        }
     }
     buildTypes {
         release {
@@ -66,6 +57,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Project Modules
+    implementation project(":core")
+    implementation project(":usecase")
 
     // Android
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
@@ -102,12 +97,6 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$jetpackHiltVersion"
     kapt "androidx.hilt:hilt-compiler:$jetpackHiltVersion"
-
-    // Room (databases)
-    implementation "androidx.room:room-runtime:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
-    implementation "androidx.room:room-ktx:$roomVersion"
-    androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
     // Image loading (image loading)
     implementation "io.coil-kt:coil:$coilVersion"

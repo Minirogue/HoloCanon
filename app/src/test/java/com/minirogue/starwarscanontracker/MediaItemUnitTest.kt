@@ -1,6 +1,6 @@
 package com.minirogue.starwarscanontracker
 
-import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
