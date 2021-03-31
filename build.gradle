@@ -30,7 +30,7 @@ detekt {
 
 ext {
     appCompatVersion = '1.2.0'
-    lifecycleVersion = '2.3.0'
+    lifecycleVersion = '2.3.1'
     jetpackHiltVersion = '1.0.0-alpha03'
     roomVersion = '2.2.6'
 
