@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
 import com.minirogue.starwarscanontracker.databinding.FilterSelectionItemBinding
-import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
-import com.minirogue.starwarscanontracker.model.room.entity.FilterType
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
 
 class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.FilterTypeViewHolder>() {
 
@@ -61,7 +61,7 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
         val currentItem = typeList[position]
         holder.itemView.setOnClickListener {
             isExpanded.put(currentItem.typeId,
-                    !getIsExpanded(currentItem)); notifyItemChanged(position)
+                !getIsExpanded(currentItem)); notifyItemChanged(position)
         }
         holder.binding.filterTypeTextview.text = currentItem.text
         holder.binding.typeSwitch.isChecked = currentItem.isFilterPositive

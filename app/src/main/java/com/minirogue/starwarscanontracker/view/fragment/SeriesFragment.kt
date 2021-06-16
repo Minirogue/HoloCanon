@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.request.CachePolicy
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.databinding.FragmentSeriesBinding
-import com.minirogue.starwarscanontracker.model.room.entity.Series
+import com.minirogue.starwarscanontracker.core.model.room.entity.Series
 import com.minirogue.starwarscanontracker.view.adapter.SeriesListAdapter
 import com.minirogue.starwarscanontracker.viewmodel.SeriesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +29,8 @@ class SeriesFragment : Fragment() {
         if (bundleItemId != -1) viewModel.setSeriesId(bundleItemId)
         viewModel.liveSeries.observe(viewLifecycleOwner, { series -> updateViews(series, fragmentBinding) })
         viewModel.liveSeriesNotes.observe(viewLifecycleOwner, { notes -> updateViews(notes, fragmentBinding) })
-        viewModel.checkBoxNames.observe(viewLifecycleOwner, { names -> setCheckBoxNames(names, fragmentBinding) })
+        viewModel.checkBoxNames.asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner,
+            { names -> setCheckBoxNames(names, fragmentBinding) })
         viewModel.checkBoxVisibility.observe(viewLifecycleOwner,
             { visibility -> setCheckBoxVisibility(visibility, fragmentBinding) })
         fragmentBinding.checkbox3.setOnClickListener { viewModel.toggleCheckbox3() }

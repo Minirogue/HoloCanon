@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="checkbox1_default_text">Completed</string>
+    <string name="checkbox2_default_text">Wishlist</string>
+    <string name="checkbox3_default_text">Owned</string>
+
+    <!--  Not user-visible strings, TODO: move these to a constants file  -->
+    <string name="user_filter_3_active">user_filter_3_active</string>
+    <string name="user_filter_2_active">user_filter_2_active</string>
+    <string name="user_filter_1_active">user_filter_1_active</string>
+    <string name="setting_unmetered_sync_only">sync_wifi_only</string>
+    <string name="current_database_version">current database version</string>
+
+</resources>

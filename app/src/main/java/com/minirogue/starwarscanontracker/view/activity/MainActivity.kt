@@ -8,11 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.model.FilterUpdater
-import com.minirogue.starwarscanontracker.usecase.UpdateMediaDatabaseUseCase
+import com.minirogue.starwarscanontracker.core.model.FilterUpdater
 import com.minirogue.starwarscanontracker.view.fragment.AboutFragment
 import com.minirogue.starwarscanontracker.view.fragment.SettingsFragment
 import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment
+import com.minirogue.usecase.UpdateMediaDatabaseUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             // initialize the fragment to the entry fragment
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, TabbedListContainerFragment())
-                    .commit()
+                .replace(R.id.fragment_container, TabbedListContainerFragment())
+                .commit()
         }
 
         // Set up the toolbar and navigation drawer
@@ -105,14 +105,12 @@ class MainActivity : AppCompatActivity() {
      */
     private fun replaceFragment(newFrag: Fragment, tag: String) {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, newFrag, tag)
-                .addToBackStack(null)
-                .commit()
+            .replace(R.id.fragment_container, newFrag, tag)
+            .addToBackStack(null)
+            .commit()
     }
 
     companion object {
-
-        private const val TAG = "MainActivity"
 
         // the following are definitions for the tags associated to each of the main Fragments
         private const val SETTINGS_TAG = "settings"

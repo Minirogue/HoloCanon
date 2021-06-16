@@ -4,14 +4,13 @@ import android.app.Application
 import android.util.SparseArray
 import androidx.lifecycle.*
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
-import com.minirogue.starwarscanontracker.model.PrefsRepo
-import com.minirogue.starwarscanontracker.model.SortStyle
-import com.minirogue.starwarscanontracker.model.repository.SWMRepository
-import com.minirogue.starwarscanontracker.model.repository.SeriesRepository
-import com.minirogue.starwarscanontracker.model.room.entity.FilterObject
-import com.minirogue.starwarscanontracker.model.room.entity.MediaItem
-import com.minirogue.starwarscanontracker.model.room.entity.MediaNotes
-import com.minirogue.starwarscanontracker.model.room.pojo.MediaAndNotes
+import com.minirogue.starwarscanontracker.core.model.PrefsRepo
+import com.minirogue.starwarscanontracker.core.model.SortStyle
+import com.minirogue.starwarscanontracker.core.model.repository.SWMRepository
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
+import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
@@ -24,14 +23,13 @@ import kotlin.collections.ArrayList
 @HiltViewModel
 class MediaListViewModel @Inject constructor(
     private val repository: SWMRepository,
-    private val seriesRepository: SeriesRepository,
     private val connMgr: MyConnectivityManager,
     prefsRepo: PrefsRepo,
     application: Application,
 ) : ViewModel() {
 
     // filtering
-    val activeFilters = repository.getActiveFilters()
+    val activeFilters = repository.getActiveFilters().asLiveData(viewModelScope.coroutineContext)
 
     // The data requested by the user
     private var data: LiveData<List<MediaAndNotes>> = MutableLiveData()
@@ -69,7 +67,8 @@ class MediaListViewModel @Inject constructor(
             mediaTypes.forEach { mediaTypeToString.put(it.id, it.text) }
         }
         dataMediator.addSource(activeFilters) { viewModelScope.launch { updateQuery() } }
-        dataMediator.addSource(repository.getAllFilterTypes()) { viewModelScope.launch { updateQuery() } }
+        dataMediator.addSource(repository.getAllFilterTypes()
+            .asLiveData(viewModelScope.coroutineContext)) { viewModelScope.launch { updateQuery() } }
         sortedData.addSource(sortStyle) { viewModelScope.launch { sort(); saveSort() } }
         // dataMediator needs to be observed so the things it observes can trigger events
         sortedData.addSource(dataMediator) { }
@@ -141,8 +140,6 @@ class MediaListViewModel @Inject constructor(
     fun convertTypeToString(typeId: Int): String {
         return mediaTypeToString[typeId, ""]
     }
-
-    suspend fun getSeriesString(seriesId: Int): String = seriesRepository.getSeriesStringById(seriesId)
 
     fun deactivateFilter(filterObject: FilterObject) = viewModelScope.launch(Dispatchers.Default) {
         filterObject.active = false

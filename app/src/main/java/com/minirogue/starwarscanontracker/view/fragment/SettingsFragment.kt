@@ -6,12 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import androidx.preference.*
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.model.FilterUpdater
-import com.minirogue.starwarscanontracker.model.repository.SWMRepository
-import com.minirogue.starwarscanontracker.model.room.MediaDatabase
-import com.minirogue.starwarscanontracker.model.room.entity.FilterType
-import com.minirogue.starwarscanontracker.model.room.entity.MediaType
-import com.minirogue.starwarscanontracker.usecase.UpdateMediaDatabaseUseCase
+import com.minirogue.starwarscanontracker.core.model.FilterUpdater
+import com.minirogue.starwarscanontracker.core.model.repository.SWMRepository
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaType
+import com.minirogue.usecase.GetAllMediaTypesUseCase
+import com.minirogue.usecase.UpdateMediaDatabaseUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -35,11 +35,16 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
     @Inject
     lateinit var filterUpdater: FilterUpdater
 
+    @Inject
+    lateinit var getAllMediaTypesUseCase: GetAllMediaTypesUseCase
+
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
 
-        SetTypePreferences(requireActivity().applicationContext, findPreference("permanent_filters")!!).execute()
+        SetTypePreferences(requireActivity().applicationContext,
+            findPreference("permanent_filters")!!,
+            getAllMediaTypesUseCase).execute()
         val checkboxone = findPreference<EditTextPreference>(getString(R.string.checkbox1_default_text))
         checkboxone?.setSummaryProvider { checkboxone.text }
         val checkboxtwo = findPreference<EditTextPreference>(getString(R.string.checkbox2_default_text))
@@ -63,12 +68,16 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
         return super.onPreferenceTreeClick(preference)
     }
 
-    class SetTypePreferences(ctx: Context, category: PreferenceCategory) : AsyncTask<Void, Void, List<MediaType>>() {
+    class SetTypePreferences(
+        ctx: Context,
+        category: PreferenceCategory,
+        private val getAllMediaTypesUseCase: GetAllMediaTypesUseCase,
+    ) : AsyncTask<Void, Void, List<MediaType>>() {
         private val ctxRef = WeakReference(ctx)
         private val catRef = WeakReference(category)
 
         override fun doInBackground(vararg p0: Void?): List<MediaType> {
-            return MediaDatabase.getMediaDataBase(ctxRef.get()).daoType.allNonLive
+            return ctxRef.get()?.let { getAllMediaTypesUseCase() } ?: emptyList()
         }
 
         override fun onPostExecute(result: List<MediaType>?) {
