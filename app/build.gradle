@@ -4,9 +4,10 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 
 
-
 def keystorePropsFile = rootProject.file('keystore.properties')
 
+def date = new Date()
+def calVer = date.format('yy.M.d')
 
 android {
     if (keystorePropsFile.exists()) {
@@ -28,7 +29,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 22
-        versionName "1.2.1"
+        versionName calVer
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
