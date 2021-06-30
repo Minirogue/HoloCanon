@@ -5,9 +5,19 @@ apply plugin: 'dagger.hilt.android.plugin'
 
 
 def keystorePropsFile = rootProject.file('keystore.properties')
+def versionPropertiesFile = rootProject.file("version.properties")
 
-def date = new Date()
-def calVer = date.format('yy.M.d')
+task bumpVersionCode {
+    doLast {
+        def versionProperties = new Properties()
+        versionProperties.load(new FileInputStream(versionPropertiesFile))
+
+        def code = versionProperties['VERSION_CODE'].toInteger() + 1
+
+        versionProperties['VERSION_CODE'] = code.toString()
+        versionProperties.store(versionPropertiesFile.newWriter(), null)
+    }
+}
 
 android {
     if (keystorePropsFile.exists()) {
@@ -22,14 +32,21 @@ android {
             }
         }
     }
+    def versionProperties = new Properties()
+    if (versionPropertiesFile.exists()) {
+        versionProperties.load(new FileInputStream(versionPropertiesFile))
+    }
+
+    def date = new Date()
+    def verName = date.format('yy.M.d')
 
     compileSdkVersion 30
     defaultConfig {
         applicationId "com.minirogue.starwarscanontracker"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 22
-        versionName calVer
+        versionCode versionProperties['VERSION_CODE'].toInteger()
+        versionName verName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
