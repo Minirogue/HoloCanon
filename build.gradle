@@ -37,7 +37,7 @@ ext {
 
     coilVersion = '1.2.2'
 
-    androidXTestVersion = '1.3.0'
+    androidXTestVersion = '1.4.0'
     jUnitVersion = '4.13.2'
 }
 
