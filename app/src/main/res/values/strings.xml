@@ -98,5 +98,9 @@
     <string name="cover_art">Cover art</string>
     <string name="how_to_buy">how to buy</string>
     <string name="sort_method">sort method</string>
+    <string name="sort">Sort</string>
+    <string name="title">Title</string>
+    <string name="timeline">Timeline (work-in-progress)</string>
+    <string name="release_date_2">Release Date</string>
 
 </resources>

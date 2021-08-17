@@ -56,14 +56,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.toolbar_settings -> replaceFragment(SETTINGS_TAG)
-            R.id.toolbar_about -> replaceFragment(ABOUT_TAG)
-            else -> {
-                Toast.makeText(applicationContext, "Oops, option not implemented", Toast.LENGTH_SHORT).show()
+        return when (item.itemId) {
+            R.id.toolbar_settings -> {
+                replaceFragment(SETTINGS_TAG)
+                true
             }
+            R.id.toolbar_about -> {
+                replaceFragment(ABOUT_TAG)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return true
     }
 
     /**

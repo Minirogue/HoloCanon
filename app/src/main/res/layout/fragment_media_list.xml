@@ -29,21 +29,4 @@
             android:scrollbars="none"
             tools:listitem="@layout/media_list_item" />
 
-
-    <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/sort_floating_action_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:contentDescription="@string/sort_method"
-                android:src="@drawable/ic_sort" />
-
-    </FrameLayout>
-
 </androidx.appcompat.widget.LinearLayoutCompat>
