@@ -1,0 +1,44 @@
+plugins {
+    id 'org.jetbrains.kotlin.multiplatform'
+    id 'com.squareup.sqldelight'
+}
+
+group 'com.minirogue'
+version '0.0.1'
+
+kotlin {
+    jvm()
+
+    explicitApi()
+
+    /* Targets configuration omitted. 
+    *  To find out how to configure the targets, please follow the link:
+    *  https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html#setting-up-targets */
+
+    sourceSets {
+        jvmMain {
+            dependencies {
+                implementation "com.squareup.sqldelight:sqlite-driver:$sqldelightVersion"
+                implementation "com.opencsv:opencsv:$openCsvVersion"
+            }
+        }
+        commonMain {
+            dependencies {
+                implementation project(":holocanon-dto")
+                implementation "com.squareup.sqldelight:coroutines-extensions:$sqldelightVersion"
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation kotlin('test-common')
+                implementation kotlin('test-annotations-common')
+            }
+        }
+    }
+}
+
+sqldelight {
+    HolocanonDb { // This will be the name of the generated database class.
+        packageName = "com.minirogue"
+    }
+}

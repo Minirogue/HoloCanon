@@ -1,0 +1,21 @@
+CREATE TABLE series (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT UNIQUE NOT NULL
+);
+
+CREATE INDEX series_name ON series(name);
+
+-- typesafe functions generated at runtime:
+
+getAllSeries:
+SELECT *
+FROM series;
+
+getSeries:
+SELECT *
+FROM series
+WHERE id = :id;
+
+insertSeries:
+INSERT INTO series(id,name)
+VALUES (?,?);

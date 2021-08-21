@@ -1,0 +1,19 @@
+CREATE TABLE media_type (
+          id INTEGER NOT NULL PRIMARY KEY,
+          type TEXT UNIQUE NOT NULL
+);
+
+-- typesafe functions generated at runtime:
+
+getAllTypes:
+SELECT *
+FROM media_type;
+
+getType:
+SELECT *
+FROM media_type
+WHERE id = :id;
+
+insertType:
+INSERT INTO media_type(id,type)
+VALUES (?,?);

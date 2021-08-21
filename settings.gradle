@@ -1,3 +1,7 @@
 include ':core'
 include ':app'
 include ':usecase'
+include ':holocanon-dto'
+include ':holocanon-database'
+include ':holocanon-api'
+

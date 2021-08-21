@@ -1,0 +1,32 @@
+plugins {
+    id 'org.jetbrains.kotlin.multiplatform'
+    id 'org.jetbrains.kotlin.plugin.serialization' version "$kotlinVersion"
+}
+
+group 'com.minirogue'
+version '0.0.1'
+
+repositories {
+    mavenCentral()
+}
+
+kotlin {
+    explicitApi()
+
+    jvm()
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation kotlin('stdlib-common')
+                implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$serializationVersion"
+            }
+        }
+        commonTest {
+            dependencies {
+                implementation kotlin('test-common')
+                implementation kotlin('test-annotations-common')
+            }
+        }
+    }
+}

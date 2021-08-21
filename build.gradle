@@ -2,9 +2,10 @@
 
 buildscript {
     ext {
-        kotlin_version = '1.5.21'
+        kotlinVersion = '1.5.21'
         hiltVersion = '2.38.1'
         detektVersion = '1.18.0'
+        sqldelightVersion = '1.5.0'
     }
 
     repositories {
@@ -12,9 +13,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath 'com.android.tools.build:gradle:7.0.1'
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
+        classpath "com.squareup.sqldelight:gradle-plugin:$sqldelightVersion"
     }
 }
 
@@ -23,22 +25,31 @@ plugins {
 }
 
 detekt {
-    input = files("$project.rootDir")
+    source = files("$project.rootDir")
     baseline = file("$project.rootDir/config/detekt/baseline.xml")
 }
 
 ext {
+    // Kotlin
+    coroutinesVersion = '1.5.1-native-mt'
+    ktorVersion = '1.6.2'
+    serializationVersion = '1.2.2'
+
+    // Java
+    openCsvVersion = '4.3'
+    jUnitVersion = '4.13.2'
+
+    // Android (Google)
     appCompatVersion = '1.3.1'
     lifecycleVersion = '2.3.1'
     jetpackHiltVersion = '1.0.0-alpha03'
     roomVersion = '2.3.0'
 
-    coroutinesVersion = '1.5.1-native-mt'
-
+    // Android (other)
     coilVersion = '1.3.2'
 
+    // Android (test)
     androidXTestVersion = '1.4.0'
-    jUnitVersion = '4.13.2'
 }
 
 allprojects {

@@ -1,0 +1,32 @@
+CREATE TABLE media (
+    id INTEGER NOT NULL PRIMARY KEY,
+    title TEXT NOT NULL,
+    type TEXT NOT NULL,
+    image TEXT,
+    released TEXT NOT NULL,
+    timeline REAL,
+    description TEXT,
+    series TEXT,
+    number INTEGER,
+    publisher TEXT,
+    author INTEGER,
+    director INTEGER,
+    illustrator INTEGER,
+    FOREIGN KEY (type) REFERENCES media_type(type),
+    FOREIGN KEY (series) REFERENCES series(name),
+    FOREIGN KEY (publisher) REFERENCES company(name),
+    FOREIGN KEY (author) REFERENCES person(id),
+    FOREIGN KEY (director) REFERENCES person(id),
+    FOREIGN KEY (illustrator) REFERENCES person(id)
+);
+
+getAllMedia:
+SELECT * FROM media;
+
+getMedia:
+SELECT * FROM media
+WHERE id = :id;
+
+insertMedia:
+INSERT INTO media(id,title, type, image, released, timeline, description, series, number, publisher, author, director, illustrator)
+VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);

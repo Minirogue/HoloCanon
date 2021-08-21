@@ -1,0 +1,21 @@
+CREATE TABLE company (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT UNIQUE NOT NULL
+);
+
+CREATE INDEX company_name ON company(name);
+
+-- typesafe functions generated at runtime:
+
+getAllCompanies:
+SELECT *
+FROM company;
+
+getCompany:
+SELECT *
+FROM company
+WHERE id = :id;
+
+insertCompany:
+INSERT INTO company(id,name)
+VALUES (?,?);

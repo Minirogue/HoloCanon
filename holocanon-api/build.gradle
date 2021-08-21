@@ -1,0 +1,26 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'
+    id 'application'
+}
+
+group 'com.minirogue'
+version '0.0.1'
+
+application {
+    mainClass = 'com.minirogue.ApplicationKt'
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+
+    // project
+    implementation project(":holocanon-dto")
+    implementation project(":holocanon-database")
+
+    // ktor
+    implementation "io.ktor:ktor-server-core:$ktorVersion"
+    implementation "io.ktor:ktor-server-netty:$ktorVersion"
+    implementation "io.ktor:ktor-serialization:$ktorVersion"
+    implementation 'ch.qos.logback:logback-classic:1.2.5'
+}

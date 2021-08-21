@@ -7,12 +7,15 @@
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="11" />
+        <option name="gradleJvm" value="jbr-11" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/holocanon-api" />
+            <option value="$PROJECT_DIR$/holocanon-database" />
+            <option value="$PROJECT_DIR$/holocanon-dto" />
             <option value="$PROJECT_DIR$/usecase" />
           </set>
         </option>
