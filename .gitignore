@@ -9,9 +9,10 @@ app/release/*
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
-/build
+*/build
 /captures
 .externalNativeBuild
 .idea
 keystore.properties
 *.jks
+holocanon-cd.json

@@ -4,4 +4,4 @@ include ':usecase'
 include ':holocanon-dto'
 include ':holocanon-database'
 include ':holocanon-api'
-
+include ':holocanon-api:client'

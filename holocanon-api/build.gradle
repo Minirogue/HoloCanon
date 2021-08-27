@@ -5,9 +5,13 @@ plugins {
 
 group 'com.minirogue'
 version '0.0.1'
-
+// TODO need to move this module in one level to "server" to distinguish the api server and the api client
 application {
     mainClass = 'com.minirogue.ApplicationKt'
+}
+
+tasks.create("stage") {
+    dependsOn("installDist")
 }
 
 dependencies {

@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/holocanon-api" />
+            <option value="$PROJECT_DIR$/holocanon-api/client" />
             <option value="$PROJECT_DIR$/holocanon-database" />
             <option value="$PROJECT_DIR$/holocanon-dto" />
             <option value="$PROJECT_DIR$/usecase" />
