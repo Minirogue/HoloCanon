@@ -40,7 +40,6 @@ public class CSVImporter extends AsyncTask<Boolean, String, Void> {
     private boolean forced = false;
     private final FilterUpdater filterUpdater;
 
-    @Inject
     public CSVImporter(Application application, FilterUpdater filterUpdater) {
         appRef = new WeakReference<>(application);
         connMgr = (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
