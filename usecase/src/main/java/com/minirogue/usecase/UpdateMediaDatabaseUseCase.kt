@@ -1,6 +1,8 @@
 package com.minirogue.usecase
 
 import com.minirogue.starwarscanontracker.core.model.CSVImporter
+import com.minirogue.starwarscanontracker.core.model.FilterUpdater
+import android.app.Application
 import javax.inject.Inject
 
 public class UpdateMediaDatabaseUseCase @Inject constructor(
