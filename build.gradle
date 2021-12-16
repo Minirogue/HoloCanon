@@ -31,7 +31,7 @@ ext {
     appCompatVersion = '1.4.0'
     lifecycleVersion = '2.4.0'
     jetpackHiltVersion = '1.0.0-alpha03'
-    roomVersion = '2.3.0'
+    roomVersion = '2.4.0'
 
     coroutinesVersion = '1.5.2-native-mt'
 
