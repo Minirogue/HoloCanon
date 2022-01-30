@@ -20,7 +20,8 @@ import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnSharedPreferenceChangeListener */ {
+class SettingsFragment :
+    PreferenceFragmentCompat()/*, SharedPreferences.OnSharedPreferenceChangeListener */ {
 
     companion object {
         private const val TAG = "SettingsFragment"
@@ -42,21 +43,26 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
 
-        SetTypePreferences(requireActivity().applicationContext,
+        SetTypePreferences(
+            requireActivity().applicationContext,
             findPreference("permanent_filters")!!,
-            getAllMediaTypesUseCase).execute()
-        val checkboxone = findPreference<EditTextPreference>(getString(R.string.checkbox1_default_text))
+            getAllMediaTypesUseCase
+        ).execute()
+        val checkboxone =
+            findPreference<EditTextPreference>(getString(R.string.checkbox1_default_text))
         checkboxone?.setSummaryProvider { checkboxone.text }
-        val checkboxtwo = findPreference<EditTextPreference>(getString(R.string.checkbox2_default_text))
+        val checkboxtwo =
+            findPreference<EditTextPreference>(getString(R.string.checkbox2_default_text))
         checkboxtwo?.setSummaryProvider { checkboxtwo.text }
-        val checkboxthree = findPreference<EditTextPreference>(getString(R.string.checkbox3_default_text))
+        val checkboxthree =
+            findPreference<EditTextPreference>(getString(R.string.checkbox3_default_text))
         checkboxthree?.setSummaryProvider { checkboxthree.text }
     }
 
-    override fun onPreferenceTreeClick(preference: Preference?): Boolean {
-        if (preference?.key == "update_from_online") {
+    override fun onPreferenceTreeClick(preference: Preference): Boolean {
+        if (preference.key == "update_from_online") {
             updateMediaDatabaseUseCase(true)
-        } else if (preference?.parent?.key == "permanent_filters") {
+        } else if (preference.parent?.key == "permanent_filters") {
             GlobalScope.launch(Dispatchers.Default) {
                 val filter = repo.getFilter(preference.order, FilterType.FILTERCOLUMN_TYPE)
                 filter?.let {
@@ -84,7 +90,7 @@ class SettingsFragment : PreferenceFragmentCompat()/*, SharedPreferences.OnShare
             val ctx = ctxRef.get()
             if (ctx != null) {
                 for (type in result!!) {
-                    val newPref = CheckBoxPreference(ctxRef.get())
+                    val newPref = CheckBoxPreference(ctx)
                     newPref.setDefaultValue(true)
                     newPref.title = type.text
                     newPref.key = type.text
