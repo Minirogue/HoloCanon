@@ -23,14 +23,13 @@ plugins {
 }
 
 detekt {
-    input = files("$project.rootDir")
+    source = files("$project.rootDir")
     baseline = file("$project.rootDir/config/detekt/baseline.xml")
 }
 
 ext {
     appCompatVersion = '1.4.1'
     lifecycleVersion = '2.4.1'
-    jetpackHiltVersion = '1.0.0-alpha03'
     roomVersion = '2.4.1'
 
     coroutinesVersion = '1.6.0-native-mt'
