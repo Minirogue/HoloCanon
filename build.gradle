@@ -33,7 +33,7 @@ ext {
     jetpackHiltVersion = '1.0.0-alpha03'
     roomVersion = '2.4.2'
 
-    coroutinesVersion = '1.6.0-native-mt'
+    coroutinesVersion = '1.6.1-native-mt'
 
     coilVersion = '1.4.0'
 
