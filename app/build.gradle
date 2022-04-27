@@ -88,7 +88,7 @@ dependencies {
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
 
     // Fastscroll: https://github.com/zhanghai/AndroidFastScroll
-    implementation "me.zhanghai.android.fastscroll:library:1.1.7"
+    implementation "me.zhanghai.android.fastscroll:library:1.1.8"
 
     // Testing
     androidTestImplementation "androidx.test.ext:junit:1.1.3"
