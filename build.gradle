@@ -35,7 +35,7 @@ ext {
 
     coroutinesVersion = '1.6.1-native-mt'
 
-    coilVersion = '1.4.0'
+    coilVersion = '2.1.0'
 
     androidXTestVersion = '1.4.0'
     jUnitVersion = '4.13.2'
