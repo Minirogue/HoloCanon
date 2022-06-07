@@ -113,8 +113,6 @@ dependencies {
     // dependency injection
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$jetpackHiltVersion"
-    kapt "androidx.hilt:hilt-compiler:$jetpackHiltVersion"
 
     // Image loading (image loading)
     implementation "io.coil-kt:coil:$coilVersion"
