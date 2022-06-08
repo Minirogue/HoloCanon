@@ -82,13 +82,13 @@ dependencies {
 
     // Android
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
-    implementation "androidx.constraintlayout:constraintlayout:2.1.3"
-    implementation "com.google.android.material:material:1.5.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+    implementation "com.google.android.material:material:1.6.1"
     implementation "androidx.preference:preference-ktx:1.2.0"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
 
     // Fastscroll: https://github.com/zhanghai/AndroidFastScroll
-    implementation "me.zhanghai.android.fastscroll:library:1.1.7"
+    implementation "me.zhanghai.android.fastscroll:library:1.1.8"
 
     // Testing
     androidTestImplementation "androidx.test.ext:junit:1.1.3"
@@ -113,8 +113,6 @@ dependencies {
     // dependency injection
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$jetpackHiltVersion"
-    kapt "androidx.hilt:hilt-compiler:$jetpackHiltVersion"
 
     // detekt
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
