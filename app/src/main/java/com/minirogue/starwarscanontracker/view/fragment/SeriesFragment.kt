@@ -11,8 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.request.CachePolicy
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.databinding.FragmentSeriesBinding
 import com.minirogue.starwarscanontracker.core.model.room.entity.Series
+import com.minirogue.starwarscanontracker.databinding.FragmentSeriesBinding
 import com.minirogue.starwarscanontracker.view.adapter.SeriesListAdapter
 import com.minirogue.starwarscanontracker.viewmodel.SeriesViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,12 +27,12 @@ class SeriesFragment : Fragment() {
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
         if (bundleItemId != -1) viewModel.setSeriesId(bundleItemId)
-        viewModel.liveSeries.observe(viewLifecycleOwner, { series -> updateViews(series, fragmentBinding) })
-        viewModel.liveSeriesNotes.observe(viewLifecycleOwner, { notes -> updateViews(notes, fragmentBinding) })
-        viewModel.checkBoxNames.asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner,
-            { names -> setCheckBoxNames(names, fragmentBinding) })
-        viewModel.checkBoxVisibility.observe(viewLifecycleOwner,
-            { visibility -> setCheckBoxVisibility(visibility, fragmentBinding) })
+        viewModel.liveSeries.observe(viewLifecycleOwner) { series -> updateViews(series, fragmentBinding) }
+        viewModel.liveSeriesNotes.observe(viewLifecycleOwner) { notes -> updateViews(notes, fragmentBinding) }
+        viewModel.checkBoxNames.asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner
+        ) { names -> setCheckBoxNames(names, fragmentBinding) }
+        viewModel.checkBoxVisibility.observe(viewLifecycleOwner
+        ) { visibility -> setCheckBoxVisibility(visibility, fragmentBinding) }
         fragmentBinding.checkbox3.setOnClickListener { viewModel.toggleCheckbox3() }
         fragmentBinding.checkbox2.setOnClickListener { viewModel.toggleCheckbox2() }
         fragmentBinding.checkbox1.setOnClickListener { viewModel.toggleCheckbox1() }
@@ -50,7 +50,7 @@ class SeriesFragment : Fragment() {
         }
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
-        viewModel.seriesList.observe(viewLifecycleOwner, { adapter.submitList(it) })
+        viewModel.seriesList.observe(viewLifecycleOwner) { adapter.submitList(it) }
 
         return fragmentBinding.root
     }
