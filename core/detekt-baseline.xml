@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SmellBaseline>
+    <ManuallySuppressedIssues />
+    <CurrentIssues>
+        <ID>ArrayPrimitive:SortStyle.kt$SortStyle.Companion$Array&lt;Int></ID>
+        <ID>TooManyFunctions:DaoFilter.kt$DaoFilter</ID>
+        <ID>TooManyFunctions:SWMRepository.kt$SWMRepository</ID>
+    </CurrentIssues>
+</SmellBaseline>

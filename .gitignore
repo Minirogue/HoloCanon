@@ -3,6 +3,7 @@
 /local.properties
 app/release/*
 /.idea/caches
+/.idea/gradle.xml
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
