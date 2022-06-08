@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
-
+apply plugin: 'io.gitlab.arturbosch.detekt'
 
 def keystorePropsFile = rootProject.file('keystore.properties')
 def versionPropertiesFile = rootProject.file("version.properties")
@@ -113,6 +113,9 @@ dependencies {
     // dependency injection
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+
+    // detekt
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
 
     // Image loading (image loading)
     implementation "io.coil-kt:coil:$coilVersion"

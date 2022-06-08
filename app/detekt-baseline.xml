@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<SmellBaseline>
+    <ManuallySuppressedIssues />
+    <CurrentIssues>
+        <ID>ArrayPrimitive:SeriesFragment.kt$SeriesFragment$Array&lt;Boolean></ID>
+    </CurrentIssues>
+</SmellBaseline>
