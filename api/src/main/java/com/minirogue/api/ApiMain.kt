@@ -2,7 +2,6 @@ package com.minirogue.api
 
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
-import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
@@ -12,19 +11,26 @@ import kotlinx.serialization.json.Json
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 
-fun main() {
-    embeddedServer(Netty, port = 8080, host = "0.0.0.0") {
-        install(ContentNegotiation) {
-            json(Json {
-                prettyPrint = true
-                isLenient = true
-            })
-        }
-        configureRouting()
-    }.start(wait = true)
-}
+fun main(args: Array<String>): Unit = EngineMain.main(args)
+// {
+//     embeddedServer(Netty, port = System.getenv("PORT").toInt()) {
+//         install(ContentNegotiation) {
+//             json(Json {
+//                 prettyPrint = true
+//                 isLenient = true
+//             })
+//         }
+//         configureRouting()
+//     }.start(wait = true)
+// }
 
 fun Application.configureRouting() {
+    install(ContentNegotiation) {
+        json(Json {
+            prettyPrint = true
+            isLenient = true
+        })
+    }
     routing {
         get("/") {
             call.respondText("Hello World!")
