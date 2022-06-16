@@ -1,6 +1,7 @@
 include ':core'
 include ':app'
 include ':usecase'
+include ':api'
 
 buildCache {
     local {
