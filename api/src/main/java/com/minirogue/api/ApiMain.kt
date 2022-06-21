@@ -25,6 +25,7 @@ fun main(args: Array<String>): Unit = EngineMain.main(args)
 //     }.start(wait = true)
 // }
 
+@Suppress("unused") // referenced in application.conf
 fun Application.configureRouting() {
     install(ContentNegotiation) {
         json(Json {
