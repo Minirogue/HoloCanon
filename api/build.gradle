@@ -7,7 +7,7 @@ plugins {
 group = "com.minirogue"
 version = "0.0.1"
 application {
-    mainClass.set("com.minirogue.ApiMainKt")
+    mainClass.set("com.minirogue.api.ApiMainKt")
 }
 
 java {
