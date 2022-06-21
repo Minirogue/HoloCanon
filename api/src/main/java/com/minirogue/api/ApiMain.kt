@@ -10,6 +10,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
+import java.io.InputStream
 
 fun main(args: Array<String>): Unit = EngineMain.main(args)
 // {
@@ -38,7 +39,7 @@ fun Application.configureRouting() {
         get("/media") { // TODO ensure coroutines are used
             val returnValue = mutableListOf<StarWarsMedia>()
             val stream = getResourceAsStream("media.csv")
-            val reader = stream?.reader()
+            val reader = stream.reader()
             val csvParser = CSVParser(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader()
                 .withIgnoreHeaderCase()
                 .withTrim())
@@ -57,4 +58,5 @@ fun Application.configureRouting() {
 @Serializable
 data class StarWarsMedia(val id: Long, val title: String, val type: String)
 
-fun getResourceAsStream(resource: String) = Thread.currentThread().contextClassLoader.getResourceAsStream(resource)
+fun getResourceAsStream(resource: String): InputStream = Thread.currentThread().contextClassLoader.getResourceAsStream(
+    resource)
