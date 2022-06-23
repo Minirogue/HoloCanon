@@ -36,7 +36,7 @@ ext {
     androidXTestVersion = '1.4.0'
 
     // Kotlin
-    coroutinesVersion = '1.6.1-native-mt'
+    coroutinesVersion = '1.6.3-native-mt'
     ktorVersion = '2.0.2'
 
     // JVM
