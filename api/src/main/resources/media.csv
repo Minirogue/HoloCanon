@@ -1,0 +1,1136 @@
+ID,title,type,image,released,timeline,description,series,number,publisher
+1,Episode IV: A New Hope,Movie,https://minirogue.github.io/SWCovers/Movies/a_new_hope.jpg,5/25/1977,0,The movie that started it all. Luke Skywalker is a young moisture farmer with a great destiny ahead as he journeys into space to save the princess and get the Empire's evil plans into the hands of the heroic terrorist group known as the Rebel Alliance.,Star Wars (movies),4,20th Century Fox
+2,Episode V: Empire Strikes Back,Movie,https://minirogue.github.io/SWCovers/Movies/empire_strikes_back.jpg,6/20/1980,3,In this sequel the Empire strikes back! Oh; you already knew that? Okay; well Lando's in this one. So that's cool.,Star Wars (movies),5,20th Century Fox
+3,Lost Stars,Original Novel,https://minirogue.github.io/SWCovers/Novels/lost_stars.jpg,9/4/2015,4.8,This follows Thane Kyrell and Ciena Ree; two childhood friends from the outer rim; as they take part in the galactic civil war of Episodes IV-VI. They enlist as together as officers in the Imperial Navy and are thrilled to work on such a magnificent battle station. Until the events of Episode IV causes one of them to defect to the Rebel Alliance. This book follows these characters through all of the main events of Episodes IV; V; and VI; and slightly beyond to the battle of Jakku.,,,Disney-Lucasfilm Press
+4,Episode VI: Return of the Jedi,Movie,https://minirogue.github.io/SWCovers/Movies/return_of_the_jedi.jpg,5/25/1983,4,The thrilling conclusion of the Star Wars saga (until extended universe novels dealt with what happens after this movie; and then Disney acquired the franchise and decided this wasn't the end).,Star Wars (movies),6,20th Century Fox
+5,Thrawn,Original Novel,https://minirogue.github.io/SWCovers/Novels/thrawn.jpg,4/11/2017,-6,,Thrawn,,Del Rey Books
+6,Thrawn: Alliances,Original Novel,https://minirogue.github.io/SWCovers/Novels/thrawn_alliances.jpg,7/24/2018,-1.9448,,Thrawn,,Del Rey Books
+7,Episode I: The Phantom Menace,Movie,https://minirogue.github.io/SWCovers/Movies/the_phantom_menace.jpg,5/19/1999,-32,The fourth Star Wars movie; but the first episode; because George Lucas said so. This is the beginning of the prequel trilogy; taking place in a time of relative peace when Jedi numbered in the thousands and the Sith had been eradicated. Oh wait; there's a Sith... Uh oh.,Star Wars (movies),1,20th Century Fox
+8,Episode II: Attack of the Clones,Movie,https://minirogue.github.io/SWCovers/Movies/attack_of_the_clones.jpg,5/16/2002,-22,This is the move that comes after episode I and before episode III.,Star Wars (movies),2,20th Century Fox
+9,Episode III: Revenge of the Sith,Movie,https://minirogue.github.io/SWCovers/Movies/revenge_of_the_sith.jpg,5/19/2005,-19,The thrilling preclusion... wait that doesn't mean conclusion of prequels; but pretend it does. It's the last movie of the prequel trilogy. A lot of people like this one best of the prequels. I was always more of a Phantom Menace kinda guy; but I will admit that this one has the best Anakin hair.,Star Wars (movies),3,20th Century Fox
+10,The Clone Wars,Movie,https://minirogue.github.io/SWCovers/Movies/the_clone_wars.jpg,8/15/2008,-21,Computer animated move which serves as a prologue for the TV series of the same name.,The Clone Wars,0,Warner Bros.
+11,Solo: A Star Wars Story,Movie,https://minirogue.github.io/SWCovers/Movies/solo_a_star_wars_story.jpg,5/25/2018,-12,A movie about a young Han Solo.,,,Disney
+12,Rogue One: A Star Wars Story,Movie,https://minirogue.github.io/SWCovers/Movies/rogue_one_a_star_wars_story.jpg,12/16/2016,-0.1,You know about the Death Star; right? No? What are you even doing here? I don't mean to gatekeep; but why do you even have this app if you don't know what the Death Star is? Go watch Episode IV; and come back if you liked it... Did you watch it? That was pretty cool; huh? Anyways; they explain how they got the plans for the Death Star in this one. That may not have been a burning question you had; but here's your answer.,,,Disney
+13,Episode VII: The Force Awakens,Movie,https://minirogue.github.io/SWCovers/Movies/the_force_awakens.jpg,12/18/2015,34,The first movie of the third trilogy of the main movie saga which is the seventh movie made but...also the seventh movie in the series. Oh hey; they finally made the episode numbers line up. Anyways; this is the first movie after Disney acquired the Star Wars franchise. Rey; Finn; Poe; and the Resistance are the heroes. Kylo Ren; Hux; Phasma; Snoke; and the First Order are the bad guys. How did the First Order acquire so much power under the New Republic's nose in the thirty years since the end of Episode VI? Where did they get all their funding? I don't know; Helen.,Star Wars (movies),7,Disney
+14,Episode VIII: The Last Jedi,Movie,https://minirogue.github.io/SWCovers/Movies/the_last_jedi.jpg,12/15/2017,34.5,This is the move that comes after episode VII and before episode IX.,Star Wars (movies),8,Disney
+15,Episode IX: The Rise of Skywalker,Movie,https://minirogue.github.io/SWCovers/Movies/the_rise_of_skywalker.jpg,12/20/2019,35,The conclusion of the numbered episodic Star Wars movies.,Star Wars (movies),9,Disney
+16,Master & Apprentice,Original Novel,https://minirogue.github.io/SWCovers/Novels/master_and_apprentice.jpg,4/16/2019,-39,,,,Del Rey Books
+17,Queen's Shadow,Original Novel,https://minirogue.github.io/SWCovers/Novels/queens_shadow.jpg,3/5/2019,-28,,,,Disney-Lucasfilm Press
+18,Choose Your Destiny: An Obi-Wan & Anakin Adventure,Youth,https://minirogue.github.io/SWCovers/Youth/choose_your_destiny_obiwan_anakin.jpg,3/19/2019,-25,,Choose Your Destiny,,Disney-Lucasfilm Press
+19,Dooku: Jedi Lost,Audiobook,https://minirogue.github.io/SWCovers/Novels/dooku_jedi_lost.jpg,4/30/2019,-40,Dooku: Jedi Lost follows the story of Dooku from his time as a Jedi Initiate through his departure from the Jedi Order. It's told through flashbacks as Asajj Ventress learns about his history. It ties into Master & Apprentice a little bit; as the character of Rael Aveross appears in both.,,,Random House
+20,Catalyst: A Rogue One Novel,Original Novel,https://minirogue.github.io/SWCovers/Novels/catalyst.jpg,9/15/2016,-17,,,,Del Rey Books
+21,Dark Disciple,Original Novel,https://minirogue.github.io/SWCovers/Novels/dark_disciple.jpg,7/7/2015,-20.872,Growing more desparate as the end of the Clone War seems completely out of sight; the Jedi send their own Quinlan Vos to assassinate Count Dooku. He is told to enlist the help of none other than Asajj Ventress.,,,Del Rey Books
+22,Darth Maul #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_maul_1.jpg,2/1/2017,-32.95,,Darth Maul,1,Marvel
+23,Adventures in Wild Space: The Escape,Youth,https://minirogue.github.io/SWCovers/Youth/adventures_in_wild_space_the_escape.jpg,12/13/2016,-18.7,,Adventures in Wild Space,0,Disney-Lucasfilm Press
+24,Adventures in Wild Space: The Snare,Youth,https://minirogue.github.io/SWCovers/Youth/adventures_in_wild_space_the_snare.jpg,1/3/2017,-18.69,,Adventures in Wild Space,1,Disney-Lucasfilm Press
+25,Adventures in Wild Space: The Nest,Youth,https://minirogue.github.io/SWCovers/Youth/adventures_in_wild_space_the_nest.jpg,1/3/2017,-18.68,,Adventures in Wild Space,2,Disney-Lucasfilm Press
+26,Adventures in Wild Space: The Heist,Youth,https://minirogue.github.io/SWCovers/Youth/adventures_in_wild_space_the_heist.jpg,4/11/2017,-18.67,,Adventures in Wild Space,3,Disney-Lucasfilm Press
+27,Adventures in Wild Space: The Darkness,Youth,https://minirogue.github.io/SWCovers/Youth/adventures_in_wild_space_the_darkness.jpg,8/15/2017,-18.66,,Adventures in Wild Space,4,Disney-Lucasfilm Press
+28,Adventures in Wild Space: The Cold,Youth,https://minirogue.github.io/SWCovers/Youth/adventures_in_wild_space_the_cold.jpg,10/24/2017,-18.65,,Adventures in Wild Space,5,Disney-Lucasfilm Press
+29,Adventures in Wild Space: The Rescue,Youth,https://minirogue.github.io/SWCovers/Youth/adventures_in_wild_space_the_rescue.jpg,4/10/2018,-18.64,,Adventures in Wild Space,6,Disney-Lucasfilm Press
+30,Ahsoka,Original Novel,https://minirogue.github.io/SWCovers/Novels/ahsoka.jpg,10/11/2016,-18,This book follows Ahsoka sometime after order 66. The audiobook is narrated by Ashley Eckstein; who voiced Ahsoka in The Clone Wars.,,,Disney-Lucasfilm Press
+31,Lords of the Sith,Original Novel,https://minirogue.github.io/SWCovers/Novels/lords_of_the_sith.jpg,5/28/2015,-13.9,,,,Del Rey Books
+32,Tarkin,Original Novel,https://minirogue.github.io/SWCovers/Novels/tarkin.jpg,9/4/2014,-14,,,,Del Rey Books
+33,Rebel Rising,Original Novel,https://minirogue.github.io/SWCovers/Novels/rebel_rising.jpg,5/2/2017,-11.3,,,,Disney-Lucasfilm Press
+34,Darth Maul #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_maul_2.jpg,3/22/2017,-32.9,,Darth Maul,2,Marvel
+35,Darth Maul #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_maul_3.jpg,4/26/2017,-32.8,,Darth Maul,3,Marvel
+36,A New Dawn,Original Novel,https://minirogue.github.io/SWCovers/Novels/a_new_dawn.jpg,9/2/2014,-11,,,,Del Rey Books
+37,Most Wanted,Original Novel,https://minirogue.github.io/SWCovers/Novels/most_wanted.jpg,5/25/2018,-13,,,,Disney-Lucasfilm Press
+38,Lando's Luck,Youth,https://minirogue.github.io/SWCovers/Youth/landos_luck.jpg,10/2/2018,-9.8,,Flight of the Falcon,,Disney-Lucasfilm Press
+39,Last Shot,Original Novel,https://minirogue.github.io/SWCovers/Novels/last_shot.jpg,4/17/2018,-11.5,,,,Del Rey Books
+40,Solo: Expanded Edition,Novelization,https://minirogue.github.io/SWCovers/Novels/solo.jpg,9/4/2018,-12,A novelization of Solo: A Star Wars Story,,,Del Rey Books
+41,Servants of the Empire: Edge of the Galaxy,Youth,https://minirogue.github.io/SWCovers/Youth/servants_of_the_empire_edge_of_the_galaxy.jpg,10/21/2014,-2.06,,Servants of the Empire,1,Disney-Lucasfilm Press
+42,Pirate's Price,Youth,https://minirogue.github.io/SWCovers/Youth/pirates_price.jpg,1/8/2019,34.22,,Flight of the Falcon,,Disney-Lucasfilm Press
+43,Ezra's Gamble,Youth,https://minirogue.github.io/SWCovers/Youth/ezras_gamble.jpg,8/5/2014,-2.05,,Rebels,,Disney-Lucasfilm Press
+44,Servants of the Empire: Rebel in the Ranks,Youth,https://minirogue.github.io/SWCovers/Youth/servants_of_the_empire_rebel_in_the_ranks.jpg,3/3/2015,-1.9955,"This book precedes and adapts parts of the Rebels episode ""Breaking Ranks""",Servants of the Empire,2,Disney-Lucasfilm Press
+45,Servants of the Empire: Imperial Justice,Youth,https://minirogue.github.io/SWCovers/Youth/servants_of_the_empire_imperial_justice.jpg,7/7/2015,-1.9905,,Servants of the Empire,3,Disney-Lucasfilm Press
+46,Servants of the Empire: The Secret Academy,Youth,https://minirogue.github.io/SWCovers/Youth/servants_of_the_empire_the_secret_academy.jpg,10/26/2015,-1.9895,,Servants of the Empire,4,Disney-Lucasfilm Press
+47,The Mighty Chewbacca in the Forest of Fear!,Youth,https://minirogue.github.io/SWCovers/Youth/the_mighty_chewbacca_in_the_forest_of_fear.jpg,5/25/2018,-1,,,,Disney-Lucasfilm Press
+48,Choose Your Destiny: A Han & Chewie Adventure,Youth,https://minirogue.github.io/SWCovers/Youth/choose_your_destiny_han_chewie.jpg,4/17/2018,-0.99,,Choose Your destiny,,Disney-Lucasfilm Press
+49,Thrawn: Treason,Original Novel,https://minirogue.github.io/SWCovers/Novels/thrawn_treason.jpg,7/23/2019,-0.95,,Thrawn,,Del Rey Books
+50,Leia: Princess of Alderaan,Original Novel,https://minirogue.github.io/SWCovers/Novels/leia_princess_of_alderaan.jpg,9/1/2017,-3,,,,Disney-Lucasfilm Press
+51,Guardians of the Whills,Youth,https://minirogue.github.io/SWCovers/Youth/guardians_of_the_whills.jpg,5/2/2017,-0.9,,,,Disney-Lucasfilm Press
+52,Rogue One: A Star Wars Story,Novelization,https://minirogue.github.io/SWCovers/Novels/rogue_one.jpg,12/20/2016,-0.1,A novelization of the movie of the same name,,,Del Rey Books
+53,From a Certain Point of View,Original Novel,https://minirogue.github.io/SWCovers/Novels/from_a_certain_point_of_view.jpg,10/3/2017,-0.05,A series of short stories written by a myriad of authors,,,Del Rey Books
+54,Smuggler's Run,Youth,https://minirogue.github.io/SWCovers/Youth/smugglers_run.jpg,9/4/2015,2.02,,,,Disney-Lucasfilm Press
+55,BattleFront II: Inferno Squad,Original Novel,https://minirogue.github.io/SWCovers/Novels/battlefront_II_inferno_squad.jpg,7/25/2017,0.15,,Battlefront,,Del Rey Books
+56,Heir to the Jedi,Original Novel,https://minirogue.github.io/SWCovers/Novels/heir_to_the_jedi.jpg,3/3/2015,2,,,,Del Rey Books
+57,The Weapon of a Jedi,Youth,https://minirogue.github.io/SWCovers/Youth/the_weapon_of_a_jedi.jpg,9/4/2015,2.01,,,,Disney-Lucasfilm Press
+58,The Legends of Luke Skywalker,Youth,https://minirogue.github.io/SWCovers/Youth/the_legends_of_luke_skywalker.jpg,10/31/2017,34.6,,,,Disney-Lucasfilm Press
+59,Battlefront: Twilight Company,Original Novel,https://minirogue.github.io/SWCovers/Novels/battlefront_twilight_company.jpg,11/3/2015,0.1,,Battlefront,,Del Rey Books
+60,Choose Your Destiny: A Luke & Leia Adventure,Youth,https://minirogue.github.io/SWCovers/Youth/choose_your_destiny_luke_leia.jpg,10/2/2018,,,Choose Your Destiny,,Disney-Lucasfilm Press
+61,Moving Target,Youth,https://minirogue.github.io/SWCovers/Youth/moving_target.jpg,9/4/2015,3.5,,,,Disney-Lucasfilm Press
+62,Darth Maul #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_maul_4.jpg,6/21/2017,-32.7,,Darth Maul,4,Marvel
+63,Aftermath,Original Novel,https://minirogue.github.io/SWCovers/Novels/aftermath.jpg,9/4/2015,5,,Aftermath,,Del Rey Books
+64,Aftermath: Life Debt,Original Novel,https://minirogue.github.io/SWCovers/Novels/aftermath_life_debt.jpg,7/12/2016,5.1,,Aftermath,,Del Rey Books
+65,Aftermath: Empire's End,Original Novel,https://minirogue.github.io/SWCovers/Novels/aftermath_empires_end.jpg,2/21/2017,5.2,,Aftermath,,Del Rey Books
+66,Alphabet Squadron,Original Novel,https://minirogue.github.io/SWCovers/Novels/alphabet_squadron.jpg,6/11/2019,4.1,This novel takes place sometime after the battle of Endor (Episode VI) and before the battle of Jakku. It follows a rag-tag group (but the author is good enough to never refers to the group as rag-tag (show don't tell; y'all)) that comes together for the purpose of bringing down a Tie Fighter squad known as Shadow Wing. This novel ties in with the Tie Fighter comics.,Alphabet Squadrion (trilogy),,Del Rey Books
+67,Bloodline,Original Novel,https://minirogue.github.io/SWCovers/Novels/bloodline.jpg,5/3/2016,28,,,,Del Rey Books
+68,Phasma,Original Novel,https://minirogue.github.io/SWCovers/Novels/phasma.jpg,9/1/2017,30,,,,Del Rey Books
+69,Before the Awakening,Youth,https://minirogue.github.io/SWCovers/Youth/before_the_awakening.jpg,12/18/2015,33.9,,,,Disney-Lucasfilm Press
+70,Join the Resistance,Youth,https://minirogue.github.io/SWCovers/Youth/join_the_resistance.jpg,3/7/2017,33.95,,Join the Resistance,1,Disney-Lucasfilm Press
+71,Join the Resistance: Escape from Vodran,Youth,https://minirogue.github.io/SWCovers/Youth/join_the_resistance_escape_from_vodran.jpg,10/3/2017,33.96,,Join the Resistance,2,Disney-Lucasfilm Press
+72,Galaxy's Edge: Black Spire,Original Novel,https://minirogue.github.io/SWCovers/Novels/galaxys_edge_black_spire.jpg,8/27/2019,34.53,,Galaxy's Edge,,Del Rey Books
+73,Galaxy's Edge: A Crash of Fate,Original Novel,https://minirogue.github.io/SWCovers/Novels/galaxys_edge_crash_of_fate.jpg,8/6/2019,29,,,,Disney-Lucasfilm Press
+74,Myths & Fables,Youth,https://minirogue.github.io/SWCovers/Youth/myths_and_fables.jpg,8/6/2019,29.1,,,,Disney-Lucasfilm Press
+75,Force Collector,Original Novel,https://minirogue.github.io/SWCovers/Novels/force_collector.jpg,11/19/2019,,,,,Disney-Lucasfilm Press
+76,The Force Awakens,Novelization,https://minirogue.github.io/SWCovers/Novels/the_force_awakens.jpg,1/5/2016,34,A novelization of Episode VII.,,,Del Rey Books
+77,Join The Resistance: Attack on Starkiller Base,Youth,https://minirogue.github.io/SWCovers/Youth/join_the_resistance_attack_on_starkiller_base.jpg,7/31/2018,33.97,,Join the Resistance,3,Disney-Lucasfilm Press
+78,Canto Bight,Original Novel,https://minirogue.github.io/SWCovers/Novels/canto_bight.jpg,12/5/2017,33.7,,,,Del Rey Books
+79,Cobalt Squadron,Youth,https://minirogue.github.io/SWCovers/Youth/cobalt_squadron.jpg,12/15/2017,34.21,,,,Disney-Lucasfilm Press
+80,The Last Jedi: Expanded Edition,Novelization,https://minirogue.github.io/SWCovers/Novels/the_last_jedi.jpg,3/6/2018,34.5,A novelization of episode VIII,,,Del Rey Books
+81,Resistance Reborn,Original Novel,https://minirogue.github.io/SWCovers/Novels/resistance_reborn.jpg,11/5/2019,,,,,Del Rey Books
+82,Choose Your Destiny: A Finn & Poe Adventure,Youth,https://minirogue.github.io/SWCovers/Youth/choose_your_destiny_finn_poe.jpg,10/4/2019,34.23,,Choose Your Destiny,,Disney-Lucasfilm Press
+83,Spark of the Resistance,Youth,https://minirogue.github.io/SWCovers/Youth/spark_of_the_resistance.jpg,10/4/2019,,,,,Disney-Lucasfilm Press
+84,Battlefront II,Video Game,https://minirogue.github.io/SWCovers/VG/battlefront_II.jpg,11/17/2017,0.0001,,Battlefront,,Electronic Arts
+85,Darth Maul #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_maul_5.jpg,7/19/2017,-32.6,,Darth Maul,5,Marvel
+86,Darth Maul,TPB,https://minirogue.github.io/SWCovers/TPB/darth_maul.jpg,3/14/2016,-33,Collects Darth Maul #1-5. This is set early on in Darth Mauls apprenticeship to Darth Sidious; and takes place sometime before Episode I. The plot in short: Maul really really wants to kill a Jedi.,Darth Maul,,Marvel
+87,Resistance (Season 1),TV Season,https://minirogue.github.io/SWCovers/TV/resistance.jpg,3/17/2019,33.99,,Resistance,1,Disney
+88,The Recruit,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,10/7/2018,33.99101,,Resistance,101,Disney
+89,The Triple Dark,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,10/7/2018,33.99102,,Resistance,102,Disney
+90,Fuel For the Fire,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,10/7/2018,33.99103,,Resistance,103,Disney
+91,The High Tower,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,10/28/2018,33.99104,,Resistance,104,Disney
+92,The Children from Tehar,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,11/4/2018,33.99105,,Resistance,105,Disney
+93,Signal from Sector Six,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,11/11/2018,33.99106,,Resistance,106,Disney
+94,Synara's Score,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,11/18/2018,33.99107,,Resistance,107,Disney
+95,The Platform Classic,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,11/25/2018,33.99108,,Resistance,108,Disney
+96,Secrets and Holograms,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,12/2/2018,33.99109,,Resistance,109,Disney
+97,Station Theta Black,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,12/9/2018,33.9911,,Resistance,110,Disney
+98,Bibo,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,1/13/2019,33.99111,,Resistance,111,Disney
+99,Dangerous Buisiness,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,1/20/2019,33.99112,,Resistance,112,Disney
+100,The Doza Dilemma,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,1/27/2019,33.99113,,Resistance,113,Disney
+101,The First Order Occupation,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,2/3/2019,33.99114,,Resistance,114,Disney
+102,The New Trooper,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,2/10/2019,33.99115,,Resistance,115,Disney
+103,The Core Problem,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,2/17/2019,33.99116,,Resistance,116,Disney
+104,The Disappeared,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,2/24/2019,33.99117,,Resistance,117,Disney
+105,Descent,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,3/3/2019,33.99118,,Resistance,118,Disney
+106,No Escape: Part 1,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,3/10/2019,34.0041,,Resistance,119,Disney
+107,No Escape: Part 2,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,3/17/2019,34.0042,,Resistance,120,Disney
+108,Rebels (Season 1),TV Season,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,3/2/2015,-2,,Rebels,1,Disney
+109,Rebels (Season 2),TV Season,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,3/30/2016,-1.9855,,Rebels,2,Disney
+110,Rebels (Season 3),TV Season,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,3/5/2018,-1.9659,,Rebels,3,Disney
+111,Rebels (Season 4),TV Season,https://minirogue.github.io/SWCovers/TV/rebels_season_4.jpg,3/25/2017,-1.9445,,Rebels,4,Disney
+112,The Clone Wars (Season 1),TV Season,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,3/20/2009,-20.9975,,The Clone Wars,1,Cartoon Network
+113,The Clone Wars (Season 2),TV Season,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,4/30/2010,-20.9775,,The Clone Wars,2,Cartoon Network
+114,The Clone Wars (Season 3),TV Season,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,4/1/2011,-20.9575,,The Clone Wars,3,Cartoon Network
+115,The Clone Wars (Season 4),TV Season,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,3/16/2012,-20.9355,,The Clone Wars,4,Cartoon Network
+116,The Clone Wars (Season 5),TV Season,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,3/2/2013,-20.9135,,The Clone Wars,5,Cartoon Network
+117,The Clone Wars (Season 6),TV Season,https://minirogue.github.io/SWCovers/TV/clone_wars_season_6.jpg,3/7/2014,-20.8935,,The Clone Wars,6,Netflix
+118,The Clone Wars (Season 7),TV Season,https://minirogue.github.io/SWCovers/TV/clone_wars_season_7.jpg,5/8/2020,-18.9995,The final season of The Clone Wars released on Disney+.,The Clone Wars,7,Disney
+119,Obi-Wan & Anakin,TPB,https://minirogue.github.io/SWCovers/TPB/obiwan_and_anakin.jpg,7/19/2016,-29,Collects Obi-Wan & Anakin #1-5,Obi-Wan & Anakin,,Marvel
+120,Doctor Aphra #03,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_03.jpg,1/18/2017,1.0056,,Doctor Aphra,3,Marvel
+121,Darth Maul: Son of Dathomir,TPB,https://minirogue.github.io/SWCovers/TPB/darth_maul_son_of_dathomir.jpg,3/21/2018,-20.8809,Collects Darth Maul: Son of Dathomir issues #1-4 and material from STAR WARS TALES #7-9,Darth Maul: Son of Dathomir,,Marvel
+122,Darth Vader: Dark Lord of the Sith Vol 1: Imperial Machine,TPB,https://minirogue.github.io/SWCovers/TPB/darth_vader_imperial_machine.jpg,12/5/2017,-18.9999,Collects Darth Vader: Dark Lord of the Sith #1-6,Darth Vader: Dark Lord of the Sith,,Marvel
+123,Jedi: Fallen Order,Video Game,https://minirogue.github.io/SWCovers/VG/jedi_fallen_order.jpg,11/15/2019,-18.5,,,,Electronic Arts
+124,Darth Vader Annual #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_annual_2.jpg,7/18/2018,1.0101,,Darth Vader: Dark Lord of the Sith,,Marvel
+125,Doctor Aphra #05,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_05.jpg,3/8/2017,1.0061,,Doctor Aphra,5,Marvel
+126,Doctor Aphra #02,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_02.jpg,12/21/2016,1.0054,,Doctor Aphra,2,Marvel
+127,Doctor Aphra #09,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_09.jpg,7/12/2017,1.0069,,Doctor Aphra,9,Marvel
+128,Doctor Aphra #15,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_15.jpg,12/20/2017,1.0083,,Doctor Aphra,15,Marvel
+129,Doctor Aphra #08,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_08.jpg,6/27/2017,1.0067,,Doctor Aphra,8,Marvel
+130,Darth Vader: Dark Lord of the Sith Vol. 2: Legacy's End,TPB,https://minirogue.github.io/SWCovers/TPB/darth_vader_legacys_end.jpg,4/24/2018,-18.9935,Collects Darth Vader: Dark Lord of the Sith #7-12,Darth Vader: Dark Lord of the Sith,,Marvel
+131,Doctor Aphra #06,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_06.jpg,4/12/2017,1.0063,,Doctor Aphra,6,Marvel
+132,Darth Vader #01,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_01.jpg,2/11/2015,1.0003,,Darth Vader,1,Marvel
+133,Doctor Aphra #17,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_17.jpg,2/21/2018,1.0088,,Doctor Aphra,17,Marvel
+134,Doctor Aphra #04,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_04.jpg,2/8/2017,1.0059,,Doctor Aphra,4,Marvel
+135,Doctor Aphra Vol. 5: Worst Among Equals,TPB,https://minirogue.github.io/SWCovers/TPB/doctor_aphra_worst_among_equals.jpg,6/25/2019,1.01118,Collects Doctor Aphra #26-31 and Annual #2,Doctor Aphra,,Marvel
+136,Doctor Aphra #10,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_10.jpg,7/26/2017,1.007,,Doctor Aphra,10,Marvel
+137,Jedi of the Republic: Mace Windu,TPB,https://minirogue.github.io/SWCovers/TPB/mace_windu.jpg,2/28/2018,-21.999,Collects Jedi of the Republic: Mace Windu #1-5,Jedi of the Republic: Mace Windu,,Marvel
+138,Darth Vader #02,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_02.jpg,2/25/2015,1.0005,,Darth Vader,2,Marvel
+139,Doctor Aphra #11,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_11.jpg,8/9/2017,1.0071,,Doctor Aphra,11,Marvel
+140,The Mandalorian (Season 1),TV Season,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,12/27/2019,7,,The Mandalorian,1,Disney
+141,Doctor Aphra #01,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_01.jpg,12/7/2016,1.0053,,Doctor Aphra,1,Marvel
+142,Doctor Aphra Vol. 2: Doctor Aphra and the Enormous Profit,TPB,https://minirogue.github.io/SWCovers/TPB/doctor_aphra_doctor_aphra_and_the_enormous_profit.jpg,2/6/2018,1.00689,Collects Doctor Aphra #9-13 and Annual #1,Doctor Aphra,,Marvel
+143,Doctor Aphra #07,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_07.jpg,5/31/2017,1.0065,,Doctor Aphra,7,Marvel
+144,The Perfect Weapon,Original Novel,https://minirogue.github.io/SWCovers/Novels/the_perfect_weapon.jpg,11/24/2015,33.91,Short story set shortly before The Force Awakens. Available as e-book or audiobook only.,,,Del Rey Books
+145,Tales From a Galaxy Far Far Away: Aliens - Volume 1,Youth,https://minirogue.github.io/SWCovers/Youth/tales_from_a_galaxy_far_far_away_1_aliens.jpg,4/5/2016,34.4,,,,Disney-Lucasfilm Press
+146,Doctor Aphra Vol. 3: Remastered,TPB,https://minirogue.github.io/SWCovers/TPB/doctor_aphra_remastered.jpg,7/10/2018,1.00799,Collects Doctor Aphra #14-19,Doctor Aphra,,Marvel
+147,Doctor Aphra Vol. 4: The Catastrophe Con,TPB,https://minirogue.github.io/SWCovers/TPB/doctor_aphra_the_catastrophe_con.jpg,1/8/2019,1.00949,Collects Doctor Aphra #20-25,Doctor Aphra,,Marvel
+148,Doctor Aphra #16,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_16.jpg,1/31/2018,1.0086,,Doctor Aphra,16,Marvel
+149,Doctor Aphra #14,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_14.jpg,11/15/2017,1.008,,Doctor Aphra,14,Marvel
+150,Age of Republic - Heroes,TPB,https://minirogue.github.io/SWCovers/TPB/age_of_republic_heroes.jpg,5/15/2019,,,Age of Republic,,Marvel
+151,Age of Rebellion - Heroes,TPB,https://minirogue.github.io/SWCovers/TPB/age_of_rebellion_heroes.jpg,8/7/2019,,,Age of Rebellion,,Marvel
+152,Age of Resistance: Poe Dameron #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_resistance_poe_dameron_1.jpg,8/28/2019,,,Age of Resistance,,Marvel
+153,Doctor Aphra #13,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_13.jpg,10/11/2017,1.0078,,Doctor Aphra,13,Marvel
+154,Doctor Aphra #12,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_12.jpg,9/13/2017,1.0074,,Doctor Aphra,12,Marvel
+155,Doctor Aphra #22,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_22.jpg,7/25/2018,1.0103,,Doctor Aphra,22,Marvel
+156,Jedi: Fallen Order - Dark Temple,TPB,https://minirogue.github.io/SWCovers/TPB/jedi_fallen_order_dark_temple.jpg,5/12/2020,-18.6,,Jedi: Fallen Order - Dark Temple,,Marvel
+157,Doctor Aphra #19,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_19.jpg,4/25/2018,1.0093,,Doctor Aphra,19,Marvel
+158,Doctor Aphra #18,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_18.jpg,3/28/2018,1.0091,,Doctor Aphra,18,Marvel
+159,Doctor Aphra #21,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_21.jpg,6/27/2018,1.0099,,Doctor Aphra,21,Marvel
+160,Doctor Aphra #20,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_20.jpg,5/23/2018,1.0095,,Doctor Aphra,20,Marvel
+161,Doctor Aphra Vol. 1: Aphra,TPB,https://minirogue.github.io/SWCovers/TPB/doctor_aphra_aphra.jpg,7/3/2017,1.00529,Collects Doctor Aphra #1-6,Doctor Aphra,,Marvel
+162,Darth Maul: Son of Dathomir #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_maul_son_of_dathomir_1.jpg,5/21/2014,-20.8808,,Darth Maul: Son of Dathomir,1,Marvel
+163,Darth Maul: Son of Dathomir #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_maul_son_of_dathomir_2.jpg,6/18/2014,-20.8807,,Darth Maul: Son of Dathomir,2,Marvel
+164,Darth Maul: Son of Dathomir #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_maul_son_of_dathomir_3.jpg,7/16/2014,-20.8806,,Darth Maul: Son of Dathomir,3,Marvel
+165,Darth Maul: Son of Dathomir #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_maul_son_of_dathomir_4.jpg,8/20/2014,-20.8805,,Darth Maul: Son of Dathomir,4,Marvel
+166,Han Solo,TPB,https://minirogue.github.io/SWCovers/TPB/han_solo.jpg,1/4/2017,0.0109,Collects Han Solo #1-5,Han Solo,,Marvel
+167,Han Solo #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/han_solo_1.jpg,6/15/2016,0.011,,Han Solo,1,Marvel
+168,Han Solo #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/han_solo_2.jpg,7/6/2016,0.012,,Han Solo,2,Marvel
+169,Han Solo #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/han_solo_3.jpg,8/31/2016,0.013,,Han Solo,3,Marvel
+170,Han Solo #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/han_solo_4.jpg,10/12/2016,0.014,,Han Solo,4,Marvel
+171,Han Solo #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/han_solo_5.jpg,11/23/2016,0.015,,Han Solo,5,Marvel
+172,Cat and Mouse,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,3/26/2010,-21.2,,The Clone Wars,216,Cartoon Network
+173,Hidden Enemy,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,2/6/2009,-21.1,,The Clone Wars,116,Cartoon Network
+174,Clone Cadets,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,9/17/2010,-20.999,The Domino squad is having trouble making progress in their training. Can they come together to pass the test and become fully fledged soldiers?,The Clone Wars,301,Cartoon Network
+175,Supply Lines,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,9/24/2010,-20.998,Senator Organa and Representative Binks meet with the king of Toydaria to try to negotiate the use of that neutral planet as a staging ground to bring relief supplies to the war-torn Ryloth. Meanwhile; Jedi Master Ima-Gun Di and his clone battalion work to buy the Twi'leks of Ryloth time to escape an encroaching droid army.,The Clone Wars,303,Cartoon Network
+176,Ambush,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,10/3/2008,-20.997,,The Clone Wars,101,Cartoon Network
+177,Rising Malevolence,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,10/3/2008,-20.996,,The Clone Wars,102,Cartoon Network
+178,Shadow of Malevolence,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,10/10/2008,-20.995,,The Clone Wars,103,Cartoon Network
+179,Destroy Malevolence,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,10/17/2008,-20.994,,The Clone Wars,104,Cartoon Network
+180,Rookies,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,10/24/2008,-20.993,,The Clone Wars,105,Cartoon Network
+181,Downfall of a Droid,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,11/7/2008,-20.992,Anakin gets shot down in a skirmish against General Grievous' fleet. R2-D2 appears lost and Anakin goes searching for him while trying to learn to work with R2's replacement.,The Clone Wars,106,Cartoon Network
+182,Duel of the Droids,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,11/14/2008,-20.991,,The Clone Wars,107,Cartoon Network
+183,Bombad Jedi,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,11/21/2008,-20.99,,The Clone Wars,108,Cartoon Network
+184,Cloak of Darkness,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,12/5/2008,-20.989,,The Clone Wars,109,Cartoon Network
+185,Lair of Grievous,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,12/12/2008,-20.988,,The Clone Wars,110,Cartoon Network
+186,Dooku Captured,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,1/2/2009,-20.987,,The Clone Wars,111,Cartoon Network
+187,The Gungan General,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,1/9/2009,-20.986,,The Clone Wars,112,Cartoon Network
+188,Jedi Crash,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,1/16/2009,-20.985,,The Clone Wars,113,Cartoon Network
+189,Defenders of Peace,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,1/23/2009,-20.984,,The Clone Wars,114,Cartoon Network
+190,Trespass,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,1/30/2009,-20.983,,The Clone Wars,115,Cartoon Network
+191,Blue Shadow Virus,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,2/13/2009,-20.982,,The Clone Wars,117,Cartoon Network
+192,Mystery of a Thousand Moons,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,2/13/2009,-20.981,,The Clone Wars,118,Cartoon Network
+193,Storm over Ryloth,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,2/27/2009,-20.98,,The Clone Wars,119,Cartoon Network
+194,Innocents of Ryloth,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,3/6/2009,-20.979,,The Clone Wars,120,Cartoon Network
+195,Liberty on Ryloth,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,3/13/2009,-20.978,,The Clone Wars,121,Cartoon Network
+196,Holocron Heist,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,10/2/2009,-20.977,,The Clone Wars,201,Cartoon Network
+197,Cargo of Doom,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,10/2/2009,-20.976,,The Clone Wars,202,Cartoon Network
+198,Children of the Force,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,10/9/2009,-20.975,,The Clone Wars,203,Cartoon Network
+199,Bounty Hunters,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,4/2/2010,-20.974,,The Clone Wars,217,Cartoon Network
+200,The Zillo Beast,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,4/9/2010,-20.973,,The Clone Wars,218,Cartoon Network
+201,The Zillo Beast Srikes Back,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,4/16/2010,-20.972,,The Clone Wars,219,Cartoon Network
+202,Senate Spy,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,10/17/2009,-20.971,,The Clone Wars,204,Cartoon Network
+203,Landing at Point Rain,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,11/4/2009,-20.97,,The Clone Wars,205,Cartoon Network
+204,Weapons Factory,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,11/13/2009,-20.969,,The Clone Wars,206,Cartoon Network
+205,Legacy of Terror,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,11/20/2009,-20.968,,The Clone Wars,207,Cartoon Network
+206,Brain Invaders,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,12/4/2009,-20.967,,The Clone Wars,208,Cartoon Network
+207,Grievous Intrigue,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,1/1/2010,-20.966,,The Clone Wars,209,Cartoon Network
+208,The Deserter,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,1/1/2010,-20.965,,The Clone Wars,210,Cartoon Network
+209,Lightsaber Lost,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,1/22/2010,-20.964,,The Clone Wars,211,Cartoon Network
+210,The Mandalore Plot,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,1/29/2010,-20.963,,The Clone Wars,212,Cartoon Network
+211,Voyage of Temptation,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,2/5/2010,-20.962,,The Clone Wars,213,Cartoon Network
+212,Duchess of Mandalore,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,2/12/2010,-20.961,,The Clone Wars,214,Cartoon Network
+213,Death Trap,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,4/23/2010,-20.96,,The Clone Wars,220,Cartoon Network
+214,R2 Come Home,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,4/30/2010,-20.959,,The Clone Wars,221,Cartoon Network
+215,Lethal Trackdown,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,4/30/2010,-20.958,,The Clone Wars,222,Cartoon Network
+216,Corruption,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,10/8/2010,-20.957,,The Clone Wars,305,Cartoon Network
+217,The Academy,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,10/15/2010,-20.956,,The Clone Wars,306,Cartoon Network
+218,Assassin,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,10/22/2010,-20.955,,The Clone Wars,307,Cartoon Network
+219,ARC Troopers,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,9/17/2010,-20.954,,The Clone Wars,302,Cartoon Network
+220,Sphere of Influence,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,10/1/2010,-20.953,,The Clone Wars,304,Cartoon Network
+221,Evil Plans,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,11/5/2010,-20.952,,The Clone Wars,308,Cartoon Network
+222,Hostage Crisis,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_1.jpg,3/20/2009,-20.951,,The Clone Wars,122,Cartoon Network
+223,Hunt for Ziro,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,11/12/2010,-20.95,,The Clone Wars,309,Cartoon Network
+224,Heroes on Both Sides,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,11/19/2010,-20.949,,The Clone Wars,310,Cartoon Network
+225,Pursuit of Peace,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,12/3/2010,-20.948,,The Clone Wars,311,Cartoon Network
+226,Senate Murders,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_2.jpg,3/5/2010,-20.947,,The Clone Wars,215,Cartoon Network
+227,Nightsisters,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,1/7/2011,-20.946,,The Clone Wars,312,Cartoon Network
+228,Monster,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,1/14/2011,-20.945,,The Clone Wars,313,Cartoon Network
+229,Witches of the Mist,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,1/21/2011,-20.944,,The Clone Wars,314,Cartoon Network
+230,Overlords,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,1/28/2011,-20.943,,The Clone Wars,315,Cartoon Network
+231,Altar of Mortis,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,2/4/2011,-20.942,,The Clone Wars,316,Cartoon Network
+232,Ghost of Mortis,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,2/11/2011,-20.941,,The Clone Wars,317,Cartoon Network
+233,The Citadel,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,2/11/2011,-20.94,,The Clone Wars,318,Cartoon Network
+234,Counter Attack,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,3/4/2011,-20.939,,The Clone Wars,319,Cartoon Network
+235,Citadel Rescue,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,3/11/2011,-20.938,,The Clone Wars,320,Cartoon Network
+236,Padawan Lost,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,4/1/2011,-20.937,,The Clone Wars,321,Cartoon Network
+237,Wookiee Hunt,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_3.jpg,4/1/2011,-20.936,,The Clone Wars,322,Cartoon Network
+238,Water War,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,9/16/2011,-20.935,,The Clone Wars,401,Cartoon Network
+239,Gungan Attack,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,9/16/2011,-20.934,,The Clone Wars,402,Cartoon Network
+240,Prisoners,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,9/23/2011,-20.933,,The Clone Wars,403,Cartoon Network
+241,Shadow Warrior,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,9/30/2011,-20.932,,The Clone Wars,404,Cartoon Network
+242,Mercy Mission,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,10/7/2011,-20.931,,The Clone Wars,405,Cartoon Network
+243,Nomad Droids,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,10/14/2011,-20.93,,The Clone Wars,406,Cartoon Network
+244,Darkness on Umbara,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,10/28/2011,-20.929,,The Clone Wars,407,Cartoon Network
+245,The General,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,11/4/2011,-20.928,,The Clone Wars,408,Cartoon Network
+246,Plan of Dissent,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,11/11/2011,-20.927,,The Clone Wars,409,Cartoon Network
+247,Carnage of Krell,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,11/18/2011,-20.926,,The Clone Wars,410,Cartoon Network
+248,Kidnapped,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,11/25/2011,-20.925,,The Clone Wars,411,Cartoon Network
+249,Slaves of the Republic,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,12/2/2011,-20.924,,The Clone Wars,412,Cartoon Network
+250,Escape from Kadavo,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,1/6/2012,-20.923,,The Clone Wars,413,Cartoon Network
+251,A Friend in Need,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,1/13/2012,-20.922,,The Clone Wars,414,Cartoon Network
+252,Deception,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,1/20/2012,-20.921,,The Clone Wars,415,Cartoon Network
+253,Friends and Enemies,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,1/27/2012,-20.92,,The Clone Wars,416,Cartoon Network
+254,The Box,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,2/3/2012,-20.919,,The Clone Wars,417,Cartoon Network
+255,Crisis on Naboo,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,2/10/2012,-20.918,,The Clone Wars,418,Cartoon Network
+256,Massacre,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,2/24/2012,-20.917,,The Clone Wars,419,Cartoon Network
+257,Bounty,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,3/2/2012,-20.916,,The Clone Wars,420,Cartoon Network
+258,Brothers,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,3/9/2012,-20.915,,The Clone Wars,421,Cartoon Network
+259,Revenge,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_4.jpg,3/16/2012,-20.914,,The Clone Wars,422,Cartoon Network
+260,A War on Two Fronts,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,10/6/2012,-20.913,,The Clone Wars,502,Cartoon Network
+261,Front Runners,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,10/13/2012,-20.912,,The Clone Wars,503,Cartoon Network
+262,The Soft War,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,10/20/2012,-20.911,,The Clone Wars,504,Cartoon Network
+263,Tipping Points,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,10/27/2012,-20.91,,The Clone Wars,505,Cartoon Network
+264,The Gathering,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,11/3/2012,-20.909,,The Clone Wars,506,Cartoon Network
+265,A Test of Strength,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,11/10/2012,-20.908,,The Clone Wars,507,Cartoon Network
+266,Bound for Rescue,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,11/17/2012,-20.907,,The Clone Wars,508,Cartoon Network
+267,A Necessary Bond,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,11/24/2012,-20.906,,The Clone Wars,509,Cartoon Network
+268,Secret Weapons,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,12/1/2012,-20.905,,The Clone Wars,510,Cartoon Network
+269,A Sunny day in the Void,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,12/8/2012,-20.904,,The Clone Wars,511,Cartoon Network
+270,Missing in Action,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,1/5/2013,-20.903,,The Clone Wars,512,Cartoon Network
+271,Point of No Return,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,1/12/2013,-20.902,,The Clone Wars,513,Cartoon Network
+272,Revival,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,9/29/2012,-20.901,,The Clone Wars,501,Cartoon Network
+273,Eminence,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,1/19/2013,-20.9,,The Clone Wars,514,Cartoon Network
+274,Shades of Reason,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,1/26/2013,-20.899,,The Clone Wars,515,Cartoon Network
+275,The Lawless,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,2/2/2013,-20.898,,The Clone Wars,516,Cartoon Network
+276,Sabotage,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,2/9/2013,-20.897,,The Clone Wars,517,Cartoon Network
+277,The Jedi Who Knew Too Much,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,2/16/2013,-20.896,,The Clone Wars,518,Cartoon Network
+278,To Catch a Jedi,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,2/23/2013,-20.895,,The Clone Wars,519,Cartoon Network
+279,The Wrong Jedi,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_5.jpg,3/2/2013,-20.894,,The Clone Wars,520,Cartoon Network
+280,The Unknown,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_6.jpg,3/7/2014,-20.893,,The Clone Wars,601,Netflix
+281,Conspiracy,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_6.jpg,3/7/2014,-20.892,,The Clone Wars,602,Netflix
+282,Fugitive,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_6.jpg,3/7/2014,-20.891,,The Clone Wars,603,Netflix
+283,Orders,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_6.jpg,3/7/2014,-20.89,,The Clone Wars,604,Netflix
+284,An Old Friend,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_6.jpg,3/7/2014,-20.889,,The Clone Wars,605,Netflix
+285,The Rise of Clovis,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_6.jpg,3/7/2014,-20.888,,The Clone Wars,606,Netflix
+286,Crisis at the Heart,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_6.jpg,3/7/2014,-20.887,,The Clone Wars,607,Netflix
+287,The Disappeared,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_6.jpg,3/7/2014,-20.886,,The Clone Wars,608,Netflix
+288,The Disappeared: Pt. II,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_6.jpg,3/7/2014,-20.885,,The Clone Wars,609,Netflix
+289,The Lost One,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_6.jpg,3/7/2014,-20.884,,The Clone Wars,610,Netflix
+290,Voices,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_6.jpg,3/7/2014,-20.883,,The Clone Wars,611,Netflix
+291,Destiny,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_6.jpg,3/7/2014,-20.882,,The Clone Wars,612,Netflix
+292,Sacrifice,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_6.jpg,3/7/2014,-20.881,,The Clone Wars,613,Netflix
+293,Spark of Rebellion,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,9/26/2014,-1.999,,Rebels,101,Disney
+294,Droids in Distress,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,10/3/2014,-1.998,,Rebels,102,Disney
+295,Fighter Flight,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,10/13/2014,-1.997,,Rebels,103,Disney
+296,Rise of the Old Masters,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,10/20/2014,-1.996,,Rebels,104,Disney
+297,Breaking Ranks,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,11/3/2014,-1.995,,Rebels,105,Disney
+298,Out of Darkness,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,11/3/2014,-1.994,,Rebels,106,Disney
+299,Empire Day,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,11/10/2014,-1.993,,Rebels,107,Disney
+300,Gathering Forces,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,11/17/2014,-1.992,,Rebels,108,Disney
+301,Path of the Jedi,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,12/29/2014,-1.991,,Rebels,109,Disney
+302,Idiot's Array,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,1/12/2015,-1.99,,Rebels,110,Disney
+303,Vision of Hope,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,1/26/2015,-1.989,,Rebels,111,Disney
+304,Call to Action,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,1/26/2015,-1.988,,Rebels,112,Disney
+305,Rebel Resolve,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,2/16/2015,-1.987,,Rebels,113,Disney
+306,Fire Across the Galaxy,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,3/2/2015,-1.986,,Rebels,114,Disney
+307,The Siege of Lothal,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,6/20/2015,-1.985,,Rebels,201,Disney
+308,The Lost Commanders,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,10/14/2015,-1.984,,Rebels,202,Disney
+309,Relics of the Old Republic,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,10/21/2015,-1.983,,Rebels,203,Disney
+310,Always Two There Are,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,10/28/2015,-1.982,,Rebels,204,Disney
+311,Brothers of the Broken Horn,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,11/4/2015,-1.981,,Rebels,205,Disney
+312,Wings of the Master,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,11/11/2015,-1.98,,Rebels,206,Disney
+313,Blood Sisters,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,11/18/2015,-1.979,,Rebels,207,Disney
+314,Stealth Strike,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,11/25/2015,-1.978,,Rebels,208,Disney
+315,The Future of the Force,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,12/2/2015,-1.977,,Rebels,209,Disney
+316,Legacy,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,12/9/2015,-1.976,,Rebels,210,Disney
+317,A Princess on Lothal,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,1/20/2016,-1.975,,Rebels,211,Disney
+318,The Protector of Concord Dawn,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,1/27/2016,-1.974,,Rebels,212,Disney
+319,Legends of the Lasat,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,2/3/2016,-1.973,,Rebels,213,Disney
+320,The Call,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,2/10/2016,-1.972,,Rebels,214,Disney
+321,Homecoming,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,2/17/2016,-1.971,,Rebels,215,Disney
+322,The Honorable Ones,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,2/24/2016,-1.97,,Rebels,216,Disney
+323,Shroud of Darkness,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,3/2/2016,-1.969,,Rebels,217,Disney
+324,The Forgotten Droid,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,3/16/2016,-1.968,,Rebels,218,Disney
+325,The Mystery of Chopper Base,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,3/23/2016,-1.967,,Rebels,219,Disney
+326,Twilight of the Apprentice,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_2.jpg,3/30/2016,-1.966,,Rebels,220,Disney
+327,Steps Into Shadow,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,9/24/2016,-1.965,,Rebels,301,Disney
+328,The Holocrons of Fate,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,10/1/2016,-1.964,,Rebels,302,Disney
+329,The Antilles Extraction,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,10/8/2016,-1.963,,Rebels,303,Disney
+330,Hera's Heroes,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,10/15/2016,-1.962,,Rebels,304,Disney
+331,The Last Battle,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,10/22/2016,-1.961,,Rebels,305,Disney
+332,Imperial Supercommandos,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,11/5/2016,-1.96,,Rebels,306,Disney
+333,Iron Squadron,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,11/19/2016,-1.959,,Rebels,307,Disney
+334,The Wynkahthu Job,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,11/26/2016,-1.958,,Rebels,308,Disney
+335,An Inside Man,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,12/3/2016,-1.957,,Rebels,309,Disney
+336,Visions and Voices,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,12/10/2016,-1.956,,Rebels,310,Disney
+337,Ghosts of Geonosis: Part 1,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,1/7/2017,-1.955,,Rebels,311,Disney
+338,Ghosts of Geonosis: Part 2,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,1/7/2017,-1.954,,Rebels,312,Disney
+339,Warhead,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,1/14/2017,-1.953,,Rebels,313,Disney
+340,Trials of the Darksaber,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,1/21/2017,-1.952,,Rebels,314,Disney
+341,Legacy of Mandalore,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,2/18/2017,-1.951,,Rebels,315,Disney
+342,Through Imperial Eyes,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,2/25/2017,-1.95,,Rebels,316,Disney
+343,Secret Cargo,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,3/4/2017,-1.949,,Rebels,317,Disney
+344,Double Agent Droid,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,3/11/2017,-1.948,,Rebels,318,Disney
+345,Twin Suns,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,3/18/2017,-1.947,,Rebels,319,Disney
+346,Zero Hour: Part 1,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,3/25/2017,-1.946,,Rebels,320,Disney
+347,Zero Hour: Part 2,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_3.jpg,3/25/2017,-1.945,,Rebels,321,Disney
+348,Heroes of Mandalore: Part 1,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_4.jpg,10/16/2017,-1.944,,Rebels,401,Disney
+349,Heroes of Mandalore: Part 2,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_4.jpg,10/16/2017,-1.943,,Rebels,402,Disney
+350,In the Name of the Rebellion: Part 1,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_4.jpg,10/23/2017,-1.942,,Rebels,403,Disney
+351,In the Name of the Rebellion: Part 1,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_4.jpg,10/23/2017,-1.941,,Rebels,404,Disney
+352,The Occupation,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_4.jpg,10/30/2017,-1.94,,Rebels,405,Disney
+353,Flight of the Defender,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_4.jpg,10/30/2017,-1.939,,Rebels,406,Disney
+354,Kindred,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_4.jpg,11/6/2017,-1.938,,Rebels,407,Disney
+355,Crawler Commandeers,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_4.jpg,11/6/2017,-1.937,,Rebels,408,Disney
+356,Rebel Assault,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_4.jpg,11/13/2017,-1.936,,Rebels,409,Disney
+357,Jedi Night,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_4.jpg,2/19/2018,-1.935,,Rebels,410,Disney
+358,DUME,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_4.jpg,2/19/2018,-1.934,,Rebels,411,Disney
+359,Wolves and a Door,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_4.jpg,2/26/2018,-1.933,,Rebels,412,Disney
+360,A World Between Worlds,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_4.jpg,2/26/2018,-1.932,,Rebels,413,Disney
+361,A Fool's Hope,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_4.jpg,3/5/2018,-1.931,,Rebels,414,Disney
+362,Family Reunion - and Farewell,TV Episode,https://minirogue.github.io/SWCovers/TV/rebels_season_4.jpg,3/5/2018,-1.93,,Rebels,415,Disney
+363,Obi-Wan & Anakin #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/obiwan_and_anakin_1.jpg,1/6/2016,-28.99,,Obi-Wan & Anakin,1,Marvel
+364,Obi-Wan & Anakin #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/obiwan_and_anakin_2.jpg,2/3/2016,-28.98,,Obi-Wan & Anakin,2,Marvel
+365,Obi-Wan & Anakin #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/obiwan_and_anakin_3.jpg,3/23/2016,-28.97,,Obi-Wan & Anakin,3,Marvel
+366,Obi-Wan & Anakin #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/obiwan_and_anakin_4.jpg,4/20/2016,-28.96,,Obi-Wan & Anakin,4,Marvel
+367,Obi-Wan & Anakin #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/obiwan_and_anakin_5.jpg,5/25/2016,-28.95,,Obi-Wan & Anakin,5,Marvel
+368,Tie Fighter #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/tie_fighter_1.jpg,4/17/2019,3.101,We meet the 204th; also known as Shadow Wing; a squadron of pilots who are good at what they do. Which is shooting down rebel scum. Their next mission is to assist a Star Destroyer that has gone out of contact. Should be easy; right?,Tie Fighter,1,Marvel
+369,Tie Fighter #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/tie_fighter_2.jpg,5/15/2019,3.102,,Tie Fighter,2,Marvel
+370,Chewbacca #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/chewbacca_1.jpg,10/14/2015,0.006,,Chewbacca,1,Marvel
+371,Chewbacca #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/chewbacca_2.jpg,10/28/2015,0.007,,Chewbacca,2,Marvel
+372,Chewbacca #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/chewbacca_3.jpg,11/11/2015,0.008,,Chewbacca,3,Marvel
+373,Chewbacca #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/chewbacca_4.jpg,11/25/2015,0.009,,Chewbacca,4,Marvel
+374,Chewbacca #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/chewbacca_5.jpg,12/30/2015,0.01,,Chewbacca,5,Marvel
+375,Chewbacca,TPB,https://minirogue.github.io/SWCovers/TPB/chewbacca.jpg,2/24/2016,0.0059,,Chewbacca,,Marvel
+376,Darth Vader #03,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_03.jpg,3/25/2015,1.0006,,Darth Vader,3,Marvel
+377,Darth Vader #04,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_04.jpg,4/8/2015,1.0007,,Darth Vader,4,Marvel
+378,Darth Vader #05,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_05.jpg,5/14/2015,1.0008,,Darth Vader,5,Marvel
+379,Darth Vader #06,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_06.jpg,6/3/2015,1.0011,Darth vader squares off against Cylo's team of warriors as they are presented to Emperor Palpatine. Afterwards he gets some interesting information from Boba Fett; who is reporting back from his mission.,Darth Vader,6,Marvel
+380,Darth Vader #07,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_07.jpg,7/1/2015,1.0012,Vader and Aphra head to Tatooine for information regarding the boy named Skywalker. Then Vader heads to Son-Tuul to take care of some business with the Hutts. Some bounty hunters gather to discuss a potentially lucrative job. ,Darth Vader,7,Marvel
+381,Darth Vader #08,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_08.jpg,8/5/2015,1.0014,Aphra and the bounty hunters she hired pull a heist on an imperial light cruiser. Of course; there is more to this heist than meets the eye.,Darth Vader,8,Marvel
+382,Darth Vader #09,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_09.jpg,9/9/2015,1.0016,"Vader ""helps"" track down the culprits responsible for the destruction of a star destroyer and the theft of its resources. Meanwhile Aphra looks for information about... a mortician?",Darth Vader,9,Marvel
+383,Darth Vader #10,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_10.jpg,10/7/2015,1.0018,,Darth Vader,10,Marvel
+384,Darth Vader #11,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_11.jpg,10/21/2015,1.002,,Darth Vader,11,Marvel
+385,Darth Vader #12,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_12.jpg,11/11/2015,1.0022,,Darth Vader,12,Marvel
+386,Darth Vader #13,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_13.jpg,11/25/2015,1.0024,,Darth Vader,13,Marvel
+387,Darth Vader #14,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_14.jpg,12/23/2015,1.0028,,Darth Vader,14,Marvel
+388,Darth Vader #15,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_15.jpg,1/13/2016,1.003,,Darth Vader,15,Marvel
+389,Darth Vader #16,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_16.jpg,2/10/2016,1.0032,,Darth Vader,16,Marvel
+390,Darth Vader #17,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_17.jpg,3/2/2016,1.0034,,Darth Vader,17,Marvel
+391,Darth Vader #18,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_18.jpg,3/30/2016,1.0036,,Darth Vader,18,Marvel
+392,Darth Vader #19,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_19.jpg,4/13/2016,1.0037,,Darth Vader,19,Marvel
+393,Darth Vader #20,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_20.jpg,5/11/2016,1.0039,,Darth Vader,20,Marvel
+394,Darth Vader #21,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_21.jpg,6/8/2016,1.0041,,Darth Vader,21,Marvel
+395,Darth Vader #22,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_22.jpg,6/29/2016,1.0043,,Darth Vader,22,Marvel
+396,Darth Vader #23,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_23.jpg,7/20/2016,1.0044,,Darth Vader,23,Marvel
+397,Darth Vader #24,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_24.jpg,8/10/2016,1.0046,,Darth Vader,24,Marvel
+398,Darth Vader #25,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_25.jpg,10/12/2016,1.0049,,Darth Vader,25,Marvel
+399,Age of Republic - Villains,TPB,https://minirogue.github.io/SWCovers/TPB/age_of_republic_villains.jpg,5/8/2019,,,Age of Republic,,Marvel
+400,Age of Rebellion - Villains,TPB,https://minirogue.github.io/SWCovers/TPB/age_of_rebellion_villains.jpg,8/21/2019,,,Age of Rebellion,,Marvel
+401,Age of Republic: Anakin Skywalker #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_republic_anakin_skywalker_1.jpg,2/6/2019,-21.5,,Age of Republic,,Marvel
+402,Age of Republic: Obi-Wan Kenobi #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_republic_obiwan_kenobi_1.jpg,1/2/2019,-27.5,,Age of Republic,,Marvel
+403,Age of Republic: Padme Amidala #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_republic_padme_amidala_1.jpg,3/6/2019,-20.9825,,Age of Republic,,Marvel
+404,Age of Republic Qui-Gon Jinn #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_republic_quigon_jinn_1.jpg,12/5/2018,-34,,Age of Republic,,Marvel
+405,Age of Republic: Count Dooku #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_republic_count_dooku_1.jpg,2/13/2019,-27,,Age of Republic,,Marvel
+406,Age of Republic: Darth Maul #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_republic_darth_maul_1.jpg,12/12/2018,-32.5,,Age of Republic,,Marvel
+407,Age of Republic: General Grievous #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_republic_general_grievous_1.jpg,3/13/2019,-20.9875,,Age of Republic,,Marvel
+408,Age of Republic: Jango Fett #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_republic_jango_fett_1.jpg,1/9/2019,-24,,Age of Republic,,Marvel
+409,Age of Republic Special #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_republic_special_1.jpg,1/16/2019,,,Age of Republic,,Marvel
+410,Age of Rebellion: Han Solo #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_rebellion_han_solo_1.jpg,5/1/2019,,,Age of Rebellion,,Marvel
+411,Age of Rebellion: Lando Calrissian #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_rebellion_lando_calrissian_1.jpg,5/15/2019,3.05,,Age of Rebellion,,Marvel
+412,Age of Rebellion: Luke Skywalker #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_rebellion_luke_skywalker_1.jpg,6/5/2019,,,Age of Rebellion,,Marvel
+413,Age of Rebellion: Princess Leia #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_rebellion_princess_leia_1.jpg,4/10/2019,,,Age of Rebellion,,Marvel
+414,Age of Rebellion: Boba Fett #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_rebellion_boba_fett_1.jpg,5/8/2019,,,Age of Rebellion,,Marvel
+415,Age of Rebellion: Darth Vader #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_rebellion_darth_vader_1.jpg,6/26/2019,-18.9876,,Age of Rebellion,,Marvel
+416,Age of Rebellion: Jabba the Hutt #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_rebellion_jabba_the_hutt_1.jpg,5/22/2019,,,Age of Rebellion,,Marvel
+417,Age of Rebellion: Grand Moff Tarkin #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_rebellion_grand_moff_tarkin_1.jpg,4/10/2019,,,Age of Rebellion,,Marvel
+418,Age of Rebellion Special #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_rebellion_special_1.jpg,4/17/2019,,,Age of Rebellion,,Marvel
+419,Darth Vader Annual #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_annual_1.jpg,12/16/2015,1.00319,,Darth Vader,1,Marvel
+420,Darth Vader Vol. 1: Vader,TPB,https://minirogue.github.io/SWCovers/TPB/darth_vader_vader.jpg,10/20/2015,1.00019,Collects Darth Vader #1-6,Darth Vader,,Marvel
+421,Darth Vader Vol. 2: Shadows and Secrets,TPB,https://minirogue.github.io/SWCovers/TPB/darth_vader_shadows_and_secrets.jpg,1/5/2016,1.00119,Collects Darth Vader #7-12,Darth Vader,,Marvel
+422,Darth Vader Vol. 3: The Shu-Torun War,TPB,https://minirogue.github.io/SWCovers/TPB/darth_vader_the_shutorun_war.jpg,8/9/2016,1.00318,Collects Darth Vader #16-19 and Darth Vader Annual #1,Darth Vader,,Marvel
+423,Darth Vader Vol. 4: End of Games,TPB,https://minirogue.github.io/SWCovers/TPB/darth_vader_end_of_games.jpg,12/6/2016,1.00389,Collects Darth Vader #20-25,Darth Vader,,Marvel
+424,Doctor Aphra #32,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_32.jpg,5/8/2019,1.0127,,Doctor Aphra,32,Marvel
+425,Darth Vader: Dark Lord of the Sith Vol. 3: The Burning Seas,TPB,https://minirogue.github.io/SWCovers/TPB/darth_vader_the_burning_seas.jpg,9/11/2018,-18.9875,Collects Darth Vader: Dark Lord of the Sith #13-18,Darth Vader: Dark Lord of the Sith,,Marvel
+426,Darth Vader: Dark Lord of the Sith Vol. 4: Fortress Vader,TPB,https://minirogue.github.io/SWCovers/TPB/darth_vader_fortress_vader.jpg,2/12/2019,-18.9815,Collects Darth Vader: Dark Lord of the Sith #19-25,Darth Vader: Dark Lord of the Sith,,Marvel
+427,Darth Vader: Dark Lord of the Sith #01,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_01.jpg,6/7/2017,-18.999,,Darth Vader: Dark Lord of the Sith,1,Marvel
+428,Darth Vader: Dark Lord of the Sith #02,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_02.jpg,6/21/2017,-18.998,,Darth Vader: Dark Lord of the Sith,2,Marvel
+429,Darth Vader: Dark Lord of the Sith #03,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_03.jpg,7/12/2017,-18.997,,Darth Vader: Dark Lord of the Sith,3,Marvel
+430,Darth Vader: Dark Lord of the Sith #04,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_04.jpg,8/2/2017,-18.996,,Darth Vader: Dark Lord of the Sith,4,Marvel
+431,Darth Vader: Dark Lord of the Sith #05,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_05.jpg,9/6/2017,-18.995,,Darth Vader: Dark Lord of the Sith,5,Marvel
+432,Darth Vader: Dark Lord of the Sith #06,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_06.jpg,10/4/2017,-18.994,,Darth Vader: Dark Lord of the Sith,6,Marvel
+433,Darth Vader: Dark Lord of the Sith #07,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_07.jpg,11/1/2017,-18.993,,Darth Vader: Dark Lord of the Sith,7,Marvel
+434,Darth Vader: Dark Lord of the Sith #08,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_08.jpg,11/15/2017,-18.992,,Darth Vader: Dark Lord of the Sith,8,Marvel
+435,Darth Vader: Dark Lord of the Sith #09,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_09.jpg,12/6/2017,-18.991,,Darth Vader: Dark Lord of the Sith,9,Marvel
+436,Darth Vader: Dark Lord of the Sith #10,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_10.jpg,1/10/2018,-18.99,,Darth Vader: Dark Lord of the Sith,10,Marvel
+437,Darth Vader: Dark Lord of the Sith #11,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_11.jpg,2/14/2018,-18.989,,Darth Vader: Dark Lord of the Sith,11,Marvel
+438,Darth Vader: Dark Lord of the Sith #12,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_12.jpg,2/28/2018,-18.988,,Darth Vader: Dark Lord of the Sith,12,Marvel
+439,Darth Vader: Dark Lord of the Sith #13,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_13.jpg,3/14/2018,-18.987,,Darth Vader: Dark Lord of the Sith,13,Marvel
+440,Darth Vader: Dark Lord of the Sith #14,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_14.jpg,4/11/2018,-18.986,,Darth Vader: Dark Lord of the Sith,14,Marvel
+441,Darth Vader: Dark Lord of the Sith #15,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_15.jpg,4/25/2018,-18.985,,Darth Vader: Dark Lord of the Sith,15,Marvel
+442,Darth Vader: Dark Lord of the Sith #16,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_16.jpg,5/9/2018,-18.984,,Darth Vader: Dark Lord of the Sith,16,Marvel
+443,Darth Vader: Dark Lord of the Sith #17,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_17.jpg,6/13/2018,-18.983,,Darth Vader: Dark Lord of the Sith,17,Marvel
+444,Darth Vader: Dark Lord of the Sith #18,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_18.jpg,7/11/2018,-18.982,,Darth Vader: Dark Lord of the Sith,18,Marvel
+445,Darth Vader: Dark Lord of the Sith #19,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_19.jpg,8/8/2018,-18.981,,Darth Vader: Dark Lord of the Sith,19,Marvel
+446,Darth Vader: Dark Lord of the Sith #20,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_20.jpg,8/22/2018,-18.98,,Darth Vader: Dark Lord of the Sith,20,Marvel
+447,Darth Vader: Dark Lord of the Sith #21,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_21.jpg,9/12/2018,-18.979,,Darth Vader: Dark Lord of the Sith,21,Marvel
+448,Darth Vader: Dark Lord of the Sith #22,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_22.jpg,10/17/2018,-18.978,,Darth Vader: Dark Lord of the Sith,22,Marvel
+449,Darth Vader: Dark Lord of the Sith #23,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_23.jpg,11/14/2018,-18.977,,Darth Vader: Dark Lord of the Sith,23,Marvel
+450,Darth Vader: Dark Lord of the Sith #24,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_24.jpg,11/28/2018,-18.976,,Darth Vader: Dark Lord of the Sith,24,Marvel
+451,Darth Vader: Dark Lord of the Sith #25,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_dlots_25.jpg,12/19/2018,-18.975,,Darth Vader: Dark Lord of the Sith,25,Marvel
+452,Doctor Aphra #23,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_23.jpg,8/22/2018,1.0105,,Doctor Aphra,23,Marvel
+453,Doctor Aphra #24,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_24.jpg,9/26/2018,1.0108,,Doctor Aphra,24,Marvel
+454,Doctor Aphra #25,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_25.jpg,10/24/2018,1.011,,Doctor Aphra,25,Marvel
+455,Doctor Aphra #26,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_26.jpg,11/14/2018,1.0112,,Doctor Aphra,26,Marvel
+456,Doctor Aphra #27,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_27.jpg,12/12/2018,1.0115,,Doctor Aphra,27,Marvel
+457,Doctor Aphra #28,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_28.jpg,1/30/2019,1.0118,,Doctor Aphra,28,Marvel
+458,Doctor Aphra #29,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_29.jpg,2/27/2019,1.012,,Doctor Aphra,29,Marvel
+459,Doctor Aphra #30,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_30.jpg,3/27/2019,1.0123,,Doctor Aphra,30,Marvel
+460,Doctor Aphra #31,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_31.jpg,4/24/2019,1.0125,,Doctor Aphra,31,Marvel
+461,Jedi of the Republic: Mace Windu #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/mace_windu_1.jpg,8/30/2017,-21.998,,Jedi of the Republic: Mace Windu,1,Marvel
+462,Jedi of the Republic: Mace Windu #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/mace_windu_2.jpg,9/27/2017,-21.997,,Jedi of the Republic: Mace Windu,2,Marvel
+463,Jedi of the Republic: Mace Windu #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/mace_windu_3.jpg,10/25/2017,-21.996,,Jedi of the Republic: Mace Windu,3,Marvel
+464,Jedi of the Republic: Mace Windu #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/mace_windu_4.jpg,11/29/2017,-21.995,,Jedi of the Republic: Mace Windu,4,Marvel
+465,Jedi of the Republic: Mace Windu #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/mace_windu_5.jpg,12/27/2017,-21.994,,Jedi of the Republic: Mace Windu,5,Marvel
+466,Kanan Vol. 1: The Last Padawan,TPB,https://minirogue.github.io/SWCovers/TPB/kanan_the_last_padawan.jpg,11/4/2015,-18.7995,Collects Kanan #1-6,Kanan,,Marvel
+467,Kanan Vol. 2: First Blood,TPB,https://minirogue.github.io/SWCovers/TPB/kanan_first_blood.jpg,5/18/2016,-18.7935,Collects Kanan #7-12,Kanan,,Marvel
+468,Kanan #01,Comic Book,https://minirogue.github.io/SWCovers/Comics/kanan_01.jpg,4/1/2015,-18.799,,Kanan,1,Marvel
+469,Kanan #02,Comic Book,https://minirogue.github.io/SWCovers/Comics/kanan_02.jpg,5/6/2015,-18.798,,Kanan,2,Marvel
+470,Kanan #03,Comic Book,https://minirogue.github.io/SWCovers/Comics/kanan_03.jpg,6/10/2015,-18.797,Young Caleb Dume is surrounded in his stolen ship above Coruscant. He must make a break for it; but where can he go when the whole galaxy is hunting him?,Kanan,3,Marvel
+471,Kanan #04,Comic Book,https://minirogue.github.io/SWCovers/Comics/kanan_04.jpg,7/22/2015,-18.796,The young padawan formerly known as Caleb Dume has been sold out... or has he? He must escape and continue to evade Commander Grey and Captain Stylez; his former one trooper allies.,Kanan,4,Marvel
+472,Kanan #05,Comic Book,https://minirogue.github.io/SWCovers/Comics/kanan_05.jpg,8/19/2015,-18.795,Commander Grey and Captain Styles have finally caught the Jedi traitor known as Caleb Dume. Is this the end for him? (This comic is an extended flashback; so the answer is kind of obvious.),Kanan,5,Marvel
+473,Kanan #06,Comic Book,https://minirogue.github.io/SWCovers/Comics/kanan_06.jpg,9/23/2015,-1.9855,,Kanan,6,Marvel
+474,Kanan #07,Comic Book,https://minirogue.github.io/SWCovers/Comics/kanan_07.jpg,10/28/2015,-18.793,,Kanan,7,Marvel
+475,Kanan #08,Comic Book,https://minirogue.github.io/SWCovers/Comics/kanan_08.jpg,11/18/2015,-18.792,,Kanan,8,Marvel
+476,Kanan #09,Comic Book,https://minirogue.github.io/SWCovers/Comics/kanan_09.jpg,12/16/2015,-18.791,,Kanan,9,Marvel
+477,Kanan #10,Comic Book,https://minirogue.github.io/SWCovers/Comics/kanan_10.jpg,1/27/2016,-18.79,,Kanan,10,Marvel
+478,Kanan #11,Comic Book,https://minirogue.github.io/SWCovers/Comics/kanan_11.jpg,2/4/2016,-18.789,,Kanan,11,Marvel
+479,Kanan #12,Comic Book,https://minirogue.github.io/SWCovers/Comics/kanan_12.jpg,3/16/2016,-18.788,,Kanan,12,Marvel
+480,Lando,TPB,https://minirogue.github.io/SWCovers/TPB/lando.jpg,1/19/2016,0.016,Collects Lando #1-5,Lando,,Marvel
+481,Lando #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/lando_1.jpg,7/8/2015,0.017,Lando's putting the charm on hard to settle a debt. When he comes up a little short; it's time to plan a heist. A simple enough job stealing some Imperial scum's property. It's probably not important who that idiot Imperial is...right?,Lando,1,Marvel
+482,Lando #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/lando_2.jpg,8/12/2015,0.018,Having stolen the Imperialus; one of Emperor Palpatine's personal ships; all Lando and his crew have to do is escape the gravity well and hit hyperspace. Until three star destroyers show up and get in the way; of course.,Lando,2,Marvel
+483,Lando #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/lando_3.jpg,8/26/2015,0.019,The twins go toe to toe with the imperial guards found aboard the Imperialis. The bounty hunter Chanath Cha gets settled in aboard the Scimitar and begins his chase.,Lando,3,Marvel
+484,Lando #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/lando_4.jpg,9/16/2015,0.02,Chanath Cha catches up to the Imperialis. While examining the treasure; something strange happens to a member of the crew.,Lando,4,Marvel
+485,Lando #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/lando_5.jpg,10/7/2015,0.021,The thrilling conclusion! Will Lando get away with his big score? Neither Chanath Cha nor the twins seem keen on letting that happen.,Lando,5,Marvel
+486,Lando: Double or Nothing,TPB,https://minirogue.github.io/SWCovers/TPB/lando_double_or_nothing.jpg,11/6/2018,-10,,Lando: Double or Nothing,,Marvel
+487,Lando: Double or Nothing #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/lando_double_or_nothing_1.jpg,5/30/2018,-9.999,,Lando: Double or Nothing,1,Marvel
+488,Lando: Double or Nothing #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/lando_double_or_nothing_2.jpg,6/27/2018,-9.998,,Lando: Double or Nothing,2,Marvel
+489,Lando: Double or Nothing #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/lando_double_or_nothing_3.jpg,7/25/2018,-9.997,,Lando: Double or Nothing,3,Marvel
+490,Lando: Double or Nothing #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/lando_double_or_nothing_4.jpg,8/29/2018,-9.996,,Lando: Double or Nothing,4,Marvel
+491,Lando: Double or Nothing #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/lando_double_or_nothing_5.jpg,9/19/2018,-9.995,,Lando: Double or Nothing,5,Marvel
+492,Poe Dameron Vol. 1: Black Squadron,TPB,https://minirogue.github.io/SWCovers/TPB/poe_dameron_black_squadron.jpg,12/13/2016,33,,Poe Dameron,1,Marvel
+493,Poe Dameron Vol. 2: The Gathering Storm,TPB,https://minirogue.github.io/SWCovers/TPB/poe_dameron_the_gathering_storm.jpg,7/3/2017,33.0065,,Poe Dameron,2,Marvel
+494,Poe Dameron Vol. 3: Legend Lost,TPB,https://minirogue.github.io/SWCovers/TPB/poe_dameron_legend_lost.jpg,11/14/2017,33.0135,,Poe Dameron,3,Marvel
+495,Poe Dameron Vol. 4: Legend Found,TPB,https://minirogue.github.io/SWCovers/TPB/poe_dameron_legend_found.jpg,5/15/2018,33.0195,,Poe Dameron,4,Marvel
+496,Poe Dameron Vol. 5: The Spark and the Fire,TPB,https://minirogue.github.io/SWCovers/TPB/poe_dameron_the_spark_and_the_fire.jpg,12/4/2018,33.0255,,Poe Dameron,5,Marvel
+497,Poe Dameron #01,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_01.jpg,4/6/2016,33.001,,Poe Dameron,1,Marvel
+498,Poe Dameron #02,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_02.jpg,5/4/2016,33.002,,Poe Dameron,2,Marvel
+499,Poe Dameron #03,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_03.jpg,6/8/2016,33.003,,Poe Dameron,3,Marvel
+500,Poe Dameron #04,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_04.jpg,7/6/2016,33.004,,Poe Dameron,4,Marvel
+501,Poe Dameron #05,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_05.jpg,8/17/2016,33.005,,Poe Dameron,5,Marvel
+502,Poe Dameron #06,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_06.jpg,9/7/2016,33.006,,Poe Dameron,6,Marvel
+503,Poe Dameron #07,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_07.jpg,10/26/2016,33.007,,Poe Dameron,7,Marvel
+504,Poe Dameron #08,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_08.jpg,11/9/2016,33.008,,Poe Dameron,8,Marvel
+505,Poe Dameron #09,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_09.jpg,12/14/2016,33.009,,Poe Dameron,9,Marvel
+506,Poe Dameron #10,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_10.jpg,1/11/2017,33.01,,Poe Dameron,10,Marvel
+507,Poe Dameron #11,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_11.jpg,2/15/2017,33.011,,Poe Dameron,11,Marvel
+508,Poe Dameron #12,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_12.jpg,3/15/2017,33.012,,Poe Dameron,12,Marvel
+509,Poe Dameron #13,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_13.jpg,4/19/2017,33.013,,Poe Dameron,13,Marvel
+510,Poe Dameron #14,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_14.jpg,5/3/2017,33.014,,Poe Dameron,14,Marvel
+511,Poe Dameron #15,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_15.jpg,5/17/2017,33.015,,Poe Dameron,15,Marvel
+512,Poe Dameron #16,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_16.jpg,6/28/2017,33.016,,Poe Dameron,16,Marvel
+513,Poe Dameron #17,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_17.jpg,7/19/2017,33.017,,Poe Dameron,17,Marvel
+514,Poe Dameron #18,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_18.jpg,8/16/2017,33.018,,Poe Dameron,18,Marvel
+515,Poe Dameron #19,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_19.jpg,9/20/2017,33.019,,Poe Dameron,19,Marvel
+516,Poe Dameron #20,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_20.jpg,10/18/2017,33.02,,Poe Dameron,20,Marvel
+517,Poe Dameron #21,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_21.jpg,11/29/2017,33.021,,Poe Dameron,21,Marvel
+518,Poe Dameron #22,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_22.jpg,12/20/2017,33.022,,Poe Dameron,22,Marvel
+519,Poe Dameron #23,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_23.jpg,1/24/2018,33.023,,Poe Dameron,23,Marvel
+520,Poe Dameron #24,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_24.jpg,2/14/2018,33.024,,Poe Dameron,24,Marvel
+521,Poe Dameron #25,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_25.jpg,3/21/2018,33.025,,Poe Dameron,25,Marvel
+522,Poe Dameron #26,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_26.jpg,4/18/2018,33.026,,Poe Dameron,26,Marvel
+523,Poe Dameron #27,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_27.jpg,5/16/2018,33.027,,Poe Dameron,27,Marvel
+524,Poe Dameron #28,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_28.jpg,6/20/2018,33.028,,Poe Dameron,28,Marvel
+525,Poe Dameron #29,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_29.jpg,7/18/2018,33.029,,Poe Dameron,29,Marvel
+526,Poe Dameron #30,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_30.jpg,8/15/2018,33.03,,Poe Dameron,30,Marvel
+527,Poe Dameron #31,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_31.jpg,9/26/2018,33.031,,Poe Dameron,31,Marvel
+528,Poe Dameron Annual #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_annual_1.jpg,6/21/2017,33.0192,,Poe Dameron,1,Marvel
+529,Poe Dameron Annual #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/poe_dameron_annual_2.jpg,8/29/2018,33.0311,,Poe Dameron,2,Marvel
+530,Princess Leia,TPB,https://minirogue.github.io/SWCovers/TPB/princess_leia.jpg,11/3/2015,0.0009,,Princess Leia,,Marvel
+531,Princess Leia #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/princess_leia_1.jpg,3/4/2015,0.001,,Princess Leia,1,Marvel
+532,Princess Leia #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/princess_leia_2.jpg,3/18/2015,0.002,,Princess Leia,2,Marvel
+533,Princess Leia #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/princess_leia_3.jpg,4/29/2015,0.003,,Princess Leia,3,Marvel
+534,Princess Leia #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/princess_leia_4.jpg,6/3/2015,0.004,,Princess Leia,4,Marvel
+535,Princess Leia #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/princess_leia_5.jpg,7/1/2015,0.005,,Princess Leia,5,Marvel
+536,Shattered Empire,TPB,https://minirogue.github.io/SWCovers/TPB/shattered_empire.jpg,11/17/2015,4.009,,Shattered Empire,,Marvel
+537,Shattered Empire #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/shattered_empire_1.jpg,9/9/2015,4.01,The second Death Star is destroyed; and the war is over. Except for the Imperial holdouts on the other side of the forest moon off Endor. But then it's over...right?,Shattered Empire,1,Marvel
+538,Shattered Empire #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/shattered_empire_2.jpg,10/7/2015,4.02,The war continues mere weeks after the battle of Endor. A red-clad droid appears to deliver a message to remaining Imperials. What could Operation Cinder be?,Shattered Empire,2,Marvel
+539,Shattered Empire #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/shattered_empire_3.jpg,10/14/2015,4.03,Operation Cinder hits Naboo as Leia meets with the queen. Meanwhile a strike team lead by Han Solo hits a secret ISB base.,Shattered Empire,3,Marvel
+540,Shattered Empire #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/shattered_empire_4.jpg,10/21/2015,4.11,Shara Bey and Kes Dameron have put in there papers and are ready to go live the lives they've fought so hard for. Before that; Shara goes on one last mission with none other than Commander Luke Skywalker.,Shattered Empire,4,Marvel
+541,Thrawn,TPB Adaptation,https://minirogue.github.io/SWCovers/TPB/thrawn.jpg,9/12/2018,-6,,Thrawn,,Marvel
+542,Thrawn #1,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/thrawn_1.jpg,2/14/2018,-5.999,,Thrawn,1,Marvel
+543,Thrawn #2,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/thrawn_2.jpg,3/14/2018,-5.998,,Thrawn,2,Marvel
+544,Thrawn #3,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/thrawn_3.jpg,4/11/2018,-5.997,,Thrawn,3,Marvel
+545,Thrawn #4,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/thrawn_4.jpg,5/9/2018,-5.996,,Thrawn,4,Marvel
+546,Thrawn #5,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/thrawn_5.jpg,6/13/2018,-5.995,,Thrawn,5,Marvel
+547,Thrawn #6,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/thrawn_6.jpg,7/11/2018,-5.994,,Thrawn,6,Marvel
+548,Vader Down,TPB,https://minirogue.github.io/SWCovers/TPB/vader_down.jpg,4/19/2016,1.00234,Collects Vader Down #1 Star Wars #13-14 and Darth Vader #13-15,Marvel's Star Wars (2015),,Marvel
+549,Vader Down #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/vader_down_1.jpg,11/18/2015,1.00235,,Marvel's Star Wars (2015),,Marvel
+550,Star Wars Vol. 01: Skywalker Strikes,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_skywalker_strikes.jpg,10/6/2015,0.999,Collects Star Wars #1-6,Marvel's Star Wars (2015),1,Marvel
+551,Star Wars Vol. 02: Showdown on the Smuggler's Moon,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_showdown_on_the_smugglers_moon.jpg,1/26/2016,1.00129,Collects Star Wars #7-12,Marvel's Star Wars (2015),2,Marvel
+552,Star Wars Vol. 03: Rebel Jail,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_rebel_jail.jpg,8/16/2016,1.00308,Collects Star Wars #15-19 and Star Wars Annual #1,Marvel's Star Wars (2015),3,Marvel
+553,Star Wars Vol. 04: Last Flight of the Harbinger,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_last_flight_of_the_harbinger.jpg,1/31/2017,1.00419,Collects Star Wars #20-25,Marvel's Star Wars (2015),4,Marvel
+554,Star Wars Vol. 05: Yoda's Secret War,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_yodas_secret_war.jpg,7/18/2017,1.00519,Collects Star Wars #26-30 and Star Wars Annual #2,Marvel's Star Wars (2015),5,Marvel
+555,Star Wars Vol. 06: Out Among the Stars,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_out_among_the_stars.jpg,12/5/2017,1.00679,Collects Star Wars #33-37 and Star Wars Annual #3,Marvel's Star Wars (2015),6,Marvel
+556,Star Wars Vol. 07: The Ashes of Jedha,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_the_ashes_of_jedha.jpg,4/3/2018,1.00789,Collects Star Wars #38-43,Marvel's Star Wars (2015),7,Marvel
+557,Star Wars Vol. 08: Mutiny at Mon Cala,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_mutiny_at_mon_cala.jpg,8/7/2018,1.00889,Collects Star Wars #44-49,Marvel's Star Wars (2015),8,Marvel
+558,Star Wars Vol. 09: Hope Dies,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_hope_dies.jpg,12/24/2018,1.00998,Collects Star Wars #50-55 and Star Wars Annual #4,Marvel's Star Wars (2015),9,Marvel
+559,Star Wars Vol. 10: The Escape,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_the_escape.jpg,4/9/2019,1.01109,Collects Star Wars #56-61,Marvel's Star Wars (2015),10,Marvel
+560,Star Wars Vol. 11: The Scourging of Shu-Torun,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_the_scourging_of_shu_torun.jpg,8/20/2019,1.01209,Collects Star Wars #62-67,Marvel's Star Wars (2015),11,Marvel
+561,Star Wars #01,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_01.jpg,1/14/2015,1,,Marvel's Star Wars (2015),1,Marvel
+562,Star Wars #02,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_02.jpg,2/4/2015,1.0001,,Marvel's Star Wars (2015),2,Marvel
+563,Star Wars #03,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_03.jpg,3/11/2015,1.0002,,Marvel's Star Wars (2015),3,Marvel
+564,Star Wars #04,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_04.jpg,4/22/2015,1.0004,,Marvel's Star Wars (2015),4,Marvel
+565,Star Wars #05,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_05.jpg,5/20/2015,1.0009,,Marvel's Star Wars (2015),5,Marvel
+566,Star Wars #06,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_06.jpg,6/3/2015,1.001,,Marvel's Star Wars (2015),6,Marvel
+567,Star Wars #07,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_07.jpg,7/29/2015,1.0013,Luke reads about Obi-Wan's time on Tatooine from his journal.,Marvel's Star Wars (2015),7,Marvel
+568,Star Wars #08,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_08.jpg,8/19/2015,1.0015,Han and Leia deal with an antagonistic Mrs. Solo. Meanwhile; Luke's search for information about the Jedi takes him to Nar Shadda.,Marvel's Star Wars (2015),8,Marvel
+569,Star Wars #09,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_09.jpg,9/16/2015,1.0017,,Marvel's Star Wars (2015),9,Marvel
+570,Star Wars #10,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_10.jpg,10/7/2015,1.0019,,Marvel's Star Wars (2015),10,Marvel
+571,Star Wars #11,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_11.jpg,11/4/2015,1.0021,,Marvel's Star Wars (2015),11,Marvel
+572,Star Wars #12,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_12.jpg,11/18/2015,1.0023,,Marvel's Star Wars (2015),12,Marvel
+573,Star Wars #13,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_13.jpg,12/2/2015,1.0025,,Marvel's Star Wars (2015),13,Marvel
+574,Star Wars #14,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_14.jpg,1/6/2016,1.0029,,Marvel's Star Wars (2015),14,Marvel
+575,Star Wars #15,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_15.jpg,1/20/2016,1.0031,,Marvel's Star Wars (2015),15,Marvel
+576,Star Wars #16,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_16.jpg,2/17/2016,1.0033,,Marvel's Star Wars (2015),16,Marvel
+577,Star Wars #17,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_17.jpg,3/23/2016,1.0035,,Marvel's Star Wars (2015),17,Marvel
+578,Star Wars #18,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_18.jpg,4/27/2016,1.0038,,Marvel's Star Wars (2015),18,Marvel
+579,Star Wars #19,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_19.jpg,5/25/2016,1.004,,Marvel's Star Wars (2015),19,Marvel
+580,Star Wars #20,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_20.jpg,6/15/2016,1.0042,,Marvel's Star Wars (2015),20,Marvel
+581,Star Wars #21,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_21.jpg,7/20/2016,1.0045,,Marvel's Star Wars (2015),21,Marvel
+582,Star Wars #22,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_22.jpg,8/24/2016,1.0047,,Marvel's Star Wars (2015),22,Marvel
+583,Star Wars #23,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_23.jpg,9/28/2016,1.0048,,Marvel's Star Wars (2015),23,Marvel
+584,Star Wars #24,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_24.jpg,10/26/2016,1.005,,Marvel's Star Wars (2015),24,Marvel
+585,Star Wars #25,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_25.jpg,11/23/2016,1.0051,,Marvel's Star Wars (2015),25,Marvel
+586,Star Wars #26,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_26.jpg,12/28/2016,1.0055,,Marvel's Star Wars (2015),26,Marvel
+587,Star Wars #27,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_27.jpg,1/25/2017,1.0057,,Marvel's Star Wars (2015),27,Marvel
+588,Star Wars #28,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_28.jpg,2/1/2017,1.0058,,Marvel's Star Wars (2015),28,Marvel
+589,Star Wars #29,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_29.jpg,3/1/2017,1.006,,Marvel's Star Wars (2015),29,Marvel
+590,Star Wars #30,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_30.jpg,4/5/2017,1.0062,,Marvel's Star Wars (2015),30,Marvel
+591,Star Wars #31,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_31.jpg,5/17/2017,1.0064,,Marvel's Star Wars (2015),31,Marvel
+592,Star Wars #32,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_32.jpg,6/14/2017,1.0066,,Marvel's Star Wars (2015),32,Marvel
+593,Star Wars #33,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_33.jpg,7/5/2017,1.0068,,Marvel's Star Wars (2015),33,Marvel
+594,Star Wars #34,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_34.jpg,8/16/2017,1.0072,,Marvel's Star Wars (2015),34,Marvel
+595,Star Wars #35,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_35.jpg,8/30/2017,1.0073,,Marvel's Star Wars (2015),35,Marvel
+596,Star Wars #36,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_36.jpg,9/13/2017,1.0075,,Marvel's Star Wars (2015),36,Marvel
+597,Star Wars #37,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_37.jpg,10/4/2017,1.0077,,Marvel's Star Wars (2015),37,Marvel
+598,Star Wars #38,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_38.jpg,11/8/2017,1.0079,,Marvel's Star Wars (2015),38,Marvel
+599,Star Wars #39,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_39.jpg,11/22/2017,1.0081,,Marvel's Star Wars (2015),39,Marvel
+600,Star Wars #40,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_40.jpg,12/13/2017,1.0082,,Marvel's Star Wars (2015),40,Marvel
+601,Star Wars #41,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_41.jpg,1/3/2018,1.0084,,Marvel's Star Wars (2015),41,Marvel
+602,Star Wars #42,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_42.jpg,1/17/2018,1.0085,,Marvel's Star Wars (2015),42,Marvel
+603,Star Wars #43,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_43.jpg,2/7/2018,1.0087,,Marvel's Star Wars (2015),43,Marvel
+604,Star Wars #44,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_44.jpg,3/7/2018,1.0089,,Marvel's Star Wars (2015),44,Marvel
+605,Star Wars #45,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_45.jpg,3/21/2018,1.009,,Marvel's Star Wars (2015),45,Marvel
+606,Star Wars #46,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_46.jpg,4/4/2018,1.0092,,Marvel's Star Wars (2015),46,Marvel
+607,Star Wars #47,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_47.jpg,5/2/2018,1.0094,,Marvel's Star Wars (2015),47,Marvel
+608,Star Wars #48,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_48.jpg,5/23/2018,1.0096,,Marvel's Star Wars (2015),48,Marvel
+609,Star Wars #49,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_49.jpg,6/6/2018,1.0098,,Marvel's Star Wars (2015),49,Marvel
+610,Star Wars #50,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_50.jpg,7/4/2018,1.01,,Marvel's Star Wars (2015),50,Marvel
+611,Star Wars #51,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_51.jpg,7/18/2018,1.0102,,Marvel's Star Wars (2015),51,Marvel
+612,Star Wars #52,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_52.jpg,8/1/2018,1.0104,,Marvel's Star Wars (2015),52,Marvel
+613,Star Wars #53,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_53.jpg,9/5/2018,1.0106,,Marvel's Star Wars (2015),53,Marvel
+614,Star Wars #54,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_54.jpg,9/19/2018,1.0107,,Marvel's Star Wars (2015),54,Marvel
+615,Star Wars #55,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_55.jpg,10/3/2018,1.0109,,Marvel's Star Wars (2015),55,Marvel
+616,Star Wars #56,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_56.jpg,11/7/2018,1.0111,,Marvel's Star Wars (2015),56,Marvel
+617,Star Wars #57,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_57.jpg,11/21/2018,1.0113,,Marvel's Star Wars (2015),57,Marvel
+618,Star Wars #58,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_58.jpg,12/5/2018,1.0114,,Marvel's Star Wars (2015),58,Marvel
+619,Star Wars #59,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_59.jpg,1/9/2019,1.0116,,Marvel's Star Wars (2015),59,Marvel
+620,Star Wars #60,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_60.jpg,1/23/2019,1.0117,,Marvel's Star Wars (2015),60,Marvel
+621,Star Wars #61,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_61.jpg,2/6/2019,1.0119,,Marvel's Star Wars (2015),61,Marvel
+622,Star Wars #62,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_62.jpg,3/6/2019,1.0121,,Marvel's Star Wars (2015),62,Marvel
+623,Star Wars #63,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_63.jpg,3/20/2019,1.0122,,Marvel's Star Wars (2015),63,Marvel
+624,Star Wars #64,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_64.jpg,4/3/2019,1.0124,,Marvel's Star Wars (2015),64,Marvel
+625,Star Wars #65,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_65.jpg,5/1/2019,1.0126,,Marvel's Star Wars (2015),65,Marvel
+626,Star Wars #66,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_66.jpg,5/15/2019,1.0128,,Marvel's Star Wars (2015),66,Marvel
+627,Star Wars #67,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_67.jpg,6/19/2019,1.0129,,Marvel's Star Wars (2015),67,Marvel
+628,Star Wars Annual #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_annual_1.jpg,12/9/2015,1.00309,,Marvel's Star Wars (2015),1,Marvel
+629,Star Wars Annual #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_annual_2.jpg,11/30/2016,1.0052,,Marvel's Star Wars (2015),2,Marvel
+630,Star Wars Annual #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_annual_3.jpg,9/20/2017,1.00775,,Marvel's Star Wars (2015),3,Marvel
+631,Star Wars Annual #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_annual_4.jpg,5/23/2018,1.00999,,Marvel's Star Wars (2015),4,Marvel
+632,C-3PO #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/c3po_1.jpg,4/13/2016,33.8,,,1,Marvel
+633,The Force Awakens #1,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_force_awakens_1.jpg,6/22/2016,34.001,,The Force Awakens (comic),1,Marvel
+634,The Force Awakens #2,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_force_awakens_2.jpg,7/27/2016,34.002,,The Force Awakens (comic),2,Marvel
+635,The Force Awakens #3,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_force_awakens_3.jpg,8/24/2016,34.003,,The Force Awakens (comic),3,Marvel
+636,The Force Awakens #4,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_force_awakens_4.jpg,9/14/2016,34.004,,The Force Awakens (comic),4,Marvel
+637,The Force Awakens #5,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_force_awakens_5.jpg,10/12/2016,34.005,,The Force Awakens (comic),5,Marvel
+638,The Force Awakens #6,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_force_awakens_6.jpg,11/9/2016,34.006,,The Force Awakens (comic),6,Marvel
+639,Rogue One: A Star Wars Story #1,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/rogue_one_1.jpg,4/5/2017,-0.099,,Rogue One: A Star Wars Story (comic),1,Marvel
+640,Rogue One: A Star Wars Story #2,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/rogue_one_2.jpg,5/3/2017,-0.098,,Rogue One: A Star Wars Story (comic),2,Marvel
+641,Rogue One: A Star Wars Story #3,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/rogue_one_3.jpg,6/7/2017,-0.097,,Rogue One: A Star Wars Story (comic),3,Marvel
+642,Rogue One: A Star Wars Story #4,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/rogue_one_4.jpg,7/5/2017,-0.096,,Rogue One: A Star Wars Story (comic),4,Marvel
+643,Rogue One: A Star Wars Story #5,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/rogue_one_5.jpg,8/2/2017,-0.095,,Rogue One: A Star Wars Story (comic),5,Marvel
+644,Rogue One: A Star Wars Story #6,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/rogue_one_6.jpg,9/6/2017,-0.094,,Rogue One: A Star Wars Story (comic),6,Marvel
+645,Screaming Citadel #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/screaming_citadel_1.jpg,5/10/2017,1.00635,,Marvel's Star Wars (2015),1,Marvel
+646,Droids Unplugged #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/droids_unplugged_1.jpg,6/28/2017,,,,1,Marvel
+647,Cassian & K-2SO #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/cassian_and_k2so_1.jpg,8/9/2017,-0.8,,,1,Marvel
+648,Captain Phasma #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/captain_phasma_1.jpg,9/6/2017,34.101,,Captain Phasma,1,Marvel
+649,Captain Phasma #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/captain_phasma_2.jpg,9/20/2017,34.102,,Captain Phasma,2,Marvel
+650,Captain Phasma #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/captain_phasma_3.jpg,10/4/2017,34.103,,Captain Phasma,3,Marvel
+651,Captain Phasma #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/captain_phasma_4.jpg,10/18/2017,34.105,,Captain Phasma,4,Marvel
+652,The Force Awakens,TPB Adaptation,https://minirogue.github.io/SWCovers/TPB/the_force_awakens.jpg,11/21/2017,34,Collected edition of the omic adaptation of Episode VII.,The Force Awakens (comic),,Marvel
+653,Rogue One: A Star Wars Story,TPB Adaptation,https://minirogue.github.io/SWCovers/TPB/rogue_one.jpg,12/12/2017,-0.1,,Rogue One: A Star Wars Story (comic),,Marvel
+654,Storms of Crait #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/storms_of_crait_1.jpg,12/27/2017,1.00885,,,1,Marvel
+655,DJ - Most Wanted #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/dj_most_wanted_1.jpg,1/31/2019,34.24,,,1,Marvel
+656,The Last Jedi #1,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_last_jedi_1.jpg,5/9/2018,34.5001,,The Last Jedi (Comic),1,Marvel
+657,The Last Jedi #2,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_last_jedi_2.jpg,5/23/2018,34.5002,,The Last Jedi (Comic),2,Marvel
+658,The Last Jedi #3,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_last_jedi_3.jpg,6/6/2018,34.5003,,The Last Jedi (Comic),3,Marvel
+659,The Last Jedi #4,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_last_jedi_4.jpg,7/4/2018,34.5004,,The Last Jedi (Comic),4,Marvel
+660,The Last Jedi #5,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_last_jedi_5.jpg,8/1/2018,34.5005,,The Last Jedi (Comic),5,Marvel
+661,The Last Jedi #6,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_last_jedi_6.jpg,9/12/2018,34.5006,,The Last Jedi (Comic),6,Marvel
+662,Beckett #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/beckett_1.jpg,8/15/2018,-12.7,,,1,Marvel
+663,Solo: A Star Wars Story #1,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/solo_1.jpg,10/10/2018,-11.999,,Solo: A Star Wars Story (comic),1,Marvel
+664,Solo: A Star Wars Story #2,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/solo_2.jpg,11/21/2018,-11.998,,Solo: A Star Wars Story (comic),2,Marvel
+665,Solo: A Star Wars Story #3,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/solo_3.jpg,12/19/2018,-11.997,,Solo: A Star Wars Story (comic),3,Marvel
+666,Solo: A Star Wars Story #4,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/solo_4.jpg,1/30/2019,-11.996,,Solo: A Star Wars Story (comic),4,Marvel
+667,Solo: A Star Wars Story #5,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/solo_5.jpg,2/20/2019,-11.995,,Solo: A Star Wars Story (comic),5,Marvel
+668,Solo: A Star Wars Story #6,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/solo_6.jpg,3/20/2019,-11.994,,Solo: A Star Wars Story (comic),6,Marvel
+669,Solo: A Star Wars Story #7,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/solo_7.jpg,4/3/2019,-11.993,,Solo: A Star Wars Story (comic),7,Marvel
+670,Han Solo - Imperial Cadet #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/han_solo_imperial_cadet_1.jpg,11/7/2018,-12.499,,Han Solo - Imperial Cadet,1,Marvel
+671,Han Solo - Imperial Cadet #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/han_solo_imperial_cadet_2.jpg,12/12/2018,-12.498,,Han Solo - Imperial Cadet,2,Marvel
+672,Han Solo - Imperial Cadet #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/han_solo_imperial_cadet_3.jpg,1/2/2019,-12.497,,Han Solo - Imperial Cadet,3,Marvel
+673,Han Solo - Imperial Cadet #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/han_solo_imperial_cadet_4.jpg,2/13/2019,-12.496,,Han Solo - Imperial Cadet,4,Marvel
+674,Han Solo - Imperial Cadet #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/han_solo_imperial_cadet_5.jpg,3/13/2019,-12.495,,Han Solo - Imperial Cadet,5,Marvel
+675,The Last Jedi,TPB Adaptation,https://minirogue.github.io/SWCovers/TPB/the_last_jedi.jpg,11/6/2018,34.5,,The Last Jedi (Comic),,Marvel
+676,Solo: A Star Wars Story,TPB Adaptation,https://minirogue.github.io/SWCovers/TPB/solo.jpg,6/18/2019,-12,,,,Marvel
+677,Han Solo - Imperial Cadet,TPB,https://minirogue.github.io/SWCovers/TPB/han_solo_imperial_cadet.jpg,5/15/2019,-12.5,,Han Solo - Imperial Cadet,,Marvel
+678,Vader - Dark Visions #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/vader_dark_visions_1.jpg,3/6/2019,,,Vader - Dark Visions,1,Marvel
+679,Vader - Dark Visions #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/vader_dark_visions_2.jpg,3/27/2019,,,Vader - Dark Visions,2,Marvel
+680,Vader - Dark Visions #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/vader_dark_visions_3.jpg,4/24/2019,,,Vader - Dark Visions,3,Marvel
+681,Vader - Dark Visions #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/vader_dark_visions_4.jpg,5/29/2019,,,Vader - Dark Visions,4,Marvel
+682,Vader - Dark Visions #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/vader_dark_visions_5.jpg,6/12/2019,,,Vader - Dark Visions,5,Marvel
+683,Vader - Dark Visions,TPB,https://minirogue.github.io/SWCovers/TPB/vader_dark_visions.jpg,8/28/2019,,,Vader - Dark Visions,,Marvel
+684,Galaxy's Edge #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/galaxys_edge_1.jpg,4/24/2019,34.521,,Galaxy's Edge,1,Marvel
+685,Galaxy's Edge #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/galaxys_edge_2.jpg,5/22/2019,34.522,,Galaxy's Edge,2,Marvel
+686,Galaxy's Edge #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/galaxys_edge_3.jpg,6/26/2019,34.523,,Galaxy's Edge,3,Marvel
+687,Galaxy's Edge #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/galaxys_edge_4.jpg,7/31/2019,34.524,,Galaxy's Edge,4,Marvel
+688,Galaxy's Edge #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/galaxys_edge_5.jpg,8/28/2019,34.525,,Galaxy's Edge,5,Marvel
+689,Galaxy's Edge,TPB,https://minirogue.github.io/SWCovers/TPB/galaxys_edge.jpg,10/23/2019,34.52,,Galaxy's Edge,,Marvel
+690,Tie Fighter #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/tie_fighter_3.jpg,6/19/2019,3.103,,Tie Fighter,3,Marvel
+691,Tie Fighter #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/tie_fighter_4.jpg,7/17/2019,3.104,,Tie Fighter,4,Marvel
+692,Tie Fighter #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/tie_fighter_5.jpg,8/21/2019,3.105,,Tie Fighter,5,Marvel
+693,Tie Fighter,TPB,https://minirogue.github.io/SWCovers/TPB/tie_fighter.jpg,10/15/2019,3.1009,,Tie Fighter,,Marvel
+694,Target Vader #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/target_vader_1.jpg,7/3/2019,,,Target Vader,1,Marvel
+695,Target Vader #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/target_vader_2.jpg,8/14/2019,,,Target Vader,2,Marvel
+696,Target Vader #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/target_vader_3.jpg,9/25/2019,,,Target Vader,3,Marvel
+697,Target Vader #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/target_vader_4.jpg,10/9/2019,,,Target Vader,4,Marvel
+698,Target Vader #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/target_vader_5.jpg,11/13/2019,,,Target Vader,5,Marvel
+699,Target Vader #6,Comic Book,https://minirogue.github.io/SWCovers/Comics/target_vader_6.jpg,12/11/2019,,,Target Vader,6,Marvel
+700,Target Vader,TPB,https://minirogue.github.io/SWCovers/TPB/target_vader.jpg,2/11/2020,,,Target Vader,,Marvel
+701,Forces of Destiny: Leia,Comic Book,https://minirogue.github.io/SWCovers/Comics/forces_of_destiny_leia.jpg,1/3/2018,,,Forces of Destiny,1,IDW
+702,Forces of Destiny: Rey,Comic Book,https://minirogue.github.io/SWCovers/Comics/forces_of_destiny_rey.jpg,1/10/2018,,,Forces of Destiny,2,IDW
+703,Forces of Destiny: Hera,Comic Book,https://minirogue.github.io/SWCovers/Comics/forces_of_destiny_hera.jpg,1/17/2018,,,Forces of Destiny,3,IDW
+704,Forces of Destiny: Ahsoka & Padme,Comic Book,https://minirogue.github.io/SWCovers/Comics/forces_of_destiny_ahsoka.jpg,1/24/2018,,,Forces of Destiny,4,IDW
+705,Forces of Destiny: Rose & Paige,Comic Book,https://minirogue.github.io/SWCovers/Comics/forces_of_destiny_rose.jpg,1/31/2018,,,Forces of Destiny,5,IDW
+706,Forces of Destiny,TPB,https://minirogue.github.io/SWCovers/TPB/forces_of_destiny.jpg,4/24/2018,,,Forces of Destiny,,IDW
+707,Tales from Vader's Castle #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/tales_from_vaders_castle_1.jpg,10/3/2018,,,Tales from Vader's Castle,1,IDW
+708,Tales from Vader's Castle #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/tales_from_vaders_castle_2.jpg,10/10/2018,,,Tales from Vader's Castle,2,IDW
+709,Tales from Vader's Castle #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/tales_from_vaders_castle_3.jpg,10/17/2018,,,Tales from Vader's Castle,3,IDW
+710,Tales from Vader's Castle #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/tales_from_vaders_castle_4.jpg,10/24/2018,,,Tales from Vader's Castle,4,IDW
+711,Tales from Vader's Castle #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/tales_from_vaders_castle_5.jpg,10/31/2018,,,Tales from Vader's Castle,5,IDW
+712,Tales from Vader's Castle,TPB,https://minirogue.github.io/SWCovers/TPB/tales_from_vaders_castle.jpg,5/7/2019,,,Tales from Vader's Castle,,IDW
+713,Age of Resistance: General Hux #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_resistance_general_hux_1.jpg,8/28/2019,,,Age of Resistance,,Marvel
+714,Jedi: Fallen Order - Dark Temple #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/jedi_fallen_order_dark_temple_1.jpg,9/4/2019,-18.599,,Jedi: Fallen Order - Dark Temple,1,Marvel
+715,Jedi: Fallen Order - Dark Temple #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/jedi_fallen_order_dark_temple_2.jpg,9/25/2019,-18.598,,Jedi: Fallen Order - Dark Temple,2,Marvel
+716,Jedi: Fallen Order - Dark Temple #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/jedi_fallen_order_dark_temple_3.jpg,10/9/2019,-18.597,,Jedi: Fallen Order - Dark Temple,3,Marvel
+717,Jedi: Fallen Order - Dark Temple #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/jedi_fallen_order_dark_temple_4.jpg,11/13/2019,-18.596,,Jedi: Fallen Order - Dark Temple,4,Marvel
+718,Jedi: Fallen Order - Dark Temple #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/jedi_fallen_order_dark_temple_5.jpg,12/4/2019,-18.595,,Jedi: Fallen Order - Dark Temple,5,Marvel
+719,Screaming Citadel,TPB,https://minirogue.github.io/SWCovers/TPB/screaming_citadel.jpg,10/24/2017,1.00634,Collects Screaming Citadel #1 Star Wars #31-32 and Doctor Aphra #7-8,,,Marvel
+720,Doctor Aphra Annual #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_annual_1.jpg,8/23/2017,1.00781,,Doctor Aphra,1,Marvel
+721,Doctor Aphra Annual #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_annual_2.jpg,9/5/2018,1.01119,,Doctor Aphra,2,Marvel
+722,Captain Phasma,TPB,https://minirogue.github.io/SWCovers/TPB/captain_phasma.jpg,9/28/2017,34.1,,Captain Phasma,,Marvel
+723,Doctor Aphra #33,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_33.jpg,6/19/2019,1.013,,Doctor Aphra,33,Marvel
+724,Age of Resistance: Finn #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_resistance_finn_1.jpg,7/3/2019,,,Age of Resistance,,Marvel
+725,Age of Resistance: Captain Phasma #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_resistance_captain_phasma_1.jpg,7/10/2019,,,Age of Resistance,,Marvel
+726,Star Wars #68,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_68.jpg,7/10/2019,1.0131,,Marvel's Star Wars (2015),68,Marvel
+727,Doctor Aphra #34,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_34.jpg,7/17/2019,1.0132,,Doctor Aphra,34,Marvel
+728,Age of Resistance: Special #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_resistance_special_1.jpg,7/31/2019,,,Age of Resistance,,Marvel
+729,Star Wars #69,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_69.jpg,7/24/2019,1.0133,,Marvel's Star Wars (2015),69,Marvel
+730,Age of Resistance - Villains,TPB,https://minirogue.github.io/SWCovers/TPB/age_of_resistance_villains.jpg,12/3/2019,,,Age of Resistance,,Marvel
+731,Age of Resistance - Heroes,TPB,https://minirogue.github.io/SWCovers/TPB/age_of_resistance_heroes.jpg,11/13/2019,,,Age of Resistance,,Marvel
+732,Age of Resistance: Rose Tico #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_resistance_rose_tico_1.jpg,9/4/2019,,,Age of Resistance,,Marvel
+733,Age of Resistance – Supreme Leader Snoke #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_resistance_supreme_leader_snoke_1.jpg,9/11/2019,,,Age of Resistance,,Marvel
+734,Age of Resistance - Rey #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_resistance_rey_1.jpg,9/18/2019,,,Age of Resistance,,Marvel
+735,Age of Resistance - Kylo Ren #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/age_of_resistance_kylo_ren_1.jpg,9/25/2019,,,Age of Resistance,,Marvel
+736,Star Wars #70,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_70.jpg,8/7/2019,1.0134,,Marvel's Star Wars (2015),70,Marvel
+737,Doctor Aphra #35,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_35.jpg,8/21/2019,1.0135,,Doctor Aphra,35,Marvel
+738,The Skywalker Saga,Novelization,https://minirogue.github.io/SWCovers/Novels/the_skywalker_saga.jpg,9/3/2019,,,,,Disney-Lucasfilm Press
+739,Star Wars #71,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_71.jpg,9/4/2019,1.0136,,Marvel's Star Wars (2015),71,Marvel
+740,Doctor Aphra #36,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_36.jpg,9/11/2019,1.0137,,Doctor Aphra,36,Marvel
+741,Star Wars #72,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_72.jpg,9/18/2019,1.0138,,Marvel's Star Wars (2015),72,Marvel
+742,Allegiance #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/allegiance_1.jpg,10/9/2019,,,Allegiance,1,Marvel
+743,Allegiance #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/allegiance_2.jpg,10/16/2019,,,Allegiance,2,Marvel
+744,Allegiance #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/allegiance_3.jpg,10/23/2019,,,Allegiance,3,Marvel
+745,Allegiance #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/allegiance_4.jpg,10/30/2019,,,Allegiance,4,Marvel
+746,Star Wars Adventures Ashcan,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_ashcan.png,7/12/2017,36,Available for free at StarWars.com,Star Wars Adventures,0,IDW
+747,Star Wars Adventures #01,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_01.jpg,9/6/2017,,,Star Wars Adventures,1,IDW
+748,Star Wars Adventures #02,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_02.jpg,9/20/2017,,,Star Wars Adventures,2,IDW
+749,Star Wars Adventures #03,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_03.jpg,10/18/2017,,,Star Wars Adventures,3,IDW
+750,Star Wars Adventures #04,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_04.jpg,11/29/2017,,,Star Wars Adventures,4,IDW
+751,Star Wars Adventures #05,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_05.jpg,12/27/2017,,,Star Wars Adventures,5,IDW
+752,Star Wars Adventures #06,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_06.jpg,1/17/2018,,,Star Wars Adventures,6,IDW
+753,Star Wars Adventures #07,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_07.jpg,3/7/2018,,,Star Wars Adventures,7,IDW
+754,Star Wars Adventures #08,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_08.jpg,3/28/2018,,,Star Wars Adventures,8,IDW
+755,Star Wars Adventures #09,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_09.jpg,4/18/2018,,,Star Wars Adventures,9,IDW
+756,Star Wars Adventures #10,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_10.jpg,5/9/2018,,,Star Wars Adventures,10,IDW
+757,Star Wars Adventures #11,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_11.jpg,6/6/2018,,,Star Wars Adventures,11,IDW
+758,Star Wars Adventures #12,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_12.jpg,7/25/2018,,,Star Wars Adventures,12,IDW
+759,Star Wars Adventures #13,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_13.jpg,8/29/2018,,,Star Wars Adventures,13,IDW
+760,Star Wars Adventures #14,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_14.jpg,9/26/2018,,,Star Wars Adventures,14,IDW
+761,Star Wars Adventures #15,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_15.jpg,10/31/2018,,,Star Wars Adventures,15,IDW
+762,Star Wars Adventures #16,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_16.jpg,12/19/2018,,,Star Wars Adventures,16,IDW
+763,Star Wars Adventures #17,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_17.jpg,1/30/2019,,,Star Wars Adventures,17,IDW
+764,Star Wars Adventures #18,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_18.jpg,2/20/2019,,,Star Wars Adventures,18,IDW
+765,Star Wars Adventures #19,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_19.jpg,3/27/2019,,,Star Wars Adventures,19,IDW
+766,Star Wars Adventures #20,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_20.jpg,4/17/2019,,,Star Wars Adventures,20,IDW
+767,Star Wars Adventures #21,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_21.jpg,5/8/2019,,,Star Wars Adventures,21,IDW
+768,Star Wars Adventures #22,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_22.jpg,6/5/2019,,,Star Wars Adventures,22,IDW
+769,Star Wars Adventures #23,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_23.jpg,7/3/2019,,,Star Wars Adventures,23,IDW
+770,Star Wars Adventures #24,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_24.jpg,8/21/2019,,,Star Wars Adventures,24,IDW
+771,Star Wars Adventures #25,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_25.jpg,9/11/2019,,,Star Wars Adventures,25,IDW
+772,Star Wars Adventures #26,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_26.jpg,9/25/2019,,,Star Wars Adventures,26,IDW
+773,Star Wars Adventures Annual 2018,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_annual_2018.jpg,4/18/2018,,,Star Wars Adventures,,IDW
+774,Star Wars Adventures Annual 2019,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_annual_2019.jpg,8/14/2019,,,Star Wars Adventures,,IDW
+775,Star Wars Adventures Free Comic Book Day 2018,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_fcbd_2018.jpg,5/5/2018,,,Star Wars Adventures,,IDW
+776,Star Wars Adventures Vol. 1: Heroes of the Galaxy,TPB,https://minirogue.github.io/SWCovers/TPB/swa_heroes_of_the_galaxy.jpg,10/31/2017,,,Star Wars Adventures,1,IDW
+777,Star Wars Adventures Vol. 2: Unexpected Detour,TPB,https://minirogue.github.io/SWCovers/TPB/swa_unexpected_detour.jpg,2/27/2018,,,Star Wars Adventures,2,IDW
+778,Star Wars Adventures Vol. 3: Endangered,TPB,https://minirogue.github.io/SWCovers/TPB/swa_endangered.jpg,7/17/2018,,,Star Wars Adventures,3,IDW
+779,Star Wars Adventures Vol. 4: Smuggler's Blues,TPB,https://minirogue.github.io/SWCovers/TPB/swa_smugglers_blues.jpg,12/4/2018,,,Star Wars Adventures,4,IDW
+780,Star Wars Adventures Vol. 5: Mechanical Mayhem,TPB,https://minirogue.github.io/SWCovers/TPB/swa_mechanical_mayhem.jpg,3/12/2019,,,Star Wars Adventures,5,IDW
+781,Star Wars Adventures Vol. 6: Flight of the Falcon,TPB,https://minirogue.github.io/SWCovers/TPB/swa_flight_of_the_falcon.jpg,7/16/2019,,,Star Wars Adventures,6,IDW
+782,Star Wars Adventures Vol. 7: Pomp and Circumstance,TPB,https://minirogue.github.io/SWCovers/TPB/swa_pomp_and_circumstance.jpg,11/12/2019,,,Star Wars Adventures,7,IDW
+783,Star Wars Adventures Vol. 8: Defend the Republic!,TPB,https://minirogue.github.io/SWCovers/TPB/swa_defend_the_republic.jpg,2/18/2020,,,Star Wars Adventures,8,IDW
+784,Star Wars Adventures: Destroyer Down #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/destroyer_down_1.jpg,11/7/2018,,,Destroyer Down,1,IDW
+785,Star Wars Adventures: Destroyer Down #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/destroyer_down_2.jpg,12/5/2018,,,Destroyer Down,2,IDW
+786,Star Wars Adventures: Destroyer Down #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/destroyer_down_3.jpg,1/9/2019,,,Destroyer Down,3,IDW
+787,Star Wars Adventures: Destroyer Down,TPB,https://minirogue.github.io/SWCovers/TPB/destroyer_down.jpg,6/4/2019,,,Destroyer Down,,IDW
+788,Star Wars Adventures Free Comic Book Day 2019,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_fcbd_2019.jpg,5/4/2019,,,Star Wars Adventures,,IDW
+789,Return to Vader's Castle #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/return_to_vaders_castle_1.jpg,10/2/2019,,,Return to Vader's Castle,1,IDW
+790,Return to Vader's Castle #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/return_to_vaders_castle_2.jpg,10/9/2019,,,Return to Vader's Castle,2,IDW
+791,Return to Vader's Castle #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/return_to_vaders_castle_3.jpg,10/16/2019,,,Return to Vader's Castle,3,IDW
+792,Return to Vader's Castle #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/return_to_vaders_castle_4.jpg,10/23/2019,,,Return to Vader's Castle,4,IDW
+793,Return to Vader's Castle #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/return_to_vaders_castle_5.jpg,10/30/2019,,,Return to Vader's Castle,5,IDW
+794,Doctor Aphra #37,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_37.jpg,10/2/2019,1.0139,,Doctor Aphra,37,Marvel
+795,Star Wars #73,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_73.jpg,10/23/2019,1.014,,Marvel's Star Wars (2015),73,Marvel
+796,Doctor Aphra Annual #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_annual_3.jpg,10/30/2019,1.0141,,Doctor Aphra,3,Marvel
+797,We are the Resistance,Youth,https://minirogue.github.io/SWCovers/Youth/we_are_the_resistance.jpg,10/4/2019,,,,,Golden Books
+798,Resistance Heroes,Youth,https://minirogue.github.io/SWCovers/Youth/resistance_heroes.jpg,10/4/2019,,,,,Disney-Lucasfilm Press
+799,First Order Villains,Youth,https://minirogue.github.io/SWCovers/Youth/first_order_villains.jpg,10/4/2019,,,,,Disney-Lucasfilm Press
+800,Star Wars Adventures #27,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_27.jpg,10/30/2019,,,Star Wars Adventures,27,IDW
+801,Star Wars Adventures #28,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_28.jpg,11/27/2019,,,Star Wars Adventures,28,IDW
+802,Chapter 1,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,11/12/2019,7.01,We are introduced to the titular character who is referred to most often as Mando. He's a Mandalorian bounty hunter; and he's very good at what he does. He takes a job that seems to be extra high risk. What kind of mark could be worth all this trouble?,The Mandalorian,101,Disney
+803,Chapter 2: The Child,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,11/15/2019,7.02,,The Mandalorian,102,Disney
+804,Chapter 3: The Sin,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,11/22/2019,7.03,,The Mandalorian,103,Disney
+805,Chapter 4: Sanctuary,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,11/29/2019,7.04,,The Mandalorian,104,Disney
+806,Chapter 5: The Gunslinger,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,12/6/2019,7.05,,The Mandalorian,105,Disney
+807,Chapter 6: The Prisoner,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,12/13/2019,7.06,,The Mandalorian,106,Disney
+808,Chapter 7: The Reckoning,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,12/18/2019,7.07,,The Mandalorian,107,Disney
+809,Chapter 8: Redemption,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,12/27/2019,7.08,,The Mandalorian,108,Disney
+810,Into the Unknown,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,10/6/2019,34.0051,,Resistance,201,Disney
+811,A Quick Salvage Run,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,10/13/2019,34.50015,,Resistance,202,Disney
+812,Live Fire,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,10/20/2019,34.502,After the narrow escape of the Colossus; the ace pilots begin combat training. At the same time; Tam begins her training as a First Order pilot.,Resistance,203,Disney
+813,Hunt on Celsor 3,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,10/27/2019,34.503,Supplies aboard the Colossus are running low. The pirates cut a deal with Aunt Z to go on a provision run.,Resistance,204,Disney
+814,The Engineer,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,11/3/2019,34.504,The Colossus answers a distress call and finds an engineer who proceeds to help fix up the ship.,Resistance,205,Disney
+815,From Beneath,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,11/10/2019,34.505,Kaz; Torra; Flix; and Orka go to Drahgor 3 to get some fuel from Flix's cousins.,Resistance,206,Disney
+816,The Relic Raiders,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,11/17/2019,34.506,On a provision run; Kaz wanders into a Sith temple.,Resistance,207,Disney
+817,Rendezvous Point,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,11/24/2019,34.507,The Colossus has to retreat from a rendevouz point right before the X-Wing they're meeting arrives.,Resistance,208,Disney
+818,The Voxx Vortex 5000,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,12/1/2019,34.508,The aces are getting restless. Hype suggests a plan to race at his friend's casino make some money.,Resistance,209,Disney
+819,Kaz's Curse,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,12/8/2019,34.509,The pirates get mad at Kaz during a game of dice and one of them curses him.,Resistance,210,Disney
+820,Station to Station,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,12/15/2019,34.511,Tam and Rucklin go on a supply run to a fueling station. Kaz and Neeku happen to be infiltrating that same station for their own supply run.,Resistance,211,Disney
+821,Resistance (Season 2),TV Season,https://minirogue.github.io/SWCovers/TV/resistance.jpg,1/26/2020,34.5195,,Resistance,2,Disney
+822,Star Wars #74,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_74.jpg,11/13/2019,1.0143,,Marvel's Star Wars (2015),74,Marvel
+823,Doctor Aphra #38,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_38.jpg,11/6/2019,1.0142,,Doctor Aphra,38,Marvel
+824,Star Wars #75,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_75.jpg,11/20/2019,1.0144,,Marvel's Star Wars (2015),75,Marvel
+825,Doctor Aphra #39,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_39.jpg,11/27/2019,1.0145,,Doctor Aphra,39,Marvel
+826,Star Wars Saga #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_saga_1.jpg,12/4/2019,1.9,A primer of moments from the Star Wars (2015) run.,,1,Marvel
+827,Doctor Aphra #40,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_40.jpg,12/11/2019,1.0146,,Doctor Aphra,40,Marvel
+828,Star Wars Adventures #29,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_29.jpg,12/18/2019,,,Star Wars Adventures,29,IDW
+829,The Rise of Kylo Ren #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/rise_of_kylo_ren_1.jpg,12/18/2019,29.51,,The Rise of Kylo Ren,1,Marvel
+830,Empire Ascendant #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/empire_ascendant_1.jpg,12/18/2019,,,Marvel's Star Wars (2015),1,Marvel
+831,Allegiance,TPB,https://minirogue.github.io/SWCovers/TPB/allegiance.jpg,11/20/2019,,,Allegiance,,Marvel
+832,Star Wars Vol. 12: Rebels and Rogues,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_rebels_and_rogues.jpg,11/20/2019,,,Marvel's Star Wars (2015),12,Marvel
+833,Doctor Aphra Vol. 6: Unspeakable Rebel Superweapon,TPB,https://minirogue.github.io/SWCovers/TPB/doctor_aphra_unspeakable_rebel_superweapon.jpg,12/11/2019,,Collects Doctor Aphra 32-36,Doctor Aphra,6,Marvel
+834,Doctor Aphra Vol. 7: A Rogue's End,TPB,https://minirogue.github.io/SWCovers/TPB/doctor_aphra_a_rogues_end.jpg,2/11/2020,,,Doctor Aphra,7,Marvel
+835,Star Wars Vol. 13: Rogues and Rebels,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_rogues_and_rebels.jpg,3/18/2020,,,Marvel's Star Wars (2015),13,Marvel
+836,Return to Vader's Castle,TPB,https://minirogue.github.io/SWCovers/TPB/return_to_vaders_castle.jpg,4/7/2020,,,Return to Vader's Castle,,IDW
+837,Star Wars Adventures Vol. 9: Fight The Empire!,TPB,https://minirogue.github.io/SWCovers/TPB/swa_fight_the_empire.jpg,6/16/2020,,,Star Wars Adventures,9,IDW
+838,The Rise of Kylo Ren #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/rise_of_kylo_ren_2.jpg,1/8/2020,29.52,,The Rise of Kylo Ren,2,Marvel
+839,The Rise of Kylo Ren #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/rise_of_kylo_ren_3.jpg,2/12/2020,29.53,,The Rise of Kylo Ren,3,Marvel
+840,The Rise of Kylo Ren #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/rise_of_kylo_ren_4.jpg,3/11/2020,29.54,,The Rise of Kylo Ren,4,Marvel
+841,The Rise of Kylo Ren,TPB,https://minirogue.github.io/SWCovers/TPB/the_rise_of_kylo_ren.jpg,7/29/2020,29.5,,The Rise of Kylo Ren,,Marvel
+842,Sands of Jakku,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,7/3/2017,34.0011,Rey and BB-8 get attacked by a nightwatcher worm on their way to Niima Outpost,Forces of Destiny,1,Disney
+843,BB-8 Bandits,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,7/4/2017,34.0012,Rey and BB-8 are attacked by bandits on their way to Niima Outpost.,Forces of Destiny,2,Disney
+844,Ewok Escape,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,7/5/2017,4.001,Leia and Wickett run into some stormtroopers harassing some Ewoks shortly after they meet.,Forces of Destiny,3,Disney
+845,The Padawan Path,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,7/6/2017,-20.9495,On her way to a ceremony at the Jedi temple; Ahsoka gets caught up by a malfunctioning droid.,Forces of Destiny,4,Disney
+846,Beasts of Echo Base,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,7/7/2017,2.99,Leia searches for Chewbacca in the tunnels under Echo Base on Hoth.,Forces of Destiny,5,Disney
+847,The Imposter Inside,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,7/8/2017,-20.9498,Ahsoka and Padme fight off a bounty hunter.,Forces of Destiny,6,Disney
+848,The Stranger,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,7/9/2017,-1.9655,Some stormtroopers try to take a Lothcat away from her owner. Jyn Erso ain't having it.,Forces of Destiny,7,Disney
+849,Bounty of Trouble,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,7/9/2017,-1.9745,Sabine kidnaps Leia.,Forces of Destiny,8,Disney
+850,Newest Recruit,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,10/1/2017,-1.9658,,Forces of Destiny,9,Disney
+851,Tracker Trouble,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,10/2/2017,34.0035,The Falcon gets pulled out of hyperspace on the way to Takodana.,Forces of Destiny,10,Disney
+852,Teach You; I Will,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,10/3/2017,-20.9499,Yoda checks in on Ahsoka's progress in learning to dual wield her lightsabers.,Forces of Destiny,11,Disney
+853,The Starfighter Stunt,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,10/4/2017,-20.9496,Ahsoka teaches Padme about flying a starfighter.,Forces of Destiny,12,Disney
+854,Accidental Allies,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,10/29/2017,-1.9654,,Forces of Destiny,13,Disney
+855,An Imperial Feast,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,10/30/2017,4.002,,Forces of Destiny,14,Disney
+856,The Happabore Hazard,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,10/31/2017,33.9921,,Forces of Destiny,15,Disney
+857,Crash Course,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,11/1/2017,-1.9657,,Forces of Destiny,16,Disney
+858,Hasty Departure,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,3/19/2018,-1.9656,,Forces of Destiny,17,Disney
+859,Unexpected Company,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,3/19/2018,-20.9497,,Forces of Destiny,18,Disney
+860,Shuttle Shock,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,3/19/2018,,,Forces of Destiny,19,Disney
+861,Jyn's Trade,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,3/19/2018,-1.9,,Forces of Destiny,20,Disney
+862,Run Rey Run,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,3/19/2018,33.9922,,Forces of Destiny,21,Disney
+863,Bounty Hunted,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,3/19/2018,3.09,,Forces of Destiny,22,Disney
+864,The Path Ahead,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,3/19/2018,3.07,,Forces of Destiny,23,Disney
+865,Porg Problems,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,3/19/2018,,,Forces of Destiny,24,Disney
+866,Chopper and Friends,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,5/4/2018,4.004,,Forces of Destiny,25,Disney
+867,Monster Misunderstanding,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,5/4/2018,,,Forces of Destiny,26,Disney
+868,Art History,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,5/4/2018,,,Forces of Destiny,27,Disney
+869,Porgs!,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,5/4/2018,,,Forces of Destiny,28,Disney
+870,Perilous Pursuit,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,5/4/2018,,,Forces of Destiny,29,Disney
+871,Traps and Tribulations,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,5/4/2018,4.003,,Forces of Destiny,30,Disney
+872,A Disarming Lesson,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,5/4/2018,,,Forces of Destiny,31,Disney
+873,Triplecross,Short,https://minirogue.github.io/SWCovers/TV/forces_of_destiny.jpg,5/25/2018,,,Forces of Destiny,32,Disney
+874,The Machine in the Ghost,Short,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,8/11/2014,-2.04,The ghost in on the run from several TIE fighters. While Hera flies and Kanan mans the blasters; it's up to Chopper to do...everything else.,Rebels,,Disney
+875,Entanglement,Short,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,8/25/2014,-2.02,On his way to rendezvous with Kanan; Zeb runs into some trouble...then some more.,Rebels,,Disney
+876,Art Attack,Short,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,8/18/2014,-2.03,Sabine creates a diversion. A very pretty purple diversion.,Rebels,,Disney
+877,Property of Ezra Bridger,Short,https://minirogue.github.io/SWCovers/TV/rebels_season_1.jpg,9/1/2014,-2.01,"Ezra sees a TIE fighter get shot down by a odified VCX-100 light freighter. He proceeds to ""help"" the pilot of the downed TIE.",Rebels,,Disney
+878,Star Wars (2020) #01,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_1.jpg,1/1/2020,,,Marvel's Star Wars (2020),1,Marvel
+879,Star Wars (2020) #02,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_2.jpg,1/29/2020,,,Marvel's Star Wars (2020),2,Marvel
+880,The Missing Agent,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,12/22/2019,34.512,Kaz; Jarek; and Synara respond to a Resistance distress beacon and find a bounty hunter waiting for them.,Resistance,212,Disney
+881,Breakout,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,12/29/2019,34.513,Yeager and Synara have been captured by the bounty hunter and handed over to the First Order. Kaz and Norath must find a way to free them and get back to the Colossus.,Resistance,213,Disney
+882,The Mutiny,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,1/5/2020,34.514,Kragan and his pirates acquire a set of B2 super battle droids and plan a mutiny on the Colossus.,Resistance,214,Disney
+883,The New World,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,1/12/2020,34.515,The Colossus finds a new world to call home. First they must figure out if it's truly a safe place to hide.,Resistance,216,Disney
+884,No Place Safe,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,1/12/2020,34.516,Kaz decides it's time to leave the Colossus and fight with the Resistance proper.,Resistance,215,Disney
+885,Rebuilding the Resistance,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,1/19/2020,34.517,Kaz; Torra; and Hype help out the Resistance on a mission to escort recruits off of Dantooine.,Resistance,217,Disney
+886,The Escape: Part 1,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,1/26/2020,34.518,Kaz and Neeku decode a message that appears to be from Tam. They head back to Castilon in hopes of bringing her home.,Resistance,218,Disney
+887,The Mandalorian (Season 2),TV Season,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,10/31/2020,8,Coming in October 2020. Exact date unknown.,The Mandalorian,2,Disney
+888,Star Wars Adventures #30,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_30.jpg,1/29/2020,,,Star Wars Adventures,30,IDW
+889,Star Wars Adventures #31,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_31.jpg,3/18/2020,,,Star Wars Adventures,31,IDW
+890,Star Wars Adventures #32,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_32.jpg,7/15/2020,,,Star Wars Adventures,32,IDW
+891,R2-D2 is Lost,Youth,https://minirogue.github.io/SWCovers/Youth/r2d2_is_lost.jpg,2/11/2020,,,,,Disney-Lucasfilm Press
+892,The Rise of Skywalker: Expanded Edition,Novelization,https://minirogue.github.io/SWCovers/Novels/the_rise_of_skywalker_expanded_edition.jpg,3/17/2020,,The official novelization of Episode IX.,,,Del Rey Books
+893,The Rise of Skywalker: A Junior Novel,Youth,https://minirogue.github.io/SWCovers/Youth/the_rise_of_skywalker.jpg,4/2/2020,,The official junior novelization of Episode IX.,,,Disney-Lucasfilm Press
+894,Chaos Rising,Original Novel,https://minirogue.github.io/SWCovers/Novels/chaos_rising.jpg,10/6/2020,,The first in the Ascendency Trilogy. Set in the Unknown Regions before Thrawn journeyed into the Empire.,Ascendency Trilogy,,Del Rey Books
+895,Queen's Peril,Original Novel,https://minirogue.github.io/SWCovers/Novels/queens_peril.jpg,6/2/2020,,Prequel to Queen's Shadow.,,,Disney-Lucasfilm Press
+896,Shadow Fall,Original Novel,https://minirogue.github.io/SWCovers/Novels/shadow_fall.jpg,6/23/2020,,The sequel to Alphabet Squadron; and the second in a trilogy.,Alphabet Squadrion (trilogy),,Del Rey Books
+897,Dark Legends,Original Novel,https://minirogue.github.io/SWCovers/Novels/dark_legends.jpg,7/28/2020,,A collection of short stories.,,,Disney-Lucasfilm Press
+898,The Clone Wars Anthology,Original Novel,https://minirogue.github.io/SWCovers/Novels/the_clone_wars_anthology.jpg,8/25/2020,,A collection of short stories adapting episodes or story arcs from The Clone Wars TV series from the point of view of one main character.,,,Disney-Lucasfilm Press
+899,Star Wars (2020) #03,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_3.jpg,2/26/2020,,,Marvel's Star Wars (2020),3,Marvel
+900,Darth Vader (2020) #01,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_01.jpg,2/5/2020,,,Darth Vader (2020),1,Marvel
+901,Bounty Hunters #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_1.jpg,3/11/2020,,,Bounty Hunters,1,Marvel
+902,Darth Vader (2020) #02,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_2.jpg,3/11/2020,,,Darth Vader (2020),2,Marvel
+903,Star Wars (2020) #04,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_4.jpg,3/18/2020,,,Marvel's Star Wars (2020),4,Marvel
+904,Bounty Hunters #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_2.jpg,3/25/2020,,,Bounty Hunters,2,Marvel
+905,Doctor Aphra (2020) #01,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_1.jpg,5/27/2020,,,Doctor Aphra (2020),1,Marvel
+906,Bounty Hunters #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_3.jpg,6/24/2020,,,Bounty Hunters,3,Marvel
+907,Darth Vader (2020) #03,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_3.jpg,7/29/2020,,,Darth Vader (2020),3,Marvel
+908,Star Wars (2020) #05,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_5.jpg,8/5/2020,,,Marvel's Star Wars (2020),5,Marvel
+909,Doctor Aphra (2020) #02,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_2.jpg,7/22/2020,,,Doctor Aphra (2020),2,Marvel
+910,Star Wars (2020) Vol. 1,TPB,,6/23/2020,,,Marvel's Star Wars (2020),1,Marvel
+911,Darth Vader (2020) Vol. 1,TPB,https://minirogue.github.io/SWCovers/TPB/darth_vader_dark_heart_of_the_sith.jpg,11/25/2020,,,Darth Vader (2020),1,Marvel
+912,The Bad Batch,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_7.jpg,2/21/2020,-20.876,Captain Rex and Commander Cody team up with Clone Force 99 also known as the Bad Batch.,The Clone Wars,701,Disney
+913,A Distant Echo,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_7.jpg,2/28/2020,-20.875,,The Clone Wars,702,Disney
+914,On the Wings of Keeradaks,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_7.jpg,3/6/2020,-20.874,,The Clone Wars,703,Disney
+915,Unfinished Business,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_7.jpg,3/13/2020,-20.873,,The Clone Wars,704,Disney
+916,Gone With a Trace,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_7.jpg,3/20/2020,-20.88,Ahsoka tries to find her place on Coruscant after leaving the Jedi Order. She crashes her speeder bike on one of the lower levels and makes a new friend.,The Clone Wars,705,Disney
+917,Deal No Deal,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_7.jpg,3/27/2020,-20.879,Rafa shows up to the garage with a job; and she needs Trace and Ahsoka's help.,The Clone Wars,706,Disney
+918,Dangerous Debt,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_7.jpg,4/3/2020,-20.878,Ahsoka; Trace; and Rafa try to figure out a way to free themselves from the Pykes.,The Clone Wars,707,Disney
+919,Together Again,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_7.jpg,4/10/2020,-20.877,,The Clone Wars,708,Disney
+920,Old Friends Not Forgotten,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_7.jpg,4/17/2020,-18.9999,,The Clone Wars,709,Disney
+921,The Phantom Apprentice,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_7.jpg,4/24/2020,-18.9998,,The Clone Wars,710,Disney
+922,Shattered,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_7.jpg,5/1/2020,-18.9997,,The Clone Wars,711,Disney
+923,Victory and Death,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_7.jpg,5/8/2020,-18.9996,,The Clone Wars,712,Disney
+924,The Escape: Part 2,TV Episode,https://minirogue.github.io/SWCovers/TV/resistance.jpg,1/26/2020,34.519,The thrilling conclusion of The Escape: Part 1 (and the series for that matter).,Resistance,219,Disney
+925,The Clone Wars - Battle Tales #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_clone_wars-battle_tales_1.jpg,4/8/2020,,,The Clone Wars - Battle Tales,1,IDW
+926,Bounty Hunters #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_4.jpg,8/19/2020,,,Bounty Hunters,4,Marvel
+927,Doctor Aphra (2020) #03,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_3.jpg,8/26/2020,,,Doctor Aphra (2020),3,Marvel
+928,Darth Vader (2020) #04,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_4.jpg,8/12/2020,,,Darth Vader (2020),4,Marvel
+929,Star Wars (2020) #06,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_6.jpg,9/16/2020,,,Marvel's Star Wars (2020),6,Marvel
+930,Star Wars (2020) #07,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_7.jpg,10/7/2020,,,Marvel's Star Wars (2020),7,Marvel
+931,Bounty Hunters #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_5.jpg,9/23/2020,,,Bounty Hunters,5,Marvel
+932,The Rise of Skywalker (comic) #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_rise_of_skywalker_1.jpg,6/3/2020,,,The Rise of Skywalker (comics),1,Marvel
+933,Doctor Aphra (2020) #04,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_4.jpg,9/30/2020,,,Doctor Aphra (2020),4,Marvel
+934,Star Wars Adventures Vol. 10: Driving Force,TPB,https://minirogue.github.io/SWCovers/TPB/swa_driving_force.jpg,9/22/2020,,,Star Wars Adventures,10,IDW
+935,Darth Vader (2020) #05,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_5.jpg,9/16/2020,,,Darth Vader (2020),5,Marvel
+936,Poe Dameron: Free Fall,Original Novel,https://minirogue.github.io/SWCovers/Novels/poe_dameron_free_fall.jpg,8/4/2020,,,,,Disney-Lucasfilm Press
+937,Light of the Jedi,Original Novel,https://minirogue.github.io/SWCovers/Novels/light_of_the_jedi.jpg,1/5/2021,-232.5,A story 200 years before The Phantom Menace.,The High Republic,,Del Rey Books
+938,A Test of Courage,Youth,https://minirogue.github.io/SWCovers/Youth/a_test_of_courage.jpg,1/5/2021,-232.4,A story 200 years before The Phantom Menace.,The High Republic,,Disney-Lucasfilm Press
+939,Into the Dark,Original Novel,https://minirogue.github.io/SWCovers/Novels/into_the_dark.jpg,10/13/2020,-232.3,A story 200 years before The Phantom Menace.,The High Republic,,Disney-Lucasfilm Press
+940,Chapter 9: The Marshal,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,10/30/2020,7.11,,The Mandalorian,9,Disney
+941,Chapter 10: The Passenger,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,11/6/2020,7.12,,The Mandalorian,10,Disney
+942,Chapter 11: The Heiress,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,11/13/2020,7.13,,The Mandalorian,11,Disney
+943,Chapter 12: The Siege,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,11/20/2020,7.14,,The Mandalorian,12,Disney
+944,Chapter 13: The Jedi,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,11/27/2020,7.15,,The Mandalorian,13,Disney
+945,Chapter 14: The Tragedy,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,12/4/2020,7.16,,The Mandalorian,14,Disney
+946,Chapter 15: The Believer,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,12/11/2020,7.17,,The Mandalorian,15,Disney
+947,Chapter 16: The Rescue,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,12/18/2020,7.18,,The Mandalorian,16,Disney
+948,Darth Vader (2020) #06,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_6.jpg,10/14/2020,,,Darth Vader (2020),6,Marvel
+949,Bounty Hunters #6,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_6.jpg,10/21/2020,,,Bounty Hunters,6,Marvel
+950,Doctor Aphra (2020) #05,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_5.jpg,10/28/2020,,,Doctor Aphra (2020),5,Marvel
+951,Star Wars (2020) #08,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_8.jpg,11/4/2020,,,Marvel's Star Wars (2020),8,Marvel
+952,Darth Vader (2020) #07,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_7.jpg,11/11/2020,,,Darth Vader (2020),7,Marvel
+953,Bounty Hunters #7,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_7.jpg,11/18/2020,,,Bounty Hunters,7,Marvel
+954,Doctor Aphra (2020) #06,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_5.jpg,11/25/2020,,,Doctor Aphra (2020),6,Marvel
+955,Star Wars (2020) #09,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_9.jpg,12/9/2020,,,Marvel's Star Wars (2020),9,Marvel
+956,Darth Vader (2020) #08,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_8.jpg,12/16/2020,,,Darth Vader (2020),8,Marvel
+957,Bounty Hunters #8,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_8.jpg,12/23/2020,,,Bounty Hunters,8,Marvel
+958,Star Wars Adventures Vol. 11: Rise of the Wookiees,TPB,https://minirogue.github.io/SWCovers/TPB/swa_rise_of_the_wookiees.jpg,1/19/2021,,,Star Wars Adventures,11,IDW
+959,Star Wars Adventures (2020) #01,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_2020_01.jpg,10/7/2020,,,Star Wars Adventures (2020),1,IDW
+960,Star Wars Adventures (2020) #02,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_2020_02.jpg,11/25/2020,,,Star Wars Adventures (2020),2,IDW
+961,Star Wars Adventures (2020) #03,Comic Book,https://minirogue.github.io/SWCovers/Comics/swa_2020_03.jpg,12/30/2020,,,Star Wars Adventures (2020),3,IDW
+962,Shadow of Vader's Castle,Comic Book,https://minirogue.github.io/SWCovers/Comics/shadow_of_vaders_castle.jpg,11/4/2020,,,,1,IDW
+963,The Clone Wars - Battle Tales #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_clone_wars-battle_tales_2.jpg,6/24/2020,,,The Clone Wars - Battle Tales,2,IDW
+964,The Clone Wars - Battle Tales #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_clone_wars-battle_tales_3.jpg,8/5/2020,,,The Clone Wars - Battle Tales,3,IDW
+965,The Clone Wars - Battle Tales #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_clone_wars-battle_tales_4.jpg,8/26/2020,,,The Clone Wars - Battle Tales,4,IDW
+966,The Clone Wars - Battle Tales #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_clone_wars-battle_tales_5.jpg,9/30/2020,,,The Clone Wars - Battle Tales,5,IDW
+967,The Clone Wars - Battle Tales,TPB,https://minirogue.github.io/SWCovers/TPB/clone_wars_battle_tales.jpg,1/26/2021,,,The Clone Wars - Battle Tales,1,IDW
+968,Star Wars (2020) Vol. 1: The Destiny Path,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_the_destiny_path.jpg,11/11/2020,,,Marvel's Star Wars (2020),1,Marvel
+969,Bounty Hunters Vol. 1: Galaxy's Deadliest,TPB,https://minirogue.github.io/SWCovers/TPB/bounty_hunters_galaxys_deadliest.jpg,11/25/2020,,,Bounty Hunters,1,Marvel
+970,Aftermath,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,5/4/2021,,,The Bad Batch,101,Disney
+971,Cut and Run,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,6/7/2021,,,The Bad Batch,102,Disney
+972,Replacements,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,5/14/2021,,,The Bad Batch,103,Disney
+973,Cornered,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,5/21/2021,,,The Bad Batch,104,Disney
+974,Rampage,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,5/28/2021,,,The Bad Batch,105,Disney
+975,Decommissioned,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,6/4/2021,,,The Bad Batch,106,Disney
+976,Battle Scars,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,6/11/2021,,,The Bad Batch,107,Disney
+977,Reunion,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,6/18/2021,,,The Bad Batch,108,Disney
+978,Bounty Lost,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,6/25/2021,,,The Bad Batch,109,Disney
+979,Common Ground,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,7/2/2021,,,The Bad Batch,110,Disney
+980,Devil's Deal,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,7/9/2021,,,The Bad Batch,111,Disney
+981,Rescue on Ryloth,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,7/16/2021,,,The Bad Batch,112,Disney
+982,Infested,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,7/23/2021,,,The Bad Batch,113,Disney
+983,War-Mantle,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,7/30/2021,,,The Bad Batch,114,Disney
+984,Return to Kamino,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,8/6/2021,,,The Bad Batch,115,Disney
+985,Kamino Lost,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,8/13/2021,,,The Bad Batch,116,Disney
+986,The High Republic #01,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_01.jpg,1/6/2021,,,The High Republic,1,Marvel
+987,Star Wars (2020) #10,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_10.jpg,1/6/2021,,,Marvel's Star Wars (2020),10,Marvel
+988,Darth Vader (2020) #09,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_9.jpg,1/13/2021,,,Darth Vader (2020),9,Marvel
+989,Doctor Aphra (2020) #07,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_7.jpg,1/20/2021,,,Doctor Aphra (2020),7,Marvel
+990,Bounty Hunters #09,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_9.jpg,1/27/2021,,,Bounty Hunters,9,Marvel
+991,The High Republic #02,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_02.jpg,2/3/2021,,,The High Republic,2,Marvel
+992,Star Wars (2020) #11,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_11.jpg,2/3/2021,,,Marvel's Star Wars (2020),11,Marvel
+993,Darth Vader (2020) #10,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_10.jpg,2/10/2021,,,Darth Vader (2020),10,Marvel
+994,The High Republic #03,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_03.jpg,3/3/2021,,,The High Republic,3,Marvel
+995,Star Wars (2020) #12,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_12.jpg,3/10/2021,,,Marvel's Star Wars (2020),12,Marvel
+996,Bounty Hunters #10,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_10.jpg,3/17/2021,,,Bounty Hunters,10,Marvel
+997,Doctor Aphra (2020) #08,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_8.jpg,3/24/2021,,,Doctor Aphra (2020),8,Marvel
+998,Bounty Hunters #11,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_11.jpg,4/14/2021,,,Bounty Hunters,11,Marvel
+999,Doctor Aphra (2020) #09,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_9.jpg,4/21/2021,,,Doctor Aphra (2020),9,Marvel
+1000,Darth Vader (2020) #11,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_11.jpg,4/28/2021,,,Darth Vader (2020),11,Marvel
+1001,War of the Bounty Hunters Alpha #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/war_of_the_bounty_hunters_alpha_1.jpg,5/5/2021,,Note that there is a director's cut version of this comic as well with no entry in this database.,War of the Bounty Hunters,1,Marvel
+1002,The High Republic #05,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_05.jpg,5/12/2021,,,The High Republic,5,Marvel
+1003,Star Wars (2020) #13,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_13.jpg,5/12/2021,,,Marvel's Star Wars (2020),13,Marvel
+1004,Bounty Hunters #12,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_12.jpg,5/19/2021,,,Bounty Hunters,12,Marvel
+1005,Doctor Aphra (2020) #10,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_10.jpg,5/26/2021,,,Doctor Aphra (2020),10,Marvel
+1006,Darth Vader (2020) #12,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_12.jpg,5/26/2021,,,Darth Vader (2020),12,Marvel
+1007,War of the Bounty Hunters #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/war_of_the_bounty_hunters_1.jpg,6/2/2021,,,War of the Bounty Hunters,1,Marvel
+1008,Bounty Hunters #13,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_13.jpg,6/9/2021,,,Bounty Hunters,13,Marvel
+1009,Star Wars (2020) #14,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_14.jpg,6/16/2021,,,Marvel's Star Wars (2020),14,Marvel
+1010,Darth Vader (2020) #13,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_13.jpg,6/23/2021,,,Darth Vader (2020),13,Marvel
+1011,The High Republic #06,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_06.jpg,6/30/2021,,,The High Republic,6,Marvel
+1012,Doctor Aphra (2020) #11,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_11.jpg,6/30/2021,,,Doctor Aphra (2020),11,Marvel
+1013,The High Republic #04,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_04.jpg,4/7/2021,,,The High Republic,4,Marvel
+1014,Doctor Aphra (2020) Vol. 1: Fortune and Fate,TPB,https://minirogue.github.io/SWCovers/TPB/doctor_aphra_fortune_and_fate.jpg,1/27/2021,,,Doctor Aphra (2020),1,Marvel
+1015,Star Wars (2020) Vol. 2: Operation Starlight,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_operation_starlight.jpg,4/7/2021,,,Marvel's Star Wars (2020),2,Marvel
+1016,Bounty Hunters Vol. 2: Target Valance,TPB,https://minirogue.github.io/SWCovers/TPB/bounty_hunters_target_valance.jpg,6/9/2021,,,Bounty Hunters,2,Marvel
+1017,Darth Vader (2020) Vol. 2: Into the Fire,TPB,https://minirogue.github.io/SWCovers/TPB/darth_vader_into_the_fire.jpg,6/23/2021,,,Darth Vader (2020),2,Marvel
+1018,The Bad Batch Season 1,TV Season,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,5/4/2021,,,The Bad Batch,1,Disney
+1019,Bounty Hunters #14,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_14.jpg,7/7/2021,,,Bounty Hunters,14,Marvel
+1020,War of the Bounty Hunters #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/war_of_the_bounty_hunters_2.jpg,7/14/2021,,,War of the Bounty Hunters,2,Marvel
+1021,Doctor Aphra (2020) #12,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_12.jpg,7/14/2021,,,Doctor Aphra (2020),12,Marvel
+1022,War of the Bounty Hunters - Jabba the Hutt #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/war_of_the_bounty_hunters_jabba_the_hutt_1.jpg,7/21/2021,,,War of the Bounty Hunters,1,Marvel
+1023,The High Republic #07,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_07.jpg,7/28/2021,,,The High Republic,7,Marvel
+1024,Star Wars (2020) #15,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_15.jpg,7/28/2021,,,Marvel's Star Wars (2020),15,Marvel
+1025,War of the Bounty Hunters - 4-Lom and Zuckuss #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/war_of_the_bounty_hunters_4lom_and_zuckuss_1.jpg,8/4/2021,,,War of the Bounty Hunters,1,Marvel
+1026,Bounty Hunters #15,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_15.jpg,8/4/2021,,,Bounty Hunters,15,Marvel
+1027,The High Republic #08,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_08.jpg,8/11/2021,,,The High Republic,8,Marvel
+1028,War of the Bounty Hunters #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/war_of_the_bounty_hunters_3.jpg,8/18/2021,,,War of the Bounty Hunters,3,Marvel
+1029,Star Wars (2020) #16,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_16.jpg,8/18/2021,,,Marvel's Star Wars (2020),16,Marvel
+1030,Doctor Aphra (2020) #13,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_13.jpg,8/25/2021,,,Doctor Aphra (2020),13,Marvel
+1031,Darth Vader (2020) #14,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_14.jpg,7/21/2021,,,Darth Vader (2020),14,Marvel
+1032,Darth Vader (2020) #15,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_15.jpg,8/25/2021,,,Darth Vader (2020),15,Marvel
+1033,Doctor Aphra (2020) Vol. 2: The Engine Job,TPB,https://minirogue.github.io/SWCovers/TPB/doctor_aphra_the_engine_job.jpg,8/11/2021,,,Doctor Aphra (2020),2,Marvel
+1034,The High Republic Vol. 1: There is No Fear,TPB,https://minirogue.github.io/SWCovers/TPB/the_high_republic_there_is_no_fear.jpg,8/25/2021,,,The High Republic,1,Marvel
+1035,Victory's Price,Original Novel,https://minirogue.github.io/SWCovers/Novels/victorys_price.jpg,3/2/2021,,,Alphabet Squadrion (trilogy),2,Del Rey Books
+1036,Doctor Aphra,Audiobook,https://minirogue.github.io/SWCovers/Novels/doctor_aphra.jpg,7/21/2020,,,,,Random House
+1037,Thrawn Ascendancy: Greater Good,Original Novel,https://minirogue.github.io/SWCovers/Novels/thrawn_ascendancy_greater_good.jpg,4/27/2021,,,Ascendency Trilogy,2,Del Rey Books
+1038,The Rising Storm,Original Novel,https://minirogue.github.io/SWCovers/Novels/the_rising_storm.jpg,7/29/2021,,,The High Republic,,Del Rey Books
+1039,Race to Crashpoint Tower,Youth,https://minirogue.github.io/SWCovers/Youth/race_to_crashpoint_tower.jpg,7/29/2021,,,The High Republic,,Disney-Lucasfilm Press
+1040,Out of the Shadows,Original Novel,https://minirogue.github.io/SWCovers/Novels/out_of_the_shadows.jpg,7/27/2021,,,The High Republic,,Disney-Lucasfilm Press
+1041,Part I,TV Episode,https://minirogue.github.io/SWCovers/TV/obi_wan_kenobi.jpg,5/27/2022,,,Obi-Wan Kenobi,,Disney
+1042,Part II,TV Episode,https://minirogue.github.io/SWCovers/TV/obi_wan_kenobi.jpg,5/27/2022,,,Obi-Wan Kenobi,,Disney
+1043,Part III,TV Episode,https://minirogue.github.io/SWCovers/TV/obi_wan_kenobi.jpg,6/1/2022,,,Obi-Wan Kenobi,,Disney
+1044,Part IV,TV Episode,https://minirogue.github.io/SWCovers/TV/obi_wan_kenobi.jpg,6/8/2022,,,Obi-Wan Kenobi,,Disney
+1045,Part V,TV Episode,https://minirogue.github.io/SWCovers/TV/obi_wan_kenobi.jpg,6/15/2022,,,Obi-Wan Kenobi,,Disney
+1046,Part VI,TV Episode,https://minirogue.github.io/SWCovers/TV/obi_wan_kenobi.jpg,6/22/2022,,,Obi-Wan Kenobi,,Disney
+1047,Obi-Wan Kenobi Season 1,TV Season,https://minirogue.github.io/SWCovers/TV/obi_wan_kenobi.jpg,5/27/2022,,,Obi-Wan Kenobi,,Disney
+1048,Chapter 1: Stranger in a Strange Land,TV Episode,https://minirogue.github.io/SWCovers/TV/book_of_boba_fett.jpg,12/29/2021,,,The Book of Boba Fett,,Disney
+1049,Chapter 2: The Tribes of Tatooine,TV Episode,https://minirogue.github.io/SWCovers/TV/book_of_boba_fett.jpg,1/5/2022,,,The Book of Boba Fett,,Disney
+1050,Chapter 3: The Streets of Mos Espa,TV Episode,https://minirogue.github.io/SWCovers/TV/book_of_boba_fett.jpg,1/12/2022,,,The Book of Boba Fett,,Disney
+1051,Chapter 4: The Gathering Storm,TV Episode,https://minirogue.github.io/SWCovers/TV/book_of_boba_fett.jpg,1/19/2022,,,The Book of Boba Fett,,Disney
+1052,Chapter 5: Return of the Mandalorian,TV Episode,https://minirogue.github.io/SWCovers/TV/book_of_boba_fett.jpg,1/26/2022,,,The Book of Boba Fett,,Disney
+1053,Chapter 6: From the Desert Comes a Stranger,TV Episode,https://minirogue.github.io/SWCovers/TV/book_of_boba_fett.jpg,2/2/2022,,,The Book of Boba Fett,,Disney
+1054,Chapter 7: In the Name of Honor,TV Episode,https://minirogue.github.io/SWCovers/TV/book_of_boba_fett.jpg,2/9/2022,,,The Book of Boba Fett,,Disney
+1055,The Book of Boba Fett Season 1,TV Season,https://minirogue.github.io/SWCovers/TV/book_of_boba_fett.jpg,12/29/2021,,,The Book of Boba Fett,,Disney
+1056,The High Republic #09,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_09.jpg,9/1/2021,,,The High Republic,9,Marvel
+1057,The High Republic #10,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_10.jpg,10/20/2021,,,The High Republic,10,Marvel
+1058,The High Republic #11,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_11.jpg,11/10/2021,,,The High Republic,11,Marvel
+1059,The High Republic #12,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_12.jpg,12/15/2021,,,The High Republic,12,Marvel
+1060,The High Republic #13,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_13.jpg,1/19/2022,,,The High Republic,13,Marvel
+1061,The High Republic #14,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_14.jpg,2/2/2022,,,The High Republic,14,Marvel
+1062,The High Republic #15,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_15.jpg,3/2/2022,,,The High Republic,15,Marvel
+1063,Doctor Aphra (2020) #14,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_14.jpg,9/8/2021,,,Doctor Aphra (2020),14,Marvel
+1064,Doctor Aphra (2020) #15,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_15.jpg,10/13/2021,,,Doctor Aphra (2020),15,Marvel
+1065,Doctor Aphra (2020) #16,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_16.jpg,11/17/2021,,,Doctor Aphra (2020),16,Marvel
+1066,Doctor Aphra (2020) #17,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_17.jpg,1/5/2022,,,Doctor Aphra (2020),17,Marvel
+1067,Doctor Aphra (2020) #18,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_18.jpg,1/19/2022,,,Doctor Aphra (2020),18,Marvel
+1068,Doctor Aphra (2020) #19,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_19.jpg,3/23/2022,,,Doctor Aphra (2020),19,Marvel
+1069,Doctor Aphra (2020) #20,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_20.jpg,5/18/2022,,,Doctor Aphra (2020),20,Marvel
+1070,War of the Bounty Hunters #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/war_of_the_bounty_hunters_4.jpg,9/8/2021,,,War of the Bounty Hunters,4,Marvel
+1071,War of the Bounty Hunters #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/war_of_the_bounty_hunters_5.jpg,10/13/2021,,,War of the Bounty Hunters,5,Marvel
+1072,Darth Vader (2020) #16,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_16.jpg,9/15/2021,,,Darth Vader (2020),16,Marvel
+1073,Darth Vader (2020) #17,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_17.jpg,10/27/2021,,,Darth Vader (2020),17,Marvel
+1074,Darth Vader (2020) #18,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_18.jpg,12/1/2021,,,Darth Vader (2020),18,Marvel
+1075,Darth Vader (2020) #19,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_19.jpg,12/22/2021,,,Darth Vader (2020),19,Marvel
+1076,Darth Vader (2020) #20,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_20.jpg,2/9/2022,,,Darth Vader (2020),20,Marvel
+1077,Darth Vader (2020) #21,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_21.jpg,3/23/2022,,,Darth Vader (2020),21,Marvel
+1078,Darth Vader (2020) #22,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_22.jpg,4/13/2022,,,Darth Vader (2020),22,Marvel
+1079,Darth Vader (2020) #23,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_23.jpg,6/1/2022,,,Darth Vader (2020),23,Marvel
+1080,War of the Bounty Hunters - Boushh #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/war_of_the_bounty_hunters_boushh_1.jpg,9/15/2021,,,War of the Bounty Hunters,1,Marvel
+1081,Bounty Hunters #16,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_16.jpg,9/22/2021,,,Bounty Hunters,16,Marvel
+1082,Bounty Hunters #17,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_17.jpg,11/3/2021,,,Bounty Hunters,17,Marvel
+1083,Bounty Hunters #18,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_18.jpg,12/1/2021,,,Bounty Hunters,18,Marvel
+1084,Bounty Hunters #19,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_19.jpg,12/29/2021,,,Bounty Hunters,19,Marvel
+1085,Bounty Hunters #20,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_20.jpg,1/12/2022,,,Bounty Hunters,20,Marvel
+1086,Bounty Hunters #21,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_21.jpg,3/30/2022,,,Bounty Hunters,21,Marvel
+1087,Bounty Hunters #22,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_22.jpg,4/6/2022,,,Bounty Hunters,22,Marvel
+1088,Bounty Hunters #23,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_23.jpg,6/1/2022,,,Bounty Hunters,23,Marvel
+1089,Bounty Hunters #24,Comic Book,https://minirogue.github.io/SWCovers/Comics/bounty_hunters_24.jpg,6/15/2022,,,Bounty Hunters,24,Marvel
+1090,Star Wars (2020) #17,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_17.jpg,9/29/2021,,,Marvel's Star Wars (2020),17,Marvel
+1091,Star Wars (2020) #18,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_18.jpg,11/3/2021,,,Marvel's Star Wars (2020),18,Marvel
+1092,Star Wars (2020) #19,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_19.jpg,12/8/2021,,,Marvel's Star Wars (2020),19,Marvel
+1093,Star Wars (2020) #20,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_20.jpg,1/12/2022,,,Marvel's Star Wars (2020),20,Marvel
+1094,Star Wars (2020) #21,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_21.jpg,3/2/2022,,,Marvel's Star Wars (2020),21,Marvel
+1095,Star Wars (2020) #22,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_22.jpg,4/13/2022,,,Marvel's Star Wars (2020),22,Marvel
+1096,Star Wars (2020) #23,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_23.jpg,5/4/2022,,,Marvel's Star Wars (2020),23,Marvel
+1097,Star Wars (2020) #24,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_24.jpg,6/8/2022,,,Marvel's Star Wars (2020),24,Marvel
+1098,War of the Bounty Hunters - IG-88 #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/war_of_the_bounty_hunters_ig88_1.jpg,10/27/2021,,,War of the Bounty Hunters,1,Marvel
+1099,The High Republic - Trail of Shadows #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_trail_of_shadows_1.jpg,10/13/2021,,,Trail of Shadows,1,Marvel
+1100,The High Republic - Trail of Shadows #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_trail_of_shadows_2.jpg,11/24/2021,,,Trail of Shadows,2,Marvel
+1101,The High Republic - Trail of Shadows #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_trail_of_shadows_3.jpg,12/22/2021,,,Trail of Shadows,3,Marvel
+1102,The High Republic - Trail of Shadows #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_trail_of_shadows_4.jpg,1/26/2022,,,Trail of Shadows,4,Marvel
+1103,The High Republic - Trail of Shadows #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_trail_of_shadows_5.jpg,2/9/2022,,,Trail of Shadows,5,Marvel
+1104,Crimson Reign #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/crimson_reign_1.jpg,12/8/2021,,,Crimson Reign,1,Marvel
+1105,Crimson Reign #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/crimson_reign_2.jpg,2/2/2022,,,Crimson Reign,2,Marvel
+1106,Crimson Reign #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/crimson_reign_3.jpg,3/9/2022,,,Crimson Reign,3,Marvel
+1107,Crimson Reign #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/crimson_reign_4.jpg,4/27/2022,,,Crimson Reign,4,Marvel
+1108,Crimson Reign #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/crimson_reign_5.jpg,6/22/2022,,,Crimson Reign,5,Marvel
+1109,Life Day #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/life_day_1.jpg,11/24/2021,,,,1,Marvel
+1110,The High Republic - Eye of the Storm #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_eye_of_the_storm_1.jpg,1/12/2022,,,Trail of Shadows,1,Marvel
+1111,The High Republic - Eye of the Storm #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_eye_of_the_storm_2.jpg,3/2/2022,,,Trail of Shadows,2,Marvel
+1112,The Halcyon Legacy #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/halcyon_legacy_1.jpg,2/2/2022,,,Halcyon Legacy,1,Marvel
+1113,The Halcyon Legacy #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/halcyon_legacy_2.jpg,3/16/2022,,,Halcyon Legacy,2,Marvel
+1114,The Halcyon Legacy #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/halcyon_legacy_3.jpg,5/11/2022,,,Halcyon Legacy,3,Marvel
+1115,Krrsantan: Star Wars Tales #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/krrsantan_star_wars_tales_1.jpg,6/8/2022,,Collects Star Wars (2015) #14-15 and #20 and Doctor Aphra Annual #1,,1,Marvel
+1116,Han Solo & Chewbacca #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/han_solo_chewbacca_1.jpg,3/9/2022,,,Han Solo & Chewbacca,1,Marvel
+1117,Han Solo & Chewbacca #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/han_solo_chewbacca_2.jpg,5/18/2022,,,Han Solo & Chewbacca,2,Marvel
+1118,Obi-Wan,Comic Book,https://minirogue.github.io/SWCovers/Comics/ob_wan_1.jpg,5/4/2022,,,Obi-Wan (comic),1,Marvel
+1119,The High Republic Vol. 2: The Heart of Drengir,TPB,https://minirogue.github.io/SWCovers/TPB/the_high_republic_the_heart_of_drengir.jpg,12/8/2021,,,The High Republic,2,Marvel
+1120,The High Republic Vol. 3: Jedi's End,TPB,https://minirogue.github.io/SWCovers/TPB/the_high_republic_jedis_end.jpg,5/4/2022,,,The High Republic,3,Marvel
+1121,War of the Bounty Hunters Companion,TPB,https://minirogue.github.io/SWCovers/TPB/war_of_the_bounty_hunters_companion.jpg,12/8/2021,,,War of the Bounty Hunters,,Marvel
+1122,War of the Bounty Hunters,TPB,https://minirogue.github.io/SWCovers/TPB/war_of_the_bounty_hunters.jpg,11/24/2021,,,War of the Bounty Hunters,,Marvel
+1123,Doctor Aphra (2020) Vol. 3: War of the Bounty Hunters,TPB,https://minirogue.github.io/SWCovers/TPB/doctor_aphra_war_of_the_bounty_hunters.jpg,12/15/2021,,,Doctor Aphra (2020),3,Marvel
+1124,Darth Vader (2020) Vol. 3: War of the Bounty Hunters,TPB,https://minirogue.github.io/SWCovers/TPB/darth_vader_war_of_the_bounty_hunters.jpg,12/22/2021,,,Darth Vader (2020),3,Marvel
+1125,Star Wars (2020) Vol. 3: War of the Bounty Hunters,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_war_of_the_bounty_hunters.jpg,12/29/2021,,,Marvel's Star Wars (2020),3,Marvel
+1126,Bounty Hunters Vol. 3: War of the Bounty Hunters,TPB,https://minirogue.github.io/SWCovers/TPB/bounty_hunters_war_of_the_bounty_hunters.jpg,1/12/2022,,,Bounty Hunters,3,Marvel
+1127,The High Republic - Trail of Shadows,TPB,https://minirogue.github.io/SWCovers/TPB/the_high_republic_trail_of_shadows.jpg,4/13/2022,,,Trail of Shadows,,Marvel
+1128,Thrawn Ascendancy: Lesser Evil,Original Novel,https://minirogue.github.io/SWCovers/Novels/thrawn_ascendancy_lesser_evil.jpg,11/16/2021,,,Ascendency Trilogy,3,Del Rey Books
+1129,The Fallen Star,Original Novel,https://minirogue.github.io/SWCovers/Novels/the_fallen_star.jpg,1/4/2022,,,The High Republic,,Del Rey Books
+1130,Mission to Disaster,Youth,https://minirogue.github.io/SWCovers/Novels/mission_to_disaster.jpg,1/4/2022,,,The High Republic,,Disney-Lucasfilm Press
+1131,The Mandalorian Season 2 Junior Novel,Youth,,1/4/2022,,,The Mandalorian,,Disney-Lucasfilm Press
+1132,Midnight Horizon,Original Novel,,2/1/2022,,,The High Republic,,Disney-Lucasfilm Press
+1133,Queen's Hope,Original Novel,,4/5/2022,,,,,Disney-Lucasfilm Press
+1134,Brotherhood,Original Novel,,5/10/2022,,,,,Del Rey Books
+1135,Tempest runner,Audiobook,,8/31/2021,,,,,Random House
