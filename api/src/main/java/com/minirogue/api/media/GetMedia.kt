@@ -9,8 +9,13 @@ import org.apache.commons.csv.CSVParser
 import java.text.SimpleDateFormat
 import java.util.*
 
+private var inMemoryMedia: List<StarWarsMedia>? = null
+
+internal suspend fun getFullMediaList(): List<StarWarsMedia> = inMemoryMedia
+    ?: getMediaFromCsv().also { inMemoryMedia = it }
+
 @Suppress("BlockingMethodInNonBlockingContext")
-internal suspend fun getFullMediaList(): List<StarWarsMedia> = withContext(Dispatchers.IO) {
+private suspend fun getMediaFromCsv(): List<StarWarsMedia> = withContext(Dispatchers.IO) {
     val stream = Thread.currentThread().contextClassLoader.getResourceAsStream("media.csv")
     val reader = stream?.reader()
     val format = CSVFormat.DEFAULT.builder()
