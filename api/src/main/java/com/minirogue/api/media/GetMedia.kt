@@ -13,9 +13,13 @@ import java.util.*
 internal suspend fun getFullMediaList(): List<StarWarsMedia> = withContext(Dispatchers.IO) {
     val stream = Thread.currentThread().contextClassLoader.getResourceAsStream("media.csv")
     val reader = stream?.reader()
-    val csvParser = CSVParser(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader()
-        .withIgnoreHeaderCase()
-        .withTrim())
+    val format = CSVFormat.DEFAULT.builder()
+        .setHeader()
+        .setSkipHeaderRecord(true)
+        .setIgnoreHeaderCase(true)
+        .setTrim(true)
+        .build()
+    val csvParser = CSVParser(reader, format)
     val returnValue = mutableListOf<StarWarsMedia>()
     for (csvRecord in csvParser) {
         returnValue.add(

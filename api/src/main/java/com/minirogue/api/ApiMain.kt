@@ -3,7 +3,8 @@ package com.minirogue.api
 import com.minirogue.api.media.getFullMediaList
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
-import io.ktor.server.netty.*
+import io.ktor.server.jetty.*
+import io.ktor.server.plugins.callloging.*
 import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -13,6 +14,7 @@ fun main(args: Array<String>): Unit = EngineMain.main(args)
 
 @Suppress("unused") // referenced in application.conf
 fun Application.configureRouting() {
+    install(CallLogging)
     install(ContentNegotiation) {
         json(Json {
             prettyPrint = true
