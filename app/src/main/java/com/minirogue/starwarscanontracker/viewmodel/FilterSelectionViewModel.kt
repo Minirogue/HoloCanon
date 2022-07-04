@@ -6,6 +6,7 @@ import com.minirogue.starwarscanontracker.core.model.repository.SWMRepository
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.core.model.room.pojo.FullFilter
+import com.minirogue.starwarscanontracker.usecase.GetActiveFilters
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -14,6 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FilterSelectionViewModel @Inject constructor(
     private val repository: SWMRepository,
+    private val getActiveFilters: GetActiveFilters,
     prefsRepo: PrefsRepo,
 ) : ViewModel() {
 
@@ -42,7 +44,7 @@ class FilterSelectionViewModel @Inject constructor(
             }
         }
 
-    fun getActiveFilters() = repository.getActiveFilters()
+    fun getActiveFilters() = getActiveFilters.invoke()
 
     fun deactivateFilter(filterObject: FilterObject) {
         filterObject.active = false

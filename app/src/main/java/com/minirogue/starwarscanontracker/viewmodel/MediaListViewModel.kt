@@ -11,6 +11,7 @@ import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
+import com.minirogue.starwarscanontracker.usecase.GetActiveFilters
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
@@ -18,18 +19,18 @@ import kotlinx.coroutines.sync.withLock
 import java.io.File
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 @HiltViewModel
 class MediaListViewModel @Inject constructor(
     private val repository: SWMRepository,
+    getActiveFilters: GetActiveFilters,
     private val connMgr: MyConnectivityManager,
     prefsRepo: PrefsRepo,
     application: Application,
 ) : ViewModel() {
 
     // filtering
-    val activeFilters = repository.getActiveFilters().asLiveData(viewModelScope.coroutineContext)
+    val activeFilters = getActiveFilters().asLiveData(viewModelScope.coroutineContext)
 
     // The data requested by the user
     private var data: LiveData<List<MediaAndNotes>> = MutableLiveData()

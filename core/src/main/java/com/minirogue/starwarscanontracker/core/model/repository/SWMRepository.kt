@@ -9,7 +9,6 @@ import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoType
 import com.minirogue.starwarscanontracker.core.model.room.entity.*
-import com.minirogue.starwarscanontracker.core.model.room.pojo.FullFilter
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
@@ -301,10 +300,6 @@ class SWMRepository @Inject constructor(
      */
     fun update(filterType: FilterType) = GlobalScope.launch(Dispatchers.Default) {
         daoFilter.update(filterType)
-    }
-
-    fun getActiveFilters(): Flow<List<FullFilter>> = daoFilter.getActiveFilters().map {
-        it.filter { fullFilter -> fullFilter.filterObject !in getPermanentFilters() }
     }
 
     fun getFiltersOfType(typeId: Int): Flow<List<FilterObject>> = daoFilter.getFiltersWithType(typeId).map {
