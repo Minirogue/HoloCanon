@@ -2,10 +2,13 @@ package com.minirogue.starwarscanontracker.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.minirogue.starwarscanontracker.core.model.PrefsRepo
-import com.minirogue.starwarscanontracker.core.model.repository.SWMRepository
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.core.model.room.pojo.FullFilter
+import com.minirogue.starwarscanontracker.usecase.GetActiveFilters
+import com.minirogue.starwarscanontracker.usecase.GetAllFilterTypes
+import com.minirogue.starwarscanontracker.usecase.GetFiltersOfType
+import com.minirogue.starwarscanontracker.usecase.UpdateFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -13,39 +16,42 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FilterSelectionViewModel @Inject constructor(
-    private val repository: SWMRepository,
+    private val getActiveFilters: GetActiveFilters,
+    private val getFiltersOfType: GetFiltersOfType,
+    private val updateFilter: UpdateFilter,
+    getAllFilterTypes: GetAllFilterTypes,
     prefsRepo: PrefsRepo,
 ) : ViewModel() {
 
-    val filterTypes = repository.getAllFilterTypes()
+    val filterTypes = getAllFilterTypes()
     val checkBoxVisibility = prefsRepo.checkBoxVisibility
 
     fun flipFilterType(filterType: FilterType) {
         filterType.isFilterPositive = !filterType.isFilterPositive
-        repository.update(filterType)
+        updateFilter(filterType)
     }
 
     fun flipFilterActive(filterObject: FilterObject) {
         filterObject.active = !filterObject.active
-        repository.update(filterObject)
+        updateFilter(filterObject)
     }
 
     fun setFilterInactive(filterObject: FilterObject) {
         filterObject.active = false
-        repository.update(filterObject)
+        updateFilter(filterObject)
     }
 
     fun getFiltersOfType(filterType: FilterType): Flow<List<FullFilter>> =
-        repository.getFiltersOfType(filterType.typeId).map { filterList ->
+        getFiltersOfType(filterType.typeId).map { filterList ->
             filterList.map {
                 FullFilter(it, filterType.isFilterPositive)
             }
         }
 
-    fun getActiveFilters() = repository.getActiveFilters()
+    fun getActiveFilters() = getActiveFilters.invoke()
 
     fun deactivateFilter(filterObject: FilterObject) {
         filterObject.active = false
-        repository.update(filterObject)
+        updateFilter(filterObject)
     }
 }

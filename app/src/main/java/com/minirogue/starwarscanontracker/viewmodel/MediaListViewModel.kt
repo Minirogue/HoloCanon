@@ -6,30 +6,35 @@ import androidx.lifecycle.*
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.core.model.PrefsRepo
 import com.minirogue.starwarscanontracker.core.model.SortStyle
-import com.minirogue.starwarscanontracker.core.model.repository.SWMRepository
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
+import com.minirogue.starwarscanontracker.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.io.File
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
+@Suppress("LongParameterList")
 @HiltViewModel
 class MediaListViewModel @Inject constructor(
-    private val repository: SWMRepository,
+    getActiveFilters: GetActiveFilters,
+    getAllFilterTypes: GetAllFilterTypes,
+    private val getAllMediaTypes: GetAllMediaTypes,
+    private val updateFilter: UpdateFilter,
+    getCheckboxText: GetCheckboxText,
+    private val updateNotes: UpdateNotes,
+    private val getMediaListWithNotes: GetMediaListWithNotes,
     private val connMgr: MyConnectivityManager,
     prefsRepo: PrefsRepo,
     application: Application,
 ) : ViewModel() {
 
     // filtering
-    val activeFilters = repository.getActiveFilters().asLiveData(viewModelScope.coroutineContext)
+    val activeFilters = getActiveFilters().asLiveData(viewModelScope.coroutineContext)
 
     // The data requested by the user
     private var data: LiveData<List<MediaAndNotes>> = MutableLiveData()
@@ -45,7 +50,7 @@ class MediaListViewModel @Inject constructor(
         get() = _sortStyle
 
     // Checkbox settings
-    val checkBoxText = repository.getCheckBoxText()
+    val checkBoxText = getCheckboxText.invoke()
     val checkBoxVisibility: LiveData<BooleanArray> = prefsRepo.checkBoxVisibility
 
     // Variables for handling exactly one query and sort job at a time
@@ -63,11 +68,11 @@ class MediaListViewModel @Inject constructor(
     init {
         viewModelScope.launch { _sortStyle.postValue(getSavedSort()) }
         viewModelScope.launch(Dispatchers.Default) {
-            val mediaTypes = repository.getAllMediaTypesNonLive()
+            val mediaTypes = getAllMediaTypes()
             mediaTypes.forEach { mediaTypeToString.put(it.id, it.text) }
         }
         dataMediator.addSource(activeFilters) { viewModelScope.launch { updateQuery() } }
-        dataMediator.addSource(repository.getAllFilterTypes()
+        dataMediator.addSource(getAllFilterTypes()
             .asLiveData(viewModelScope.coroutineContext)) { viewModelScope.launch { updateQuery() } }
         sortedData.addSource(sortStyle) { viewModelScope.launch { sort(); saveSort() } }
         // dataMediator needs to be observed so the things it observes can trigger events
@@ -107,7 +112,7 @@ class MediaListViewModel @Inject constructor(
         queryMutex.withLock {
             queryJob.cancelAndJoin()
             queryJob = launch {
-                val newListLiveData = repository.getMediaListWithNotes(activeFilters.value?.map { it.filterObject }
+                val newListLiveData = getMediaListWithNotes(activeFilters.value?.map { it.filterObject }
                     ?: ArrayList())
                 withContext(Dispatchers.Main) {
                     dataMediator.removeSource(data)
@@ -119,22 +124,21 @@ class MediaListViewModel @Inject constructor(
     }
 
     private suspend fun sort() = withContext(Dispatchers.Default) {
-        // Log.d(TAG, "Sort called");
         sortMutex.withLock {
             sortJob.cancelAndJoin()
             sortJob = launch {
                 val toBeSorted = data.value
                 if (toBeSorted != null) {
-                    Collections.sort(toBeSorted, _sortStyle.value
+                    val sorted = toBeSorted.sortedWith(_sortStyle.value
                         ?: SortStyle(SortStyle.DEFAULT_STYLE, true))
-                    sortedData.postValue(toBeSorted!!) // TODO this non-null assertion shouldn't be necessary
+                    sortedData.postValue(sorted)
                 }
             }
         }
     }
 
     fun update(mediaNotes: MediaNotes) {
-        repository.update(mediaNotes)
+        updateNotes(mediaNotes)
     }
 
     fun convertTypeToString(typeId: Int): String {
@@ -143,10 +147,6 @@ class MediaListViewModel @Inject constructor(
 
     fun deactivateFilter(filterObject: FilterObject) = viewModelScope.launch(Dispatchers.Default) {
         filterObject.active = false
-        repository.update(filterObject)
+        updateFilter(filterObject)
     }
-
-    /*companion object {
-        private const val TAG = "MediaListViewModel"
-    }*/
 }

@@ -3,12 +3,12 @@ package com.minirogue.starwarscanontracker.viewmodel
 import androidx.lifecycle.*
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.core.model.PrefsRepo
-import com.minirogue.starwarscanontracker.core.model.repository.SWMRepository
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.core.model.room.entity.Series
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
+import com.minirogue.starwarscanontracker.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -18,9 +18,14 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+@Suppress("LongParameterList")
 @HiltViewModel
 class SeriesViewModel @Inject constructor(
-    private val repository: SWMRepository,
+    private val getSeries: GetSeries,
+    getCheckboxText: GetCheckboxText,
+    private val getNotesBySeries: GetNotesBySeries,
+    private val getMediaListWithNotes: GetMediaListWithNotes,
+    private val setCheckboxForSeries: SetCheckboxForSeries,
     prefsRepo: PrefsRepo,
     private val connMgr: MyConnectivityManager,
 ) : ViewModel() {
@@ -29,20 +34,20 @@ class SeriesViewModel @Inject constructor(
     lateinit var liveSeries: LiveData<Series>
     val seriesList = MediatorLiveData<List<MediaAndNotes>>()
     val liveSeriesNotes = MediatorLiveData<Array<Boolean>>()
-    val checkBoxNames = repository.getCheckBoxText()
+    val checkBoxNames = getCheckboxText.invoke()
     val checkBoxVisibility = prefsRepo.checkBoxVisibility
     private val notesParsingMutex = Mutex()
 
     fun setSeriesId(seriesId: Int) {
         this.seriesId = seriesId
-        liveSeries = repository.getLiveSeries(seriesId).asLiveData(viewModelScope.coroutineContext)
-        liveSeriesNotes.addSource(repository.getLiveNotesBySeries(seriesId)) {
+        liveSeries = getSeries(seriesId).asLiveData(viewModelScope.coroutineContext)
+        liveSeriesNotes.addSource(getNotesBySeries(seriesId)) {
             viewModelScope.launch {
                 updateSeriesNotes(it)
             }
         }
         viewModelScope.launch {
-            seriesList.addSource(repository.getMediaListWithNotes(listOf(FilterObject(seriesId,
+            seriesList.addSource(getMediaListWithNotes(listOf(FilterObject(seriesId,
                 FilterType.FILTERCOLUMN_SERIES,
                 true,
                 "series filter")))) { mediaAndNotesList -> seriesList.postValue(mediaAndNotesList) }
@@ -52,21 +57,21 @@ class SeriesViewModel @Inject constructor(
     fun toggleCheckbox1() {
         val oldVal = liveSeriesNotes.value?.get(0)
         if (oldVal != null) {
-            repository.setSeriesCheckbox1(seriesId, !oldVal)
+            setCheckboxForSeries(Checkbox.CHECKBOX_1, seriesId, !oldVal)
         }
     }
 
     fun toggleCheckbox2() {
         val oldVal = liveSeriesNotes.value?.get(1)
         if (oldVal != null) {
-            repository.setSeriesCheckbox2(seriesId, !oldVal)
+            setCheckboxForSeries(Checkbox.CHECKBOX_2, seriesId, !oldVal)
         }
     }
 
     fun toggleCheckbox3() {
         val oldVal = liveSeriesNotes.value?.get(2)
         if (oldVal != null) {
-            repository.setSeriesCheckbox3(seriesId, !oldVal)
+            setCheckboxForSeries(Checkbox.CHECKBOX_3, seriesId, !oldVal)
         }
     }
 
