@@ -128,7 +128,7 @@ class MediaListViewModel @Inject constructor(
                 if (toBeSorted != null) {
                     Collections.sort(toBeSorted, _sortStyle.value
                         ?: SortStyle(SortStyle.DEFAULT_STYLE, true))
-                    sortedData.postValue(toBeSorted!!) // TODO this non-null assertion shouldn't be necessary
+                    sortedData.postValue(toBeSorted)
                 }
             }
         }
