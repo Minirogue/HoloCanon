@@ -12,6 +12,7 @@ import com.minirogue.starwarscanontracker.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@Suppress("LongParameterList")
 @HiltViewModel
 class ViewMediaItemViewModel @Inject constructor(
     getCheckboxText: GetCheckboxText,

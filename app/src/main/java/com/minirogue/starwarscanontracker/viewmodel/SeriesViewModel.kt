@@ -18,10 +18,11 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+@Suppress("LongParameterList")
 @HiltViewModel
 class SeriesViewModel @Inject constructor(
     private val getSeries: GetSeries,
-    private val getCheckboxText: GetCheckboxText,
+    getCheckboxText: GetCheckboxText,
     private val getNotesBySeries: GetNotesBySeries,
     private val getMediaListWithNotes: GetMediaListWithNotes,
     private val setCheckboxForSeries: SetCheckboxForSeries,

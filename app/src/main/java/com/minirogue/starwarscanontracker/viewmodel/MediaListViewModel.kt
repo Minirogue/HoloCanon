@@ -19,6 +19,7 @@ import java.io.File
 import java.util.*
 import javax.inject.Inject
 
+@Suppress("LongParameterList")
 @HiltViewModel
 class MediaListViewModel @Inject constructor(
     getActiveFilters: GetActiveFilters,
