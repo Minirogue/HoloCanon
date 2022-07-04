@@ -16,7 +16,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import java.io.File
-import java.util.*
 import javax.inject.Inject
 
 @Suppress("LongParameterList")
@@ -130,9 +129,9 @@ class MediaListViewModel @Inject constructor(
             sortJob = launch {
                 val toBeSorted = data.value
                 if (toBeSorted != null) {
-                    Collections.sort(toBeSorted, _sortStyle.value
+                    val sorted = toBeSorted.sortedWith(_sortStyle.value
                         ?: SortStyle(SortStyle.DEFAULT_STYLE, true))
-                    sortedData.postValue(toBeSorted)
+                    sortedData.postValue(sorted)
                 }
             }
         }
