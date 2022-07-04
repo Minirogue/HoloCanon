@@ -6,12 +6,11 @@ import androidx.lifecycle.*
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.core.model.PrefsRepo
 import com.minirogue.starwarscanontracker.core.model.SortStyle
-import com.minirogue.starwarscanontracker.core.model.repository.SWMRepository
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
-import com.minirogue.starwarscanontracker.usecase.GetActiveFilters
+import com.minirogue.starwarscanontracker.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
@@ -22,8 +21,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MediaListViewModel @Inject constructor(
-    private val repository: SWMRepository,
     getActiveFilters: GetActiveFilters,
+    getAllFilterTypes: GetAllFilterTypes,
+    private val getAllMediaTypes: GetAllMediaTypes,
+    private val updateFilter: UpdateFilter,
+    getCheckboxText: GetCheckboxText,
+    private val updateNotes: UpdateNotes,
+    private val getMediaListWithNotes: GetMediaListWithNotes,
     private val connMgr: MyConnectivityManager,
     prefsRepo: PrefsRepo,
     application: Application,
@@ -46,7 +50,7 @@ class MediaListViewModel @Inject constructor(
         get() = _sortStyle
 
     // Checkbox settings
-    val checkBoxText = repository.getCheckBoxText()
+    val checkBoxText = getCheckboxText.invoke()
     val checkBoxVisibility: LiveData<BooleanArray> = prefsRepo.checkBoxVisibility
 
     // Variables for handling exactly one query and sort job at a time
@@ -64,11 +68,11 @@ class MediaListViewModel @Inject constructor(
     init {
         viewModelScope.launch { _sortStyle.postValue(getSavedSort()) }
         viewModelScope.launch(Dispatchers.Default) {
-            val mediaTypes = repository.getAllMediaTypesNonLive()
+            val mediaTypes = getAllMediaTypes()
             mediaTypes.forEach { mediaTypeToString.put(it.id, it.text) }
         }
         dataMediator.addSource(activeFilters) { viewModelScope.launch { updateQuery() } }
-        dataMediator.addSource(repository.getAllFilterTypes()
+        dataMediator.addSource(getAllFilterTypes()
             .asLiveData(viewModelScope.coroutineContext)) { viewModelScope.launch { updateQuery() } }
         sortedData.addSource(sortStyle) { viewModelScope.launch { sort(); saveSort() } }
         // dataMediator needs to be observed so the things it observes can trigger events
@@ -108,7 +112,7 @@ class MediaListViewModel @Inject constructor(
         queryMutex.withLock {
             queryJob.cancelAndJoin()
             queryJob = launch {
-                val newListLiveData = repository.getMediaListWithNotes(activeFilters.value?.map { it.filterObject }
+                val newListLiveData = getMediaListWithNotes(activeFilters.value?.map { it.filterObject }
                     ?: ArrayList())
                 withContext(Dispatchers.Main) {
                     dataMediator.removeSource(data)
@@ -120,7 +124,6 @@ class MediaListViewModel @Inject constructor(
     }
 
     private suspend fun sort() = withContext(Dispatchers.Default) {
-        // Log.d(TAG, "Sort called");
         sortMutex.withLock {
             sortJob.cancelAndJoin()
             sortJob = launch {
@@ -135,7 +138,7 @@ class MediaListViewModel @Inject constructor(
     }
 
     fun update(mediaNotes: MediaNotes) {
-        repository.update(mediaNotes)
+        updateNotes(mediaNotes)
     }
 
     fun convertTypeToString(typeId: Int): String {
@@ -144,10 +147,6 @@ class MediaListViewModel @Inject constructor(
 
     fun deactivateFilter(filterObject: FilterObject) = viewModelScope.launch(Dispatchers.Default) {
         filterObject.active = false
-        repository.update(filterObject)
+        updateFilter(filterObject)
     }
-
-    /*companion object {
-        private const val TAG = "MediaListViewModel"
-    }*/
 }

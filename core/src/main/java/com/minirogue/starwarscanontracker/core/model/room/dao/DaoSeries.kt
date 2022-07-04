@@ -13,7 +13,7 @@ interface DaoSeries {
     fun getSeries(id: Int): Series?
 
     @Query("SELECT * FROM series WHERE id=:id LIMIT 1")
-    fun getLiveSeries(id: Int): Flow<Series>
+    fun getSeriesFlow(id: Int): Flow<Series>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(series: Series): Long
