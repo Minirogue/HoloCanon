@@ -13,7 +13,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath 'com.android.tools.build:gradle:7.2.1'
+        classpath 'com.android.tools.build:gradle:7.2.2'
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
     }
 }
@@ -31,7 +31,7 @@ ext {
     // Android
     appCompatVersion = '1.4.2'
     lifecycleVersion = '2.5.1'
-    roomVersion = '2.4.2'
+    roomVersion = '2.4.3'
     coilVersion = '2.1.0'
     androidXTestVersion = '1.4.0'
 
