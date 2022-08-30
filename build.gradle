@@ -37,7 +37,7 @@ ext {
 
     // Kotlin
     coroutinesVersion = '1.6.3-native-mt'
-    ktorVersion = '2.0.3'
+    ktorVersion = '2.1.0'
 
     // JVM
     jUnitVersion = '4.13.2'
