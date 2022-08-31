@@ -3,8 +3,8 @@
 buildscript {
     ext {
         kotlinVersion = '1.7.10'
-        hiltVersion = '2.42'
-        detektVersion = '1.20.0'
+        hiltVersion = '2.43.2'
+        detektVersion = '1.21.0'
     }
 
     repositories {
@@ -29,15 +29,15 @@ detekt {
 
 ext {
     // Android
-    appCompatVersion = '1.4.2'
-    lifecycleVersion = '2.5.0'
+    appCompatVersion = '1.5.0'
+    lifecycleVersion = '2.5.1'
     roomVersion = '2.4.3'
     coilVersion = '2.2.0'
     androidXTestVersion = '1.4.0'
 
     // Kotlin
     coroutinesVersion = '1.6.3-native-mt'
-    ktorVersion = '2.0.3'
+    ktorVersion = '2.1.0'
 
     // JVM
     jUnitVersion = '4.13.2'
