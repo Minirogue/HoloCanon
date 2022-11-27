@@ -9,15 +9,13 @@ import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 
-class JsonWriter {
-    companion object {
-        private val fileMutex = Mutex()
-        suspend fun write(json: String, path: String) = withContext(Dispatchers.IO) {
-            launch {
-                fileMutex.withLock {
-                    File(path).parentFile.mkdirs()
-                    BufferedWriter(FileWriter(path, false)).use { it.write(json) }
-                }
+object JsonWriter {
+    private val fileMutex = Mutex()
+    suspend fun write(json: String, path: String) = withContext(Dispatchers.IO) {
+        launch {
+            fileMutex.withLock {
+                File(path).parentFile.mkdirs()
+                BufferedWriter(FileWriter(path, false)).use { it.write(json) }
             }
         }
     }

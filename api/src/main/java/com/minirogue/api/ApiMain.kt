@@ -7,7 +7,7 @@ import kotlinx.serialization.json.Json
 
 private val mainScope = CoroutineScope(Job() + Dispatchers.Default)
 private val format = Json { prettyPrint = true }
-private const val apiRootDirectory = "holocanon-api/"
+private const val API_ROOT_DIRECTORY = "holocanon-api/"
 
 fun main(args: Array<String>) {
     runBlocking {
@@ -19,16 +19,16 @@ fun main(args: Array<String>) {
 }
 
 private suspend fun createVersionNumber(version: Int) {
-    JsonWriter.write(format.encodeToString(version), apiRootDirectory + "version.json")
+    JsonWriter.write(format.encodeToString(version), API_ROOT_DIRECTORY + "version.json")
 }
 
 private suspend fun createMediaResponses() {
     val allMedia = getFullMediaList()
-    JsonWriter.write(format.encodeToString(allMedia), apiRootDirectory + "media.json")
+    JsonWriter.write(format.encodeToString(allMedia), API_ROOT_DIRECTORY + "media.json")
     allMedia.forEach { starWarsMedia ->
         JsonWriter.write(
             format.encodeToString(starWarsMedia),
-            "${apiRootDirectory}media/${starWarsMedia.id}.json"
+            "${API_ROOT_DIRECTORY}media/${starWarsMedia.id}.json"
         )
     }
 }
