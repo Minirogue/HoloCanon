@@ -31,7 +31,7 @@ ext {
     // Android
     appCompatVersion = '1.5.1'
     lifecycleVersion = '2.5.1'
-    roomVersion = '2.4.3'
+    roomVersion = '2.5.1'
     coilVersion = '2.2.2'
     androidXTestVersion = '1.4.0'
 
