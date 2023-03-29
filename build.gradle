@@ -33,7 +33,7 @@ ext {
     lifecycleVersion = '2.5.1'
     roomVersion = '2.4.3'
     coilVersion = '2.2.2'
-    androidXTestVersion = '1.4.0'
+    androidXTestVersion = '1.5.0'
 
     // Kotlin
     coroutinesVersion = '1.6.3-native-mt'
