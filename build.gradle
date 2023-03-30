@@ -29,7 +29,7 @@ detekt {
 
 ext {
     // Android
-    appCompatVersion = '1.5.1'
+    appCompatVersion = '1.6.1'
     lifecycleVersion = '2.5.1'
     roomVersion = '2.4.3'
     coilVersion = '2.2.2'
