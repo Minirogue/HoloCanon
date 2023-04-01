@@ -1,0 +1,20 @@
+name: Deploy API
+on:
+  workflow_dispatch:
+
+jobs:
+  build_and_deploy_api:
+    name: Build and deploy API
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout io page
+        uses: actions/checkout@v3
+        with: # this probably needs a token to push
+          repository: Minirogue/minirogue.github.io
+          ref: main
+      - name: Checkout HoloCanon
+        uses: actions/checkout@v3
+        with:
+          path: holocanon
+      - name: Generate the API data
+        run: holocanon/gradlew :api:run && mv holocanon/api/holocanon-api holocanon-api && git status
