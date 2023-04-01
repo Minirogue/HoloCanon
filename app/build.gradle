@@ -40,11 +40,11 @@ android {
     def date = new Date()
     def verName = date.format('yy.M.d')
 
-    compileSdkVersion 32
+    compileSdkVersion 33
     defaultConfig {
         applicationId "com.minirogue.starwarscanontracker"
         minSdkVersion 21
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode versionProperties['VERSION_CODE'].toInteger()
         versionName verName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
