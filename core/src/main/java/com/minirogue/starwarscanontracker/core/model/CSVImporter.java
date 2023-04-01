@@ -24,8 +24,6 @@ import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.HashMap;
 
-import javax.inject.Inject;
-
 //TODO convert to kotlin and use coroutines
 public class CSVImporter extends AsyncTask<Boolean, String, Void> {
 
@@ -305,56 +303,6 @@ public class CSVImporter extends AsyncTask<Boolean, String, Void> {
         }
     }
 
-    /*private void importCSVToCharacterDatabase(InputStream inputStream){
-        Application app = appRef.get();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        try {
-            MediaDatabase db = MediaDatabase.getMediaDataBase(app);
-            DaoCharacter charDao = db.getDaoCharacter();
-            charDao.clearMediaCharacterJoin();
-            Character newCharacter;
-            String[] header = reader.readLine().split(",");
-            String csvLine;
-            while ((csvLine = reader.readLine()) != null) {
-                String[] row = csvLine.split(",");
-                newCharacter = new Character();
-                for (int i = 0; i < row.length; i++) {
-                    String[] appearances = new String[]{};
-                    switch (header[i]) {
-                        case "id":
-                            newCharacter.setId(Integer.valueOf(row[i]));
-                            break;
-                        case "name":
-                            newCharacter.setName(row[i]);
-                            break;
-                        case "major_appearance":
-                            Log.d("Appearances", row[i]);
-                            appearances = row[i].split(";");
-                            break;
-                        default:
-                            System.out.println("Unused header: " + header[i]);
-                    }
-                    long didInsertWork = charDao.insert(newCharacter);
-                    if (didInsertWork == -1){
-                        charDao.update(newCharacter);
-                    }
-                    for (String strMedia : appearances){
-                        charDao.insert(new MediaCharacterJoin(Integer.valueOf(strMedia),newCharacter.getId()));
-                    }
-                }
-            }
-            Log.d("CSVimport", db.getDaoCharacter().getAllMCJoin().toString());
-        } catch (IOException ex) {
-            throw new RuntimeException("Error reading CSV file: " + ex);
-        } finally {
-            try {
-                inputStream.close();
-            } catch (IOException ex) {
-                Log.e("CSVImporter","Error while closing input stream from CSV file: " + ex);
-            }
-        }
-    }*/
-
 
     @Override
     protected Void doInBackground(Boolean... params) {
@@ -409,12 +357,7 @@ public class CSVImporter extends AsyncTask<Boolean, String, Void> {
             inputStream = url.openStream();
             importCSVToMediaDatabase(inputStream);
             inputStream.close();
-            //import the character table
-                /*url = new URL("https://docs.google.com/spreadsheets/d/e/2PACX-1vRvJaZHf3HHC_-XhWM4zftX9G_vnePy2-qxQ-NlmBs8a_tdBSSBjuerie6AMWQWp4H6R__BK9Q_li2g/pub?gid=1862227068&single=true&output=csv");
-                inputStream = url.openStream();
-                importCSVToCharacterDatabase(inputStream);*/
         } catch (IOException ex) {
-            //Log.e("DatabaseUpdate", ex.toString());
             cancel(true);
             return null;
         } finally {
