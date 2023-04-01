@@ -1,3 +1,3 @@
 package com.minirogue.api
 
-val version = 22
+const val version = 22

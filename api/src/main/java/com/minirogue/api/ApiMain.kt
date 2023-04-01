@@ -12,7 +12,7 @@ private const val API_ROOT_DIRECTORY = "holocanon-api/"
 fun main() {
     runBlocking {
         mainScope.launch {
-            createVersionNumber(22)
+            createVersionNumber(version)
             createMediaResponses()
         }.join()
     }
