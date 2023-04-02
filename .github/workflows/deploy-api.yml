@@ -24,5 +24,7 @@ jobs:
         run: chmod +x holocanon/gradlew && holocanon/gradlew -p holocanon :api:run
       - name: Move api to io
         run:  rm -r holocanon-api && mv holocanon/api/holocanon-api holocanon-api
+      - name: check git status
+        run : git status
       - name: commit and push to the api repo
         run: git add holocanon-api && git push
