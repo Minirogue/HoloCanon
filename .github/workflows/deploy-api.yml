@@ -1,0 +1,26 @@
+name: Deploy API
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - '**/Version.kt'
+
+jobs:
+  build_and_deploy_api:
+    name: Build and deploy API
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout io page
+        uses: actions/checkout@v3
+        with:
+          repository: Minirogue/minirogue.github.io
+          ref: main
+      - name: Checkout HoloCanon
+        uses: actions/checkout@v3
+        with:
+          path: holocanon
+      - name: Generate the API data
+        run: holocanon/gradlew :api:run && mv holocanon/api/holocanon-api holocanon-api
+      - name: commit and push to the api repo
+        run: git status # git add holocanon-api && git push

@@ -41,6 +41,7 @@ ext {
 
     // JVM
     jUnitVersion = '4.13.2'
+    commonsCSV = '1.10.0'
 }
 
 allprojects {
