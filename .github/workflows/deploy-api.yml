@@ -26,5 +26,7 @@ jobs:
         run:  rm -r holocanon-api && mv holocanon/api/holocanon-api holocanon-api
       - name: check git status
         run : git status
+      - name: Configure git
+        run: git config --global user.name "Shawn Witte" && git config --global user.email "shawn.l.witte@gmail.com"
       - name: commit and push to the api repo
         run: git add holocanon-api && git commit -m "update holocanon api" && git push
