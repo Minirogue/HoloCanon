@@ -40,11 +40,11 @@ android {
     def date = new Date()
     def verName = date.format('yy.M.d')
 
-    compileSdkVersion 33
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "com.minirogue.starwarscanontracker"
-        minSdkVersion 21
-        targetSdkVersion 33
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode versionProperties['VERSION_CODE'].toInteger()
         versionName verName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -61,11 +61,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
+        sourceCompatibility = rootProject.ext.javaCompatibilityVersion
+        targetCompatibility = rootProject.ext.javaCompatibilityVersion
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = rootProject.ext.javaCompatibilityVersion
     }
 
     buildFeatures {

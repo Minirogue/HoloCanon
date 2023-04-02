@@ -1,0 +1,32 @@
+name: Deploy API
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - '**/Version.kt'
+
+jobs:
+  build_and_deploy_api:
+    name: Build and deploy API
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout io page
+        uses: actions/checkout@v3
+        with:
+          repository: Minirogue/minirogue.github.io
+          token: ${{ secrets.MINIROGUE_IO_TOKEN }}
+      - name: Checkout HoloCanon
+        uses: actions/checkout@v3
+        with:
+          path: holocanon
+      - name: Generate the API data
+        run: chmod +x holocanon/gradlew && holocanon/gradlew -p holocanon :api:run
+      - name: Move api to io
+        run:  rm -r holocanon-api && mv holocanon/api/holocanon-api holocanon-api
+      - name: check git status
+        run : git status
+      - name: Configure git
+        run: git config --global user.name "Shawn Witte" && git config --global user.email "shawn.l.witte@gmail.com"
+      - name: commit and push to the api repo
+        run: git add holocanon-api && git commit -m "update holocanon api" && git push
