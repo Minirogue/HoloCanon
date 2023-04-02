@@ -3,8 +3,8 @@ on:
   push:
     branches:
       - 'test-and-update-github-action'
-    paths:
-      - '**/Version.kt'
+#    paths:
+#      - '**/Version.kt'
 
 jobs:
   build_and_deploy_api:
