@@ -22,6 +22,6 @@ jobs:
       - name: Generate the API data
         run: chmod +x holocanon/gradlew && holocanon/gradlew -p holocanon :api:run
       - name: Move api to io
-        run:  mv holocanon/api/holocanon-api holocanon-api
+        run:  rm -r holocanon-api && mv holocanon/api/holocanon-api holocanon-api
       - name: commit and push to the api repo
         run: git status # git add holocanon-api && git push
