@@ -27,4 +27,4 @@ jobs:
       - name: check git status
         run : git status
       - name: commit and push to the api repo
-        run: git add holocanon-api && git push
+        run: git add holocanon-api && git commit -m "update holocanon api" && git push
