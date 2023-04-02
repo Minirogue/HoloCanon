@@ -13,7 +13,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath 'com.android.tools.build:gradle:7.3.1'
+        classpath 'com.android.tools.build:gradle:7.4.2'
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
     }
 }
@@ -29,11 +29,11 @@ detekt {
 
 ext {
     // Android
-    appCompatVersion = '1.5.1'
+    appCompatVersion = '1.6.1'
     lifecycleVersion = '2.5.1'
-    roomVersion = '2.4.3'
+    roomVersion = '2.5.1'
     coilVersion = '2.2.2'
-    androidXTestVersion = '1.4.0'
+    androidXTestVersion = '1.5.0'
 
     // Kotlin
     coroutinesVersion = '1.6.3-native-mt'
@@ -41,6 +41,13 @@ ext {
 
     // JVM
     jUnitVersion = '4.13.2'
+    commonsCSV = '1.10.0'
+
+    // Compilation versioning
+    minSdkVersion = 21
+    compileSdkVersion = 33
+    targetSdkVersion = 33
+    javaCompatibilityVersion = JavaVersion.VERSION_11.toString()
 }
 
 allprojects {

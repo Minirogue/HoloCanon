@@ -40,11 +40,11 @@ android {
     def date = new Date()
     def verName = date.format('yy.M.d')
 
-    compileSdkVersion 32
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "com.minirogue.starwarscanontracker"
-        minSdkVersion 21
-        targetSdkVersion 32
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode versionProperties['VERSION_CODE'].toInteger()
         versionName verName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -61,11 +61,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = '1.8'
-        targetCompatibility = '1.8'
+        sourceCompatibility = rootProject.ext.javaCompatibilityVersion
+        targetCompatibility = rootProject.ext.javaCompatibilityVersion
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = rootProject.ext.javaCompatibilityVersion
     }
 
     buildFeatures {
@@ -89,7 +89,7 @@ dependencies {
     implementation "androidx.room:room-ktx:$roomVersion"
 
     // Fastscroll: https://github.com/zhanghai/AndroidFastScroll
-    implementation "me.zhanghai.android.fastscroll:library:1.1.8"
+    implementation "me.zhanghai.android.fastscroll:library:1.2.0"
 
     // Testing
     androidTestImplementation "androidx.test.ext:junit:1.1.5"
@@ -98,7 +98,7 @@ dependencies {
     androidTestImplementation "androidx.test:core:$androidXTestVersion"
     androidTestImplementation "androidx.test:rules:$androidXTestVersion"
     androidTestImplementation "androidx.test:runner:$androidXTestVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
 
     // Kotlin
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
