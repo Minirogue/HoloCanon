@@ -1,8 +1,8 @@
 package com.minirogue.starwarscanontracker.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.core.model.PrefsRepo
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
@@ -33,7 +33,7 @@ class ViewMediaItemViewModel @Inject constructor(
     fun setItemId(itemId: Int) {
         liveMediaItem = getMedia(itemId)
         liveMediaNotes = getNotesForMedia(itemId)
-        liveMediaType = Transformations.switchMap(liveMediaItem) { mediaItem: MediaItem? ->
+        liveMediaType = liveMediaItem.switchMap { mediaItem: MediaItem? ->
             getMediaType(mediaItem?.type ?: -1)
         }
     }
