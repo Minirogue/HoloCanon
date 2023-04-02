@@ -1,34 +1,34 @@
 package com.minirogue.api
 
 import com.minirogue.api.media.getFullMediaList
-import io.ktor.serialization.kotlinx.json.*
-import io.ktor.server.application.*
-import io.ktor.server.netty.*
-import io.ktor.server.plugins.callloging.*
-import io.ktor.server.plugins.contentnegotiation.*
-import io.ktor.server.response.*
-import io.ktor.server.routing.*
+import kotlinx.coroutines.*
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-fun main(args: Array<String>): Unit = EngineMain.main(args)
+private val mainScope = CoroutineScope(Job() + Dispatchers.Default)
+private val format = Json { prettyPrint = true }
+private const val API_ROOT_DIRECTORY = "holocanon-api/"
 
-@Suppress("unused") // referenced in application.conf
-fun Application.configureRouting() {
-    install(CallLogging)
-    install(ContentNegotiation) {
-        json(Json {
-            prettyPrint = true
-            isLenient = true
-        })
+fun main() {
+    runBlocking {
+        mainScope.launch {
+            createVersionNumber(VERSION)
+            createMediaResponses()
+        }.join()
     }
-    routing {
-        get("/") {
-            call.respondText("This is the Holocanon API. Still a work-in-progress. More to come.")
-        }
-        get("/media") {
-            val returnValue = getFullMediaList()
-            call.respond(returnValue)
-        }
-        get("/version") { call.respond(21) }
+}
+
+private suspend fun createVersionNumber(version: Int) {
+    JsonWriter.write(format.encodeToString(version), API_ROOT_DIRECTORY + "version.json")
+}
+
+private suspend fun createMediaResponses() {
+    val allMedia = getFullMediaList()
+    JsonWriter.write(format.encodeToString(allMedia), API_ROOT_DIRECTORY + "media.json")
+    allMedia.forEach { starWarsMedia ->
+        JsonWriter.write(
+            format.encodeToString(starWarsMedia),
+            "${API_ROOT_DIRECTORY}media/${starWarsMedia.id}.json"
+        )
     }
 }

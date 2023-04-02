@@ -11,20 +11,15 @@ application {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = rootProject.ext.javaCompatibilityVersion
+    targetCompatibility = rootProject.ext.javaCompatibilityVersion
 }
 
 dependencies {
-    implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
-    implementation("io.ktor:ktor-server-netty-jvm:$ktorVersion")
-    testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
-    implementation "io.ktor:ktor-server-content-negotiation:$ktorVersion"
-    implementation "io.ktor:ktor-server-call-logging:$ktorVersion"
-    implementation("ch.qos.logback:logback-classic:1.4.6")
-    implementation 'org.apache.commons:commons-csv:1.10.0'
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+    implementation "org.apache.commons:commons-csv:$commonsCSV"
     implementation "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
+
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
 }
 
 tasks.create("stage") {
