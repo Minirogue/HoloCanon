@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        kotlinVersion = '1.7.20'
+        kotlinVersion = '1.8.20'
         hiltVersion = '2.45'
         detektVersion = '1.22.0'
     }
@@ -30,9 +30,9 @@ detekt {
 ext {
     // Android
     appCompatVersion = '1.6.1'
-    lifecycleVersion = '2.5.1'
+    lifecycleVersion = '2.6.1'
     roomVersion = '2.5.1'
-    coilVersion = '2.2.2'
+    coilVersion = '2.3.0'
     androidXTestVersion = '1.5.0'
 
     // Kotlin
