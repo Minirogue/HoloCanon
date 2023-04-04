@@ -2,6 +2,8 @@ include ':core'
 include ':app'
 include ':usecase'
 include ':api'
+include ':library:holoclient:internal'
+include ':library:holoclient:public'
 
 buildCache {
     local {

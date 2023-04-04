@@ -23,7 +23,7 @@ android {
         sourceCompatibility rootProject.ext.javaCompatibilityVersion
         targetCompatibility rootProject.ext.javaCompatibilityVersion
     }
-    kotlinOptions {
-        jvmTarget = rootProject.ext.javaCompatibilityVersion
+    kotlin {
+        jvmToolchain(rootProject.ext.javaCompatibilityVersionInt)
     }
 }
