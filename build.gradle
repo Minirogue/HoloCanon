@@ -47,8 +47,8 @@ ext {
     minSdkVersion = 21
     compileSdkVersion = 33
     targetSdkVersion = 33
-    javaCompatibilityVersion = JavaVersion.VERSION_11.toString()
-    javaCompatibilityVersionInt = 11
+    javaCompatibilityVersion = JavaVersion.VERSION_15.toString()
+    javaCompatibilityVersionInt = 15
 }
 
 allprojects {

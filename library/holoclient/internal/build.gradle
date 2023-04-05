@@ -2,6 +2,12 @@ apply from: "$rootProject.projectDir/base-gradles/android-library.gradle"
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 
+hilt {
+    // https://github.com/google/dagger/issues/1991
+    // https://github.com/google/dagger/issues/970
+    enableExperimentalClasspathAggregation = true
+}
+
 dependencies {
     // Project
     api project(":library:holoclient:public")

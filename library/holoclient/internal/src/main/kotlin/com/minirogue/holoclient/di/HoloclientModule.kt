@@ -1,3 +1,7 @@
+package com.minirogue.holoclient.di
+
+import com.minirogue.holoclient.GetMediaFromApi
+import com.minirogue.holoclient.api.GetMediaFromApiImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
