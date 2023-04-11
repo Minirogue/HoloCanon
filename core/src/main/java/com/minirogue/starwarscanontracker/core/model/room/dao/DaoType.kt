@@ -2,19 +2,19 @@ package com.minirogue.starwarscanontracker.core.model.room.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaType
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaTypeDto
 
 @Dao
 interface DaoType {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(mediaType: MediaType): Long
+    fun insert(mediaTypeDto: MediaTypeDto): Long
 
     @Update
-    fun update(mediaType: MediaType?)
+    fun update(mediaTypeDto: MediaTypeDto?)
 
     @Query("SELECT * FROM media_types")
-    suspend fun allNonLive(): List<MediaType>
+    suspend fun allNonLive(): List<MediaTypeDto>
 
     @Query("SELECT * FROM media_types WHERE id=:typeId")
-    fun getLiveMediaType(typeId: Int): LiveData<MediaType?>
+    fun getLiveMediaType(typeId: Int): LiveData<MediaTypeDto?>
 }

@@ -10,10 +10,10 @@ import android.widget.Toast;
 
 import com.minirogue.starwarscanontracker.core.R;
 import com.minirogue.starwarscanontracker.core.model.room.MediaDatabase;
-import com.minirogue.starwarscanontracker.core.model.room.entity.Company;
+import com.minirogue.starwarscanontracker.core.model.room.entity.CompanyDto;
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem;
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes;
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaType;
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaTypeDto;
 import com.minirogue.starwarscanontracker.core.model.room.entity.Series;
 
 import java.io.BufferedReader;
@@ -23,8 +23,6 @@ import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.HashMap;
-
-import javax.inject.Inject;
 
 //TODO convert to kotlin and use coroutines
 public class CSVImporter extends AsyncTask<Boolean, String, Void> {
@@ -53,31 +51,31 @@ public class CSVImporter extends AsyncTask<Boolean, String, Void> {
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
             MediaDatabase db = MediaDatabase.getMediaDataBase(app);
-            MediaType mediaType;
+            MediaTypeDto mediaTypeDto;
             String[] header = reader.readLine().split(",");
             String csvLine;
             while ((csvLine = reader.readLine()) != null) {
                 String[] row = csvLine.split(",");
-                mediaType = new MediaType();
+                mediaTypeDto = new MediaTypeDto();
                 for (int i = 0; i < row.length; i++) {
                     switch (header[i]) {
                         case "id":
-                            mediaType.setId(Integer.parseInt(row[i]));
+                            mediaTypeDto.setId(Integer.parseInt(row[i]));
                             //Log.d(TAG, "type ID'ed "+row[i]+" mapped to "+Integer.valueOf(row[i]));
                             break;
                         case "media_type":
-                            mediaType.setText(row[i]);
+                            mediaTypeDto.setText(row[i]);
                             //Log.d(TAG, "title found "+row[i]);
                             break;
                         default:
                             //System.out.println("Unused header: " + header[i]);
                     }
                 }
-                long insertSuccessful = db.getDaoType().insert(mediaType);
+                long insertSuccessful = db.getDaoType().insert(mediaTypeDto);
                 if (insertSuccessful == -1) {
-                    db.getDaoType().update(mediaType);
+                    db.getDaoType().update(mediaTypeDto);
                 }
-                convertType.put(mediaType.getText(), mediaType.getId());
+                convertType.put(mediaTypeDto.getText(), mediaTypeDto.getId());
                 //Log.d(TAG, "type added "+mediaType.getId()+" "+mediaType.getTitle());
                 if (wifiOnly && connMgr.isActiveNetworkMetered()) {
                     cancel(true);
@@ -155,7 +153,7 @@ public class CSVImporter extends AsyncTask<Boolean, String, Void> {
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         try {
             MediaDatabase db = MediaDatabase.getMediaDataBase(app);
-            Company company;
+            CompanyDto companyDto;
             String[] header = reader.readLine().split(",");
             String csvLine;
             while ((csvLine = reader.readLine()) != null) {
@@ -173,12 +171,12 @@ public class CSVImporter extends AsyncTask<Boolean, String, Void> {
                             //System.out.println("Unused header: " + header[i]);
                     }
                 }
-                company = new Company(id, name);
-                long insertSuccessful = db.getDaoCompany().insert(company);
+                companyDto = new CompanyDto(id, name);
+                long insertSuccessful = db.getDaoCompany().insert(companyDto);
                 if (insertSuccessful == -1) {
-                    db.getDaoCompany().update(company);
+                    db.getDaoCompany().update(companyDto);
                 }
-                convertCompany.put(company.getCompanyName(), company.getId());
+                convertCompany.put(companyDto.getCompanyName(), companyDto.getId());
                 //Log.d(TAG, "type added "+mediaType.getId()+" "+mediaType.getTitle());
                 if (wifiOnly && connMgr.isActiveNetworkMetered()) {
                     cancel(true);

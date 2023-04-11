@@ -9,7 +9,7 @@ import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
 
-object JsonWriter {
+internal object JsonWriter {
     private val fileMutex = Mutex()
     suspend fun write(json: String, path: String) = withContext(Dispatchers.IO) {
         launch {

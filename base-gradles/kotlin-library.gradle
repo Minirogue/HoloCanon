@@ -1,0 +1,10 @@
+apply plugin: 'org.jetbrains.kotlin.jvm'
+apply plugin: 'java-library'
+
+java {
+    sourceCompatibility = rootProject.ext.javaCompatibilityVersion
+    targetCompatibility = rootProject.ext.javaCompatibilityVersion
+}
+compileKotlin {
+    kotlinOptions.jvmTarget = rootProject.ext.javaCompatibilityVersion
+}
