@@ -14,6 +14,7 @@ import kotlinx.serialization.SerializationException
 import java.io.IOException
 import javax.inject.Inject
 
+private const val TAG = "GetMediaApiMediaVersionImpl"
 class GetApiMediaVersionImpl @Inject constructor() : GetApiMediaVersion {
     override suspend fun invoke(): HoloResult<Int> {
         return HttpClient(OkHttp) {
@@ -26,13 +27,13 @@ class GetApiMediaVersionImpl @Inject constructor() : GetApiMediaVersion {
                     client.get("https://minirogue.github.io/holocanon-api/version.json").body()
                 HoloResult.Success(result)
             } catch (responseException: ResponseException) {
-                Log.d("holo-client", "failed response $responseException")
+                Log.i(TAG, "failed response $responseException")
                 HoloResult.Failure(responseException)
             } catch (ioException: IOException) {
-                Log.d("holo-client", "IOException: $ioException")
+                Log.i(TAG, "IOException: $ioException")
                 HoloResult.Failure(ioException)
             } catch (serializationException: SerializationException) {
-                Log.d("holo-client", "serializationException: $serializationException")
+                Log.i(TAG, "serializationException: $serializationException")
                 HoloResult.Failure(serializationException)
             }
         }

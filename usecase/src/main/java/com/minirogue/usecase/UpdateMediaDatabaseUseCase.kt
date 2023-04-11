@@ -20,6 +20,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
+private const val TAG = "UpdateMediaDatabase"
 public class UpdateMediaDatabaseUseCase @Inject constructor(
     private val application: Application,
     private val filterUpdater: FilterUpdater,
@@ -46,11 +47,11 @@ public class UpdateMediaDatabaseUseCase @Inject constructor(
         }
 
         val seriesMap: MutableMap<String, Int> =
-            getSeriesMap().toMutableMap().also { Log.d("holo-client", "seriesMap: $it") }
+            getSeriesMap().toMutableMap()
         val companyMap: Map<Company, Int> =
-            getCompanyMap().also { Log.d("holo-client", "companyMap: $it") }
+            getCompanyMap()
         val typeMap: Map<MediaType, Int> =
-            getTypeMap().also { Log.d("holo-client", "typeMap: $it") }
+            getTypeMap()
 
         (getMediaFromApi() as? HoloResult.Success)?.value?.let { mediaList ->
             val daoMedia = database.daoMedia
@@ -59,16 +60,14 @@ public class UpdateMediaDatabaseUseCase @Inject constructor(
                 .map {media ->
                     val series = media.series
                     if (seriesMap[series] == null && !series.isNullOrEmpty()) {
-                        Log.d("holo-client","series $series not found in map, adding to database")
                         val seriesId = daoSeries.insert(Series().apply {title = series}).toInt()
-                        seriesMap[series] = seriesId.also { Log.d("holo-client", "$series added to map with id $it") }
+                        seriesMap[series] = seriesId
                     }
                     media.toDTO(seriesMap, typeMap, companyMap)
                 }
                 .collect {
-                    Log.d("holo-client", "inserting media $it")
                     val insertSucceeded = daoMedia.insert(it)
-                    if (insertSucceeded == -1L) daoMedia.update(it).also {Log.d("holo-client", "insert failed, updating instead")}
+                    if (insertSucceeded == -1L) daoMedia.update(it)
                     daoMedia.insert(MediaNotes(mediaId = it.id))
                 }
         }
@@ -82,7 +81,7 @@ public class UpdateMediaDatabaseUseCase @Inject constructor(
                 apply()
             }
         }
-        filterUpdater.updateFilters();
+        filterUpdater.updateFilters()
     }
 
     private fun StarWarsMedia.toDTO(
@@ -92,19 +91,9 @@ public class UpdateMediaDatabaseUseCase @Inject constructor(
     ): MediaItem = MediaItem(
         id = this.id.toInt(),
         title = this.title,
-        series = this.series?.let { seriesMap[it] } ?: -1.also {
-            Log.d(
-                "holo-client",
-                "failed to map series ${this.series}"
-            )
-        },
+        series = this.series?.let { seriesMap[it] } ?: -1,
         author = "",
-        type = typeMap[this.type] ?: -1.also {
-            Log.d(
-                "holo-client",
-                "failed to map type ${this.type}"
-            )
-        },
+        type = typeMap[this.type] ?: -1,
         description = this.description ?: "",
         review = "",
         imageURL = this.imageUrl ?: "",
@@ -112,12 +101,7 @@ public class UpdateMediaDatabaseUseCase @Inject constructor(
         timeline = this.timeline?.toDouble() ?: 10000.0,
         amazonLink = "",
         amazonStream = "",
-        publisher = companyMap[this.publisher] ?: -1.also {
-            Log.d(
-                "holo-client",
-                "failed to map company ${this.publisher}"
-            )
-        },
+        publisher = companyMap[this.publisher] ?: -1,
     )
 
     private suspend fun getSeriesMap() =
@@ -125,31 +109,27 @@ public class UpdateMediaDatabaseUseCase @Inject constructor(
 
     private suspend fun getCompanyMap(): Map<Company, Int> = try {
         val dtoCompanies = database.daoCompany.getAllCompanies()
-        Log.d("holo-client", "company DTOs: $dtoCompanies")
         Company.values().associateWith { company ->
-            Log.d("holo-client", "mapping company: $company")
             val text = Json.encodeToString(company).trimQuotes()
             val dtoCompany = dtoCompanies.firstOrNull { it.companyName == text }
 
             dtoCompany?.id ?: database.daoCompany.insert(CompanyDto(companyName = text)).toInt()
         }
     } catch (e: Exception) {
-        Log.e("UpdateMediaDatabase", "error getting company map: $e")
+        Log.e(TAG, "error getting company map: $e")
         emptyMap()
     }
 
     private suspend fun getTypeMap(): Map<MediaType, Int> = try {
         val dtoTypes = database.daoType.getAllMediaTypes()
-        Log.d("holo-client", "media type DTOs: $dtoTypes")
         MediaType.values().associateWith { mediaType ->
-            Log.d("holo-client", "mapping type: $mediaType")
             val text = Json.encodeToString(mediaType).trimQuotes()
             val dtoType = dtoTypes.firstOrNull { it.text == text }
 
             dtoType?.id ?: database.daoType.insert(MediaTypeDto().apply { setText(text) }).toInt()
         }
     } catch (e: Exception) {
-        Log.e("UpdateMediaDatabase", "error getting type map: $e")
+        Log.e(TAG, "error getting type map: $e")
         emptyMap()
     }
 

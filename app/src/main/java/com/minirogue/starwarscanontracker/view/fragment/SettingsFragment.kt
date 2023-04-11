@@ -3,7 +3,6 @@ package com.minirogue.starwarscanontracker.view.fragment
 import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
 import androidx.preference.*
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.FilterUpdater
@@ -110,6 +109,5 @@ class SettingsFragment :
     override fun onPause() {
         super.onPause()
         filterUpdater.updateJustCheckboxFilters()
-        Log.d(TAG, "onPause called in SettingsFragment")
     }
 }
