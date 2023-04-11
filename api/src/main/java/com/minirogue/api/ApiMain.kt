@@ -9,7 +9,7 @@ private val mainScope = CoroutineScope(Job() + Dispatchers.Default)
 private val format = Json { prettyPrint = true }
 private const val API_ROOT_DIRECTORY = "holocanon-api/"
 
-fun main() {
+internal fun main() {
     runBlocking {
         mainScope.launch {
             createVersionNumber(VERSION)

@@ -1,7 +1,5 @@
 package com.minirogue.api.media
 
-import com.minirogue.api.Company
-import com.minirogue.api.MediaType
 import kotlinx.serialization.Serializable
 
 @Serializable

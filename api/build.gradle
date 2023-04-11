@@ -15,9 +15,13 @@ java {
     targetCompatibility = rootProject.ext.javaCompatibilityVersion
 }
 
+compileKotlin {
+    kotlinOptions.jvmTarget = rootProject.ext.javaCompatibilityVersion
+}
+
 dependencies {
     implementation "org.apache.commons:commons-csv:$commonsCSV"
-    implementation "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
+    api "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
 
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
 }
