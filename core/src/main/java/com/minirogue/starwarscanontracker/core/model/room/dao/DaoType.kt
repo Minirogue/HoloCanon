@@ -6,7 +6,7 @@ import com.minirogue.starwarscanontracker.core.model.room.entity.MediaTypeDto
 
 @Dao
 interface DaoType {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(mediaTypeDto: MediaTypeDto): Long
 
     @Query("SELECT * FROM media_types")
