@@ -39,9 +39,8 @@ public class UpdateMediaDatabaseUseCase @Inject constructor(
         }
         val latestVersion = (getApiMediaVersion() as? HoloResult.Success)?.value
 
-        if (!forced && latestVersion?.toLong() == PreferenceManager.getDefaultSharedPreferences(
-                application
-            )
+        if (!forced && latestVersion?.toLong() == PreferenceManager
+                .getDefaultSharedPreferences(application)
                 .getLong(application.getString(R.string.current_database_version), 0)
         ) {
             return

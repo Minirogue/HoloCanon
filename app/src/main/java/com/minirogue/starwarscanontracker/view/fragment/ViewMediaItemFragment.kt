@@ -75,19 +75,19 @@ class ViewMediaItemFragment : Fragment() {
             } else networkCachePolicy(CachePolicy.DISABLED)
         }
         makeShoppingMenu(item, fragmentBinding)
-//        if (item.series > 0) {
-//            fragmentBinding.viewSeriesButton.visibility = View.VISIBLE
-//            fragmentBinding.viewSeriesButton.setOnClickListener {
-//                val seriesFragment = SeriesFragment()
-//                val bundle = Bundle()
-//                bundle.putInt(getString(R.string.bundleItemId), item.series)
-//                seriesFragment.arguments = bundle
-//                requireActivity().supportFragmentManager.beginTransaction()
-//                    .replace(R.id.fragment_container, seriesFragment)
-//                    .addToBackStack(null)
-//                    .commit()
-//            }
-//        }
+        if (item.series > 0) {
+            fragmentBinding.viewSeriesButton.visibility = View.VISIBLE
+            fragmentBinding.viewSeriesButton.setOnClickListener {
+                val seriesFragment = SeriesFragment()
+                val bundle = Bundle()
+                bundle.putInt(getString(R.string.bundleItemId), item.series)
+                seriesFragment.arguments = bundle
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, seriesFragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
     }
 
     private fun updateViews(notes: MediaNotes, fragmentBinding: FragmentViewMediaItemBinding) {
