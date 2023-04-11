@@ -7,7 +7,7 @@ import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.core.model.PrefsRepo
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaType
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaTypeDto
 import com.minirogue.starwarscanontracker.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -26,14 +26,14 @@ class ViewMediaItemViewModel @Inject constructor(
 
     lateinit var liveMediaItem: LiveData<MediaItem>
     lateinit var liveMediaNotes: LiveData<MediaNotes>
-    lateinit var liveMediaType: LiveData<MediaType?>
+    lateinit var liveMediaTypeDto: LiveData<MediaTypeDto?>
     val checkBoxText = getCheckboxText()
     val checkBoxVisibility = prefsRepo.checkBoxVisibility
 
     fun setItemId(itemId: Int) {
         liveMediaItem = getMedia(itemId)
         liveMediaNotes = getNotesForMedia(itemId)
-        liveMediaType = liveMediaItem.switchMap { mediaItem: MediaItem? ->
+        liveMediaTypeDto = liveMediaItem.switchMap { mediaItem: MediaItem? ->
             getMediaType(mediaItem?.type ?: -1)
         }
     }

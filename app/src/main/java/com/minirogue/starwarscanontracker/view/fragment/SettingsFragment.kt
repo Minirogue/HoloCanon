@@ -8,7 +8,7 @@ import androidx.preference.*
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.FilterUpdater
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaType
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaTypeDto
 import com.minirogue.starwarscanontracker.usecase.GetAllMediaTypes
 import com.minirogue.starwarscanontracker.usecase.GetFilter
 import com.minirogue.starwarscanontracker.usecase.UpdateFilter
@@ -66,7 +66,8 @@ class SettingsFragment :
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
         if (preference.key == "update_from_online") {
-            updateMediaDatabaseUseCase(true)
+            // TODO work should be moved to a viewmodel
+            GlobalScope.launch { updateMediaDatabaseUseCase(true) }
         } else if (preference.parent?.key == "permanent_filters") {
             GlobalScope.launch(Dispatchers.Default) {
                 val filter = getFilter(preference.order, FilterType.FILTERCOLUMN_TYPE)
@@ -83,15 +84,15 @@ class SettingsFragment :
         ctx: Context,
         category: PreferenceCategory,
         private val getAllMediaTypes: GetAllMediaTypes,
-    ) : AsyncTask<Void, Void, List<MediaType>>() {
+    ) : AsyncTask<Void, Void, List<MediaTypeDto>>() {
         private val ctxRef = WeakReference(ctx)
         private val catRef = WeakReference(category)
 
-        override fun doInBackground(vararg p0: Void?): List<MediaType> {
+        override fun doInBackground(vararg p0: Void?): List<MediaTypeDto> {
             return ctxRef.get()?.let { runBlocking { getAllMediaTypes() } } ?: emptyList()
         }
 
-        override fun onPostExecute(result: List<MediaType>?) {
+        override fun onPostExecute(result: List<MediaTypeDto>?) {
             val ctx = ctxRef.get()
             if (ctx != null) {
                 for (type in result!!) {

@@ -15,17 +15,17 @@ import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia;
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries;
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoType;
 import com.minirogue.starwarscanontracker.core.model.room.entity.Character;
-import com.minirogue.starwarscanontracker.core.model.room.entity.Company;
+import com.minirogue.starwarscanontracker.core.model.room.entity.CompanyDto;
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject;
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType;
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem;
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes;
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaType;
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaTypeDto;
 import com.minirogue.starwarscanontracker.core.model.room.entity.Series;
 import com.minirogue.starwarscanontracker.core.model.room.join.MediaCharacterJoin;
 
 @Database(entities = {MediaItem.class, Character.class, MediaCharacterJoin.class, MediaNotes.class,
-        MediaType.class, Series.class, FilterObject.class, FilterType.class, Company.class},
+        MediaTypeDto.class, Series.class, FilterObject.class, FilterType.class, CompanyDto.class},
         version = 17)
 
 public abstract class MediaDatabase extends RoomDatabase {

@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.FilterUpdater
 import com.minirogue.starwarscanontracker.view.fragment.AboutFragment
@@ -14,6 +15,7 @@ import com.minirogue.starwarscanontracker.view.fragment.SettingsFragment
 import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment
 import com.minirogue.usecase.UpdateMediaDatabaseUseCase
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -30,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         // Update filters based one current information
         filterUpdater.updateFilters()
         // check for update to room
-        updateMediaDatabaseUseCase()
+        lifecycleScope.launch { updateMediaDatabaseUseCase() }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

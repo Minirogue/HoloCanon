@@ -3,7 +3,7 @@ package com.minirogue.starwarscanontracker.core.model.room.entity
 import androidx.room.*
 
 @Entity(tableName = "media_items",
-    foreignKeys = [ForeignKey(entity = MediaType::class,
+    foreignKeys = [ForeignKey(entity = MediaTypeDto::class,
         parentColumns = arrayOf("id"),
         childColumns = arrayOf("type"))],
     indices = [Index("type"), Index("series")])
@@ -34,9 +34,4 @@ data class MediaItem(
     var amazonStream: String = "",
     @ColumnInfo(name = "publisher")
     var publisher: Int = 0,
-) {
-
-    override fun toString(): String {
-        return title
-    }
-}
+)

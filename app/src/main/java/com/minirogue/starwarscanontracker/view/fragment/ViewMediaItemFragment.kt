@@ -17,7 +17,7 @@ import coil.request.CachePolicy
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaType
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaTypeDto
 import com.minirogue.starwarscanontracker.databinding.FragmentViewMediaItemBinding
 import com.minirogue.starwarscanontracker.viewmodel.ViewMediaItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,7 +39,7 @@ class ViewMediaItemFragment : Fragment() {
         if (bundleItemId != -1) viewModel.setItemId(bundleItemId)
         viewModel.liveMediaItem.observe(viewLifecycleOwner, { item -> updateViews(item, fragmentBinding) })
         viewModel.liveMediaNotes.observe(viewLifecycleOwner, { notes -> updateViews(notes, fragmentBinding) })
-        viewModel.liveMediaType.observe(viewLifecycleOwner, { mediaType -> updateView(mediaType, fragmentBinding) })
+        viewModel.liveMediaTypeDto.observe(viewLifecycleOwner, { mediaType -> updateView(mediaType, fragmentBinding) })
         viewModel.checkBoxText.asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner, { arr ->
             fragmentBinding.checkbox1.text = arr[0]
             fragmentBinding.checkbox2.text = arr[1]
@@ -75,19 +75,19 @@ class ViewMediaItemFragment : Fragment() {
             } else networkCachePolicy(CachePolicy.DISABLED)
         }
         makeShoppingMenu(item, fragmentBinding)
-        if (item.series > 0) {
-            fragmentBinding.viewSeriesButton.visibility = View.VISIBLE
-            fragmentBinding.viewSeriesButton.setOnClickListener {
-                val seriesFragment = SeriesFragment()
-                val bundle = Bundle()
-                bundle.putInt(getString(R.string.bundleItemId), item.series)
-                seriesFragment.arguments = bundle
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, seriesFragment)
-                    .addToBackStack(null)
-                    .commit()
-            }
-        }
+//        if (item.series > 0) {
+//            fragmentBinding.viewSeriesButton.visibility = View.VISIBLE
+//            fragmentBinding.viewSeriesButton.setOnClickListener {
+//                val seriesFragment = SeriesFragment()
+//                val bundle = Bundle()
+//                bundle.putInt(getString(R.string.bundleItemId), item.series)
+//                seriesFragment.arguments = bundle
+//                requireActivity().supportFragmentManager.beginTransaction()
+//                    .replace(R.id.fragment_container, seriesFragment)
+//                    .addToBackStack(null)
+//                    .commit()
+//            }
+//        }
     }
 
     private fun updateViews(notes: MediaNotes, fragmentBinding: FragmentViewMediaItemBinding) {
@@ -96,8 +96,8 @@ class ViewMediaItemFragment : Fragment() {
         fragmentBinding.checkbox2.isChecked = notes.isBox2Checked
     }
 
-    private fun updateView(mediaType: MediaType?, fragmentBinding: FragmentViewMediaItemBinding) {
-        fragmentBinding.mediaType.text = mediaType?.text ?: ""
+    private fun updateView(mediaTypeDto: MediaTypeDto?, fragmentBinding: FragmentViewMediaItemBinding) {
+        fragmentBinding.mediaType.text = mediaTypeDto?.text ?: ""
     }
 
     private fun makeShoppingMenu(item: MediaItem, fragmentBinding: FragmentViewMediaItemBinding) {

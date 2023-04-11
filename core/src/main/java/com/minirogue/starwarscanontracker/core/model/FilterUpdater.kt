@@ -89,7 +89,7 @@ class FilterUpdater @Inject constructor(
             daoFilter.update(filterType)
         }
 
-        val mediaTypes = daoType.allNonLive()
+        val mediaTypes = daoType.getAllMediaTypes()
         for (mediaType in mediaTypes) {
             tempFilter = daoFilter.getFilter(mediaType.id, FilterType.FILTERCOLUMN_TYPE)
             if (tempFilter == null) {

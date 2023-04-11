@@ -1,17 +1,18 @@
 package com.minirogue.starwarscanontracker.core.model.room.dao
 
 import androidx.room.*
-import com.minirogue.starwarscanontracker.core.model.room.entity.Company
+import com.minirogue.starwarscanontracker.core.model.room.entity.CompanyDto
 
 @Dao
 interface DaoCompany {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(company: Company): Long
-
-    @Update
-    fun update(company: Company)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(companyDto: CompanyDto): Long
 
     @Query("SELECT * FROM companies")
-    fun getAllNonLive(): List<Company>
+    fun getAllNonLive(): List<CompanyDto>
+
+    @Query("SELECT * FROM companies")
+
+    suspend fun getAllCompanies(): List<CompanyDto>
 }

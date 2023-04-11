@@ -5,8 +5,8 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "media_types")
-public class MediaType {
-    @PrimaryKey
+public class MediaTypeDto {
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo
     private int id;
     @ColumnInfo

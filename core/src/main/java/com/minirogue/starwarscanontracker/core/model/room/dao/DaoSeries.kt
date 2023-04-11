@@ -9,15 +9,16 @@ interface DaoSeries {
     @Query("SELECT * FROM series")
     fun getAllNonLive(): List<Series>
 
+    @Query("SELECT * FROM series")
+
+    suspend fun getAllSeries(): List<Series>
+
     @Query("SELECT * FROM series WHERE id=:id LIMIT 1")
     fun getSeries(id: Int): Series?
 
     @Query("SELECT * FROM series WHERE id=:id LIMIT 1")
     fun getSeriesFlow(id: Int): Flow<Series>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(series: Series): Long
-
-    @Update
-    fun update(series: Series)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insert(series: Series): Long
 }
