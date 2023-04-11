@@ -3,6 +3,7 @@ package com.minirogue.starwarscanontracker.core.model.room;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.room.AutoMigration;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
@@ -26,7 +27,9 @@ import com.minirogue.starwarscanontracker.core.model.room.join.MediaCharacterJoi
 
 @Database(entities = {MediaItem.class, Character.class, MediaCharacterJoin.class, MediaNotes.class,
         MediaTypeDto.class, Series.class, FilterObject.class, FilterType.class, CompanyDto.class},
-        version = 17)
+        version = 18,
+        autoMigrations = { @AutoMigration(from = 17, to = 18) }
+)
 
 public abstract class MediaDatabase extends RoomDatabase {
 
