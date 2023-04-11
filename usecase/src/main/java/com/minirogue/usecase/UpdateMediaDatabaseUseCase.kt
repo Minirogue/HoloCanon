@@ -21,6 +21,7 @@ import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 private const val TAG = "UpdateMediaDatabase"
+
 public class UpdateMediaDatabaseUseCase @Inject constructor(
     private val application: Application,
     private val filterUpdater: FilterUpdater,
@@ -57,10 +58,10 @@ public class UpdateMediaDatabaseUseCase @Inject constructor(
             val daoMedia = database.daoMedia
             val daoSeries = database.daoSeries
             mediaList.asFlow()
-                .map {media ->
+                .map { media ->
                     val series = media.series
                     if (seriesMap[series] == null && !series.isNullOrEmpty()) {
-                        val seriesId = daoSeries.insert(Series().apply {title = series}).toInt()
+                        val seriesId = daoSeries.insert(Series().apply { title = series }).toInt()
                         seriesMap[series] = seriesId
                     }
                     media.toDTO(seriesMap, typeMap, companyMap)
@@ -107,6 +108,7 @@ public class UpdateMediaDatabaseUseCase @Inject constructor(
     private suspend fun getSeriesMap() =
         database.daoSeries.getAllSeries().associate { it.title to it.id }
 
+    @Suppress("TooGenericExceptionCaught")
     private suspend fun getCompanyMap(): Map<Company, Int> = try {
         val dtoCompanies = database.daoCompany.getAllCompanies()
         Company.values().associateWith { company ->
@@ -119,6 +121,8 @@ public class UpdateMediaDatabaseUseCase @Inject constructor(
         Log.e(TAG, "error getting company map: $e")
         emptyMap()
     }
+
+    @Suppress("TooGenericExceptionCaught")
 
     private suspend fun getTypeMap(): Map<MediaType, Int> = try {
         val dtoTypes = database.daoType.getAllMediaTypes()

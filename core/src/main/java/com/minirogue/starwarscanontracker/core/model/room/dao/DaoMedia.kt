@@ -30,10 +30,12 @@ interface DaoMedia {
     @Update
     fun update(um: MediaNotes)
 
-    @Query("SELECT media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.media_id WHERE media_items.series = :series")
+    @Query("SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
+            "ON media_items.id = media_notes.media_id WHERE media_items.series = :series")
     fun getMediaNotesBySeries(series: Int): LiveData<List<MediaNotes>>
 
-    @Query("SELECT media_notes.* FROM media_items INNER JOIN media_notes ON media_items.id = media_notes.media_id WHERE media_items.series = :series")
+    @Query("SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
+            "ON media_items.id = media_notes.media_id WHERE media_items.series = :series")
     fun getMediaNotesBySeriesNonLive(series: Int): List<MediaNotes>
 
     //The following return MediaAndNotes objects
