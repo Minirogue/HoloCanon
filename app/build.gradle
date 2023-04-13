@@ -64,6 +64,7 @@ android {
         sourceCompatibility = rootProject.ext.javaCompatibilityVersion
         targetCompatibility = rootProject.ext.javaCompatibilityVersion
     }
+
     kotlinOptions {
         jvmTarget = rootProject.ext.javaCompatibilityVersion
     }
@@ -79,6 +80,7 @@ dependencies {
     // Project Modules
     implementation project(":core")
     implementation project(":usecase")
+    implementation project(":library:holoclient:internal")
 
     // Android
     implementation "androidx.appcompat:appcompat:$appCompatVersion"

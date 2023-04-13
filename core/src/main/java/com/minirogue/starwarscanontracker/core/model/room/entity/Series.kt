@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "series")
 class Series {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo
-    var id: Int = -1
+    var id: Int = 0
 
     @ColumnInfo(name = "title")
     var title: String = "series not found"

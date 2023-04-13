@@ -179,7 +179,7 @@ class GetMediaListWithNotes @Inject constructor(
      */
     private suspend fun getPermanentFiltersAsStringBuilder(): StringBuilder = withContext(Dispatchers.IO) {
         val permFiltersBuilder = StringBuilder()
-        for (type in daoType.allNonLive()) {
+        for (type in daoType.getAllMediaTypes()) {
             if (!sharedPreferences.getBoolean(type.text, true)) {
                 if (permFiltersBuilder.isNotEmpty()) {
                     permFiltersBuilder.append(" AND ")

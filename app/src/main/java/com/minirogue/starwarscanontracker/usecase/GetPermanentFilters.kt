@@ -17,7 +17,7 @@ class GetPermanentFilters @Inject constructor(
     suspend operator fun invoke(): List<FilterObject> = withContext(
         Dispatchers.IO) {
         val filterList = ArrayList<FilterObject>()
-        for (type in daoType.allNonLive()) {
+        for (type in daoType.getAllMediaTypes()) {
             if (!sharedPreferences.getBoolean(type.text, true)) {
                 filterList.add(daoFilter.getFilter(type.id, FilterType.FILTERCOLUMN_TYPE)
                     ?: FilterObject(-1, -1, false, ""))

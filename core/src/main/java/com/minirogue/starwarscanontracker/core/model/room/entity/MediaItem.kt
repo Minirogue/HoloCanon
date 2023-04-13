@@ -2,11 +2,15 @@ package com.minirogue.starwarscanontracker.core.model.room.entity
 
 import androidx.room.*
 
-@Entity(tableName = "media_items",
-    foreignKeys = [ForeignKey(entity = MediaTypeDto::class,
+@Entity(
+    tableName = "media_items",
+    foreignKeys = [ForeignKey(
+        entity = MediaTypeDto::class,
         parentColumns = arrayOf("id"),
-        childColumns = arrayOf("type"))],
-    indices = [Index("type"), Index("series")])
+        childColumns = arrayOf("type")
+    )],
+    indices = [Index("type"), Index("series")]
+)
 data class MediaItem(
     @PrimaryKey
     var id: Int = 0,

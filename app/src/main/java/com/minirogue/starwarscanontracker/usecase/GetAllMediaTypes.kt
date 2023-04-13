@@ -5,5 +5,5 @@ import com.minirogue.starwarscanontracker.core.model.room.entity.MediaTypeDto
 import javax.inject.Inject
 
 class GetAllMediaTypes @Inject constructor(private val daoType: DaoType) {
-    suspend operator fun invoke(): List<MediaTypeDto> = daoType.allNonLive()
+    suspend operator fun invoke(): List<MediaTypeDto> = daoType.getAllMediaTypes()
 }

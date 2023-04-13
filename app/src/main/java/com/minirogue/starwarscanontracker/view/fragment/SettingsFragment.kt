@@ -3,7 +3,6 @@ package com.minirogue.starwarscanontracker.view.fragment
 import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
-import android.util.Log
 import androidx.preference.*
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.FilterUpdater
@@ -66,7 +65,8 @@ class SettingsFragment :
 
     override fun onPreferenceTreeClick(preference: Preference): Boolean {
         if (preference.key == "update_from_online") {
-            updateMediaDatabaseUseCase(true)
+            // TODO work should be moved to a viewmodel
+            GlobalScope.launch { updateMediaDatabaseUseCase(true) }
         } else if (preference.parent?.key == "permanent_filters") {
             GlobalScope.launch(Dispatchers.Default) {
                 val filter = getFilter(preference.order, FilterType.FILTERCOLUMN_TYPE)
@@ -109,6 +109,5 @@ class SettingsFragment :
     override fun onPause() {
         super.onPause()
         filterUpdater.updateJustCheckboxFilters()
-        Log.d(TAG, "onPause called in SettingsFragment")
     }
 }
