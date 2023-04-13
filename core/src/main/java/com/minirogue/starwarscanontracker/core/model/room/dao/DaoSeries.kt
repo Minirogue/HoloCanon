@@ -10,7 +10,6 @@ interface DaoSeries {
     fun getAllNonLive(): List<Series>
 
     @Query("SELECT * FROM series")
-
     suspend fun getAllSeries(): List<Series>
 
     @Query("SELECT * FROM series WHERE id=:id LIMIT 1")
