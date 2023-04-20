@@ -1,3 +1,3 @@
 package com.minirogue.api
 
-internal const val VERSION = 24
+internal const val VERSION = 25
