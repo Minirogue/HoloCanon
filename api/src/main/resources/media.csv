@@ -1143,16 +1143,41 @@ ID,title,type,image,released,timeline,description,series,number,publisher
 1142,Chapter 23,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,4/12/2023,,,The Mandalorian,23,Disney
 1143,Chapter 24,TV Episode,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,4/19/2023,,,The Mandalorian,24,Disney
 1144,The Mandalorian (Season 3),TV Season,https://minirogue.github.io/SWCovers/TV/the_mandalorian.jpg,4/19/2023,,,The Mandalorian,3,Disney
-1145,Kassa,TV Episode,,09/21/22,,,Andor,1,Disney
-1146,That Would Be Me,TV Episode,,09/21/22,,,Andor,2,Disney
-1147,Reckoning,TV Episode,,09/21/22,,,Andor,3,Disney
-1148,Aldhani,TV Episode,,09/28/22,,,Andor,4,Disney
-1149,The Axe Forgets,TV Episode,,10/05/22,,,Andor,5,Disney
-1150,The Eye,TV Episode,,10/12/22,,,Andor,6,Disney
-1151,Announcement,TV Episode,,10/19/22,,,Andor,7,Disney
-1152,Narkina 5,TV Episode,,10/26/22,,,Andor,8,Disney
-1153,Nobody's Listening!,TV Episode,,11/02/22,,,Andor,9,Disney
-1154,One Way Out,TV Episode,,11/09/22,,,Andor,10,Disney
-1155,Daughter of Ferrix,TV Episode,,11/16/22,,,Andor,11,Disney
-1156,Rix Road,TV Episode,,11/23/22,,,Andor,12,Disney
-1157,Andor (Season 1),TV Season,,11/23/22,,,Andor,1,Disney
+1145,Kassa,TV Episode,https://minirogue.github.io/SWCovers/TV/andor.jpg,9/21/2022,,,Andor,1,Disney
+1146,That Would Be Me,TV Episode,https://minirogue.github.io/SWCovers/TV/andor.jpg,9/21/2022,,,Andor,2,Disney
+1147,Reckoning,TV Episode,https://minirogue.github.io/SWCovers/TV/andor.jpg,9/21/2022,,,Andor,3,Disney
+1148,Aldhani,TV Episode,https://minirogue.github.io/SWCovers/TV/andor.jpg,9/28/2022,,,Andor,4,Disney
+1149,The Axe Forgets,TV Episode,https://minirogue.github.io/SWCovers/TV/andor.jpg,10/5/2022,,,Andor,5,Disney
+1150,The Eye,TV Episode,https://minirogue.github.io/SWCovers/TV/andor.jpg,10/12/2022,,,Andor,6,Disney
+1151,Announcement,TV Episode,https://minirogue.github.io/SWCovers/TV/andor.jpg,10/19/2022,,,Andor,7,Disney
+1152,Narkina 5,TV Episode,https://minirogue.github.io/SWCovers/TV/andor.jpg,10/26/2022,,,Andor,8,Disney
+1153,Nobody's Listening!,TV Episode,https://minirogue.github.io/SWCovers/TV/andor.jpg,11/2/2022,,,Andor,9,Disney
+1154,One Way Out,TV Episode,https://minirogue.github.io/SWCovers/TV/andor.jpg,11/9/2022,,,Andor,10,Disney
+1155,Daughter of Ferrix,TV Episode,https://minirogue.github.io/SWCovers/TV/andor.jpg,11/16/2022,,,Andor,11,Disney
+1156,Rix Road,TV Episode,https://minirogue.github.io/SWCovers/TV/andor.jpg,11/23/2022,,,Andor,12,Disney
+1157,Andor (Season 1),TV Season,https://minirogue.github.io/SWCovers/TV/andor.jpg,11/23/2022,,,Andor,1,Disney
+1158,Spoils of War,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,01/04/2023,,,The Bad Batch,201,Disney
+1159,Ruins of War,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,01/04/2023,,,The Bad Batch,202,Disney
+1160,The Solitary Clone,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,01/11/2023,,,The Bad Batch,203,Disney
+1161,Faster,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,01/18/2023,,,The Bad Batch,204,Disney
+1162,Entombed,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,01/25/2023,,,The Bad Batch,205,Disney
+1163,Tribe,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,02/01/2023,,,The Bad Batch,206,Disney
+1164,The Clone Conspiracy,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,02/08/2023,,,The Bad Batch,207,Disney
+1165,Truth and Consequences,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,02/08/2023,,,The Bad Batch,208,Disney
+1166,The Crossing,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,02/15/2023,,,The Bad Batch,209,Disney
+1167,Retrieval,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,02/22/2023,,,The Bad Batch,210,Disney
+1168,Metamorphosis,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,03/01/2023,,,The Bad Batch,211,Disney
+1169,The Outpost,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,03/08/2023,,,The Bad Batch,212,Disney
+1170,Pabu,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,03/15/2023,,,The Bad Batch,213,Disney
+1171,Tipping Point,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,03/22/2023,,,The Bad Batch,214,Disney
+1172,The Summit,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,03/29/2023,,,The Bad Batch,215,Disney
+1173,Plan 99,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,03/29/2023,,,The Bad Batch,216,Disney
+1174,The Bad Batch (Season 2),TV Season,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,03/29/2023,,,The Bad Batch,2,Disney
+1175,Life and Death,TV Episode,https://minirogue.github.io/SWCovers/TV/tales_of_the_jedi.jpg,10/26/2022,,,Tales of the Jedi,101,Disney
+1176,Justice,TV Episode,https://minirogue.github.io/SWCovers/TV/tales_of_the_jedi.jpg,10/26/2022,,,Tales of the Jedi,102,Disney
+1177,Choices,TV Episode,https://minirogue.github.io/SWCovers/TV/tales_of_the_jedi.jpg,10/26/2022,,,Tales of the Jedi,103,Disney
+1178,The Sith Lord,TV Episode,https://minirogue.github.io/SWCovers/TV/tales_of_the_jedi.jpg,10/26/2022,,,Tales of the Jedi,104,Disney
+1179,Practice Makes Perfect,TV Episode,https://minirogue.github.io/SWCovers/TV/tales_of_the_jedi.jpg,10/26/2022,,,Tales of the Jedi,105,Disney
+1180,Resolve,TV Episode,https://minirogue.github.io/SWCovers/TV/tales_of_the_jedi.jpg,10/26/2022,,,Tales of the Jedi,106,Disney
+1181,Tales of the Jedi (Season 1),TV Season,https://minirogue.github.io/SWCovers/TV/tales_of_the_jedi.jpg,10/26/2022,,,Tales of the Jedi,1,Disney
+1182,Jedi: Survivor,Video Game,https://minirogue.github.io/SWCovers/VG/jedi_survivor.jpg,4/26/2023	,,,,,Electronic Arts
