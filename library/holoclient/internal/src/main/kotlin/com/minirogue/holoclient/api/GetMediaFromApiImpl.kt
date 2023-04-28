@@ -4,13 +4,13 @@ import android.util.Log
 import com.minirogue.api.media.StarWarsMedia
 import com.minirogue.holoclient.GetMediaFromApi
 import com.minirogue.starwarscanontracker.core.result.HoloResult
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.engine.okhttp.*
-import io.ktor.client.plugins.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.request.*
-import io.ktor.serialization.kotlinx.json.*
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.ResponseException
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.request.get
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.SerializationException
 import java.io.IOException
 import javax.inject.Inject
@@ -34,7 +34,7 @@ internal class GetMediaFromApiImpl @Inject constructor() : GetMediaFromApi {
                 Log.i(TAG, "IOException: $ioException")
                 HoloResult.Failure(ioException)
             } catch (serializationException: SerializationException) {
-                Log.i(TAG, "serializationException: $serializationException")
+                Log.w(TAG, "serializationException: $serializationException")
                 HoloResult.Failure(serializationException)
             }
         }
