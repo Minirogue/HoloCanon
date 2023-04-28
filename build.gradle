@@ -13,7 +13,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.android.tools.build:gradle:8.0.0'
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
     }
 }
@@ -47,8 +47,8 @@ ext {
     minSdkVersion = 21
     compileSdkVersion = 33
     targetSdkVersion = 33
-    javaCompatibilityVersion = JavaVersion.VERSION_11.toString()
-    javaCompatibilityVersionInt = 11
+    javaCompatibilityVersion = JavaVersion.VERSION_17.toString()
+    javaCompatibilityVersionInt = 17
 }
 
 allprojects {
