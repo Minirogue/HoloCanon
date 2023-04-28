@@ -2,6 +2,10 @@ apply from: "$rootProject.projectDir/base-gradles/android-library.gradle"
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 
+android {
+    namespace 'com.minirogue.holoclient'
+}
+
 hilt {
     // https://github.com/google/dagger/issues/1991
     // https://github.com/google/dagger/issues/970

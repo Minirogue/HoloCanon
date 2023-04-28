@@ -72,6 +72,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.minirogue.starwarscanontracker'
 }
 
 dependencies {
