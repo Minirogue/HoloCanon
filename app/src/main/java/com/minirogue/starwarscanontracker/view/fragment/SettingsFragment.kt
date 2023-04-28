@@ -3,16 +3,20 @@ package com.minirogue.starwarscanontracker.view.fragment
 import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
-import androidx.preference.*
+import androidx.preference.CheckBoxPreference
+import androidx.preference.EditTextPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceCategory
+import androidx.preference.PreferenceFragmentCompat
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.FilterUpdater
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaTypeDto
 import com.minirogue.starwarscanontracker.usecase.GetAllMediaTypes
-import com.minirogue.starwarscanontracker.usecase.GetFilter
-import com.minirogue.starwarscanontracker.usecase.UpdateFilter
 import com.minirogue.usecase.UpdateMediaDatabaseUseCase
 import dagger.hilt.android.AndroidEntryPoint
+import filters.GetFilter
+import filters.UpdateFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -71,8 +75,8 @@ class SettingsFragment :
             GlobalScope.launch(Dispatchers.Default) {
                 val filter = getFilter(preference.order, FilterType.FILTERCOLUMN_TYPE)
                 filter?.let {
-                    filter.active = false
-                    updateFilter(filter)
+                    val newMediaFilter = it.copy(isActive = false)
+                    updateFilter(newMediaFilter)
                 }
             }
         }

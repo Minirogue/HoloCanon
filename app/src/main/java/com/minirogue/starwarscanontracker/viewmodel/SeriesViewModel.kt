@@ -3,8 +3,6 @@ package com.minirogue.starwarscanontracker.viewmodel
 import androidx.lifecycle.*
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.core.model.PrefsRepo
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.core.model.room.entity.Series
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
@@ -24,7 +22,7 @@ class SeriesViewModel @Inject constructor(
     private val getSeries: GetSeries,
     getCheckboxText: GetCheckboxText,
     private val getNotesBySeries: GetNotesBySeries,
-    private val getMediaListWithNotes: GetMediaListWithNotes,
+    private val getMediaAndNotesForSeries: GetMediaAndNotesForSeries,
     private val setCheckboxForSeries: SetCheckboxForSeries,
     prefsRepo: PrefsRepo,
     private val connMgr: MyConnectivityManager,
@@ -47,10 +45,9 @@ class SeriesViewModel @Inject constructor(
             }
         }
         viewModelScope.launch {
-            seriesList.addSource(getMediaListWithNotes(listOf(FilterObject(seriesId,
-                FilterType.FILTERCOLUMN_SERIES,
-                true,
-                "series filter")))) { mediaAndNotesList -> seriesList.postValue(mediaAndNotesList) }
+            seriesList.addSource(getMediaAndNotesForSeries(seriesId).asLiveData()) { mediaAndNotesList ->
+                seriesList.postValue(mediaAndNotesList)
+            }
         }
     }
 

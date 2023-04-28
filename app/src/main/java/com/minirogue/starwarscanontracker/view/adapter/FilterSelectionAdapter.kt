@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
-import com.minirogue.starwarscanontracker.databinding.FilterSelectionItemBinding
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
+import com.minirogue.starwarscanontracker.databinding.FilterSelectionItemBinding
+import filters.MediaFilter
 
 class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.FilterTypeViewHolder>() {
 
@@ -47,7 +47,7 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
     }
 
     interface OnClickListeners {
-        fun onFilterClicked(filterObject: FilterObject)
+        fun onFilterClicked(mediaFilter: MediaFilter)
         fun onFilterTypeSwitchClicked(filterType: FilterType)
         fun setFilterGroupObservation(chipGroup: ChipGroup, filterType: FilterType)
     }

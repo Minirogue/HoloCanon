@@ -14,7 +14,7 @@ interface DaoFilter {
     fun insert(filterType: FilterType): Long
 
     @Update
-    fun update(filterType: FilterType)
+    suspend fun update(filterType: FilterType)
 
     @Query("SELECT * FROM filter_type WHERE id=3 OR id=4 OR id=5")
     fun getCheckBoxFilterTypes(): Flow<List<FilterType>>
@@ -33,19 +33,30 @@ interface DaoFilter {
     fun insert(filterObject: FilterObject)
 
     @Update
-    fun update(filterObject: FilterObject)
+    suspend fun update(filterObject: FilterObject)
 
     @Query("SELECT * FROM filter_object")
     fun getAllFilters(): Flow<List<FilterObject>>
 
-    @Query("SELECT * FROM filter_object WHERE filter_id=:filterId AND type_id=:typeId LIMIT 1")
-    fun getFilter(filterId: Int, typeId: Int): FilterObject?
+    @Query(
+        "SELECT filter_object.*,filter_type.is_positive FROM filter_object " +
+                "INNER JOIN filter_type ON filter_object.type_id = filter_type.id " +
+                "WHERE filter_id=:filterId AND type_id=:typeId LIMIT 1"
+    )
+    suspend fun getFilter(filterId: Int, typeId: Int): FullFilter?
 
-    @Query("SELECT * FROM filter_object WHERE type_id=:typeId ORDER BY filter_text")
-    fun getFiltersWithType(typeId: Int): Flow<List<FilterObject>>
+    @Query(
+        "SELECT filter_object.*,filter_type.is_positive FROM filter_object " +
+                "INNER JOIN filter_type ON filter_object.type_id = filter_type.id " +
+                "WHERE type_id=:typeId ORDER BY filter_text"
+    )
+    fun getFiltersWithType(typeId: Int): Flow<List<FullFilter>>
 
     // FullFilter
-    @Query("SELECT filter_object.*,filter_type.is_positive FROM filter_object " +
-        "INNER JOIN filter_type ON filter_object.type_id = filter_type.id WHERE filter_object.is_active = 1")
+    @Query(
+        "SELECT filter_object.*,filter_type.is_positive FROM filter_object " +
+                "INNER JOIN filter_type ON filter_object.type_id = filter_type.id " +
+                "WHERE filter_object.is_active = 1"
+    )
     fun getActiveFilters(): Flow<List<FullFilter>>
 }

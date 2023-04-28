@@ -1,7 +1,12 @@
 package com.minirogue.starwarscanontracker.view.fragment
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -14,7 +19,6 @@ import com.google.android.material.chip.Chip
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.SortStyle
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
-import com.minirogue.starwarscanontracker.core.model.room.pojo.FullFilter
 import com.minirogue.starwarscanontracker.databinding.FragmentMediaListBinding
 import com.minirogue.starwarscanontracker.view.FilterChip
 import com.minirogue.starwarscanontracker.view.adapter.SWMListAdapter
@@ -22,6 +26,7 @@ import com.minirogue.starwarscanontracker.view.adapter.SWMListAdapter.AdapterInt
 import com.minirogue.starwarscanontracker.view.viewBinding
 import com.minirogue.starwarscanontracker.viewmodel.MediaListViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import filters.MediaFilter
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 
 @AndroidEntryPoint
@@ -92,14 +97,17 @@ class MediaListFragment : Fragment() {
                 mediaListViewModel.setSort(SortStyle.SORT_DATE)
                 true
             }
+
             R.id.sort_by_timeline_menu_item -> {
                 mediaListViewModel.setSort(SortStyle.SORT_TIMELINE)
                 true
             }
+
             R.id.sort_by_title_menu_item -> {
                 mediaListViewModel.setSort(SortStyle.SORT_TITLE)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -115,15 +123,12 @@ class MediaListFragment : Fragment() {
         with(binding.mediaRecyclerview) {
             layoutManager = LinearLayoutManager(context)
             adapter = SWMListAdapter(adapterInterface).also {
-                mediaListViewModel.filteredMediaAndNotes.observe(
-                    viewLifecycleOwner,
-                    { mediaAndNotes -> it.submitList(mediaAndNotes) })
-                mediaListViewModel.checkBoxText.asLiveData(lifecycleScope.coroutineContext).observe(
-                    viewLifecycleOwner,
-                    { newCheckBoxText -> it.updateCheckBoxText(newCheckBoxText) })
-                mediaListViewModel.checkBoxVisibility.observe(
-                    viewLifecycleOwner,
-                    { newIsCheckboxActive -> it.updateCheckBoxVisible(newIsCheckboxActive) })
+                mediaListViewModel.filteredMediaAndNotes.observe(viewLifecycleOwner) { mediaAndNotes -> it.submitList(mediaAndNotes) }
+                mediaListViewModel.checkBoxText.asLiveData(lifecycleScope.coroutineContext)
+                    .observe(viewLifecycleOwner) { newCheckBoxText -> it.updateCheckBoxText(newCheckBoxText) }
+                mediaListViewModel.checkBoxVisibility
+                    .observe(viewLifecycleOwner) { newIsCheckboxActive -> it.updateCheckBoxVisible(newIsCheckboxActive)
+                }
             }
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
@@ -131,12 +136,10 @@ class MediaListFragment : Fragment() {
             FastScrollerBuilder(this).build()
         }
 
-        mediaListViewModel.activeFilters.observe(
-            viewLifecycleOwner,
-            { filters: List<FullFilter> -> setFilterChips(filters) })
+        mediaListViewModel.activeFilters.observe(viewLifecycleOwner) { filters: List<MediaFilter> -> setFilterChips(filters) }
     }
 
-    private fun setFilterChips(filters: List<FullFilter>) = with(binding.filterChipGroup) {
+    private fun setFilterChips(filters: List<MediaFilter>) = with(binding.filterChipGroup) {
         removeAllViews()
         addView(sortChip)
         for (filter in filters) {
@@ -144,9 +147,9 @@ class MediaListFragment : Fragment() {
         }
     }
 
-    private fun makeCurrentFilterChip(fullFilter: FullFilter): Chip {
-        val filterChip: Chip = FilterChip(fullFilter, requireContext())
-        filterChip.setOnCloseIconClickListener { mediaListViewModel.deactivateFilter(fullFilter.filterObject) }
+    private fun makeCurrentFilterChip(mediaFilter: MediaFilter): Chip {
+        val filterChip: Chip = FilterChip(mediaFilter, requireContext())
+        filterChip.setOnCloseIconClickListener { mediaListViewModel.deactivateFilter(mediaFilter) }
         return filterChip
     }
 

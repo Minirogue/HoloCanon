@@ -80,6 +80,7 @@ dependencies {
     // Project Modules
     implementation project(":core")
     implementation project(":usecase")
+    implementation project(":library:filters:internal")
     implementation project(":library:holoclient:internal")
 
     // Android

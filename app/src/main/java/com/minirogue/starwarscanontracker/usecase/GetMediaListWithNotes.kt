@@ -7,9 +7,9 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoType
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
+import filters.FilterType
+import filters.MediaFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
@@ -29,7 +29,7 @@ class GetMediaListWithNotes @Inject constructor(
      *
      * @param filterList the list of Filters to apply to the query
      */
-    suspend operator fun invoke(filterList: List<FilterObject>): LiveData<List<MediaAndNotes>> {
+    suspend operator fun invoke(filterList: List<MediaFilter>): LiveData<List<MediaAndNotes>> {
         val query = convertFiltersToQuery(filterList)
         return daoMedia.getMediaAndNotesRawQuery(query)
     }
@@ -41,7 +41,7 @@ class GetMediaListWithNotes @Inject constructor(
      *
      * @param filterList the list of Filters to apply to the query
      */
-    private suspend fun convertFiltersToQuery(filterList: List<FilterObject>): SimpleSQLiteQuery = withContext(
+    private suspend fun convertFiltersToQuery(filterList: List<MediaFilter>): SimpleSQLiteQuery = withContext(
         Dispatchers.Default) {
         val gettingPermanentFilters = async { getPermanentFiltersAsStringBuilder() }
         val filterTypeIsPositive = SparseBooleanArray()
@@ -55,15 +55,15 @@ class GetMediaListWithNotes @Inject constructor(
         val publisherFilter = StringBuilder()
         val notesFilter = StringBuilder()
         for (filter in filterList) {
-            if (filter.active) {
+            if (filter.isActive) {
                 when (filter.filterType) {
-                    FilterType.FILTERCOLUMN_SERIES -> {
+                    FilterType.Series -> {
                         if (seriesFilter.isEmpty()) {
-                            if (!filterTypeIsPositive[filter.filterType]) {
+                            if (!filter.isPositive) {
                                 seriesFilter.append(" NOT ")
                             }
                         } else {
-                            if (!filterTypeIsPositive[filter.filterType]) {
+                            if (!filter.isPositive) {
                                 seriesFilter.append(" AND NOT ")
                             } else {
                                 seriesFilter.append(" OR ")
@@ -72,13 +72,13 @@ class GetMediaListWithNotes @Inject constructor(
                         seriesFilter.append(" series = ")
                         seriesFilter.append(filter.id)
                     }
-                    FilterType.FILTERCOLUMN_TYPE -> {
+                    FilterType.MediaType -> {
                         if (typeFilter.isEmpty()) {
-                            if (!filterTypeIsPositive[filter.filterType]) {
+                            if (!filter.isPositive) {
                                 typeFilter.append(" NOT ")
                             }
                         } else {
-                            if (!filterTypeIsPositive[filter.filterType]) {
+                            if (!filter.isPositive) {
                                 typeFilter.append(" AND NOT ")
                             } else {
                                 typeFilter.append(" OR ")
@@ -87,13 +87,13 @@ class GetMediaListWithNotes @Inject constructor(
                         typeFilter.append(" type = ")
                         typeFilter.append(filter.id)
                     }
-                    FilterType.FILTERCOLUMN_PUBLISHER -> {
+                    FilterType.Publisher -> {
                         if (publisherFilter.isEmpty()) {
-                            if (!filterTypeIsPositive[filter.filterType]) {
+                            if (!filter.isPositive) {
                                 publisherFilter.append(" NOT ")
                             }
                         } else {
-                            if (!filterTypeIsPositive[filter.filterType]) {
+                            if (!filter.isPositive) {
                                 publisherFilter.append(" AND NOT ")
                             } else {
                                 publisherFilter.append(" OR ")
@@ -101,29 +101,29 @@ class GetMediaListWithNotes @Inject constructor(
                         }
                         publisherFilter.append(" publisher = ${filter.id} ")
                     }
-                    FilterType.FILTERCOLUMN_CHECKBOX_THREE -> {
+                    FilterType.CheckboxThree -> {
                         if (notesFilter.isNotEmpty()) {
                             notesFilter.append(" AND ")
                         }
-                        if (!filterTypeIsPositive[filter.filterType]) {
+                        if (!filter.isPositive) {
                             notesFilter.append(" NOT ")
                         }
                         notesFilter.append(" media_notes.checkbox_3 = 1 ")
                     }
-                    FilterType.FILTERCOLUMN_CHECKBOX_ONE -> {
+                    FilterType.CheckboxOne -> {
                         if (notesFilter.isNotEmpty()) {
                             notesFilter.append(" AND ")
                         }
-                        if (!filterTypeIsPositive[filter.filterType]) {
+                        if (!filter.isPositive) {
                             notesFilter.append(" NOT ")
                         }
                         notesFilter.append(" media_notes.checkbox_1 = 1 ")
                     }
-                    FilterType.FILTERCOLUMN_CHECKBOX_TWO -> {
+                    FilterType.CheckboxTwo -> {
                         if (notesFilter.isNotEmpty()) {
                             notesFilter.append(" AND ")
                         }
-                        if (!filterTypeIsPositive[filter.filterType]) {
+                        if (!filter.isPositive) {
                             notesFilter.append(" NOT ")
                         }
                         notesFilter.append(" media_notes.checkbox_2 = 1 ")
