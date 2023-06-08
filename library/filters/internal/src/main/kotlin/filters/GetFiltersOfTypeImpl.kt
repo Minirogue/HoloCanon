@@ -10,10 +10,12 @@ internal class GetFiltersOfTypeImpl @Inject constructor(
     private val daoFilter: DaoFilter,
     private val getPermanentFilters: GetPermanentFilters,
 ) : GetFiltersOfType {
-    override operator fun invoke(typeId: Int): Flow<List<MediaFilter>> = daoFilter.getFiltersWithType(typeId).map {
-        val mediaFilters = it.map{fullFilter -> fullFilter.toMediaFilter()}
-        if (typeId == FilterType.FILTERCOLUMN_TYPE) {
-            mediaFilters.filter { mediaFilter -> mediaFilter !in getPermanentFilters() }
-        } else mediaFilters
-    }
+    override operator fun invoke(filterType: filters.FilterType): Flow<List<MediaFilter>> = daoFilter
+        .getFiltersWithType(filterType.legacyIntegerConversion)
+        .map {
+            val mediaFilters = it.map { fullFilter -> fullFilter.toMediaFilter() }
+            if (filterType.legacyIntegerConversion == FilterType.FILTERCOLUMN_TYPE) {
+                mediaFilters.filter { mediaFilter -> mediaFilter !in getPermanentFilters() }
+            } else mediaFilters
+        }
 }

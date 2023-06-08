@@ -2,6 +2,10 @@ apply from: "$rootProject.projectDir/base-gradles/android-library.gradle"
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 
+android {
+    namespace 'com.minirogue.filters.internal'
+}
+
 dependencies {
     // Project
     api project(":library:filters:public")

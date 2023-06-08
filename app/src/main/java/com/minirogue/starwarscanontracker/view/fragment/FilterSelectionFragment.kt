@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
 import com.minirogue.starwarscanontracker.databinding.FragmentFilterSelectionBinding
 import com.minirogue.starwarscanontracker.view.FilterChip
 import com.minirogue.starwarscanontracker.view.adapter.FilterSelectionAdapter
 import com.minirogue.starwarscanontracker.viewmodel.FilterSelectionViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import filters.FilterGroup
 import filters.MediaFilter
 
 @AndroidEntryPoint
@@ -50,8 +50,8 @@ class FilterSelectionFragment : Fragment() {
                 viewModel.flipFilterActive(mediaFilter)
             }
 
-            override fun setFilterGroupObservation(chipGroup: ChipGroup, filterType: FilterType) {
-                viewModel.getFiltersOfType(filterType).asLiveData(lifecycleScope.coroutineContext)
+            override fun setFilterGroupObservation(chipGroup: ChipGroup, filterGroup: FilterGroup) {
+                viewModel.getFiltersOfType(filterGroup.type).asLiveData(lifecycleScope.coroutineContext)
                     .observe(viewLifecycleOwner) { filters ->
                         chipGroup.removeAllViews()
                         filters.forEach {mediaFilter ->
@@ -69,8 +69,8 @@ class FilterSelectionFragment : Fragment() {
                     }
             }
 
-            override fun onFilterTypeSwitchClicked(filterType: FilterType) {
-                viewModel.flipFilterType(filterType)
+            override fun onFilterTypeSwitchClicked(filterGroup: FilterGroup) {
+                viewModel.flipFilterType(filterGroup)
             }
         })
         recyclerView.setHasFixedSize(false)
@@ -78,15 +78,15 @@ class FilterSelectionFragment : Fragment() {
         recyclerView.layoutManager = mLayoutManager
 
         viewModel.checkBoxVisibility.observe(viewLifecycleOwner) { visibility ->
-            val list = ArrayList<Int>()
+            val list = ArrayList<filters.FilterType>()
             if (!visibility[0]) {
-                list.add(FilterType.FILTERCOLUMN_CHECKBOX_ONE)
+                list.add(filters.FilterType.CheckboxOne)
             }
             if (!visibility[1]) {
-                list.add(FilterType.FILTERCOLUMN_CHECKBOX_TWO)
+                list.add(filters.FilterType.CheckboxTwo)
             }
             if (!visibility[2]) {
-                list.add(FilterType.FILTERCOLUMN_CHECKBOX_THREE)
+                list.add(filters.FilterType.CheckboxThree)
             }
             adapter.updateExcludedTypes(list)
         }

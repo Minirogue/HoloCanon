@@ -1,9 +1,6 @@
-apply from: "$rootProject.projectDir/base-gradles/android-library.gradle"
+apply from: "$rootProject.projectDir/base-gradles/kotlin-library.gradle"
 
 dependencies {
-    // Project
-    api project(":core")
-
     // Kotlin
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
 }
