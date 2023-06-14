@@ -41,7 +41,7 @@ class FilterSelectionViewModel @Inject constructor(
 
     }
 
-    fun getFiltersOfType(filterType: filters.FilterType): Flow<List<MediaFilter>> = getFiltersOfType(filterType)
+    fun getFiltersOfType(filterType: filters.FilterType): Flow<List<MediaFilter>> = getFiltersOfType.invoke(filterType)
 
     fun getActiveFilters() = getActiveFilters.invoke()
 
