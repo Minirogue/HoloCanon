@@ -5,8 +5,10 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.room.AutoMigration;
 import androidx.room.Database;
+import androidx.room.DeleteTable;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.AutoMigrationSpec;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
@@ -15,7 +17,6 @@ import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter;
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia;
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries;
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoType;
-import com.minirogue.starwarscanontracker.core.model.room.entity.Character;
 import com.minirogue.starwarscanontracker.core.model.room.entity.CompanyDto;
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject;
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType;
@@ -23,12 +24,12 @@ import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem;
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes;
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaTypeDto;
 import com.minirogue.starwarscanontracker.core.model.room.entity.Series;
-import com.minirogue.starwarscanontracker.core.model.room.join.MediaCharacterJoin;
 
-@Database(entities = {MediaItem.class, Character.class, MediaCharacterJoin.class, MediaNotes.class,
-        MediaTypeDto.class, Series.class, FilterObject.class, FilterType.class, CompanyDto.class},
-        version = 18,
-        autoMigrations = { @AutoMigration(from = 17, to = 18) }
+@Database(entities = {MediaItem.class, MediaNotes.class, MediaTypeDto.class, Series.class, FilterObject.class, FilterType.class,
+        CompanyDto.class},
+        version = 19,
+        autoMigrations = {@AutoMigration(from = 17, to = 18),
+                @AutoMigration(from = 18, to = 19, spec = MediaDatabase.AutoMigration18To19.class)}
 )
 
 public abstract class MediaDatabase extends RoomDatabase {
@@ -61,19 +62,13 @@ public abstract class MediaDatabase extends RoomDatabase {
         return databaseInstance;
     }
 
-    /**
-     * Due to an error while refactoring, a small portion of devices started using a database by the name "StarWars-room" instead of "StarWars-database".
-     * This method exists as a way to obtain the incorrect database to put its data into the correct database.
-     *
-     * @param name The name of the database to be obtained.
-     * @param ctx  Context
-     * @return The database that is saved under the given name.
-     */
-    public static MediaDatabase getDatabaseByName(String name, Context ctx) {
-        return Room.databaseBuilder(ctx.getApplicationContext(), MediaDatabase.class, name)
-                .addMigrations(MIGRATE_8_9, MIGRATE_9_10, MIGRATE_10_11, MIGRATE_11_12, MIGRATE_12_13,
-                        MIGRATE_13_14, MIGRATE_14_15, MIGRATE_15_16, MIGRATE_16_17)
-                .build();
+    @DeleteTable(tableName = "media_character_join")
+    @DeleteTable(tableName = "characters")
+    static class AutoMigration18To19 implements AutoMigrationSpec {
+        @Override
+        public void onPostMigrate(@NonNull SupportSQLiteDatabase db) {
+            AutoMigrationSpec.super.onPostMigrate(db);
+        }
     }
 
     final static Migration MIGRATE_16_17 = new Migration(16, 17) {
@@ -175,11 +170,4 @@ public abstract class MediaDatabase extends RoomDatabase {
             database.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'timeline' REAL NOT NULL DEFAULT 10000");
         }
     };
-
-
-// --Commented out by Inspection START (6/6/19 8:33 PM):
-//    public static void destroyInstance(){
-//        databaseInstance = null;
-//    }
-// --Commented out by Inspection STOP (6/6/19 8:33 PM)
 }

@@ -7,8 +7,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 
-import static androidx.room.ForeignKey.CASCADE;
-
 /**
  * defines a filter for the media list
  */
@@ -60,35 +58,4 @@ public class FilterObject {
             return otherObj.id == this.id && otherObj.filterType == this.filterType;
         }
     }
-
-    /*public static String getTextForType(int i) {
-        switch (i) {
-            case 1:
-                return "Movie";
-            case 2:
-                return "Novelization";
-            case 3:
-                return "Original Novel";
-            case 4:
-                return "Video Game";
-            case 5:
-                return "Youth";
-            case 6:
-                return "Audiobook";
-            case 7:
-                return "Comic Book";
-            case 8:
-                return "TPB";
-            case 9:
-                return "TV Season";
-            case 10:
-                return "TV Episode";
-            case 11:
-                return "Comic Adaptation";
-            case 12:
-                return "TPB Adaptation";
-            default:
-                return "MediaTypeNotFound";
-        }
-    }*/
 }
