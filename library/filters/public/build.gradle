@@ -1,0 +1,6 @@
+apply from: "$rootProject.projectDir/base-gradles/kotlin-library.gradle"
+
+dependencies {
+    // Kotlin
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+}

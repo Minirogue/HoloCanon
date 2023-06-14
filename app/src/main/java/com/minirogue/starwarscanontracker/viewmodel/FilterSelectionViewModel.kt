@@ -1,17 +1,17 @@
 package com.minirogue.starwarscanontracker.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.minirogue.starwarscanontracker.core.model.PrefsRepo
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
-import com.minirogue.starwarscanontracker.core.model.room.pojo.FullFilter
-import com.minirogue.starwarscanontracker.usecase.GetActiveFilters
 import com.minirogue.starwarscanontracker.usecase.GetAllFilterTypes
-import com.minirogue.starwarscanontracker.usecase.GetFiltersOfType
-import com.minirogue.starwarscanontracker.usecase.UpdateFilter
 import dagger.hilt.android.lifecycle.HiltViewModel
+import filters.FilterGroup
+import filters.GetActiveFilters
+import filters.GetFiltersOfType
+import filters.MediaFilter
+import filters.UpdateFilter
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,32 +26,27 @@ class FilterSelectionViewModel @Inject constructor(
     val filterTypes = getAllFilterTypes()
     val checkBoxVisibility = prefsRepo.checkBoxVisibility
 
-    fun flipFilterType(filterType: FilterType) {
-        filterType.isFilterPositive = !filterType.isFilterPositive
-        updateFilter(filterType)
+    fun flipFilterType(filterGroup: FilterGroup) = viewModelScope.launch {
+        updateFilter(filterGroup.copy (isFilterPositive = !filterGroup.isFilterPositive))
     }
 
-    fun flipFilterActive(filterObject: FilterObject) {
-        filterObject.active = !filterObject.active
-        updateFilter(filterObject)
+    fun flipFilterActive(mediaFilter: MediaFilter) = viewModelScope.launch {
+        val newMediaFilter = mediaFilter.copy(isActive = !mediaFilter.isActive)
+        updateFilter(newMediaFilter)
     }
 
-    fun setFilterInactive(filterObject: FilterObject) {
-        filterObject.active = false
-        updateFilter(filterObject)
+    fun setFilterInactive(mediaFilter: MediaFilter) = viewModelScope.launch {
+        val newMediaFilter = mediaFilter.copy(isActive = false)
+        updateFilter(newMediaFilter)
+
     }
 
-    fun getFiltersOfType(filterType: FilterType): Flow<List<FullFilter>> =
-        getFiltersOfType(filterType.typeId).map { filterList ->
-            filterList.map {
-                FullFilter(it, filterType.isFilterPositive)
-            }
-        }
+    fun getFiltersOfType(filterType: filters.FilterType): Flow<List<MediaFilter>> = getFiltersOfType.invoke(filterType)
 
     fun getActiveFilters() = getActiveFilters.invoke()
 
-    fun deactivateFilter(filterObject: FilterObject) {
-        filterObject.active = false
-        updateFilter(filterObject)
+    fun deactivateFilter(mediaFilter: MediaFilter) = viewModelScope.launch {
+       val newMediaFilter =  mediaFilter.copy(isActive = false)
+        updateFilter(newMediaFilter)
     }
 }

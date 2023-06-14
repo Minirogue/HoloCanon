@@ -1,33 +1,32 @@
 package com.minirogue.starwarscanontracker.view.adapter
 
-import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
 import com.minirogue.starwarscanontracker.databinding.FilterSelectionItemBinding
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
+import filters.FilterGroup
+import filters.MediaFilter
 
 class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.FilterTypeViewHolder>() {
 
     private lateinit var listener: OnClickListeners
-    private val typeList = mutableListOf<FilterType>()
-    private val isExpanded = SparseBooleanArray()
-    private val excludedTypes = ArrayList<Int>()
+    private val typeList = mutableListOf<FilterGroup>()
+    private val isExpanded = mutableMapOf<filters.FilterType, Boolean>()
+    private val excludedTypes = ArrayList<filters.FilterType>()
 
-    fun updateList(newList: List<FilterType>) {
+    fun updateList(newList: List<FilterGroup>) {
         typeList.clear()
         for (item in newList) {
-            if (item.typeId !in excludedTypes) {
+            if (item.type !in excludedTypes) {
                 typeList.add(item)
             }
         }
         notifyDataSetChanged()
     }
 
-    fun updateExcludedTypes(newExcludedTypes: List<Int>) {
+    fun updateExcludedTypes(newExcludedTypes: List<filters.FilterType>) {
         excludedTypes.clear()
         excludedTypes.addAll(newExcludedTypes)
         cleanTypeList()
@@ -36,7 +35,7 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
 
     private fun cleanTypeList() {
         for (type in typeList) {
-            if (type.typeId in excludedTypes) {
+            if (type.type in excludedTypes) {
                 typeList.remove(type)
             }
         }
@@ -47,9 +46,9 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
     }
 
     interface OnClickListeners {
-        fun onFilterClicked(filterObject: FilterObject)
-        fun onFilterTypeSwitchClicked(filterType: FilterType)
-        fun setFilterGroupObservation(chipGroup: ChipGroup, filterType: FilterType)
+        fun onFilterClicked(mediaFilter: MediaFilter)
+        fun onFilterTypeSwitchClicked(filterGroup: FilterGroup)
+        fun setFilterGroupObservation(chipGroup: ChipGroup, filterGroup: FilterGroup)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterTypeViewHolder {
@@ -60,7 +59,7 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
     override fun onBindViewHolder(holder: FilterTypeViewHolder, position: Int) {
         val currentItem = typeList[position]
         holder.itemView.setOnClickListener {
-            isExpanded.put(currentItem.typeId,
+            isExpanded.put(currentItem.type,
                 !getIsExpanded(currentItem)); notifyItemChanged(position)
         }
         holder.binding.filterTypeTextview.text = currentItem.text
@@ -76,7 +75,7 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
         // holder.itemView.setOnClickListener { listener.onFilterTypeClicked(currentItem) }
     }
 
-    private fun getIsExpanded(type: FilterType) = isExpanded.get(type.typeId, false)
+    private fun getIsExpanded(group: FilterGroup) = isExpanded[group.type] ?: false
 
     override fun getItemCount(): Int {
         return typeList.size

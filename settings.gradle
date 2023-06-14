@@ -3,6 +3,8 @@ include ':app'
 include ':usecase'
 include ':api'
 include ':library:core:public'
+include ':library:filters:internal'
+include ':library:filters:public'
 include ':library:holoclient:internal'
 include ':library:holoclient:public'
 

@@ -6,12 +6,14 @@ import androidx.lifecycle.*
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.core.model.PrefsRepo
 import com.minirogue.starwarscanontracker.core.model.SortStyle
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
 import com.minirogue.starwarscanontracker.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import filters.GetActiveFilters
+import filters.MediaFilter
+import filters.UpdateFilter
 import kotlinx.coroutines.*
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -112,8 +114,7 @@ class MediaListViewModel @Inject constructor(
         queryMutex.withLock {
             queryJob.cancelAndJoin()
             queryJob = launch {
-                val newListLiveData = getMediaListWithNotes(activeFilters.value?.map { it.filterObject }
-                    ?: ArrayList())
+                val newListLiveData = getMediaListWithNotes(activeFilters.value ?: emptyList())
                 withContext(Dispatchers.Main) {
                     dataMediator.removeSource(data)
                     data = newListLiveData
@@ -145,8 +146,8 @@ class MediaListViewModel @Inject constructor(
         return mediaTypeToString[typeId, ""]
     }
 
-    fun deactivateFilter(filterObject: FilterObject) = viewModelScope.launch(Dispatchers.Default) {
-        filterObject.active = false
-        updateFilter(filterObject)
+    fun deactivateFilter(mediaFilter: MediaFilter) = viewModelScope.launch {
+        val newMediaFilter = mediaFilter.copy(isActive = false)
+        updateFilter(newMediaFilter)
     }
 }
