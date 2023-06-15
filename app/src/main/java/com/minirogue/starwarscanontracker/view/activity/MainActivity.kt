@@ -11,11 +11,11 @@ import androidx.lifecycle.lifecycleScope
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.FilterUpdater
 import com.minirogue.starwarscanontracker.view.fragment.AboutFragment
-import com.minirogue.starwarscanontracker.view.fragment.SettingsFragment
 import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment
 import com.minirogue.usecase.UpdateMediaDatabaseUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import usecase.GetSettingsFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -26,6 +26,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var filterUpdater: FilterUpdater
+
+    @Inject
+    lateinit var getSettingsFragment: GetSettingsFragment
 
     override fun onResume() {
         super.onResume()
@@ -87,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         if (frag == null) {
             frag = when (tag) {
                 // CANON_LIST_TAG -> TabbedListContainerFragment()
-                SETTINGS_TAG -> SettingsFragment()
+                SETTINGS_TAG -> getSettingsFragment()
                 // HOME_TAG -> HomeFragment()
                 ABOUT_TAG -> AboutFragment()
                 // FILTERS_TAG -> FilterSelectionFragment()

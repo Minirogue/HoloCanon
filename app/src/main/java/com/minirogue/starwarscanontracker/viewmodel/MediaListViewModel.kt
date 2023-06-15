@@ -4,7 +4,6 @@ import android.app.Application
 import android.util.SparseArray
 import androidx.lifecycle.*
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
-import com.minirogue.starwarscanontracker.core.model.PrefsRepo
 import com.minirogue.starwarscanontracker.core.model.SortStyle
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
@@ -15,8 +14,14 @@ import filters.GetActiveFilters
 import filters.MediaFilter
 import filters.UpdateFilter
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import settings.usecase.GetCheckboxSettings
 import java.io.File
 import javax.inject.Inject
 
@@ -30,8 +35,8 @@ class MediaListViewModel @Inject constructor(
     getCheckboxText: GetCheckboxText,
     private val updateNotes: UpdateNotes,
     private val getMediaListWithNotes: GetMediaListWithNotes,
-    private val connMgr: MyConnectivityManager,
-    prefsRepo: PrefsRepo,
+    connMgr: MyConnectivityManager,
+    getCheckboxSettings: GetCheckboxSettings,
     application: Application,
 ) : ViewModel() {
 
@@ -53,7 +58,17 @@ class MediaListViewModel @Inject constructor(
 
     // Checkbox settings
     val checkBoxText = getCheckboxText.invoke()
-    val checkBoxVisibility: LiveData<BooleanArray> = prefsRepo.checkBoxVisibility
+    val checkBoxVisibility: Flow<BooleanArray> = getCheckboxSettings().map { checkboxSettings ->
+        booleanArrayOf(
+            checkboxSettings.checkbox1Setting.isInUse,
+            checkboxSettings.checkbox2Setting.isInUse,
+            checkboxSettings.checkbox3Setting.isInUse,
+        )
+    }
+
+    // Whether or not network calls are currently allowed. Used for fetching images.
+    val isNetworkAllowed: StateFlow<Boolean> = connMgr.isNetworkAllowed()
+        .stateIn(scope = viewModelScope, started = SharingStarted.Eagerly, initialValue = false)
 
     // Variables for handling exactly one query and sort job at a time
     private var queryJob: Job = Job()
@@ -64,9 +79,6 @@ class MediaListViewModel @Inject constructor(
     // The file where the current sorting method is stored
     private val sortCacheFileName = application.cacheDir.toString() + "/sortCache"
 
-    // Whether or not network calls are currently allowed. Used for fetching images.
-    fun isNetworkAllowed(): Boolean = connMgr.isNetworkAllowed()
-
     init {
         viewModelScope.launch { _sortStyle.postValue(getSavedSort()) }
         viewModelScope.launch(Dispatchers.Default) {
@@ -74,8 +86,10 @@ class MediaListViewModel @Inject constructor(
             mediaTypes.forEach { mediaTypeToString.put(it.id, it.text) }
         }
         dataMediator.addSource(activeFilters) { viewModelScope.launch { updateQuery() } }
-        dataMediator.addSource(getAllFilterTypes()
-            .asLiveData(viewModelScope.coroutineContext)) { viewModelScope.launch { updateQuery() } }
+        dataMediator.addSource(
+            getAllFilterTypes()
+                .asLiveData(viewModelScope.coroutineContext)
+        ) { viewModelScope.launch { updateQuery() } }
         sortedData.addSource(sortStyle) { viewModelScope.launch { sort(); saveSort() } }
         // dataMediator needs to be observed so the things it observes can trigger events
         sortedData.addSource(dataMediator) { }
@@ -130,8 +144,10 @@ class MediaListViewModel @Inject constructor(
             sortJob = launch {
                 val toBeSorted = data.value
                 if (toBeSorted != null) {
-                    val sorted = toBeSorted.sortedWith(_sortStyle.value
-                        ?: SortStyle(SortStyle.DEFAULT_STYLE, true))
+                    val sorted = toBeSorted.sortedWith(
+                        _sortStyle.value
+                            ?: SortStyle(SortStyle.DEFAULT_STYLE, true)
+                    )
                     sortedData.postValue(sorted)
                 }
             }

@@ -1,18 +1,17 @@
 package com.minirogue.starwarscanontracker.application
 
-import android.app.Application
-import android.content.SharedPreferences
 import android.net.ConnectivityManager
-import com.minirogue.starwarscanontracker.R
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import settings.usecase.ShouldSyncViaWifiOnly
 import javax.inject.Inject
 
 class MyConnectivityManager @Inject constructor(
     private val connMgr: ConnectivityManager,
-    private val prefs: SharedPreferences,
-    private val app: Application,
+    private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly,
 ) {
 
-    private fun unmeteredOnly(): Boolean = prefs.getBoolean(app.getString(R.string.setting_unmetered_sync_only), true)
+    private fun unmeteredOnly(): Flow<Boolean> = shouldSyncViaWifiOnly()
 
-    fun isNetworkAllowed(): Boolean = !connMgr.isActiveNetworkMetered || !unmeteredOnly()
+    fun isNetworkAllowed(): Flow<Boolean> = unmeteredOnly().map { !it || !connMgr.isActiveNetworkMetered }
 }

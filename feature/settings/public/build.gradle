@@ -1,0 +1,15 @@
+apply from: "$rootProject.projectDir/base-gradles/android-library.gradle"
+
+android {
+    namespace 'com.minirogue.holocanon.feature.settings'
+}
+
+dependencies {
+    // project files
+
+    // Android
+    api "androidx.fragment:fragment-ktx:$fragmentVersion"
+
+    // detekt
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
+}

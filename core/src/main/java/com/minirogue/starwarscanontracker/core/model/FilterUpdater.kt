@@ -1,25 +1,38 @@
 package com.minirogue.starwarscanontracker.core.model
 
+import android.content.Context
+import com.minirogue.starwarscanontracker.core.R
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoCompany
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoType
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import settings.usecase.GetCheckboxSettings
 import javax.inject.Inject
-import javax.inject.Named
 
 class FilterUpdater @Inject constructor(
     private val daoFilter: DaoFilter,
     private val daoType: DaoType,
     private val daoSeries: DaoSeries,
     private val daoCompany: DaoCompany,
-    @Named("checkboxes") private val injectedCheckboxText: Array<String>,
+    getCheckboxSettings: GetCheckboxSettings,
+    @ApplicationContext private val context: Context,
 ) {
+    private val checkboxText = getCheckboxSettings().map { checkboxSettings ->
+        listOf(
+            checkboxSettings.checkbox1Setting.name ?: context.getString(R.string.checkbox1_default_text),
+            checkboxSettings.checkbox2Setting.name ?: context.getString(R.string.checkbox2_default_text),
+            checkboxSettings.checkbox3Setting.name ?: context.getString(R.string.checkbox3_default_text),
+        )
+    }
 
     fun updateFilters() = GlobalScope.launch(Dispatchers.Default) {
         launch { updateSeriesFilters() }
@@ -103,6 +116,7 @@ class FilterUpdater @Inject constructor(
     }
 
     private suspend fun updateCheckboxFilters() = withContext(Dispatchers.Default) {
+        val injectedCheckboxText = checkboxText.first()
         var tempFilter: FilterObject?
         // add checkbox filters
         var insertWorked = daoFilter.insert(FilterType(FilterType.FILTERCOLUMN_CHECKBOX_ONE,

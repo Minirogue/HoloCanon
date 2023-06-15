@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
@@ -19,6 +21,7 @@ import com.minirogue.starwarscanontracker.viewmodel.FilterSelectionViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import filters.FilterGroup
 import filters.MediaFilter
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class FilterSelectionFragment : Fragment() {
@@ -54,7 +57,7 @@ class FilterSelectionFragment : Fragment() {
                 viewModel.getFiltersOfType(filterGroup.type).asLiveData(lifecycleScope.coroutineContext)
                     .observe(viewLifecycleOwner) { filters ->
                         chipGroup.removeAllViews()
-                        filters.forEach {mediaFilter ->
+                        filters.forEach { mediaFilter ->
                             if (!mediaFilter.isActive) {
                                 val filterChip = FilterChip(mediaFilter, fragmentContext)
                                 filterChip.setOnClickListener {
@@ -77,22 +80,28 @@ class FilterSelectionFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = mLayoutManager
 
-        viewModel.checkBoxVisibility.observe(viewLifecycleOwner) { visibility ->
-            val list = ArrayList<filters.FilterType>()
-            if (!visibility[0]) {
-                list.add(filters.FilterType.CheckboxOne)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+               launch {
+                   viewModel.checkboxSettings.collect { checkboxSettings ->
+                       val list = ArrayList<filters.FilterType>()
+                       if (!checkboxSettings.checkbox1Setting.isInUse) {
+                           list.add(filters.FilterType.CheckboxOne)
+                       }
+                       if (!checkboxSettings.checkbox2Setting.isInUse) {
+                           list.add(filters.FilterType.CheckboxTwo)
+                       }
+                       if (!checkboxSettings.checkbox3Setting.isInUse) {
+                           list.add(filters.FilterType.CheckboxThree)
+                       }
+                       adapter.updateExcludedTypes(list)
+                   }
+               }
+                launch {
+                    viewModel.filterTypes.collect { filterTypes -> adapter.updateList(filterTypes) }
+                }
             }
-            if (!visibility[1]) {
-                list.add(filters.FilterType.CheckboxTwo)
-            }
-            if (!visibility[2]) {
-                list.add(filters.FilterType.CheckboxThree)
-            }
-            adapter.updateExcludedTypes(list)
         }
-        viewModel.filterTypes.asLiveData(lifecycleScope.coroutineContext).observe(
-            viewLifecycleOwner
-        ) { filterTypes -> adapter.updateList(filterTypes) }
 
         return fragmentBinding.root
     }

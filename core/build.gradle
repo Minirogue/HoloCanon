@@ -25,6 +25,8 @@ hilt {
 }
 
 dependencies {
+    // Project
+    implementation project(":library:settings:public")
 
     // Kotlin
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"

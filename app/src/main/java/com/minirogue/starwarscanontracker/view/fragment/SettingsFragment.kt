@@ -29,7 +29,7 @@ class SettingsFragment :
     PreferenceFragmentCompat() {
 
     companion object {
-        private const val TAG = "SettingsFragment"
+        private const val TAG = "view.SettingsFragment"
     }
 
     @Inject

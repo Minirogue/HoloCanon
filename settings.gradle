@@ -2,11 +2,16 @@ include ':core'
 include ':app'
 include ':usecase'
 include ':api'
+include ':feature:settings:internal'
+include ':feature:settings:public'
+include ':library:compose-ext:public'
 include ':library:core:public'
 include ':library:filters:internal'
 include ':library:filters:public'
 include ':library:holoclient:internal'
 include ':library:holoclient:public'
+include ':library:settings:internal'
+include ':library:settings:public'
 
 buildCache {
     local {
