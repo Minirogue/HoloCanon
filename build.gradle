@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        kotlinVersion = '1.8.21'
+        kotlinVersion = '1.8.22'
         hiltVersion = '2.46.1'
         detektVersion = '1.23.0'
     }
