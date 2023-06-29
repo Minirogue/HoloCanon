@@ -27,10 +27,11 @@ import com.minirogue.starwarscanontracker.core.model.room.entity.Series;
 
 @Database(entities = {MediaItem.class, MediaNotes.class, MediaTypeDto.class, Series.class, FilterObject.class, FilterType.class,
         CompanyDto.class},
-        version = 19,
+        version = 20,
         autoMigrations = {@AutoMigration(from = 17, to = 18),
-                @AutoMigration(from = 18, to = 19, spec = MediaDatabase.AutoMigration18To19.class)}
-)
+                @AutoMigration(from = 18, to = 19, spec = MediaDatabase.AutoMigration18To19.class),
+                @AutoMigration(from = 19, to = 20)}
+        )
 
 public abstract class MediaDatabase extends RoomDatabase {
 

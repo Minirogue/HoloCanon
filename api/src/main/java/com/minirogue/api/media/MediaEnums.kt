@@ -4,48 +4,53 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-enum class MediaType {
+enum class MediaType(val legacyId: Int) {
     @SerialName("Movie")
-    MOVIE,
+    MOVIE(1),
 
     @SerialName("Novelization")
-    NOVELIZATION,
+    NOVELIZATION(2),
 
     @SerialName("Original Novel")
-    NOVEL,
+    NOVEL(3),
 
     @SerialName("Video Game")
-    GAME,
+    GAME(4),
 
     @SerialName("Youth")
-    YOUTH,
+    YOUTH(5),
 
     @SerialName("Reference")
-    REFERENCE,
+    REFERENCE(6),
 
     @SerialName("Comic Book")
-    COMIC,
+    COMIC(7),
 
     @SerialName("TPB")
-    TPB,
+    TPB(8),
 
     @SerialName("TV Season")
-    SEASON,
+    SEASON(9),
 
     @SerialName("TV Episode")
-    EPISODE,
+    EPISODE(10),
 
     @SerialName("Comic Adaptation")
-    COMIC_ADAPTATION,
+    COMIC_ADAPTATION(11),
 
     @SerialName("TPB Adaptation")
-    TPB_ADAPTATION,
+    TPB_ADAPTATION(12),
 
     @SerialName("Short")
-    SHORT,
+    SHORT(13),
 
     @SerialName("Audiobook")
-    AUDIOBOOK;
+    AUDIOBOOK(14);
+
+    fun getSerialname() = MediaType.serializer().descriptor.getElementName(ordinal)
+    companion object {
+        fun getFromLegacyId(legacyId: Int): MediaType? = values().firstOrNull { it.legacyId == legacyId }
+    }
 }
 
 @Serializable
