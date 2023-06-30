@@ -10,6 +10,7 @@ dependencies {
     // Project
     api project(":library:filters:public")
     implementation project(":core")
+    implementation project(":api")
 
     // Dependency Injection
     implementation "com.google.dagger:hilt-android:$hiltVersion"

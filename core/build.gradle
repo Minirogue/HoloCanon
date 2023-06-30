@@ -26,6 +26,7 @@ hilt {
 
 dependencies {
     // Project
+    implementation project(":api")
     implementation project(":library:settings:public")
 
     // Kotlin

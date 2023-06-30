@@ -2,11 +2,11 @@ package com.minirogue.starwarscanontracker.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.map
+import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaTypeDto
 import com.minirogue.starwarscanontracker.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +20,6 @@ class ViewMediaItemViewModel @Inject constructor(
     getCheckboxText: GetCheckboxText,
     private val getMedia: GetMedia,
     private val getNotesForMedia: GetNotesForMedia,
-    private val getMediaType: GetMediaType,
     private val updateNotes: UpdateNotes,
     connMgr: MyConnectivityManager,
     getCheckboxSettings: GetCheckboxSettings,
@@ -28,7 +27,7 @@ class ViewMediaItemViewModel @Inject constructor(
 
     lateinit var liveMediaItem: LiveData<MediaItem>
     lateinit var liveMediaNotes: LiveData<MediaNotes>
-    lateinit var liveMediaTypeDto: LiveData<MediaTypeDto?>
+    lateinit var liveMediaTypeDto: LiveData<MediaType?>
     val checkBoxText = getCheckboxText()
     val checkBoxVisibility = getCheckboxSettings().map { checkboxSettings ->
         booleanArrayOf(
@@ -42,9 +41,7 @@ class ViewMediaItemViewModel @Inject constructor(
     fun setItemId(itemId: Int) {
         liveMediaItem = getMedia(itemId)
         liveMediaNotes = getNotesForMedia(itemId)
-        liveMediaTypeDto = liveMediaItem.switchMap { mediaItem: MediaItem? ->
-            getMediaType(mediaItem?.type ?: -1)
-        }
+        liveMediaTypeDto = liveMediaItem.map { MediaType.getFromLegacyId(it.type) }
     }
 
     fun toggleCheckbox1() {

@@ -8,11 +8,10 @@ import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
+import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.FilterUpdater
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaTypeDto
-import com.minirogue.starwarscanontracker.usecase.GetAllMediaTypes
 import com.minirogue.usecase.UpdateMediaDatabaseUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import filters.GetFilter
@@ -20,7 +19,6 @@ import filters.UpdateFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
@@ -44,17 +42,13 @@ class SettingsFragment :
     @Inject
     lateinit var updateFilter: UpdateFilter
 
-    @Inject
-    lateinit var getAllMediaTypes: GetAllMediaTypes
-
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
 
 
         SetTypePreferences(
             requireActivity().applicationContext,
-            findPreference("permanent_filters")!!,
-            getAllMediaTypes
+            findPreference("permanent_filters")!!
         ).execute()
         val checkboxone =
             findPreference<EditTextPreference>(getString(R.string.checkbox1_default_text))
@@ -86,24 +80,25 @@ class SettingsFragment :
     class SetTypePreferences(
         ctx: Context,
         category: PreferenceCategory,
-        private val getAllMediaTypes: GetAllMediaTypes,
-    ) : AsyncTask<Void, Void, List<MediaTypeDto>>() {
+    ) : AsyncTask<Void, Void, Unit>() {
         private val ctxRef = WeakReference(ctx)
         private val catRef = WeakReference(category)
 
-        override fun doInBackground(vararg p0: Void?): List<MediaTypeDto> {
-            return ctxRef.get()?.let { runBlocking { getAllMediaTypes() } } ?: emptyList()
+        override fun doInBackground(vararg p0: Void?) {
+            return
         }
 
-        override fun onPostExecute(result: List<MediaTypeDto>?) {
+        override fun onPostExecute(result: Unit?) {
+            val types = MediaType.values()
             val ctx = ctxRef.get()
             if (ctx != null) {
-                for (type in result!!) {
+                for (type in types) {
+                    val text = type.getSerialname()
                     val newPref = CheckBoxPreference(ctx)
                     newPref.setDefaultValue(true)
-                    newPref.title = type.text
-                    newPref.key = type.text
-                    newPref.order = type.id
+                    newPref.title = text
+                    newPref.key = text
+                    newPref.order = type.legacyId
                     catRef.get()?.addPreference(newPref)
                 }
             }

@@ -3,6 +3,7 @@ package com.minirogue.starwarscanontracker.viewmodel
 import android.app.Application
 import android.util.SparseArray
 import androidx.lifecycle.*
+import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.core.model.SortStyle
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
@@ -30,7 +31,6 @@ import javax.inject.Inject
 class MediaListViewModel @Inject constructor(
     getActiveFilters: GetActiveFilters,
     getAllFilterTypes: GetAllFilterTypes,
-    private val getAllMediaTypes: GetAllMediaTypes,
     private val updateFilter: UpdateFilter,
     getCheckboxText: GetCheckboxText,
     private val updateNotes: UpdateNotes,
@@ -82,8 +82,8 @@ class MediaListViewModel @Inject constructor(
     init {
         viewModelScope.launch { _sortStyle.postValue(getSavedSort()) }
         viewModelScope.launch(Dispatchers.Default) {
-            val mediaTypes = getAllMediaTypes()
-            mediaTypes.forEach { mediaTypeToString.put(it.id, it.text) }
+            val mediaTypes = MediaType.values()
+            mediaTypes.forEach { mediaTypeToString.put(it.legacyId, it.getSerialname()) }
         }
         dataMediator.addSource(activeFilters) { viewModelScope.launch { updateQuery() } }
         dataMediator.addSource(

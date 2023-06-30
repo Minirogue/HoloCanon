@@ -2,10 +2,10 @@ package com.minirogue.starwarscanontracker.core.model
 
 import android.content.Context
 import com.minirogue.starwarscanontracker.core.R
+import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoCompany
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoType
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -20,7 +20,6 @@ import javax.inject.Inject
 
 class FilterUpdater @Inject constructor(
     private val daoFilter: DaoFilter,
-    private val daoType: DaoType,
     private val daoSeries: DaoSeries,
     private val daoCompany: DaoCompany,
     getCheckboxSettings: GetCheckboxSettings,
@@ -102,14 +101,15 @@ class FilterUpdater @Inject constructor(
             daoFilter.update(filterType)
         }
 
-        val mediaTypes = daoType.getAllMediaTypes()
+        val mediaTypes = MediaType.values()
         for (mediaType in mediaTypes) {
-            tempFilter = daoFilter.getFilter(mediaType.id, FilterType.FILTERCOLUMN_TYPE)?.filterObject
+            val displayText = mediaType.getSerialname()
+            tempFilter = daoFilter.getFilter(mediaType.legacyId, FilterType.FILTERCOLUMN_TYPE)?.filterObject
             if (tempFilter == null) {
-                tempFilter = FilterObject(mediaType.id, FilterType.FILTERCOLUMN_TYPE, false, mediaType.text)
+                tempFilter = FilterObject(mediaType.legacyId, FilterType.FILTERCOLUMN_TYPE, false, displayText)
                 daoFilter.insert(tempFilter)
             } else {
-                tempFilter.displayText = mediaType.text
+                tempFilter.displayText = displayText
                 daoFilter.update(tempFilter)
             }
         }

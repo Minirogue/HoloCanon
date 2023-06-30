@@ -16,10 +16,10 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.request.CachePolicy
+import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaTypeDto
 import com.minirogue.starwarscanontracker.databinding.FragmentViewMediaItemBinding
 import com.minirogue.starwarscanontracker.viewmodel.ViewMediaItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -105,8 +105,8 @@ class ViewMediaItemFragment : Fragment() {
         fragmentBinding.checkbox2.isChecked = notes.isBox2Checked
     }
 
-    private fun updateView(mediaTypeDto: MediaTypeDto?, fragmentBinding: FragmentViewMediaItemBinding) {
-        fragmentBinding.mediaType.text = mediaTypeDto?.text ?: ""
+    private fun updateView(mediaType: MediaType?, fragmentBinding: FragmentViewMediaItemBinding) {
+        fragmentBinding.mediaType.text = mediaType?.getSerialname() ?: ""
     }
 
     private fun makeShoppingMenu(item: MediaItem, fragmentBinding: FragmentViewMediaItemBinding) {
