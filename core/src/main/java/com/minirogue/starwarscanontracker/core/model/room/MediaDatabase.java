@@ -16,16 +16,14 @@ import com.minirogue.starwarscanontracker.core.model.room.dao.DaoCompany;
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter;
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia;
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries;
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoType;
 import com.minirogue.starwarscanontracker.core.model.room.entity.CompanyDto;
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject;
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType;
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem;
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes;
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaTypeDto;
 import com.minirogue.starwarscanontracker.core.model.room.entity.Series;
 
-@Database(entities = {MediaItem.class, MediaNotes.class, MediaTypeDto.class, Series.class, FilterObject.class, FilterType.class,
+@Database(entities = {MediaItem.class, MediaNotes.class, Series.class, FilterObject.class, FilterType.class,
         CompanyDto.class},
         version = 20,
         autoMigrations = {@AutoMigration(from = 17, to = 18),
@@ -41,8 +39,6 @@ public abstract class MediaDatabase extends RoomDatabase {
     private static MediaDatabase databaseInstance;
 
     public abstract DaoMedia getDaoMedia();
-
-    public abstract DaoType getDaoType();
 
     public abstract DaoSeries getDaoSeries();
 
