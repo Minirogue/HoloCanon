@@ -123,18 +123,7 @@ public class UpdateMediaDatabaseUseCase @Inject constructor(
 
     @Suppress("TooGenericExceptionCaught")
 
-    private suspend fun getTypeMap(): Map<MediaType, Int> = try {
-        val dtoTypes = database.daoType.getAllMediaTypes()
-        MediaType.values().associateWith { mediaType ->
-            val text = Json.encodeToString(mediaType).trimQuotes()
-            val dtoType = dtoTypes.firstOrNull { it.text == text }
-
-            dtoType?.id ?: database.daoType.insert(MediaTypeDto().apply { setText(text) }).toInt()
-        }
-    } catch (e: Exception) {
-        Log.e(TAG, "error getting type map: $e")
-        emptyMap()
-    }
+    private  fun getTypeMap(): Map<MediaType, Int> = MediaType.values().associateWith { it.legacyId }
 
     private fun String.trimQuotes() = this.trim('\"')
 }

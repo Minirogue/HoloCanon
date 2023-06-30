@@ -4,9 +4,9 @@ import android.content.SharedPreferences
 import android.util.SparseBooleanArray
 import androidx.lifecycle.LiveData
 import androidx.sqlite.db.SimpleSQLiteQuery
+import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoType
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
 import filters.FilterType
 import filters.MediaFilter
@@ -18,7 +18,6 @@ import javax.inject.Inject
 class GetMediaListWithNotes @Inject constructor(
     private val daoMedia: DaoMedia,
     private val daoFilter: DaoFilter,
-    private val daoType: DaoType,
     private val sharedPreferences: SharedPreferences,
 ) {
     /**
@@ -179,13 +178,13 @@ class GetMediaListWithNotes @Inject constructor(
      */
     private suspend fun getPermanentFiltersAsStringBuilder(): StringBuilder = withContext(Dispatchers.IO) {
         val permFiltersBuilder = StringBuilder()
-        for (type in daoType.getAllMediaTypes()) {
-            if (!sharedPreferences.getBoolean(type.text, true)) {
+        for (type in MediaType.values()) {
+            if (!sharedPreferences.getBoolean(type.getSerialname(), true)) {
                 if (permFiltersBuilder.isNotEmpty()) {
                     permFiltersBuilder.append(" AND ")
                 }
                 permFiltersBuilder.append(" NOT type = ")
-                permFiltersBuilder.append(type.id)
+                permFiltersBuilder.append(type.legacyId)
             }
         }
         permFiltersBuilder

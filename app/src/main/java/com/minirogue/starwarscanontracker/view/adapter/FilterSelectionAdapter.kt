@@ -34,11 +34,7 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
     }
 
     private fun cleanTypeList() {
-        for (type in typeList) {
-            if (type.type in excludedTypes) {
-                typeList.remove(type)
-            }
-        }
+        typeList.removeAll { it.type in excludedTypes }
     }
 
     fun setOnClickListeners(newListener: OnClickListeners) {
@@ -59,8 +55,10 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
     override fun onBindViewHolder(holder: FilterTypeViewHolder, position: Int) {
         val currentItem = typeList[position]
         holder.itemView.setOnClickListener {
-            isExpanded.put(currentItem.type,
-                !getIsExpanded(currentItem)); notifyItemChanged(position)
+            isExpanded.put(
+                currentItem.type,
+                !getIsExpanded(currentItem)
+            ); notifyItemChanged(position)
         }
         holder.binding.filterTypeTextview.text = currentItem.text
         holder.binding.typeSwitch.isChecked = currentItem.isFilterPositive

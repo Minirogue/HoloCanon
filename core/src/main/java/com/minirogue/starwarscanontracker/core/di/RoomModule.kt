@@ -21,11 +21,6 @@ object RoomModule {
     }
 
     @Provides
-    fun provideDaoType(database: MediaDatabase): DaoType {
-        return database.daoType
-    }
-
-    @Provides
     fun provideDaoFilter(database: MediaDatabase): DaoFilter {
         return database.daoFilter
     }

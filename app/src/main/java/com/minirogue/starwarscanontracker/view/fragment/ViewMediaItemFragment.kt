@@ -14,10 +14,10 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.request.CachePolicy
+import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaTypeDto
 import com.minirogue.starwarscanontracker.databinding.FragmentViewMediaItemBinding
 import com.minirogue.starwarscanontracker.viewmodel.ViewMediaItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,16 +37,15 @@ class ViewMediaItemFragment : Fragment() {
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
         if (bundleItemId != -1) viewModel.setItemId(bundleItemId)
-        viewModel.liveMediaItem.observe(viewLifecycleOwner, { item -> updateViews(item, fragmentBinding) })
-        viewModel.liveMediaNotes.observe(viewLifecycleOwner, { notes -> updateViews(notes, fragmentBinding) })
-        viewModel.liveMediaTypeDto.observe(viewLifecycleOwner, { mediaType -> updateView(mediaType, fragmentBinding) })
-        viewModel.checkBoxText.asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner, { arr ->
+        viewModel.liveMediaItem.observe(viewLifecycleOwner) { item -> updateViews(item, fragmentBinding) }
+        viewModel.liveMediaNotes.observe(viewLifecycleOwner) { notes -> updateViews(notes, fragmentBinding) }
+        viewModel.liveMediaTypeDto.observe(viewLifecycleOwner) { mediaType -> updateView(mediaType, fragmentBinding) }
+        viewModel.checkBoxText.asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner) { arr ->
             fragmentBinding.checkbox1.text = arr[0]
             fragmentBinding.checkbox2.text = arr[1]
             fragmentBinding.checkbox3.text = arr[2]
-        })
-        viewModel.checkBoxVisibility.observe(viewLifecycleOwner,
-            { visibilityArray -> updateViews(visibilityArray, fragmentBinding) })
+        }
+        viewModel.checkBoxVisibility.observe(viewLifecycleOwner) { visibilityArray -> updateViews(visibilityArray, fragmentBinding) }
 
         fragmentBinding.checkbox3.setOnClickListener { viewModel.toggleCheckbox3() }
         fragmentBinding.checkbox2.setOnClickListener { viewModel.toggleCheckbox2() }
@@ -96,8 +95,8 @@ class ViewMediaItemFragment : Fragment() {
         fragmentBinding.checkbox2.isChecked = notes.isBox2Checked
     }
 
-    private fun updateView(mediaTypeDto: MediaTypeDto?, fragmentBinding: FragmentViewMediaItemBinding) {
-        fragmentBinding.mediaType.text = mediaTypeDto?.text ?: ""
+    private fun updateView(mediaType: MediaType?, fragmentBinding: FragmentViewMediaItemBinding) {
+        fragmentBinding.mediaType.text = mediaType?.getSerialname() ?: ""
     }
 
     private fun makeShoppingMenu(item: MediaItem, fragmentBinding: FragmentViewMediaItemBinding) {
