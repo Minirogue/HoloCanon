@@ -28,7 +28,7 @@ import com.minirogue.starwarscanontracker.core.model.room.entity.Series;
         version = 20,
         autoMigrations = {@AutoMigration(from = 17, to = 18),
                 @AutoMigration(from = 18, to = 19, spec = MediaDatabase.AutoMigration18To19.class),
-                @AutoMigration(from = 19, to = 20)}
+                @AutoMigration(from = 19, to = 20, spec = MediaDatabase.AutoMigration19To20.class)}
         )
 
 public abstract class MediaDatabase extends RoomDatabase {
@@ -59,6 +59,13 @@ public abstract class MediaDatabase extends RoomDatabase {
         return databaseInstance;
     }
 
+    @DeleteTable(tableName = "media_types")
+    static class AutoMigration19To20 implements AutoMigrationSpec {
+        @Override
+        public void onPostMigrate(@NonNull SupportSQLiteDatabase db) {
+            AutoMigrationSpec.super.onPostMigrate(db);
+        }
+    }
     @DeleteTable(tableName = "media_character_join")
     @DeleteTable(tableName = "characters")
     static class AutoMigration18To19 implements AutoMigrationSpec {

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 20,
-    "identityHash": "1b2edee358ec43d25f64d18da577e1ef",
+    "identityHash": "ca8d08a4e127df0e34246ab40ede4dbd",
     "entities": [
       {
         "tableName": "media_items",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL DEFAULT '', `series` INTEGER NOT NULL, `author` TEXT NOT NULL DEFAULT '', `type` INTEGER NOT NULL, `description` TEXT NOT NULL DEFAULT '', `review` TEXT NOT NULL DEFAULT '', `image` TEXT NOT NULL DEFAULT '', `date` TEXT NOT NULL DEFAULT '99/99/9999', `timeline` REAL NOT NULL, `amazon_link` TEXT NOT NULL DEFAULT '', `amazon_stream` TEXT NOT NULL DEFAULT '', `publisher` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`type`) REFERENCES `media_types`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `title` TEXT NOT NULL DEFAULT '', `series` INTEGER NOT NULL, `author` TEXT NOT NULL DEFAULT '', `type` INTEGER NOT NULL, `description` TEXT NOT NULL DEFAULT '', `review` TEXT NOT NULL DEFAULT '', `image` TEXT NOT NULL DEFAULT '', `date` TEXT NOT NULL DEFAULT '99/99/9999', `timeline` REAL NOT NULL, `amazon_link` TEXT NOT NULL DEFAULT '', `amazon_stream` TEXT NOT NULL DEFAULT '', `publisher` INTEGER NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -121,19 +121,7 @@
             "createSql": "CREATE INDEX IF NOT EXISTS `index_media_items_series` ON `${TABLE_NAME}` (`series`)"
           }
         ],
-        "foreignKeys": [
-          {
-            "table": "media_types",
-            "onDelete": "NO ACTION",
-            "onUpdate": "NO ACTION",
-            "columns": [
-              "type"
-            ],
-            "referencedColumns": [
-              "id"
-            ]
-          }
-        ]
+        "foreignKeys": []
       },
       {
         "tableName": "media_notes",
@@ -184,32 +172,6 @@
             ]
           }
         ]
-      },
-      {
-        "tableName": "media_types",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `text` TEXT NOT NULL, PRIMARY KEY(`id`))",
-        "fields": [
-          {
-            "fieldPath": "id",
-            "columnName": "id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "text",
-            "columnName": "text",
-            "affinity": "TEXT",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": false,
-          "columnNames": [
-            "id"
-          ]
-        },
-        "indices": [],
-        "foreignKeys": []
       },
       {
         "tableName": "series",
@@ -362,7 +324,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1b2edee358ec43d25f64d18da577e1ef')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ca8d08a4e127df0e34246ab40ede4dbd')"
     ]
   }
 }
