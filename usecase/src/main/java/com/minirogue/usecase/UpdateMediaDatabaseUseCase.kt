@@ -1,48 +1,46 @@
 package com.minirogue.usecase
 
-import android.app.Application
 import android.net.ConnectivityManager
-import android.preference.PreferenceManager
 import android.util.Log
 import com.minirogue.api.media.Company
 import com.minirogue.api.media.MediaType
 import com.minirogue.api.media.StarWarsMedia
 import com.minirogue.holoclient.GetApiMediaVersion
 import com.minirogue.holoclient.GetMediaFromApi
-import com.minirogue.starwarscanontracker.core.R
 import com.minirogue.starwarscanontracker.core.model.FilterUpdater
 import com.minirogue.starwarscanontracker.core.model.room.MediaDatabase
 import com.minirogue.starwarscanontracker.core.model.room.entity.*
 import com.minirogue.starwarscanontracker.core.result.HoloResult
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import settings.usecase.GetAllSettings
+import settings.usecase.SetLatestDatabaseVersion
 import javax.inject.Inject
 
 private const val TAG = "UpdateMediaDatabase"
 
 public class UpdateMediaDatabaseUseCase @Inject constructor(
-    private val application: Application,
     private val filterUpdater: FilterUpdater,
     private val connectivityManager: ConnectivityManager,
     private val getApiMediaVersion: GetApiMediaVersion,
     private val getMediaFromApi: GetMediaFromApi,
     private val database: MediaDatabase,
+    private val getSettings: GetAllSettings,
+    private val setLatestDatabaseVersion: SetLatestDatabaseVersion,
 ) {
     suspend operator fun invoke(forced: Boolean = false) {
-        val prefs = PreferenceManager.getDefaultSharedPreferences(application)
-        val wifiOnly =
-            prefs.getBoolean(application.getString(R.string.setting_unmetered_sync_only), true)
+        val settings = getSettings().first()
+        val wifiOnly = settings.syncWifiOnly
+        val latestLocalVersion = settings.latestDatabaseVersion
         if (wifiOnly && connectivityManager.isActiveNetworkMetered) {
             return
         }
-        val latestVersion = (getApiMediaVersion() as? HoloResult.Success)?.value
+        val latestRemoteVersion = (getApiMediaVersion() as? HoloResult.Success)?.value?.toLong()
 
-        if (!forced && latestVersion?.toLong() == PreferenceManager
-                .getDefaultSharedPreferences(application)
-                .getLong(application.getString(R.string.current_database_version), 0)
-        ) {
+        if (!forced && latestRemoteVersion == latestLocalVersion) {
             return
         }
 
@@ -70,18 +68,11 @@ public class UpdateMediaDatabaseUseCase @Inject constructor(
                     if (insertSucceeded == -1L) daoMedia.update(it)
                     daoMedia.insert(MediaNotes(mediaId = it.id))
                 }
-        }
-
-        if (latestVersion != null) {
-            prefs.edit().apply {
-                putLong(
-                    application.getString(R.string.current_database_version),
-                    latestVersion.toLong()
-                )
-                apply()
+            if (latestRemoteVersion != null) {
+                setLatestDatabaseVersion(latestRemoteVersion)
             }
+            filterUpdater.updateFilters()
         }
-        filterUpdater.updateFilters()
     }
 
     private fun StarWarsMedia.toDTO(

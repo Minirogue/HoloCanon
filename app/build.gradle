@@ -85,6 +85,7 @@ dependencies {
     implementation project(":library:filters:internal")
     implementation project(":library:holoclient:internal")
     implementation project(":library:settings:internal")
+    implementation project(":library:coroutine-ext:public")
 
     // Android
     implementation "androidx.appcompat:appcompat:$appCompatVersion"

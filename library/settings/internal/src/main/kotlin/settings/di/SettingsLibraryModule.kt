@@ -16,8 +16,18 @@ import settings.usecase.GetAllSettings
 import settings.usecase.GetAllSettingsImpl
 import settings.usecase.GetCheckboxSettings
 import settings.usecase.GetCheckboxSettingsImpl
+import settings.usecase.GetPermanentFilterSettings
+import settings.usecase.GetPermanentFilterSettingsImpl
 import settings.usecase.ShouldSyncViaWifiOnly
 import settings.usecase.ShouldSyncViaWifiOnlyImpl
+import settings.usecase.UpdateCheckboxActive
+import settings.usecase.UpdateCheckboxActiveImpl
+import settings.usecase.UpdateCheckboxName
+import settings.usecase.UpdateCheckboxNameImpl
+import settings.usecase.UpdatePermanentFilterSettings
+import settings.usecase.UpdatePermanentFilterSettingsImpl
+import settings.usecase.UpdateWifiSetting
+import settings.usecase.UpdateWifiSettingImpl
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -43,6 +53,23 @@ internal interface SettingsLibraryModule {
 
     @Binds
     fun bindShouldSyncViaWifiOnly(shouldSyncViaWifiOnlyImpl: ShouldSyncViaWifiOnlyImpl): ShouldSyncViaWifiOnly
+
+    @Binds
+    fun bindUpdateCheckboxActive(updateCheckboxActiveImpl: UpdateCheckboxActiveImpl): UpdateCheckboxActive
+
+    @Binds
+    fun bindUpdateCheckboxName(updateCheckboxNameImpl: UpdateCheckboxNameImpl): UpdateCheckboxName
+
+    @Binds
+    fun bindGetPermanentFilterSettings(getPermanentFilterSettingsImpl: GetPermanentFilterSettingsImpl): GetPermanentFilterSettings
+
+    @Binds
+    fun bindUpdatePermanentFilterSettings(
+        updatePermanentFilterSettingsImpl: UpdatePermanentFilterSettingsImpl
+    ): UpdatePermanentFilterSettings
+
+    @Binds
+    fun bindUpdateWifiSetting(updateWifiSettingImpl: UpdateWifiSettingImpl) : UpdateWifiSetting
 
     companion object {
         @Singleton

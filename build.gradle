@@ -35,7 +35,7 @@ ext {
     coilVersion = '2.4.0'
     androidXTestVersion = '1.5.0'
     fragmentVersion = '1.5.7'
-    composeCompilerVersion = '1.4.7'
+    composeCompilerVersion = '1.4.8'
     composeBomVersion = '2023.04.01'
     datastoreVersion = '1.0.0'
 

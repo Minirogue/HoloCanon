@@ -9,6 +9,7 @@ android {
 dependencies {
     // Project
     api project(":library:filters:public")
+    implementation project(":library:settings:public")
     implementation project(":core")
     implementation project(":api")
 

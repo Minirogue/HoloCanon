@@ -19,7 +19,9 @@ dependencies {
     api project(":feature:settings:public")
 
     implementation project(":library:compose-ext:public")
+    implementation project(":library:coroutine-ext:public")
     implementation project(":library:settings:public")
+    implementation project(":usecase")
 
     // Dependency Injection
     implementation "com.google.dagger:hilt-android:$hiltVersion"

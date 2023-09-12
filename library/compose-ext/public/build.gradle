@@ -17,6 +17,8 @@ dependencies {
     def composeBom = platform("androidx.compose:compose-bom:$composeBomVersion")
     api composeBom
     api 'androidx.compose.material3:material3'
+    debugApi("androidx.compose.ui:ui-tooling")
+    api("androidx.compose.ui:ui-tooling-preview")
 
     // detekt
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
