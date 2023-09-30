@@ -3,8 +3,8 @@
 buildscript {
     ext {
         kotlinVersion = '1.8.22'
-        hiltVersion = '2.46.1'
-        detektVersion = '1.23.0'
+        hiltVersion = '2.48'
+        detektVersion = '1.23.1'
     }
 
     repositories {
@@ -13,7 +13,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath 'com.android.tools.build:gradle:8.0.2'
+        classpath 'com.android.tools.build:gradle:8.1.1'
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
     }
 }
@@ -30,7 +30,7 @@ detekt {
 ext {
     // Android
     appCompatVersion = '1.6.1'
-    lifecycleVersion = '2.6.1'
+    lifecycleVersion = '2.6.2'
     roomVersion = '2.5.2'
     coilVersion = '2.4.0'
     androidXTestVersion = '1.5.0'
@@ -41,7 +41,7 @@ ext {
 
     // Kotlin
     coroutinesVersion = '1.6.3-native-mt'
-    ktorVersion = '2.3.2'
+    ktorVersion = '2.3.4'
 
     // JVM
     jUnitVersion = '4.13.2'
