@@ -17,25 +17,25 @@ import settings.model.CheckboxSettings
 import java.io.IOException
 import javax.inject.Inject
 
-private const val userFilter1ActiveKey = "user_filter_1_active"
-private const val userFilter2ActiveKey = "user_filter_2_active"
-private const val userFilter3ActiveKey = "user_filter_3_active"
-private const val syncWifiOnlyKey = "sync_wifi_only"
-private const val checkbox1DefaultTextKey = "Completed"
-private const val checkbox2DefaultTextKey = "Wishlist"
-private const val checkbox3DefaultTextKey = "Owned"
-private const val databaseVersionKey = "current database version"
+private const val USER_FILTER_1_ACTIVE_KEY = "user_filter_1_active"
+private const val USER_FILTER_2_ACTIVE_KEY = "user_filter_2_active"
+private const val USER_FILTER_3_ACTIVE_KEY = "user_filter_3_active"
+private const val SYNC_WIFI_ONLY = "sync_wifi_only"
+private const val CHECKBOX_1_DEFAULT_TEXT_KEY = "Completed"
+private const val CHECKBOX_2_DEFAULT_TEXT_KEY = "Wishlist"
+private const val CHECKBOX_3_DEFAULT_TEXT_KEY = "Owned"
+private const val DATABASE_VERSION_KEY = "current database version"
 private const val TAG = "SettingsRepo"
 
 internal class SettingsRepo @Inject constructor(@Settings private val dataStore: DataStore<Preferences>) {
-    private val userFilter1ActivePreferenceKey = booleanPreferencesKey(userFilter1ActiveKey)
-    private val userFilter2ActivePreferenceKey = booleanPreferencesKey(userFilter2ActiveKey)
-    private val userFilter3ActivePreferenceKey = booleanPreferencesKey(userFilter3ActiveKey)
-    private val syncWifiOnlyPreferenceKey = booleanPreferencesKey(syncWifiOnlyKey)
-    private val checkbox1DefaultTextPreferenceKey = stringPreferencesKey(checkbox1DefaultTextKey)
-    private val checkbox2DefaultTextPreferenceKey = stringPreferencesKey(checkbox2DefaultTextKey)
-    private val checkbox3DefaultTextPreferenceKey = stringPreferencesKey(checkbox3DefaultTextKey)
-    private val databaseVersionPreferenceKey = longPreferencesKey(databaseVersionKey)
+    private val userFilter1ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_1_ACTIVE_KEY)
+    private val userFilter2ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_2_ACTIVE_KEY)
+    private val userFilter3ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_3_ACTIVE_KEY)
+    private val syncWifiOnlyPreferenceKey = booleanPreferencesKey(SYNC_WIFI_ONLY)
+    private val checkbox1DefaultTextPreferenceKey = stringPreferencesKey(CHECKBOX_1_DEFAULT_TEXT_KEY)
+    private val checkbox2DefaultTextPreferenceKey = stringPreferencesKey(CHECKBOX_2_DEFAULT_TEXT_KEY)
+    private val checkbox3DefaultTextPreferenceKey = stringPreferencesKey(CHECKBOX_3_DEFAULT_TEXT_KEY)
+    private val databaseVersionPreferenceKey = longPreferencesKey(DATABASE_VERSION_KEY)
 
     fun getSettings(): Flow<AllSettings> = dataStore.data.map { prefs ->
         AllSettings(

@@ -49,15 +49,18 @@ internal class SettingsFragment : Fragment() {
 
     private val viewModel by viewModels<SettingsViewModel>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-            ComposeView(requireContext()).apply {
-                setContent {
-                    val state = viewModel.state.collectAsState(SettingsState())
-                    HolocanonTheme {
-                        SettingsScreen(state)
-                    }
-                }
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View = ComposeView(requireContext()).apply {
+        setContent {
+            val state = viewModel.state.collectAsState(SettingsState())
+            HolocanonTheme {
+                SettingsScreen(state)
             }
+        }
+    }
 
     @Composable
     private fun SettingsScreen(state: State<SettingsState>) {
@@ -90,21 +93,19 @@ internal class SettingsFragment : Fragment() {
 
     @Composable
     private fun UserDefinedFilter(whichBox: Int, checkboxSetting: CheckboxSetting) {
-        Card(
-                modifier = Modifier
-                        .padding(8.dp)
-                        .fillMaxWidth()
-        ) {
-            Text(getString(R.string.settings_user_defined_filter, whichBox.toString()), style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(8.dp))
+        Card(modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth()) {
+            Text(text = getString(R.string.settings_user_defined_filter, whichBox.toString()),
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(8.dp))
             Divider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
             if (checkboxSetting.isInUse) {
-                Row(
-                        modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable { viewModel.showNameChangeDialog(whichBox) },
+                Row(modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { viewModel.showNameChangeDialog(whichBox) },
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                ) {
+                        verticalAlignment = Alignment.CenterVertically) {
                     Text(text = getString(R.string.settings_filter_name), modifier = Modifier.padding(8.dp))
                     Text(text = checkboxSetting.name
                             ?: "Error getting name", modifier = Modifier.padding(8.dp))
@@ -118,13 +119,13 @@ internal class SettingsFragment : Fragment() {
                     verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(text = getString(R.string.settings_include_filter), modifier = Modifier.padding(8.dp))
-                Switch(
-                        modifier = Modifier
-                                .padding(8.dp)
-                                .clickable { viewModel.setCheckboxActive(whichBox, !checkboxSetting.isInUse) },
+                Switch(modifier = Modifier
+                        .padding(8.dp)
+                        .clickable {
+                            viewModel.setCheckboxActive(whichBox, !checkboxSetting.isInUse)
+                                   },
                         checked = checkboxSetting.isInUse,
-                        onCheckedChange = null
-                )
+                        onCheckedChange = null)
             }
         }
     }
@@ -133,20 +134,34 @@ internal class SettingsFragment : Fragment() {
     @Composable
     private fun CheckboxNameChangeDialog(whichBox: Int, initialName: String) {
         var newName by remember { mutableStateOf(initialName) }
-        AlertDialog(onDismissRequest = { viewModel.dismissNameChangeDialog() },
+        AlertDialog(
+                onDismissRequest = { viewModel.dismissNameChangeDialog() },
                 confirmButton = {
-                    TextButton(onClick = { viewModel.setCheckboxName(whichBox, newName) }) { Text(text = getString(R.string.settings_save)) }
+                    TextButton(onClick = { viewModel.setCheckboxName(whichBox, newName) }) {
+                        Text(text = getString(R.string.settings_save))
+                    }
                 },
-                dismissButton = { TextButton(onClick = { viewModel.dismissNameChangeDialog() }) { Text(text = getString(R.string.settings_cancel)) } },
-                title = { Text(text = getString(R.string.settings_filter_name_change_text, whichBox.toString())) },
-                text = { OutlinedTextField(value = newName, onValueChange = { newName = it }, label = { Text(getString(R.string.settings_new_name)) }) }
-        )
+                dismissButton = {
+                    TextButton(onClick = { viewModel.dismissNameChangeDialog() }) {
+                        Text(text = getString(R.string.settings_cancel))
+                    }
+                },
+                title = {
+                    Text(text = getString(R.string.settings_filter_name_change_text, whichBox.toString()))
+                },
+                text = {
+                    OutlinedTextField(value = newName,
+                            onValueChange = { newName = it },
+                            label = { Text(getString(R.string.settings_new_name)) })
+                })
     }
 
     @Composable
     private fun IncludedMediaTypes(permanentFilters: Map<MediaType, Boolean>) {
         Card(modifier = Modifier.padding(8.dp)) {
-            Text(getString(R.string.settings_included_media_types), style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(8.dp))
+            Text(getString(R.string.settings_included_media_types),
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(8.dp))
             Divider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
             MediaType.values().forEach {
                 MediaTypePermanentFilter(it, permanentFilters[it] ?: true)
@@ -175,7 +190,11 @@ internal class SettingsFragment : Fragment() {
     @Composable
     fun DatabaseSyncSettings(wifiOnly: Boolean) {
         Card(modifier = Modifier.padding(8.dp)) {
-            Text(getString(R.string.settings_sync_settings), style = MaterialTheme.typography.titleMedium, modifier = Modifier.padding(8.dp))
+            Text(
+                    getString(R.string.settings_sync_settings),
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(8.dp),
+            )
             Divider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
             Row(
                     modifier = Modifier
@@ -185,10 +204,9 @@ internal class SettingsFragment : Fragment() {
                     verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(text = getString(R.string.settings_wifi_only_setting), modifier = Modifier.padding(8.dp))
-                Switch(
-                        modifier = Modifier
-                                .padding(8.dp)
-                                .clickable { viewModel.toggleWifiSetting(!wifiOnly) },
+                Switch(modifier = Modifier
+                        .padding(8.dp)
+                        .clickable { viewModel.toggleWifiSetting(!wifiOnly) },
                         checked = wifiOnly,
                         onCheckedChange = null
                 )

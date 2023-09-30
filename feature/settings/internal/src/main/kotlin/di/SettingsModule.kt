@@ -11,5 +11,5 @@ import usecase.GetSettingsFragmentImpl
 @InstallIn(ActivityComponent::class)
 internal interface SettingsModule {
     @Binds
-    fun provideGetSettingsFragment(getSettingsFragmentImpl: GetSettingsFragmentImpl): GetSettingsFragment
+    fun provideGetSettingsFragment(impl: GetSettingsFragmentImpl): GetSettingsFragment
 }

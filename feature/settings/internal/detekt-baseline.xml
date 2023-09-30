@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>LongParameterList:SettingsViewModel.kt$SettingsViewModel$( private val getCheckboxSettings: GetCheckboxSettings, private val updateCheckboxName: UpdateCheckboxName, private val updateCheckboxActive: UpdateCheckboxActive, private val getPermanentFilterSettings: GetPermanentFilterSettings, private val updatePermanentFilterSettings: UpdatePermanentFilterSettings, private val updateMediaDatabase: UpdateMediaDatabaseUseCase, private val updateWifiSetting: UpdateWifiSetting, private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly, )</ID>
+  </CurrentIssues>
+</SmellBaseline>
