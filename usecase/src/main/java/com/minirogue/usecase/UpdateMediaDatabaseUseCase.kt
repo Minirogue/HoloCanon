@@ -31,6 +31,7 @@ import javax.inject.Inject
 
 private const val TAG = "UpdateMediaDatabase"
 
+@Suppress("LongParameterList")
 public class UpdateMediaDatabaseUseCase @Inject constructor(
         private val filterUpdater: FilterUpdater,
         private val connectivityManager: ConnectivityManager,

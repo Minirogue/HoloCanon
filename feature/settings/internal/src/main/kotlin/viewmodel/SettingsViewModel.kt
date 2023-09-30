@@ -26,6 +26,7 @@ internal data class SettingsState(
         val wifiOnly: Boolean? = null,
 )
 
+@Suppress("LongParameterList")
 @HiltViewModel
 internal class SettingsViewModel @Inject constructor(
         private val getCheckboxSettings: GetCheckboxSettings,
