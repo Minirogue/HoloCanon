@@ -1,6 +1,5 @@
 package viewmodel
 
-import ApplicationScope
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.minirogue.api.media.MediaType
@@ -13,6 +12,7 @@ import kotlinx.coroutines.launch
 import settings.model.CheckboxSettings
 import settings.usecase.GetCheckboxSettings
 import settings.usecase.GetPermanentFilterSettings
+import settings.usecase.ShouldSyncViaWifiOnly
 import settings.usecase.UpdateCheckboxActive
 import settings.usecase.UpdateCheckboxName
 import settings.usecase.UpdatePermanentFilterSettings
@@ -20,22 +20,22 @@ import settings.usecase.UpdateWifiSetting
 import javax.inject.Inject
 
 internal data class SettingsState(
-    val checkboxSettings: CheckboxSettings? = null,
-    val nameChangeDialogShowing: Int? = null,
-    val permanentFilters: Map<MediaType, Boolean>? = null,
-    val wifiOnly: Boolean? = null,
+        val checkboxSettings: CheckboxSettings? = null,
+        val nameChangeDialogShowing: Int? = null,
+        val permanentFilters: Map<MediaType, Boolean>? = null,
+        val wifiOnly: Boolean? = null,
 )
 
 @HiltViewModel
 internal class SettingsViewModel @Inject constructor(
-    private val getCheckboxSettings: GetCheckboxSettings,
-    private val updateCheckboxName: UpdateCheckboxName,
-    private val updateCheckboxActive: UpdateCheckboxActive,
-    private val getPermanentFilterSettings: GetPermanentFilterSettings,
-    private val updatePermanentFilterSettings: UpdatePermanentFilterSettings,
-    private val updateMediaDatabase: UpdateMediaDatabaseUseCase,
-    private val updateWifiSetting: UpdateWifiSetting,
-    private val applicationScope: ApplicationScope,
+        private val getCheckboxSettings: GetCheckboxSettings,
+        private val updateCheckboxName: UpdateCheckboxName,
+        private val updateCheckboxActive: UpdateCheckboxActive,
+        private val getPermanentFilterSettings: GetPermanentFilterSettings,
+        private val updatePermanentFilterSettings: UpdatePermanentFilterSettings,
+        private val updateMediaDatabase: UpdateMediaDatabaseUseCase,
+        private val updateWifiSetting: UpdateWifiSetting,
+        private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly,
 ) : ViewModel() {
     private val _state = MutableStateFlow(SettingsState())
     val state: StateFlow<SettingsState> = _state
@@ -46,6 +46,9 @@ internal class SettingsViewModel @Inject constructor(
         }
         viewModelScope.launch {
             getPermanentFilterSettings().collect { newPermFilters -> _state.update { it.copy(permanentFilters = newPermFilters) } }
+        }
+        viewModelScope.launch {
+            shouldSyncViaWifiOnly().collect { wifiOnly -> _state.update { it.copy(wifiOnly = wifiOnly) } }
         }
     }
 
@@ -74,7 +77,5 @@ internal class SettingsViewModel @Inject constructor(
         updateWifiSetting(newValue)
     }
 
-    fun syncDatabase() = applicationScope.launch {
-        updateMediaDatabase(true)
-    }
+    fun syncDatabase() = updateMediaDatabase(true)
 }

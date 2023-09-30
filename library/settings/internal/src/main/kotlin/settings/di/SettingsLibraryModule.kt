@@ -18,6 +18,8 @@ import settings.usecase.GetCheckboxSettings
 import settings.usecase.GetCheckboxSettingsImpl
 import settings.usecase.GetPermanentFilterSettings
 import settings.usecase.GetPermanentFilterSettingsImpl
+import settings.usecase.SetLatestDatabaseVersion
+import settings.usecase.SetLatestDatabaseVersionImpl
 import settings.usecase.ShouldSyncViaWifiOnly
 import settings.usecase.ShouldSyncViaWifiOnlyImpl
 import settings.usecase.UpdateCheckboxActive
@@ -38,8 +40,8 @@ internal annotation class Settings
 private const val SETTINGS_DATASTORE_NAME = "settings"
 
 private val Context.datastore: DataStore<Preferences> by preferencesDataStore(
-    name = SETTINGS_DATASTORE_NAME,
-    produceMigrations = { context -> listOf(SharedPreferencesMigration({ PreferenceManager.getDefaultSharedPreferences(context) })) }
+        name = SETTINGS_DATASTORE_NAME,
+        produceMigrations = { context -> listOf(SharedPreferencesMigration({ PreferenceManager.getDefaultSharedPreferences(context) })) }
 )
 
 @Module
@@ -65,11 +67,14 @@ internal interface SettingsLibraryModule {
 
     @Binds
     fun bindUpdatePermanentFilterSettings(
-        updatePermanentFilterSettingsImpl: UpdatePermanentFilterSettingsImpl
+            updatePermanentFilterSettingsImpl: UpdatePermanentFilterSettingsImpl
     ): UpdatePermanentFilterSettings
 
     @Binds
-    fun bindUpdateWifiSetting(updateWifiSettingImpl: UpdateWifiSettingImpl) : UpdateWifiSetting
+    fun bindUpdateWifiSetting(updateWifiSettingImpl: UpdateWifiSettingImpl): UpdateWifiSetting
+
+    @Binds
+    fun bindSetDatabaseVersion(impl: SetLatestDatabaseVersionImpl): SetLatestDatabaseVersion
 
     companion object {
         @Singleton

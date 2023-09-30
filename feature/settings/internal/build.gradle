@@ -4,6 +4,7 @@ apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     namespace 'com.minirogue.holocanon.feature.settings.internal'
+    resourcePrefix 'settings'
 
     buildFeatures {
         compose true

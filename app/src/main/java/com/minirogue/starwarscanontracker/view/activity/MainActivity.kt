@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         // Update filters based one current information
         filterUpdater.updateFilters()
         // check for update to room
-        lifecycleScope.launch { updateMediaDatabaseUseCase() }
+        lifecycleScope.launch { updateMediaDatabaseUseCase.invoke() }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
