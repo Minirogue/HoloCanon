@@ -11,8 +11,9 @@ import android.widget.LinearLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
@@ -27,6 +28,7 @@ import com.minirogue.starwarscanontracker.view.viewBinding
 import com.minirogue.starwarscanontracker.viewmodel.MediaListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import filters.MediaFilter
+import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 
 @AndroidEntryPoint
@@ -76,7 +78,7 @@ class MediaListFragment : Fragment() {
         }
 
         override fun isNetworkAllowed(): Boolean {
-            return mediaListViewModel.isNetworkAllowed()
+            return mediaListViewModel.isNetworkAllowed.value
         }
     }
 
@@ -124,16 +126,23 @@ class MediaListFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = SWMListAdapter(adapterInterface).also {
                 mediaListViewModel.filteredMediaAndNotes.observe(viewLifecycleOwner) { mediaAndNotes -> it.submitList(mediaAndNotes) }
-                mediaListViewModel.checkBoxText.asLiveData(lifecycleScope.coroutineContext)
-                    .observe(viewLifecycleOwner) { newCheckBoxText -> it.updateCheckBoxText(newCheckBoxText) }
-                mediaListViewModel.checkBoxVisibility
-                    .observe(viewLifecycleOwner) { newIsCheckboxActive -> it.updateCheckBoxVisible(newIsCheckboxActive)
+                viewLifecycleOwner.lifecycleScope.launch {
+                    repeatOnLifecycle(Lifecycle.State.STARTED) {
+                        launch {
+                            mediaListViewModel.checkBoxText.collect { newCheckBoxText -> it.updateCheckBoxText(newCheckBoxText) }
+                        }
+                        launch {
+                            mediaListViewModel.checkBoxVisibility.collect { newIsCheckboxActive ->
+                                it.updateCheckBoxVisible(newIsCheckboxActive)
+                            }
+                        }
+                    }
                 }
-            }
-            setHasFixedSize(true)
-            addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
+                setHasFixedSize(true)
+                addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
 
-            FastScrollerBuilder(this).build()
+                FastScrollerBuilder(this).build()
+            }
         }
 
         mediaListViewModel.activeFilters.observe(viewLifecycleOwner) { filters: List<MediaFilter> -> setFilterChips(filters) }

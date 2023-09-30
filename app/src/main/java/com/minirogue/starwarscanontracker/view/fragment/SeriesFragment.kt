@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.request.CachePolicy
@@ -16,6 +18,8 @@ import com.minirogue.starwarscanontracker.databinding.FragmentSeriesBinding
 import com.minirogue.starwarscanontracker.view.adapter.SeriesListAdapter
 import com.minirogue.starwarscanontracker.viewmodel.SeriesViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SeriesFragment : Fragment() {
@@ -27,11 +31,18 @@ class SeriesFragment : Fragment() {
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
         if (bundleItemId != -1) viewModel.setSeriesId(bundleItemId)
-        viewModel.liveSeries.observe(viewLifecycleOwner) { series -> updateViews(series, fragmentBinding) }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.liveSeries.asFlow()
+                .combine(viewModel.isNetworkAllowed) { series, isNetworkAllowed -> Pair(series, isNetworkAllowed) }
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .collect { updateViews(it.first, it.second, fragmentBinding) }
+        }
         viewModel.liveSeriesNotes.observe(viewLifecycleOwner) { notes -> updateViews(notes, fragmentBinding) }
-        viewModel.checkBoxNames.asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner
+        viewModel.checkBoxNames.asLiveData(lifecycleScope.coroutineContext).observe(
+            viewLifecycleOwner
         ) { names -> setCheckBoxNames(names, fragmentBinding) }
-        viewModel.checkBoxVisibility.observe(viewLifecycleOwner
+        viewModel.checkBoxVisibility.asLiveData(lifecycleScope.coroutineContext).observe(
+            viewLifecycleOwner
         ) { visibility -> setCheckBoxVisibility(visibility, fragmentBinding) }
         fragmentBinding.checkbox3.setOnClickListener { viewModel.toggleCheckbox3() }
         fragmentBinding.checkbox2.setOnClickListener { viewModel.toggleCheckbox2() }
@@ -67,12 +78,12 @@ class SeriesFragment : Fragment() {
         fragmentBinding.checkbox3.text = names[2]
     }
 
-    private fun updateViews(series: Series, fragmentBinding: FragmentSeriesBinding) {
+    private fun updateViews(series: Series, isNetworkAllowed: Boolean, fragmentBinding: FragmentSeriesBinding) {
         fragmentBinding.seriesTitle.text = series.title
 
         fragmentBinding.seriesImage.load(series.imageURL) {
             placeholder(R.drawable.ic_launcher_foreground)
-            if (viewModel.isNetworkAllowed()) {
+            if (isNetworkAllowed) {
                 networkCachePolicy(CachePolicy.ENABLED)
             } else networkCachePolicy(CachePolicy.DISABLED)
         }
