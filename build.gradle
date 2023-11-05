@@ -32,7 +32,7 @@ ext {
     appCompatVersion = '1.6.1'
     lifecycleVersion = '2.6.2'
     roomVersion = '2.6.0'
-    coilVersion = '2.4.0'
+    coilVersion = '2.5.0'
     androidXTestVersion = '1.5.0'
     fragmentVersion = '1.6.1'
     composeCompilerVersion = '1.4.8'
