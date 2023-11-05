@@ -3,7 +3,7 @@
 buildscript {
     ext {
         kotlinVersion = '1.8.22'
-        hiltVersion = '2.48'
+        hiltVersion = '2.48.1'
         detektVersion = '1.23.2'
     }
 
@@ -41,7 +41,7 @@ ext {
 
     // Kotlin
     coroutinesVersion = '1.6.3-native-mt'
-    ktorVersion = '2.3.4'
+    ktorVersion = '2.3.5'
 
     // JVM
     jUnitVersion = '4.13.2'
@@ -49,8 +49,8 @@ ext {
 
     // Compilation versioning
     minSdkVersion = 21
-    compileSdkVersion = 33
-    targetSdkVersion = 33
+    compileSdkVersion = 34
+    targetSdkVersion = 34
     javaCompatibilityVersion = JavaVersion.VERSION_17.toString()
     javaCompatibilityVersionInt = 17
 }
