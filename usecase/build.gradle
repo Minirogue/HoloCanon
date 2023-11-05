@@ -16,6 +16,7 @@ dependencies {
     // project files
     implementation project(":core")
     implementation project(":library:holoclient:public")
+    implementation project(":library:settings:public")
 
     // Dependency Injection
     implementation "com.google.dagger:hilt-android:$hiltVersion"

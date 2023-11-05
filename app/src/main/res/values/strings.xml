@@ -6,7 +6,6 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">&appname;</string>
-    <string name="sync_online">Sync database now</string>
     <string name="media_title">Title</string>
     <string name="media_type">type</string>
 

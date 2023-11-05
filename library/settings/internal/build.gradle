@@ -1,0 +1,23 @@
+apply from: "$rootProject.projectDir/base-gradles/android-library.gradle"
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    namespace 'com.minirogue.library.settings.internal'
+}
+
+dependencies {
+    // Project
+    api project(":library:settings:public")
+
+    // Android
+    implementation "androidx.datastore:datastore-preferences:$datastoreVersion"
+    implementation "androidx.preference:preference-ktx:1.2.0"
+
+    // Dependency Injection
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+
+    // detekt
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
+}

@@ -2,7 +2,6 @@ package com.minirogue.starwarscanontracker.viewmodel
 
 import androidx.lifecycle.*
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
-import com.minirogue.starwarscanontracker.core.model.PrefsRepo
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.core.model.room.entity.Series
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
@@ -10,10 +9,12 @@ import com.minirogue.starwarscanontracker.usecase.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import settings.usecase.GetCheckboxSettings
 import javax.inject.Inject
 
 @Suppress("LongParameterList")
@@ -24,8 +25,8 @@ class SeriesViewModel @Inject constructor(
     private val getNotesBySeries: GetNotesBySeries,
     private val getMediaAndNotesForSeries: GetMediaAndNotesForSeries,
     private val setCheckboxForSeries: SetCheckboxForSeries,
-    prefsRepo: PrefsRepo,
-    private val connMgr: MyConnectivityManager,
+    connMgr: MyConnectivityManager,
+    getCheckboxSettings: GetCheckboxSettings,
 ) : ViewModel() {
 
     private var seriesId: Int = -1
@@ -33,7 +34,15 @@ class SeriesViewModel @Inject constructor(
     val seriesList = MediatorLiveData<List<MediaAndNotes>>()
     val liveSeriesNotes = MediatorLiveData<Array<Boolean>>()
     val checkBoxNames = getCheckboxText.invoke()
-    val checkBoxVisibility = prefsRepo.checkBoxVisibility
+    val checkBoxVisibility = getCheckboxSettings().map { checkboxSettings ->
+        booleanArrayOf(
+            checkboxSettings.checkbox1Setting.isInUse,
+            checkboxSettings.checkbox2Setting.isInUse,
+            checkboxSettings.checkbox3Setting.isInUse,
+        )
+    }
+    val isNetworkAllowed = connMgr.isNetworkAllowed()
+
     private val notesParsingMutex = Mutex()
 
     fun setSeriesId(seriesId: Int) {
@@ -107,6 +116,4 @@ class SeriesViewModel @Inject constructor(
             liveSeriesNotes.postValue(arrayOf(checkBoxOne.await(), checkBoxTwo.await(), checkBoxThree.await()))
         }
     }
-
-    fun isNetworkAllowed() = connMgr.isNetworkAllowed()
 }

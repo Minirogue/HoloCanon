@@ -1,0 +1,33 @@
+apply from: "$rootProject.projectDir/base-gradles/android-library.gradle"
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    namespace 'com.minirogue.holocanon.feature.settings.internal'
+    resourcePrefix 'settings'
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "$composeCompilerVersion"
+    }
+}
+
+dependencies {
+    // project files
+    api project(":feature:settings:public")
+
+    implementation project(":library:compose-ext:public")
+    implementation project(":library:coroutine-ext:public")
+    implementation project(":library:settings:public")
+    implementation project(":usecase")
+
+    // Dependency Injection
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+
+    // detekt
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
+}
