@@ -49,8 +49,8 @@ ext {
 
     // Compilation versioning
     minSdkVersion = 21
-    compileSdkVersion = 33
-    targetSdkVersion = 33
+    compileSdkVersion = 34
+    targetSdkVersion = 34
     javaCompatibilityVersion = JavaVersion.VERSION_17.toString()
     javaCompatibilityVersionInt = 17
 }
