@@ -1,6 +1,5 @@
 package com.minirogue.starwarscanontracker.usecase
 
-import android.content.SharedPreferences
 import android.util.SparseBooleanArray
 import androidx.lifecycle.LiveData
 import androidx.sqlite.db.SimpleSQLiteQuery
@@ -12,13 +11,15 @@ import filters.FilterType
 import filters.MediaFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
+import settings.usecase.GetPermanentFilterSettings
 import javax.inject.Inject
 
 class GetMediaListWithNotes @Inject constructor(
     private val daoMedia: DaoMedia,
     private val daoFilter: DaoFilter,
-    private val sharedPreferences: SharedPreferences,
+    private val getPermanentFilterSettings: GetPermanentFilterSettings,
 ) {
     /**
      * Returns LiveData containing a list of MediaAndNotes based on the given filters.
@@ -178,8 +179,9 @@ class GetMediaListWithNotes @Inject constructor(
      */
     private suspend fun getPermanentFiltersAsStringBuilder(): StringBuilder = withContext(Dispatchers.IO) {
         val permFiltersBuilder = StringBuilder()
+        val permanentFilterSettings = getPermanentFilterSettings().first()
         for (type in MediaType.values()) {
-            if (!sharedPreferences.getBoolean(type.getSerialname(), true)) {
+            if (permanentFilterSettings[type] == false) {
                 if (permFiltersBuilder.isNotEmpty()) {
                     permFiltersBuilder.append(" AND ")
                 }

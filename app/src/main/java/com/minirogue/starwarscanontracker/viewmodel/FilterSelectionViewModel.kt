@@ -2,7 +2,6 @@ package com.minirogue.starwarscanontracker.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.minirogue.starwarscanontracker.core.model.PrefsRepo
 import com.minirogue.starwarscanontracker.usecase.GetAllFilterTypes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import filters.FilterGroup
@@ -12,6 +11,7 @@ import filters.MediaFilter
 import filters.UpdateFilter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import settings.usecase.GetCheckboxSettings
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,11 +20,11 @@ class FilterSelectionViewModel @Inject constructor(
     private val getFiltersOfType: GetFiltersOfType,
     private val updateFilter: UpdateFilter,
     getAllFilterTypes: GetAllFilterTypes,
-    prefsRepo: PrefsRepo,
+    getCheckboxSettings: GetCheckboxSettings,
 ) : ViewModel() {
 
     val filterTypes = getAllFilterTypes()
-    val checkBoxVisibility = prefsRepo.checkBoxVisibility
+    val checkboxSettings = getCheckboxSettings()
 
     fun flipFilterType(filterGroup: FilterGroup) = viewModelScope.launch {
         updateFilter(filterGroup.copy (isFilterPositive = !filterGroup.isFilterPositive))

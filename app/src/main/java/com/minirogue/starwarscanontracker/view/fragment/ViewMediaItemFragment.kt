@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.request.CachePolicy
@@ -21,6 +23,8 @@ import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.databinding.FragmentViewMediaItemBinding
 import com.minirogue.starwarscanontracker.viewmodel.ViewMediaItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ViewMediaItemFragment : Fragment() {
@@ -37,15 +41,21 @@ class ViewMediaItemFragment : Fragment() {
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
         if (bundleItemId != -1) viewModel.setItemId(bundleItemId)
-        viewModel.liveMediaItem.observe(viewLifecycleOwner) { item -> updateViews(item, fragmentBinding) }
-        viewModel.liveMediaNotes.observe(viewLifecycleOwner) { notes -> updateViews(notes, fragmentBinding) }
-        viewModel.liveMediaTypeDto.observe(viewLifecycleOwner) { mediaType -> updateView(mediaType, fragmentBinding) }
-        viewModel.checkBoxText.asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner) { arr ->
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.liveMediaItem.asFlow()
+                .combine(viewModel.isNetworkAllowed) { item, isNetworkAllowed -> Pair(item, isNetworkAllowed) }
+                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
+                .collect { updateViews(it.first, it.second, fragmentBinding) }
+        }
+        viewModel.liveMediaNotes.observe(viewLifecycleOwner, { notes -> updateViews(notes, fragmentBinding) })
+        viewModel.liveMediaTypeDto.observe(viewLifecycleOwner, { mediaType -> updateView(mediaType, fragmentBinding) })
+        viewModel.checkBoxText.asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner, { arr ->
             fragmentBinding.checkbox1.text = arr[0]
             fragmentBinding.checkbox2.text = arr[1]
             fragmentBinding.checkbox3.text = arr[2]
-        }
-        viewModel.checkBoxVisibility.observe(viewLifecycleOwner) { visibilityArray -> updateViews(visibilityArray, fragmentBinding) }
+        })
+        viewModel.checkBoxVisibility.asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner,
+            { visibilityArray -> updateViews(visibilityArray, fragmentBinding) })
 
         fragmentBinding.checkbox3.setOnClickListener { viewModel.toggleCheckbox3() }
         fragmentBinding.checkbox2.setOnClickListener { viewModel.toggleCheckbox2() }
@@ -61,7 +71,7 @@ class ViewMediaItemFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun updateViews(item: MediaItem, fragmentBinding: FragmentViewMediaItemBinding) {
+    private fun updateViews(item: MediaItem, isNetworkAllowed: Boolean, fragmentBinding: FragmentViewMediaItemBinding) {
         fragmentBinding.mediaTitle.text = item.title
         fragmentBinding.descriptionTextview.text = if (item.description.isNotBlank()) {
             getString(R.string.description_header) + " " + item.description
@@ -69,7 +79,7 @@ class ViewMediaItemFragment : Fragment() {
         fragmentBinding.releaseDate.text = item.date
         fragmentBinding.imageCover.load(item.imageURL) {
             placeholder(R.drawable.ic_launcher_foreground)
-            if (viewModel.isNetworkAllowed()) {
+            if (isNetworkAllowed) {
                 networkCachePolicy(CachePolicy.ENABLED)
             } else networkCachePolicy(CachePolicy.DISABLED)
         }
