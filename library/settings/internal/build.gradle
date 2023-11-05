@@ -12,7 +12,7 @@ dependencies {
 
     // Android
     implementation "androidx.datastore:datastore-preferences:$datastoreVersion"
-    implementation "androidx.preference:preference-ktx:1.2.0"
+    implementation "androidx.preference:preference-ktx:1.2.1"
 
     // Dependency Injection
     implementation "com.google.dagger:hilt-android:$hiltVersion"
