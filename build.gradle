@@ -36,7 +36,7 @@ ext {
     androidXTestVersion = '1.5.0'
     fragmentVersion = '1.6.1'
     composeCompilerVersion = '1.4.8'
-    composeBomVersion = '2023.04.01'
+    composeBomVersion = '2023.10.01'
     datastoreVersion = '1.0.0'
 
     // Kotlin
