@@ -106,7 +106,7 @@ class ViewMediaItemFragment : Fragment() {
     }
 
     private fun updateView(mediaType: MediaType?, fragmentBinding: FragmentViewMediaItemBinding) {
-        fragmentBinding.mediaType.text = mediaType?.getSerialname() ?: ""
+        fragmentBinding.mediaType.text = mediaType?.getSerialName() ?: ""
     }
 
     private fun makeShoppingMenu(item: MediaItem, fragmentBinding: FragmentViewMediaItemBinding) {

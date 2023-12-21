@@ -1,8 +1,8 @@
 package com.minirogue.starwarscanontracker.core.model
 
 import android.content.Context
-import com.minirogue.starwarscanontracker.core.R
 import com.minirogue.api.media.MediaType
+import com.minirogue.starwarscanontracker.core.R
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoCompany
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
@@ -103,7 +103,7 @@ class FilterUpdater @Inject constructor(
 
         val mediaTypes = MediaType.values()
         for (mediaType in mediaTypes) {
-            val displayText = mediaType.getSerialname()
+            val displayText = mediaType.getSerialName()
             tempFilter = daoFilter.getFilter(mediaType.legacyId, FilterType.FILTERCOLUMN_TYPE)?.filterObject
             if (tempFilter == null) {
                 tempFilter = FilterObject(mediaType.legacyId, FilterType.FILTERCOLUMN_TYPE, false, displayText)
