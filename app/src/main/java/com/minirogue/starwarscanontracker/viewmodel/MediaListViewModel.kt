@@ -2,26 +2,38 @@ package com.minirogue.starwarscanontracker.viewmodel
 
 import android.app.Application
 import android.util.SparseArray
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.core.model.SortStyle
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
-import com.minirogue.starwarscanontracker.usecase.*
+import com.minirogue.starwarscanontracker.usecase.GetAllFilterTypes
+import com.minirogue.starwarscanontracker.usecase.GetCheckboxText
+import com.minirogue.starwarscanontracker.usecase.GetMediaListWithNotes
+import com.minirogue.starwarscanontracker.usecase.UpdateNotes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import filters.GetActiveFilters
 import filters.MediaFilter
 import filters.UpdateFilter
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import settings.usecase.GetCheckboxSettings
 import java.io.File
 import javax.inject.Inject
@@ -83,7 +95,7 @@ class MediaListViewModel @Inject constructor(
         viewModelScope.launch { _sortStyle.postValue(getSavedSort()) }
         viewModelScope.launch(Dispatchers.Default) {
             val mediaTypes = MediaType.values()
-            mediaTypes.forEach { mediaTypeToString.put(it.legacyId, it.getSerialname()) }
+            mediaTypes.forEach { mediaTypeToString.put(it.legacyId, it.getSerialName()) }
         }
         dataMediator.addSource(activeFilters) { viewModelScope.launch { updateQuery() } }
         dataMediator.addSource(
