@@ -1216,21 +1216,21 @@ ID,title,type,image,released,timeline,description,series,number,publisher
 1215,Nash's Firehawk Frenzy,Short,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,4/17/2023,,,Young Jedi Adventures,5,Disney
 1216,Taborr's Pirate Showdown,Short,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,4/24/2023,,,Young Jedi Adventures,6,Disney
 1217,Young Jedi Adventures (Season 1),TV Season,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,12/1/2023,,,Young Jedi Adventures,1,Disney
-1218,Jedi: Battle Scars,Original Novel,,3/7/2023,,,,,Random House Worlds
-1219,Return of the Jedi: The Battle of Endor,Youth,,3/7/2023,,,,,Disney-Lucasfilm Press
-1220,Hunters: Battle for the Arena,Youth,,3/7/2023,,,,,Disney-Lucasfilm Press
-1221,The High Republic: The Battle of Jedha,Audiobook,,1/3/2023,,,,,Random House Audio
-1222,The Booke of Boba Fett Junior Novel,Youth,,1/3/2023,,,,,Disney-Lucasfilm Press
-1223,The High Republic: Convergence,Original Novel,,11/22/2022,,,,,Del Rey Books
-1224,The High Republic: Quest for the Hidden City,Youth,,11/1/2022,,,,,Disney-Lucasfilm Press
-1225,The High Republic: Path of Deceit,Original Novel,,10/4/2022,,,,,Disney-Lucasfilm Press
-1226,The Princess and the Scoundrel,Original Novel,,8/16/2022,,,,,Del Rey Books
-1227,Padawan,Original Novel,,7/26/2022,,,,,Disney-Lucasfilm Press
-1228,Shadow of the Sith,Original Novel,,6/28/2022,,,,,Del Rey Books
-1229,The High Republic: The Eye of Darkness,Original Novel,,11/14/2023,,,,,Random House Worlds
-1230,"Young Jedi Adventures: Get Well, Nubs!",Youth,,7/18/2023,,,,,Golden Books
-1231,Inquisitor: Rise of the Red Blade,Original Novel,,7/18/2023,,,,,Random House Worlds
-1232,The High Republic: Path of Vengeance,Original Novel,,5/2/2023,,,,,Disney-Lucasfilm Press
-1233,Young Jedi Adventures: Jedi Training,Youth,,5/2/2023,,,,,Disney-Lucasfilm Press
-1234,The High Republic: Cataclysm,Original Novel,,4/4/2023,,,,,Random House Worlds
-1235,The High Republic: Quest for Planet X,Youth,,4/4/2023,,,,,Disney-Lucasfilm Press
+1218,Jedi: Battle Scars,Original Novel,https://minirogue.github.io/SWCovers/Novels/jedi_battle_scars.jpg,3/7/2023,,,,,Random House Worlds
+1219,Return of the Jedi: The Battle of Endor,Youth,https://minirogue.github.io/SWCovers/Youth/rotj_battle_of_endor.jpg,3/7/2023,,,,,Disney-Lucasfilm Press
+1220,Hunters: Battle for the Arena,Youth,https://minirogue.github.io/SWCovers/Youth/hunters_battle_for_the_arena.jpg,3/7/2023,,,,,Disney-Lucasfilm Press
+1221,The High Republic: The Battle of Jedha,Audiobook,https://minirogue.github.io/SWCovers/Novels/the_battle_of_jedha.jpg,1/3/2023,,,,,Random House Audio
+1222,The Booke of Boba Fett Junior Novel,Youth,https://minirogue.github.io/SWCovers/Youth/book_of_boba_fett_junior.jpg,1/3/2023,,,,,Disney-Lucasfilm Press
+1223,The High Republic: Convergence,Original Novel,https://minirogue.github.io/SWCovers/Novels/convergence.jpg,11/22/2022,,,,,Del Rey Books
+1224,The High Republic: Quest for the Hidden City,Youth,https://minirogue.github.io/SWCovers/Youth/quest_for_the_hidden_city.jpg,11/1/2022,,,,,Disney-Lucasfilm Press
+1225,The High Republic: Path of Deceit,Original Novel,https://minirogue.github.io/SWCovers/Novels/path_of_deceit.jpg,10/4/2022,,,,,Disney-Lucasfilm Press
+1226,The Princess and the Scoundrel,Original Novel,https://minirogue.github.io/SWCovers/Novels/the_princess_and_the_scoundrel.jpg,8/16/2022,,,,,Del Rey Books
+1227,Padawan,Original Novel,https://minirogue.github.io/SWCovers/Novels/padawan.jpg,7/26/2022,,,,,Disney-Lucasfilm Press
+1228,Shadow of the Sith,Original Novel,https://minirogue.github.io/SWCovers/Novels/shadow_of_the_sith.jpg,6/28/2022,,,,,Del Rey Books
+1229,The High Republic: The Eye of Darkness,Original Novel,https://minirogue.github.io/SWCovers/Novels/the_eye_of_darkness.jpg,11/14/2023,,,,,Random House Worlds
+1230,"Young Jedi Adventures: Get Well, Nubs!",Youth,https://minirogue.github.io/SWCovers/Youth/young_jedi_adventures_get_well_nubs.jpg,7/18/2023,,,,,Golden Books
+1231,Inquisitor: Rise of the Red Blade,Original Novel,https://minirogue.github.io/SWCovers/Novels/inquisitor_rise_of_the_red_blade.jpg,7/18/2023,,,,,Random House Worlds
+1232,The High Republic: Path of Vengeance,Original Novel,https://minirogue.github.io/SWCovers/Novels/path_of_vengeance.jpg,5/2/2023,,,,,Disney-Lucasfilm Press
+1233,Young Jedi Adventures: Jedi Training,Youth,https://minirogue.github.io/SWCovers/Youth/young_jedi_adventures_jedi_training.jpg,5/2/2023,,,,,Disney-Lucasfilm Press
+1234,The High Republic: Cataclysm,Original Novel,https://minirogue.github.io/SWCovers/Novels/cataclysm.jpg,4/4/2023,,,,,Random House Worlds
+1235,The High Republic: Quest for Planet X,Youth,https://minirogue.github.io/SWCovers/Youth/quest_for_planet_x.jpg,4/4/2023,,,,,Disney-Lucasfilm Press
