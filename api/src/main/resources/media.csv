@@ -378,7 +378,7 @@ ID,title,type,image,released,timeline,description,series,number,publisher
 377,Darth Vader #04,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_04.jpg,4/8/2015,1.0007,,Darth Vader,4,Marvel
 378,Darth Vader #05,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_05.jpg,5/14/2015,1.0008,,Darth Vader,5,Marvel
 379,Darth Vader #06,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_06.jpg,6/3/2015,1.0011,Darth vader squares off against Cylo's team of warriors as they are presented to Emperor Palpatine. Afterwards he gets some interesting information from Boba Fett; who is reporting back from his mission.,Darth Vader,6,Marvel
-380,Darth Vader #07,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_07.jpg,7/1/2015,1.0012,Vader and Aphra head to Tatooine for information regarding the boy named Skywalker. Then Vader heads to Son-Tuul to take care of some business with the Hutts. Some bounty hunters gather to discuss a potentially lucrative job. ,Darth Vader,7,Marvel
+380,Darth Vader #07,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_07.jpg,7/1/2015,1.0012,Vader and Aphra head to Tatooine for information regarding the boy named Skywalker. Then Vader heads to Son-Tuul to take care of some business with the Hutts. Some bounty hunters gather to discuss a potentially lucrative job.,Darth Vader,7,Marvel
 381,Darth Vader #08,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_08.jpg,8/5/2015,1.0014,Aphra and the bounty hunters she hired pull a heist on an imperial light cruiser. Of course; there is more to this heist than meets the eye.,Darth Vader,8,Marvel
 382,Darth Vader #09,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_09.jpg,9/9/2015,1.0016,"Vader ""helps"" track down the culprits responsible for the destruction of a star destroyer and the theft of its resources. Meanwhile Aphra looks for information about... a mortician?",Darth Vader,9,Marvel
 383,Darth Vader #10,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_10.jpg,10/7/2015,1.0018,,Darth Vader,10,Marvel
@@ -1180,13 +1180,57 @@ ID,title,type,image,released,timeline,description,series,number,publisher
 1179,Practice Makes Perfect,TV Episode,https://minirogue.github.io/SWCovers/TV/tales_of_the_jedi.jpg,10/26/2022,,,Tales of the Jedi,105,Disney
 1180,Resolve,TV Episode,https://minirogue.github.io/SWCovers/TV/tales_of_the_jedi.jpg,10/26/2022,,,Tales of the Jedi,106,Disney
 1181,Tales of the Jedi (Season 1),TV Season,https://minirogue.github.io/SWCovers/TV/tales_of_the_jedi.jpg,10/26/2022,,,Tales of the Jedi,1,Disney
-1182,Jedi: Survivor,Video Game,https://minirogue.github.io/SWCovers/VG/jedi_survivor.jpg,4/26/2023	,,,,,Electronic Arts
-1183,Part One: Master and Apprentice,TV Episode,,08/22/23,,,Ahsoka,101,Disney
-1184,Part Two: Toil and Trouble,TV Episode,,08/22/23,,,Ahsoka,102,Disney
-1185,Part Three: Time to Fly,TV Episode,,08/29/23,,,Ahsoka,103,Disney
-1186,Part Four: Fallen Jedi,TV Episode,,09/05/23,,,Ahsoka,104,Disney
-1187,Part Five: Shadow Warrior,TV Episode,,09/12/23,,,Ahsoka,105,Disney
-1188,"Part Six: Far, Far Away",TV Episode,,09/19/23,,,Ahsoka,106,Disney
-1189,Part Seven: Dreams and Madness,TV Episode,,09/26/23,,,Ahsoka,107,Disney
-1190,"Part Eight: The Jedi, the Witch and the Warlord",TV Episode,,10/03/23,,,Ahsoka,108,Disney
-1191,Ahsoka (Season 1),TV Season,,10/03/23,,,Ahsoka,1,Disney
+1182,Jedi: Survivor,Video Game,https://minirogue.github.io/SWCovers/VG/jedi_survivor.jpg,4/26/2023,,,,,Electronic Arts
+1183,Part One: Master and Apprentice,TV Episode,https://minirogue.github.io/SWCovers/TV/ahsoka.jpg,8/22/2023,,,Ahsoka,101,Disney
+1184,Part Two: Toil and Trouble,TV Episode,https://minirogue.github.io/SWCovers/TV/ahsoka.jpg,8/22/2023,,,Ahsoka,102,Disney
+1185,Part Three: Time to Fly,TV Episode,https://minirogue.github.io/SWCovers/TV/ahsoka.jpg,8/29/2023,,,Ahsoka,103,Disney
+1186,Part Four: Fallen Jedi,TV Episode,https://minirogue.github.io/SWCovers/TV/ahsoka.jpg,9/5/2023,,,Ahsoka,104,Disney
+1187,Part Five: Shadow Warrior,TV Episode,https://minirogue.github.io/SWCovers/TV/ahsoka.jpg,9/12/2023,,,Ahsoka,105,Disney
+1188,"Part Six: Far, Far Away",TV Episode,https://minirogue.github.io/SWCovers/TV/ahsoka.jpg,9/19/2023,,,Ahsoka,106,Disney
+1189,Part Seven: Dreams and Madness,TV Episode,https://minirogue.github.io/SWCovers/TV/ahsoka.jpg,9/26/2023,,,Ahsoka,107,Disney
+1190,"Part Eight: The Jedi, the Witch and the Warlord",TV Episode,https://minirogue.github.io/SWCovers/TV/ahsoka.jpg,10/3/2023,,,Ahsoka,108,Disney
+1191,Ahsoka (Season 1),TV Season,https://minirogue.github.io/SWCovers/TV/ahsoka.jpg,10/3/2023,,,Ahsoka,1,Disney
+1192,The Young Jedi/Yoda's Mission,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,5/4/2023,,,Young Jedi Adventures,101,Disney
+1193,Nash's race Day/The Lost Jedi,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,5/4/2023,,,Young Jedi Adventures,102,Disney
+1194,Get Well Nubs/The Junk Giant,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,5/4/2023,,,Young Jedi Adventures,103,Disney
+1195,Lys and the Snowy Mountain Rescue/Attack of the Training Droids,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,5/4/2023,,,Young Jedi Adventures,104,Disney
+1196,The Jellyfruit Pursuit/Creature Safari,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,5/4/2023,,,Young Jedi Adventures,105,Disney
+1197,Squadron/Forest Defenders,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,5/4/2023,,,Young Jedi Adventures,106,Disney
+1198,The Jedi and the Thief/The Missing Kibbin,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,5/4/2023,,,Young Jedi Adventures,107,Disney
+1199,The Girl and her Gargantua/The Show Must Go On,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,8/2/2023,,,Young Jedi Adventures,108,Disney
+1200,The Princess and the Jedi/Kai's Bad Day,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,8/2/2023,,,Young Jedi Adventures,109,Disney
+1201,Visitor's Day/The Growing Green Danger,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,8/2/2023,,,Young Jedi Adventures,110,Disney
+1202,The Ganguls/Bad Egg,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,8/2/2023,,,Young Jedi Adventures,111,Disney
+1203,Off the Rails/The Thieves of Tharnaka,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,8/2/2023,,,Young Jedi Adventures,112,Disney
+1204,Tree Troubles/Big Brother's Bounty,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,8/2/2023,,,Young Jedi Adventures,113,Disney
+1205,Charhound Chase/Creature Comforts,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,11/8/2023,,,Young Jedi Adventures,114,Disney
+1206,An Adventure with Yoda/The Talon Takeover,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,11/9/2023,,,Young Jedi Adventures,115,Disney
+1207,Mystery of the Opal Cave/Clash,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,11/10/2023,,,Young Jedi Adventures,116,Disney
+1208,Stuck in the Muck/Junkyard Sleepover,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,11/17/2023,,,Young Jedi Adventures,117,Disney
+1209,The Great Leaf Glide/The Harvest Feast,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,11/24/2023,,,Young Jedi Adventures,118,Disney
+1210,Life Day/Raxlo Strikes Back,TV Episode,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,12/1/2023,,,Young Jedi Adventures,119,Disney
+1211,Meet the Young Jedi,Short,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,3/27/2023,,,Young Jedi Adventures,1,Disney
+1212,Lys' Creature Caper,Short,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,3/27/2023,,,Young Jedi Adventures,2,Disney
+1213,Kai's Daring Droid Rescue,Short,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,3/27/2023,,,Young Jedi Adventures,3,Disney
+1214,Nubs and the Flower Fiasco,Short,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,4/3/2023,,,Young Jedi Adventures,4,Disney
+1215,Nash's Firehawk Frenzy,Short,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,4/17/2023,,,Young Jedi Adventures,5,Disney
+1216,Taborr's Pirate Showdown,Short,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,4/24/2023,,,Young Jedi Adventures,6,Disney
+1217,Young Jedi Adventures (Season 1),TV Season,https://minirogue.github.io/SWCovers/TV/young_jedi_adventures.jpg,12/1/2023,,,Young Jedi Adventures,1,Disney
+1218,Jedi: Battle Scars,Original Novel,,3/7/2023,,,,,Random House Worlds
+1219,Return of the Jedi: The Battle of Endor,Youth,,3/7/2023,,,,,Disney-Lucasfilm Press
+1220,Hunters: Battle for the Arena,Youth,,3/7/2023,,,,,Disney-Lucasfilm Press
+1221,The High Republic: The Battle of Jedha,Audiobook,,1/3/2023,,,,,Random House Audio
+1222,The Booke of Boba Fett Junior Novel,Youth,,1/3/2023,,,,,Disney-Lucasfilm Press
+1223,The High Republic: Convergence,Original Novel,,11/22/2022,,,,,Del Rey Books
+1224,The High Republic: Quest for the Hidden City,Youth,,11/1/2022,,,,,Disney-Lucasfilm Press
+1225,The High Republic: Path of Deceit,Original Novel,,10/4/2022,,,,,Disney-Lucasfilm Press
+1226,The Princess and the Scoundrel,Original Novel,,8/16/2022,,,,,Del Rey Books
+1227,Padawan,Original Novel,,7/26/2022,,,,,Disney-Lucasfilm Press
+1228,Shadow of the Sith,Original Novel,,6/28/2022,,,,,Del Rey Books
+1229,The High Republic: The Eye of Darkness,Original Novel,,11/14/2023,,,,,Random House Worlds
+1230,"Young Jedi Adventures: Get Well, Nubs!",Youth,,7/18/2023,,,,,Golden Books
+1231,Inquisitor: Rise of the Red Blade,Original Novel,,7/18/2023,,,,,Random House Worlds
+1232,The High Republic: Path of Vengeance,Original Novel,,5/2/2023,,,,,Disney-Lucasfilm Press
+1233,Young Jedi Adventures: Jedi Training,Youth,,5/2/2023,,,,,Disney-Lucasfilm Press
+1234,The High Republic: Cataclysm,Original Novel,,4/4/2023,,,,,Random House Worlds
+1235,The High Republic: Quest for Planet X,Youth,,4/4/2023,,,,,Disney-Lucasfilm Press
