@@ -17,3 +17,4 @@ app/release/*
 .idea
 keystore.properties
 *.jks
+build-cache
