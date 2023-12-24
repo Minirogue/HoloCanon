@@ -103,7 +103,7 @@ class UpdateFilters @Inject constructor(
         }
 
         for (mediaType in MediaType.entries) {
-            val displayText = mediaType.getSerialname()
+            val displayText = mediaType.getSerialName()
             tempFilter = daoFilter.getFilter(mediaType.legacyId, FilterType.FILTERCOLUMN_TYPE)?.filterObject
             if (tempFilter == null) {
                 tempFilter = FilterObject(mediaType.legacyId, FilterType.FILTERCOLUMN_TYPE, false, displayText)

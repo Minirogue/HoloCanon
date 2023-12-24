@@ -55,7 +55,7 @@ internal class SettingsRepo @Inject constructor(@Settings private val dataStore:
                 ),
                 syncWifiOnly = prefs[syncWifiOnlyPreferenceKey] ?: true,
                 permanentFilterSettings = MediaType.entries.associateWith {
-                    prefs[booleanPreferencesKey(it.getSerialname())] ?: true
+                    prefs[booleanPreferencesKey(it.getSerialName())] ?: true
                 },
                 latestDatabaseVersion = prefs[databaseVersionPreferenceKey] ?: 0L
         )
@@ -94,7 +94,7 @@ internal class SettingsRepo @Inject constructor(@Settings private val dataStore:
     suspend fun updatePermanentFilter(mediaType: MediaType, isActive: Boolean) {
         try {
             dataStore.edit { prefs ->
-                prefs[booleanPreferencesKey(mediaType.getSerialname())] = isActive
+                prefs[booleanPreferencesKey(mediaType.getSerialName())] = isActive
             }
         } catch (e: IOException) {
             Log.e(TAG, "error in updatePermanentFilter", e)

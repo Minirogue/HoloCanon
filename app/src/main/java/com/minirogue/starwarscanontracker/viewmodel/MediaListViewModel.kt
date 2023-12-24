@@ -94,7 +94,7 @@ class MediaListViewModel @Inject constructor(
     init {
         viewModelScope.launch { _sortStyle.postValue(getSavedSort()) }
         viewModelScope.launch(Dispatchers.Default) {
-            MediaType.entries.forEach { mediaTypeToString.put(it.legacyId, it.getSerialname()) }
+            MediaType.entries.forEach { mediaTypeToString.put(it.legacyId, it.getSerialName()) }
         }
         dataMediator.addSource(activeFilters) { viewModelScope.launch { updateQuery() } }
         dataMediator.addSource(

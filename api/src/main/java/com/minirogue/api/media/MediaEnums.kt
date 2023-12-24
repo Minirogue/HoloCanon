@@ -47,9 +47,9 @@ enum class MediaType(val legacyId: Int) {
     @SerialName("Audiobook")
     AUDIOBOOK(14);
 
-    fun getSerialname() = MediaType.serializer().descriptor.getElementName(ordinal)
+    fun getSerialName() = MediaType.serializer().descriptor.getElementName(ordinal)
     companion object {
-        fun getFromLegacyId(legacyId: Int): MediaType? = values().firstOrNull { it.legacyId == legacyId }
+        fun getFromLegacyId(legacyId: Int): MediaType? = entries.firstOrNull { it.legacyId == legacyId }
     }
 }
 
@@ -89,5 +89,11 @@ enum class Company {
     ELECTRONIC_ARTS,
 
     @SerialName("Golden Books")
-    GOLDEN_BOOKS;
+    GOLDEN_BOOKS,
+
+    @SerialName("Random House Audio")
+    RANDOM_HOUSE_AUDIO,
+
+    @SerialName("Random House Worlds")
+    RANDOM_HOUSE_WORLDS;
 }

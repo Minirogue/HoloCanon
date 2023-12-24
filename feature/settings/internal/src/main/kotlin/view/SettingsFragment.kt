@@ -179,7 +179,7 @@ internal class SettingsFragment : Fragment() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(mediaType.getSerialname())
+            Text(mediaType.getSerialName())
             Checkbox(
                     checked = isActive,
                     onCheckedChange = null,
