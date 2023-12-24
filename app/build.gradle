@@ -7,7 +7,7 @@ apply plugin: 'io.gitlab.arturbosch.detekt'
 def keystorePropsFile = rootProject.file('keystore.properties')
 def versionPropertiesFile = rootProject.file("version.properties")
 
-task bumpVersionCode {
+tasks.register('bumpVersionCode') {
     doLast {
         def versionProperties = new Properties()
         versionProperties.load(new FileInputStream(versionPropertiesFile))
@@ -40,7 +40,7 @@ android {
     def date = new Date()
     def verName = date.format('yy.M.d')
 
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "com.minirogue.starwarscanontracker"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -80,7 +80,6 @@ dependencies {
 
     // Project Modules
     implementation project(":core")
-    implementation project(":usecase")
     implementation project(":feature:settings:internal")
     implementation project(":library:filters:internal")
     implementation project(":library:holoclient:internal")

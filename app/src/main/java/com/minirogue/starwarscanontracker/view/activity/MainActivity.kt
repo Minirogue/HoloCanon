@@ -3,16 +3,14 @@ package com.minirogue.starwarscanontracker.view.activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.core.model.FilterUpdater
+import com.minirogue.starwarscanontracker.core.model.UpdateFilters
 import com.minirogue.starwarscanontracker.view.fragment.AboutFragment
 import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment
-import com.minirogue.usecase.UpdateMediaDatabaseUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import usecase.GetSettingsFragment
@@ -22,20 +20,20 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var updateMediaDatabaseUseCase: UpdateMediaDatabaseUseCase
+    lateinit var maybeUpdateMediaDatabase: MaybeUpdateMediaDatabase
 
     @Inject
-    lateinit var filterUpdater: FilterUpdater
+    lateinit var updateFilters: UpdateFilters
 
     @Inject
     lateinit var getSettingsFragment: GetSettingsFragment
 
     override fun onResume() {
         super.onResume()
-        // Update filters based one current information
-        filterUpdater.updateFilters()
-        // check for update to room
-        lifecycleScope.launch { updateMediaDatabaseUseCase.invoke() }
+        // Update filters based on current information
+        updateFilters()
+        // Update media database if needed.
+        lifecycleScope.launch { maybeUpdateMediaDatabase() }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,8 +44,8 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             // initialize the fragment to the entry fragment
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, TabbedListContainerFragment())
-                .commit()
+                    .replace(R.id.fragment_container, TabbedListContainerFragment())
+                    .commit()
         }
 
         // Set up the toolbar and navigation drawer
@@ -63,66 +61,50 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.toolbar_settings -> {
-                replaceFragment(SETTINGS_TAG)
+                navigateToToolbarOption(ToolbarOption.Settings)
                 true
             }
+
             R.id.toolbar_about -> {
-                replaceFragment(ABOUT_TAG)
+                navigateToToolbarOption(ToolbarOption.About)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     /**
-     * Replaces the displayed fragment with one associated to the given tag.
+     * Replaces the displayed fragment with one associated to a [ToolbarOption].
      *
-     *
-     * Checks to see if a Fragment associated to the tag already exists, then replaces the displayed
-     * fragment with that one, if it exists, or a new Fragment of the appropriate type.
-     *
-     * @param tag a String associated to the type of Fragment that is to be displayed
+     * Checks to see if a Fragment associated to [toolbarOption] exists, then replaces the displayed
+     * fragment with that one, or a new Fragment if necessary.
      */
-    private fun replaceFragment(tag: String) {
+    private fun navigateToToolbarOption(toolbarOption: ToolbarOption) {
         // Check if an instance of the desired Fragment already exists somewhere on the backstack
-        var frag = supportFragmentManager.findFragmentByTag(tag)
+        var frag = supportFragmentManager.findFragmentByTag(toolbarOption.fragmentTag)
         // If the fragment doesn't already exist, create a new one
         if (frag == null) {
-            frag = when (tag) {
-                // CANON_LIST_TAG -> TabbedListContainerFragment()
-                SETTINGS_TAG -> getSettingsFragment()
-                // HOME_TAG -> HomeFragment()
-                ABOUT_TAG -> AboutFragment()
-                // FILTERS_TAG -> FilterSelectionFragment()
-                MAIN_TABBED -> TabbedListContainerFragment()
-                else -> {
-                    Toast.makeText(applicationContext, "Not yet implemented", Toast.LENGTH_SHORT).show()
-                    return
-                }
+            frag = when (toolbarOption) {
+                ToolbarOption.Settings -> getSettingsFragment()
+                ToolbarOption.About -> AboutFragment()
             }
         }
-        // Call the function to actually replace the fragment
-        replaceFragment(frag, tag)
+        // Replace the fragment
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, frag, toolbarOption.fragmentTag)
+                .addToBackStack(null)
+                .commit()
     }
 
-    /**
-     * Performs the actual logic of replacing the active Fragment.
-     *
-     * @param newFrag the fragment to be displayed
-     * @param tag     the tag to associate to newFrag
-     */
-    private fun replaceFragment(newFrag: Fragment, tag: String) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, newFrag, tag)
-            .addToBackStack(null)
-            .commit()
+    private enum class ToolbarOption(val fragmentTag: String) {
+        Settings(SETTINGS_TAG), About(ABOUT_TAG);
     }
 
     companion object {
-
-        // the following are definitions for the tags associated to each of the main Fragments
+        // The following are definitions for the tags associated to the fragments called from the
+        // toolbar options.
         private const val SETTINGS_TAG = "settings"
         private const val ABOUT_TAG = "about"
-        private const val MAIN_TABBED = "main_tabbed"
     }
 }

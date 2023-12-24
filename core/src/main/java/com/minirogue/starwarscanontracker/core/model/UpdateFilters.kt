@@ -18,29 +18,30 @@ import kotlinx.coroutines.withContext
 import settings.usecase.GetCheckboxSettings
 import javax.inject.Inject
 
-class FilterUpdater @Inject constructor(
-    private val daoFilter: DaoFilter,
-    private val daoSeries: DaoSeries,
-    private val daoCompany: DaoCompany,
-    getCheckboxSettings: GetCheckboxSettings,
-    @ApplicationContext private val context: Context,
+class UpdateFilters @Inject constructor(
+        private val daoFilter: DaoFilter,
+        private val daoSeries: DaoSeries,
+        private val daoCompany: DaoCompany,
+        getCheckboxSettings: GetCheckboxSettings,
+        @ApplicationContext private val context: Context,
 ) {
     private val checkboxText = getCheckboxSettings().map { checkboxSettings ->
         listOf(
-            checkboxSettings.checkbox1Setting.name ?: context.getString(R.string.checkbox1_default_text),
-            checkboxSettings.checkbox2Setting.name ?: context.getString(R.string.checkbox2_default_text),
-            checkboxSettings.checkbox3Setting.name ?: context.getString(R.string.checkbox3_default_text),
+                checkboxSettings.checkbox1Setting.name
+                        ?: context.getString(R.string.checkbox1_default_text),
+                checkboxSettings.checkbox2Setting.name
+                        ?: context.getString(R.string.checkbox2_default_text),
+                checkboxSettings.checkbox3Setting.name
+                        ?: context.getString(R.string.checkbox3_default_text),
         )
     }
 
-    fun updateFilters() = GlobalScope.launch(Dispatchers.Default) {
+    operator fun invoke() = GlobalScope.launch(Dispatchers.Default) {
         launch { updateSeriesFilters() }
         launch { updateCheckboxFilters() }
         launch { updateMediaTypeFilters() }
         launch { updatePublisherFilters() }
     }
-
-    fun updateJustCheckboxFilters() = GlobalScope.launch(Dispatchers.Default) { updateCheckboxFilters() }
 
     private suspend fun updatePublisherFilters() = withContext(Dispatchers.Default) {
         var tempFilter: FilterObject?
@@ -101,8 +102,7 @@ class FilterUpdater @Inject constructor(
             daoFilter.update(filterType)
         }
 
-        val mediaTypes = MediaType.values()
-        for (mediaType in mediaTypes) {
+        for (mediaType in MediaType.entries) {
             val displayText = mediaType.getSerialName()
             tempFilter = daoFilter.getFilter(mediaType.legacyId, FilterType.FILTERCOLUMN_TYPE)?.filterObject
             if (tempFilter == null) {
@@ -120,8 +120,8 @@ class FilterUpdater @Inject constructor(
         var tempFilter: FilterObject?
         // add checkbox filters
         var insertWorked = daoFilter.insert(FilterType(FilterType.FILTERCOLUMN_CHECKBOX_ONE,
-            true,
-            injectedCheckboxText[0]))
+                true,
+                injectedCheckboxText[0]))
         if (insertWorked < 0) {
             val filterType = daoFilter.getFilterType(FilterType.FILTERCOLUMN_CHECKBOX_ONE)
             filterType.text = injectedCheckboxText[0]
@@ -153,8 +153,8 @@ class FilterUpdater @Inject constructor(
         }
 
         insertWorked = daoFilter.insert(FilterType(FilterType.FILTERCOLUMN_CHECKBOX_THREE,
-            true,
-            injectedCheckboxText[2]))
+                true,
+                injectedCheckboxText[2]))
         if (insertWorked < 0) {
             val filterType = daoFilter.getFilterType(FilterType.FILTERCOLUMN_CHECKBOX_THREE)
             filterType.text = injectedCheckboxText[2]

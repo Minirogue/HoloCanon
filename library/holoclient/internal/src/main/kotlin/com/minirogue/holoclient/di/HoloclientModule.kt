@@ -1,9 +1,7 @@
 package com.minirogue.holoclient.di
 
-import com.minirogue.holoclient.GetApiMediaVersion
-import com.minirogue.holoclient.GetMediaFromApi
-import com.minirogue.holoclient.api.GetApiMediaVersionImpl
-import com.minirogue.holoclient.api.GetMediaFromApiImpl
+import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
+import com.minirogue.holoclient.usecase.UpdateMediaDatabaseUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,8 +11,5 @@ import dagger.hilt.components.SingletonComponent
 @Module
 internal interface HoloclientModule {
     @Binds
-    fun bindGetMediaFromApi(getMediaFromApiImpl: GetMediaFromApiImpl): GetMediaFromApi
-
-    @Binds
-    fun bindGetApiMediaVersion(getApiMediaVersionImpl: GetApiMediaVersionImpl): GetApiMediaVersion
+    fun bindMaybeUpdateMediaDatabase(impl: UpdateMediaDatabaseUseCase): MaybeUpdateMediaDatabase
 }

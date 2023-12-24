@@ -17,9 +17,9 @@ import settings.usecase.GetPermanentFilterSettings
 import javax.inject.Inject
 
 class GetMediaListWithNotes @Inject constructor(
-    private val daoMedia: DaoMedia,
-    private val daoFilter: DaoFilter,
-    private val getPermanentFilterSettings: GetPermanentFilterSettings,
+        private val daoMedia: DaoMedia,
+        private val daoFilter: DaoFilter,
+        private val getPermanentFilterSettings: GetPermanentFilterSettings,
 ) {
     /**
      * Returns LiveData containing a list of MediaAndNotes based on the given filters.
@@ -42,7 +42,7 @@ class GetMediaListWithNotes @Inject constructor(
      * @param filterList the list of Filters to apply to the query
      */
     private suspend fun convertFiltersToQuery(filterList: List<MediaFilter>): SimpleSQLiteQuery = withContext(
-        Dispatchers.Default) {
+            Dispatchers.Default) {
         val gettingPermanentFilters = async { getPermanentFiltersAsStringBuilder() }
         val filterTypeIsPositive = SparseBooleanArray()
         for (filterType in daoFilter.getAllFilterTypesNonLive()) {
@@ -72,6 +72,7 @@ class GetMediaListWithNotes @Inject constructor(
                         seriesFilter.append(" series = ")
                         seriesFilter.append(filter.id)
                     }
+
                     FilterType.MediaType -> {
                         if (typeFilter.isEmpty()) {
                             if (!filter.isPositive) {
@@ -87,6 +88,7 @@ class GetMediaListWithNotes @Inject constructor(
                         typeFilter.append(" type = ")
                         typeFilter.append(filter.id)
                     }
+
                     FilterType.Publisher -> {
                         if (publisherFilter.isEmpty()) {
                             if (!filter.isPositive) {
@@ -101,6 +103,7 @@ class GetMediaListWithNotes @Inject constructor(
                         }
                         publisherFilter.append(" publisher = ${filter.id} ")
                     }
+
                     FilterType.CheckboxThree -> {
                         if (notesFilter.isNotEmpty()) {
                             notesFilter.append(" AND ")
@@ -110,6 +113,7 @@ class GetMediaListWithNotes @Inject constructor(
                         }
                         notesFilter.append(" media_notes.checkbox_3 = 1 ")
                     }
+
                     FilterType.CheckboxOne -> {
                         if (notesFilter.isNotEmpty()) {
                             notesFilter.append(" AND ")
@@ -119,6 +123,7 @@ class GetMediaListWithNotes @Inject constructor(
                         }
                         notesFilter.append(" media_notes.checkbox_1 = 1 ")
                     }
+
                     FilterType.CheckboxTwo -> {
                         if (notesFilter.isNotEmpty()) {
                             notesFilter.append(" AND ")
@@ -132,7 +137,7 @@ class GetMediaListWithNotes @Inject constructor(
             }
         }
         queryBuild.append("SELECT media_items.*,media_notes.* FROM media_items " +
-            "INNER JOIN media_notes ON media_items.id = media_notes.media_id ")
+                "INNER JOIN media_notes ON media_items.id = media_notes.media_id ")
         queryBuild.append(joins)
         var whereClause = false
         if (seriesFilter.isNotEmpty()) {
@@ -180,7 +185,7 @@ class GetMediaListWithNotes @Inject constructor(
     private suspend fun getPermanentFiltersAsStringBuilder(): StringBuilder = withContext(Dispatchers.IO) {
         val permFiltersBuilder = StringBuilder()
         val permanentFilterSettings = getPermanentFilterSettings().first()
-        for (type in MediaType.values()) {
+        for (type in MediaType.entries) {
             if (permanentFilterSettings[type] == false) {
                 if (permFiltersBuilder.isNotEmpty()) {
                     permFiltersBuilder.append(" AND ")
