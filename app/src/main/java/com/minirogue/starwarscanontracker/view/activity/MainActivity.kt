@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.core.model.FilterUpdater
+import com.minirogue.starwarscanontracker.core.model.UpdateFilters
 import com.minirogue.starwarscanontracker.view.fragment.AboutFragment
 import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment
 import com.minirogue.usecase.UpdateMediaDatabaseUseCase
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var updateMediaDatabaseUseCase: UpdateMediaDatabaseUseCase
 
     @Inject
-    lateinit var filterUpdater: FilterUpdater
+    lateinit var updateFilters: UpdateFilters
 
     @Inject
     lateinit var getSettingsFragment: GetSettingsFragment
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         // Update filters based on current information
-        filterUpdater.updateFilters()
+        updateFilters()
         // Update media database if needed.
         lifecycleScope.launch { updateMediaDatabaseUseCase() }
     }

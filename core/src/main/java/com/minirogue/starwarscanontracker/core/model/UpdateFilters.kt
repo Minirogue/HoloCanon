@@ -18,7 +18,7 @@ import kotlinx.coroutines.withContext
 import settings.usecase.GetCheckboxSettings
 import javax.inject.Inject
 
-class FilterUpdater @Inject constructor(
+class UpdateFilters @Inject constructor(
         private val daoFilter: DaoFilter,
         private val daoSeries: DaoSeries,
         private val daoCompany: DaoCompany,
@@ -36,7 +36,7 @@ class FilterUpdater @Inject constructor(
         )
     }
 
-    fun updateFilters() = GlobalScope.launch(Dispatchers.Default) {
+    operator fun invoke() = GlobalScope.launch(Dispatchers.Default) {
         launch { updateSeriesFilters() }
         launch { updateCheckboxFilters() }
         launch { updateMediaTypeFilters() }

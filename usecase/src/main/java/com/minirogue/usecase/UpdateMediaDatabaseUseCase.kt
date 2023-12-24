@@ -9,7 +9,7 @@ import com.minirogue.api.media.MediaType
 import com.minirogue.api.media.StarWarsMedia
 import com.minirogue.holoclient.GetApiMediaVersion
 import com.minirogue.holoclient.GetMediaFromApi
-import com.minirogue.starwarscanontracker.core.model.FilterUpdater
+import com.minirogue.starwarscanontracker.core.model.UpdateFilters
 import com.minirogue.starwarscanontracker.core.model.room.MediaDatabase
 import com.minirogue.starwarscanontracker.core.model.room.entity.CompanyDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
@@ -36,7 +36,7 @@ private const val TAG = "UpdateMediaDatabase"
 
 @Suppress("LongParameterList")
 public class UpdateMediaDatabaseUseCase @Inject constructor(
-        private val filterUpdater: FilterUpdater,
+        private val updateFilters: UpdateFilters,
         private val connectivityManager: ConnectivityManager,
         private val getApiMediaVersion: GetApiMediaVersion,
         private val getMediaFromApi: GetMediaFromApi,
@@ -86,7 +86,7 @@ public class UpdateMediaDatabaseUseCase @Inject constructor(
                 if (latestRemoteVersion != null) {
                     setLatestDatabaseVersion(latestRemoteVersion)
                 }
-                filterUpdater.updateFilters()
+                updateFilters()
             }
             withContext(Dispatchers.Main) { Toast.makeText(context, "Database Synced", Toast.LENGTH_SHORT).show() }
         }
