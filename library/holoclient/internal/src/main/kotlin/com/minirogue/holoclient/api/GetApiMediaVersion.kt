@@ -1,8 +1,6 @@
 package com.minirogue.holoclient.api
 
 import android.util.Log
-import com.minirogue.holoclient.GetApiMediaVersion
-import com.minirogue.starwarscanontracker.core.result.HoloResult
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.okhttp.OkHttp
@@ -15,8 +13,9 @@ import java.io.IOException
 import javax.inject.Inject
 
 private const val TAG = "GetMediaApiMediaVersion"
-class GetApiMediaVersionImpl @Inject constructor() : GetApiMediaVersion {
-    override suspend fun invoke(): HoloResult<Int> {
+
+internal class GetApiMediaVersion @Inject constructor() {
+    suspend operator fun invoke(): HoloResult<Int> {
         return HttpClient(OkHttp) {
             install(ContentNegotiation) {
                 json()
@@ -24,7 +23,7 @@ class GetApiMediaVersionImpl @Inject constructor() : GetApiMediaVersion {
         }.use { client ->
             try {
                 val result: Int =
-                    client.get("https://minirogue.github.io/holocanon-api/version.json").body()
+                        client.get("https://minirogue.github.io/holocanon-api/version.json").body()
                 HoloResult.Success(result)
             } catch (responseException: ResponseException) {
                 Log.i(TAG, "failed response $responseException")

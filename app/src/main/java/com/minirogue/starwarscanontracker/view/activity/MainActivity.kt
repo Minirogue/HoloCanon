@@ -6,11 +6,11 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
+import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.UpdateFilters
 import com.minirogue.starwarscanontracker.view.fragment.AboutFragment
 import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment
-import com.minirogue.usecase.UpdateMediaDatabaseUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import usecase.GetSettingsFragment
@@ -20,7 +20,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var updateMediaDatabaseUseCase: UpdateMediaDatabaseUseCase
+    lateinit var maybeUpdateMediaDatabase: MaybeUpdateMediaDatabase
 
     @Inject
     lateinit var updateFilters: UpdateFilters
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         // Update filters based on current information
         updateFilters()
         // Update media database if needed.
-        lifecycleScope.launch { updateMediaDatabaseUseCase() }
+        lifecycleScope.launch { maybeUpdateMediaDatabase() }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

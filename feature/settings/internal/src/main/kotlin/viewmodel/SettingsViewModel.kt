@@ -3,7 +3,7 @@ package viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.minirogue.api.media.MediaType
-import com.minirogue.usecase.UpdateMediaDatabaseUseCase
+import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -34,7 +34,7 @@ internal class SettingsViewModel @Inject constructor(
         private val updateCheckboxActive: UpdateCheckboxActive,
         private val getPermanentFilterSettings: GetPermanentFilterSettings,
         private val updatePermanentFilterSettings: UpdatePermanentFilterSettings,
-        private val updateMediaDatabase: UpdateMediaDatabaseUseCase,
+        private val maybeUpdateMediaDatabase: MaybeUpdateMediaDatabase,
         private val updateWifiSetting: UpdateWifiSetting,
         private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly,
 ) : ViewModel() {
@@ -78,5 +78,5 @@ internal class SettingsViewModel @Inject constructor(
         updateWifiSetting(newValue)
     }
 
-    fun syncDatabase() = updateMediaDatabase(true)
+    fun syncDatabase() = viewModelScope.launch { maybeUpdateMediaDatabase(true) }
 }
