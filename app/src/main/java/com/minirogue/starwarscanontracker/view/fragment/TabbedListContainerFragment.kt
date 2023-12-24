@@ -25,7 +25,7 @@ class TabbedListContainerFragment : Fragment() {
         binding.viewpager.adapter = MainTabAdapter(this)
         // Connect tabs to viewpager
         TabLayoutMediator(binding.resultTabs, binding.viewpager) { tab, position ->
-            tab.text = getString(TabInfo.values()[position].tabNameRes)
+            tab.text = getString(TabInfo.entries[position].tabNameRes)
         }.attach()
 
         return binding.root
@@ -33,8 +33,8 @@ class TabbedListContainerFragment : Fragment() {
 
     private class MainTabAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
-        override fun getItemCount(): Int = TabInfo.values().size
+        override fun getItemCount(): Int = TabInfo.entries.size
 
-        override fun createFragment(position: Int): Fragment = TabInfo.values()[position].fragmentCreator()
+        override fun createFragment(position: Int): Fragment = TabInfo.entries[position].fragmentCreator()
     }
 }

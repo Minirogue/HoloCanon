@@ -123,7 +123,7 @@ internal class SettingsFragment : Fragment() {
                         .padding(8.dp)
                         .clickable {
                             viewModel.setCheckboxActive(whichBox, !checkboxSetting.isInUse)
-                                   },
+                        },
                         checked = checkboxSetting.isInUse,
                         onCheckedChange = null)
             }
@@ -163,7 +163,7 @@ internal class SettingsFragment : Fragment() {
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(8.dp))
             Divider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
-            MediaType.values().forEach {
+            MediaType.entries.forEach {
                 MediaTypePermanentFilter(it, permanentFilters[it] ?: true)
             }
         }

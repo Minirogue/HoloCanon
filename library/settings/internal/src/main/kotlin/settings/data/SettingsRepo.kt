@@ -39,23 +39,25 @@ internal class SettingsRepo @Inject constructor(@Settings private val dataStore:
 
     fun getSettings(): Flow<AllSettings> = dataStore.data.map { prefs ->
         AllSettings(
-            checkboxSettings = CheckboxSettings(
-                checkbox1Setting = CheckboxSetting( // TODO change default to resource
-                    name = prefs[checkbox1DefaultTextPreferenceKey],
-                    isInUse = prefs[userFilter1ActivePreferenceKey] ?: true
+                checkboxSettings = CheckboxSettings(
+                        checkbox1Setting = CheckboxSetting( // TODO change default to resource
+                                name = prefs[checkbox1DefaultTextPreferenceKey],
+                                isInUse = prefs[userFilter1ActivePreferenceKey] ?: true
+                        ),
+                        checkbox2Setting = CheckboxSetting(
+                                name = prefs[checkbox2DefaultTextPreferenceKey],
+                                isInUse = prefs[userFilter2ActivePreferenceKey] ?: true
+                        ),
+                        checkbox3Setting = CheckboxSetting(
+                                name = prefs[checkbox3DefaultTextPreferenceKey],
+                                isInUse = prefs[userFilter3ActivePreferenceKey] ?: true
+                        )
                 ),
-                checkbox2Setting = CheckboxSetting(
-                    name = prefs[checkbox2DefaultTextPreferenceKey],
-                    isInUse = prefs[userFilter2ActivePreferenceKey] ?: true
-                ),
-                checkbox3Setting = CheckboxSetting(
-                    name = prefs[checkbox3DefaultTextPreferenceKey],
-                    isInUse = prefs[userFilter3ActivePreferenceKey] ?: true
-                )
-            ),
-            syncWifiOnly = prefs[syncWifiOnlyPreferenceKey] ?: true,
-            permanentFilterSettings = MediaType.values().associateWith { prefs[booleanPreferencesKey(it.getSerialname())] ?: true },
-            latestDatabaseVersion = prefs[databaseVersionPreferenceKey] ?: 0L
+                syncWifiOnly = prefs[syncWifiOnlyPreferenceKey] ?: true,
+                permanentFilterSettings = MediaType.entries.associateWith {
+                    prefs[booleanPreferencesKey(it.getSerialname())] ?: true
+                },
+                latestDatabaseVersion = prefs[databaseVersionPreferenceKey] ?: 0L
         )
     }
 

@@ -11,7 +11,10 @@ import com.minirogue.holoclient.GetApiMediaVersion
 import com.minirogue.holoclient.GetMediaFromApi
 import com.minirogue.starwarscanontracker.core.model.FilterUpdater
 import com.minirogue.starwarscanontracker.core.model.room.MediaDatabase
-import com.minirogue.starwarscanontracker.core.model.room.entity.*
+import com.minirogue.starwarscanontracker.core.model.room.entity.CompanyDto
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
+import com.minirogue.starwarscanontracker.core.model.room.entity.Series
 import com.minirogue.starwarscanontracker.core.result.HoloResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -115,7 +118,7 @@ public class UpdateMediaDatabaseUseCase @Inject constructor(
     @Suppress("TooGenericExceptionCaught")
     private suspend fun getCompanyMap(): Map<Company, Int> = try {
         val dtoCompanies = database.daoCompany.getAllCompanies()
-        Company.values().associateWith { company ->
+        Company.entries.associateWith { company ->
             val text = Json.encodeToString(company).trimQuotes()
             val dtoCompany = dtoCompanies.firstOrNull { it.companyName == text }
 
@@ -126,7 +129,7 @@ public class UpdateMediaDatabaseUseCase @Inject constructor(
         emptyMap()
     }
 
-    private fun getTypeMap(): Map<MediaType, Int> = MediaType.values().associateWith { it.legacyId }
+    private fun getTypeMap(): Map<MediaType, Int> = MediaType.entries.associateWith { it.legacyId }
 
     private fun String.trimQuotes() = this.trim('\"')
 

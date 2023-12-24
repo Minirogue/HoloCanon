@@ -2,26 +2,38 @@ package com.minirogue.starwarscanontracker.viewmodel
 
 import android.app.Application
 import android.util.SparseArray
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.core.model.SortStyle
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
-import com.minirogue.starwarscanontracker.usecase.*
+import com.minirogue.starwarscanontracker.usecase.GetAllFilterTypes
+import com.minirogue.starwarscanontracker.usecase.GetCheckboxText
+import com.minirogue.starwarscanontracker.usecase.GetMediaListWithNotes
+import com.minirogue.starwarscanontracker.usecase.UpdateNotes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import filters.GetActiveFilters
 import filters.MediaFilter
 import filters.UpdateFilter
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import settings.usecase.GetCheckboxSettings
 import java.io.File
 import javax.inject.Inject
@@ -29,15 +41,15 @@ import javax.inject.Inject
 @Suppress("LongParameterList")
 @HiltViewModel
 class MediaListViewModel @Inject constructor(
-    getActiveFilters: GetActiveFilters,
-    getAllFilterTypes: GetAllFilterTypes,
-    private val updateFilter: UpdateFilter,
-    getCheckboxText: GetCheckboxText,
-    private val updateNotes: UpdateNotes,
-    private val getMediaListWithNotes: GetMediaListWithNotes,
-    connMgr: MyConnectivityManager,
-    getCheckboxSettings: GetCheckboxSettings,
-    application: Application,
+        getActiveFilters: GetActiveFilters,
+        getAllFilterTypes: GetAllFilterTypes,
+        private val updateFilter: UpdateFilter,
+        getCheckboxText: GetCheckboxText,
+        private val updateNotes: UpdateNotes,
+        private val getMediaListWithNotes: GetMediaListWithNotes,
+        connMgr: MyConnectivityManager,
+        getCheckboxSettings: GetCheckboxSettings,
+        application: Application,
 ) : ViewModel() {
 
     // filtering
@@ -60,15 +72,15 @@ class MediaListViewModel @Inject constructor(
     val checkBoxText = getCheckboxText.invoke()
     val checkBoxVisibility: Flow<BooleanArray> = getCheckboxSettings().map { checkboxSettings ->
         booleanArrayOf(
-            checkboxSettings.checkbox1Setting.isInUse,
-            checkboxSettings.checkbox2Setting.isInUse,
-            checkboxSettings.checkbox3Setting.isInUse,
+                checkboxSettings.checkbox1Setting.isInUse,
+                checkboxSettings.checkbox2Setting.isInUse,
+                checkboxSettings.checkbox3Setting.isInUse,
         )
     }
 
     // Whether or not network calls are currently allowed. Used for fetching images.
     val isNetworkAllowed: StateFlow<Boolean> = connMgr.isNetworkAllowed()
-        .stateIn(scope = viewModelScope, started = SharingStarted.Eagerly, initialValue = false)
+            .stateIn(scope = viewModelScope, started = SharingStarted.Eagerly, initialValue = false)
 
     // Variables for handling exactly one query and sort job at a time
     private var queryJob: Job = Job()
@@ -82,13 +94,11 @@ class MediaListViewModel @Inject constructor(
     init {
         viewModelScope.launch { _sortStyle.postValue(getSavedSort()) }
         viewModelScope.launch(Dispatchers.Default) {
-            val mediaTypes = MediaType.values()
-            mediaTypes.forEach { mediaTypeToString.put(it.legacyId, it.getSerialname()) }
+            MediaType.entries.forEach { mediaTypeToString.put(it.legacyId, it.getSerialname()) }
         }
         dataMediator.addSource(activeFilters) { viewModelScope.launch { updateQuery() } }
         dataMediator.addSource(
-            getAllFilterTypes()
-                .asLiveData(viewModelScope.coroutineContext)
+                getAllFilterTypes().asLiveData(viewModelScope.coroutineContext)
         ) { viewModelScope.launch { updateQuery() } }
         sortedData.addSource(sortStyle) { viewModelScope.launch { sort(); saveSort() } }
         // dataMediator needs to be observed so the things it observes can trigger events
@@ -145,8 +155,8 @@ class MediaListViewModel @Inject constructor(
                 val toBeSorted = data.value
                 if (toBeSorted != null) {
                     val sorted = toBeSorted.sortedWith(
-                        _sortStyle.value
-                            ?: SortStyle(SortStyle.DEFAULT_STYLE, true)
+                            _sortStyle.value
+                                    ?: SortStyle(SortStyle.DEFAULT_STYLE, true)
                     )
                     sortedData.postValue(sorted)
                 }

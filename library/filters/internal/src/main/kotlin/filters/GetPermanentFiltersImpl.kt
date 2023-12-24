@@ -10,13 +10,13 @@ import settings.usecase.GetPermanentFilterSettings
 import javax.inject.Inject
 
 class GetPermanentFiltersImpl @Inject constructor(
-    private val daoFilter: DaoFilter,
-    private val getPermanentFilterSettings: GetPermanentFilterSettings,
+        private val daoFilter: DaoFilter,
+        private val getPermanentFilterSettings: GetPermanentFilterSettings,
 ) : GetPermanentFilters {
     override suspend operator fun invoke(): List<MediaFilter> = withContext(Dispatchers.IO) {
         val filterList = ArrayList<MediaFilter>()
         val permanentFilters = getPermanentFilterSettings().first()
-        for (type in MediaType.values()) {
+        for (type in MediaType.entries) {
             if (permanentFilters[type] == false) {
                 daoFilter.getFilter(type.legacyId, FilterType.FILTERCOLUMN_TYPE)?.toMediaFilter()?.let { filterList.add(it) }
             }
