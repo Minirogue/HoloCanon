@@ -43,8 +43,6 @@ class FilterUpdater @Inject constructor(
         launch { updatePublisherFilters() }
     }
 
-    fun updateJustCheckboxFilters() = GlobalScope.launch(Dispatchers.Default) { updateCheckboxFilters() }
-
     private suspend fun updatePublisherFilters() = withContext(Dispatchers.Default) {
         var tempFilter: FilterObject?
         val publisherFilterText = "Publisher"
