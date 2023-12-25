@@ -23,21 +23,22 @@ plugins {
 }
 
 detekt {
-    input = files("$project.rootDir")
+    source = files("$project.rootDir")
     baseline = file("$project.rootDir/config/detekt/baseline.xml")
 }
 
 ext {
     // Android
-    appCompatVersion = '1.6.1'
-    lifecycleVersion = '2.6.2'
-    roomVersion = '2.6.1'
-    coilVersion = '2.5.0'
     androidXTestVersion = '1.5.0'
-    fragmentVersion = '1.6.2'
-    composeCompilerVersion = '1.5.7'
+    appCompatVersion = '1.6.1'
+    coilVersion = '2.5.0'
     composeBomVersion = '2023.10.01'
+    composeCompilerVersion = '1.5.7'
     datastoreVersion = '1.0.0'
+    fragmentVersion = '1.6.2'
+    lifecycleVersion = '2.6.2'
+    materialVersion = '1.11.0'
+    roomVersion = '2.6.1'
 
     // Kotlin
     coroutinesVersion = '1.6.3-native-mt'
@@ -62,6 +63,6 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+tasks.register('clean', Delete) {
+    delete rootProject.layout.buildDirectory
 }
