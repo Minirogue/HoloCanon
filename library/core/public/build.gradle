@@ -1,4 +1,0 @@
-apply from: "$rootProject.projectDir/base-gradles/kotlin-library.gradle"
-
-dependencies {
-}
