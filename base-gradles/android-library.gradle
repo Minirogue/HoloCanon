@@ -26,4 +26,7 @@ android {
     kotlin {
         jvmToolchain(rootProject.ext.javaCompatibilityVersionInt)
     }
+    lintOptions {
+        baseline file("lint-baseline.xml")
+    }
 }
