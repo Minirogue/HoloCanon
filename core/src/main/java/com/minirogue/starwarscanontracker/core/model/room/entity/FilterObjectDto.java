@@ -12,13 +12,11 @@ import androidx.room.ForeignKey;
  */
 @Entity(tableName = "filter_object",
         primaryKeys = {"filter_id", "type_id"},
-        foreignKeys = @ForeignKey(entity = FilterType.class,
+        foreignKeys = @ForeignKey(entity = FilterTypeDto.class,
                 parentColumns = "id",
                 childColumns = "type_id",
                 onDelete = ForeignKey.CASCADE))
-public class FilterObject {
-    //public static final String TAG = "FilterObject";
-
+public class FilterObjectDto {
     @ColumnInfo(name = "filter_id")
     public int id;
     @ColumnInfo(name = "type_id")
@@ -28,7 +26,7 @@ public class FilterObject {
     @ColumnInfo(name = "filter_text")
     public String displayText;
 
-    public FilterObject(int id, int filterType, boolean active, String displayText) {
+    public FilterObjectDto(int id, int filterType, boolean active, String displayText) {
         this.id = id;
         this.filterType = filterType;
         this.active = active;
@@ -54,7 +52,7 @@ public class FilterObject {
         if (obj == null || obj.getClass() != this.getClass()) {
             return false;
         } else {
-            FilterObject otherObj = (FilterObject) obj;
+            FilterObjectDto otherObj = (FilterObjectDto) obj;
             return otherObj.id == this.id && otherObj.filterType == this.filterType;
         }
     }

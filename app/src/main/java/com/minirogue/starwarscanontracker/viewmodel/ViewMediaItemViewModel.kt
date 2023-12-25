@@ -5,9 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
-import com.minirogue.starwarscanontracker.usecase.*
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
+import com.minirogue.starwarscanontracker.usecase.GetCheckboxText
+import com.minirogue.starwarscanontracker.usecase.GetMedia
+import com.minirogue.starwarscanontracker.usecase.GetNotesForMedia
+import com.minirogue.starwarscanontracker.usecase.UpdateNotes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -25,8 +28,8 @@ class ViewMediaItemViewModel @Inject constructor(
     getCheckboxSettings: GetCheckboxSettings,
 ) : ViewModel() {
 
-    lateinit var liveMediaItem: LiveData<MediaItem>
-    lateinit var liveMediaNotes: LiveData<MediaNotes>
+    lateinit var liveMediaItemDto: LiveData<MediaItemDto>
+    lateinit var liveMediaNotesDto: LiveData<MediaNotesDto>
     lateinit var liveMediaTypeDto: LiveData<MediaType?>
     val checkBoxText = getCheckboxText()
     val checkBoxVisibility = getCheckboxSettings().map { checkboxSettings ->
@@ -39,25 +42,25 @@ class ViewMediaItemViewModel @Inject constructor(
     val isNetworkAllowed: Flow<Boolean> = connMgr.isNetworkAllowed()
 
     fun setItemId(itemId: Int) {
-        liveMediaItem = getMedia(itemId)
-        liveMediaNotes = getNotesForMedia(itemId)
-        liveMediaTypeDto = liveMediaItem.map { MediaType.getFromLegacyId(it.type) }
+        liveMediaItemDto = getMedia(itemId)
+        liveMediaNotesDto = getNotesForMedia(itemId)
+        liveMediaTypeDto = liveMediaItemDto.map { MediaType.getFromLegacyId(it.type) }
     }
 
     fun toggleCheckbox1() {
-        val notes = liveMediaNotes.value
+        val notes = liveMediaNotesDto.value
         notes?.flipCheck1()
         updateNotes(notes)
     }
 
     fun toggleCheckbox2() {
-        val notes = liveMediaNotes.value
+        val notes = liveMediaNotesDto.value
         notes?.flipCheck2()
         updateNotes(notes)
     }
 
     fun toggleCheckbox3() {
-        val notes = liveMediaNotes.value
+        val notes = liveMediaNotesDto.value
         notes?.flipCheck3()
         updateNotes(notes)
     }

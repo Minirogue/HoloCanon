@@ -18,11 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SeriesListAdapter extends ListAdapter<MediaAndNotes, SeriesListAdapter.MediaViewHolder> {
-
-    //private final String TAG = "adapter";
-
-    //private AsyncListDiffer<MediaAndNotes> listDiffer = new AsyncListDiffer<>(this, DiffCallback);
-    //private List<MediaAndNotes> currentList = new ArrayList<>();
     private final OnItemClickedListener listener;
 
     public SeriesListAdapter(OnItemClickedListener listener) {
@@ -54,8 +49,8 @@ public class SeriesListAdapter extends ListAdapter<MediaAndNotes, SeriesListAdap
     @Override
     public void onBindViewHolder(@NonNull MediaViewHolder holder, int position) {
         MediaAndNotes currentItem = getItem(position);
-        holder.itemView.setOnClickListener(view -> listener.onItemClicked(currentItem.getMediaItem().getId()));
-        holder.titleTextView.setText(currentItem.getMediaItem().getTitle());
+        holder.itemView.setOnClickListener(view -> listener.onItemClicked(currentItem.getMediaItemDto().getId()));
+        holder.titleTextView.setText(currentItem.getMediaItemDto().getTitle());
     }
 
 
@@ -69,10 +64,10 @@ public class SeriesListAdapter extends ListAdapter<MediaAndNotes, SeriesListAdap
         }
     }
 
-    private static final DiffUtil.ItemCallback<MediaAndNotes> DiffCallback = new DiffUtil.ItemCallback<MediaAndNotes>() {
+    private static final DiffUtil.ItemCallback<MediaAndNotes> DiffCallback = new DiffUtil.ItemCallback<>() {
         @Override
         public boolean areItemsTheSame(@NonNull MediaAndNotes oldItem, @NonNull MediaAndNotes newItem) {
-            return oldItem.getMediaItem().getId() == newItem.getMediaItem().getId();
+            return oldItem.getMediaItemDto().getId() == newItem.getMediaItemDto().getId();
         }
 
         @Override

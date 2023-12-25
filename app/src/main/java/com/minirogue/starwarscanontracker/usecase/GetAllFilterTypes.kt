@@ -1,13 +1,13 @@
 package com.minirogue.starwarscanontracker.usecase
 
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType.Companion.FILTERCOLUMN_CHECKBOX_ONE
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType.Companion.FILTERCOLUMN_CHECKBOX_THREE
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType.Companion.FILTERCOLUMN_CHECKBOX_TWO
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType.Companion.FILTERCOLUMN_PUBLISHER
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType.Companion.FILTERCOLUMN_SERIES
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType.Companion.FILTERCOLUMN_TYPE
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto.Companion.FILTERCOLUMN_CHECKBOX_ONE
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto.Companion.FILTERCOLUMN_CHECKBOX_THREE
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto.Companion.FILTERCOLUMN_CHECKBOX_TWO
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto.Companion.FILTERCOLUMN_PUBLISHER
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto.Companion.FILTERCOLUMN_SERIES
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto.Companion.FILTERCOLUMN_TYPE
 import filters.FilterGroup
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class GetAllFilterTypes @Inject constructor(private val daoFilter: DaoFilter) {
 
     operator fun invoke(): Flow<List<FilterGroup>> = daoFilter.getAllFilterTypes().map { list -> list.map { it.toFilterGroup() } }
-    private fun FilterType.toFilterGroup(): FilterGroup =
+    private fun FilterTypeDto.toFilterGroup(): FilterGroup =
         FilterGroup(type = getTypeFromInt(typeId), isFilterPositive = isFilterPositive, text = text)
 
     private fun getTypeFromInt(typeId: Int): filters.FilterType = when (typeId) {

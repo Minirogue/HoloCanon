@@ -6,11 +6,11 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "media_notes",
-    foreignKeys = [ForeignKey(entity = MediaItem::class,
+    foreignKeys = [ForeignKey(entity = MediaItemDto::class,
         parentColumns = ["id"],
         childColumns = ["media_id"],
         onDelete = ForeignKey.CASCADE)])
-class MediaNotes(
+class MediaNotesDto(
     @field:PrimaryKey
     @ColumnInfo(name = "media_id")
     val mediaId: Int,

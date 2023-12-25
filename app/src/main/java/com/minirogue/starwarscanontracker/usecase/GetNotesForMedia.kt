@@ -2,7 +2,7 @@ package com.minirogue.starwarscanontracker.usecase
 
 import androidx.lifecycle.LiveData
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import javax.inject.Inject
 
 class GetNotesForMedia @Inject constructor(private val daoMedia: DaoMedia) {
@@ -11,7 +11,7 @@ class GetNotesForMedia @Inject constructor(private val daoMedia: DaoMedia) {
      *
      * @param itemId the id associated to the MediaItem for which the MediaNotes are desired
      */
-    operator fun invoke(itemId: Int): LiveData<MediaNotes> {
+    operator fun invoke(itemId: Int): LiveData<MediaNotesDto> {
         return daoMedia.getMediaNotesById(itemId)
     }
 }

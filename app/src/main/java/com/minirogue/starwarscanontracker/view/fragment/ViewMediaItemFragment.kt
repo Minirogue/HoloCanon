@@ -18,8 +18,8 @@ import coil.load
 import coil.request.CachePolicy
 import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.databinding.FragmentViewMediaItemBinding
 import com.minirogue.starwarscanontracker.viewmodel.ViewMediaItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,12 +42,12 @@ class ViewMediaItemFragment : Fragment() {
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
         if (bundleItemId != -1) viewModel.setItemId(bundleItemId)
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.liveMediaItem.asFlow()
+            viewModel.liveMediaItemDto.asFlow()
                 .combine(viewModel.isNetworkAllowed) { item, isNetworkAllowed -> Pair(item, isNetworkAllowed) }
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle)
                 .collect { updateViews(it.first, it.second, fragmentBinding) }
         }
-        viewModel.liveMediaNotes.observe(viewLifecycleOwner, { notes -> updateViews(notes, fragmentBinding) })
+        viewModel.liveMediaNotesDto.observe(viewLifecycleOwner, { notes -> updateViews(notes, fragmentBinding) })
         viewModel.liveMediaTypeDto.observe(viewLifecycleOwner, { mediaType -> updateView(mediaType, fragmentBinding) })
         viewModel.checkBoxText.asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner, { arr ->
             fragmentBinding.checkbox1.text = arr[0]
@@ -71,7 +71,7 @@ class ViewMediaItemFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun updateViews(item: MediaItem, isNetworkAllowed: Boolean, fragmentBinding: FragmentViewMediaItemBinding) {
+    private fun updateViews(item: MediaItemDto, isNetworkAllowed: Boolean, fragmentBinding: FragmentViewMediaItemBinding) {
         fragmentBinding.mediaTitle.text = item.title
         fragmentBinding.descriptionTextview.text = if (item.description.isNotBlank()) {
             getString(R.string.description_header) + " " + item.description
@@ -99,7 +99,7 @@ class ViewMediaItemFragment : Fragment() {
         }
     }
 
-    private fun updateViews(notes: MediaNotes, fragmentBinding: FragmentViewMediaItemBinding) {
+    private fun updateViews(notes: MediaNotesDto, fragmentBinding: FragmentViewMediaItemBinding) {
         fragmentBinding.checkbox3.isChecked = notes.isBox3Checked
         fragmentBinding.checkbox1.isChecked = notes.isBox1Checked
         fragmentBinding.checkbox2.isChecked = notes.isBox2Checked
@@ -109,7 +109,7 @@ class ViewMediaItemFragment : Fragment() {
         fragmentBinding.mediaType.text = mediaType?.getSerialName() ?: ""
     }
 
-    private fun makeShoppingMenu(item: MediaItem, fragmentBinding: FragmentViewMediaItemBinding) {
+    private fun makeShoppingMenu(item: MediaItemDto, fragmentBinding: FragmentViewMediaItemBinding) {
         val shoppingMenu = PopupMenu(fragmentBinding.root.context, fragmentBinding.affiliateLinksFab)
         if (item.amazonLink != "") {
             fragmentBinding.affiliateLinksFab.show()
