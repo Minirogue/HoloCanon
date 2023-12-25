@@ -12,7 +12,7 @@ import androidx.room.ForeignKey;
  */
 @Entity(tableName = "filter_object",
         primaryKeys = {"filter_id", "type_id"},
-        foreignKeys = @ForeignKey(entity = FilterType.class,
+        foreignKeys = @ForeignKey(entity = FilterTypeDto.class,
                 parentColumns = "id",
                 childColumns = "type_id",
                 onDelete = ForeignKey.CASCADE))

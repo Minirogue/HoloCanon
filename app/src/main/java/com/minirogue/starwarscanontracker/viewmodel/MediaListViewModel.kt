@@ -14,14 +14,14 @@ import com.minirogue.starwarscanontracker.core.model.SortStyle
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
-import com.minirogue.starwarscanontracker.usecase.GetAllFilterTypes
 import com.minirogue.starwarscanontracker.usecase.GetCheckboxText
 import com.minirogue.starwarscanontracker.usecase.GetMediaListWithNotes
 import com.minirogue.starwarscanontracker.usecase.UpdateNotes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import filters.GetActiveFilters
-import filters.MediaFilter
+import filters.GetAllFilterTypes
 import filters.UpdateFilter
+import filters.model.MediaFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin

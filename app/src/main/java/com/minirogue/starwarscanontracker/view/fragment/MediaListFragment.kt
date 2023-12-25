@@ -27,7 +27,7 @@ import com.minirogue.starwarscanontracker.view.adapter.SWMListAdapter.AdapterInt
 import com.minirogue.starwarscanontracker.view.viewBinding
 import com.minirogue.starwarscanontracker.viewmodel.MediaListViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import filters.MediaFilter
+import filters.model.MediaFilter
 import kotlinx.coroutines.launch
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 

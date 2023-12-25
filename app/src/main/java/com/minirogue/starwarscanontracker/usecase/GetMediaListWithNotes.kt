@@ -7,8 +7,8 @@ import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
-import filters.FilterType
-import filters.MediaFilter
+import filters.model.FilterType
+import filters.model.MediaFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.first

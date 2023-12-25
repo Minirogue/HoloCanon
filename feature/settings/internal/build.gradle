@@ -16,9 +16,10 @@ android {
 }
 
 dependencies {
-    // project files
+    // public feature module
     api project(":feature:settings:public")
 
+    // public project modules
     implementation project(":library:compose-ext:public")
     implementation project(":library:coroutine-ext:public")
     implementation project(":library:holoclient:public")

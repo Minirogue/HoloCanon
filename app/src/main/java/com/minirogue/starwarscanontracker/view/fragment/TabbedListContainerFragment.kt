@@ -7,22 +7,36 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.minirogue.holocanon.feature.select.filters.usecase.GetSelectFiltersFragment
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.databinding.FragmentTabbedListContainerBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class TabbedListContainerFragment : Fragment() {
 
-    private enum class TabInfo(val tabNameRes: Int, val fragmentCreator: () -> Fragment) {
+    @Inject
+    lateinit var getSelectFiltersFragment: GetSelectFiltersFragment
+
+    private enum class TabInfo(val tabNameRes: Int) {
         // The order here defines the order of the tabs
-        HOME(R.string.nav_home, { HomeFragment() }),
-        MEDIA_LIST(R.string.nav_media_list, { MediaListFragment() }),
-        FILTERS(R.string.nav_filters, { FilterSelectionFragment() }),
+        HOME(R.string.nav_home),
+        MEDIA_LIST(R.string.nav_media_list),
+        FILTERS(R.string.nav_filters),
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding = FragmentTabbedListContainerBinding.inflate(inflater, container, false)
         // Setting ViewPager for each Tabs
-        binding.viewpager.adapter = MainTabAdapter(this)
+        val fragmentCreator = { tabInfo: TabInfo ->
+            when (tabInfo) {
+                TabInfo.HOME -> HomeFragment()
+                TabInfo.MEDIA_LIST -> MediaListFragment()
+                TabInfo.FILTERS -> getSelectFiltersFragment()
+            }
+        }
+        binding.viewpager.adapter = MainTabAdapter(this, fragmentCreator)
         // Connect tabs to viewpager
         TabLayoutMediator(binding.resultTabs, binding.viewpager) { tab, position ->
             tab.text = getString(TabInfo.entries[position].tabNameRes)
@@ -31,10 +45,12 @@ class TabbedListContainerFragment : Fragment() {
         return binding.root
     }
 
-    private class MainTabAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
-
+    private class MainTabAdapter(
+            fragment: Fragment,
+            private val fragmentCreator: (TabInfo) -> Fragment
+    ) : FragmentStateAdapter(fragment) {
         override fun getItemCount(): Int = TabInfo.entries.size
 
-        override fun createFragment(position: Int): Fragment = TabInfo.entries[position].fragmentCreator()
+        override fun createFragment(position: Int): Fragment = fragmentCreator(TabInfo.entries[position])
     }
 }

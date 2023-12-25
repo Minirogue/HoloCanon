@@ -18,12 +18,12 @@ import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia;
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries;
 import com.minirogue.starwarscanontracker.core.model.room.entity.CompanyDto;
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject;
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType;
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto;
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem;
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes;
 import com.minirogue.starwarscanontracker.core.model.room.entity.Series;
 
-@Database(entities = {MediaItem.class, MediaNotes.class, Series.class, FilterObject.class, FilterType.class,
+@Database(entities = {MediaItem.class, MediaNotes.class, Series.class, FilterObject.class, FilterTypeDto.class,
         CompanyDto.class},
         version = 20,
         autoMigrations = {@AutoMigration(from = 17, to = 18),
