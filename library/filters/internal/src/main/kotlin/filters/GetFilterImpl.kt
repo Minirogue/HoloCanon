@@ -1,6 +1,7 @@
 package filters
 
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
+import filters.model.MediaFilter
 import javax.inject.Inject
 
 class GetFilterImpl @Inject constructor(private val daoFilter: DaoFilter): GetFilter {

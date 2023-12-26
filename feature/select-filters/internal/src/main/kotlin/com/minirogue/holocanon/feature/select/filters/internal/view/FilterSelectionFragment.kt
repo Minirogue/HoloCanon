@@ -1,4 +1,4 @@
-package com.minirogue.starwarscanontracker.view.fragment
+package com.minirogue.holocanon.feature.select.filters.internal.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,13 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.minirogue.starwarscanontracker.databinding.FragmentFilterSelectionBinding
+import com.minirogue.holocanon.feature.select.filters.internal.databinding.SelectFiltersFragmentBinding
 import com.minirogue.starwarscanontracker.view.FilterChip
-import com.minirogue.starwarscanontracker.view.adapter.FilterSelectionAdapter
-import com.minirogue.starwarscanontracker.viewmodel.FilterSelectionViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import filters.FilterGroup
-import filters.MediaFilter
+import filters.model.FilterGroup
+import filters.model.FilterType
+import filters.model.MediaFilter
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -33,7 +32,7 @@ class FilterSelectionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val fragmentBinding = FragmentFilterSelectionBinding.inflate(inflater, container, false)
+        val fragmentBinding = SelectFiltersFragmentBinding.inflate(inflater, container, false)
         val fragmentContext = fragmentBinding.root.context
 
         val recyclerView = fragmentBinding.generalRecyclerview
@@ -84,15 +83,15 @@ class FilterSelectionFragment : Fragment() {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                launch {
                    viewModel.checkboxSettings.collect { checkboxSettings ->
-                       val list = ArrayList<filters.FilterType>()
+                       val list = ArrayList<FilterType>()
                        if (!checkboxSettings.checkbox1Setting.isInUse) {
-                           list.add(filters.FilterType.CheckboxOne)
+                           list.add(FilterType.CheckboxOne)
                        }
                        if (!checkboxSettings.checkbox2Setting.isInUse) {
-                           list.add(filters.FilterType.CheckboxTwo)
+                           list.add(FilterType.CheckboxTwo)
                        }
                        if (!checkboxSettings.checkbox3Setting.isInUse) {
-                           list.add(filters.FilterType.CheckboxThree)
+                           list.add(FilterType.CheckboxThree)
                        }
                        adapter.updateExcludedTypes(list)
                    }

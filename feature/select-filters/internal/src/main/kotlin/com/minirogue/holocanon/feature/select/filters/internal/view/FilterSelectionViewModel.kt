@@ -1,14 +1,15 @@
-package com.minirogue.starwarscanontracker.viewmodel
+package com.minirogue.holocanon.feature.select.filters.internal.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.minirogue.starwarscanontracker.usecase.GetAllFilterTypes
 import dagger.hilt.android.lifecycle.HiltViewModel
-import filters.FilterGroup
 import filters.GetActiveFilters
+import filters.GetAllFilterTypes
 import filters.GetFiltersOfType
-import filters.MediaFilter
 import filters.UpdateFilter
+import filters.model.FilterGroup
+import filters.model.FilterType
+import filters.model.MediaFilter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import settings.usecase.GetCheckboxSettings
@@ -16,11 +17,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FilterSelectionViewModel @Inject constructor(
-    private val getActiveFilters: GetActiveFilters,
-    private val getFiltersOfType: GetFiltersOfType,
-    private val updateFilter: UpdateFilter,
-    getAllFilterTypes: GetAllFilterTypes,
-    getCheckboxSettings: GetCheckboxSettings,
+        private val getActiveFilters: GetActiveFilters,
+        private val getFiltersOfType: GetFiltersOfType,
+        private val updateFilter: UpdateFilter,
+        getAllFilterTypes: GetAllFilterTypes,
+        getCheckboxSettings: GetCheckboxSettings,
 ) : ViewModel() {
 
     val filterTypes = getAllFilterTypes()
@@ -41,7 +42,7 @@ class FilterSelectionViewModel @Inject constructor(
 
     }
 
-    fun getFiltersOfType(filterType: filters.FilterType): Flow<List<MediaFilter>> = getFiltersOfType.invoke(filterType)
+    fun getFiltersOfType(filterType: FilterType): Flow<List<MediaFilter>> = getFiltersOfType.invoke(filterType)
 
     fun getActiveFilters() = getActiveFilters.invoke()
 

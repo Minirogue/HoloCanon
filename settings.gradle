@@ -1,6 +1,8 @@
 include ':core'
 include ':app'
 include ':api'
+include ':feature:select-filters:internal'
+include ':feature:select-filters:public'
 include ':feature:settings:internal'
 include ':feature:settings:public'
 include ':library:compose-ext:public'
@@ -11,6 +13,7 @@ include ':library:holoclient:internal'
 include ':library:holoclient:public'
 include ':library:settings:internal'
 include ':library:settings:public'
+include ':library:view-ext:public'
 
 buildCache {
     local {

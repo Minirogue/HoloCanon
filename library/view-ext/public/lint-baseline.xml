@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.2.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.2.0)" variant="all" version="8.2.0">
+
+    <issue
+        id="ViewConstructor"
+        message="Custom view `FilterChip` is missing constructor used by tools: `(Context)` or `(Context,AttributeSet)` or `(Context,AttributeSet,int)`"
+        errorLine1="class FilterChip(mediaFilter: MediaFilter, ctx: Context) : Chip(ctx) {"
+        errorLine2="      ~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/minirogue/starwarscanontracker/view/FilterChip.kt"
+            line="9"
+            column="7"/>
+    </issue>
+
+</issues>

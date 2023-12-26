@@ -1,0 +1,33 @@
+apply from: "$rootProject.projectDir/base-gradles/android-library.gradle"
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    namespace 'com.minirogue.holocanon.feature.select.filters.internal'
+    resourcePrefix 'select_filters'
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    // public feature module
+    api project(":feature:select-filters:public")
+
+    // project public modules
+    implementation project(":library:filters:public")
+    implementation project(":library:settings:public")
+    implementation project(":library:view-ext:public")
+
+    // Android
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion" // TODO deprecate
+    implementation "com.google.android.material:material:$materialVersion"
+
+    // Dependency Injection
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+
+    // detekt
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
+}

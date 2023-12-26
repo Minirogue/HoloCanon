@@ -1,11 +1,11 @@
-package filters
+package filters.model
 
 data class MediaFilter(
-    val id: Int,
-    val name: String,
-    val filterType: FilterType,
-    val isPositive: Boolean,
-    val isActive: Boolean,
+        val id: Int,
+        val name: String,
+        val filterType: FilterType,
+        val isPositive: Boolean,
+        val isActive: Boolean,
 )
 
 data class FilterGroup(val type: FilterType, val isFilterPositive: Boolean, val text: String)

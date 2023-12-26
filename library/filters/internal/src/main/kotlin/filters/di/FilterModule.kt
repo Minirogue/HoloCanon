@@ -6,6 +6,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import filters.GetActiveFilters
 import filters.GetActiveFiltersImpl
+import filters.GetAllFilterTypes
+import filters.GetAllFilterTypesImpl
 import filters.GetFilter
 import filters.GetFilterImpl
 import filters.GetFiltersOfType
@@ -29,6 +31,10 @@ internal interface FilterModule {
 
     @Binds
     fun bindGetFilter(getFilterImpl: GetFilterImpl): GetFilter
+
     @Binds
     fun bindGetPermanentFilters(getPermanentFiltersImpl: GetPermanentFiltersImpl): GetPermanentFilters
+
+    @Binds
+    fun bindGetAllFiltertypes(impl: GetAllFilterTypesImpl): GetAllFilterTypes
 }

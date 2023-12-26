@@ -1,20 +1,21 @@
-package com.minirogue.starwarscanontracker.view.adapter
+package com.minirogue.holocanon.feature.select.filters.internal.view
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.ChipGroup
-import com.minirogue.starwarscanontracker.databinding.FilterSelectionItemBinding
-import filters.FilterGroup
-import filters.MediaFilter
+import com.minirogue.holocanon.feature.select.filters.internal.databinding.SelectFiltersFilterSelectionItemBinding
+import filters.model.FilterGroup
+import filters.model.FilterType
+import filters.model.MediaFilter
 
 class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.FilterTypeViewHolder>() {
 
     private lateinit var listener: OnClickListeners
     private val typeList = mutableListOf<FilterGroup>()
-    private val isExpanded = mutableMapOf<filters.FilterType, Boolean>()
-    private val excludedTypes = ArrayList<filters.FilterType>()
+    private val isExpanded = mutableMapOf<FilterType, Boolean>()
+    private val excludedTypes = ArrayList<FilterType>()
 
     fun updateList(newList: List<FilterGroup>) {
         typeList.clear()
@@ -26,7 +27,7 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
         notifyDataSetChanged()
     }
 
-    fun updateExcludedTypes(newExcludedTypes: List<filters.FilterType>) {
+    fun updateExcludedTypes(newExcludedTypes: List<FilterType>) {
         excludedTypes.clear()
         excludedTypes.addAll(newExcludedTypes)
         cleanTypeList()
@@ -48,17 +49,14 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilterTypeViewHolder {
-        val binding = FilterSelectionItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = SelectFiltersFilterSelectionItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return FilterTypeViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: FilterTypeViewHolder, position: Int) {
         val currentItem = typeList[position]
         holder.itemView.setOnClickListener {
-            isExpanded.put(
-                currentItem.type,
-                !getIsExpanded(currentItem)
-            ); notifyItemChanged(position)
+            isExpanded[currentItem.type] = !getIsExpanded(currentItem); notifyItemChanged(position)
         }
         holder.binding.filterTypeTextview.text = currentItem.text
         holder.binding.typeSwitch.isChecked = currentItem.isFilterPositive
@@ -79,5 +77,5 @@ class FilterSelectionAdapter : RecyclerView.Adapter<FilterSelectionAdapter.Filte
         return typeList.size
     }
 
-    class FilterTypeViewHolder(val binding: FilterSelectionItemBinding) : RecyclerView.ViewHolder(binding.root)
+    class FilterTypeViewHolder(val binding: SelectFiltersFilterSelectionItemBinding) : RecyclerView.ViewHolder(binding.root)
 }

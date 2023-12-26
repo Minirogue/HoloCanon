@@ -2,6 +2,8 @@ package filters
 
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto
+import filters.model.FilterType
+import filters.model.MediaFilter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
