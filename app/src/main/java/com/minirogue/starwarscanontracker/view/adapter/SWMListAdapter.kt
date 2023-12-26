@@ -11,11 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.request.CachePolicy
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.databinding.MediaListItemBinding
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
-import java.util.*
+import com.minirogue.starwarscanontracker.databinding.MediaListItemBinding
 
 class SWMListAdapter(
     private val adapterInterface: AdapterInterface,
@@ -25,9 +24,9 @@ class SWMListAdapter(
 
     interface AdapterInterface {
         fun onItemClicked(itemId: Int)
-        fun onCheckbox1Clicked(mediaNotes: MediaNotes)
-        fun onCheckbox2Clicked(mediaNotes: MediaNotes)
-        fun onCheckbox3Clicked(mediaNotes: MediaNotes)
+        fun onCheckbox1Clicked(mediaNotesDto: MediaNotesDto)
+        fun onCheckbox2Clicked(mediaNotesDto: MediaNotesDto)
+        fun onCheckbox3Clicked(mediaNotesDto: MediaNotesDto)
         fun getMediaTypeString(mediaTypeId: Int): String
         fun getSeriesString(seriesId: Int): String
         fun isNetworkAllowed(): Boolean
@@ -59,21 +58,21 @@ class SWMListAdapter(
     override fun onBindViewHolder(holder: MediaViewHolder, position: Int) {
         getItem(position)?.let { currentItem: MediaAndNotes ->
             with(holder) {
-                itemView.setOnClickListener { adapterInterface.onItemClicked(currentItem.mediaItem.id) }
+                itemView.setOnClickListener { adapterInterface.onItemClicked(currentItem.mediaItemDto.id) }
 
                 with(binding) {
-                    bindTextViews(this, currentItem.mediaItem)
-                    bindCheckBoxes(checkbox1, checkbox2, checkbox3, currentItem.mediaNotes)
-                    bindCoverImage(imageCover, currentItem.mediaItem.imageURL)
+                    bindTextViews(this, currentItem.mediaItemDto)
+                    bindCheckBoxes(checkbox1, checkbox2, checkbox3, currentItem.mediaNotesDto)
+                    bindCoverImage(imageCover, currentItem.mediaItemDto.imageURL)
                 }
             }
         }
     }
 
-    private fun bindTextViews(binding: MediaListItemBinding, mediaItem: MediaItem) = with(binding) {
-        mediaTitle.text = mediaItem.title
-        dateTextview.text = mediaItem.date
-        mediaType.text = adapterInterface.getMediaTypeString(mediaItem.type)
+    private fun bindTextViews(binding: MediaListItemBinding, mediaItemDto: MediaItemDto) = with(binding) {
+        mediaTitle.text = mediaItemDto.title
+        dateTextview.text = mediaItemDto.date
+        mediaType.text = adapterInterface.getMediaTypeString(mediaItemDto.type)
 //        if (mediaItem.series > 0) {
 //            series.text = adapterInterface.getSeriesString(mediaItem.series)
 //            series.visibility = View.VISIBLE
@@ -82,14 +81,14 @@ class SWMListAdapter(
 //        }
     }
 
-    private fun bindCheckBoxes(checkbox1: CheckBox, checkbox2: CheckBox, checkbox3: CheckBox, notes: MediaNotes) {
+    private fun bindCheckBoxes(checkbox1: CheckBox, checkbox2: CheckBox, checkbox3: CheckBox, notes: MediaNotesDto) {
         with(checkbox1) {
             if (isCheckBoxActive[0]) {
                 text = checkBoxText[0]
                 isChecked = notes.isBox1Checked
                 visibility = View.VISIBLE
                 tag = notes
-                setOnClickListener { view: View -> adapterInterface.onCheckbox1Clicked(view.tag as MediaNotes) }
+                setOnClickListener { view: View -> adapterInterface.onCheckbox1Clicked(view.tag as MediaNotesDto) }
             } else {
                 visibility = View.GONE
             }
@@ -100,7 +99,7 @@ class SWMListAdapter(
                 isChecked = notes.isBox2Checked
                 visibility = View.VISIBLE
                 tag = notes
-                setOnClickListener { view: View -> adapterInterface.onCheckbox2Clicked(view.tag as MediaNotes) }
+                setOnClickListener { view: View -> adapterInterface.onCheckbox2Clicked(view.tag as MediaNotesDto) }
             } else {
                 visibility = View.GONE
             }
@@ -111,7 +110,7 @@ class SWMListAdapter(
                 isChecked = notes.isBox3Checked
                 visibility = View.VISIBLE
                 tag = notes
-                setOnClickListener { view: View -> adapterInterface.onCheckbox3Clicked(view.tag as MediaNotes) }
+                setOnClickListener { view: View -> adapterInterface.onCheckbox3Clicked(view.tag as MediaNotesDto) }
             } else {
                 visibility = View.GONE
             }
@@ -137,7 +136,7 @@ class SWMListAdapter(
         private val DiffCallback: DiffUtil.ItemCallback<MediaAndNotes> =
             object : DiffUtil.ItemCallback<MediaAndNotes>() {
                 override fun areItemsTheSame(oldItem: MediaAndNotes, newItem: MediaAndNotes): Boolean {
-                    return oldItem.mediaItem.id == newItem.mediaItem.id
+                    return oldItem.mediaItemDto.id == newItem.mediaItemDto.id
                 }
 
                 override fun areContentsTheSame(oldItem: MediaAndNotes, newItem: MediaAndNotes): Boolean {

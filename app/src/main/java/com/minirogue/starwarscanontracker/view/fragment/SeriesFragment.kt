@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.request.CachePolicy
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.core.model.room.entity.Series
+import com.minirogue.starwarscanontracker.core.model.room.entity.SeriesDto
 import com.minirogue.starwarscanontracker.databinding.FragmentSeriesBinding
 import com.minirogue.starwarscanontracker.view.adapter.SeriesListAdapter
 import com.minirogue.starwarscanontracker.viewmodel.SeriesViewModel
@@ -32,7 +32,7 @@ class SeriesFragment : Fragment() {
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
         if (bundleItemId != -1) viewModel.setSeriesId(bundleItemId)
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.liveSeries.asFlow()
+            viewModel.liveSeriesDto.asFlow()
                 .combine(viewModel.isNetworkAllowed) { series, isNetworkAllowed -> Pair(series, isNetworkAllowed) }
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle)
                 .collect { updateViews(it.first, it.second, fragmentBinding) }
@@ -78,10 +78,10 @@ class SeriesFragment : Fragment() {
         fragmentBinding.checkbox3.text = names[2]
     }
 
-    private fun updateViews(series: Series, isNetworkAllowed: Boolean, fragmentBinding: FragmentSeriesBinding) {
-        fragmentBinding.seriesTitle.text = series.title
+    private fun updateViews(seriesDto: SeriesDto, isNetworkAllowed: Boolean, fragmentBinding: FragmentSeriesBinding) {
+        fragmentBinding.seriesTitle.text = seriesDto.title
 
-        fragmentBinding.seriesImage.load(series.imageURL) {
+        fragmentBinding.seriesImage.load(seriesDto.imageURL) {
             placeholder(R.drawable.ic_launcher_foreground)
             if (isNetworkAllowed) {
                 networkCachePolicy(CachePolicy.ENABLED)

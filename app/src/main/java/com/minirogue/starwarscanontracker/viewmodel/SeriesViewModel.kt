@@ -1,11 +1,20 @@
 package com.minirogue.starwarscanontracker.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
-import com.minirogue.starwarscanontracker.core.model.room.entity.Series
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
+import com.minirogue.starwarscanontracker.core.model.room.entity.SeriesDto
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
-import com.minirogue.starwarscanontracker.usecase.*
+import com.minirogue.starwarscanontracker.usecase.Checkbox
+import com.minirogue.starwarscanontracker.usecase.GetCheckboxText
+import com.minirogue.starwarscanontracker.usecase.GetMediaAndNotesForSeries
+import com.minirogue.starwarscanontracker.usecase.GetNotesBySeries
+import com.minirogue.starwarscanontracker.usecase.GetSeries
+import com.minirogue.starwarscanontracker.usecase.SetCheckboxForSeries
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -30,7 +39,7 @@ class SeriesViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var seriesId: Int = -1
-    lateinit var liveSeries: LiveData<Series>
+    lateinit var liveSeriesDto: LiveData<SeriesDto>
     val seriesList = MediatorLiveData<List<MediaAndNotes>>()
     val liveSeriesNotes = MediatorLiveData<Array<Boolean>>()
     val checkBoxNames = getCheckboxText.invoke()
@@ -47,7 +56,7 @@ class SeriesViewModel @Inject constructor(
 
     fun setSeriesId(seriesId: Int) {
         this.seriesId = seriesId
-        liveSeries = getSeries(seriesId).asLiveData(viewModelScope.coroutineContext)
+        liveSeriesDto = getSeries(seriesId).asLiveData(viewModelScope.coroutineContext)
         liveSeriesNotes.addSource(getNotesBySeries(seriesId)) {
             viewModelScope.launch {
                 updateSeriesNotes(it)
@@ -81,7 +90,7 @@ class SeriesViewModel @Inject constructor(
         }
     }
 
-    private suspend fun updateSeriesNotes(fullNotes: List<MediaNotes>) = withContext(Dispatchers.Default) {
+    private suspend fun updateSeriesNotes(fullNotes: List<MediaNotesDto>) = withContext(Dispatchers.Default) {
         notesParsingMutex.withLock {
             val checkBoxOne = async {
                 var checked = true

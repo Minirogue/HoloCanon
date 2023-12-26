@@ -1,7 +1,7 @@
 package filters
 
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto
 import javax.inject.Inject
 
 internal class UpdateFilterImpl @Inject constructor(private val daoFilter: DaoFilter) : UpdateFilter {
@@ -15,7 +15,7 @@ internal class UpdateFilterImpl @Inject constructor(private val daoFilter: DaoFi
      */
     override suspend operator fun invoke(filterGroup: FilterGroup) = daoFilter.update(filterGroup.toLocalDto())
 
-    private fun FilterGroup.toLocalDto(): FilterType = FilterType(
+    private fun FilterGroup.toLocalDto(): FilterTypeDto = FilterTypeDto(
         typeId = type.legacyIntegerConversion,
         isFilterPositive = isFilterPositive,
         text = text,

@@ -1,8 +1,12 @@
 package com.minirogue.starwarscanontracker.core.model.room.dao
 
-import androidx.room.*
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterType
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import androidx.room.Update
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObjectDto
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto
 import com.minirogue.starwarscanontracker.core.model.room.pojo.FullFilter
 import kotlinx.coroutines.flow.Flow
 
@@ -11,32 +15,32 @@ interface DaoFilter {
 
     // FilterTypes:
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(filterType: FilterType): Long
+    fun insert(filterTypeDto: FilterTypeDto): Long
 
     @Update
-    suspend fun update(filterType: FilterType)
+    suspend fun update(filterTypeDto: FilterTypeDto)
 
     @Query("SELECT * FROM filter_type WHERE id=3 OR id=4 OR id=5")
-    fun getCheckBoxFilterTypes(): Flow<List<FilterType>>
+    fun getCheckBoxFilterTypes(): Flow<List<FilterTypeDto>>
 
     @Query("SELECT * FROM filter_type")
-    fun getAllFilterTypes(): Flow<List<FilterType>>
+    fun getAllFilterTypes(): Flow<List<FilterTypeDto>>
 
     @Query("SELECT * FROM filter_type")
-    fun getAllFilterTypesNonLive(): List<FilterType>
+    fun getAllFilterTypesNonLive(): List<FilterTypeDto>
 
     @Query("SELECT * FROM filter_type WHERE id=:id LIMIT 1")
-    fun getFilterType(id: Int): FilterType
+    fun getFilterType(id: Int): FilterTypeDto
 
     // FilterObjects:
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(filterObject: FilterObject)
+    fun insert(filterObjectDto: FilterObjectDto)
 
     @Update
-    suspend fun update(filterObject: FilterObject)
+    suspend fun update(filterObjectDto: FilterObjectDto)
 
     @Query("SELECT * FROM filter_object")
-    fun getAllFilters(): Flow<List<FilterObject>>
+    fun getAllFilters(): Flow<List<FilterObjectDto>>
 
     @Query(
         "SELECT filter_object.*,filter_type.is_positive FROM filter_object " +

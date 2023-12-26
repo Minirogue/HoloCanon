@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
     tableName = "media_items",
     indices = [Index("type"), Index("series")]
 )
-data class MediaItem(
+data class MediaItemDto(
     @PrimaryKey
     var id: Int = 0,
     @ColumnInfo(name = "title", defaultValue = "")
