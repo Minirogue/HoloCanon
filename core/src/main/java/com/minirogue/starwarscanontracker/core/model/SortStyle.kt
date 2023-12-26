@@ -1,6 +1,6 @@
 package com.minirogue.starwarscanontracker.core.model
 
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
 import kotlin.math.sign
 
@@ -19,10 +19,6 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
                 else -> "SortTypeNotFound"
             }
         }
-
-        fun getAllStyles(): Array<Int> {
-            return arrayOf(SORT_TITLE, SORT_TIMELINE, SORT_DATE)
-        }
     }
 
     // TODO
@@ -39,8 +35,8 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
         }
         val compNum: Int = when (style) {
             SORT_TITLE -> compareTitles(p0, p1)
-            SORT_TIMELINE -> sign(p0.mediaItem.timeline - p1.mediaItem.timeline).toInt()
-            SORT_DATE -> compareDates(p0.mediaItem, p1.mediaItem)
+            SORT_TIMELINE -> sign(p0.mediaItemDto.timeline - p1.mediaItemDto.timeline).toInt()
+            SORT_DATE -> compareDates(p0.mediaItemDto, p1.mediaItemDto)
             else -> compareTitles(p0, p1)
         }
         return if (ascending) {
@@ -51,13 +47,13 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
     }
 
     private fun compareTitles(p0: MediaAndNotes, p1: MediaAndNotes): Int {
-        val title1 = p0.mediaItem.title
-        val title2 = p1.mediaItem.title
+        val title1 = p0.mediaItemDto.title
+        val title2 = p1.mediaItemDto.title
 
         return title1.compareTo(title2)
     }
 
-    private fun compareDates(item1: MediaItem, item2: MediaItem): Int {
+    private fun compareDates(item1: MediaItemDto, item2: MediaItemDto): Int {
         val splitDate1 = item1.date.split("/")
         val splitDate2 = item2.date.split("/")
         var compare = (splitDate1[2].toInt() - splitDate2[2].toInt())

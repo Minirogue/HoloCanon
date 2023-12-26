@@ -11,8 +11,8 @@ import androidx.lifecycle.viewModelScope
 import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.core.model.SortStyle
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
 import com.minirogue.starwarscanontracker.usecase.GetCheckboxText
 import com.minirogue.starwarscanontracker.usecase.GetMediaListWithNotes
@@ -61,7 +61,7 @@ class MediaListViewModel @Inject constructor(
     val filteredMediaAndNotes: LiveData<List<MediaAndNotes>>
         get() = sortedData
     private val mediaTypeToString = SparseArray<String>()
-    private val dataMediator = MediatorLiveData<List<MediaItem>>()
+    private val dataMediator = MediatorLiveData<List<MediaItemDto>>()
 
     // The current method of sorting
     private val _sortStyle = MutableLiveData<SortStyle>()
@@ -164,8 +164,8 @@ class MediaListViewModel @Inject constructor(
         }
     }
 
-    fun update(mediaNotes: MediaNotes) {
-        updateNotes(mediaNotes)
+    fun update(mediaNotesDto: MediaNotesDto) {
+        updateNotes(mediaNotesDto)
     }
 
     fun convertTypeToString(typeId: Int): String {

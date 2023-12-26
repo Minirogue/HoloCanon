@@ -13,9 +13,9 @@ import com.minirogue.holoclient.api.HoloResult
 import com.minirogue.starwarscanontracker.core.model.UpdateFilters
 import com.minirogue.starwarscanontracker.core.model.room.MediaDatabase
 import com.minirogue.starwarscanontracker.core.model.room.entity.CompanyDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItem
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
-import com.minirogue.starwarscanontracker.core.model.room.entity.Series
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
+import com.minirogue.starwarscanontracker.core.model.room.entity.SeriesDto
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -72,15 +72,15 @@ internal class UpdateMediaDatabaseUseCase @Inject constructor(
                             .map { media ->
                                 val series = media.series
                                 if (seriesMap[series] == null && !series.isNullOrEmpty()) {
-                                    val seriesId = daoSeries.insert(Series().apply { title = series }).toInt()
-                                    seriesMap[series] = seriesId
+                                    val seriesDtoId = daoSeries.insert(SeriesDto().apply { title = series }).toInt()
+                                    seriesMap[series] = seriesDtoId
                                 }
                                 media.toDTO(seriesMap, typeMap, companyMap)
                             }
                             .collect {
                                 val insertSucceeded = daoMedia.insert(it)
                                 if (insertSucceeded == -1L) daoMedia.update(it)
-                                daoMedia.insert(MediaNotes(mediaId = it.id))
+                                daoMedia.insert(MediaNotesDto(mediaId = it.id))
                             }
                     if (latestRemoteVersion != null) {
                         setLatestDatabaseVersion(latestRemoteVersion)
@@ -96,7 +96,7 @@ internal class UpdateMediaDatabaseUseCase @Inject constructor(
             seriesMap: Map<String, Int>,
             typeMap: Map<MediaType, Int>,
             companyMap: Map<Company, Int>
-    ): MediaItem = MediaItem(
+    ): MediaItemDto = MediaItemDto(
             id = this.id.toInt(),
             title = this.title,
             series = this.series?.let { seriesMap[it] } ?: -1,

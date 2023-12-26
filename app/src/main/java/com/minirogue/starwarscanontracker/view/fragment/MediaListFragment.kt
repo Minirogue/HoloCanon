@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.SortStyle
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotes
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.databinding.FragmentMediaListBinding
 import com.minirogue.starwarscanontracker.view.FilterChip
 import com.minirogue.starwarscanontracker.view.adapter.SWMListAdapter
@@ -53,19 +53,19 @@ class MediaListFragment : Fragment() {
                 .commit()
         }
 
-        override fun onCheckbox1Clicked(mediaNotes: MediaNotes) {
-            mediaNotes.flipCheck1()
-            mediaListViewModel.update(mediaNotes)
+        override fun onCheckbox1Clicked(mediaNotesDto: MediaNotesDto) {
+            mediaNotesDto.flipCheck1()
+            mediaListViewModel.update(mediaNotesDto)
         }
 
-        override fun onCheckbox2Clicked(mediaNotes: MediaNotes) {
-            mediaNotes.flipCheck2()
-            mediaListViewModel.update(mediaNotes)
+        override fun onCheckbox2Clicked(mediaNotesDto: MediaNotesDto) {
+            mediaNotesDto.flipCheck2()
+            mediaListViewModel.update(mediaNotesDto)
         }
 
-        override fun onCheckbox3Clicked(mediaNotes: MediaNotes) {
-            mediaNotes.flipCheck3()
-            mediaListViewModel.update(mediaNotes)
+        override fun onCheckbox3Clicked(mediaNotesDto: MediaNotesDto) {
+            mediaNotesDto.flipCheck3()
+            mediaListViewModel.update(mediaNotesDto)
         }
 
         override fun getMediaTypeString(mediaTypeId: Int): String {

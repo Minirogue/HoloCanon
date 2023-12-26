@@ -6,7 +6,7 @@ import com.minirogue.starwarscanontracker.core.R
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoCompany
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObjectDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -44,7 +44,7 @@ class UpdateFilters @Inject constructor(
     }
 
     private suspend fun updatePublisherFilters() = withContext(Dispatchers.Default) {
-        var tempFilter: FilterObject?
+        var tempFilter: FilterObjectDto?
         val publisherFilterText = "Publisher"
 
         val insertWorked = daoFilter.insert(FilterTypeDto(FilterTypeDto.FILTERCOLUMN_PUBLISHER, true, publisherFilterText))
@@ -56,9 +56,9 @@ class UpdateFilters @Inject constructor(
 
         val companyList = daoCompany.getAllNonLive()
         for (company in companyList) {
-            tempFilter = daoFilter.getFilter(company.id, FilterTypeDto.FILTERCOLUMN_PUBLISHER)?.filterObject
+            tempFilter = daoFilter.getFilter(company.id, FilterTypeDto.FILTERCOLUMN_PUBLISHER)?.filterObjectDto
             if (tempFilter == null) {
-                tempFilter = FilterObject(company.id, FilterTypeDto.FILTERCOLUMN_PUBLISHER, false, company.companyName)
+                tempFilter = FilterObjectDto(company.id, FilterTypeDto.FILTERCOLUMN_PUBLISHER, false, company.companyName)
                 daoFilter.insert(tempFilter)
             } else {
                 tempFilter.displayText = company.companyName
@@ -68,7 +68,7 @@ class UpdateFilters @Inject constructor(
     }
 
     private suspend fun updateSeriesFilters() = withContext(Dispatchers.Default) {
-        var tempFilter: FilterObject?
+        var tempFilter: FilterObjectDto?
         val seriesFilterText = "Series"
 
         val insertWorked = daoFilter.insert(FilterTypeDto(FilterTypeDto.FILTERCOLUMN_SERIES, true, seriesFilterText))
@@ -80,9 +80,9 @@ class UpdateFilters @Inject constructor(
 
         val seriesList = daoSeries.getAllNonLive()
         for (series in seriesList) {
-            tempFilter = daoFilter.getFilter(series.id, FilterTypeDto.FILTERCOLUMN_SERIES)?.filterObject
+            tempFilter = daoFilter.getFilter(series.id, FilterTypeDto.FILTERCOLUMN_SERIES)?.filterObjectDto
             if (tempFilter == null) {
-                tempFilter = FilterObject(series.id, FilterTypeDto.FILTERCOLUMN_SERIES, false, series.title)
+                tempFilter = FilterObjectDto(series.id, FilterTypeDto.FILTERCOLUMN_SERIES, false, series.title)
                 daoFilter.insert(tempFilter)
             } else {
                 tempFilter.displayText = series.title
@@ -92,7 +92,7 @@ class UpdateFilters @Inject constructor(
     }
 
     private suspend fun updateMediaTypeFilters() = withContext(Dispatchers.Default) {
-        var tempFilter: FilterObject?
+        var tempFilter: FilterObjectDto?
         val mediaTypeText = "Media Type"
 
         val insertWorked = daoFilter.insert(FilterTypeDto(FilterTypeDto.FILTERCOLUMN_TYPE, true, mediaTypeText))
@@ -104,9 +104,9 @@ class UpdateFilters @Inject constructor(
 
         for (mediaType in MediaType.entries) {
             val displayText = mediaType.getSerialName()
-            tempFilter = daoFilter.getFilter(mediaType.legacyId, FilterTypeDto.FILTERCOLUMN_TYPE)?.filterObject
+            tempFilter = daoFilter.getFilter(mediaType.legacyId, FilterTypeDto.FILTERCOLUMN_TYPE)?.filterObjectDto
             if (tempFilter == null) {
-                tempFilter = FilterObject(mediaType.legacyId, FilterTypeDto.FILTERCOLUMN_TYPE, false, displayText)
+                tempFilter = FilterObjectDto(mediaType.legacyId, FilterTypeDto.FILTERCOLUMN_TYPE, false, displayText)
                 daoFilter.insert(tempFilter)
             } else {
                 tempFilter.displayText = displayText
@@ -117,7 +117,7 @@ class UpdateFilters @Inject constructor(
 
     private suspend fun updateCheckboxFilters() = withContext(Dispatchers.Default) {
         val injectedCheckboxText = checkboxText.first()
-        var tempFilter: FilterObject?
+        var tempFilter: FilterObjectDto?
         // add checkbox filters
         var insertWorked = daoFilter.insert(FilterTypeDto(FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE,
                 true,
@@ -128,9 +128,9 @@ class UpdateFilters @Inject constructor(
             daoFilter.update(filterTypeDto)
         }
 
-        tempFilter = daoFilter.getFilter(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE)?.filterObject
+        tempFilter = daoFilter.getFilter(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE)?.filterObjectDto
         if (tempFilter == null) {
-            tempFilter = FilterObject(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE, false, injectedCheckboxText[0])
+            tempFilter = FilterObjectDto(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE, false, injectedCheckboxText[0])
             daoFilter.insert(tempFilter)
         } else {
             tempFilter.displayText = injectedCheckboxText[0]
@@ -143,9 +143,9 @@ class UpdateFilters @Inject constructor(
             filterTypeDto.text = injectedCheckboxText[1]
             daoFilter.update(filterTypeDto)
         }
-        tempFilter = daoFilter.getFilter(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO)?.filterObject
+        tempFilter = daoFilter.getFilter(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO)?.filterObjectDto
         if (tempFilter == null) {
-            tempFilter = FilterObject(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO, false, injectedCheckboxText[1])
+            tempFilter = FilterObjectDto(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO, false, injectedCheckboxText[1])
             daoFilter.insert(tempFilter)
         } else {
             tempFilter.displayText = injectedCheckboxText[1]
@@ -160,9 +160,9 @@ class UpdateFilters @Inject constructor(
             filterTypeDto.text = injectedCheckboxText[2]
             daoFilter.update(filterTypeDto)
         }
-        tempFilter = daoFilter.getFilter(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE)?.filterObject
+        tempFilter = daoFilter.getFilter(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE)?.filterObjectDto
         if (tempFilter == null) {
-            tempFilter = FilterObject(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE, false, injectedCheckboxText[2])
+            tempFilter = FilterObjectDto(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE, false, injectedCheckboxText[2])
             daoFilter.insert(tempFilter)
         } else {
             tempFilter.displayText = injectedCheckboxText[2]

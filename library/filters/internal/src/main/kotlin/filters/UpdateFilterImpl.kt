@@ -2,8 +2,6 @@ package filters
 
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto
-import filters.model.FilterGroup
-import filters.model.MediaFilter
 import javax.inject.Inject
 
 internal class UpdateFilterImpl @Inject constructor(private val daoFilter: DaoFilter) : UpdateFilter {

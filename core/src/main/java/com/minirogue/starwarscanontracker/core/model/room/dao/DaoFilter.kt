@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObject
+import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObjectDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto
 import com.minirogue.starwarscanontracker.core.model.room.pojo.FullFilter
 import kotlinx.coroutines.flow.Flow
@@ -34,13 +34,13 @@ interface DaoFilter {
 
     // FilterObjects:
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(filterObject: FilterObject)
+    fun insert(filterObjectDto: FilterObjectDto)
 
     @Update
-    suspend fun update(filterObject: FilterObject)
+    suspend fun update(filterObjectDto: FilterObjectDto)
 
     @Query("SELECT * FROM filter_object")
-    fun getAllFilters(): Flow<List<FilterObject>>
+    fun getAllFilters(): Flow<List<FilterObjectDto>>
 
     @Query(
         "SELECT filter_object.*,filter_type.is_positive FROM filter_object " +

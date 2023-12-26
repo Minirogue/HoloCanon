@@ -23,7 +23,7 @@ plugins {
 }
 
 detekt {
-    input = files("$project.rootDir")
+    source = files("$project.rootDir")
     baseline = file("$project.rootDir/config/detekt/baseline.xml")
 }
 

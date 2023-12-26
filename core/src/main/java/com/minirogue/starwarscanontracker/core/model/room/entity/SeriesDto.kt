@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "series")
-class Series {
+class SeriesDto {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo
     var id: Int = 0
