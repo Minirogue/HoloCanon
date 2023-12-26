@@ -3,6 +3,7 @@ package filters
 import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto
+import filters.model.MediaFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
