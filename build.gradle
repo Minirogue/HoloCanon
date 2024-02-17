@@ -33,7 +33,7 @@ ext {
     appCompatVersion = '1.6.1'
     coilVersion = '2.5.0'
     composeBomVersion = '2024.02.00'
-    composeCompilerVersion = '1.5.7'
+    composeCompilerVersion = '1.5.9'
     datastoreVersion = '1.0.0'
     fragmentVersion = '1.6.2'
     lifecycleVersion = '2.7.0'
