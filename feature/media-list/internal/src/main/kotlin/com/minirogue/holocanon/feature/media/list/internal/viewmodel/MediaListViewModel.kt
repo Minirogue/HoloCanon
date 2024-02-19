@@ -12,7 +12,7 @@ import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.core.model.SortStyle
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
-import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
+import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotesDto
 import com.minirogue.starwarscanontracker.core.usecase.GetMediaListWithNotes
 import com.minirogue.starwarscanontracker.core.usecase.IsNetworkAllowed
 import com.minirogue.starwarscanontracker.core.usecase.UpdateNotes
@@ -24,27 +24,31 @@ import filters.model.MediaFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import settings.model.CheckboxSettings
 import settings.usecase.GetCheckboxSettings
-import settings.usecase.GetCheckboxText
 import java.io.File
 import javax.inject.Inject
 
+data class MediaListState(
+        val activeFilters: List<MediaFilter> = emptyList(),
+        val sortStyle: SortStyle? = null,
+        val checkboxSettings: CheckboxSettings = CheckboxSettings.NONE,
+        val isNetworkAllowed: Boolean = false,
+)
+
 @Suppress("LongParameterList")
 @HiltViewModel
-class MediaListViewModel @Inject constructor(
+internal class MediaListViewModel @Inject constructor(
         getActiveFilters: GetActiveFilters,
         getAllFilterTypes: GetAllFilterTypes,
         private val updateFilter: UpdateFilter,
-        getCheckboxText: GetCheckboxText,
         private val updateNotes: UpdateNotes,
         private val getMediaListWithNotes: GetMediaListWithNotes,
         isNetworkAllowed: IsNetworkAllowed,
@@ -52,35 +56,16 @@ class MediaListViewModel @Inject constructor(
         application: Application,
 ) : ViewModel() {
 
-    // filtering
-    val activeFilters = getActiveFilters().asLiveData(viewModelScope.coroutineContext)
+    private val _state: MutableStateFlow<MediaListState> = MutableStateFlow(MediaListState())
+    val state: StateFlow<MediaListState> = _state
 
     // The data requested by the user
-    private var data: LiveData<List<MediaAndNotes>> = MutableLiveData()
-    private val sortedData = MediatorLiveData<List<MediaAndNotes>>()
-    val filteredMediaAndNotes: LiveData<List<MediaAndNotes>>
+    private var data: LiveData<List<MediaAndNotesDto>> = MutableLiveData()
+    private val sortedData = MediatorLiveData<List<MediaAndNotesDto>>()
+    val filteredMediaAndNotes: LiveData<List<MediaAndNotesDto>>
         get() = sortedData
     private val mediaTypeToString = SparseArray<String>()
     private val dataMediator = MediatorLiveData<List<MediaItemDto>>()
-
-    // The current method of sorting
-    private val _sortStyle = MutableLiveData<SortStyle>()
-    val sortStyle: LiveData<SortStyle>
-        get() = _sortStyle
-
-    // Checkbox settings
-    val checkBoxText = getCheckboxText.invoke()
-    val checkBoxVisibility: Flow<BooleanArray> = getCheckboxSettings().map { checkboxSettings ->
-        booleanArrayOf(
-                checkboxSettings.checkbox1Setting.isInUse,
-                checkboxSettings.checkbox2Setting.isInUse,
-                checkboxSettings.checkbox3Setting.isInUse,
-        )
-    }
-
-    // Whether or not network calls are currently allowed. Used for fetching images.
-    val isNetworkAllowed: StateFlow<Boolean> = isNetworkAllowed()
-            .stateIn(scope = viewModelScope, started = SharingStarted.Eagerly, initialValue = false)
 
     // Variables for handling exactly one query and sort job at a time
     private var queryJob: Job = Job()
@@ -92,7 +77,23 @@ class MediaListViewModel @Inject constructor(
     private val sortCacheFileName = application.cacheDir.toString() + "/sortCache"
 
     init {
-        viewModelScope.launch { _sortStyle.postValue(getSavedSort()) }
+        // filtering
+        viewModelScope.launch {
+            getActiveFilters().collect { activeFilters -> _state.update { it.copy(activeFilters = activeFilters) } }
+        }
+        viewModelScope.launch {
+            getCheckboxSettings().collect { checkboxSettings -> _state.update { it.copy(checkboxSettings = checkboxSettings) } }
+        }
+        viewModelScope.launch {
+            isNetworkAllowed().collect { networkAllowed -> _state.update { it.copy(isNetworkAllowed = networkAllowed) } }
+        }
+        viewModelScope.launch {
+            val savedSort = getSavedSort()
+            _state.update { it.copy(sortStyle = savedSort) }
+        }
+
+
+
         viewModelScope.launch(Dispatchers.Default) {
             MediaType.entries.forEach { mediaTypeToString.put(it.legacyId, it.getSerialName()) }
         }
@@ -105,18 +106,18 @@ class MediaListViewModel @Inject constructor(
         sortedData.addSource(dataMediator) { }
     }
 
-    fun setSort(newCompareType: Int) {
-        _sortStyle.postValue(SortStyle(newCompareType, true))
+    fun setSort(newCompareType: Int) = viewModelScope.launch {
+        val sortStyle = SortStyle(newCompareType, true)
+        _state.update { it.copy(sortStyle = sortStyle) }
+        saveSort(sortStyle)
     }
 
-    private suspend fun saveSort() = withContext(Dispatchers.IO) {
-        val style = _sortStyle.value
-        if (style != null) {
-            val cacheFile = File(sortCacheFileName)
-            cacheFile.writeText(style.style.toString() + " " + if (style.ascending) "1" else "0")
-        }
+    private suspend fun saveSort(sortStyle: SortStyle) = withContext(Dispatchers.IO) {
+        val cacheFile = File(sortCacheFileName)
+        cacheFile.writeText(sortStyle.style.toString() + " " + if (sortStyle.ascending) "1" else "0")
     }
 
+    // TODO this should be a usecase and we should be using some kind of
     private suspend fun getSavedSort(): SortStyle = withContext(Dispatchers.IO) {
         val cacheFile = File(sortCacheFileName)
         if (!cacheFile.exists()) {

@@ -1,10 +1,10 @@
 package com.minirogue.starwarscanontracker.core.model
 
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
-import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
+import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotesDto
 import kotlin.math.sign
 
-class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNotes> {
+class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNotesDto> {
 
     companion object {
         const val SORT_TITLE = 1
@@ -23,7 +23,7 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
 
     // TODO
     @Suppress("ReturnCount")
-    override fun compare(p0: MediaAndNotes?, p1: MediaAndNotes?): Int {
+    override fun compare(p0: MediaAndNotesDto?, p1: MediaAndNotesDto?): Int {
         if (p0 == null || p1 == null) {
             if (p0 == null && p1 == null) {
                 return 0
@@ -46,7 +46,7 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
         }
     }
 
-    private fun compareTitles(p0: MediaAndNotes, p1: MediaAndNotes): Int {
+    private fun compareTitles(p0: MediaAndNotesDto, p1: MediaAndNotesDto): Int {
         val title1 = p0.mediaItemDto.title
         val title2 = p1.mediaItemDto.title
 

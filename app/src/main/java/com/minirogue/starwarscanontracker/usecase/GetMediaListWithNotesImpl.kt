@@ -1,18 +1,21 @@
 package com.minirogue.starwarscanontracker.usecase
 
 import android.util.SparseBooleanArray
-import androidx.lifecycle.LiveData
 import androidx.sqlite.db.SimpleSQLiteQuery
 import com.minirogue.api.media.MediaType
+import com.minirogue.api.media.StarWarsMedia
+import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
-import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.usecase.GetMediaListWithNotes
 import filters.model.FilterType
 import filters.model.MediaFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import settings.usecase.GetPermanentFilterSettings
 import javax.inject.Inject
@@ -30,10 +33,16 @@ class GetMediaListWithNotesImpl @Inject constructor(
      *
      * @param filterList the list of Filters to apply to the query
      */
-    override suspend fun invoke(filterList: List<MediaFilter>): LiveData<List<MediaAndNotes>> {
+    override suspend fun invoke(filterList: List<MediaFilter>): Flow<List<MediaAndNotes>> {
         val query = convertFiltersToQuery(filterList)
-        return daoMedia.getMediaAndNotesRawQuery(query)
+        return daoMedia.getMediaAndNotesRawQuery(query).map { list ->
+            list.map {
+                MediaAndNotes(it.mediaItemDto)
+            }
+        }
     }
+
+    private fun MediaItemDto.toStarWarsMedia(): StarWarsMedia = StarWarsMedia(id = id.toLong(), title = title, type = Mediatype, imageUrl =, releaseDate =, timeline =, description =, series =, number =, publisher =)
 
     // TODO
     @Suppress("LongMethod", "ComplexMethod", "BlockingMethodInNonBlockingContext")

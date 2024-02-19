@@ -10,7 +10,7 @@ import androidx.room.Update
 import androidx.sqlite.db.SupportSQLiteQuery
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
-import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
+import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotesDto
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -50,12 +50,12 @@ interface DaoMedia {
 
     //The following return MediaAndNotes objects
     @RawQuery(observedEntities = [MediaItemDto::class, MediaNotesDto::class])
-    fun getMediaAndNotesRawQuery(query: SupportSQLiteQuery): LiveData<List<MediaAndNotes>>
+    fun getMediaAndNotesRawQuery(query: SupportSQLiteQuery): Flow<List<MediaAndNotesDto>>
 
     @Query(
-        "SELECT media_items.*,media_notes.* FROM media_items " +
-                "INNER JOIN media_notes ON media_items.id = media_notes.media_id " +
-                "WHERE series = :seriesId"
+            "SELECT media_items.*,media_notes.* FROM media_items " +
+                    "INNER JOIN media_notes ON media_items.id = media_notes.media_id " +
+                    "WHERE series = :seriesId"
     )
-    fun getMediaAndNotesForSeries(seriesId: Int): Flow<List<MediaAndNotes>>
+    fun getMediaAndNotesForSeries(seriesId: Int): Flow<List<MediaAndNotesDto>>
 }

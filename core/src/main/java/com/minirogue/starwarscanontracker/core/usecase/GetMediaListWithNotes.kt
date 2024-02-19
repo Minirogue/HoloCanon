@@ -1,10 +1,10 @@
 package com.minirogue.starwarscanontracker.core.usecase
 
-import androidx.lifecycle.LiveData
-import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
+import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
 import filters.model.MediaFilter
+import kotlinx.coroutines.flow.Flow
 
 interface GetMediaListWithNotes {
-    suspend operator fun invoke(filterList: List<MediaFilter>): LiveData<List<MediaAndNotes>>
+    suspend operator fun invoke(filterList: List<MediaFilter>): Flow<List<MediaAndNotes>>
 }
 

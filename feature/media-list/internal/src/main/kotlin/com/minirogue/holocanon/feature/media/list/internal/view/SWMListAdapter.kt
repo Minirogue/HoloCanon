@@ -10,15 +10,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.request.CachePolicy
+import com.minirogue.api.media.StarWarsMedia
 import com.minirogue.holocanon.feature.media.list.internal.R
 import com.minirogue.holocanon.feature.media.list.internal.databinding.MediaListItemBinding
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
-import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
+import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotesDto
 
 class SWMListAdapter(
         private val adapterInterface: AdapterInterface,
-) : ListAdapter<MediaAndNotes, SWMListAdapter.MediaViewHolder>(DiffCallback) {
+) : ListAdapter<MediaAndNotesDto, SWMListAdapter.MediaViewHolder>(DiffCallback) {
     private var checkBoxText = arrayOf("", "", "")
     private var isCheckBoxActive = booleanArrayOf(true, true, true)
 
@@ -42,7 +42,7 @@ class SWMListAdapter(
         notifyDataSetChanged()
     }
 
-    override fun submitList(list: List<MediaAndNotes>?) {
+    override fun submitList(list: List<MediaAndNotesDto>?) {
         if (list != null) {
             super.submitList(ArrayList(list))
         } else {
@@ -56,7 +56,7 @@ class SWMListAdapter(
     }
 
     override fun onBindViewHolder(holder: MediaViewHolder, position: Int) {
-        getItem(position)?.let { currentItem: MediaAndNotes ->
+        getItem(position)?.let { currentItem: MediaAndNotesDto ->
             with(holder) {
                 itemView.setOnClickListener { adapterInterface.onItemClicked(currentItem.mediaItemDto.id) }
 
@@ -69,10 +69,10 @@ class SWMListAdapter(
         }
     }
 
-    private fun bindTextViews(binding: MediaListItemBinding, mediaItemDto: MediaItemDto) = with(binding) {
-        mediaTitle.text = mediaItemDto.title
-        dateTextview.text = mediaItemDto.date
-        mediaType.text = adapterInterface.getMediaTypeString(mediaItemDto.type)
+    private fun bindTextViews(binding: MediaListItemBinding, mediaItem: StarWarsMedia) = with(binding) {
+        mediaTitle.text = mediaItem.title
+        dateTextview.text = mediaItem.releaseDate
+        mediaType.text = mediaItem.type.getSerialName()
 //        if (mediaItem.series > 0) {
 //            series.text = adapterInterface.getSeriesString(mediaItem.series)
 //            series.visibility = View.VISIBLE
@@ -133,15 +133,15 @@ class SWMListAdapter(
     class MediaViewHolder(val binding: MediaListItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     companion object {
-        private val DiffCallback: DiffUtil.ItemCallback<MediaAndNotes> =
-            object : DiffUtil.ItemCallback<MediaAndNotes>() {
-                override fun areItemsTheSame(oldItem: MediaAndNotes, newItem: MediaAndNotes): Boolean {
-                    return oldItem.mediaItemDto.id == newItem.mediaItemDto.id
-                }
+        private val DiffCallback: DiffUtil.ItemCallback<MediaAndNotesDto> =
+                object : DiffUtil.ItemCallback<MediaAndNotesDto>() {
+                    override fun areItemsTheSame(oldItem: MediaAndNotesDto, newItem: MediaAndNotesDto): Boolean {
+                        return oldItem.mediaItemDto.id == newItem.mediaItemDto.id
+                    }
 
-                override fun areContentsTheSame(oldItem: MediaAndNotes, newItem: MediaAndNotes): Boolean {
-                    return oldItem == newItem
+                    override fun areContentsTheSame(oldItem: MediaAndNotesDto, newItem: MediaAndNotesDto): Boolean {
+                        return oldItem == newItem
+                    }
                 }
-            }
     }
 }
