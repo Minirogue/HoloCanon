@@ -1,4 +1,4 @@
-package com.minirogue.starwarscanontracker.view
+package com.minirogue.holocanon.feature.media.list.internal.view
 
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -23,13 +23,13 @@ class FragmentViewBindingDelegate<T : ViewBinding>(
     init {
         fragment.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onCreate(owner: LifecycleOwner) {
-                fragment.viewLifecycleOwnerLiveData.observe(fragment, { viewLifecycleOwner ->
+                fragment.viewLifecycleOwnerLiveData.observe(fragment) { viewLifecycleOwner ->
                     viewLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
                         override fun onDestroy(owner: LifecycleOwner) {
                             binding = null
                         }
                     })
-                })
+                }
             }
         })
     }

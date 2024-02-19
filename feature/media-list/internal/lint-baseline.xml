@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.2.2" type="baseline" client="gradle" dependencies="false"
+    name="AGP (8.2.2)" variant="all" version="8.2.2">
+
+    <issue id="ResourceName"
+        message="Resource named &apos;`ic_ascending_sort`&apos; does not start with the project&apos;s resource prefix &apos;`media_list`&apos;; rename to &apos;`media_listIc_ascending_sort`&apos; ?"
+        errorLine1="&lt;vector android:height=&quot;24dp&quot; android:tint=&quot;#000000&quot;"
+        errorLine2=" ~~~~~~">
+        <location file="src/main/res/drawable/ic_ascending_sort.xml" line="1" column="2" />
+    </issue>
+
+    <issue id="ResourceName"
+        message="Resource named &apos;`ic_descending_sort`&apos; does not start with the project&apos;s resource prefix &apos;`media_list`&apos;; rename to &apos;`media_listIc_descending_sort`&apos; ?"
+        errorLine1="&lt;vector android:height=&quot;24dp&quot; android:tint=&quot;#000000&quot;"
+        errorLine2=" ~~~~~~">
+        <location file="src/main/res/drawable/ic_descending_sort.xml" line="1" column="2" />
+    </issue>
+
+    <issue id="ResourceName"
+        message="Resource named &apos;`ic_sort`&apos; does not start with the project&apos;s resource prefix &apos;`media_list`&apos;; rename to &apos;`media_listIc_sort`&apos; ?"
+        errorLine1="&lt;vector android:height=&quot;24dp&quot; android:tint=&quot;#FFEFF5&quot;"
+        errorLine2=" ~~~~~~">
+        <location file="src/main/res/drawable/ic_sort.xml" line="1" column="2" />
+    </issue>
+
+    <issue id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        notifyDataSetChanged()" errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/minirogue/holocanon/feature/media/list/internal/view/SWMListAdapter.kt"
+            line="37" column="9" />
+    </issue>
+
+    <issue id="NotifyDataSetChanged"
+        message="It will always be more efficient to use more specific change events if you can. Rely on `notifyDataSetChanged` as a last resort."
+        errorLine1="        notifyDataSetChanged()" errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/kotlin/com/minirogue/holocanon/feature/media/list/internal/view/SWMListAdapter.kt"
+            line="42" column="9" />
+    </issue>
+
+</issues>

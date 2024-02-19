@@ -80,6 +80,8 @@ dependencies {
 
     // Project Modules
     implementation project(":core")
+    implementation project(":feature:media-item:internal")
+    implementation project(":feature:media-list:internal")
     implementation project(":feature:settings:internal")
     implementation project(":feature:select-filters:internal")
     implementation project(":library:filters:internal")

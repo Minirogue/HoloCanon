@@ -7,6 +7,7 @@ import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
+import com.minirogue.starwarscanontracker.core.usecase.GetMediaListWithNotes
 import filters.model.FilterType
 import filters.model.MediaFilter
 import kotlinx.coroutines.Dispatchers
@@ -16,11 +17,11 @@ import kotlinx.coroutines.withContext
 import settings.usecase.GetPermanentFilterSettings
 import javax.inject.Inject
 
-class GetMediaListWithNotes @Inject constructor(
+class GetMediaListWithNotesImpl @Inject constructor(
         private val daoMedia: DaoMedia,
         private val daoFilter: DaoFilter,
         private val getPermanentFilterSettings: GetPermanentFilterSettings,
-) {
+) : GetMediaListWithNotes {
     /**
      * Returns LiveData containing a list of MediaAndNotes based on the given filters.
      *
@@ -29,7 +30,7 @@ class GetMediaListWithNotes @Inject constructor(
      *
      * @param filterList the list of Filters to apply to the query
      */
-    suspend operator fun invoke(filterList: List<MediaFilter>): LiveData<List<MediaAndNotes>> {
+    override suspend fun invoke(filterList: List<MediaFilter>): LiveData<List<MediaAndNotes>> {
         val query = convertFiltersToQuery(filterList)
         return daoMedia.getMediaAndNotesRawQuery(query)
     }

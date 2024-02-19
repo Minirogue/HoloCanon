@@ -29,17 +29,12 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ViewMediaItemFragment : Fragment() {
 
-    companion object {
-        private const val MENU_ITEM_AMAZON_BUY = 1
-        private const val MENU_ITEM_AMAZON_STREAM = 2
-    }
-
     private val viewModel: ViewMediaItemViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val fragmentBinding = FragmentViewMediaItemBinding.inflate(inflater, container, false)
         val bundle = this.arguments
-        val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
+        val bundleItemId = bundle?.getInt(ITEM_ID_KEY, -1) ?: -1
         if (bundleItemId != -1) viewModel.setItemId(bundleItemId)
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.liveMediaItemDto.asFlow()
@@ -78,7 +73,7 @@ class ViewMediaItemFragment : Fragment() {
         } else ""
         fragmentBinding.releaseDate.text = item.date
         fragmentBinding.imageCover.load(item.imageURL) {
-            placeholder(R.drawable.ic_launcher_foreground)
+            placeholder(R.drawable.media_list_placeholder_image)
             if (isNetworkAllowed) {
                 networkCachePolicy(CachePolicy.ENABLED)
             } else networkCachePolicy(CachePolicy.DISABLED)
@@ -130,5 +125,19 @@ class ViewMediaItemFragment : Fragment() {
             true
         }
         fragmentBinding.affiliateLinksFab.setOnClickListener { shoppingMenu.show() }
+    }
+
+    companion object {
+        private const val MENU_ITEM_AMAZON_BUY = 1
+        private const val MENU_ITEM_AMAZON_STREAM = 2
+        private const val ITEM_ID_KEY = "item-id"
+        fun createInstance(itemId: Int): ViewMediaItemFragment {
+            return ViewMediaItemFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ITEM_ID_KEY, itemId)
+                }
+
+            }
+        }
     }
 }
