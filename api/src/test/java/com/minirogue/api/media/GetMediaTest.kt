@@ -22,7 +22,7 @@ class GetMediaTest {
         val imageAddresses = getFullMediaList().associate { it.id to it.imageUrl }
 
         // Act
-        val missingImages: Set<Long> = imageAddresses.filterValues { it != null }.keys
+        val missingImages: Set<Long> = imageAddresses.filterValues { it == null }.keys
 
         // Assert
         assertTrue("The following ids are missing images: $missingImages", missingImages.isEmpty())
