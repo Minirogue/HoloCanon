@@ -31,7 +31,7 @@ ext {
     // Android
     androidXTestVersion = '1.5.0'
     appCompatVersion = '1.6.1'
-    coilVersion = '2.5.0'
+    coilVersion = '2.6.0'
     composeBomVersion = '2024.02.01'
     composeCompilerVersion = '1.5.9'
     datastoreVersion = '1.0.0'
