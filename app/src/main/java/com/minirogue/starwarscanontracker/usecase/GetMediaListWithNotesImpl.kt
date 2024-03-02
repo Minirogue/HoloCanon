@@ -5,9 +5,12 @@ import androidx.sqlite.db.SimpleSQLiteQuery
 import com.minirogue.api.media.MediaType
 import com.minirogue.api.media.StarWarsMedia
 import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
+import com.minirogue.starwarscanontracker.core.model.MediaNotes
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
+import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
+import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.usecase.GetMediaListWithNotes
 import filters.model.FilterType
 import filters.model.MediaFilter
@@ -23,6 +26,7 @@ import javax.inject.Inject
 class GetMediaListWithNotesImpl @Inject constructor(
         private val daoMedia: DaoMedia,
         private val daoFilter: DaoFilter,
+        private val daoSeries: DaoSeries,
         private val getPermanentFilterSettings: GetPermanentFilterSettings,
 ) : GetMediaListWithNotes {
     /**
@@ -36,13 +40,24 @@ class GetMediaListWithNotesImpl @Inject constructor(
     override suspend fun invoke(filterList: List<MediaFilter>): Flow<List<MediaAndNotes>> {
         val query = convertFiltersToQuery(filterList)
         return daoMedia.getMediaAndNotesRawQuery(query).map { list ->
-            list.map {
-                MediaAndNotes(it.mediaItemDto)
-            }
+            list.map { MediaAndNotes(it.mediaItemDto.toStarWarsMedia(), it.mediaNotesDto.toNotes()) }
         }
     }
 
-    private fun MediaItemDto.toStarWarsMedia(): StarWarsMedia = StarWarsMedia(id = id.toLong(), title = title, type = Mediatype, imageUrl =, releaseDate =, timeline =, description =, series =, number =, publisher =)
+    private fun MediaItemDto.toStarWarsMedia(): StarWarsMedia = StarWarsMedia(
+            id = id.toLong(),
+            title = title,
+            type = MediaType.getFromLegacyId(type) ?: MediaType.REFERENCE,
+            imageUrl = imageURL,
+            releaseDate = date,
+            timeline = timeline.toFloat(),
+            description = description,
+            series = daoSeries.getSeries(series)?.title,
+            number =,
+            publisher =,
+    )
+
+    private fun MediaNotesDto.toMediaNotes(): MediaNotes = MediaNotes(isBox1Checked, isBox2Checked, isBox3Checked)
 
     // TODO
     @Suppress("LongMethod", "ComplexMethod", "BlockingMethodInNonBlockingContext")
