@@ -908,7 +908,7 @@ ID,title,type,image,released,timeline,description,series,number,publisher
 907,Darth Vader (2020) #03,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_3.jpg,7/29/2020,,,Darth Vader (2020),3,Marvel
 908,Star Wars (2020) #05,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_5.jpg,8/5/2020,,,Marvel's Star Wars (2020),5,Marvel
 909,Doctor Aphra (2020) #02,Comic Book,https://minirogue.github.io/SWCovers/Comics/doctor_aphra_2020_2.jpg,7/22/2020,,,Doctor Aphra (2020),2,Marvel
-910,Star Wars (2020) Vol. 1,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_the_destiny_path.jpg,6/23/2020,,,Marvel's Star Wars (2020),1,Marvel
+910,Star Wars (2020) Vol. 4: Crimson reign,TPB,https://minirogue.github.io/SWCovers/TPB/star_wars_crimson_reign.jpg,9/14/2022,,,Marvel's Star Wars (2020),4,Marvel
 911,Darth Vader (2020) Vol. 1,TPB,https://minirogue.github.io/SWCovers/TPB/darth_vader_dark_heart_of_the_sith.jpg,11/25/2020,,,Darth Vader (2020),1,Marvel
 912,The Bad Batch,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_7.jpg,2/21/2020,-20.876,Captain Rex and Commander Cody team up with Clone Force 99 also known as the Bad Batch.,The Clone Wars,701,Disney
 913,A Distant Echo,TV Episode,https://minirogue.github.io/SWCovers/TV/clone_wars_season_7.jpg,2/28/2020,-20.875,,The Clone Wars,702,Disney
@@ -1333,3 +1333,110 @@ ID,title,type,image,released,timeline,description,series,number,publisher
 1332,Star Wars (2020) #41,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_41.jpg,12/6/2023,,,Marvel's Star Wars (2020),41,Marvel
 1333,Star Wars (2020) #42,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_42.jpg,1/10/2024,,,Marvel's Star Wars (2020),42,Marvel
 1334,Star Wars (2020) #43,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_43.jpg,2/21/2024,,,Marvel's Star Wars (2020),43,Marvel
+1335,Bounty Hunters Vol. 4: Crimson Reign,TPB,https://minirogue.github.io/SWCovers/TPB/bounty_hunters_crimson_reign.jpg,10/26/2022,,,Bounty Hunters,4,Marvel
+1336,Doctor Aphra (2020) Vol. 4: Crimson reign,TPB,https://minirogue.github.io/SWCovers/TPB/doctor_aphra_crimson_reign.jpg,10/26/2022,,,Doctor Aphra (2020),4,Marvel
+1337,Darth Vader (2020) Vol. 4: Crimson Reign,TPB,https://minirogue.github.io/SWCovers/TPB/darth_vader_crimson_reign.jpg,10/19/2022,,,Darth Vader (2020),4,Marvel
+1338,The High Republic (2022) #01,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_2022_1.jpg,10/12/2022,,,The High Republic (2022),1,Marvel
+1339,The High Republic (2022) #02,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_2022_2.jpg,11/9/2022,,,The High Republic (2022),2,Marvel
+1340,The High Republic (2022) #03,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_2022_3.jpg,12/28/2022,,,The High Republic (2022),3,Marvel
+1341,The High Republic (2022) #04,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_2022_4.jpg,1/11/2023,,,The High Republic (2022),4,Marvel
+1342,The High Republic (2022) #05,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_2022_5.jpg,2/8/2023,,,The High Republic (2022),5,Marvel
+1343,The High Republic (2022) #06,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_2022_6.jpg,3/8/2023,,,The High Republic (2022),6,Marvel
+1344,The High Republic (2022) #07,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_2022_7.jpg,3/29/2023,,,The High Republic (2022),7,Marvel
+1345,The High Republic (2022) #08,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_2022_8.jpg,4/12/2023,,,The High Republic (2022),8,Marvel
+1346,The High Republic (2022) #09,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_2022_9.jpg,5/10/2023,,,The High Republic (2022),9,Marvel
+1347,The High Republic (2022) #10,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_2022_10.jpg,5/24/2023,,,The High Republic (2022),10,Marvel
+1348,Han Solo & Chewbacca Vol. 1: The Crystal Run Part One,TPB,https://minirogue.github.io/SWCovers/TPB/han_solo_and_chewbacca_the_crystal_run_part_one.jpg,11/23/2022,,,Han Solo & Chewbacca,1,Marvel
+1349,"The Mandalorian: Season One, Part One",TPB Adaptation,https://minirogue.github.io/SWCovers/TPB/the_mandalorian_season_one_part_one.jpg,11/9/2022,,,The Mandalorian (comic),1,Marvel
+1350,Halcyon Legacy,TPB,https://minirogue.github.io/SWCovers/TPB/halcyon_legacy.jpg,11/2/2022,,,Halcyon Legacy,1,Marvel
+1351,Halcyon Legacy #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/halcyon_legacy_5.jpg,8/3/2022,,,Halcyon Legacy,5,Marvel
+1352,Crimson Reign,TPB,https://minirogue.github.io/SWCovers/TPB/crimson_reign.jpg,8/24/2022,,,Crimson Reign,1,Marvel
+1353,War of the Bounty Hunters (Omnibus),TPB,https://minirogue.github.io/SWCovers/TPB/war_of_the_bounty_hunters_omnibus.jpg,12/14/2022,,,War of the Bounty Hunters,,Marvel
+1354,Obi Wan: A Jedi's Purpose,TPB,https://minirogue.github.io/SWCovers/TPB/obiwan_a_jedis_purpose.jpg,12/14/2022,,,Obi-Wan (comic),1,Marvel
+1355,Doctor Aphra (2020) Vol. 5: The Spark Eternal,TPB,https://minirogue.github.io/SWCovers/TPB/doctor_aphra_the_spark_eternal.jpg,12/28/2022,,,Doctor Aphra (2020),5,Marvel
+1356,Yoda #01,Comic Book,https://minirogue.github.io/SWCovers/Comics/yoda_1.jpg,11/23/2022,,,Yoda,1,Marvel
+1357,Yoda #02,Comic Book,https://minirogue.github.io/SWCovers/Comics/yoda_2.jpg,12/28/2022,,,Yoda,2,Marvel
+1358,Yoda #03,Comic Book,https://minirogue.github.io/SWCovers/Comics/yoda_3.jpg,1/25/2023,,,Yoda,3,Marvel
+1359,Yoda #04,Comic Book,https://minirogue.github.io/SWCovers/Comics/yoda_4.jpg,2/22/2023,,,Yoda,4,Marvel
+1360,Yoda #05,Comic Book,https://minirogue.github.io/SWCovers/Comics/yoda_5.jpg,3/15/2023,,,Yoda,5,Marvel
+1361,Yoda #06,Comic Book,https://minirogue.github.io/SWCovers/Comics/yoda_6.jpg,4/19/2023,,,Yoda,6,Marvel
+1362,Yoda #07,Comic Book,https://minirogue.github.io/SWCovers/Comics/yoda_7.jpg,5/3/2023,,,Yoda,7,Marvel
+1363,Yoda #08,Comic Book,https://minirogue.github.io/SWCovers/Comics/yoda_8.jpg,6/7/2023,,,Yoda,8,Marvel
+1364,Yoda #09,Comic Book,https://minirogue.github.io/SWCovers/Comics/yoda_9.jpg,7/5/2023,,,Yoda,9,Marvel
+1365,Yoda #10,Comic Book,https://minirogue.github.io/SWCovers/Comics/yoda_10.jpg,8/2/2023,,,Yoda,10,Marvel
+1366,Revelations #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/revelations_1.jpg,11/23/2022,,,Revelations,1,Marvel
+1367,Hidden Empire #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/hidden_empire_1.jpg,11/16/2022,,,Hidden Empire,1,Marvel
+1368,Hidden Empire #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/hidden_empire_2.jpg,12/7/2022,,,Hidden Empire,2,Marvel
+1369,Hidden Empire #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/hidden_empire_3.jpg,2/8/2023,,,Hidden Empire,3,Marvel
+1370,Hidden Empire #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/hidden_empire_4.jpg,3/1/2023,,,Hidden Empire,4,Marvel
+1371,Hidden Empire #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/hidden_empire_5.jpg,4/5/2023,,,Hidden Empire,5,Marvel
+1372,The HIgh Republic: The Blade #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_the_blade_1.jpg,12/28/2022,,,The High Republic: The Blade,1,Marvel
+1373,The HIgh Republic: The Blade #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_the_blade_2.jpg,1/25/2023,,,The High Republic: The Blade,2,Marvel
+1374,The HIgh Republic: The Blade #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_the_blade_3.jpg,3/1/2023,,,The High Republic: The Blade,3,Marvel
+1375,The HIgh Republic: The Blade #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_the_blade_4.jpg,3/29/2023,,,The High Republic: The Blade,4,Marvel
+1376,Sana Starros #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/sana_starros_1.jpg,2/1/2023,,,Sana Starros,1,Marvel
+1377,Sana Starros #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/sana_starros_2.jpg,3/8/2023,,,Sana Starros,2,Marvel
+1378,Sana Starros #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/sana_starros_3.jpg,4/19/2023,,,Sana Starros,3,Marvel
+1379,Sana Starros #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/sana_starros_4.jpg,5/31/2023,,,Sana Starros,4,Marvel
+1380,Sana Starros #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/sana_starros_5.jpg,6/14/2023,,,Sana Starros,5,Marvel
+1381,Return of the Jedi: Jabba's Palace #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/jabbas_palace_1.jpg,3/29/2023,,,Return of the Jedi One-Shots,1,Marvel
+1382,Return of the Jedi: Ewoks #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/ewoks_1.jpg,4/12/2023,,,Return of the Jedi One-Shots,1,Marvel
+1383,"Darth Vader: Black, White & Red #1",Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_black_white_red_1.jpg,4/26/2023,,,Darth Vader: Black White & Red,1,Marvel
+1384,"Darth Vader: Black, White & Red #2",Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_black_white_red_2.jpg,5/24/2023,,,Darth Vader: Black White & Red,2,Marvel
+1385,"Darth Vader: Black, White & Red #3",Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_black_white_red_3.jpg,6/28/2023,,,Darth Vader: Black White & Red,3,Marvel
+1386,"Darth Vader: Black, White & Red #4",Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_black_white_red_4.jpg,7/26/2023,,,Darth Vader: Black White & Red,4,Marvel
+1387,Return of the Jedi: Lando #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/rotj_lando_1.jpg,5/3/2023,,,Return of the Jedi One-Shots,1,Marvel
+1388,Return of the Jedi: The Empire #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/rotj_the_empire_1.jpg,6/7/2023,,,Return of the Jedi One-Shots,1,Marvel
+1389,The Mandalorian Season 2 #1,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_mandalorian_season_2_1.jpg,6/21/2023,,,The Mandalorian Season 2 (comic),1,Marvel
+1390,The Mandalorian Season 2 #2,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_mandalorian_season_2_2.jpg,7/26/2023,,,The Mandalorian Season 2 (comic),2,Marvel
+1391,The Mandalorian Season 2 #3,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_mandalorian_season_2_3.jpg,8/30/2023,,,The Mandalorian Season 2 (comic),3,Marvel
+1392,The Mandalorian Season 2 #4,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_mandalorian_season_2_4.jpg,9/27/2023,,,The Mandalorian Season 2 (comic),4,Marvel
+1393,The Mandalorian Season 2 #5,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_mandalorian_season_2_5.jpg,10/11/2023,,,The Mandalorian Season 2 (comic),5,Marvel
+1394,The Mandalorian Season 2 #6,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_mandalorian_season_2_6.jpg,11/15/2023,,,The Mandalorian Season 2 (comic),6,Marvel
+1395,The Mandalorian Season 2 #7,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_mandalorian_season_2_7.jpg,12/27/2023,,,The Mandalorian Season 2 (comic),7,Marvel
+1396,The Mandalorian Season 2 #8,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/the_mandalorian_season_2_8.jpg,1/10/2024,,,The Mandalorian Season 2 (comic),8,Marvel
+1397,Return of the Jedi: The Rebellion #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/rotj_the_rebellion_1.jpg,7/19/2023,,,Return of the Jedi One-Shots,1,Marvel
+1398,Return of the Jedi: Max Rebo #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/rotj_max_rebo.jpg,8/9/2023,,,Return of the Jedi One-Shots,1,Marvel
+1399,Dark Droids #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/dark_droids_1.jpg,8/2/2023,,,Dark Droids,1,Marvel
+1400,Dark Droids #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/dark_droids_2.jpg,9/6/2023,,,Dark Droids,2,Marvel
+1401,Dark Droids #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/dark_droids_3.jpg,10/11/2023,,,Dark Droids,3,Marvel
+1402,Dark Droids #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/dark_droids_4.jpg,11/15/2023,,,Dark Droids,4,Marvel
+1403,Dark Droids #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/dark_droids_5.jpg,12/27/2023,,,Dark Droids,5,Marvel
+1404,Dark Droids: D-Squad #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/dark_droids_d_squad_1.jpg,9/20/2023,,,Dark Droids: D-Squad,1,Marvel
+1405,Dark Droids: D-Squad #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/dark_droids_d_squad_2.jpg,10/25/2023,,,Dark Droids: D-Squad,2,Marvel
+1406,Dark Droids: D-Squad #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/dark_droids_d_squad_3.jpg,11/22/2023,,,Dark Droids: D-Squad,3,Marvel
+1407,Dark Droids: D-Squad #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/dark_droids_d_squad_4.jpg,12/6/2023,,,Dark Droids: D-Squad,4,Marvel
+1408,The High Republic (2023) #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_2023_1.jpg,11/8/2023,,,The High Republic (2023),1,Marvel
+1409,The High Republic (2023) #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_2023_2.jpg,12/20/2023,,,The High Republic (2023),2,Marvel
+1410,The High Republic (2023) #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_2023_3.jpg,1/17/2024,,,The High Republic (2023),3,Marvel
+1411,Revelations (2023) #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/revelations_2023_1.jpg,12/20/2023,,,Revelations,1,Marvel
+1412,The High Republic: Shadows of Starlight #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_shadow_of_starlight_1.jpg,10/4/2023,,,The High Republic: Shadow of Starlight,1,Marvel
+1413,The High Republic: Shadows of Starlight #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_shadow_of_starlight_2.jpg,11/8/2023,,,The High Republic: Shadow of Starlight,2,Marvel
+1414,The High Republic: Shadows of Starlight #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_shadow_of_starlight_3.jpg,12/13/2023,,,The High Republic: Shadow of Starlight,3,Marvel
+1415,The High Republic: Shadows of Starlight #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_shadow_of_starlight_4.jpg,1/3/2024,,,The High Republic: Shadow of Starlight,4,Marvel
+1416,Obi-Wan Kenobi (2023) #1,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/obiwan_kenobi_2023_1.jpg,9/13/2023,,,Obi-Wan Kenobi (2023),1,Marvel
+1417,Obi-Wan Kenobi (2023) #2,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/obiwan_kenobi_2023_2.jpg,10/18/2023,,,Obi-Wan Kenobi (2023),2,Marvel
+1418,Obi-Wan Kenobi (2023) #3,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/obiwan_kenobi_2023_3.jpg,11/29/2023,,,Obi-Wan Kenobi (2023),3,Marvel
+1419,Obi-Wan Kenobi (2023) #4,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/obiwan_kenobi_2023_4.jpg,1/17/2024,,,Obi-Wan Kenobi (2023),4,Marvel
+1420,Obi-Wan Kenobi (2023) #5,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/obiwan_kenobi_2023_5.jpg,2/7/2024,,,Obi-Wan Kenobi (2023),5,Marvel
+1421,Yoda,TPB,https://minirogue.github.io/SWCovers/TPB/yoda.jpg,12/20/2023,,,Yoda,1,Marvel
+1422,"The Mandalorian: Season Two, Part One",TPB Adaptation,https://minirogue.github.io/SWCovers/TPB/the_mandalorian_season_two_part_one.jpg,11/22/2023,,,The Mandalorian (comic),3,Marvel
+1423,"Scoundrels, Rebels and the Empire",TPB,https://minirogue.github.io/SWCovers/TPB/scoundrels_rebels_and_the_empire.jpg,11/8/2023,,,Return of the Jedi One-Shots,1,Marvel
+1424,The High Republic Phase I: Light of the Jedi,TPB,https://minirogue.github.io/SWCovers/TPB/light_of_the_jedi.jpg,10/18/2023,,,The High Republic,1,Marvel
+1425,The High republic: The Blade,TPB,https://minirogue.github.io/SWCovers/TPB/the_blade.jpg,10/4/2023,,,The High Republic: The Blade,1,Marvel
+1426,Star Wars (2020) Vol. 6: Quests of the Force,TPB,https://minirogue.github.io/SWCovers/TPB/quests_of_the_force.jpg,9/27/2023,,,Star Wars (2020),6,Marvel
+1427,Bounty Hunters Vol. 6: Bedlam on Bestine,TPB,https://minirogue.github.io/SWCovers/TPB/bedlam_on_bestine.jpg,9/20/2023,,,Bounty Hunters,6,Marvel
+1428,Sana Starros: Family Matters,TPB,https://minirogue.github.io/SWCovers/TPB/family_matters.jpg,9/13/2023,,,Sana Starros,1,Marvel
+1429,Doctor Aphra Omnibus Vol. 2,TPB,https://minirogue.github.io/SWCovers/TPB/doctor_aphra_omnibus_2.jpg,8/30/2023,,,Doctor Aphra (2020),2,Marvel
+1430,The High Republic Phase II: Battle for the Force,TPB,https://minirogue.github.io/SWCovers/TPB/battle_for_the_force.jpg,8/23/2023,,,The High Republic (2022),2,Marvel
+1431,Doctor Aphra (2020) Vol. 6: Ascendant,TPB,https://minirogue.github.io/SWCovers/TPB/ascendant.jpg,8/2/2023,,,Doctor Aphra (2020),6,Marvel
+1432,Hidden Empire,TPB,https://minirogue.github.io/SWCovers/TPB/hidden_empire.jpg,7/5/2023,,,Hidden Empire,1,Marvel
+1433,Darth Vader (2020) Vol. 6: Return of the Handmaidens,TPB,https://minirogue.github.io/SWCovers/TPB/return_of_the_handmaidens.jpg,6/28/2023,,,Darth Vader (2020),6,Marvel
+1434,Han Solo & Chewbacca Vol. 2: The Crystal Run Part Two,TPB,https://minirogue.github.io/SWCovers/TPB/the_crystal_run_part_two.jpg,6/7/2023,,,Han Solo & Chewbacca,2,Marvel
+1435,Darth Vader (omnibus),TPB,https://minirogue.github.io/SWCovers/TPB/darth_vader_omnibus.jpg,5/31/2023,,,Darth Vader,1,Marvel
+1436,Star Wars (2020) Vol. 5: The Path To Victory,TPB,https://minirogue.github.io/SWCovers/TPB/the_path_to_victory.jpg,5/24/2023,,,Star Wars (2020),5,Marvel
+1437,"The Mandalorian: Season Two, Part Two",TPB Adaptation,https://minirogue.github.io/SWCovers/TPB/the_mandalorian_season_two_part_two.jpg,5/3/2023,,,The Mandalorian (comic),4,Marvel
+1438,The High Republic: Phase II Vol. 1: Balance of the Force,TPB,https://minirogue.github.io/SWCovers/TPB/balance_of_the_force.jpg,5/3/2023,,,The High Republic (2022),1,Marvel
+1439,Bounty Hunters Vol. 5: The Raid on the Vermillion,TPB,https://minirogue.github.io/SWCovers/TPB/the_raid_on_the_vermillion.jpg,2/15/2023,,,Bounty Hunters,5,Marvel
+1440,Doctor Aphra Omnibus Vol. 1,TPB,https://minirogue.github.io/SWCovers/TPB/doctor_aphra_omnibus_1.jpg,2/1/2023,,,Doctor Aphra (2020),1,Marvel
+1441,Darth Vader (2020) Vol. 5: The Shadow's Shadow,TPB,https://minirogue.github.io/SWCovers/TPB/the_shadows_shadow.jpg,1/11/2023,,,Darth Vader (2020),5,Marvel
