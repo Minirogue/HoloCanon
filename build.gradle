@@ -3,7 +3,7 @@
 buildscript {
     ext {
         kotlinVersion = '1.9.22'
-        hiltVersion = '2.50'
+        hiltVersion = '2.51'
         detektVersion = '1.23.5'
     }
 
@@ -13,7 +13,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath 'com.android.tools.build:gradle:8.2.2'
+        classpath 'com.android.tools.build:gradle:8.3.0'
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
     }
 }
@@ -31,8 +31,8 @@ ext {
     // Android
     androidXTestVersion = '1.5.0'
     appCompatVersion = '1.6.1'
-    coilVersion = '2.5.0'
-    composeBomVersion = '2024.02.00'
+    coilVersion = '2.6.0'
+    composeBomVersion = '2024.02.01'
     composeCompilerVersion = '1.5.9'
     datastoreVersion = '1.0.0'
     fragmentVersion = '1.6.2'
@@ -42,7 +42,7 @@ ext {
 
     // Kotlin
     coroutinesVersion = '1.6.3-native-mt'
-    ktorVersion = '2.3.8'
+    ktorVersion = '2.3.9'
 
     // JVM
     jUnitVersion = '4.13.2'
