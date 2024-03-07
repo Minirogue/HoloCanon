@@ -42,20 +42,23 @@ class GetMediaListWithNotesImpl @Inject constructor(
      */
     override fun invoke(): Flow<List<MediaAndNotes>> {
         var reusableCompanyMap: Map<Int, Company>? = null
+        var reusableSeriesMap: Map<Int, String>? = null
         return getActiveFilters().combine(getPermanentFilterSettings()) { filterList, permanentFilters ->
             convertFiltersToQuery(filterList, permanentFilters)
         }.flatMapLatest { query ->
             val companyMap: Map<Int, Company> = reusableCompanyMap
                     ?: daoCompany.getAllCompanies().associate {
-                        it.id to Json.decodeFromString<Company>(it.companyName)
+                        it.id to Json.decodeFromString<Company>("\"${it.companyName}\"")
                     }.also { reusableCompanyMap = it }
+            val seriesMap = reusableSeriesMap
+                    ?: daoSeries.getAllSeries().associate { it.id to it.title }.also { reusableSeriesMap = it }
             daoMedia.getMediaAndNotesRawQuery(query).map { list ->
-                list.map { MediaAndNotes(it.mediaItemDto.toStarWarsMedia(companyMap), it.mediaNotesDto.toMediaNotes()) }
+                list.map { MediaAndNotes(it.mediaItemDto.toStarWarsMedia(companyMap, seriesMap), it.mediaNotesDto.toMediaNotes()) }
             }
         }
     }
 
-    private fun MediaItemDto.toStarWarsMedia(companyMap: Map<Int, Company>): StarWarsMedia = StarWarsMedia(
+    private fun MediaItemDto.toStarWarsMedia(companyMap: Map<Int, Company>, seriesMap: Map<Int, String>): StarWarsMedia = StarWarsMedia(
             id = id.toLong(),
             title = title,
             type = MediaType.getFromLegacyId(type) ?: MediaType.REFERENCE,
@@ -63,7 +66,7 @@ class GetMediaListWithNotesImpl @Inject constructor(
             releaseDate = date,
             timeline = timeline.toFloat(),
             description = description,
-            series = daoSeries.getSeries(series)?.title,
+            series = seriesMap[series],
             number = 1, // TODO
             publisher = companyMap[publisher] ?: Company.DISNEY_LUCASFILMS.also {
                 Log.e("GetMediaWithNotes", "couldn't map publisher to a company: $this")

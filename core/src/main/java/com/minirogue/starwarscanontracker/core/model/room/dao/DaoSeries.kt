@@ -16,7 +16,7 @@ interface DaoSeries {
     suspend fun getAllSeries(): List<SeriesDto>
 
     @Query("SELECT * FROM series WHERE id=:id LIMIT 1")
-    fun getSeries(id: Int): SeriesDto?
+    suspend fun getSeries(id: Int): SeriesDto?
 
     @Query("SELECT * FROM series WHERE id=:id LIMIT 1")
     fun getSeriesFlow(id: Int): Flow<SeriesDto>

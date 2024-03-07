@@ -1,6 +1,6 @@
 package com.minirogue.media.notes.di
 
-import UpdateCheckValue
+import com.minirogue.media.notes.UpdateCheckValue
 import com.minirogue.media.notes.internal.UpdateCheckValueImpl
 import dagger.Binds
 import dagger.Module

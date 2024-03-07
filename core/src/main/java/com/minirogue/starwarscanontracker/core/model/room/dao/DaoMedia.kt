@@ -1,6 +1,5 @@
 package com.minirogue.starwarscanontracker.core.model.room.dao
 
-import CheckBoxNumber
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
@@ -10,6 +9,7 @@ import androidx.room.RawQuery
 import androidx.room.Transaction
 import androidx.room.Update
 import androidx.sqlite.db.SupportSQLiteQuery
+import com.minirogue.media.notes.CheckBoxNumber
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotesDto
@@ -44,14 +44,14 @@ abstract class DaoMedia {
     abstract fun update(um: MediaNotesDto)
 
     @Query(
-        "SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
-                "ON media_items.id = media_notes.media_id WHERE media_items.series = :series"
+            "SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
+                    "ON media_items.id = media_notes.media_id WHERE media_items.series = :series"
     )
     abstract fun getMediaNotesBySeries(series: Int): LiveData<List<MediaNotesDto>>
 
     @Query(
-        "SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
-                "ON media_items.id = media_notes.media_id WHERE media_items.series = :series"
+            "SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
+                    "ON media_items.id = media_notes.media_id WHERE media_items.series = :series"
     )
     abstract fun getMediaNotesBySeriesNonLive(series: Int): List<MediaNotesDto>
 
@@ -67,12 +67,13 @@ abstract class DaoMedia {
     abstract fun getMediaAndNotesForSeries(seriesId: Int): Flow<List<MediaAndNotesDto>>
 
     @Transaction
-    suspend fun updateMediaNote(checkBox: CheckBoxNumber, mediaItemId: Long, newValue: Boolean) {
+    open suspend fun updateMediaNote(checkBox: CheckBoxNumber, mediaItemId: Long, newValue: Boolean) {
         val oldNotes = getMediaNotesById(mediaItemId).first()
         val newNotes = when (checkBox) {
             CheckBoxNumber.CheckBox1 -> oldNotes.apply { isBox1Checked = newValue }
             CheckBoxNumber.CheckBox2 -> oldNotes.apply { isBox2Checked = newValue }
             CheckBoxNumber.CheckBox3 -> oldNotes.apply { isBox3Checked = newValue }
         }
+        update(newNotes)
     }
 }

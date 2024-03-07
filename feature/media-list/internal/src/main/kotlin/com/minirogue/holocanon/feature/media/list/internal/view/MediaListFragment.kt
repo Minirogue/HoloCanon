@@ -121,16 +121,21 @@ internal class MediaListFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mediaListViewModel.state.collect { state ->
+                    println("test-log: collected state $state")
                     swmListAdapter.updateCheckBoxSettings(state.checkboxSettings)
                     setFilterChips(state.activeFilters)
                     updateSortChip(state.sortStyle)
                 }
             }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                mediaListViewModel.mediaList.collect { mediaAndNotes -> swmListAdapter.submitList(mediaAndNotes) }
+                mediaListViewModel.mediaList.collect { mediaAndNotes ->
+                    println("test-log: collected list with ${mediaAndNotes.size}")
+                    swmListAdapter.submitList(mediaAndNotes)
+                }
             }
         }
-
     }
 
     private fun setFilterChips(filters: List<MediaFilter>) = with(binding.filterChipGroup) {

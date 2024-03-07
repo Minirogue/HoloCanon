@@ -1,10 +1,10 @@
 package com.minirogue.holocanon.feature.media.list.internal.viewmodel
 
-import CheckBoxNumber
-import UpdateCheckValue
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.minirogue.media.notes.CheckBoxNumber
+import com.minirogue.media.notes.UpdateCheckValue
 import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
 import com.minirogue.starwarscanontracker.core.model.SortStyle
 import com.minirogue.starwarscanontracker.core.usecase.GetMediaListWithNotes
@@ -49,6 +49,7 @@ internal class MediaListViewModel @Inject constructor(
     private val _state: MutableStateFlow<MediaListState> = MutableStateFlow(MediaListState())
     val state: StateFlow<MediaListState> = _state
     val mediaList: Flow<List<MediaAndNotes>> = getMediaListWithNotes().combine(_state.map { it.sortStyle }) { list, sortStyle ->
+        println("test-log: combining media list (${list.first()} to ${list.last()}) and sort style $sortStyle ")
         list.sort(sortStyle)
     }
 
