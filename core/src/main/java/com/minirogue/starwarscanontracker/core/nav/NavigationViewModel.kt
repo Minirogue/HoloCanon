@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
 sealed interface NavigationDestination {
-    data class MediaItemScreen(val itemId: Int) : NavigationDestination
+    data class MediaItemScreen(val itemId: Long) : NavigationDestination
 }
 
 class NavigationViewModel : ViewModel() {
