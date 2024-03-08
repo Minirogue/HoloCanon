@@ -82,8 +82,10 @@ class GetMediaListWithNotesImpl @Inject constructor(
      *
      * @param filterList the list of Filters to apply to the query
      */
-    private suspend fun convertFiltersToQuery(filterList: List<MediaFilter>, permanentFilterSettings: Map<MediaType, Boolean>): SimpleSQLiteQuery = withContext(
-            Dispatchers.Default) {
+    private suspend fun convertFiltersToQuery(
+            filterList: List<MediaFilter>,
+            permanentFilterSettings: Map<MediaType, Boolean>
+    ): SimpleSQLiteQuery = withContext(Dispatchers.Default) {
         val gettingPermanentFilters = async { getPermanentFiltersAsStringBuilder(permanentFilterSettings) }
         val filterTypeIsPositive = SparseBooleanArray()
         for (filterType in daoFilter.getAllFilterTypesNonLive()) {
@@ -223,7 +225,9 @@ class GetMediaListWithNotesImpl @Inject constructor(
      * Checks the DefaultSharedPreferences for permanently filtered MediaTypes then returns a StringBuilder
      * of "AND NOT type = " statements for use in a room query.
      */
-    private suspend fun getPermanentFiltersAsStringBuilder(permanentFilterSettings: Map<MediaType, Boolean>): StringBuilder = withContext(Dispatchers.IO) {
+    private suspend fun getPermanentFiltersAsStringBuilder(
+            permanentFilterSettings: Map<MediaType, Boolean>
+    ): StringBuilder = withContext(Dispatchers.IO) {
         val permFiltersBuilder = StringBuilder()
         for (type in MediaType.entries) {
             if (permanentFilterSettings[type] == false) {
