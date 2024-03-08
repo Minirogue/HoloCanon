@@ -1,4 +1,4 @@
-package com.minirogue.starwarscanontracker.view.adapter
+package com.minirogue.holocanon.feature.media.list.internal.view
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.request.CachePolicy
-import com.minirogue.starwarscanontracker.R
+import com.minirogue.holocanon.feature.media.list.internal.R
+import com.minirogue.holocanon.feature.media.list.internal.databinding.MediaListItemBinding
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
-import com.minirogue.starwarscanontracker.databinding.MediaListItemBinding
 
 class SWMListAdapter(
-    private val adapterInterface: AdapterInterface,
+        private val adapterInterface: AdapterInterface,
 ) : ListAdapter<MediaAndNotes, SWMListAdapter.MediaViewHolder>(DiffCallback) {
     private var checkBoxText = arrayOf("", "", "")
     private var isCheckBoxActive = booleanArrayOf(true, true, true)
@@ -120,13 +120,13 @@ class SWMListAdapter(
     private fun bindCoverImage(imageView: ImageView, imageUrl: String) {
         if (imageUrl.isNotBlank()) {
             imageView.load(imageUrl) {
-                placeholder(R.drawable.ic_launcher_foreground)
+                placeholder(R.drawable.media_list_placeholder_image)
                 if (adapterInterface.isNetworkAllowed()) {
                     networkCachePolicy(CachePolicy.ENABLED)
                 } else networkCachePolicy(CachePolicy.DISABLED)
             }
         } else {
-            imageView.load(R.drawable.ic_launcher_foreground)
+            imageView.load(R.drawable.media_list_placeholder_image)
         }
     }
 

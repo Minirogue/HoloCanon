@@ -3,12 +3,18 @@ package com.minirogue.starwarscanontracker.view.activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.minirogue.holocanon.feature.media.item.usecase.GetMediaItemFragment
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.UpdateFilters
+import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
+import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel
 import com.minirogue.starwarscanontracker.view.fragment.AboutFragment
 import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +33,11 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var getSettingsFragment: GetSettingsFragment
+
+    @Inject
+    lateinit var getMediaItemFragment: GetMediaItemFragment
+
+    private val navigationViewModel: NavigationViewModel by viewModels()
 
     override fun onResume() {
         super.onResume()
@@ -51,6 +62,16 @@ class MainActivity : AppCompatActivity() {
         // Set up the toolbar and navigation drawer
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+        lifecycleScope.launch {
+            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                navigationViewModel.navigationDestination.collect { destination ->
+                    when (destination) {
+                        is NavigationDestination.MediaItemScreen -> navigateToMediaItem(destination.itemId)
+                    }
+                }
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -72,6 +93,14 @@ class MainActivity : AppCompatActivity() {
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun navigateToMediaItem(itemId: Int) {
+        val viewMediaItemFragment = getMediaItemFragment(itemId)
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, viewMediaItemFragment)
+                .addToBackStack(null)
+                .commit()
     }
 
     /**

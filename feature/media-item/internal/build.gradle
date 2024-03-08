@@ -1,0 +1,24 @@
+apply from: "$rootProject.projectDir/base-gradles/android-library.gradle"
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
+android {
+    namespace 'com.minirogue.holocanon.feature.media.item.internal'
+    resourcePrefix 'media_item'
+}
+
+dependencies {
+    // public feature module
+    api project(":feature:media-item:public")
+
+    // project public modules
+
+    // Android
+
+    // Dependency Injection
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+
+    // detekt
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
+}

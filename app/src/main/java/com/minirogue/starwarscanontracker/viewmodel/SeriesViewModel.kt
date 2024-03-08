@@ -5,12 +5,11 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.SeriesDto
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
+import com.minirogue.starwarscanontracker.core.usecase.IsNetworkAllowed
 import com.minirogue.starwarscanontracker.usecase.Checkbox
-import com.minirogue.starwarscanontracker.usecase.GetCheckboxText
 import com.minirogue.starwarscanontracker.usecase.GetMediaAndNotesForSeries
 import com.minirogue.starwarscanontracker.usecase.GetNotesBySeries
 import com.minirogue.starwarscanontracker.usecase.GetSeries
@@ -24,18 +23,19 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import settings.usecase.GetCheckboxSettings
+import settings.usecase.GetCheckboxText
 import javax.inject.Inject
 
 @Suppress("LongParameterList")
 @HiltViewModel
 class SeriesViewModel @Inject constructor(
-    private val getSeries: GetSeries,
-    getCheckboxText: GetCheckboxText,
-    private val getNotesBySeries: GetNotesBySeries,
-    private val getMediaAndNotesForSeries: GetMediaAndNotesForSeries,
-    private val setCheckboxForSeries: SetCheckboxForSeries,
-    connMgr: MyConnectivityManager,
-    getCheckboxSettings: GetCheckboxSettings,
+        private val getSeries: GetSeries,
+        getCheckboxText: GetCheckboxText,
+        private val getNotesBySeries: GetNotesBySeries,
+        private val getMediaAndNotesForSeries: GetMediaAndNotesForSeries,
+        private val setCheckboxForSeries: SetCheckboxForSeries,
+        isNetworkAllowed: IsNetworkAllowed,
+        getCheckboxSettings: GetCheckboxSettings,
 ) : ViewModel() {
 
     private var seriesId: Int = -1
@@ -45,12 +45,12 @@ class SeriesViewModel @Inject constructor(
     val checkBoxNames = getCheckboxText.invoke()
     val checkBoxVisibility = getCheckboxSettings().map { checkboxSettings ->
         booleanArrayOf(
-            checkboxSettings.checkbox1Setting.isInUse,
-            checkboxSettings.checkbox2Setting.isInUse,
-            checkboxSettings.checkbox3Setting.isInUse,
+                checkboxSettings.checkbox1Setting.isInUse,
+                checkboxSettings.checkbox2Setting.isInUse,
+                checkboxSettings.checkbox3Setting.isInUse,
         )
     }
-    val isNetworkAllowed = connMgr.isNetworkAllowed()
+    val isNetworkAllowed = isNetworkAllowed()
 
     private val notesParsingMutex = Mutex()
 

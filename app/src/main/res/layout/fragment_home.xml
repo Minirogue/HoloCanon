@@ -18,7 +18,7 @@
             android:padding="16dp"
             android:text="@string/welcome_message"
             android:drawablePadding="8dp"
-            app:drawableTopCompat="@drawable/ic_launcher_foreground" />
+            app:drawableTopCompat="@drawable/media_list_placeholder_image" />
 
         <TextView
             android:layout_width="wrap_content"
