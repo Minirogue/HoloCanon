@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="media_list_sort">Sort</string>
+    <string name="media_list_sort_menu_title">Title</string>
+    <string name="media_list_sort_menu_timeline">Timeline (work-in-progress)</string>
+    <string name="media_list_sort_release_date">Release Date</string>
+
+    <string name="media_list_media_type">type</string>
+    <string name="media_list_cover_art">Cover art</string>
+
+</resources>

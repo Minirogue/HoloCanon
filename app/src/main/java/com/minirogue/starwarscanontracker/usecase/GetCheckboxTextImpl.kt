@@ -4,10 +4,11 @@ import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import settings.usecase.GetCheckboxText
 import javax.inject.Inject
 
-class GetCheckboxText @Inject constructor(private val daoFilter: DaoFilter) {
-    operator fun invoke(): Flow<Array<String>> = daoFilter.getCheckBoxFilterTypes().map { filterTypeList ->
+class GetCheckboxTextImpl @Inject constructor(private val daoFilter: DaoFilter) : GetCheckboxText {
+    override operator fun invoke(): Flow<Array<String>> = daoFilter.getCheckBoxFilterTypes().map { filterTypeList ->
         arrayOf("", "", "").apply {
             filterTypeList.forEach {
                 when (it.typeId) {

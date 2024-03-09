@@ -12,6 +12,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.request.CachePolicy
+import com.minirogue.holocanon.feature.media.item.usecase.GetMediaItemFragment
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.room.entity.SeriesDto
 import com.minirogue.starwarscanontracker.databinding.FragmentSeriesBinding
@@ -20,9 +21,12 @@ import com.minirogue.starwarscanontracker.viewmodel.SeriesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SeriesFragment : Fragment() {
+    @Inject
+    lateinit var getMediaItemFragment: GetMediaItemFragment
 
     private val viewModel: SeriesViewModel by viewModels()
 
@@ -50,10 +54,7 @@ class SeriesFragment : Fragment() {
 
         val recyclerView = fragmentBinding.seriesRecyclerview
         val adapter = SeriesListAdapter { itemId ->
-            val viewMediaItemFragment = ViewMediaItemFragment()
-            val newBundle = Bundle()
-            newBundle.putInt(getString(R.string.bundleItemId), itemId)
-            viewMediaItemFragment.arguments = newBundle
+            val viewMediaItemFragment = getMediaItemFragment(itemId)
             requireActivity().supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, viewMediaItemFragment)
                 .addToBackStack(null)
@@ -82,7 +83,7 @@ class SeriesFragment : Fragment() {
         fragmentBinding.seriesTitle.text = seriesDto.title
 
         fragmentBinding.seriesImage.load(seriesDto.imageURL) {
-            placeholder(R.drawable.ic_launcher_foreground)
+            placeholder(R.drawable.media_list_placeholder_image)
             if (isNetworkAllowed) {
                 networkCachePolicy(CachePolicy.ENABLED)
             } else networkCachePolicy(CachePolicy.DISABLED)

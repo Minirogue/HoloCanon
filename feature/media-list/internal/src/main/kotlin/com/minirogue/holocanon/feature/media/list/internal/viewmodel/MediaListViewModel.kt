@@ -1,4 +1,4 @@
-package com.minirogue.starwarscanontracker.viewmodel
+package com.minirogue.holocanon.feature.media.list.internal.viewmodel
 
 import android.app.Application
 import android.util.SparseArray
@@ -9,14 +9,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.minirogue.api.media.MediaType
-import com.minirogue.starwarscanontracker.application.MyConnectivityManager
 import com.minirogue.starwarscanontracker.core.model.SortStyle
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
-import com.minirogue.starwarscanontracker.usecase.GetCheckboxText
-import com.minirogue.starwarscanontracker.usecase.GetMediaListWithNotes
-import com.minirogue.starwarscanontracker.usecase.UpdateNotes
+import com.minirogue.starwarscanontracker.core.usecase.GetMediaListWithNotes
+import com.minirogue.starwarscanontracker.core.usecase.IsNetworkAllowed
+import com.minirogue.starwarscanontracker.core.usecase.UpdateNotes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import filters.GetActiveFilters
 import filters.GetAllFilterTypes
@@ -35,6 +34,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import settings.usecase.GetCheckboxSettings
+import settings.usecase.GetCheckboxText
 import java.io.File
 import javax.inject.Inject
 
@@ -47,7 +47,7 @@ class MediaListViewModel @Inject constructor(
         getCheckboxText: GetCheckboxText,
         private val updateNotes: UpdateNotes,
         private val getMediaListWithNotes: GetMediaListWithNotes,
-        connMgr: MyConnectivityManager,
+        isNetworkAllowed: IsNetworkAllowed,
         getCheckboxSettings: GetCheckboxSettings,
         application: Application,
 ) : ViewModel() {
@@ -79,7 +79,7 @@ class MediaListViewModel @Inject constructor(
     }
 
     // Whether or not network calls are currently allowed. Used for fetching images.
-    val isNetworkAllowed: StateFlow<Boolean> = connMgr.isNetworkAllowed()
+    val isNetworkAllowed: StateFlow<Boolean> = isNetworkAllowed()
             .stateIn(scope = viewModelScope, started = SharingStarted.Eagerly, initialValue = false)
 
     // Variables for handling exactly one query and sort job at a time
