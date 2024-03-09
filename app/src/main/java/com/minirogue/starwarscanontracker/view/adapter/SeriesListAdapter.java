@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.minirogue.starwarscanontracker.R;
-import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes;
+import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotesDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SeriesListAdapter extends ListAdapter<MediaAndNotes, SeriesListAdapter.MediaViewHolder> {
+public class SeriesListAdapter extends ListAdapter<MediaAndNotesDto, SeriesListAdapter.MediaViewHolder> {
     private final OnItemClickedListener listener;
 
     public SeriesListAdapter(OnItemClickedListener listener) {
@@ -30,7 +30,7 @@ public class SeriesListAdapter extends ListAdapter<MediaAndNotes, SeriesListAdap
     }
 
     @Override
-    public void submitList(@Nullable List<MediaAndNotes> list) {
+    public void submitList(@Nullable List<MediaAndNotesDto> list) {
         if (list != null) {
             super.submitList(new ArrayList<>(list));
         } else {
@@ -48,7 +48,7 @@ public class SeriesListAdapter extends ListAdapter<MediaAndNotes, SeriesListAdap
 
     @Override
     public void onBindViewHolder(@NonNull MediaViewHolder holder, int position) {
-        MediaAndNotes currentItem = getItem(position);
+        MediaAndNotesDto currentItem = getItem(position);
         holder.itemView.setOnClickListener(view -> listener.onItemClicked(currentItem.getMediaItemDto().getId()));
         holder.titleTextView.setText(currentItem.getMediaItemDto().getTitle());
     }
@@ -64,14 +64,14 @@ public class SeriesListAdapter extends ListAdapter<MediaAndNotes, SeriesListAdap
         }
     }
 
-    private static final DiffUtil.ItemCallback<MediaAndNotes> DiffCallback = new DiffUtil.ItemCallback<>() {
+    private static final DiffUtil.ItemCallback<MediaAndNotesDto> DiffCallback = new DiffUtil.ItemCallback<>() {
         @Override
-        public boolean areItemsTheSame(@NonNull MediaAndNotes oldItem, @NonNull MediaAndNotes newItem) {
+        public boolean areItemsTheSame(@NonNull MediaAndNotesDto oldItem, @NonNull MediaAndNotesDto newItem) {
             return oldItem.getMediaItemDto().getId() == newItem.getMediaItemDto().getId();
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull MediaAndNotes oldItem, @NonNull MediaAndNotes newItem) {
+        public boolean areContentsTheSame(@NonNull MediaAndNotesDto oldItem, @NonNull MediaAndNotesDto newItem) {
             return oldItem.equals(newItem);
         }
     };

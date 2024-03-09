@@ -29,6 +29,7 @@ dependencies {
     implementation project(":api")
     implementation project(":library:settings:public")
     api project(":library:filters:public")
+    api project(":library:media-notes:public")
 
     // Kotlin
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"

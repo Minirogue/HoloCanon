@@ -23,7 +23,6 @@ import com.minirogue.holocanon.feature.media.list.internal.databinding.MediaList
 import com.minirogue.holocanon.feature.media.list.internal.view.SWMListAdapter.AdapterInterface
 import com.minirogue.holocanon.feature.media.list.internal.viewmodel.MediaListViewModel
 import com.minirogue.starwarscanontracker.core.model.SortStyle
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
 import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel
 import com.minirogue.starwarscanontracker.view.FilterChip
@@ -43,27 +42,20 @@ internal class MediaListFragment : Fragment() {
     private lateinit var sortChip: Chip
 
     private val adapterInterface: AdapterInterface = object : AdapterInterface {
-        override fun onItemClicked(itemId: Int) {
+        override fun onItemClicked(itemId: Long) {
             navigationViewModel.navigateTo(NavigationDestination.MediaItemScreen(itemId))
         }
 
-        override fun onCheckbox1Clicked(mediaNotesDto: MediaNotesDto) {
-            mediaNotesDto.flipCheck1()
-            mediaListViewModel.update(mediaNotesDto)
+        override fun onCheckbox1Clicked(itemId: Long, newValue: Boolean) {
+            mediaListViewModel.onCheckBox1Clicked(itemId, newValue)
         }
 
-        override fun onCheckbox2Clicked(mediaNotesDto: MediaNotesDto) {
-            mediaNotesDto.flipCheck2()
-            mediaListViewModel.update(mediaNotesDto)
+        override fun onCheckbox2Clicked(itemId: Long, newValue: Boolean) {
+            mediaListViewModel.onCheckBox2Clicked(itemId, newValue)
         }
 
-        override fun onCheckbox3Clicked(mediaNotesDto: MediaNotesDto) {
-            mediaNotesDto.flipCheck3()
-            mediaListViewModel.update(mediaNotesDto)
-        }
-
-        override fun getMediaTypeString(mediaTypeId: Int): String {
-            return mediaListViewModel.convertTypeToString(mediaTypeId)
+        override fun onCheckbox3Clicked(itemId: Long, newValue: Boolean) {
+            mediaListViewModel.onCheckBox3Clicked(itemId, newValue)
         }
 
         override fun getSeriesString(seriesId: Int): String {
@@ -72,7 +64,7 @@ internal class MediaListFragment : Fragment() {
         }
 
         override fun isNetworkAllowed(): Boolean {
-            return mediaListViewModel.isNetworkAllowed.value
+            return mediaListViewModel.state.value.isNetworkAllowed
         }
     }
 
@@ -116,30 +108,34 @@ internal class MediaListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sortChip = makeCurrentSortChip()
 
+        val swmListAdapter = SWMListAdapter(adapterInterface)
+
         with(binding.mediaRecyclerview) {
             layoutManager = LinearLayoutManager(context)
-            adapter = SWMListAdapter(adapterInterface).also {
-                mediaListViewModel.filteredMediaAndNotes.observe(viewLifecycleOwner) { mediaAndNotes -> it.submitList(mediaAndNotes) }
-                viewLifecycleOwner.lifecycleScope.launch {
-                    repeatOnLifecycle(Lifecycle.State.STARTED) {
-                        launch {
-                            mediaListViewModel.checkBoxText.collect { newCheckBoxText -> it.updateCheckBoxText(newCheckBoxText) }
-                        }
-                        launch {
-                            mediaListViewModel.checkBoxVisibility.collect { newIsCheckboxActive ->
-                                it.updateCheckBoxVisible(newIsCheckboxActive)
-                            }
-                        }
-                    }
-                }
-                setHasFixedSize(true)
-                addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
-
-                FastScrollerBuilder(this).build()
-            }
+            adapter = swmListAdapter
+            setHasFixedSize(true)
+            addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
+            FastScrollerBuilder(this).build()
         }
 
-        mediaListViewModel.activeFilters.observe(viewLifecycleOwner) { filters: List<MediaFilter> -> setFilterChips(filters) }
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mediaListViewModel.state.collect { state ->
+                    println("test-log: collected state $state")
+                    swmListAdapter.updateCheckBoxSettings(state.checkboxSettings)
+                    setFilterChips(state.activeFilters)
+                    updateSortChip(state.sortStyle)
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mediaListViewModel.mediaList.collect { mediaAndNotes ->
+                    println("test-log: collected list with ${mediaAndNotes.size}")
+                    swmListAdapter.submitList(mediaAndNotes)
+                }
+            }
+        }
     }
 
     private fun setFilterChips(filters: List<MediaFilter>) = with(binding.filterChipGroup) {
@@ -157,15 +153,12 @@ internal class MediaListFragment : Fragment() {
     }
 
     private fun makeCurrentSortChip(): Chip =
-        Chip(context).apply {
-            isChipIconVisible = true
-            setOnClickListener { mediaListViewModel.reverseSort() }
-            mediaListViewModel.sortStyle.observe(
-                    viewLifecycleOwner
-            ) { sortStyle: SortStyle -> updateSortChip(sortStyle) }
-        }.also {
-            binding.filterChipGroup.addView(it)
-        }
+            Chip(context).apply {
+                isChipIconVisible = true
+                setOnClickListener { mediaListViewModel.reverseSort() }
+            }.also {
+                binding.filterChipGroup.addView(it)
+            }
 
     private fun updateSortChip(sortStyle: SortStyle) = with(sortChip) {
         text = sortStyle.getText()

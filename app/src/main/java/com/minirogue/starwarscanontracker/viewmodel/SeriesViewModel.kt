@@ -7,7 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.SeriesDto
-import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
+import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotesDto
 import com.minirogue.starwarscanontracker.core.usecase.IsNetworkAllowed
 import com.minirogue.starwarscanontracker.usecase.Checkbox
 import com.minirogue.starwarscanontracker.usecase.GetMediaAndNotesForSeries
@@ -40,7 +40,7 @@ class SeriesViewModel @Inject constructor(
 
     private var seriesId: Int = -1
     lateinit var liveSeriesDto: LiveData<SeriesDto>
-    val seriesList = MediatorLiveData<List<MediaAndNotes>>()
+    val seriesList = MediatorLiveData<List<MediaAndNotesDto>>()
     val liveSeriesNotes = MediatorLiveData<Array<Boolean>>()
     val checkBoxNames = getCheckboxText.invoke()
     val checkBoxVisibility = getCheckboxSettings().map { checkboxSettings ->

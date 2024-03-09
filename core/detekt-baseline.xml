@@ -3,5 +3,6 @@
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
     <ID>TooManyFunctions:DaoFilter.kt$DaoFilter</ID>
+    <ID>TooManyFunctions:DaoMedia.kt$DaoMedia</ID>
   </CurrentIssues>
 </SmellBaseline>

@@ -86,6 +86,7 @@ dependencies {
     implementation project(":feature:select-filters:internal")
     implementation project(":library:filters:internal")
     implementation project(":library:holoclient:internal")
+    implementation project(":library:media-notes:internal")
     implementation project(":library:settings:internal")
     implementation project(":library:coroutine-ext:public")
     implementation project(":library:view-ext:public")
