@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -110,7 +111,7 @@ internal class MediaListFragment : Fragment() {
 
         val swmListAdapter = SWMListAdapter(adapterInterface)
 
-        binding.mediaListSearchView.setOnQueryTextListener(object : android.widget.SearchView.OnQueryTextListener {
+        binding.mediaListSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }

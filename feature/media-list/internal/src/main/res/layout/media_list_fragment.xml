@@ -7,11 +7,10 @@
     android:orientation="vertical"
     tools:context="com.minirogue.holocanon.feature.media.list.internal.view.MediaListFragment">
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/media_list_search_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/media_list_search_hint"
         android:maxLength="256"
         app:iconifiedByDefault="false" />
 
