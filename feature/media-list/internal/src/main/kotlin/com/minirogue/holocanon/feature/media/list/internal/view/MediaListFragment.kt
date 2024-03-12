@@ -135,7 +135,7 @@ internal class MediaListFragment : Fragment() {
                     else -> false
                 }
             }
-        }, viewLifecycleOwner)
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun setFilterChips(filters: List<MediaFilter>) = with(binding.filterChipGroup) {
