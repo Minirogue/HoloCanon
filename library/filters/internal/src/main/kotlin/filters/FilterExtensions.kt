@@ -7,7 +7,7 @@ import filters.model.MediaFilter
 
 fun FullFilter.toMediaFilter(): MediaFilter = MediaFilter(
         id = filterObjectDto.id,
-        name = filterObjectDto.displayText,
+        name = filterObjectDto.displayText ?: "NULL", // Legacy Java nullability
         filterType = filterTypeFromInt(filterObjectDto.filterType),
         isPositive = is_positive,
         isActive = filterObjectDto.active

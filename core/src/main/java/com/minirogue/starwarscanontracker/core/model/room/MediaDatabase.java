@@ -38,16 +38,21 @@ public abstract class MediaDatabase extends RoomDatabase {
 
     private static MediaDatabase databaseInstance;
 
+    @NonNull
     public abstract DaoMedia getDaoMedia();
 
+    @NonNull
     public abstract DaoSeries getDaoSeries();
 
+    @NonNull
     public abstract DaoFilter getDaoFilter();
 
+    @NonNull
     public abstract DaoCompany getDaoCompany();
 
 
-    public static MediaDatabase getMediaDataBase(Context ctx) {
+    @NonNull
+    public static MediaDatabase getMediaDataBase(@NonNull Context ctx) {
         if (databaseInstance == null) {
             databaseInstance =
                     Room.databaseBuilder(ctx.getApplicationContext(), MediaDatabase.class, DATABASE_NAME)

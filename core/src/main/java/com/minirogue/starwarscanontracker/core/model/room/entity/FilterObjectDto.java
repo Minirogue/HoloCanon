@@ -23,10 +23,11 @@ public class FilterObjectDto {
     public int filterType;
     @ColumnInfo(name = "is_active")
     public boolean active;
+    @Nullable
     @ColumnInfo(name = "filter_text")
     public String displayText;
 
-    public FilterObjectDto(int id, int filterType, boolean active, String displayText) {
+    public FilterObjectDto(int id, int filterType, boolean active, @Nullable String displayText) {
         this.id = id;
         this.filterType = filterType;
         this.active = active;

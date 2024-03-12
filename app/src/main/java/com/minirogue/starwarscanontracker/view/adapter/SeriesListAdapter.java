@@ -20,7 +20,7 @@ import java.util.List;
 public class SeriesListAdapter extends ListAdapter<MediaAndNotesDto, SeriesListAdapter.MediaViewHolder> {
     private final OnItemClickedListener listener;
 
-    public SeriesListAdapter(OnItemClickedListener listener) {
+    public SeriesListAdapter(@NonNull OnItemClickedListener listener) {
         super(DiffCallback);
         this.listener = listener;
     }

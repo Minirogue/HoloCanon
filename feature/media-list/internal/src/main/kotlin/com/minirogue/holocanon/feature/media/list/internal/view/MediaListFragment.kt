@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -68,44 +69,14 @@ internal class MediaListFragment : Fragment() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.media_list_menu, menu)
-
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.sort_by_date_menu_item -> {
-                mediaListViewModel.setSort(SortStyle.SORT_DATE)
-                true
-            }
-
-            R.id.sort_by_timeline_menu_item -> {
-                mediaListViewModel.setSort(SortStyle.SORT_TIMELINE)
-                true
-            }
-
-            R.id.sort_by_title_menu_item -> {
-                mediaListViewModel.setSort(SortStyle.SORT_TITLE)
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(layoutId, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        addMenuItems()
         sortChip = makeCurrentSortChip()
 
         val swmListAdapter = SWMListAdapter(adapterInterface)
@@ -136,6 +107,35 @@ internal class MediaListFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun addMenuItems() {
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.media_list_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.sort_by_date_menu_item -> {
+                        mediaListViewModel.setSort(SortStyle.SORT_DATE)
+                        true
+                    }
+
+                    R.id.sort_by_timeline_menu_item -> {
+                        mediaListViewModel.setSort(SortStyle.SORT_TIMELINE)
+                        true
+                    }
+
+                    R.id.sort_by_title_menu_item -> {
+                        mediaListViewModel.setSort(SortStyle.SORT_TITLE)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner)
     }
 
     private fun setFilterChips(filters: List<MediaFilter>) = with(binding.filterChipGroup) {
