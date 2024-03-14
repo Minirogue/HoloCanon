@@ -7,6 +7,12 @@
     android:orientation="vertical"
     tools:context="com.minirogue.holocanon.feature.media.list.internal.view.MediaListFragment">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/media_list_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLength="256"
+        app:iconifiedByDefault="false" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"
@@ -22,11 +28,11 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/media_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
-            android:scrollbars="none"
-            tools:listitem="@layout/media_list_item" />
+        android:id="@+id/media_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        android:scrollbars="none"
+        tools:listitem="@layout/media_list_item" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

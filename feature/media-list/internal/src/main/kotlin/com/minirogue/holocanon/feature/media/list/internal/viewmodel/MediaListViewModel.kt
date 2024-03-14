@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -30,6 +29,7 @@ import javax.inject.Inject
 data class MediaListState(
         val activeFilters: List<MediaFilter> = emptyList(),
         val sortStyle: SortStyle = SortStyle.DEFAULT_STYLE,
+        val searchTerm: String? = null,
         val checkboxSettings: CheckboxSettings = CheckboxSettings.NONE,
         val isNetworkAllowed: Boolean = false,
 )
@@ -48,10 +48,22 @@ internal class MediaListViewModel @Inject constructor(
 
     private val _state: MutableStateFlow<MediaListState> = MutableStateFlow(MediaListState())
     val state: StateFlow<MediaListState> = _state
-    val mediaList: Flow<List<MediaAndNotes>> = getMediaListWithNotes().combine(_state.map { it.sortStyle }) { list, sortStyle ->
-        println("test-log: combining media list (${list.first()} to ${list.last()}) and sort style $sortStyle ")
-        list.sort(sortStyle)
-    }
+    val mediaList: Flow<List<MediaAndNotes>> = getMediaListWithNotes()
+            .combine(_state) { list, state ->
+                withContext(Dispatchers.Default) {
+                    val sortStyle = state.sortStyle
+                    val searchTerm = state.searchTerm
+                    if (!searchTerm.isNullOrBlank()) {
+                        list.filter {
+                            it.mediaItem.title.contains(searchTerm, true) ||
+                                    it.mediaItem.description?.contains(searchTerm, true) == true ||
+                                    it.mediaItem.series?.contains(searchTerm, true) == true
+                        }
+                    } else {
+                        list
+                    }.sort(sortStyle)
+                }
+            }
 
     // The file where the current sorting method is stored
     private val sortCacheFileName = application.cacheDir.toString() + "/sortCache"
@@ -71,6 +83,10 @@ internal class MediaListViewModel @Inject constructor(
             val savedSort = getSavedSort()
             _state.update { it.copy(sortStyle = savedSort) }
         }
+    }
+
+    fun updateSearch(searchTerm: String?) {
+        _state.update { it.copy(searchTerm = searchTerm) }
     }
 
     fun setSort(newCompareType: Int) = viewModelScope.launch {
