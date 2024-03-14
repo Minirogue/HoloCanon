@@ -15,8 +15,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
@@ -99,7 +99,7 @@ internal class SettingsFragment : Fragment() {
             Text(text = getString(R.string.settings_user_defined_filter, whichBox.toString()),
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(8.dp))
-            Divider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
+            HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
             if (checkboxSetting.isInUse) {
                 Row(modifier = Modifier
                         .fillMaxWidth()
@@ -162,7 +162,7 @@ internal class SettingsFragment : Fragment() {
             Text(getString(R.string.settings_included_media_types),
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(8.dp))
-            Divider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
+            HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
             MediaType.entries.forEach {
                 MediaTypePermanentFilter(it, permanentFilters[it] ?: true)
             }
@@ -195,7 +195,7 @@ internal class SettingsFragment : Fragment() {
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(8.dp),
             )
-            Divider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
+            HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
             Row(
                     modifier = Modifier
                             .fillMaxWidth()
