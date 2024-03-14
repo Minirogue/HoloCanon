@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -81,6 +82,17 @@ internal class MediaListFragment : Fragment() {
 
         val swmListAdapter = SWMListAdapter(adapterInterface)
 
+        binding.mediaListSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                mediaListViewModel.updateSearch(newText)
+                return false
+            }
+        })
+
         with(binding.mediaRecyclerview) {
             layoutManager = LinearLayoutManager(context)
             adapter = swmListAdapter
@@ -92,7 +104,6 @@ internal class MediaListFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mediaListViewModel.state.collect { state ->
-                    println("test-log: collected state $state")
                     swmListAdapter.updateCheckBoxSettings(state.checkboxSettings)
                     setFilterChips(state.activeFilters)
                     updateSortChip(state.sortStyle)
@@ -102,7 +113,6 @@ internal class MediaListFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mediaListViewModel.mediaList.collect { mediaAndNotes ->
-                    println("test-log: collected list with ${mediaAndNotes.size}")
                     swmListAdapter.submitList(mediaAndNotes)
                 }
             }
