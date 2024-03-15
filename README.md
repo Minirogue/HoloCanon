@@ -25,12 +25,14 @@ The database itself is stored in `api/src/main/resources/media.csv`. Here are so
 
 ## TODO
 Here are some things that I plan to add to the app:
-* Text search for the list. This should include searching all relevant text fields of the items.
-* Add syncing of user selections across devices. Temporary(?) solution could be to add import/export option.
-* Add option to export a list of checked/unchecked items to a txt or pdf.
-* Add donation button, in case the users ever decide to feel generous. No plans to ever implement paid features.
+
+* Add an import/export option so users can transfer or backup their list.
+* Provide a "printable" output (probably a TXT) based on a user's current search.
+* Add donation button, in case the users ever decide to feel generous. No plans to ever implement
+  paid features. (note: this would probably violate some Google policy because they want their
+  15-30%)
 * Add Hardcover, Omnibus, and reference books to database.
-* Expand support for different screen sizes (particularly tablets).
+* Expand support for different screen sizes.
 
 ## License
 TODO
