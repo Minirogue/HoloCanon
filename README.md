@@ -23,14 +23,22 @@ The database itself is stored in `api/src/main/resources/media.csv`. Here are so
 * Increment the number in `Version.kt` by 1 to ensure the clients automatically update their local databases.
 * Running the `:api:test` gradle task will test to ensure the CSV can be correctly loaded by the code. This should be run on the PR before it's merged, but that requires a manual trigger by me.
 
-## TODO
+## Requested Features
 Here are some things that I plan to add to the app:
-* Text search for the list. This should include searching all relevant text fields of the items.
-* Add syncing of user selections across devices. Temporary(?) solution could be to add import/export option.
-* Add option to export a list of checked/unchecked items to a txt or pdf.
-* Add donation button, in case the users ever decide to feel generous. No plans to ever implement paid features.
+
+* Add an import/export option so users can transfer or backup their list.
+* Provide a "printable" output (probably a TXT) based on a user's current search.
+* Add donation button, in case the users ever decide to feel generous. No plans to ever implement
+  paid features. (note: this would probably violate some Google policy because they want their
+  15-30%)
 * Add Hardcover, Omnibus, and reference books to database.
-* Expand support for different screen sizes (particularly tablets).
+* Expand support for different screen sizes.
+* Add a "stats" tab so users can track completion ("110/380 owned" and such)
+
+## Tech TODO
+
+* Finish compartmentalizing code into modules
+* Migrate code to a Kotlin multiplatform pattern
 
 ## License
 TODO
