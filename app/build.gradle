@@ -80,6 +80,7 @@ dependencies {
 
     // Project Modules
     implementation project(":core")
+    implementation project(":feature:home-screen:internal")
     implementation project(":feature:media-item:internal")
     implementation project(":feature:media-list:internal")
     implementation project(":feature:settings:internal")

@@ -35,25 +35,6 @@
         <item>Grakkus isn\'t like other Hutts.</item>
     </string-array>
 
-    <!--home fragment-->
-    <string name="welcome_message"><p>Welcome to &appname;, an unofficial canon tracker for the Star Wars universe.</p>
-
-        \n\n<p>Come find me on Twitter <a href="https://twitter.com/holocanon">@HoloCanon</a> or on my <a href="https://discord.gg/RxXvTfX">Discord server</a>.
-            These are great ways to make suggestions, alert me to any bugs or incorrect data, and to keep updated on the app in general.
-            If you\'d prefer more personal or private contact, you can e-mail me at <a href="mailto:DarthMerman@gmail.com">DarthMerman@gmail.com</a>.</p>
-
-        \n\n<p>The purpose of this app is to make it easier to keep track of all of the currently canonical content in the Star Wars universe.
-        I usually filter out "completed" items and then choose a media type or a series I\'m interested in to see what is left for me to read (or watch).
-        The list can be sorted by release date, title, media type, or in-universe timeline (which is a constant work-in-progress).
-        I\'m always open to suggestions for more filtering/sorting methods.</p>
-
-        \n\n<p>Images and database updates only download on unmetered (usually wifi) networks by default.
-        This behavior can be changed in the settings, where you can also force a database sync.</p>
-
-        \n\n<p>In settings you can also change the text associated to the checkboxes as well as permanently filter out certain media types (such as "youth").</p>
-
-        \n\n<p>Below are notes for the latest update. To see previous update notes, tap the question mark in the top corner.</p></string>
-
     <!--about-->
     <string name="copyright_notice">This app is in no way affiliated with or endorsed by Disney or Lucasfilm.
         I do not claim to own Star Wars or any of its related copyrights or trademarks.

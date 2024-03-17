@@ -16,7 +16,7 @@ import com.minirogue.holocanon.feature.media.list.internal.databinding.MediaList
 import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
 import settings.model.CheckboxSettings
 
-class SWMListAdapter(
+internal class SWMListAdapter(
         private val adapterInterface: AdapterInterface,
 ) : ListAdapter<MediaAndNotes, SWMListAdapter.MediaViewHolder>(DiffCallback) {
     private var checkBoxText = arrayOf("", "", "")
