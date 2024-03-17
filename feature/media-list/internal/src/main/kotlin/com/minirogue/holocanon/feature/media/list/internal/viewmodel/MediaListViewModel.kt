@@ -26,7 +26,7 @@ import settings.usecase.GetCheckboxSettings
 import java.io.File
 import javax.inject.Inject
 
-data class MediaListState(
+internal data class MediaListState(
         val activeFilters: List<MediaFilter> = emptyList(),
         val sortStyle: SortStyle = SortStyle.DEFAULT_STYLE,
         val searchTerm: String? = null,

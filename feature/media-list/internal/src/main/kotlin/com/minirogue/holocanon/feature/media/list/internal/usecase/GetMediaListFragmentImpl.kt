@@ -5,7 +5,7 @@ import com.minirogue.holocanon.feature.media.list.internal.view.MediaListFragmen
 import com.minirogue.holocanon.feature.media.list.usecase.GetMediaListFragment
 import javax.inject.Inject
 
-class GetMediaListFragmentImpl @Inject constructor() : GetMediaListFragment {
+internal class GetMediaListFragmentImpl @Inject constructor() : GetMediaListFragment {
     override fun invoke(): Fragment {
         return MediaListFragment()
     }

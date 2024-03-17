@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.minirogue.holocanon.feature.home.screen.GetHomeFragment
 import com.minirogue.holocanon.feature.media.list.usecase.GetMediaListFragment
 import com.minirogue.holocanon.feature.select.filters.usecase.GetSelectFiltersFragment
 import com.minirogue.starwarscanontracker.R
@@ -23,6 +24,9 @@ class TabbedListContainerFragment : Fragment() {
     @Inject
     lateinit var getMediaListFragment: GetMediaListFragment
 
+    @Inject
+    lateinit var getHomeFragment: GetHomeFragment
+
     private enum class TabInfo(val tabNameRes: Int) {
         // The order here defines the order of the tabs
         HOME(R.string.nav_home),
@@ -35,7 +39,7 @@ class TabbedListContainerFragment : Fragment() {
         // Setting ViewPager for each Tabs
         val fragmentCreator = { tabInfo: TabInfo ->
             when (tabInfo) {
-                TabInfo.HOME -> HomeFragment()
+                TabInfo.HOME -> getHomeFragment()
                 TabInfo.MEDIA_LIST -> getMediaListFragment()
                 TabInfo.FILTERS -> getSelectFiltersFragment()
             }
