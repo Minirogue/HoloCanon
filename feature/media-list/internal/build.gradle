@@ -18,6 +18,7 @@ dependencies {
     // project public modules
     implementation project(":core")
     implementation project(":feature:media-item:public")
+    implementation project(":library:media-notes:public")
     implementation project(":library:settings:public")
     implementation project(":library:view-ext:public")
 

@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToMediaItem(itemId: Int) {
+    private fun navigateToMediaItem(itemId: Long) {
         val viewMediaItemFragment = getMediaItemFragment(itemId)
         supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, viewMediaItemFragment)

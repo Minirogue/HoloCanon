@@ -1,7 +1,6 @@
 package com.minirogue.starwarscanontracker.core.model
 
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
-import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotes
+import com.minirogue.api.media.StarWarsMedia
 import kotlin.math.sign
 
 class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNotes> {
@@ -10,7 +9,7 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
         const val SORT_TITLE = 1
         const val SORT_TIMELINE = 2
         const val SORT_DATE = 4
-        const val DEFAULT_STYLE = SORT_DATE
+        val DEFAULT_STYLE = SortStyle(SORT_DATE, true)
         fun getSortText(sortType: Int): String {
             return when (sortType) {
                 SORT_TITLE -> "Title"
@@ -35,8 +34,8 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
         }
         val compNum: Int = when (style) {
             SORT_TITLE -> compareTitles(p0, p1)
-            SORT_TIMELINE -> sign(p0.mediaItemDto.timeline - p1.mediaItemDto.timeline).toInt()
-            SORT_DATE -> compareDates(p0.mediaItemDto, p1.mediaItemDto)
+            SORT_TIMELINE -> compareTimelines(p0.mediaItem, p1.mediaItem)
+            SORT_DATE -> compareDates(p0.mediaItem, p1.mediaItem)
             else -> compareTitles(p0, p1)
         }
         return if (ascending) {
@@ -47,15 +46,15 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
     }
 
     private fun compareTitles(p0: MediaAndNotes, p1: MediaAndNotes): Int {
-        val title1 = p0.mediaItemDto.title
-        val title2 = p1.mediaItemDto.title
+        val title1 = p0.mediaItem.title
+        val title2 = p1.mediaItem.title
 
         return title1.compareTo(title2)
     }
 
-    private fun compareDates(item1: MediaItemDto, item2: MediaItemDto): Int {
-        val splitDate1 = item1.date.split("/")
-        val splitDate2 = item2.date.split("/")
+    private fun compareDates(item1: StarWarsMedia, item2: StarWarsMedia): Int {
+        val splitDate1 = item1.releaseDate.split("/")
+        val splitDate2 = item2.releaseDate.split("/")
         var compare = (splitDate1[2].toInt() - splitDate2[2].toInt())
         if (compare == 0) {
             compare = (splitDate1[0].toInt() - splitDate2[0].toInt())
@@ -64,6 +63,12 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
             compare = (splitDate1[1].toInt() - splitDate2[1].toInt())
         }
         return compare
+    }
+
+    private fun compareTimelines(item1: StarWarsMedia, item2: StarWarsMedia): Int {
+        val time1 = item1.timeline ?: 9999f
+        val time2 = item2.timeline ?: 9999f
+        return sign(time1 - time2).toInt()
     }
 
     fun getText(): String {

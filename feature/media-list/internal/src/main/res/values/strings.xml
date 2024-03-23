@@ -8,5 +8,6 @@
 
     <string name="media_list_media_type">type</string>
     <string name="media_list_cover_art">Cover art</string>
+    <string name="media_list_search_hint">Search</string>
 
 </resources>
