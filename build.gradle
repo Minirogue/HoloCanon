@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        kotlinVersion = '1.9.22'
+        kotlinVersion = '1.9.23'
         hiltVersion = '2.51'
         detektVersion = '1.23.5'
     }
@@ -33,7 +33,7 @@ ext {
     appCompatVersion = '1.6.1'
     coilVersion = '2.6.0'
     composeBomVersion = '2024.03.00'
-    composeCompilerVersion = '1.5.9'
+    composeCompilerVersion = '1.5.11'
     datastoreVersion = '1.0.0'
     fragmentVersion = '1.6.2'
     lifecycleVersion = '2.7.0'
