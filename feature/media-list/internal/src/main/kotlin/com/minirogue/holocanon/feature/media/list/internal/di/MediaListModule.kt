@@ -9,7 +9,7 @@ import dagger.hilt.android.components.FragmentComponent
 
 @Module
 @InstallIn(FragmentComponent::class)
-interface MediaListModule {
+internal interface MediaListModule {
     @Binds
     fun bindGetMediaListFragment(impl: GetMediaListFragmentImpl): GetMediaListFragment
 }

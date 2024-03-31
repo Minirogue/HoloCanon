@@ -9,7 +9,7 @@ import androidx.viewbinding.ViewBinding
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-class FragmentViewBindingDelegate<T : ViewBinding>(
+internal class FragmentViewBindingDelegate<T : ViewBinding>(
     val fragment: Fragment,
     val viewBindingFactory: (View) -> T,
 ) : ReadOnlyProperty<Fragment, T> {
@@ -55,5 +55,5 @@ class FragmentViewBindingDelegate<T : ViewBinding>(
  * Pass this the bind method of the ViewBinding class (e.g. TaxCenterFragmentBinding::bind) to get the binding.
  * Note that the binding can only be valid between the [Fragment.onCreateView] and [Fragment.onDestroyView] methods.
  */
-fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (View) -> T) =
+internal fun <T : ViewBinding> Fragment.viewBinding(viewBindingFactory: (View) -> T) =
     FragmentViewBindingDelegate(this, viewBindingFactory)

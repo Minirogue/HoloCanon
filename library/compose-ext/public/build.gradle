@@ -19,6 +19,7 @@ dependencies {
     api 'androidx.compose.material3:material3'
     debugApi("androidx.compose.ui:ui-tooling")
     api("androidx.compose.ui:ui-tooling-preview")
+    api("androidx.activity:activity-compose")
 
     // detekt
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
