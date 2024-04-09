@@ -1,22 +1,22 @@
 package com.minirogue.starwarscanontracker.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.minirogue.series.model.Series
+import com.minirogue.series.usecase.GetSeries
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.SeriesDto
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotesDto
 import com.minirogue.starwarscanontracker.core.usecase.IsNetworkAllowed
 import com.minirogue.starwarscanontracker.usecase.Checkbox
 import com.minirogue.starwarscanontracker.usecase.GetMediaAndNotesForSeries
 import com.minirogue.starwarscanontracker.usecase.GetNotesBySeries
-import com.minirogue.starwarscanontracker.usecase.GetSeries
 import com.minirogue.starwarscanontracker.usecase.SetCheckboxForSeries
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -29,17 +29,17 @@ import javax.inject.Inject
 @Suppress("LongParameterList")
 @HiltViewModel
 class SeriesViewModel @Inject constructor(
-        private val getSeries: GetSeries,
-        getCheckboxText: GetCheckboxText,
-        private val getNotesBySeries: GetNotesBySeries,
-        private val getMediaAndNotesForSeries: GetMediaAndNotesForSeries,
-        private val setCheckboxForSeries: SetCheckboxForSeries,
-        isNetworkAllowed: IsNetworkAllowed,
-        getCheckboxSettings: GetCheckboxSettings,
+    private val getSeries: GetSeries,
+    getCheckboxText: GetCheckboxText,
+    private val getNotesBySeries: GetNotesBySeries,
+    private val getMediaAndNotesForSeries: GetMediaAndNotesForSeries,
+    private val setCheckboxForSeries: SetCheckboxForSeries,
+    isNetworkAllowed: IsNetworkAllowed,
+    getCheckboxSettings: GetCheckboxSettings,
 ) : ViewModel() {
 
     private var seriesId: Int = -1
-    lateinit var liveSeriesDto: LiveData<SeriesDto>
+    lateinit var seriesFlow: Flow<Series>
     val seriesList = MediatorLiveData<List<MediaAndNotesDto>>()
     val liveSeriesNotes = MediatorLiveData<Array<Boolean>>()
     val checkBoxNames = getCheckboxText.invoke()
@@ -56,7 +56,7 @@ class SeriesViewModel @Inject constructor(
 
     fun setSeriesId(seriesId: Int) {
         this.seriesId = seriesId
-        liveSeriesDto = getSeries(seriesId).asLiveData(viewModelScope.coroutineContext)
+        seriesFlow = getSeries(seriesId)
         liveSeriesNotes.addSource(getNotesBySeries(seriesId)) {
             viewModelScope.launch {
                 updateSeriesNotes(it)
