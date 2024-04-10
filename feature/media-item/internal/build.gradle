@@ -5,15 +5,20 @@ apply plugin: 'dagger.hilt.android.plugin'
 android {
     namespace 'com.minirogue.holocanon.feature.media.item.internal'
     resourcePrefix 'media_item'
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
-    // public feature module
-    api project(":feature:media-item:public")
+    api projects.feature.mediaItem.public
 
-    // project public modules
-
-    // Android
+    implementation libs.androidx.constraintLayout
+    implementation libs.coil
+    implementation projects.core
+    implementation projects.library.mediaNotes.public
+    implementation projects.library.settings.public
 
     // Dependency Injection
     implementation "com.google.dagger:hilt-android:$hiltVersion"

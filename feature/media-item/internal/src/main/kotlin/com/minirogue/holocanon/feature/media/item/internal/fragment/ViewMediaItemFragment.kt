@@ -1,4 +1,4 @@
-package com.minirogue.starwarscanontracker.view.fragment
+package com.minirogue.holocanon.feature.media.item.internal.fragment
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -17,11 +17,10 @@ import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.request.CachePolicy
 import com.minirogue.api.media.MediaType
-import com.minirogue.starwarscanontracker.R
+import com.minirogue.holocanon.feature.media.item.internal.R
+import com.minirogue.holocanon.feature.media.item.internal.databinding.MediaItemFragmentBinding
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
-import com.minirogue.starwarscanontracker.databinding.FragmentViewMediaItemBinding
-import com.minirogue.starwarscanontracker.viewmodel.ViewMediaItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
@@ -32,7 +31,7 @@ class ViewMediaItemFragment : Fragment() {
     private val viewModel: ViewMediaItemViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val fragmentBinding = FragmentViewMediaItemBinding.inflate(inflater, container, false)
+        val fragmentBinding = MediaItemFragmentBinding.inflate(inflater, container, false)
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(ITEM_ID_KEY, -1) ?: -1
         if (bundleItemId != -1) viewModel.setItemId(bundleItemId)
@@ -59,14 +58,21 @@ class ViewMediaItemFragment : Fragment() {
         return fragmentBinding.root
     }
 
-    private fun updateViews(visibilityArray: BooleanArray, fragmentBinding: FragmentViewMediaItemBinding) {
+    private fun updateViews(
+        visibilityArray: BooleanArray,
+        fragmentBinding: MediaItemFragmentBinding
+    ) {
         fragmentBinding.checkbox1.visibility = if (visibilityArray[0]) View.VISIBLE else View.GONE
         fragmentBinding.checkbox2.visibility = if (visibilityArray[1]) View.VISIBLE else View.GONE
         fragmentBinding.checkbox3.visibility = if (visibilityArray[2]) View.VISIBLE else View.GONE
     }
 
     @SuppressLint("SetTextI18n")
-    private fun updateViews(item: MediaItemDto, isNetworkAllowed: Boolean, fragmentBinding: FragmentViewMediaItemBinding) {
+    private fun updateViews(
+        item: MediaItemDto,
+        isNetworkAllowed: Boolean,
+        fragmentBinding: MediaItemFragmentBinding
+    ) {
         fragmentBinding.mediaTitle.text = item.title
         fragmentBinding.descriptionTextview.text = if (item.description.isNotBlank()) {
             getString(R.string.description_header) + " " + item.description
@@ -94,17 +100,17 @@ class ViewMediaItemFragment : Fragment() {
         }
     }
 
-    private fun updateViews(notes: MediaNotesDto, fragmentBinding: FragmentViewMediaItemBinding) {
+    private fun updateViews(notes: MediaNotesDto, fragmentBinding: MediaItemFragmentBinding) {
         fragmentBinding.checkbox3.isChecked = notes.isBox3Checked
         fragmentBinding.checkbox1.isChecked = notes.isBox1Checked
         fragmentBinding.checkbox2.isChecked = notes.isBox2Checked
     }
 
-    private fun updateView(mediaType: MediaType?, fragmentBinding: FragmentViewMediaItemBinding) {
+    private fun updateView(mediaType: MediaType?, fragmentBinding: MediaItemFragmentBinding) {
         fragmentBinding.mediaType.text = mediaType?.getSerialName() ?: ""
     }
 
-    private fun makeShoppingMenu(item: MediaItemDto, fragmentBinding: FragmentViewMediaItemBinding) {
+    private fun makeShoppingMenu(item: MediaItemDto, fragmentBinding: MediaItemFragmentBinding) {
         val shoppingMenu = PopupMenu(fragmentBinding.root.context, fragmentBinding.affiliateLinksFab)
         if (item.amazonLink != "") {
             fragmentBinding.affiliateLinksFab.show()

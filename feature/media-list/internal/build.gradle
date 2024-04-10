@@ -25,7 +25,7 @@ dependencies {
     // Android
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "com.google.android.material:material:$materialVersion"
-    implementation "io.coil-kt:coil:$coilVersion"
+    implementation libs.coil
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion" // TODO deprecate
 
     // Fastscroll: https://github.com/zhanghai/AndroidFastScroll

@@ -95,7 +95,7 @@ dependencies {
 
     // Android
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
-    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+    implementation libs.androidx.constraintLayout
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.preference:preference-ktx:1.2.1"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
@@ -132,5 +132,5 @@ dependencies {
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
 
     // Image loading (image loading)
-    implementation "io.coil-kt:coil:$coilVersion"
+    implementation libs.coil
 }

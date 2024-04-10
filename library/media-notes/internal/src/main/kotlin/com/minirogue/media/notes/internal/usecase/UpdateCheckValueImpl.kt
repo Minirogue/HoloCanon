@@ -1,4 +1,4 @@
-package com.minirogue.media.notes.internal
+package com.minirogue.media.notes.internal.usecase
 
 import com.minirogue.media.notes.CheckBoxNumber
 import com.minirogue.media.notes.UpdateCheckValue
