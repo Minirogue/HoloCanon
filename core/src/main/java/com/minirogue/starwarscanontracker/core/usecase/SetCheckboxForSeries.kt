@@ -11,7 +11,7 @@ class SetCheckboxForSeries @Inject constructor(private val daoMedia: DaoMedia) {
     // A Mutex in case notes are being updated concurrently (e.g. user clicks on two separate checkboxes for a series)
     private val updatingNotesMutex = Mutex()
 
-    operator suspend fun invoke(
+    suspend operator fun invoke(
         checkbox: Checkbox,
         seriesId: Int,
         newValue: Boolean,
