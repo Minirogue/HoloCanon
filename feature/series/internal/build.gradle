@@ -3,8 +3,8 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 
 android {
-    namespace 'com.minirogue.holocanon.feature.media.list.internal'
-    resourcePrefix 'media_list'
+    namespace 'com.minirogue.holocanon.feature.series.internal'
+    resourcePrefix 'series'
 
     buildFeatures {
         viewBinding true
@@ -12,23 +12,17 @@ android {
 }
 
 dependencies {
-    api projects.feature.mediaList.public
+    api projects.feature.series.public
 
+    implementation libs.androidx.constraintLayout
+    implementation libs.androidx.recyclerview
+    implementation libs.coil
     implementation projects.core
     implementation projects.feature.mediaItem.public
     implementation projects.library.commonResources.public
     implementation projects.library.mediaNotes.public
+    implementation projects.library.series.public
     implementation projects.library.settings.public
-    implementation projects.library.viewExt.public
-
-    // Android
-    implementation "androidx.appcompat:appcompat:$appCompatVersion"
-    implementation libs.android.material
-    implementation libs.coil
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion" // TODO deprecate
-
-    // Fastscroll: https://github.com/zhanghai/AndroidFastScroll
-    implementation "me.zhanghai.android.fastscroll:library:1.3.0"
 
     // Dependency Injection
     implementation "com.google.dagger:hilt-android:$hiltVersion"

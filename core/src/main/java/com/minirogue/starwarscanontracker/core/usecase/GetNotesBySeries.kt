@@ -1,4 +1,4 @@
-package com.minirogue.starwarscanontracker.usecase
+package com.minirogue.starwarscanontracker.core.usecase
 
 import androidx.lifecycle.LiveData
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia

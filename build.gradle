@@ -36,7 +36,6 @@ ext {
     datastoreVersion = '1.0.0'
     fragmentVersion = '1.6.2'
     lifecycleVersion = '2.7.0'
-    materialVersion = '1.11.0'
     roomVersion = '2.6.1'
 
     // Kotlin

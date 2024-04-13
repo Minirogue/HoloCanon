@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
@@ -21,6 +22,8 @@ import com.minirogue.holocanon.feature.media.item.internal.R
 import com.minirogue.holocanon.feature.media.item.internal.databinding.MediaItemFragmentBinding
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
+import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
+import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
@@ -29,6 +32,7 @@ import kotlinx.coroutines.launch
 class ViewMediaItemFragment : Fragment() {
 
     private val viewModel: ViewMediaItemViewModel by viewModels()
+    private val navigationViewModel: NavigationViewModel by activityViewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val fragmentBinding = MediaItemFragmentBinding.inflate(inflater, container, false)
@@ -79,7 +83,7 @@ class ViewMediaItemFragment : Fragment() {
         } else ""
         fragmentBinding.releaseDate.text = item.date
         fragmentBinding.imageCover.load(item.imageURL) {
-            placeholder(R.drawable.media_list_placeholder_image)
+            placeholder(R.drawable.common_resource_app_icon)
             if (isNetworkAllowed) {
                 networkCachePolicy(CachePolicy.ENABLED)
             } else networkCachePolicy(CachePolicy.DISABLED)
@@ -88,14 +92,7 @@ class ViewMediaItemFragment : Fragment() {
         if (item.series > 0) {
             fragmentBinding.viewSeriesButton.visibility = View.VISIBLE
             fragmentBinding.viewSeriesButton.setOnClickListener {
-                val seriesFragment = SeriesFragment()
-                val bundle = Bundle()
-                bundle.putInt(getString(R.string.bundleItemId), item.series)
-                seriesFragment.arguments = bundle
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, seriesFragment)
-                    .addToBackStack(null)
-                    .commit()
+                navigationViewModel.navigateTo(NavigationDestination.SeriesScreen(item.series))
             }
         }
     }
@@ -142,7 +139,6 @@ class ViewMediaItemFragment : Fragment() {
                 arguments = Bundle().apply {
                     putInt(ITEM_ID_KEY, itemId)
                 }
-
             }
         }
     }

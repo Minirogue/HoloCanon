@@ -1,22 +1,21 @@
-package com.minirogue.starwarscanontracker.usecase
+package com.minirogue.starwarscanontracker.core.usecase
 
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SetCheckboxForSeries @Inject constructor(private val daoMedia: DaoMedia) {
     // A Mutex in case notes are being updated concurrently (e.g. user clicks on two separate checkboxes for a series)
     private val updatingNotesMutex = Mutex()
 
-    operator fun invoke(
+    operator suspend fun invoke(
         checkbox: Checkbox,
         seriesId: Int,
         newValue: Boolean,
-    ) = GlobalScope.launch(Dispatchers.Default) {
+    ) = withContext(Dispatchers.Default) {
         updatingNotesMutex.withLock {
             val listOfNotes = daoMedia.getMediaNotesBySeriesNonLive(seriesId)
             for (notes in listOfNotes) {

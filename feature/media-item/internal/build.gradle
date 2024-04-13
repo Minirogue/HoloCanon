@@ -15,8 +15,10 @@ dependencies {
     api projects.feature.mediaItem.public
 
     implementation libs.androidx.constraintLayout
+    implementation libs.android.material
     implementation libs.coil
     implementation projects.core
+    implementation projects.library.commonResources.public
     implementation projects.library.mediaNotes.public
     implementation projects.library.settings.public
 

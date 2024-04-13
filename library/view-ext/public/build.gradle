@@ -10,7 +10,7 @@ android {
 
 dependencies {
     // Android dependencies
-    api "com.google.android.material:material:$materialVersion"
+    api libs.android.material
 
     // project dependencies
     api project(":library:filters:public")

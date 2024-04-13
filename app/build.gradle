@@ -83,8 +83,10 @@ dependencies {
     implementation projects.feature.homeScreen.internal
     implementation projects.feature.mediaItem.internal
     implementation projects.feature.mediaList.internal
+    implementation projects.feature.series.internal
     implementation projects.feature.settings.internal
     implementation projects.feature.selectFilters.internal
+    implementation projects.library.commonResources.public
     implementation projects.library.filters.internal
     implementation projects.library.holoclient.internal
     implementation projects.library.mediaNotes.internal
@@ -96,7 +98,7 @@ dependencies {
     // Android
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation libs.androidx.constraintLayout
-    implementation "com.google.android.material:material:$materialVersion"
+    implementation libs.android.material
     implementation "androidx.preference:preference-ktx:1.2.1"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation "androidx.room:room-ktx:$roomVersion"

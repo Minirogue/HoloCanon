@@ -1,10 +1,14 @@
 [versions]
+androidMaterial = "1.11.0"
 constraintLayout = "2.1.4"
 coil = "2.6.0"
 coroutines = "1.6.3"
+recyclerview = "1.0.0"
 
 [libraries]
+android-material = { group = "com.google.android.material", name = "material", version.ref = "androidMaterial" }
 androidx-constraintLayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintLayout" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }

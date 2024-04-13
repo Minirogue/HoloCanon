@@ -1,10 +1,11 @@
-package com.minirogue.starwarscanontracker.view.fragment
+package com.minirogue.holocanon.feature.series.internal.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.flowWithLifecycle
@@ -12,11 +13,11 @@ import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.request.CachePolicy
 import com.minirogue.holocanon.feature.media.item.usecase.GetMediaItemFragment
+import com.minirogue.holocanon.feature.series.internal.R
+import com.minirogue.holocanon.feature.series.internal.databinding.SeriesFragmentBinding
 import com.minirogue.series.model.Series
-import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.databinding.FragmentSeriesBinding
-import com.minirogue.starwarscanontracker.view.adapter.SeriesListAdapter
-import com.minirogue.starwarscanontracker.viewmodel.SeriesViewModel
+import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
+import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
@@ -28,19 +29,34 @@ class SeriesFragment : Fragment() {
     lateinit var getMediaItemFragment: GetMediaItemFragment
 
     private val viewModel: SeriesViewModel by viewModels()
+    private val navigationViewModel: NavigationViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val fragmentBinding = FragmentSeriesBinding.inflate(inflater, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val fragmentBinding = SeriesFragmentBinding.inflate(inflater, container, false)
         val bundle = this.arguments
-        val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
+        val bundleItemId = bundle?.getInt(SERIES_ID_BUNDLE_KEY, -1) ?: -1
         if (bundleItemId != -1) viewModel.setSeriesId(bundleItemId)
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.seriesFlow
-                .combine(viewModel.isNetworkAllowed) { series, isNetworkAllowed -> Pair(series, isNetworkAllowed) }
+                .combine(viewModel.isNetworkAllowed) { series, isNetworkAllowed ->
+                    Pair(
+                        series,
+                        isNetworkAllowed
+                    )
+                }
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle)
                 .collect { updateViews(it.first, it.second, fragmentBinding) }
         }
-        viewModel.liveSeriesNotes.observe(viewLifecycleOwner) { notes -> updateViews(notes, fragmentBinding) }
+        viewModel.liveSeriesNotes.observe(viewLifecycleOwner) { notes ->
+            updateViews(
+                notes,
+                fragmentBinding
+            )
+        }
         viewModel.checkBoxNames.asLiveData(lifecycleScope.coroutineContext).observe(
             viewLifecycleOwner
         ) { names -> setCheckBoxNames(names, fragmentBinding) }
@@ -53,11 +69,7 @@ class SeriesFragment : Fragment() {
 
         val recyclerView = fragmentBinding.seriesRecyclerview
         val adapter = SeriesListAdapter { itemId ->
-            val viewMediaItemFragment = getMediaItemFragment(itemId)
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, viewMediaItemFragment)
-                .addToBackStack(null)
-                .commit() // TODO this should be handled by the activity
+            navigationViewModel.navigateTo(NavigationDestination.MediaItemScreen(itemId))
         }
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
@@ -66,13 +78,16 @@ class SeriesFragment : Fragment() {
         return fragmentBinding.root
     }
 
-    private fun setCheckBoxVisibility(visibility: BooleanArray, fragmentBinding: FragmentSeriesBinding) {
+    private fun setCheckBoxVisibility(
+        visibility: BooleanArray,
+        fragmentBinding: SeriesFragmentBinding
+    ) {
         fragmentBinding.checkbox1.visibility = if (visibility[0]) View.VISIBLE else View.GONE
         fragmentBinding.checkbox2.visibility = if (visibility[1]) View.VISIBLE else View.GONE
         fragmentBinding.checkbox3.visibility = if (visibility[2]) View.VISIBLE else View.GONE
     }
 
-    private fun setCheckBoxNames(names: Array<String>, fragmentBinding: FragmentSeriesBinding) {
+    private fun setCheckBoxNames(names: Array<String>, fragmentBinding: SeriesFragmentBinding) {
         fragmentBinding.checkbox1.text = names[0]
         fragmentBinding.checkbox2.text = names[1]
         fragmentBinding.checkbox3.text = names[2]
@@ -81,21 +96,25 @@ class SeriesFragment : Fragment() {
     private fun updateViews(
         series: Series,
         isNetworkAllowed: Boolean,
-        fragmentBinding: FragmentSeriesBinding
+        fragmentBinding: SeriesFragmentBinding
     ) {
         fragmentBinding.seriesTitle.text = series.name
 
         fragmentBinding.seriesImage.load(series.imageUrl) {
-            placeholder(R.drawable.media_list_placeholder_image)
+            placeholder(R.drawable.common_resource_app_icon)
             if (isNetworkAllowed) {
                 networkCachePolicy(CachePolicy.ENABLED)
             } else networkCachePolicy(CachePolicy.DISABLED)
         }
     }
 
-    private fun updateViews(notes: Array<Boolean>, fragmentBinding: FragmentSeriesBinding) {
+    private fun updateViews(notes: Array<Boolean>, fragmentBinding: SeriesFragmentBinding) {
         fragmentBinding.checkbox1.isChecked = notes[0]
         fragmentBinding.checkbox2.isChecked = notes[1]
         fragmentBinding.checkbox3.isChecked = notes[2]
+    }
+
+    companion object {
+        const val SERIES_ID_BUNDLE_KEY = "series-id"
     }
 }

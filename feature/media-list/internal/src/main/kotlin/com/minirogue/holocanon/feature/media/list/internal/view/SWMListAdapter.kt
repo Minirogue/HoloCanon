@@ -11,13 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.request.CachePolicy
 import com.minirogue.api.media.StarWarsMedia
-import com.minirogue.holocanon.feature.media.list.internal.R
 import com.minirogue.holocanon.feature.media.list.internal.databinding.MediaListItemBinding
 import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
 import settings.model.CheckboxSettings
 
 internal class SWMListAdapter(
-        private val adapterInterface: AdapterInterface,
+    private val adapterInterface: AdapterInterface,
 ) : ListAdapter<MediaAndNotes, SWMListAdapter.MediaViewHolder>(DiffCallback) {
     private var checkBoxText = arrayOf("", "", "")
     private var isCheckBoxActive = booleanArrayOf(true, true, true)
@@ -33,14 +32,14 @@ internal class SWMListAdapter(
 
     fun updateCheckBoxSettings(checkboxSettings: CheckboxSettings) {
         checkBoxText = arrayOf(
-                checkboxSettings.checkbox1Setting.name.orEmpty(),
-                checkboxSettings.checkbox2Setting.name.orEmpty(),
-                checkboxSettings.checkbox3Setting.name.orEmpty(),
+            checkboxSettings.checkbox1Setting.name.orEmpty(),
+            checkboxSettings.checkbox2Setting.name.orEmpty(),
+            checkboxSettings.checkbox3Setting.name.orEmpty(),
         )
         isCheckBoxActive = booleanArrayOf(
-                checkboxSettings.checkbox1Setting.isInUse,
-                checkboxSettings.checkbox2Setting.isInUse,
-                checkboxSettings.checkbox3Setting.isInUse,
+            checkboxSettings.checkbox1Setting.isInUse,
+            checkboxSettings.checkbox2Setting.isInUse,
+            checkboxSettings.checkbox3Setting.isInUse,
         )
     }
 
@@ -53,7 +52,8 @@ internal class SWMListAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MediaViewHolder {
-        val binding = MediaListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            MediaListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MediaViewHolder(binding)
     }
 
@@ -71,25 +71,36 @@ internal class SWMListAdapter(
         }
     }
 
-    private fun bindTextViews(binding: MediaListItemBinding, mediaItem: StarWarsMedia) = with(binding) {
-        mediaTitle.text = mediaItem.title
-        dateTextview.text = mediaItem.releaseDate
-        mediaType.text = mediaItem.type.getSerialName()
+    private fun bindTextViews(binding: MediaListItemBinding, mediaItem: StarWarsMedia) =
+        with(binding) {
+            mediaTitle.text = mediaItem.title
+            dateTextview.text = mediaItem.releaseDate
+            mediaType.text = mediaItem.type.getSerialName()
 //        if (mediaItem.series > 0) {
 //            series.text = adapterInterface.getSeriesString(mediaItem.series)
 //            series.visibility = View.VISIBLE
 //        } else {
-        series.visibility = View.INVISIBLE
+            series.visibility = View.INVISIBLE
 //        }
-    }
+        }
 
-    private fun bindCheckBoxes(checkbox1: CheckBox, checkbox2: CheckBox, checkbox3: CheckBox, mediaAndNotes: MediaAndNotes) {
+    private fun bindCheckBoxes(
+        checkbox1: CheckBox,
+        checkbox2: CheckBox,
+        checkbox3: CheckBox,
+        mediaAndNotes: MediaAndNotes
+    ) {
         with(checkbox1) {
             if (isCheckBoxActive[0]) {
                 text = checkBoxText[0]
                 isChecked = mediaAndNotes.notes.isBox1Checked
                 visibility = View.VISIBLE
-                setOnClickListener { adapterInterface.onCheckbox1Clicked(mediaAndNotes.mediaItem.id, !mediaAndNotes.notes.isBox1Checked) }
+                setOnClickListener {
+                    adapterInterface.onCheckbox1Clicked(
+                        mediaAndNotes.mediaItem.id,
+                        !mediaAndNotes.notes.isBox1Checked
+                    )
+                }
             } else {
                 visibility = View.GONE
             }
@@ -99,7 +110,12 @@ internal class SWMListAdapter(
                 text = checkBoxText[1]
                 isChecked = mediaAndNotes.notes.isBox2Checked
                 visibility = View.VISIBLE
-                setOnClickListener { adapterInterface.onCheckbox2Clicked(mediaAndNotes.mediaItem.id, !mediaAndNotes.notes.isBox2Checked) }
+                setOnClickListener {
+                    adapterInterface.onCheckbox2Clicked(
+                        mediaAndNotes.mediaItem.id,
+                        !mediaAndNotes.notes.isBox2Checked
+                    )
+                }
             } else {
                 visibility = View.GONE
             }
@@ -109,7 +125,12 @@ internal class SWMListAdapter(
                 text = checkBoxText[2]
                 isChecked = mediaAndNotes.notes.isBox3Checked
                 visibility = View.VISIBLE
-                setOnClickListener { adapterInterface.onCheckbox3Clicked(mediaAndNotes.mediaItem.id, !mediaAndNotes.notes.isBox3Checked) }
+                setOnClickListener {
+                    adapterInterface.onCheckbox3Clicked(
+                        mediaAndNotes.mediaItem.id,
+                        !mediaAndNotes.notes.isBox3Checked
+                    )
+                }
             } else {
                 visibility = View.GONE
             }
@@ -119,13 +140,13 @@ internal class SWMListAdapter(
     private fun bindCoverImage(imageView: ImageView, imageUrl: String?) {
         if (!imageUrl.isNullOrBlank()) {
             imageView.load(imageUrl) {
-                placeholder(R.drawable.media_list_placeholder_image)
+                placeholder(com.minirogue.holocanon.library.common.resources.R.drawable.common_resource_app_icon)
                 if (adapterInterface.isNetworkAllowed()) {
                     networkCachePolicy(CachePolicy.ENABLED)
                 } else networkCachePolicy(CachePolicy.DISABLED)
             }
         } else {
-            imageView.load(R.drawable.media_list_placeholder_image)
+            imageView.load(com.minirogue.holocanon.library.common.resources.R.drawable.common_resource_app_icon)
         }
     }
 
@@ -133,14 +154,20 @@ internal class SWMListAdapter(
 
     companion object {
         private val DiffCallback: DiffUtil.ItemCallback<MediaAndNotes> =
-                object : DiffUtil.ItemCallback<MediaAndNotes>() {
-                    override fun areItemsTheSame(oldItem: MediaAndNotes, newItem: MediaAndNotes): Boolean {
-                        return oldItem.mediaItem.id == newItem.mediaItem.id
-                    }
-
-                    override fun areContentsTheSame(oldItem: MediaAndNotes, newItem: MediaAndNotes): Boolean {
-                        return oldItem == newItem
-                    }
+            object : DiffUtil.ItemCallback<MediaAndNotes>() {
+                override fun areItemsTheSame(
+                    oldItem: MediaAndNotes,
+                    newItem: MediaAndNotes
+                ): Boolean {
+                    return oldItem.mediaItem.id == newItem.mediaItem.id
                 }
+
+                override fun areContentsTheSame(
+                    oldItem: MediaAndNotes,
+                    newItem: MediaAndNotes
+                ): Boolean {
+                    return oldItem == newItem
+                }
+            }
     }
 }
