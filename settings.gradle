@@ -19,9 +19,13 @@ include ':library:holoclient:internal'
 include ':library:holoclient:public'
 include ':library:media-notes:internal'
 include ':library:media-notes:public'
+include ':library:series:internal'
+include ':library:series:public'
 include ':library:settings:internal'
 include ':library:settings:public'
 include ':library:view-ext:public'
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 buildCache {
     local {

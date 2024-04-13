@@ -32,7 +32,7 @@ dependencies {
     api project(":library:media-notes:public")
 
     // Kotlin
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation libs.kotlinx.coroutines.core
 
     // Android
     implementation 'androidx.core:core-ktx:1.12.0'

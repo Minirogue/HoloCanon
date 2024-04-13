@@ -24,6 +24,7 @@ dependencies {
     implementation project(":library:coroutine-ext:public")
     implementation project(":library:holoclient:public")
     implementation project(":library:settings:public")
+    implementation project(":core")
 
     // Dependency Injection
     implementation "com.google.dagger:hilt-android:$hiltVersion"

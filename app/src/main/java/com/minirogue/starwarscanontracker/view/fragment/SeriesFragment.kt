@@ -6,15 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.request.CachePolicy
 import com.minirogue.holocanon.feature.media.item.usecase.GetMediaItemFragment
+import com.minirogue.series.model.Series
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.core.model.room.entity.SeriesDto
 import com.minirogue.starwarscanontracker.databinding.FragmentSeriesBinding
 import com.minirogue.starwarscanontracker.view.adapter.SeriesListAdapter
 import com.minirogue.starwarscanontracker.viewmodel.SeriesViewModel
@@ -36,7 +35,7 @@ class SeriesFragment : Fragment() {
         val bundleItemId = bundle?.getInt(getString(R.string.bundleItemId), -1) ?: -1
         if (bundleItemId != -1) viewModel.setSeriesId(bundleItemId)
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.liveSeriesDto.asFlow()
+            viewModel.seriesFlow
                 .combine(viewModel.isNetworkAllowed) { series, isNetworkAllowed -> Pair(series, isNetworkAllowed) }
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle)
                 .collect { updateViews(it.first, it.second, fragmentBinding) }
@@ -79,10 +78,14 @@ class SeriesFragment : Fragment() {
         fragmentBinding.checkbox3.text = names[2]
     }
 
-    private fun updateViews(seriesDto: SeriesDto, isNetworkAllowed: Boolean, fragmentBinding: FragmentSeriesBinding) {
-        fragmentBinding.seriesTitle.text = seriesDto.title
+    private fun updateViews(
+        series: Series,
+        isNetworkAllowed: Boolean,
+        fragmentBinding: FragmentSeriesBinding
+    ) {
+        fragmentBinding.seriesTitle.text = series.name
 
-        fragmentBinding.seriesImage.load(seriesDto.imageURL) {
+        fragmentBinding.seriesImage.load(series.imageUrl) {
             placeholder(R.drawable.media_list_placeholder_image)
             if (isNetworkAllowed) {
                 networkCachePolicy(CachePolicy.ENABLED)

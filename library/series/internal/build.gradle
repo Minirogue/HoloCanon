@@ -3,7 +3,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 
 android {
-    namespace 'com.minirogue.holoclient'
+    namespace 'com.minirogue.series'
 }
 
 hilt {
@@ -14,19 +14,8 @@ hilt {
 
 dependencies {
     // Project
-    api project(":library:holoclient:public")
-    implementation project(":api")
-    implementation project(":core")
-    implementation project(":library:settings:public")
-
-    // Kotlin
-    implementation libs.kotlinx.coroutines.core
-
-    // Internet
-    implementation "io.ktor:ktor-client-core:$ktorVersion"
-    implementation "io.ktor:ktor-client-okhttp:$ktorVersion"
-    implementation "io.ktor:ktor-client-content-negotiation:$ktorVersion"
-    implementation "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
+    api projects.library.series.public
+    implementation projects.core
 
     // Dependency Injection
     implementation "com.google.dagger:hilt-android:$hiltVersion"
