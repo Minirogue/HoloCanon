@@ -10,6 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.minirogue.holocanon.feature.media.item.usecase.GetMediaItemFragment
+import com.minirogue.holocanon.feature.series.GetSeriesFragment
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.UpdateFilters
@@ -37,6 +38,9 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var getMediaItemFragment: GetMediaItemFragment
 
+    @Inject
+    lateinit var getSeriesFragment: GetSeriesFragment
+
     private val navigationViewModel: NavigationViewModel by viewModels()
 
     override fun onResume() {
@@ -55,8 +59,8 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             // initialize the fragment to the entry fragment
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, TabbedListContainerFragment())
-                    .commit()
+                .replace(R.id.fragment_container, TabbedListContainerFragment())
+                .commit()
         }
 
         // Set up the toolbar and navigation drawer
@@ -68,6 +72,7 @@ class MainActivity : AppCompatActivity() {
                 navigationViewModel.navigationDestination.collect { destination ->
                     when (destination) {
                         is NavigationDestination.MediaItemScreen -> navigateToMediaItem(destination.itemId)
+                        is NavigationDestination.SeriesScreen -> navigateToSeries(destination.seriesId)
                     }
                 }
             }
@@ -98,9 +103,17 @@ class MainActivity : AppCompatActivity() {
     private fun navigateToMediaItem(itemId: Long) {
         val viewMediaItemFragment = getMediaItemFragment(itemId)
         supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, viewMediaItemFragment)
-                .addToBackStack(null)
-                .commit()
+            .replace(R.id.fragment_container, viewMediaItemFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun navigateToSeries(seriesId: Int) {
+        val seriesFragment = getSeriesFragment(seriesId)
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, seriesFragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     /**
@@ -121,9 +134,9 @@ class MainActivity : AppCompatActivity() {
         }
         // Replace the fragment
         supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, frag, toolbarOption.fragmentTag)
-                .addToBackStack(null)
-                .commit()
+            .replace(R.id.fragment_container, frag, toolbarOption.fragmentTag)
+            .addToBackStack(null)
+            .commit()
     }
 
     private enum class ToolbarOption(val fragmentTag: String) {

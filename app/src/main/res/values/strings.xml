@@ -13,9 +13,7 @@
 
     <string name="cover_image_description">cover</string>
     <string name="release_date">release date</string>
-    <string name="bundleItemId">item Id</string>
 
-    <string name="description_header">Description: </string>
     <string name="series_title">series title</string>
     <string name="series_image_description">series image</string>
     <string name="view_series">View Series</string>

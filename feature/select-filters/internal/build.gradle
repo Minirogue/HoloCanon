@@ -22,7 +22,7 @@ dependencies {
 
     // Android
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion" // TODO deprecate
-    implementation "com.google.android.material:material:$materialVersion"
+    implementation libs.android.material
 
     // Dependency Injection
     implementation "com.google.dagger:hilt-android:$hiltVersion"

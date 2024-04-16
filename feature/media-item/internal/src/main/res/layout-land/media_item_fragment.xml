@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    tools:context="com.minirogue.holocanon.feature.media.item.internal.fragment.ViewMediaItemFragment">
+
+    <ScrollView
+            android:id="@+id/review_and_description_holder"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/checkbox_holder"
+            app:layout_constraintTop_toBottomOf="@id/image_cover">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/description_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp" />
+
+            <!--<TextView
+                android:id="@+id/review_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp" />-->
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/media_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/media_list_media_type"
+        app:layout_constraintLeft_toLeftOf="@id/media_title"
+        app:layout_constraintTop_toBottomOf="@id/media_title" />
+
+    <TextView
+            android:id="@+id/release_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/release_date"
+            app:layout_constraintLeft_toLeftOf="@id/media_type"
+            app:layout_constraintTop_toBottomOf="@id/media_type" />
+
+    <TextView
+            android:id="@+id/media_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/media_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            app:layout_constraintLeft_toRightOf="@id/image_cover"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+            android:id="@+id/checkbox_holder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+
+        <CheckBox
+            android:id="@+id/checkbox_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+            android:focusable="false"
+            android:padding="@dimen/media_list_checkbox_padding"
+            tools:text="@string/checkbox1_default_text" />
+
+        <CheckBox
+            android:id="@+id/checkbox_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+            android:focusable="false"
+            android:padding="@dimen/media_list_checkbox_padding"
+            tools:text="@string/checkbox2_default_text" />
+
+
+        <CheckBox
+            android:id="@+id/checkbox_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
+            android:focusable="false"
+            android:padding="@dimen/media_list_checkbox_padding"
+            tools:text="@string/checkbox3_default_text" />
+
+    </LinearLayout>
+
+    <ImageView
+            android:id="@+id/image_cover"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="10dp"
+            android:contentDescription="@string/cover_image_description"
+            android:scaleType="fitCenter"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/media_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/series_button_barrier"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            app:barrierDirection="right"
+            app:constraint_referenced_ids="media_type,release_date"
+            app:layout_constraintTop_toBottomOf="@id/media_title" />
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/view_series_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/view_series"
+            android:visibility="invisible"
+            app:layout_constraintLeft_toRightOf="@id/series_button_barrier"
+            app:layout_constraintTop_toBottomOf="@id/media_title" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/affiliate_links_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/how_to_buy"
+            android:src="@drawable/ic_shopping"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@id/checkbox_holder"
+            app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

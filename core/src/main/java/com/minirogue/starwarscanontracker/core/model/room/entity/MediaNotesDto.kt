@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.minirogue.starwarscanontracker.core.model.MediaNotes
 
 @Entity(tableName = "media_notes",
     foreignKeys = [ForeignKey(entity = MediaItemDto::class,
@@ -33,4 +34,6 @@ class MediaNotesDto(
     fun flipCheck3() {
         isBox3Checked = !isBox3Checked
     }
+
+    fun toMediaNotes() = MediaNotes(isBox1Checked, isBox2Checked, isBox3Checked)
 }
