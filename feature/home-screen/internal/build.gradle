@@ -16,17 +16,12 @@ android {
 }
 
 dependencies {
-    // public feature module
-    api project(":feature:home-screen:public")
+    api projects.feature.homeScreen.public
 
-    // project public modules
-    implementation project(":library:compose-ext:public")
+    implementation projects.library.composeExt.public
+    implementation libs.hilt.android
 
-    // Android
-
-    // Dependency Injection
-    implementation "com.google.dagger:hilt-android:$hiltVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    kapt libs.hilt.compiler
 
     // detekt
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"

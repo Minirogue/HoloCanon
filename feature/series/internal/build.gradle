@@ -17,6 +17,7 @@ dependencies {
     implementation libs.androidx.constraintLayout
     implementation libs.androidx.recyclerview
     implementation libs.coil
+    implementation libs.hilt.android
     implementation projects.core
     implementation projects.feature.mediaItem.public
     implementation projects.library.commonResources.public
@@ -24,9 +25,7 @@ dependencies {
     implementation projects.library.series.public
     implementation projects.library.settings.public
 
-    // Dependency Injection
-    implementation "com.google.dagger:hilt-android:$hiltVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    kapt libs.hilt.compiler
 
     // detekt
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"

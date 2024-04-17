@@ -12,21 +12,16 @@ android {
 }
 
 dependencies {
-    // public feature module
-    api project(":feature:select-filters:public")
+    api projects.feature.selectFilters.public
 
-    // project public modules
-    implementation project(":library:filters:public")
-    implementation project(":library:settings:public")
-    implementation project(":library:view-ext:public")
-
-    // Android
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion" // TODO deprecate
     implementation libs.android.material
+    implementation libs.hilt.android
+    implementation libs.lifecycle.livedata // TODO deprecate
+    implementation projects.library.filters.public
+    implementation projects.library.settings.public
+    implementation projects.library.viewExt.public
 
-    // Dependency Injection
-    implementation "com.google.dagger:hilt-android:$hiltVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    kapt libs.hilt.compiler
 
     // detekt
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
