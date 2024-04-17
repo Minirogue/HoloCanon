@@ -1435,7 +1435,7 @@ ID,title,type,image,released,timeline,description,series,number,publisher
 1434,Han Solo & Chewbacca Vol. 2: The Crystal Run Part Two,TPB,https://minirogue.github.io/SWCovers/TPB/the_crystal_run_part_two.jpg,6/7/2023,,,Han Solo & Chewbacca,2,Marvel
 1435,Darth Vader (omnibus),TPB,https://minirogue.github.io/SWCovers/TPB/darth_vader_omnibus.jpg,5/31/2023,,,Darth Vader,1,Marvel
 1436,Star Wars (2020) Vol. 5: The Path To Victory,TPB,https://minirogue.github.io/SWCovers/TPB/the_path_to_victory.jpg,5/24/2023,,,Star Wars (2020),5,Marvel
-1437,"The Mandalorian: Season Two, Part Two",TPB Adaptation,https://minirogue.github.io/SWCovers/TPB/the_mandalorian_season_two_part_two.jpg,5/3/2023,,,The Mandalorian (comic),4,Marvel
+1437,"The Mandalorian: Season One, Part Two",TPB Adaptation,https://minirogue.github.io/SWCovers/TPB/the_mandalorian_season_one_part_two.jpg,5/3/2023,,,The Mandalorian (comic),2,Marvel
 1438,The High Republic: Phase II Vol. 1: Balance of the Force,TPB,https://minirogue.github.io/SWCovers/TPB/balance_of_the_force.jpg,5/3/2023,,,The High Republic (2022),1,Marvel
 1439,Bounty Hunters Vol. 5: The Raid on the Vermillion,TPB,https://minirogue.github.io/SWCovers/TPB/the_raid_on_the_vermillion.jpg,2/15/2023,,,Bounty Hunters,5,Marvel
 1440,Doctor Aphra Omnibus Vol. 1,TPB,https://minirogue.github.io/SWCovers/TPB/doctor_aphra_omnibus_1.jpg,2/1/2023,,,Doctor Aphra (2020),1,Marvel
@@ -1447,3 +1447,35 @@ ID,title,type,image,released,timeline,description,series,number,publisher
 1446,Mace Windu (2024) #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/mace_windu_2024_1.jpg,2/7/2024,,,Mace Windu (2024),1,Marvel
 1447,Mace Windu (2024) #2,Comic Book,https://minirogue.github.io/SWCovers/Comics/mace_windu_2024_2.jpg,3/13/2024,,,Mace Windu (2024),2,Marvel
 1448,"Darth Vader (2020): Black, White & Red",TPB,https://minirogue.github.io/SWCovers/TPB/black_white_and_red.jpg,1/3/2024,,,Darth Vader: Black White & Red,1,Marvel
+1449,The High Republic (2023) #5,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_2023_5.jpg,3/20/2024,,,The High Republic (2023),5,Marvel
+1450,The High Republic (2023) #6,Comic Book,https://minirogue.github.io/SWCovers/Comics/the_high_republic_2023_6.jpg,4/10/2024,,,The High Republic (2023),6,Marvel
+1451,Thrawn Alliances #3,Comic Book,https://minirogue.github.io/SWCovers/Comics/thrawn_alliances_3.jpg,3/20/2024,,,Thrawn Alliances (comic),3,Marvel
+1452,Thrawn Alliances #4,Comic Book,https://minirogue.github.io/SWCovers/Comics/thrawn_alliances_4.jpg,4/10/2024,,,Thrawn Alliances (comic),4,Marvel
+1453,Jango Fett #1,Comic Book,https://minirogue.github.io/SWCovers/Comics/jango_fett_1.jpg,3/20/2024,,,Jango Fett,1,Marvel
+1454,Obi-Wan Kenobi (2023) #6,Comic Adaptation,https://minirogue.github.io/SWCovers/Comics/obiwan_kenobi_2023_6.jpg,3/27/2024,,,Obi-Wan Kenobi (2023),6,Marvel
+1455,Star Wars (2020) #45,Comic Book,https://minirogue.github.io/SWCovers/Comics/star_wars_2020_45.jpg,4/3/2024,,,Star Wars (2020),45,Marvel
+1456,Darth Vader (2020) #45,Comic Book,https://minirogue.github.io/SWCovers/Comics/darth_vader_2020_45.jpg,4/10/2024,,,Darth Vader (2020),45,Marvel
+1457,Darth Vader (2020) Vol. 8: Dark Droids,TPB,https://minirogue.github.io/SWCovers/TPB/darth_vader_dark_droids.jpg,4/10/2024,,,Darth Vader (2020),8,Marvel
+1458,Dark Droids,TPB,https://minirogue.github.io/SWCovers/TPB/dark_droids.jpg,3/27/2024,,,Dark Droids,1,Marvel
+1459,"The Mandalorian: Season Two, Part Two",TPB Adaptation,https://minirogue.github.io/SWCovers/TPB/the_mandalorian_season_two_part_two.jpg,4/10/2024,,,The Mandalorian (comic),4,Marvel
+1460,Crimson Climb,Original Novel,https://minirogue.github.io/SWCovers/Novels/crimson_climb.jpg,10/10/2023,,,,,Disney-Lucasfilm Press
+1461,The Living Force,Original Novel,https://minirogue.github.io/SWCovers/Novels/the_living_force.jpg,4/9/2024,,,,,Random House Worlds
+1462,The High Republic: Defy the Storm,Original Novel,https://minirogue.github.io/SWCovers/Novels/defy_the_storm.jpg,3/5/2024,,,,,Disney-Lucasfilm Press
+1463,The High Republic: Escape from Valo,Youth,https://minirogue.github.io/SWCovers/Youth/escape_from_valo.jpg,1/30/2024,,,,,Disney-Lucasfilm Press
+1464,The High republic: Jedi Brave in Every Way,Youth,https://minirogue.github.io/SWCovers/Youth/jedi_brave_in_every_way.jpg,10/10/2023,,,,,Disney-Lucasfilm Press
+1465,Confined,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,2/21/2024,,,The Bad Batch,301,Disney
+1466,Paths Unknown,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,2/21/2024,,,The Bad Batch,302,Disney
+1467,Shadows of tantiss,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,2/21/2024,,,The Bad Batch,303,Disney
+1468,A Different Approach,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,2/28/2024,,,The Bad Batch,304,Disney
+1469,The Return,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,3/6/2024,,,The Bad Batch,305,Disney
+1470,Infiltration,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,3/13/2024,,,The Bad Batch,306,Disney
+1471,Extraction,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,3/13/2024,,,The Bad Batch,307,Disney
+1472,Bad Territory,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,3/20/2024,,,The Bad Batch,308,Disney
+1473,The Harbinger,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,3/27/2024,,,The Bad Batch,309,Disney
+1474,Identity Crisis,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,4/3/2024,,,The Bad Batch,310,Disney
+1475,Point of No Return,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,4/3/2024,,,The Bad Batch,311,Disney
+1476,Juggernaut,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,4/10/2024,,,The Bad Batch,312,Disney
+1477,Into the Breach,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,4/17/2024,,,The Bad Batch,313,Disney
+1478,Flash Strike,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,4/24/2024,,,The Bad Batch,314,Disney
+1479,The Cavalry Has Arrived,TV Episode,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,5/1/2024,,,The Bad Batch,315,Disney
+1480,The Bad Batch (Season 3),TV Season,https://minirogue.github.io/SWCovers/TV/bad_batch.jpg,5/1/2024,,,The Bad Batch,3,Disney
