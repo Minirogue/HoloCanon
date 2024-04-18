@@ -25,32 +25,24 @@ hilt {
 }
 
 dependencies {
-    // Project
-    implementation project(":api")
-    implementation project(":library:settings:public")
-    api project(":library:filters:public")
-    api project(":library:media-notes:public")
+    api libs.room.ktx
+    api projects.library.filters.public
+    api projects.library.mediaNotes.public
 
-    // Kotlin
+    implementation libs.androidx.core
+    implementation libs.hilt.android
     implementation libs.kotlinx.coroutines.core
+    implementation libs.lifecycle.viewmodel
+    implementation libs.room.runtime
+    implementation projects.api
+    implementation projects.library.settings.public
 
-    // Android
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    kapt libs.hilt.compiler
+    kapt libs.room.compiler
 
-    // Dependency Injection
-    implementation "com.google.dagger:hilt-android:$hiltVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
-
-    // Room (databases)
-    implementation "androidx.room:room-runtime:$roomVersion"
-    kapt "androidx.room:room-compiler:$roomVersion"
-    api "androidx.room:room-ktx:$roomVersion"
-    androidTestImplementation "androidx.room:room-testing:$roomVersion"
+    androidTestImplementation libs.androidx.test
+    androidTestImplementation libs.room.testing
 
     // detekt
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
-
-    // Testing
-    androidTestImplementation "androidx.test:core:$androidXTestVersion"
 }

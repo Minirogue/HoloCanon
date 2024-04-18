@@ -2,8 +2,6 @@
 
 buildscript {
     ext {
-        kotlinVersion = '1.9.23'
-        hiltVersion = '2.51.1'
         detektVersion = '1.23.6'
     }
 
@@ -12,13 +10,14 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath 'com.android.tools.build:gradle:8.3.2'
-        classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
     }
 }
 
 plugins {
+    alias(libs.plugins.hilt) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
     id "io.gitlab.arturbosch.detekt" version "$detektVersion"
 }
 
@@ -28,29 +27,13 @@ detekt {
 }
 
 ext {
-    // Android
-    androidXTestVersion = '1.5.0'
-    appCompatVersion = '1.6.1'
-    composeBomVersion = '2024.04.00'
-    composeCompilerVersion = '1.5.11'
-    datastoreVersion = '1.0.0'
-    fragmentVersion = '1.6.2'
-    lifecycleVersion = '2.7.0'
-    roomVersion = '2.6.1'
-
-    // Kotlin
-    ktorVersion = '2.3.10'
-
-    // JVM
-    jUnitVersion = '4.13.2'
-    commonsCSV = '1.10.0'
-
     // Compilation versioning
     minSdkVersion = 21
     compileSdkVersion = 34
     targetSdkVersion = 34
     javaCompatibilityVersion = JavaVersion.VERSION_17.toString()
     javaCompatibilityVersionInt = 17
+    composeCompilerVersion = '1.5.11'
 }
 
 allprojects {

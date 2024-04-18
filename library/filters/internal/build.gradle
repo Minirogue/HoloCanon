@@ -7,15 +7,14 @@ android {
 }
 
 dependencies {
-    // Project
-    api project(":library:filters:public")
-    implementation project(":library:settings:public")
-    implementation project(":core")
-    implementation project(":api")
+    api projects.library.filters.public
 
-    // Dependency Injection
-    implementation "com.google.dagger:hilt-android:$hiltVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    implementation libs.hilt.android
+    implementation projects.api
+    implementation projects.core
+    implementation projects.library.settings.public
+
+    kapt libs.hilt.compiler
 
     // detekt
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"

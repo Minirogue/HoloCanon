@@ -5,10 +5,7 @@ android {
 }
 
 dependencies {
-    // project files
-
-    // Android
-    api "androidx.fragment:fragment-ktx:$fragmentVersion"
+    api libs.androidx.fragment
 
     // detekt
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"

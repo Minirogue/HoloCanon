@@ -13,13 +13,12 @@ hilt {
 }
 
 dependencies {
-    // Project
     api projects.library.series.public
+
+    implementation libs.hilt.android
     implementation projects.core
 
-    // Dependency Injection
-    implementation "com.google.dagger:hilt-android:$hiltVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    kapt libs.hilt.compiler
 
     // detekt
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
