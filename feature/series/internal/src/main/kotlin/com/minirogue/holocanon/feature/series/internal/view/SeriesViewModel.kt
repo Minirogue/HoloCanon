@@ -28,7 +28,7 @@ import javax.inject.Inject
 
 @Suppress("LongParameterList")
 @HiltViewModel
-class SeriesViewModel @Inject constructor(
+internal class SeriesViewModel @Inject constructor(
     private val getSeries: GetSeries,
     getCheckboxText: GetCheckboxText,
     private val getNotesBySeries: GetNotesBySeries,

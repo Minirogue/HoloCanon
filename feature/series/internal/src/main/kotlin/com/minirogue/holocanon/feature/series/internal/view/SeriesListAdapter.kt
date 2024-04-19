@@ -1,79 +1,64 @@
-package com.minirogue.holocanon.feature.series.internal.view;
+package com.minirogue.holocanon.feature.series.internal.view
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.minirogue.holocanon.feature.series.internal.R
+import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
-import androidx.recyclerview.widget.RecyclerView;
+internal class SeriesListAdapter(private val onItemClicked: (itemId: Long) -> Unit) :
+    ListAdapter<MediaAndNotes, SeriesListAdapter.MediaViewHolder>(DiffCallback) {
 
-import com.minirogue.holocanon.feature.series.internal.R;
-import com.minirogue.starwarscanontracker.core.model.MediaAndNotes;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class SeriesListAdapter extends ListAdapter<MediaAndNotes, SeriesListAdapter.MediaViewHolder> {
-    private final OnItemClickedListener listener;
-
-    public SeriesListAdapter(@NonNull OnItemClickedListener listener) {
-        super(DiffCallback);
-        this.listener = listener;
-    }
-
-    public interface OnItemClickedListener {
-        void onItemClicked(long itemId);
-    }
-
-    @Override
-    public void submitList(@Nullable List<MediaAndNotes> list) {
+    override fun submitList(list: List<MediaAndNotes>?) {
         if (list != null) {
-            super.submitList(new ArrayList<>(list));
+            super.submitList(ArrayList(list))
         } else {
-            super.submitList(null);
+            super.submitList(null)
         }
     }
 
-    @NonNull
-    @Override
-    public MediaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.series_media_list_item, parent, false);
-        return new MediaViewHolder(itemView);
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MediaViewHolder {
+        val itemView = LayoutInflater.from(parent.context)
+            .inflate(R.layout.series_media_list_item, parent, false)
+        return MediaViewHolder(itemView)
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull MediaViewHolder holder, int position) {
-        MediaAndNotes currentItem = getItem(position);
-        holder.itemView.setOnClickListener(view -> listener.onItemClicked(currentItem.getMediaItem().getId()));
-        holder.titleTextView.setText(currentItem.getMediaItem().getTitle());
+    override fun onBindViewHolder(holder: MediaViewHolder, position: Int) {
+        val currentItem = getItem(position)
+        holder.itemView.setOnClickListener {
+            onItemClicked(currentItem.mediaItem.id)
+        }
+        holder.titleTextView.text = currentItem.mediaItem.title
     }
 
+    class MediaViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val titleTextView: TextView
 
-    static class MediaViewHolder extends RecyclerView.ViewHolder {
-
-        final TextView titleTextView;
-
-        MediaViewHolder(@NonNull View itemView) {
-            super(itemView);
-            titleTextView = itemView.findViewById(R.id.media_title);
+        init {
+            titleTextView = itemView.findViewById(R.id.media_title)
         }
     }
 
-    private static final DiffUtil.ItemCallback<MediaAndNotes> DiffCallback = new DiffUtil.ItemCallback<>() {
-        @Override
-        public boolean areItemsTheSame(@NonNull MediaAndNotes oldItem, @NonNull MediaAndNotes newItem) {
-            return oldItem.getMediaItem().getId() == newItem.getMediaItem().getId();
-        }
+    companion object {
+        private val DiffCallback: DiffUtil.ItemCallback<MediaAndNotes> =
+            object : DiffUtil.ItemCallback<MediaAndNotes>() {
+                override fun areItemsTheSame(
+                    oldItem: MediaAndNotes,
+                    newItem: MediaAndNotes
+                ): Boolean {
+                    return oldItem.mediaItem.id == newItem.mediaItem.id
+                }
 
-        @Override
-        public boolean areContentsTheSame(@NonNull MediaAndNotes oldItem, @NonNull MediaAndNotes newItem) {
-            return oldItem.equals(newItem);
-        }
-    };
-
+                override fun areContentsTheSame(
+                    oldItem: MediaAndNotes,
+                    newItem: MediaAndNotes
+                ): Boolean {
+                    return oldItem == newItem
+                }
+            }
+    }
 }
