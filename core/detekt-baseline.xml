@@ -2,7 +2,6 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>TooManyFunctions:DaoFilter.kt$DaoFilter</ID>
-    <ID>TooManyFunctions:DaoMedia.kt$DaoMedia</ID>
+    <ID>LongMethod:UpdateFilters.kt$UpdateFilters$private suspend fun updateCheckboxFilters()</ID>
   </CurrentIssues>
 </SmellBaseline>

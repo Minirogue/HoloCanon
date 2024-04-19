@@ -28,7 +28,7 @@ class AdaptMediaItemDtoToStarWarsMedia @Inject internal constructor(
     private var seriesMap: Flow<Map<Int, String>> = daoSeries.getAllSeries()
         .map { list -> list.associate { it.id to it.title } }
 
-    operator suspend fun invoke(mediaItemDto: MediaItemDto): StarWarsMedia = StarWarsMedia(
+    suspend operator fun invoke(mediaItemDto: MediaItemDto): StarWarsMedia = StarWarsMedia(
         id = mediaItemDto.id.toLong(),
         title = mediaItemDto.title,
         type = MediaType.getFromLegacyId(mediaItemDto.type) ?: MediaType.REFERENCE,

@@ -35,7 +35,7 @@ class UpdateFilters @Inject constructor(
         )
     }
 
-    operator suspend fun invoke() = withContext(Dispatchers.Default) {
+    suspend operator fun invoke() = withContext(Dispatchers.Default) {
         launch { updateSeriesFilters() }
         launch { updateCheckboxFilters() }
         launch { updateMediaTypeFilters() }
