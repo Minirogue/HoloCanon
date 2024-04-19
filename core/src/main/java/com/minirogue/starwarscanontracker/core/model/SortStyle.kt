@@ -20,28 +20,24 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
         }
     }
 
-    // TODO
-    @Suppress("ReturnCount")
     override fun compare(p0: MediaAndNotes?, p1: MediaAndNotes?): Int {
-        if (p0 == null || p1 == null) {
-            if (p0 == null && p1 == null) {
-                return 0
-            } else if (p0 == null) {
-                return 1
-            } else if (p1 == null) {
-                return -1
+        return when {
+            p0 == null && p1 == null -> 0
+            p0 == null -> 1
+            p1 == null -> -1
+            else -> {
+                val compNum: Int = when (style) {
+                    SORT_TITLE -> compareTitles(p0, p1)
+                    SORT_TIMELINE -> compareTimelines(p0.mediaItem, p1.mediaItem)
+                    SORT_DATE -> compareDates(p0.mediaItem, p1.mediaItem)
+                    else -> compareTitles(p0, p1)
+                }
+                if (ascending) {
+                    compNum
+                } else {
+                    -compNum
+                }
             }
-        }
-        val compNum: Int = when (style) {
-            SORT_TITLE -> compareTitles(p0, p1)
-            SORT_TIMELINE -> compareTimelines(p0.mediaItem, p1.mediaItem)
-            SORT_DATE -> compareDates(p0.mediaItem, p1.mediaItem)
-            else -> compareTitles(p0, p1)
-        }
-        return if (ascending) {
-            compNum
-        } else {
-            -compNum
         }
     }
 
