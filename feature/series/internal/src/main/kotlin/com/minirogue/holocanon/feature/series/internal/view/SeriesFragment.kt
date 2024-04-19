@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SeriesFragment : Fragment() {
+internal class SeriesFragment : Fragment() {
     @Inject
     lateinit var getMediaItemFragment: GetMediaItemFragment
 
