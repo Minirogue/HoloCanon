@@ -3,6 +3,7 @@ package com.minirogue.holocanon.feature.media.item.internal.fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
 import com.minirogue.api.media.MediaType
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
@@ -13,6 +14,7 @@ import com.minirogue.starwarscanontracker.core.usecase.UpdateNotes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import settings.usecase.GetCheckboxSettings
 import settings.usecase.GetCheckboxText
 import javax.inject.Inject
@@ -47,19 +49,19 @@ class ViewMediaItemViewModel @Inject constructor(
         liveMediaTypeDto = liveMediaItemDto.map { MediaType.getFromLegacyId(it.type) }
     }
 
-    fun toggleCheckbox1() {
+    fun toggleCheckbox1() = viewModelScope.launch {
         val notes = liveMediaNotesDto.value
         notes?.flipCheck1()
         updateNotes(notes)
     }
 
-    fun toggleCheckbox2() {
+    fun toggleCheckbox2() = viewModelScope.launch {
         val notes = liveMediaNotesDto.value
         notes?.flipCheck2()
         updateNotes(notes)
     }
 
-    fun toggleCheckbox3() {
+    fun toggleCheckbox3() = viewModelScope.launch {
         val notes = liveMediaNotesDto.value
         notes?.flipCheck3()
         updateNotes(notes)
