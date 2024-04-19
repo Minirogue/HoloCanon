@@ -13,24 +13,19 @@ hilt {
 }
 
 dependencies {
-    // Project
-    api project(":library:holoclient:public")
-    implementation project(":api")
-    implementation project(":core")
-    implementation project(":library:settings:public")
+    api projects.library.holoclient.public
 
-    // Kotlin
     implementation libs.kotlinx.coroutines.core
+    implementation libs.ktor.client.core
+    implementation libs.ktor.client.contentNegotiation
+    implementation libs.ktor.client.okhttp
+    implementation libs.hilt.android
+    implementation libs.ktor.serialization
+    implementation projects.api
+    implementation projects.core
+    implementation projects.library.settings.public
 
-    // Internet
-    implementation "io.ktor:ktor-client-core:$ktorVersion"
-    implementation "io.ktor:ktor-client-okhttp:$ktorVersion"
-    implementation "io.ktor:ktor-client-content-negotiation:$ktorVersion"
-    implementation "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
-
-    // Dependency Injection
-    implementation "com.google.dagger:hilt-android:$hiltVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    kapt libs.hilt.compiler
 
     // detekt
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"

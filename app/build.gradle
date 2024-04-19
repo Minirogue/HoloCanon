@@ -79,6 +79,21 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // Project Modules
+    implementation libs.android.material
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.constraintLayout
+    implementation libs.androidx.fragment
+    implementation libs.androidx.preference
+    implementation libs.coil
+    implementation libs.fastScroll
+    implementation libs.hilt.android
+    implementation libs.kotlinx.coroutines.core
+    implementation libs.kotlinx.coroutines.android
+    implementation libs.lifecycle.livedata // TODO deprecate
+    implementation libs.lifecycle.viewmodel // TODO deprecate
+    implementation libs.lifecycle.common// TODO deprecate
+    implementation libs.room.ktx
+    implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation projects.core
     implementation projects.feature.homeScreen.internal
     implementation projects.feature.mediaItem.internal
@@ -95,44 +110,8 @@ dependencies {
     implementation projects.library.coroutineExt.public
     implementation projects.library.viewExt.public
 
-    // Android
-    implementation "androidx.appcompat:appcompat:$appCompatVersion"
-    implementation libs.androidx.constraintLayout
-    implementation libs.android.material
-    implementation "androidx.preference:preference-ktx:1.2.1"
-    implementation "androidx.legacy:legacy-support-v4:1.0.0"
-    implementation "androidx.room:room-ktx:$roomVersion"
-
-    // Fastscroll: https://github.com/zhanghai/AndroidFastScroll
-    implementation "me.zhanghai.android.fastscroll:library:1.3.0"
-
-    // Testing
-    androidTestImplementation "androidx.test.ext:junit:1.1.5"
-    androidTestImplementation "junit:junit:$jUnitVersion"
-    testImplementation "junit:junit:$jUnitVersion"
-    androidTestImplementation "androidx.test:core:$androidXTestVersion"
-    androidTestImplementation "androidx.test:rules:$androidXTestVersion"
-    androidTestImplementation "androidx.test:runner:$androidXTestVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:3.5.1"
-
-    // Kotlin
-    implementation libs.kotlinx.coroutines.core
-    implementation libs.kotlinx.coroutines.android
-
-    // lifecycle components
-    implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
-    //for lazy viewmodel instantiation
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion" // TODO deprecate
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
-
-    // dependency injection
-    implementation "com.google.dagger:hilt-android:$hiltVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    kapt libs.hilt.compiler
 
     // detekt
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
-
-    // Image loading (image loading)
-    implementation libs.coil
 }

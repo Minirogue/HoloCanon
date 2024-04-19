@@ -1,7 +1,7 @@
 plugins {
     id 'application'
     id 'org.jetbrains.kotlin.jvm'
-    id 'org.jetbrains.kotlin.plugin.serialization' version "$kotlinVersion"
+    id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
 group = "com.minirogue"
@@ -20,12 +20,13 @@ compileKotlin {
 }
 
 dependencies {
-    implementation "org.apache.commons:commons-csv:$commonsCSV"
-    implementation "io.ktor:ktor-client-core:$ktorVersion"
-    implementation "io.ktor:ktor-client-okhttp:$ktorVersion"
-    api "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
+    api libs.ktor.serialization
 
-    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion"
+    implementation libs.commons.csv
+    implementation libs.ktor.client.core
+    implementation libs.ktor.client.okhttp
+
+    testImplementation libs.kotlin.test
     testImplementation libs.kotlinx.coroutines.test
 }
 

@@ -7,13 +7,12 @@ android {
 }
 
 dependencies {
-    // Project
-    api project(":library:media-notes:public")
-    implementation project(":core")
+    api projects.library.mediaNotes.public
 
-    // Dependency Injection
-    implementation "com.google.dagger:hilt-android:$hiltVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    implementation libs.hilt.android
+    implementation projects.core
+
+    kapt libs.hilt.compiler
 
     // detekt
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"

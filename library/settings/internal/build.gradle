@@ -7,16 +7,13 @@ android {
 }
 
 dependencies {
-    // Project
-    api project(":library:settings:public")
+    api projects.library.settings.public
 
-    // Android
-    implementation "androidx.datastore:datastore-preferences:$datastoreVersion"
-    implementation "androidx.preference:preference-ktx:1.2.1"
+    implementation libs.androidx.datastore
+    implementation libs.androidx.preference
+    implementation libs.hilt.android
 
-    // Dependency Injection
-    implementation "com.google.dagger:hilt-android:$hiltVersion"
-    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    kapt libs.hilt.compiler
 
     // detekt
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
