@@ -13,7 +13,7 @@ interface DaoSeries {
     fun getAllNonLive(): List<SeriesDto>
 
     @Query("SELECT * FROM series")
-    suspend fun getAllSeries(): List<SeriesDto>
+    fun getAllSeries(): Flow<List<SeriesDto>>
 
     @Query("SELECT * FROM series WHERE id=:id LIMIT 1")
     suspend fun getSeries(id: Int): SeriesDto?
