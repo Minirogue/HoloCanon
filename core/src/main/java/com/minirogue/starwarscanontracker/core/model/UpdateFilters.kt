@@ -149,6 +149,7 @@ class UpdateFilters @Inject constructor(
         }
     }
 
+    @Suppress("LongMethod")
     private suspend fun updateCheckboxFilters() = withContext(Dispatchers.Default) {
         val injectedCheckboxText = checkboxText.first()
         var tempFilter: FilterObjectDto?
