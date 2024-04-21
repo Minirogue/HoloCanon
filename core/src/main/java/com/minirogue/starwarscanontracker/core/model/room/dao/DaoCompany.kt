@@ -1,7 +1,11 @@
 package com.minirogue.starwarscanontracker.core.model.room.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.minirogue.starwarscanontracker.core.model.room.entity.CompanyDto
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DaoCompany {
@@ -13,6 +17,5 @@ interface DaoCompany {
     fun getAllNonLive(): List<CompanyDto>
 
     @Query("SELECT * FROM companies")
-
-    suspend fun getAllCompanies(): List<CompanyDto>
+    fun getAllCompanies(): Flow<List<CompanyDto>>
 }

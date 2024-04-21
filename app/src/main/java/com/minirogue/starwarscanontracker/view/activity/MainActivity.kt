@@ -45,10 +45,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Update filters based on current information
-        updateFilters()
-        // Update media database if needed.
-        lifecycleScope.launch { maybeUpdateMediaDatabase() }
+        lifecycleScope.launch {
+            // Update filters based on current information
+            updateFilters()
+            // Update media database if needed.
+            maybeUpdateMediaDatabase()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

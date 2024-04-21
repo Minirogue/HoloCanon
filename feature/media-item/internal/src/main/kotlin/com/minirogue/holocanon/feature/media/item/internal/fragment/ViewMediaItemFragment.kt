@@ -79,7 +79,7 @@ class ViewMediaItemFragment : Fragment() {
     ) {
         fragmentBinding.mediaTitle.text = item.title
         fragmentBinding.descriptionTextview.text = if (item.description.isNotBlank()) {
-            getString(R.string.description_header) + " " + item.description
+            getString(R.string.media_item_description_header) + " " + item.description
         } else ""
         fragmentBinding.releaseDate.text = item.date
         fragmentBinding.imageCover.load(item.imageURL) {

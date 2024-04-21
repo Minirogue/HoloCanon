@@ -97,6 +97,7 @@ internal class UpdateMediaDatabaseUseCase @Inject constructor(
             typeMap: Map<MediaType, Int>,
             companyMap: Map<Company, Int>
     ): MediaItemDto = MediaItemDto(
+        // TODO add "number" and remove unused fields
             id = this.id.toInt(),
             title = this.title,
             series = this.series?.let { seriesMap[it] } ?: -1,
@@ -113,11 +114,11 @@ internal class UpdateMediaDatabaseUseCase @Inject constructor(
     )
 
     private suspend fun getSeriesMap() =
-            database.daoSeries.getAllSeries().associate { it.title to it.id }
+        database.daoSeries.getAllSeries().first().associate { it.title to it.id }
 
     @Suppress("TooGenericExceptionCaught")
     private suspend fun getCompanyMap(): Map<Company, Int> = try {
-        val dtoCompanies = database.daoCompany.getAllCompanies()
+        val dtoCompanies = database.daoCompany.getAllCompanies().first()
         Company.entries.associateWith { company ->
             val text = Json.encodeToString(company).trimQuotes()
             val dtoCompany = dtoCompanies.firstOrNull { it.companyName == text }

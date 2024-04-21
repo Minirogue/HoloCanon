@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="description_header">Description: </string>
+    <string name="media_item_description_header">Description: </string>
 </resources>

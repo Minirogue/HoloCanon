@@ -41,7 +41,7 @@ abstract class DaoMedia {
     abstract suspend fun insert(um: MediaNotesDto): Long
 
     @Update
-    abstract fun update(um: MediaNotesDto)
+    abstract suspend fun update(um: MediaNotesDto)
 
     @Query(
             "SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
