@@ -34,62 +34,74 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 internal class HomeFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-            ComposeView(requireContext()).apply {
-                setContent {
-                    HolocanonTheme {
-                        HomeScreen()
-                    }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View =
+        ComposeView(requireContext()).apply {
+            setContent {
+                HolocanonTheme {
+                    HomeScreen()
                 }
             }
+        }
 
     @Composable
     fun HomeScreen() {
-        Column(modifier = Modifier
+        Column(
+            modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .background(MaterialTheme.colorScheme.surface)
-                .padding(horizontal = 24.dp)) {
-            Image(painter = painterResource(id = R.drawable.home_screen_app_icon),
-                    contentDescription = getString(R.string.home_screen_app_icon_description),
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                .padding(horizontal = 24.dp)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.home_screen_app_icon),
+                contentDescription = getString(R.string.home_screen_app_icon_description),
+                modifier = Modifier.align(Alignment.CenterHorizontally)
             )
             val welcomeString = getWelcomeString()
             val uriHandler = LocalUriHandler.current
-            ClickableText(text = welcomeString,
-                    style = TextStyle.Default.copy(color = MaterialTheme.colorScheme.onSurface),
-                    onClick = {
-                        welcomeString
-                                .getStringAnnotations(STRING_ANNOTATION_TAG, it, it)
-                                .firstOrNull()?.let { stringAnnotation ->
-                                    uriHandler.openUri(stringAnnotation.item)
-                                }
-                    }
+            ClickableText(
+                text = welcomeString,
+                style = TextStyle.Default.copy(color = MaterialTheme.colorScheme.onSurface),
+                onClick = {
+                    welcomeString
+                        .getStringAnnotations(STRING_ANNOTATION_TAG, it, it)
+                        .firstOrNull()?.let { stringAnnotation ->
+                            uriHandler.openUri(stringAnnotation.item)
+                        }
+                }
             )
         }
     }
 
     fun getWelcomeString(): AnnotatedString = buildAnnotatedString {
         val discordString = getString(R.string.home_screen_discord)
-        val fullString = String.format(getString(R.string.home_screen_welcome_message), discordString)
+        val fullString =
+            String.format(getString(R.string.home_screen_welcome_message), discordString)
         val startIndex = fullString.indexOf(discordString)
         val endIndex = startIndex + discordString.length
         append(fullString)
         addStyle(
-                style = SpanStyle(
-                        color = Color(0xff64B5F6),
-                        textDecoration = TextDecoration.Underline
-                ), start = startIndex, end = endIndex
+            style = SpanStyle(
+                color = LINK_COLOR,
+                textDecoration = TextDecoration.Underline
+            ),
+            start = startIndex,
+            end = endIndex,
         )
         addStringAnnotation(
-                tag = STRING_ANNOTATION_TAG,
-                annotation = "https://discord.gg/RxXvTfX",
-                start = startIndex,
-                end = endIndex
+            tag = STRING_ANNOTATION_TAG,
+            annotation = "https://discord.gg/RxXvTfX",
+            start = startIndex,
+            end = endIndex
         )
     }
 
     companion object {
         private const val STRING_ANNOTATION_TAG = "URL"
+        private val LINK_COLOR = Color(0xff64B5F6)
     }
 }

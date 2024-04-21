@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>FunctionNaming:HomeFragment.kt$HomeFragment$@Composable fun HomeScreen()</ID>
+  </CurrentIssues>
+</SmellBaseline>

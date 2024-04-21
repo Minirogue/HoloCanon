@@ -32,7 +32,6 @@ import settings.usecase.GetAllSettings
 import settings.usecase.SetLatestDatabaseVersion
 import javax.inject.Inject
 
-@Suppress("LongParameterList")
 internal class UpdateMediaDatabaseUseCase @Inject constructor(
         private val updateFilters: UpdateFilters,
         private val connectivityManager: ConnectivityManager,
@@ -116,7 +115,6 @@ internal class UpdateMediaDatabaseUseCase @Inject constructor(
     private suspend fun getSeriesMap() =
         database.daoSeries.getAllSeries().first().associate { it.title to it.id }
 
-    @Suppress("TooGenericExceptionCaught")
     private suspend fun getCompanyMap(): Map<Company, Int> = try {
         val dtoCompanies = database.daoCompany.getAllCompanies().first()
         Company.entries.associateWith { company ->

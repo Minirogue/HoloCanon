@@ -34,26 +34,45 @@ class ViewMediaItemFragment : Fragment() {
     private val viewModel: ViewMediaItemViewModel by viewModels()
     private val navigationViewModel: NavigationViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         val fragmentBinding = MediaItemFragmentBinding.inflate(inflater, container, false)
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(ITEM_ID_KEY, -1) ?: -1
         if (bundleItemId != -1) viewModel.setItemId(bundleItemId)
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.liveMediaItemDto.asFlow()
-                .combine(viewModel.isNetworkAllowed) { item, isNetworkAllowed -> Pair(item, isNetworkAllowed) }
+                .combine(viewModel.isNetworkAllowed) { item, isNetworkAllowed ->
+                    Pair(item, isNetworkAllowed)
+                }
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle)
                 .collect { updateViews(it.first, it.second, fragmentBinding) }
         }
-        viewModel.liveMediaNotesDto.observe(viewLifecycleOwner, { notes -> updateViews(notes, fragmentBinding) })
-        viewModel.liveMediaTypeDto.observe(viewLifecycleOwner, { mediaType -> updateView(mediaType, fragmentBinding) })
-        viewModel.checkBoxText.asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner, { arr ->
-            fragmentBinding.checkbox1.text = arr[0]
-            fragmentBinding.checkbox2.text = arr[1]
-            fragmentBinding.checkbox3.text = arr[2]
-        })
-        viewModel.checkBoxVisibility.asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner,
-            { visibilityArray -> updateViews(visibilityArray, fragmentBinding) })
+        viewModel.liveMediaNotesDto.observe(
+            viewLifecycleOwner,
+            { notes -> updateViews(notes, fragmentBinding) }
+        )
+        viewModel.liveMediaTypeDto.observe(
+            viewLifecycleOwner,
+            { mediaType -> updateView(mediaType, fragmentBinding) }
+        )
+        viewModel.checkBoxText.asLiveData(lifecycleScope.coroutineContext)
+            .observe(
+                viewLifecycleOwner,
+                { arr ->
+                    fragmentBinding.checkbox1.text = arr[0]
+                    fragmentBinding.checkbox2.text = arr[1]
+                    fragmentBinding.checkbox3.text = arr[2]
+                }
+            )
+        viewModel.checkBoxVisibility.asLiveData(lifecycleScope.coroutineContext)
+            .observe(
+                viewLifecycleOwner,
+                { visibilityArray -> updateViews(visibilityArray, fragmentBinding) }
+            )
 
         fragmentBinding.checkbox3.setOnClickListener { viewModel.toggleCheckbox3() }
         fragmentBinding.checkbox2.setOnClickListener { viewModel.toggleCheckbox2() }
@@ -108,7 +127,8 @@ class ViewMediaItemFragment : Fragment() {
     }
 
     private fun makeShoppingMenu(item: MediaItemDto, fragmentBinding: MediaItemFragmentBinding) {
-        val shoppingMenu = PopupMenu(fragmentBinding.root.context, fragmentBinding.affiliateLinksFab)
+        val shoppingMenu =
+            PopupMenu(fragmentBinding.root.context, fragmentBinding.affiliateLinksFab)
         if (item.amazonLink != "") {
             fragmentBinding.affiliateLinksFab.show()
             shoppingMenu.menu.add(0, MENU_ITEM_AMAZON_BUY, 0, "Buy on Amazon")

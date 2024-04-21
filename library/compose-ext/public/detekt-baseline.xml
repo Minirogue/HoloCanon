@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>FunctionNaming:HolocanonTheme.kt$@Composable fun HolocanonTheme( darkTheme: Boolean = true, // eventually replace with isSystemInDarkTheme() content: @Composable () -&gt; Unit )</ID>
+    <ID>Indentation:Colors.kt$ </ID>
+    <ID>MagicNumber:Colors.kt$100</ID>
+    <ID>MagicNumber:Colors.kt$101</ID>
+    <ID>MagicNumber:Colors.kt$103</ID>
+    <ID>MagicNumber:Colors.kt$105</ID>
+    <ID>MagicNumber:Colors.kt$108</ID>
+    <ID>MagicNumber:Colors.kt$188</ID>
+    <ID>MagicNumber:Colors.kt$255</ID>
+    <ID>MagicNumber:Colors.kt$30</ID>
+    <ID>MagicNumber:Colors.kt$34</ID>
+    <ID>MagicNumber:Colors.kt$50</ID>
+    <ID>MagicNumber:Colors.kt$55</ID>
+    <ID>MagicNumber:Colors.kt$57</ID>
+    <ID>MagicNumber:Colors.kt$58</ID>
+    <ID>MagicNumber:Colors.kt$74</ID>
+    <ID>MagicNumber:Colors.kt$85</ID>
+    <ID>MagicNumber:Colors.kt$89</ID>
+    <ID>NoConsecutiveBlankLines:Colors.kt$ </ID>
+    <ID>UnusedPrivateProperty:Colors.kt$private val CORUSCANT_BLUE = Color(57, 74, 89)</ID>
+    <ID>UnusedPrivateProperty:Colors.kt$private val DURASTEEL_GRAY = Color(100, 105, 108)</ID>
+    <ID>UnusedPrivateProperty:Colors.kt$private val VALOR_GREEN = Color(85, 101, 103)</ID>
+  </CurrentIssues>
+</SmellBaseline>

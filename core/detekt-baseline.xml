@@ -2,6 +2,25 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
+    <ID>ArgumentListWrapping:MediaNotesDto.kt$MediaNotesDto$(entity = MediaItemDto::class, parentColumns = ["id"], childColumns = ["media_id"], onDelete = ForeignKey.CASCADE)</ID>
+    <ID>ArgumentListWrapping:MediaNotesDto.kt$MediaNotesDto$(tableName = "media_notes", foreignKeys = [ForeignKey(entity = MediaItemDto::class, parentColumns = ["id"], childColumns = ["media_id"], onDelete = ForeignKey.CASCADE)])</ID>
+    <ID>CommentSpacing:DaoMedia.kt$DaoMedia$//The following are for MediaNotes interactions</ID>
+    <ID>CommentSpacing:DaoMedia.kt$DaoMedia$//The following are used for MediaItems</ID>
+    <ID>CommentSpacing:DaoMedia.kt$DaoMedia$//The following return MediaAndNotes objects</ID>
+    <ID>CommentSpacing:DaoMedia.kt$DaoMedia$//This class defines the insert, query, update, and delete methods for the room</ID>
+    <ID>ConstructorParameterNaming:FullFilter.kt$FullFilter$val is_positive: Boolean</ID>
+    <ID>Indentation:DaoFilter.kt$DaoFilter$ </ID>
+    <ID>Indentation:DaoMedia.kt$DaoMedia$ </ID>
     <ID>LongMethod:UpdateFilters.kt$UpdateFilters$private suspend fun updateCheckboxFilters()</ID>
+    <ID>MagicNumber:SortStyle.kt$SortStyle$9999f</ID>
+    <ID>NoConsecutiveBlankLines:GetMediaListWithNotes.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:IsNetworkAllowed.kt$ </ID>
+    <ID>NoConsecutiveBlankLines:NavigationViewModel.kt$ </ID>
+    <ID>NoWildcardImports:RoomModule.kt$import com.minirogue.starwarscanontracker.core.model.room.dao.*</ID>
+    <ID>TooManyFunctions:DaoFilter.kt$DaoFilter</ID>
+    <ID>TooManyFunctions:DaoMedia.kt$DaoMedia</ID>
+    <ID>WildcardImport:RoomModule.kt$import com.minirogue.starwarscanontracker.core.model.room.dao.*</ID>
+    <ID>Wrapping:MediaNotesDto.kt$MediaNotesDto$(</ID>
+    <ID>Wrapping:MediaNotesDto.kt$MediaNotesDto$[</ID>
   </CurrentIssues>
 </SmellBaseline>

@@ -46,8 +46,6 @@ class GetMediaListWithNotesImpl @Inject constructor(
         }
     }
 
-    // TODO
-    @Suppress("LongMethod", "ComplexMethod", "BlockingMethodInNonBlockingContext")
     /**
      * Returns a SimpleSQLiteQuery based on the given filters and the stored permanent filters
      *

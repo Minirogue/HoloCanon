@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>ArgumentListWrapping:FilterSelectionAdapter.kt$FilterSelectionAdapter$(LayoutInflater.from(parent.context), parent, false)</ID>
+    <ID>ArgumentListWrapping:FilterSelectionAdapter.kt$FilterSelectionAdapter$(parent.context)</ID>
+    <ID>ArgumentListWrapping:FilterSelectionAdapter.kt$FilterSelectionAdapter.FilterTypeViewHolder$(binding.root)</ID>
+    <ID>ArgumentListWrapping:FilterSelectionFragment.kt$FilterSelectionFragment$(lifecycleScope.coroutineContext)</ID>
+    <ID>ArgumentListWrapping:FilterSelectionFragment.kt$FilterSelectionFragment$(viewLifecycleOwner)</ID>
+    <ID>Indentation:FilterSelectionFragment.kt$FilterSelectionFragment$ </ID>
+    <ID>Indentation:FilterSelectionViewModel.kt$FilterSelectionViewModel$ </ID>
+    <ID>MagicNumber:FilterSelectionAdapter.kt$FilterSelectionAdapter$90</ID>
+    <ID>MaxLineLength:FilterSelectionAdapter.kt$FilterSelectionAdapter$FilterTypeViewHolder : ViewHolder</ID>
+    <ID>MaxLineLength:FilterSelectionAdapter.kt$FilterSelectionAdapter$val binding = SelectFiltersFilterSelectionItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)</ID>
+    <ID>MaxLineLength:FilterSelectionFragment.kt$FilterSelectionFragment$viewModel.getActiveFilters().asLiveData(lifecycleScope.coroutineContext)</ID>
+    <ID>MaximumLineLength:FilterSelectionAdapter.kt$FilterSelectionAdapter$ </ID>
+    <ID>MaximumLineLength:FilterSelectionFragment.kt$FilterSelectionFragment$ </ID>
+    <ID>NoBlankLineBeforeRbrace:FilterSelectionViewModel.kt$FilterSelectionViewModel$ </ID>
+    <ID>NoMultipleSpaces:FilterSelectionViewModel.kt$FilterSelectionViewModel$ </ID>
+    <ID>SpacingAroundParens:FilterSelectionViewModel.kt$FilterSelectionViewModel$(</ID>
+    <ID>Wrapping:FilterSelectionAdapter.kt$FilterSelectionAdapter$;</ID>
+    <ID>Wrapping:FilterSelectionFragment.kt$FilterSelectionFragment$;</ID>
+  </CurrentIssues>
+</SmellBaseline>

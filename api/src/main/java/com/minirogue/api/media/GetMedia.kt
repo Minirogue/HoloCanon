@@ -2,19 +2,17 @@ package com.minirogue.api.media
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 private var inMemoryMedia: List<StarWarsMedia>? = null
 
 internal suspend fun getFullMediaList(): List<StarWarsMedia> = inMemoryMedia
     ?: getMediaFromCsv().also { inMemoryMedia = it }
 
-@Suppress("BlockingMethodInNonBlockingContext")
 private suspend fun getMediaFromCsv(): List<StarWarsMedia> = withContext(Dispatchers.IO) {
     val stream = Thread.currentThread().contextClassLoader.getResourceAsStream("media.csv")
     val reader = stream?.reader()

@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>ArgumentListWrapping:FilterExtensions.kt$(id, filterType.legacyIntegerConversion, isActive, name)</ID>
+    <ID>ArgumentListWrapping:GetFilterImpl.kt$GetFilterImpl$(id, typeId)</ID>
+    <ID>ArgumentListWrapping:GetPermanentFiltersImpl.kt$GetPermanentFiltersImpl$(it)</ID>
+    <ID>ArgumentListWrapping:GetPermanentFiltersImpl.kt$GetPermanentFiltersImpl$(type.legacyId, FilterTypeDto.FILTERCOLUMN_TYPE)</ID>
+    <ID>Indentation:FilterExtensions.kt$ </ID>
+    <ID>Indentation:GetAllFilterTypesImpl.kt$GetAllFilterTypesImpl$ </ID>
+    <ID>Indentation:GetFilterImpl.kt$GetFilterImpl$ </ID>
+    <ID>Indentation:GetPermanentFiltersImpl.kt$GetPermanentFiltersImpl$ </ID>
+    <ID>MaxLineLength:FilterExtensions.kt$fun MediaFilter.toFilterObject(): FilterObjectDto</ID>
+    <ID>MaxLineLength:GetFilterImpl.kt$GetFilterImpl$override suspend operator fun invoke(id: Int, typeId: Int): MediaFilter?</ID>
+    <ID>MaxLineLength:GetPermanentFiltersImpl.kt$GetPermanentFiltersImpl$daoFilter.getFilter(type.legacyId, FilterTypeDto.FILTERCOLUMN_TYPE)?.toMediaFilter()?.let { filterList.add(it) }</ID>
+    <ID>MaximumLineLength:FilterExtensions.kt$fun</ID>
+    <ID>MaximumLineLength:GetFilterImpl.kt$GetFilterImpl$ </ID>
+    <ID>MaximumLineLength:GetPermanentFiltersImpl.kt$GetPermanentFiltersImpl$ </ID>
+    <ID>MultiLineIfElse:GetFiltersOfTypeImpl.kt$GetFiltersOfTypeImpl$mediaFilters</ID>
+    <ID>ParameterListWrapping:GetFilterImpl.kt$GetFilterImpl$(id: Int, typeId: Int)</ID>
+    <ID>SpacingAroundColon:GetFilterImpl.kt$GetFilterImpl$:</ID>
+  </CurrentIssues>
+</SmellBaseline>
