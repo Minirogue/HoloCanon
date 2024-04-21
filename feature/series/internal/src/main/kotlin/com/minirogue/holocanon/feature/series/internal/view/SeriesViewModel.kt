@@ -26,7 +26,6 @@ import settings.usecase.GetCheckboxSettings
 import settings.usecase.GetCheckboxText
 import javax.inject.Inject
 
-@Suppress("LongParameterList")
 @HiltViewModel
 internal class SeriesViewModel @Inject constructor(
     private val getSeries: GetSeries,

@@ -19,7 +19,6 @@ import settings.usecase.GetCheckboxSettings
 import settings.usecase.GetCheckboxText
 import javax.inject.Inject
 
-@Suppress("LongParameterList")
 @HiltViewModel
 class ViewMediaItemViewModel @Inject constructor(
     getCheckboxText: GetCheckboxText,

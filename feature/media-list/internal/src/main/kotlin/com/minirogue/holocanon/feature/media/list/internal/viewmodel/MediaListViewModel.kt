@@ -34,7 +34,6 @@ internal data class MediaListState(
         val isNetworkAllowed: Boolean = false,
 )
 
-@Suppress("LongParameterList")
 @HiltViewModel
 internal class MediaListViewModel @Inject constructor(
         getActiveFilters: GetActiveFilters,

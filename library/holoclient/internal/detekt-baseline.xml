@@ -1,9 +1,11 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-    <ManuallySuppressedIssues></ManuallySuppressedIssues>
-    <CurrentIssues>
-        <ID>Indentation:GetApiMediaVersion.kt$GetApiMediaVersion$</ID>
-        <ID>Indentation:GetMediaFromApi.kt$GetMediaFromApi$</ID>
-        <ID>Indentation:UpdateMediaDatabaseUseCase.kt$UpdateMediaDatabaseUseCase$</ID>
-    </CurrentIssues>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>Indentation:GetApiMediaVersion.kt$GetApiMediaVersion$ </ID>
+    <ID>Indentation:GetMediaFromApi.kt$GetMediaFromApi$ </ID>
+    <ID>Indentation:UpdateMediaDatabaseUseCase.kt$UpdateMediaDatabaseUseCase$ </ID>
+    <ID>LongParameterList:UpdateMediaDatabaseUseCase.kt$UpdateMediaDatabaseUseCase$( private val updateFilters: UpdateFilters, private val connectivityManager: ConnectivityManager, private val getApiMediaVersion: GetApiMediaVersion, private val getMediaFromApi: GetMediaFromApi, private val database: MediaDatabase, private val getSettings: GetAllSettings, private val setLatestDatabaseVersion: SetLatestDatabaseVersion, private val context: Context, )</ID>
+    <ID>TooGenericExceptionCaught:UpdateMediaDatabaseUseCase.kt$UpdateMediaDatabaseUseCase$e: Exception</ID>
+  </CurrentIssues>
 </SmellBaseline>

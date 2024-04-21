@@ -1,42 +1,28 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-    <ManuallySuppressedIssues></ManuallySuppressedIssues>
-    <CurrentIssues>
-        <ID>ArgumentListWrapping:SettingsLibraryModule.kt$(SharedPreferencesMigration({
-            PreferenceManager.getDefaultSharedPreferences(context) }))
-        </ID>
-        <ID>ArgumentListWrapping:SettingsLibraryModule.kt$(context)</ID>
-        <ID>ArgumentListWrapping:SettingsLibraryModule.kt$({
-            PreferenceManager.getDefaultSharedPreferences(context) })
-        </ID>
-        <ID>Indentation:SettingsLibraryModule.kt$</ID>
-        <ID>Indentation:SettingsLibraryModule.kt$SettingsLibraryModule$</ID>
-        <ID>Indentation:SettingsRepo.kt$SettingsRepo$</ID>
-        <ID>Indentation:UpdateCheckboxNameImpl.kt$UpdateCheckboxNameImpl$</ID>
-        <ID>Indentation:UpdatePermanentFilterSettingsImpl.kt$UpdatePermanentFilterSettingsImpl$</ID>
-        <ID>MagicNumber:SettingsRepo.kt$SettingsRepo$3</ID>
-        <ID>MaxLineLength:GetCheckboxSettingsImpl.kt$GetCheckboxSettingsImpl$internal</ID>
-        <ID>MaxLineLength:SetLatestDatabaseVersionImpl.kt$SetLatestDatabaseVersionImpl$internal</ID>
-        <ID>MaxLineLength:SettingsLibraryModule.kt$SettingsLibraryModule$fun</ID>
-        <ID>MaxLineLength:SettingsLibraryModule.kt$produceMigrations = { context -&gt;
-            listOf(SharedPreferencesMigration({
-            PreferenceManager.getDefaultSharedPreferences(context) })) }
-        </ID>
-        <ID>MaxLineLength:ShouldSyncViaWifiOnlyImpl.kt$ShouldSyncViaWifiOnlyImpl$internal</ID>
-        <ID>MaximumLineLength:GetCheckboxSettingsImpl.kt$GetCheckboxSettingsImpl$internal</ID>
-        <ID>
-            MaximumLineLength:SetLatestDatabaseVersionImpl.kt$SetLatestDatabaseVersionImpl$internal
-        </ID>
-        <ID>MaximumLineLength:SettingsLibraryModule.kt$</ID>
-        <ID>MaximumLineLength:SettingsLibraryModule.kt$SettingsLibraryModule$</ID>
-        <ID>MaximumLineLength:ShouldSyncViaWifiOnlyImpl.kt$ShouldSyncViaWifiOnlyImpl$internal</ID>
-        <ID>
-            ParameterListWrapping:SettingsLibraryModule.kt$SettingsLibraryModule$(getPermanentFilterSettingsImpl:
-            GetPermanentFilterSettingsImpl)
-        </ID>
-        <ID>SpacingAroundColon:GetCheckboxSettingsImpl.kt$GetCheckboxSettingsImpl$:</ID>
-        <ID>
-            Wrapping:SettingsLibraryModule.kt$PreferenceManager.getDefaultSharedPreferences(context)
-        </ID>
-    </CurrentIssues>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>ArgumentListWrapping:SettingsLibraryModule.kt$(SharedPreferencesMigration({ PreferenceManager.getDefaultSharedPreferences(context) }))</ID>
+    <ID>ArgumentListWrapping:SettingsLibraryModule.kt$(context)</ID>
+    <ID>ArgumentListWrapping:SettingsLibraryModule.kt$({ PreferenceManager.getDefaultSharedPreferences(context) })</ID>
+    <ID>Indentation:SettingsLibraryModule.kt$ </ID>
+    <ID>Indentation:SettingsLibraryModule.kt$SettingsLibraryModule$ </ID>
+    <ID>Indentation:SettingsRepo.kt$SettingsRepo$ </ID>
+    <ID>Indentation:UpdateCheckboxNameImpl.kt$UpdateCheckboxNameImpl$ </ID>
+    <ID>Indentation:UpdatePermanentFilterSettingsImpl.kt$UpdatePermanentFilterSettingsImpl$ </ID>
+    <ID>MagicNumber:SettingsRepo.kt$SettingsRepo$3</ID>
+    <ID>MaxLineLength:GetCheckboxSettingsImpl.kt$GetCheckboxSettingsImpl$internal</ID>
+    <ID>MaxLineLength:SetLatestDatabaseVersionImpl.kt$SetLatestDatabaseVersionImpl$internal</ID>
+    <ID>MaxLineLength:SettingsLibraryModule.kt$SettingsLibraryModule$fun</ID>
+    <ID>MaxLineLength:SettingsLibraryModule.kt$produceMigrations = { context -&gt; listOf(SharedPreferencesMigration({ PreferenceManager.getDefaultSharedPreferences(context) })) }</ID>
+    <ID>MaxLineLength:ShouldSyncViaWifiOnlyImpl.kt$ShouldSyncViaWifiOnlyImpl$internal</ID>
+    <ID>MaximumLineLength:GetCheckboxSettingsImpl.kt$GetCheckboxSettingsImpl$internal</ID>
+    <ID>MaximumLineLength:SetLatestDatabaseVersionImpl.kt$SetLatestDatabaseVersionImpl$internal</ID>
+    <ID>MaximumLineLength:SettingsLibraryModule.kt$ </ID>
+    <ID>MaximumLineLength:SettingsLibraryModule.kt$SettingsLibraryModule$ </ID>
+    <ID>MaximumLineLength:ShouldSyncViaWifiOnlyImpl.kt$ShouldSyncViaWifiOnlyImpl$internal</ID>
+    <ID>ParameterListWrapping:SettingsLibraryModule.kt$SettingsLibraryModule$(getPermanentFilterSettingsImpl: GetPermanentFilterSettingsImpl)</ID>
+    <ID>SpacingAroundColon:GetCheckboxSettingsImpl.kt$GetCheckboxSettingsImpl$:</ID>
+    <ID>Wrapping:SettingsLibraryModule.kt$PreferenceManager.getDefaultSharedPreferences(context)</ID>
+  </CurrentIssues>
 </SmellBaseline>

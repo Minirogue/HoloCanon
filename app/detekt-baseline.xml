@@ -2,9 +2,11 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>Indentation:GetMediaListWithNotesImpl.kt$GetMediaListWithNotesImpl$</ID>
-    <ID>Indentation:IsNetworkAllowedImpl.kt$IsNetworkAllowedImpl$</ID>
-    <ID>Indentation:TabbedListContainerFragment.kt$TabbedListContainerFragment.MainTabAdapter$</ID>
+    <ID>CyclomaticComplexMethod:GetMediaListWithNotesImpl.kt$GetMediaListWithNotesImpl$private suspend fun convertFiltersToQuery( filterList: List&lt;MediaFilter&gt;, permanentFilterSettings: Map&lt;MediaType, Boolean&gt; ): SimpleSQLiteQuery</ID>
+    <ID>Indentation:GetMediaListWithNotesImpl.kt$GetMediaListWithNotesImpl$ </ID>
+    <ID>Indentation:IsNetworkAllowedImpl.kt$IsNetworkAllowedImpl$ </ID>
+    <ID>Indentation:TabbedListContainerFragment.kt$TabbedListContainerFragment.MainTabAdapter$ </ID>
+    <ID>LongMethod:GetMediaListWithNotesImpl.kt$GetMediaListWithNotesImpl$private suspend fun convertFiltersToQuery( filterList: List&lt;MediaFilter&gt;, permanentFilterSettings: Map&lt;MediaType, Boolean&gt; ): SimpleSQLiteQuery</ID>
     <ID>NoSemicolons:MainActivity.kt$MainActivity.ToolbarOption.About$;</ID>
   </CurrentIssues>
 </SmellBaseline>
