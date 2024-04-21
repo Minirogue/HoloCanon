@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+    <ManuallySuppressedIssues></ManuallySuppressedIssues>
+    <CurrentIssues>
+        <ID>
+            MultiLineIfElse:SeriesFragment.kt$SeriesFragment$networkCachePolicy(CachePolicy.DISABLED)
+        </ID>
+    </CurrentIssues>
+</SmellBaseline>

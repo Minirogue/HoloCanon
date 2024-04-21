@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>ArgumentListWrapping:HomeFragment.kt$HomeFragment$( style = SpanStyle( color =
+      Color(0xff64B5F6), textDecoration = TextDecoration.Underline ), start = startIndex, end =
+      endIndex )
+    </ID>
+    <ID>ArgumentListWrapping:HomeFragment.kt$HomeFragment$(modifier = Modifier .fillMaxSize()
+      .verticalScroll(rememberScrollState()) .background(MaterialTheme.colorScheme.surface)
+      .padding(horizontal = 24.dp))
+    </ID>
+    <ID>ArgumentListWrapping:HomeFragment.kt$HomeFragment$(painter = painterResource(id =
+      R.drawable.home_screen_app_icon), contentDescription =
+      getString(R.string.home_screen_app_icon_description), modifier =
+      Modifier.align(Alignment.CenterHorizontally) )
+    </ID>
+    <ID>ArgumentListWrapping:HomeFragment.kt$HomeFragment$(text = welcomeString, style =
+      TextStyle.Default.copy(color = MaterialTheme.colorScheme.onSurface), onClick = { welcomeString
+      .getStringAnnotations(STRING_ANNOTATION_TAG, it, it) .firstOrNull()?.let { stringAnnotation -&gt;
+      uriHandler.openUri(stringAnnotation.item) } } )
+    </ID>
+    <ID>FunctionNaming:HomeFragment.kt$HomeFragment$@Composable fun HomeScreen()</ID>
+    <ID>Indentation:HomeFragment.kt$HomeFragment$</ID>
+    <ID>MagicNumber:HomeFragment.kt$HomeFragment$0xff64B5F6</ID>
+    <ID>Wrapping:HomeFragment.kt$HomeFragment$(</ID>
+    <ID>Wrapping:HomeFragment.kt$HomeFragment$( style = SpanStyle( color = Color(0xff64B5F6),
+      textDecoration = TextDecoration.Underline ), start = startIndex, end = endIndex )
+    </ID>
+  </CurrentIssues>
+</SmellBaseline>

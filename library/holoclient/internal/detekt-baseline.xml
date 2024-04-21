@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+    <ManuallySuppressedIssues></ManuallySuppressedIssues>
+    <CurrentIssues>
+        <ID>Indentation:GetApiMediaVersion.kt$GetApiMediaVersion$</ID>
+        <ID>Indentation:GetMediaFromApi.kt$GetMediaFromApi$</ID>
+        <ID>Indentation:UpdateMediaDatabaseUseCase.kt$UpdateMediaDatabaseUseCase$</ID>
+    </CurrentIssues>
+</SmellBaseline>

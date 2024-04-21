@@ -1,5 +1,10 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
-  <CurrentIssues></CurrentIssues>
+  <CurrentIssues>
+    <ID>Indentation:GetMediaListWithNotesImpl.kt$GetMediaListWithNotesImpl$</ID>
+    <ID>Indentation:IsNetworkAllowedImpl.kt$IsNetworkAllowedImpl$</ID>
+    <ID>Indentation:TabbedListContainerFragment.kt$TabbedListContainerFragment.MainTabAdapter$</ID>
+    <ID>NoSemicolons:MainActivity.kt$MainActivity.ToolbarOption.About$;</ID>
+  </CurrentIssues>
 </SmellBaseline>

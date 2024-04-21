@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+    <ManuallySuppressedIssues></ManuallySuppressedIssues>
+    <CurrentIssues>
+        <ID>ArgumentListWrapping:ViewMediaItemFragment.kt$ViewMediaItemFragment$(viewLifecycleOwner,
+            { visibilityArray -&gt; updateViews(visibilityArray, fragmentBinding) })
+        </ID>
+        <ID>MultiLineIfElse:ViewMediaItemFragment.kt$ViewMediaItemFragment$""</ID>
+        <ID>
+            MultiLineIfElse:ViewMediaItemFragment.kt$ViewMediaItemFragment$networkCachePolicy(CachePolicy.DISABLED)
+        </ID>
+        <ID>NoConsecutiveBlankLines:GetMediaItemFragmentImpl.kt$</ID>
+        <ID>Wrapping:ViewMediaItemFragment.kt$ViewMediaItemFragment$(</ID>
+    </CurrentIssues>
+</SmellBaseline>
