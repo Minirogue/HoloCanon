@@ -27,42 +27,42 @@ import java.io.File
 import javax.inject.Inject
 
 internal data class MediaListState(
-        val activeFilters: List<MediaFilter> = emptyList(),
-        val sortStyle: SortStyle = SortStyle.DEFAULT_STYLE,
-        val searchTerm: String? = null,
-        val checkboxSettings: CheckboxSettings = CheckboxSettings.NONE,
-        val isNetworkAllowed: Boolean = false,
+    val activeFilters: List<MediaFilter> = emptyList(),
+    val sortStyle: SortStyle = SortStyle.DEFAULT_STYLE,
+    val searchTerm: String? = null,
+    val checkboxSettings: CheckboxSettings = CheckboxSettings.NONE,
+    val isNetworkAllowed: Boolean = false,
 )
 
 @HiltViewModel
 internal class MediaListViewModel @Inject constructor(
-        getActiveFilters: GetActiveFilters,
-        private val updateFilter: UpdateFilter,
-        private val updateCheckValue: UpdateCheckValue,
-        getMediaListWithNotes: GetMediaListWithNotes,
-        isNetworkAllowed: IsNetworkAllowed,
-        getCheckboxSettings: GetCheckboxSettings,
-        application: Application,
+    getActiveFilters: GetActiveFilters,
+    private val updateFilter: UpdateFilter,
+    private val updateCheckValue: UpdateCheckValue,
+    getMediaListWithNotes: GetMediaListWithNotes,
+    isNetworkAllowed: IsNetworkAllowed,
+    getCheckboxSettings: GetCheckboxSettings,
+    application: Application,
 ) : ViewModel() {
 
     private val _state: MutableStateFlow<MediaListState> = MutableStateFlow(MediaListState())
     val state: StateFlow<MediaListState> = _state
     val mediaList: Flow<List<MediaAndNotes>> = getMediaListWithNotes()
-            .combine(_state) { list, state ->
-                withContext(Dispatchers.Default) {
-                    val sortStyle = state.sortStyle
-                    val searchTerm = state.searchTerm
-                    if (!searchTerm.isNullOrBlank()) {
-                        list.filter {
-                            it.mediaItem.title.contains(searchTerm, true) ||
-                                    it.mediaItem.description?.contains(searchTerm, true) == true ||
-                                    it.mediaItem.series?.contains(searchTerm, true) == true
-                        }
-                    } else {
-                        list
-                    }.sort(sortStyle)
-                }
+        .combine(_state) { list, state ->
+            withContext(Dispatchers.Default) {
+                val sortStyle = state.sortStyle
+                val searchTerm = state.searchTerm
+                if (!searchTerm.isNullOrBlank()) {
+                    list.filter {
+                        it.mediaItem.title.contains(searchTerm, true) ||
+                                it.mediaItem.description?.contains(searchTerm, true) == true ||
+                                it.mediaItem.series?.contains(searchTerm, true) == true
+                    }
+                } else {
+                    list
+                }.sort(sortStyle)
             }
+        }
 
     // The file where the current sorting method is stored
     private val sortCacheFileName = application.cacheDir.toString() + "/sortCache"
@@ -73,10 +73,18 @@ internal class MediaListViewModel @Inject constructor(
             getActiveFilters().collect { activeFilters -> _state.update { it.copy(activeFilters = activeFilters) } }
         }
         viewModelScope.launch {
-            getCheckboxSettings().collect { checkboxSettings -> _state.update { it.copy(checkboxSettings = checkboxSettings) } }
+            getCheckboxSettings().collect { checkboxSettings ->
+                _state.update {
+                    it.copy(
+                        checkboxSettings = checkboxSettings
+                    )
+                }
+            }
         }
         viewModelScope.launch {
-            isNetworkAllowed().collect { networkAllowed -> _state.update { it.copy(isNetworkAllowed = networkAllowed) } }
+            isNetworkAllowed().collect { networkAllowed ->
+                _state.update { it.copy(isNetworkAllowed = networkAllowed) }
+            }
         }
         viewModelScope.launch {
             val savedSort = getSavedSort()
@@ -114,9 +122,10 @@ internal class MediaListViewModel @Inject constructor(
         _state.update { it.copy(sortStyle = it.sortStyle.reversed()) }
     }
 
-    private suspend fun List<MediaAndNotes>.sort(sortStyle: SortStyle?): List<MediaAndNotes> = withContext(Dispatchers.Default) {
-        this@sort.sortedWith(sortStyle ?: SortStyle.DEFAULT_STYLE)
-    }
+    private suspend fun List<MediaAndNotes>.sort(sortStyle: SortStyle?): List<MediaAndNotes> =
+        withContext(Dispatchers.Default) {
+            this@sort.sortedWith(sortStyle ?: SortStyle.DEFAULT_STYLE)
+        }
 
     fun onCheckBox1Clicked(itemId: Long, newValue: Boolean) = viewModelScope.launch {
         updateCheckValue(CheckBoxNumber.CheckBox1, itemId, newValue)

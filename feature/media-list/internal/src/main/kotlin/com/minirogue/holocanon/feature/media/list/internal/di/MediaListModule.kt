@@ -13,4 +13,3 @@ internal interface MediaListModule {
     @Binds
     fun bindGetMediaListFragment(impl: GetMediaListFragmentImpl): GetMediaListFragment
 }
-

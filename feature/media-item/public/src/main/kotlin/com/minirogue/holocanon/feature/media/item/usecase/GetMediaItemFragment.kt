@@ -6,4 +6,3 @@ interface GetMediaItemFragment {
     operator fun invoke(itemId: Int): Fragment
     operator fun invoke(itemId: Long): Fragment
 }
-

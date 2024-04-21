@@ -70,7 +70,11 @@ internal class MediaListFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(layoutId, container, false)
     }
 
@@ -91,7 +95,8 @@ internal class MediaListFragment : Fragment() {
                 mediaListViewModel.updateSearch(newText)
                 return false
             }
-        })
+        }
+        )
 
         with(binding.mediaRecyclerview) {
             layoutManager = LinearLayoutManager(context)
@@ -163,12 +168,12 @@ internal class MediaListFragment : Fragment() {
     }
 
     private fun makeCurrentSortChip(): Chip =
-            Chip(context).apply {
-                isChipIconVisible = true
-                setOnClickListener { mediaListViewModel.reverseSort() }
-            }.also {
-                binding.filterChipGroup.addView(it)
-            }
+        Chip(context).apply {
+            isChipIconVisible = true
+            setOnClickListener { mediaListViewModel.reverseSort() }
+        }.also {
+            binding.filterChipGroup.addView(it)
+        }
 
     private fun updateSortChip(sortStyle: SortStyle) = with(sortChip) {
         text = sortStyle.getText()

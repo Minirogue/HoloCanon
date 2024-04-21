@@ -42,9 +42,7 @@ internal class FragmentViewBindingDelegate<T : ViewBinding>(
         // Otherwise, check to make sure the current lifecycle state is appropriate
         val lifecycle = fragment.viewLifecycleOwner.lifecycle
         if (!lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)) {
-            throw IllegalStateException(
-                "Binding is only available when the View is available (between onCreateView and onDestroyView)."
-            )
+            error("Binding is only available when the View is available (between onCreateView and onDestroyView).")
         }
         // Create the binding and return it
         return viewBindingFactory(thisRef.requireView()).also { this@FragmentViewBindingDelegate.binding = it }

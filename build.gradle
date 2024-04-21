@@ -22,7 +22,7 @@ plugins {
 }
 
 detekt {
-    baseline = file("$project.rootDir/config/detekt/baseline.xml")
+    buildUponDefaultConfig = true
 }
 
 ext {
