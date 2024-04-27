@@ -1,11 +1,21 @@
+pluginManagement {
+    includeBuild("build-logic")
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
 rootProject.name = "holocanon"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 buildCache {
     local {
         directory = new File(rootDir, 'build-cache')
         removeUnusedEntriesAfterDays = 30
     }
 }
+
 
 include ':core'
 include ':app'

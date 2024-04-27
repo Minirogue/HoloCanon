@@ -1,13 +1,11 @@
 plugins {
-    id 'holocanon.android-library'
+    id "holocanon.android.library"
 }
+
 android {
     namespace 'com.minirogue.holocanon.feature.home.screen'
 }
 
 dependencies {
     api libs.androidx.fragment
-
-    // detekt
-    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
 }

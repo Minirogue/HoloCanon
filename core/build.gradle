@@ -1,9 +1,7 @@
 plugins {
-    id 'holocanon.android-library'
+    id "holocanon.android.library"
+    id "holocanon.hilt"
 }
-apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
-
 
 android {
 
@@ -32,19 +30,14 @@ dependencies {
     api projects.library.mediaNotes.public
 
     implementation libs.androidx.core
-    implementation libs.hilt.android
     implementation libs.kotlinx.coroutines.core
     implementation libs.lifecycle.viewmodel
     implementation libs.room.runtime
     implementation projects.api
     implementation projects.library.settings.public
 
-    kapt libs.hilt.compiler
     kapt libs.room.compiler
 
     androidTestImplementation libs.androidx.test
     androidTestImplementation libs.room.testing
-
-    // detekt
-    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
 }

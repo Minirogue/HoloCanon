@@ -1,6 +1,7 @@
-apply from: "$rootProject.projectDir/base-gradles/android-library.gradle"
-apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
+plugins {
+    id "holocanon.android.library"
+    id "holocanon.hilt"
+}
 
 android {
     namespace 'com.minirogue.holocanon.feature.media.item.internal'
@@ -17,14 +18,8 @@ dependencies {
     implementation libs.androidx.constraintLayout
     implementation libs.android.material
     implementation libs.coil
-    implementation libs.hilt.android
     implementation projects.core
     implementation projects.library.commonResources.public
     implementation projects.library.mediaNotes.public
     implementation projects.library.settings.public
-
-    kapt libs.hilt.compiler
-
-    // detekt
-    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
 }

@@ -1,4 +1,6 @@
-apply from: "$rootProject.projectDir/base-gradles/android-library.gradle"
+plugins {
+    id "holocanon.android.library"
+}
 
 android {
     namespace 'com.minirogue.holocanon.library.composeExt'
@@ -20,7 +22,4 @@ dependencies {
     api libs.compose.uiToolingPreview
 
     debugApi libs.compose.uiTooling
-
-    // detekt
-    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
 }

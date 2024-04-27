@@ -1,6 +1,7 @@
-apply from: "$rootProject.projectDir/base-gradles/android-library.gradle"
-apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
+plugins {
+    id "holocanon.android.library"
+    id "holocanon.hilt"
+}
 
 android {
     namespace 'com.minirogue.series'
@@ -15,11 +16,5 @@ hilt {
 dependencies {
     api projects.library.series.public
 
-    implementation libs.hilt.android
     implementation projects.core
-
-    kapt libs.hilt.compiler
-
-    // detekt
-    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
 }
