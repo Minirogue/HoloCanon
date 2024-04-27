@@ -1,44 +1,7 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
-buildscript {
-    ext {
-        detektVersion = '1.23.6'
-    }
-
-
-    dependencies {
-        classpath libs.android.gradlePlugin
-    }
-}
-
 plugins {
+    alias(libs.plugins.android.application) apply false
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.serialization) apply false
-    id "io.gitlab.arturbosch.detekt" version "$detektVersion"
-}
-
-detekt {
-    buildUponDefaultConfig = true
-}
-
-ext {
-    // Compilation versioning
-    minSdkVersion = 21
-    compileSdkVersion = 34
-    targetSdkVersion = 34
-    javaCompatibilityVersion = JavaVersion.VERSION_17.toString()
-    javaCompatibilityVersionInt = 17
-    composeCompilerVersion = '1.5.11'
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-
-tasks.register('clean', Delete) {
-    delete rootProject.layout.buildDirectory
+    alias(libs.plugins.detekt) apply false
 }

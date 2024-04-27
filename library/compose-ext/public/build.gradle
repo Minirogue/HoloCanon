@@ -1,25 +1,11 @@
 plugins {
     id "holocanon.android.library"
+    id "holocanon.compose"
 }
 
 android {
     namespace 'com.minirogue.holocanon.library.composeExt'
-
-    buildFeatures {
-        compose true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "$composeCompilerVersion"
-    }
 }
 
 dependencies {
-
-    api platform(libs.compose.bom)
-    api libs.compose.activity
-    api libs.compose.material
-    api libs.compose.uiToolingPreview
-
-    debugApi libs.compose.uiTooling
 }

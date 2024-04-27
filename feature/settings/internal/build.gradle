@@ -1,19 +1,12 @@
 plugins {
     id "holocanon.android.library"
     id "holocanon.hilt"
+    id "holocanon.compose"
 }
 
 android {
     namespace 'com.minirogue.holocanon.feature.settings.internal'
     resourcePrefix 'settings'
-
-    buildFeatures {
-        compose true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "$composeCompilerVersion"
-    }
 }
 
 dependencies {

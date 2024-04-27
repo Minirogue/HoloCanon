@@ -1,6 +1,5 @@
 plugins {
-    id 'application'
-    id 'org.jetbrains.kotlin.jvm'
+    id 'holocanon.jvm.app'
     id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
@@ -8,15 +7,6 @@ group = "com.minirogue"
 version = "0.0.1"
 application {
     mainClass.set("com.minirogue.api.ApiMainKt")
-}
-
-java {
-    sourceCompatibility = rootProject.ext.javaCompatibilityVersion
-    targetCompatibility = rootProject.ext.javaCompatibilityVersion
-}
-
-compileKotlin {
-    kotlinOptions.jvmTarget = rootProject.ext.javaCompatibilityVersion
 }
 
 dependencies {

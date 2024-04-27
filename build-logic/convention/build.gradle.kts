@@ -20,7 +20,7 @@ gradlePlugin {
             id = "holocanon.android.library"
             implementationClass = "plugin.AndroidLibraryConventionPlugin"
         }
-        register("kotlinLibrary") {
+        register("kotlinJvmLibrary") {
             id = "holocanon.kotlin.library"
             implementationClass = "plugin.KotlinJvmLibraryConventionPlugin"
         }
@@ -31,6 +31,14 @@ gradlePlugin {
         register("androidApp") {
             id = "holocanon.android.app"
             implementationClass = "plugin.AndroidAppConventionPlugin"
+        }
+        register("compose") {
+            id = "holocanon.compose"
+            implementationClass = "plugin.ComposeConventionPlugin"
+        }
+        register("jvmApp") {
+            id = "holocanon.jvm.app"
+            implementationClass = "plugin.JvmAppConventionPlugin"
         }
     }
 }
