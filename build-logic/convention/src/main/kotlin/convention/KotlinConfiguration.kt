@@ -13,6 +13,7 @@ public fun Project.configureJvm() {
 }
 
 internal fun Project.configureKotlin() {
+    plugins.apply("io.gitlab.arturbosch.detekt")
     tasks.withType(KotlinCompile::class.java).configureEach {
         kotlinOptions {
             jvmTarget = javaLibVersion

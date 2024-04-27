@@ -28,5 +28,9 @@ gradlePlugin {
             id = "holocanon.hilt"
             implementationClass = "plugin.HiltConventionPlugin"
         }
+        register("androidApp") {
+            id = "holocanon.android.app"
+            implementationClass = "plugin.AndroidAppConventionPlugin"
+        }
     }
 }

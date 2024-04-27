@@ -11,7 +11,6 @@ class KotlinJvmLibraryConventionPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("org.jetbrains.kotlin.jvm")
                 apply("java-library")
-                apply("io.gitlab.arturbosch.detekt")
             }
             configureJvm()
             configureKotlin()
