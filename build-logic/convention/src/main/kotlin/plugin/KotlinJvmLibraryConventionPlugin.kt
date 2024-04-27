@@ -15,7 +15,6 @@ class KotlinJvmLibraryConventionPlugin : Plugin<Project> {
             }
             configureJvm()
             configureKotlin()
-            // ???  detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
         }
     }
 }
