@@ -4,19 +4,6 @@ plugins{
 }
 
 def keystorePropsFile = rootProject.file('keystore.properties')
-def versionPropertiesFile = rootProject.file("version.properties")
-
-tasks.register('bumpVersionCode') {
-    doLast {
-        def versionProperties = new Properties()
-        versionProperties.load(new FileInputStream(versionPropertiesFile))
-
-        def code = versionProperties['VERSION_CODE'].toInteger() + 1
-
-        versionProperties['VERSION_CODE'] = code.toString()
-        versionProperties.store(versionPropertiesFile.newWriter(), null)
-    }
-}
 
 android {
     if (keystorePropsFile.exists()) {
@@ -31,18 +18,10 @@ android {
             }
         }
     }
-    def versionProperties = new Properties()
-    if (versionPropertiesFile.exists()) {
-        versionProperties.load(new FileInputStream(versionPropertiesFile))
-    }
-
-    def date = new Date()
-    def verName = date.format('yy.M.d')
 
     defaultConfig {
         applicationId "com.minirogue.starwarscanontracker"
-        versionCode versionProperties['VERSION_CODE'].toInteger()
-        versionName verName
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

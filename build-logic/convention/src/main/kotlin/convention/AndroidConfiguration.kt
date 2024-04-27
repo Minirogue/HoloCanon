@@ -22,6 +22,10 @@ internal fun Project.configureAndroidApp() {
         configureAndroidCommon(this)
         defaultConfig {
             targetSdk = TARGET_SDK
+            versionCode = providers.exec { // number of commits in main branch
+                commandLine("git", "rev-list", "--count", "main")
+            }.standardOutput.asText.get().trim().toIntOrNull()
+            versionName = getDateAsVersionName()
         }
         buildTypes {
             release {
