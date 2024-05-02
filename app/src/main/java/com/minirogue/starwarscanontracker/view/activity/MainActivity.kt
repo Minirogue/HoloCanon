@@ -16,7 +16,6 @@ import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.model.UpdateFilters
 import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
 import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel
-import com.minirogue.starwarscanontracker.view.fragment.AboutFragment
 import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -92,12 +91,6 @@ class MainActivity : AppCompatActivity() {
                 navigateToToolbarOption(ToolbarOption.Settings)
                 true
             }
-
-            R.id.toolbar_about -> {
-                navigateToToolbarOption(ToolbarOption.About)
-                true
-            }
-
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -131,7 +124,6 @@ class MainActivity : AppCompatActivity() {
         if (frag == null) {
             frag = when (toolbarOption) {
                 ToolbarOption.Settings -> getSettingsFragment()
-                ToolbarOption.About -> AboutFragment()
             }
         }
         // Replace the fragment
@@ -142,13 +134,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private enum class ToolbarOption(val fragmentTag: String) {
-        Settings(SETTINGS_TAG), About(ABOUT_TAG);
+        Settings(SETTINGS_TAG);
     }
 
     companion object {
         // The following are definitions for the tags associated to the fragments called from the
         // toolbar options.
         private const val SETTINGS_TAG = "settings"
-        private const val ABOUT_TAG = "about"
     }
 }
