@@ -1,13 +1,10 @@
 package com.minirogue.holocanon.feature.media.item.internal.fragment
 
 import android.annotation.SuppressLint
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -107,7 +104,6 @@ class ViewMediaItemFragment : Fragment() {
                 networkCachePolicy(CachePolicy.ENABLED)
             } else networkCachePolicy(CachePolicy.DISABLED)
         }
-        makeShoppingMenu(item, fragmentBinding)
         if (item.series > 0) {
             fragmentBinding.viewSeriesButton.visibility = View.VISIBLE
             fragmentBinding.viewSeriesButton.setOnClickListener {
@@ -126,33 +122,7 @@ class ViewMediaItemFragment : Fragment() {
         fragmentBinding.mediaType.text = mediaType?.getSerialName() ?: ""
     }
 
-    private fun makeShoppingMenu(item: MediaItemDto, fragmentBinding: MediaItemFragmentBinding) {
-        val shoppingMenu =
-            PopupMenu(fragmentBinding.root.context, fragmentBinding.affiliateLinksFab)
-        if (item.amazonLink != "") {
-            fragmentBinding.affiliateLinksFab.show()
-            shoppingMenu.menu.add(0, MENU_ITEM_AMAZON_BUY, 0, "Buy on Amazon")
-        }
-        if (item.amazonStream != "") {
-            fragmentBinding.affiliateLinksFab.show()
-            shoppingMenu.menu.add(0, MENU_ITEM_AMAZON_STREAM, 0, "Stream on Amazon Video")
-        }
-        shoppingMenu.setOnMenuItemClickListener { menuItem ->
-            val url = when (menuItem.itemId) {
-                MENU_ITEM_AMAZON_BUY -> item.amazonLink
-                MENU_ITEM_AMAZON_STREAM -> item.amazonStream
-                else -> ""
-            }
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-            startActivity(browserIntent)
-            true
-        }
-        fragmentBinding.affiliateLinksFab.setOnClickListener { shoppingMenu.show() }
-    }
-
     companion object {
-        private const val MENU_ITEM_AMAZON_BUY = 1
-        private const val MENU_ITEM_AMAZON_STREAM = 2
         private const val ITEM_ID_KEY = "item-id"
         fun createInstance(itemId: Int): ViewMediaItemFragment {
             return ViewMediaItemFragment().apply {
