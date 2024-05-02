@@ -7,12 +7,15 @@ import android.view.ViewGroup
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +29,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import com.minirogue.holocanon.feature.home.screen.internal.R
 import compose.theme.HolocanonTheme
@@ -73,6 +77,11 @@ internal class HomeFragment : Fragment() {
                             uriHandler.openUri(stringAnnotation.item)
                         }
                 }
+            )
+            Spacer(modifier = Modifier.heightIn(min = 12.dp, max = 48.dp))
+            Text(
+                text = getString(R.string.home_screen_copyright_notice),
+                style = TextStyle.Default.copy(color = MaterialTheme.colorScheme.onSurface, fontSize = 10.sp)
             )
         }
     }

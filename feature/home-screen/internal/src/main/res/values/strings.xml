@@ -16,4 +16,6 @@
         \n\n<p>In settings you can also change the text associated to the checkboxes as well as permanently filter out certain media types (such as "youth").</p></string>
     <string name="home_screen_discord">Discord</string>
     <string name="home_screen_app_icon_description">HoloCanon app icon</string>
-</resources>
+    <string name="home_screen_copyright_notice">This app is in no way affiliated with or endorsed by Disney or Lucasfilm.
+        I do not claim to own Star Wars or any of its related copyrights or trademarks.
+        The use of Star Wars content in this app is protected under Fair Use.</string></resources>

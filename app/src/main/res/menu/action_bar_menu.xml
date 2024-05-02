@@ -8,10 +8,5 @@
         android:icon="@drawable/ic_settings"
         android:title="@string/nav_settings"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/toolbar_about"
-        android:icon="@drawable/ic_about"
-        android:title="@string/nav_about"
-        app:showAsAction="ifRoom" />
 
 </menu>
