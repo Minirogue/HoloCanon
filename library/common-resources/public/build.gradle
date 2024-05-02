@@ -1,4 +1,6 @@
-apply from: "$rootProject.projectDir/base-gradles/android-library.gradle"
+plugins {
+    id "holocanon.android.library"
+}
 
 android {
     namespace 'com.minirogue.holocanon.library.common.resources'
@@ -6,6 +8,4 @@ android {
 }
 
 dependencies {
-    // detekt
-    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
 }

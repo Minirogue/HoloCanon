@@ -1,6 +1,7 @@
-apply from: "$rootProject.projectDir/base-gradles/android-library.gradle"
-apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
+plugins {
+    id "holocanon.android.library"
+    id "holocanon.hilt"
+}
 
 android {
     namespace 'com.minirogue.library.settings.internal'
@@ -11,10 +12,4 @@ dependencies {
 
     implementation libs.androidx.datastore
     implementation libs.androidx.preference
-    implementation libs.hilt.android
-
-    kapt libs.hilt.compiler
-
-    // detekt
-    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
 }

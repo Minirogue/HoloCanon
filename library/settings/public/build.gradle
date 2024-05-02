@@ -1,4 +1,6 @@
-apply from: "$rootProject.projectDir/base-gradles/kotlin-library.gradle"
+plugins{
+    id 'holocanon.kotlin.library'
+}
 
 dependencies {
     api project(":api")

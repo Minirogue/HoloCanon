@@ -1,23 +1,9 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: 'io.gitlab.arturbosch.detekt'
+plugins{
+    id "holocanon.android.app"
+    id "holocanon.hilt"
+}
 
 def keystorePropsFile = rootProject.file('keystore.properties')
-def versionPropertiesFile = rootProject.file("version.properties")
-
-tasks.register('bumpVersionCode') {
-    doLast {
-        def versionProperties = new Properties()
-        versionProperties.load(new FileInputStream(versionPropertiesFile))
-
-        def code = versionProperties['VERSION_CODE'].toInteger() + 1
-
-        versionProperties['VERSION_CODE'] = code.toString()
-        versionProperties.store(versionPropertiesFile.newWriter(), null)
-    }
-}
 
 android {
     if (keystorePropsFile.exists()) {
@@ -32,41 +18,11 @@ android {
             }
         }
     }
-    def versionProperties = new Properties()
-    if (versionPropertiesFile.exists()) {
-        versionProperties.load(new FileInputStream(versionPropertiesFile))
-    }
 
-    def date = new Date()
-    def verName = date.format('yy.M.d')
-
-    compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "com.minirogue.starwarscanontracker"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode versionProperties['VERSION_CODE'].toInteger()
-        versionName verName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        release {
-            debuggable false
-            minifyEnabled true
-//            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            applicationIdSuffix '.debug'
-        }
-    }
-    compileOptions {
-        sourceCompatibility = rootProject.ext.javaCompatibilityVersion
-        targetCompatibility = rootProject.ext.javaCompatibilityVersion
-    }
 
-    kotlinOptions {
-        jvmTarget = rootProject.ext.javaCompatibilityVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
@@ -86,7 +42,6 @@ dependencies {
     implementation libs.androidx.preference
     implementation libs.coil
     implementation libs.fastScroll
-    implementation libs.hilt.android
     implementation libs.kotlinx.coroutines.core
     implementation libs.kotlinx.coroutines.android
     implementation libs.lifecycle.livedata // TODO deprecate
@@ -109,9 +64,4 @@ dependencies {
     implementation projects.library.settings.internal
     implementation projects.library.coroutineExt.public
     implementation projects.library.viewExt.public
-
-    kapt libs.hilt.compiler
-
-    // detekt
-    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
 }

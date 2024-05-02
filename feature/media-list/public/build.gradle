@@ -1,4 +1,6 @@
-apply from: "$rootProject.projectDir/base-gradles/android-library.gradle"
+plugins {
+    id "holocanon.android.library"
+}
 
 android {
     namespace 'com.minirogue.holocanon.feature.media.list'
@@ -6,7 +8,4 @@ android {
 
 dependencies {
     api libs.androidx.fragment
-
-    // detekt
-    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
 }
