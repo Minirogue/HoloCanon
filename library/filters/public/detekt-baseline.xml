@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <CurrentIssues>
+    <ID>MagicNumber:MediaFilter.kt$FilterType.CheckboxOne$3</ID>
+    <ID>MagicNumber:MediaFilter.kt$FilterType.CheckboxThree$5</ID>
+    <ID>MagicNumber:MediaFilter.kt$FilterType.CheckboxTwo$4</ID>
+    <ID>MagicNumber:MediaFilter.kt$FilterType.Publisher$7</ID>
+    <ID>MagicNumber:MediaFilter.kt$FilterType.Series$6</ID>
+  </CurrentIssues>
+</SmellBaseline>

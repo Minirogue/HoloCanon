@@ -1,9 +1,5 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
-  <CurrentIssues>
-    <ID>MultiLineIfElse:ViewMediaItemFragment.kt$ViewMediaItemFragment$""</ID>
-    <ID>MultiLineIfElse:ViewMediaItemFragment.kt$ViewMediaItemFragment$networkCachePolicy(CachePolicy.DISABLED)</ID>
-    <ID>NoConsecutiveBlankLines:GetMediaItemFragmentImpl.kt$ </ID>
-  </CurrentIssues>
+  <CurrentIssues></CurrentIssues>
 </SmellBaseline>

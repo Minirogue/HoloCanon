@@ -1,3 +1,29 @@
+pluginManagement {
+    includeBuild("build-logic")
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "holocanon"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+buildCache {
+    local {
+        directory = new File(rootDir, 'build-cache')
+        removeUnusedEntriesAfterDays = 30
+    }
+}
+
+
 include ':core'
 include ':app'
 include ':api'
@@ -27,12 +53,3 @@ include ':library:series:public'
 include ':library:settings:internal'
 include ':library:settings:public'
 include ':library:view-ext:public'
-
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-
-buildCache {
-    local {
-        directory = new File(rootDir, 'build-cache')
-        removeUnusedEntriesAfterDays = 30
-    }
-}

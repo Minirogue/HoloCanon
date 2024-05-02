@@ -1,48 +1,19 @@
 version: 2
 updates:
-- package-ecosystem: gradle
-  directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
-  target-branch: main
-  reviewers:
-  - minirogue
-  ignore:
-  - dependency-name: com.google.dagger:hilt-android-compiler
-    versions:
-    - 2.31.2-alpha
-    - 2.34-beta
-    - 2.34.1-beta
-  - dependency-name: com.google.dagger:hilt-android
-    versions:
-    - 2.31.2-alpha
-    - 2.34-beta
-    - 2.34.1-beta
-  - dependency-name: com.google.dagger:hilt-android-gradle-plugin
-    versions:
-    - 2.31.2-alpha
-    - 2.34-beta
-    - 2.34.1-beta
-  - dependency-name: com.android.tools.build:gradle
-    versions:
-    - 7.0.0-alpha11
-    - 7.0.0-alpha13
-  - dependency-name: org.jetbrains.kotlinx:kotlinx-coroutines-android
-    versions:
-    - 1.4.3-native-mt
-  - dependency-name: org.jetbrains.kotlinx:kotlinx-coroutines-core
-    versions:
-    - 1.4.3-native-mt
-  - dependency-name: org.jetbrains.kotlin:kotlin-stdlib-jdk7
-    versions:
-    - 1.4.30
-  - dependency-name: org.jetbrains.kotlin:kotlin-gradle-plugin
-    versions:
-    - 1.4.30
-  - dependency-name: androidx.hilt:hilt-compiler
-    versions:
-    - 1.0.0-alpha03
-  - dependency-name: androidx.hilt:hilt-lifecycle-viewmodel
-    versions:
-    - 1.0.0-alpha03
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    target-branch: "main"
+    reviewers:
+      - minirogue
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    target-branch: "main"
+    reviewers:
+      - minirogue

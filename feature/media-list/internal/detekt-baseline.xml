@@ -2,11 +2,6 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>ArgumentListWrapping:MediaListFragment.kt$MediaListFragment$(object : SearchView.OnQueryTextListener { override fun onQueryTextSubmit(query: String?): Boolean { return false } override fun onQueryTextChange(newText: String?): Boolean { mediaListViewModel.updateSearch(newText) return false } } )</ID>
-    <ID>Indentation:MediaListViewModel.kt$MediaListViewModel$ </ID>
     <ID>LongParameterList:MediaListViewModel.kt$MediaListViewModel$( getActiveFilters: GetActiveFilters, private val updateFilter: UpdateFilter, private val updateCheckValue: UpdateCheckValue, getMediaListWithNotes: GetMediaListWithNotes, isNetworkAllowed: IsNetworkAllowed, getCheckboxSettings: GetCheckboxSettings, application: Application, )</ID>
-    <ID>MultiLineIfElse:SWMListAdapter.kt$SWMListAdapter$networkCachePolicy(CachePolicy.DISABLED)</ID>
-    <ID>Wrapping:MediaListFragment.kt$MediaListFragment$(</ID>
-    <ID>Wrapping:MediaListFragment.kt$MediaListFragment$(object : MenuProvider { override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) { menuInflater.inflate(R.menu.media_list_menu, menu) } override fun onMenuItemSelected(menuItem: MenuItem): Boolean { return when (menuItem.itemId) { R.id.sort_by_date_menu_item -&gt; { mediaListViewModel.setSort(SortStyle.SORT_DATE) true } R.id.sort_by_timeline_menu_item -&gt; { mediaListViewModel.setSort(SortStyle.SORT_TIMELINE) true } R.id.sort_by_title_menu_item -&gt; { mediaListViewModel.setSort(SortStyle.SORT_TITLE) true } else -&gt; false } } }, viewLifecycleOwner, Lifecycle.State.RESUMED)</ID>
   </CurrentIssues>
 </SmellBaseline>
