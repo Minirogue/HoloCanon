@@ -1,23 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE resources [
-    <!ENTITY appname "HoloCanon">
-    ]>
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY appname "HoloCanon">]>
 
 
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">&appname;</string>
-    <string name="media_title">Title</string>
-    <string name="media_list_media_type">type</string>
 
     <string name="launcher_icon_description">HoloCanon Icon</string>
-
-    <string name="cover_image_description">cover</string>
-    <string name="release_date">release date</string>
-
-    <string name="series_title">series title</string>
-    <string name="series_image_description">series image</string>
-    <string name="view_series">View Series</string>
-
     <!--navigation-->
     <string name="nav_home">Home</string>
     <string name="nav_media_list">Canon List</string>
@@ -73,8 +60,6 @@
         It should automatically update when I do that.
         This app downloads the database and images, so try not to use it without wifi for now.
         Future versions will have an option to not download unless on wifi.</string>
-    <string name="media_list_cover_art">Cover art</string>
     <string name="how_to_buy">how to buy</string>
     <string name="sort_method">sort method</string>
-
 </resources>
