@@ -37,7 +37,7 @@ internal fun Project.configureAndroidApp() {
                 isDebuggable = false
                 isMinifyEnabled = true
                 proguardFiles.add(getDefaultProguardFile("proguard-android-optimize.txt"))
-                proguardFiles.add(File("proguard-rules.pro"))
+                proguardFiles.add(project.file("proguard-rules.pro"))
             }
             debug {
                 applicationIdSuffix = ".debug"
