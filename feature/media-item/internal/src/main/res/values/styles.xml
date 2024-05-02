@@ -1,0 +1,3 @@
+<resources>
+    <dimen name="media_item_checkbox_padding">8dp</dimen>
+</resources>

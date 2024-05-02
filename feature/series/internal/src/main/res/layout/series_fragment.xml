@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="com.minirogue.holocanon.feature.series.internal.view.SeriesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/series_recyclerview"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/checkbox_holder"
-            app:layout_constraintTop_toBottomOf="@id/series_image">
+        android:id="@+id/series_recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/checkbox_holder"
+        app:layout_constraintTop_toBottomOf="@id/series_image">
 
 
     </androidx.recyclerview.widget.RecyclerView>
 
     <TextView
-            android:id="@+id/series_title"
-            style="@style/TextAppearance.AppCompat.Headline"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:padding="16dp"
-            android:text="@string/series_title"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/series_title"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:padding="16dp"
+        android:text="@string/series_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-            android:id="@+id/checkbox_holder"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+        android:id="@+id/checkbox_holder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
         <CheckBox
             android:id="@+id/checkbox_1"
@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:button="@null"
             android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-            android:padding="@dimen/media_list_checkbox_padding"
+            android:padding="@dimen/series_checkbox_padding"
             tools:text="@string/checkbox1_default_text" />
 
         <CheckBox
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:button="@null"
             android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-            android:padding="@dimen/media_list_checkbox_padding"
+            android:padding="@dimen/series_checkbox_padding"
             tools:text="@string/checkbox2_default_text" />
 
         <CheckBox
@@ -65,19 +65,19 @@
             android:layout_height="wrap_content"
             android:button="@null"
             android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"
-            android:padding="@dimen/media_list_checkbox_padding"
+            android:padding="@dimen/series_checkbox_padding"
             tools:text="@string/checkbox3_default_text" />
 
     </LinearLayout>
 
     <ImageView
-            android:id="@+id/series_image"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:layout_margin="10dp"
-            android:contentDescription="@string/series_image_description"
-            android:scaleType="centerInside"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/series_title" />
+        android:id="@+id/series_image"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        android:contentDescription="@string/series_image_description"
+        android:scaleType="centerInside"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/series_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
