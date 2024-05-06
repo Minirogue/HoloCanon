@@ -14,4 +14,5 @@ data class StarWarsMedia(
     val series: String?,
     val number: Long?,
     val publisher: Company,
+    val ranking: Long? = null,
 )
