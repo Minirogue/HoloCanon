@@ -26,7 +26,8 @@ private suspend fun getMediaFromCsv(): List<StarWarsMedia> = withContext(Dispatc
     val returnValue = mutableListOf<StarWarsMedia>()
     for (csvRecord in csvParser) {
         returnValue.add(
-            StarWarsMedia(id = csvRecord.get("id").toLong(),
+            StarWarsMedia(
+                id = csvRecord.get("id").toLong(),
                 title = csvRecord.get("title"),
                 type = Json.decodeFromString("\"${csvRecord.get("type")}\""),
                 imageUrl = csvRecord.get("image").ifEmpty { null },
@@ -35,8 +36,11 @@ private suspend fun getMediaFromCsv(): List<StarWarsMedia> = withContext(Dispatc
                 description = csvRecord.get("description").ifEmpty { null },
                 series = csvRecord.get("series").ifEmpty { null },
                 number = csvRecord.get("number").toLongOrNull(),
-                publisher = Json.decodeFromString("\"${csvRecord.get("publisher")}\""))
-        )
+                publisher = Json.decodeFromString("\"${csvRecord.get("publisher")}\""),
+                ranking = csvRecord.get("ranking").toLongOrNull()
+            ),
+
+            )
     }
     csvParser.close()
     returnValue
