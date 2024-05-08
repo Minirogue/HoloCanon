@@ -38,6 +38,7 @@ androidx-test = { group = "androidx.test", name = "core", version.ref = "android
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 commons-csv = { group = "org.apache.commons", name = "commons-csv", version.ref = "commonsCSV" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+compose-compiler = { group = "androidx.compose.compiler", name = "compiler", version.ref = "composeCompiler" }
 compose-material = { group = "androidx.compose.material3", name = "material3" }
 compose-uiTooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-uiToolingPreview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
@@ -65,7 +66,7 @@ room-testing = { group = "androidx.room", name = "room-testing", version.ref = "
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradle" }
-detekt = {id ="io.gitlab.arturbosch.detekt", version.ref= "detekt"}
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
