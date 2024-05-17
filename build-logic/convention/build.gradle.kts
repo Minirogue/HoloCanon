@@ -24,6 +24,10 @@ gradlePlugin {
             id = "holocanon.kotlin.library"
             implementationClass = "plugin.KotlinJvmLibraryConventionPlugin"
         }
+        register("multiplatformLibrary") {
+            id = "holocanon.multiplatform.library"
+            implementationClass = "plugin.KotlinMultiplatformLibraryConvention"
+        }
         register("hilt") {
             id = "holocanon.hilt"
             implementationClass = "plugin.HiltConventionPlugin"

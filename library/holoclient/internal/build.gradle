@@ -7,12 +7,6 @@ android {
     namespace 'com.minirogue.holoclient'
 }
 
-hilt {
-    // https://github.com/google/dagger/issues/1991
-    // https://github.com/google/dagger/issues/970
-    enableExperimentalClasspathAggregation = true
-}
-
 dependencies {
     api projects.library.holoclient.public
 
