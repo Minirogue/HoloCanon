@@ -10,7 +10,7 @@ The database itself is stored in `api/src/main/resources/media.csv`. Here are so
 * The `ID`, `title`, `type`, `released`, and `publisher` columns are all mandatory
   * `ID` should increase sequentially by 1 for each new entry
   * `title` should match the title of the book, movie, etc. For comic books, this should include the issue number with enough leading 0's to ensure proper sequential sorting.
-  * `type` should match one of the existing types exactly, or it may not parse correctly in the code. To add a new type, `MediaType` in `Company.kt` needs to be updated. 
+  * `type` should match one of the existing types exactly, or it may not parse correctly in the code. To add a new type, `MediaType` in `MediaType.kt` needs to be updated. 
   * `released` is the original release date, formatted `M/D/YYYY`
   * `publisher` should match one of the existing publishers exactly. To add a new company, `Company` in `Company.kt` needs to be updated.
 * The `image`, `timeline`, `description`, `series`, and `number` columns are optional
