@@ -1,9 +1,9 @@
 package com.minirogue.starwarscanontracker.core.usecase
 
 import android.util.Log
-import com.minirogue.api.media.Company
-import com.minirogue.api.media.MediaType
-import com.minirogue.api.media.StarWarsMedia
+import com.minirogue.common.model.Company
+import com.minirogue.common.model.MediaType
+import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoCompany
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto

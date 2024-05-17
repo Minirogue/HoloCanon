@@ -14,7 +14,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.request.CachePolicy
-import com.minirogue.api.media.MediaType
+import com.minirogue.common.model.MediaType
 import com.minirogue.holocanon.feature.media.item.internal.R
 import com.minirogue.holocanon.feature.media.item.internal.databinding.MediaItemFragmentBinding
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto

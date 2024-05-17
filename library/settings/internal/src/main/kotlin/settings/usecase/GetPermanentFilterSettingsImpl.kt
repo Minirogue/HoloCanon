@@ -1,6 +1,6 @@
 package settings.usecase
 
-import com.minirogue.api.media.MediaType
+import com.minirogue.common.model.MediaType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import settings.data.SettingsRepo

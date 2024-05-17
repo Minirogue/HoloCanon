@@ -1,5 +1,6 @@
 package com.minirogue.api.media
 
+import com.minirogue.common.model.StarWarsMedia
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json

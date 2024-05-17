@@ -1,6 +1,6 @@
 package settings.model
 
-import com.minirogue.api.media.MediaType
+import com.minirogue.common.model.MediaType
 
 data class AllSettings(
     val checkboxSettings: CheckboxSettings,

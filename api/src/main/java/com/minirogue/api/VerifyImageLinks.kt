@@ -1,6 +1,6 @@
 package com.minirogue.api
 
-import com.minirogue.api.media.StarWarsMedia
+import com.minirogue.common.model.StarWarsMedia
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.request.get

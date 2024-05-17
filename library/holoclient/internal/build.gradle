@@ -15,7 +15,7 @@ dependencies {
     implementation libs.ktor.client.contentNegotiation
     implementation libs.ktor.client.okhttp
     implementation libs.ktor.serialization
-    implementation projects.api
     implementation projects.core
+    implementation projects.library.commonModels.public
     implementation projects.library.settings.public
 }

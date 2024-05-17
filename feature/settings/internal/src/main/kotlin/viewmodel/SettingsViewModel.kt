@@ -2,7 +2,7 @@ package viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.minirogue.api.media.MediaType
+import com.minirogue.common.model.MediaType
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,32 +20,44 @@ import settings.usecase.UpdateWifiSetting
 import javax.inject.Inject
 
 internal data class SettingsState(
-        val checkboxSettings: CheckboxSettings? = null,
-        val nameChangeDialogShowing: Int? = null,
-        val permanentFilters: Map<MediaType, Boolean>? = null,
-        val wifiOnly: Boolean? = null,
+    val checkboxSettings: CheckboxSettings? = null,
+    val nameChangeDialogShowing: Int? = null,
+    val permanentFilters: Map<MediaType, Boolean>? = null,
+    val wifiOnly: Boolean? = null,
 )
 
 @HiltViewModel
 internal class SettingsViewModel @Inject constructor(
-        private val getCheckboxSettings: GetCheckboxSettings,
-        private val updateCheckboxName: UpdateCheckboxName,
-        private val updateCheckboxActive: UpdateCheckboxActive,
-        private val getPermanentFilterSettings: GetPermanentFilterSettings,
-        private val updatePermanentFilterSettings: UpdatePermanentFilterSettings,
-        private val maybeUpdateMediaDatabase: MaybeUpdateMediaDatabase,
-        private val updateWifiSetting: UpdateWifiSetting,
-        private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly,
+    private val getCheckboxSettings: GetCheckboxSettings,
+    private val updateCheckboxName: UpdateCheckboxName,
+    private val updateCheckboxActive: UpdateCheckboxActive,
+    private val getPermanentFilterSettings: GetPermanentFilterSettings,
+    private val updatePermanentFilterSettings: UpdatePermanentFilterSettings,
+    private val maybeUpdateMediaDatabase: MaybeUpdateMediaDatabase,
+    private val updateWifiSetting: UpdateWifiSetting,
+    private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly,
 ) : ViewModel() {
     private val _state = MutableStateFlow(SettingsState())
     val state: StateFlow<SettingsState> = _state
 
     init {
         viewModelScope.launch {
-            getCheckboxSettings().collect { newCheckboxSettings -> _state.update { it.copy(checkboxSettings = newCheckboxSettings) } }
+            getCheckboxSettings().collect { newCheckboxSettings ->
+                _state.update {
+                    it.copy(
+                        checkboxSettings = newCheckboxSettings
+                    )
+                }
+            }
         }
         viewModelScope.launch {
-            getPermanentFilterSettings().collect { newPermFilters -> _state.update { it.copy(permanentFilters = newPermFilters) } }
+            getPermanentFilterSettings().collect { newPermFilters ->
+                _state.update {
+                    it.copy(
+                        permanentFilters = newPermFilters
+                    )
+                }
+            }
         }
         viewModelScope.launch {
             shouldSyncViaWifiOnly().collect { wifiOnly -> _state.update { it.copy(wifiOnly = wifiOnly) } }
@@ -69,9 +81,10 @@ internal class SettingsViewModel @Inject constructor(
         _state.update { it.copy(nameChangeDialogShowing = null) }
     }
 
-    fun setPermanentFilterActive(mediaType: MediaType, newActiveValue: Boolean) = viewModelScope.launch {
-        updatePermanentFilterSettings(mediaType, newActiveValue)
-    }
+    fun setPermanentFilterActive(mediaType: MediaType, newActiveValue: Boolean) =
+        viewModelScope.launch {
+            updatePermanentFilterSettings(mediaType, newActiveValue)
+        }
 
     fun toggleWifiSetting(newValue: Boolean) = viewModelScope.launch {
         updateWifiSetting(newValue)

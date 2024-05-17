@@ -1,4 +1,4 @@
-package com.minirogue.api.media
+package com.minirogue.common.model
 
 import kotlinx.serialization.Serializable
 
