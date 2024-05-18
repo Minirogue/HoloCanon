@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.request.CachePolicy
-import com.minirogue.api.media.StarWarsMedia
+import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.holocanon.feature.media.list.internal.databinding.MediaListItemBinding
 import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
 import settings.model.CheckboxSettings

@@ -7,7 +7,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.minirogue.api.media.MediaType
+import com.minirogue.common.model.MediaType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import settings.di.Settings
@@ -32,32 +32,35 @@ internal class SettingsRepo @Inject constructor(@Settings private val dataStore:
     private val userFilter2ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_2_ACTIVE_KEY)
     private val userFilter3ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_3_ACTIVE_KEY)
     private val syncWifiOnlyPreferenceKey = booleanPreferencesKey(SYNC_WIFI_ONLY)
-    private val checkbox1DefaultTextPreferenceKey = stringPreferencesKey(CHECKBOX_1_DEFAULT_TEXT_KEY)
-    private val checkbox2DefaultTextPreferenceKey = stringPreferencesKey(CHECKBOX_2_DEFAULT_TEXT_KEY)
-    private val checkbox3DefaultTextPreferenceKey = stringPreferencesKey(CHECKBOX_3_DEFAULT_TEXT_KEY)
+    private val checkbox1DefaultTextPreferenceKey =
+        stringPreferencesKey(CHECKBOX_1_DEFAULT_TEXT_KEY)
+    private val checkbox2DefaultTextPreferenceKey =
+        stringPreferencesKey(CHECKBOX_2_DEFAULT_TEXT_KEY)
+    private val checkbox3DefaultTextPreferenceKey =
+        stringPreferencesKey(CHECKBOX_3_DEFAULT_TEXT_KEY)
     private val databaseVersionPreferenceKey = longPreferencesKey(DATABASE_VERSION_KEY)
 
     fun getSettings(): Flow<AllSettings> = dataStore.data.map { prefs ->
         AllSettings(
-                checkboxSettings = CheckboxSettings(
-                        checkbox1Setting = CheckboxSetting( // TODO change default to resource
-                                name = prefs[checkbox1DefaultTextPreferenceKey],
-                                isInUse = prefs[userFilter1ActivePreferenceKey] ?: true
-                        ),
-                        checkbox2Setting = CheckboxSetting(
-                                name = prefs[checkbox2DefaultTextPreferenceKey],
-                                isInUse = prefs[userFilter2ActivePreferenceKey] ?: true
-                        ),
-                        checkbox3Setting = CheckboxSetting(
-                                name = prefs[checkbox3DefaultTextPreferenceKey],
-                                isInUse = prefs[userFilter3ActivePreferenceKey] ?: true
-                        )
+            checkboxSettings = CheckboxSettings(
+                checkbox1Setting = CheckboxSetting( // TODO change default to resource
+                    name = prefs[checkbox1DefaultTextPreferenceKey],
+                    isInUse = prefs[userFilter1ActivePreferenceKey] ?: true
                 ),
-                syncWifiOnly = prefs[syncWifiOnlyPreferenceKey] ?: true,
-                permanentFilterSettings = MediaType.entries.associateWith {
-                    prefs[booleanPreferencesKey(it.getSerialName())] ?: true
-                },
-                latestDatabaseVersion = prefs[databaseVersionPreferenceKey] ?: 0L
+                checkbox2Setting = CheckboxSetting(
+                    name = prefs[checkbox2DefaultTextPreferenceKey],
+                    isInUse = prefs[userFilter2ActivePreferenceKey] ?: true
+                ),
+                checkbox3Setting = CheckboxSetting(
+                    name = prefs[checkbox3DefaultTextPreferenceKey],
+                    isInUse = prefs[userFilter3ActivePreferenceKey] ?: true
+                )
+            ),
+            syncWifiOnly = prefs[syncWifiOnlyPreferenceKey] ?: true,
+            permanentFilterSettings = MediaType.entries.associateWith {
+                prefs[booleanPreferencesKey(it.getSerialName())] ?: true
+            },
+            latestDatabaseVersion = prefs[databaseVersionPreferenceKey] ?: 0L
         )
     }
 
@@ -66,7 +69,11 @@ internal class SettingsRepo @Inject constructor(@Settings private val dataStore:
      * Valid values for [whichBox] are 1, 2, or 3. If [newName] or [newUsageValue] are left null (default value),
      * then that value will not be updated.
      */
-    suspend fun updateCheckbox(whichBox: Int, newName: String? = null, newUsageValue: Boolean? = null) {
+    suspend fun updateCheckbox(
+        whichBox: Int,
+        newName: String? = null,
+        newUsageValue: Boolean? = null
+    ) {
         try {
             val nameKey = when (whichBox) {
                 1 -> checkbox1DefaultTextPreferenceKey

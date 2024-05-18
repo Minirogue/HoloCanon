@@ -1,6 +1,6 @@
 package settings.usecase
 
-import com.minirogue.api.media.MediaType
+import com.minirogue.common.model.MediaType
 import kotlinx.coroutines.flow.Flow
 
 interface GetPermanentFilterSettings {

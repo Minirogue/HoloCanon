@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.minirogue.api.media.MediaType
+import com.minirogue.common.model.MediaType
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.usecase.GetMedia

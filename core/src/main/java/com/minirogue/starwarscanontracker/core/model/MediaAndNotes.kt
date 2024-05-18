@@ -1,5 +1,5 @@
 package com.minirogue.starwarscanontracker.core.model
 
-import com.minirogue.api.media.StarWarsMedia
+import com.minirogue.common.model.StarWarsMedia
 
 data class MediaAndNotes(val mediaItem: StarWarsMedia, val notes: MediaNotes)

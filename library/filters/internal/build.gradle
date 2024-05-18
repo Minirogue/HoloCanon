@@ -10,7 +10,7 @@ android {
 dependencies {
     api projects.library.filters.public
 
-    implementation projects.api
     implementation projects.core
+    implementation projects.library.commonModels.public
     implementation projects.library.settings.public
 }

@@ -15,6 +15,7 @@ dependencies {
     implementation libs.commons.csv
     implementation libs.ktor.client.core
     implementation libs.ktor.client.okhttp
+    implementation projects.library.commonModels.public
 
     testImplementation libs.kotlin.test
     testImplementation libs.kotlinx.coroutines.test

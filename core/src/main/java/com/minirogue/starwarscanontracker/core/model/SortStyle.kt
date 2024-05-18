@@ -1,6 +1,6 @@
 package com.minirogue.starwarscanontracker.core.model
 
-import com.minirogue.api.media.StarWarsMedia
+import com.minirogue.common.model.StarWarsMedia
 import kotlin.math.sign
 
 class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNotes> {

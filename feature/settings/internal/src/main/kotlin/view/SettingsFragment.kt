@@ -35,7 +35,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.minirogue.api.media.MediaType
+import com.minirogue.common.model.MediaType
 import com.minirogue.holocanon.feature.settings.internal.R
 import compose.theme.HolocanonTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,9 +50,9 @@ internal class SettingsFragment : Fragment() {
     private val viewModel by viewModels<SettingsViewModel>()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View = ComposeView(requireContext()).apply {
         setContent {
             val state = viewModel.state.collectAsState(SettingsState())
@@ -65,8 +65,8 @@ internal class SettingsFragment : Fragment() {
     @Composable
     private fun SettingsScreen(state: State<SettingsState>) {
         Column(
-                modifier = Modifier.verticalScroll(rememberScrollState()),
-                horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             state.value.checkboxSettings?.let { UserDefinedFilters(it) }
             state.value.permanentFilters?.let { IncludedMediaTypes(it) }
@@ -80,7 +80,10 @@ internal class SettingsFragment : Fragment() {
             else -> null
         }
         if (checkboxNumberForDialog != null && dialogOriginalName != null) {
-            CheckboxNameChangeDialog(whichBox = checkboxNumberForDialog, initialName = dialogOriginalName)
+            CheckboxNameChangeDialog(
+                whichBox = checkboxNumberForDialog,
+                initialName = dialogOriginalName
+            )
         }
     }
 
@@ -93,39 +96,55 @@ internal class SettingsFragment : Fragment() {
 
     @Composable
     private fun UserDefinedFilter(whichBox: Int, checkboxSetting: CheckboxSetting) {
-        Card(modifier = Modifier
+        Card(
+            modifier = Modifier
                 .padding(8.dp)
-                .fillMaxWidth()) {
-            Text(text = getString(R.string.settings_user_defined_filter, whichBox.toString()),
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(8.dp))
+                .fillMaxWidth()
+        ) {
+            Text(
+                text = getString(R.string.settings_user_defined_filter, whichBox.toString()),
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(8.dp)
+            )
             HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
             if (checkboxSetting.isInUse) {
-                Row(modifier = Modifier
+                Row(
+                    modifier = Modifier
                         .fillMaxWidth()
                         .clickable { viewModel.showNameChangeDialog(whichBox) },
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically) {
-                    Text(text = getString(R.string.settings_filter_name), modifier = Modifier.padding(8.dp))
-                    Text(text = checkboxSetting.name
-                            ?: "Error getting name", modifier = Modifier.padding(8.dp))
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = getString(R.string.settings_filter_name),
+                        modifier = Modifier.padding(8.dp)
+                    )
+                    Text(
+                        text = checkboxSetting.name
+                            ?: "Error getting name", modifier = Modifier.padding(8.dp)
+                    )
                 }
             }
             Row(
-                    modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { viewModel.setCheckboxActive(whichBox, !checkboxSetting.isInUse) },
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { viewModel.setCheckboxActive(whichBox, !checkboxSetting.isInUse) },
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(text = getString(R.string.settings_include_filter), modifier = Modifier.padding(8.dp))
-                Switch(modifier = Modifier
+                Text(
+                    text = getString(R.string.settings_include_filter),
+                    modifier = Modifier.padding(8.dp)
+                )
+                Switch(
+                    modifier = Modifier
                         .padding(8.dp)
                         .clickable {
                             viewModel.setCheckboxActive(whichBox, !checkboxSetting.isInUse)
                         },
-                        checked = checkboxSetting.isInUse,
-                        onCheckedChange = null)
+                    checked = checkboxSetting.isInUse,
+                    onCheckedChange = null
+                )
             }
         }
     }
@@ -135,33 +154,40 @@ internal class SettingsFragment : Fragment() {
     private fun CheckboxNameChangeDialog(whichBox: Int, initialName: String) {
         var newName by remember { mutableStateOf(initialName) }
         AlertDialog(
-                onDismissRequest = { viewModel.dismissNameChangeDialog() },
-                confirmButton = {
-                    TextButton(onClick = { viewModel.setCheckboxName(whichBox, newName) }) {
-                        Text(text = getString(R.string.settings_save))
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = { viewModel.dismissNameChangeDialog() }) {
-                        Text(text = getString(R.string.settings_cancel))
-                    }
-                },
-                title = {
-                    Text(text = getString(R.string.settings_filter_name_change_text, whichBox.toString()))
-                },
-                text = {
-                    OutlinedTextField(value = newName,
-                            onValueChange = { newName = it },
-                            label = { Text(getString(R.string.settings_new_name)) })
-                })
+            onDismissRequest = { viewModel.dismissNameChangeDialog() },
+            confirmButton = {
+                TextButton(onClick = { viewModel.setCheckboxName(whichBox, newName) }) {
+                    Text(text = getString(R.string.settings_save))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { viewModel.dismissNameChangeDialog() }) {
+                    Text(text = getString(R.string.settings_cancel))
+                }
+            },
+            title = {
+                Text(
+                    text = getString(
+                        R.string.settings_filter_name_change_text,
+                        whichBox.toString()
+                    )
+                )
+            },
+            text = {
+                OutlinedTextField(value = newName,
+                    onValueChange = { newName = it },
+                    label = { Text(getString(R.string.settings_new_name)) })
+            })
     }
 
     @Composable
     private fun IncludedMediaTypes(permanentFilters: Map<MediaType, Boolean>) {
         Card(modifier = Modifier.padding(8.dp)) {
-            Text(getString(R.string.settings_included_media_types),
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(8.dp))
+            Text(
+                getString(R.string.settings_included_media_types),
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(8.dp)
+            )
             HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
             MediaType.entries.forEach {
                 MediaTypePermanentFilter(it, permanentFilters[it] ?: true)
@@ -172,17 +198,17 @@ internal class SettingsFragment : Fragment() {
     @Composable
     private fun MediaTypePermanentFilter(mediaType: MediaType, isActive: Boolean) {
         Row(
-                modifier = Modifier
-                        .padding(8.dp)
-                        .fillMaxWidth()
-                        .clickable { viewModel.setPermanentFilterActive(mediaType, !isActive) },
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth()
+                .clickable { viewModel.setPermanentFilterActive(mediaType, !isActive) },
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(mediaType.getSerialName())
             Checkbox(
-                    checked = isActive,
-                    onCheckedChange = null,
+                checked = isActive,
+                onCheckedChange = null,
             )
         }
     }
@@ -191,32 +217,36 @@ internal class SettingsFragment : Fragment() {
     fun DatabaseSyncSettings(wifiOnly: Boolean) {
         Card(modifier = Modifier.padding(8.dp)) {
             Text(
-                    getString(R.string.settings_sync_settings),
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(8.dp),
+                getString(R.string.settings_sync_settings),
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(8.dp),
             )
             HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
             Row(
-                    modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { viewModel.toggleWifiSetting(!wifiOnly) },
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { viewModel.toggleWifiSetting(!wifiOnly) },
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(text = getString(R.string.settings_wifi_only_setting), modifier = Modifier.padding(8.dp))
-                Switch(modifier = Modifier
+                Text(
+                    text = getString(R.string.settings_wifi_only_setting),
+                    modifier = Modifier.padding(8.dp)
+                )
+                Switch(
+                    modifier = Modifier
                         .padding(8.dp)
                         .clickable { viewModel.toggleWifiSetting(!wifiOnly) },
-                        checked = wifiOnly,
-                        onCheckedChange = null
+                    checked = wifiOnly,
+                    onCheckedChange = null
                 )
             }
             Row(
-                    modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { viewModel.syncDatabase() },
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { viewModel.syncDatabase() },
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(getString(R.string.settings_sync_online), modifier = Modifier.padding(8.dp))
             }

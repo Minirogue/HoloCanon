@@ -7,12 +7,6 @@ android {
     namespace 'com.minirogue.holoclient'
 }
 
-hilt {
-    // https://github.com/google/dagger/issues/1991
-    // https://github.com/google/dagger/issues/970
-    enableExperimentalClasspathAggregation = true
-}
-
 dependencies {
     api projects.library.holoclient.public
 
@@ -21,7 +15,7 @@ dependencies {
     implementation libs.ktor.client.contentNegotiation
     implementation libs.ktor.client.okhttp
     implementation libs.ktor.serialization
-    implementation projects.api
     implementation projects.core
+    implementation projects.library.commonModels.public
     implementation projects.library.settings.public
 }
