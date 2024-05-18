@@ -20,7 +20,7 @@ private const val TARGET_SDK = 34
 internal fun Project.configureAndroidLibrary() {
     extensions.configure(LibraryExtension::class.java) {
         val modulePath = path.split(":").drop(1).filter { it != "public" }
-        namespace = "com.minirogue.${modulePath.joinToString(".").replace("-", ".")}"
+        namespace = "com.minirogue.holocanon.${modulePath.joinToString(".").replace("-", ".")}"
         resourcePrefix = modulePath.first { it != "feature" && it != "library" }.replace("-", "_")
         configureAndroidCommon(this)
     }

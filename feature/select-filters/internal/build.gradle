@@ -4,9 +4,6 @@ plugins {
 }
 
 android {
-    namespace 'com.minirogue.holocanon.feature.select.filters.internal'
-    resourcePrefix 'select_filters'
-
     buildFeatures {
         viewBinding true
     }

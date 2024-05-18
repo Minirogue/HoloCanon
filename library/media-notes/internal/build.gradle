@@ -3,10 +3,6 @@ plugins {
     id "holocanon.hilt"
 }
 
-android {
-    namespace 'com.minirogue.media.notes.internal'
-}
-
 dependencies {
     api projects.library.mediaNotes.public
 

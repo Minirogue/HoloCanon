@@ -3,9 +3,5 @@ plugins {
     id "holocanon.compose"
 }
 
-android {
-    namespace 'com.minirogue.holocanon.library.composeExt'
-}
-
 dependencies {
 }

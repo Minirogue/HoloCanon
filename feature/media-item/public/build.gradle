@@ -2,10 +2,6 @@ plugins {
     id "holocanon.android.library"
 }
 
-android {
-    namespace 'com.minirogue.holocanon.feature.media.item'
-}
-
 dependencies {
     api libs.androidx.fragment
 }

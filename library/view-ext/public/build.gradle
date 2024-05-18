@@ -3,8 +3,6 @@ plugins {
 }
 
 android {
-    namespace 'com.minirogue.holocanon.library.viewExt'
-
     buildFeatures {
         viewBinding true
     }

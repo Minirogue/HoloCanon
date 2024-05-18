@@ -4,9 +4,6 @@ plugins {
 }
 
 android {
-    namespace 'com.minirogue.holocanon.feature.media.item.internal'
-    resourcePrefix 'media_item'
-
     buildFeatures {
         viewBinding true
     }

@@ -3,10 +3,6 @@ plugins {
     id "holocanon.hilt"
 }
 
-android {
-    namespace 'com.minirogue.holoclient'
-}
-
 dependencies {
     api projects.library.holoclient.public
 
