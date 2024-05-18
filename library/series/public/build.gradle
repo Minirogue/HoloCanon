@@ -1,7 +1,13 @@
 plugins{
-    id 'holocanon.kotlin.library'
+    id 'holocanon.multiplatform.library'
 }
 
-dependencies {
-    api libs.kotlinx.coroutines.core
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                api libs.kotlinx.coroutines.core
+            }
+        }
+    }
 }
