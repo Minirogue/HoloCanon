@@ -4,11 +4,6 @@ plugins {
     id "holocanon.compose"
 }
 
-android {
-    namespace 'com.minirogue.holocanon.feature.home.screen.internal'
-    resourcePrefix 'home_screen'
-}
-
 dependencies {
     api projects.feature.homeScreen.public
 

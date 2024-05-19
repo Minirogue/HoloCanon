@@ -4,8 +4,6 @@ plugins {
 }
 
 android {
-
-    namespace 'com.minirogue.starwarscanontracker.core'
     defaultConfig {
         javaCompileOptions {
             annotationProcessorOptions {

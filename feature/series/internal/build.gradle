@@ -5,9 +5,6 @@ plugins {
 apply plugin: 'kotlin-kapt'
 
 android {
-    namespace 'com.minirogue.holocanon.feature.series.internal'
-    resourcePrefix 'series'
-
     buildFeatures {
         viewBinding true
     }

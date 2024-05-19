@@ -4,11 +4,6 @@ plugins {
     id "holocanon.compose"
 }
 
-android {
-    namespace 'com.minirogue.holocanon.feature.settings.internal'
-    resourcePrefix 'settings'
-}
-
 dependencies {
     api projects.feature.settings.public
 

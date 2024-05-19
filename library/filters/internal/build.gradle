@@ -3,10 +3,6 @@ plugins {
     id "holocanon.hilt"
 }
 
-android {
-    namespace 'com.minirogue.filters.internal'
-}
-
 dependencies {
     api projects.library.filters.public
 

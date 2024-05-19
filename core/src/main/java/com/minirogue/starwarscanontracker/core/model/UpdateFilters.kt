@@ -2,7 +2,7 @@ package com.minirogue.starwarscanontracker.core.model
 
 import android.content.Context
 import com.minirogue.common.model.MediaType
-import com.minirogue.starwarscanontracker.core.R
+import com.minirogue.holocanon.core.R
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoCompany
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries

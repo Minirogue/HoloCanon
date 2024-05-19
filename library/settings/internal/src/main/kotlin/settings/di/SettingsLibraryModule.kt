@@ -40,8 +40,14 @@ internal annotation class Settings
 private const val SETTINGS_DATASTORE_NAME = "settings"
 
 private val Context.datastore: DataStore<Preferences> by preferencesDataStore(
-        name = SETTINGS_DATASTORE_NAME,
-        produceMigrations = { context -> listOf(SharedPreferencesMigration({ PreferenceManager.getDefaultSharedPreferences(context) })) }
+    name = SETTINGS_DATASTORE_NAME,
+    produceMigrations = { context ->
+        listOf(SharedPreferencesMigration({
+            PreferenceManager.getDefaultSharedPreferences(
+                context
+            )
+        }))
+    }
 )
 
 @Module
@@ -67,7 +73,7 @@ internal interface SettingsLibraryModule {
 
     @Binds
     fun bindUpdatePermanentFilterSettings(
-            updatePermanentFilterSettingsImpl: UpdatePermanentFilterSettingsImpl
+        updatePermanentFilterSettingsImpl: UpdatePermanentFilterSettingsImpl
     ): UpdatePermanentFilterSettings
 
     @Binds
@@ -80,6 +86,7 @@ internal interface SettingsLibraryModule {
         @Singleton
         @Settings
         @Provides
-        fun provideDataStore(@ApplicationContext context: Context): DataStore<Preferences> = context.datastore
+        fun provideDataStore(@ApplicationContext context: Context): DataStore<Preferences> =
+            context.datastore
     }
 }
