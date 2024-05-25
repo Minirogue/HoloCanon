@@ -6,7 +6,6 @@ androidxTest = "1.5.0"
 appCompat = "1.6.1"
 commonsCSV = "1.11.0"
 composeBom = "2024.05.00"
-composeCompiler = "1.5.14"
 constraintLayout = "2.1.4"
 coil = "2.6.0"
 coroutines = "1.8.1"
@@ -17,7 +16,7 @@ fragment = "1.7.1"
 hilt = "2.51.1"
 java = "17"
 junit = "4.13.2"
-kotlin = "1.9.24"
+kotlin = "2.0.0"
 ktor = "2.3.11"
 lifecycle = "2.8.0"
 preference = "1.2.1"
@@ -39,7 +38,7 @@ androidx-test = { group = "androidx.test", name = "core", version.ref = "android
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 commons-csv = { group = "org.apache.commons", name = "commons-csv", version.ref = "commonsCSV" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-compose-compiler = { group = "androidx.compose.compiler", name = "compiler", version.ref = "composeCompiler" }
+compose-compilerPlugin = { group = "org.jetbrains.kotlin", name = "compose-compiler-plugin-embeddable", version.ref = "kotlin" }
 compose-material = { group = "androidx.compose.material3", name = "material3" }
 compose-uiTooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-uiToolingPreview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
@@ -53,8 +52,8 @@ kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit", vers
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
-kotlinx-serialization-core = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "serialization"}
-kotlinx-serialization-json = {group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization"}
+kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "serialization" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-contentNegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
@@ -69,6 +68,7 @@ room-testing = { group = "androidx.room", name = "room-testing", version.ref = "
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradle" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

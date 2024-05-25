@@ -8,12 +8,10 @@ import org.gradle.api.Project
 class ComposeConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
+            pluginManager.apply(libs.findPlugin("compose.compiler").get().get().pluginId)
             extensions.configure(CommonExtension::class.java) {
                 buildFeatures {
                     compose = true
-                }
-                composeOptions {
-                    kotlinCompilerExtensionVersion = libs.findVersion("composeCompiler").get().toString()
                 }
                 with(dependencies) {
                     add("implementation", platform(libs.findLibrary("compose.bom").get()))
