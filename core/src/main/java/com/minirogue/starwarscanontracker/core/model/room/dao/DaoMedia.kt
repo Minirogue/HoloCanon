@@ -26,6 +26,9 @@ abstract class DaoMedia {
     @Update
     abstract suspend fun update(mediaItemDto: MediaItemDto)
 
+    @Query("SELECT * FROM media_notes")
+    abstract fun getAllMediaNotes(): Flow<List<MediaNotesDto>>
+
     @Deprecated("use Long version instead")
     @Query("SELECT * FROM media_notes WHERE media_id = :mediaId")
     abstract fun getMediaNotesById(mediaId: Int): LiveData<MediaNotesDto>

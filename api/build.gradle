@@ -1,6 +1,6 @@
 plugins {
     id 'holocanon.jvm.app'
-    id 'org.jetbrains.kotlin.plugin.serialization'
+    id 'holocanon.serialization'
 }
 
 group = "com.minirogue"
@@ -10,11 +10,10 @@ application {
 }
 
 dependencies {
-    api libs.ktor.serialization
-
     implementation libs.commons.csv
     implementation libs.ktor.client.core
     implementation libs.ktor.client.okhttp
+    implementation libs.ktor.serialization
     implementation projects.library.commonModels.public
 
     testImplementation libs.kotlin.test

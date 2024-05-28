@@ -109,7 +109,7 @@ internal class MediaListFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 mediaListViewModel.state.collect { state ->
-                    swmListAdapter.updateCheckBoxSettings(state.checkboxSettings)
+                    if (state.checkboxSettings != null) swmListAdapter.updateCheckBoxSettings(state.checkboxSettings)
                     setFilterChips(state.activeFilters)
                     updateSortChip(state.sortStyle)
                 }

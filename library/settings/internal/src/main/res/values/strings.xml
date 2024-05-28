@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_checkbox1_default_text">Completed</string>
+    <string name="settings_checkbox2_default_text">Wishlist</string>
+    <string name="settings_checkbox3_default_text">Owned</string>
+</resources>
