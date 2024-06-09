@@ -12,12 +12,12 @@ import settings.model.CheckboxSettings
 import settings.usecase.GetCheckboxSettings
 import kotlin.test.Test
 
-class GetMediaNotesAsJsonTest {
+class ExportMediaNotesJsonTest {
 
     private val daoMedia: DaoMedia = mockk()
     private val getCheckboxSettings: GetCheckboxSettings = mockk()
 
-    private val getMediaNotesAsJson = GetMediaNotesAsJsonImpl(daoMedia, getCheckboxSettings)
+    private val getMediaNotesAsJson = ExportMediaNotesJsonImpl(daoMedia, getCheckboxSettings)
 
     @Test
     fun `getMediaNotesAsJson returns a formatted json string`() = runTest {
@@ -59,7 +59,7 @@ class GetMediaNotesAsJsonTest {
             "note_3_checked": true
         }
     ]
-}""",
+}""".replace(System.lineSeparator(), ""),
             { "media notes as Json failed" })
     }
 

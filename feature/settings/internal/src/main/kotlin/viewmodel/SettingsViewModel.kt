@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.minirogue.common.model.MediaType
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
+import com.minirogue.media.notes.ExportMediaNotesJson
+import com.minirogue.media.notes.ImportMediaNotesJson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,6 +19,8 @@ import settings.usecase.UpdateCheckboxActive
 import settings.usecase.UpdateCheckboxName
 import settings.usecase.UpdatePermanentFilterSettings
 import settings.usecase.UpdateWifiSetting
+import java.io.InputStream
+import java.io.OutputStream
 import javax.inject.Inject
 
 internal data class SettingsState(
@@ -36,6 +40,8 @@ internal class SettingsViewModel @Inject constructor(
     private val maybeUpdateMediaDatabase: MaybeUpdateMediaDatabase,
     private val updateWifiSetting: UpdateWifiSetting,
     private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly,
+    private val exportMediaNotesJson: ExportMediaNotesJson,
+    private val importMediaNotesJson: ImportMediaNotesJson,
 ) : ViewModel() {
     private val _state = MutableStateFlow(SettingsState())
     val state: StateFlow<SettingsState> = _state
@@ -91,4 +97,12 @@ internal class SettingsViewModel @Inject constructor(
     }
 
     fun syncDatabase() = viewModelScope.launch { maybeUpdateMediaDatabase(true) }
+
+    fun importMediaNotes(inputStream: InputStream)  {
+        importMediaNotesJson(inputStream)
+    }
+
+    fun exportMediaNotes(outputStream: OutputStream)  {
+        exportMediaNotesJson(outputStream)
+    }
 }

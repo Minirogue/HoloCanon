@@ -8,6 +8,8 @@ dependencies {
     api projects.library.mediaNotes.public
 
     implementation projects.core
+    implementation projects.library.coroutineExt.public
+    implementation projects.library.globalNotification.public
     implementation projects.library.settings.public
 
     testImplementation libs.mockk

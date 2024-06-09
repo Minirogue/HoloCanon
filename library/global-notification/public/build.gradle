@@ -1,8 +1,8 @@
-plugins{
-    id 'holocanon.multiplatform.library'
+plugins {
+    id "holocanon.multiplatform.library"
 }
 
-kotlin {
+kotlin{
     sourceSets {
         commonMain{
             dependencies {

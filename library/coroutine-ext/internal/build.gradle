@@ -1,12 +1,13 @@
 plugins{
     id 'holocanon.multiplatform.library'
+    id 'holocanon.hilt'
 }
 
 kotlin {
     sourceSets {
-        commonMain{
+        commonMain {
             dependencies {
-                api libs.kotlinx.coroutines.core
+                api projects.library.coroutineExt.public
             }
         }
     }
