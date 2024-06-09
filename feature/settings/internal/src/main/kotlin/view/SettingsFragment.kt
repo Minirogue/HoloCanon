@@ -1,14 +1,12 @@
 package view
 
 import android.app.Activity.RESULT_OK
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -51,7 +49,6 @@ import settings.model.CheckboxSettings
 import viewmodel.SettingsState
 import viewmodel.SettingsViewModel
 import java.io.FileNotFoundException
-import java.io.IOException
 
 @AndroidEntryPoint
 internal class SettingsFragment : Fragment() {
@@ -267,7 +264,7 @@ internal class SettingsFragment : Fragment() {
     }
 
     @Composable
-    fun DatabaseSyncSettings(wifiOnly: Boolean) {
+    private fun DatabaseSyncSettings(wifiOnly: Boolean) {
         Card(modifier = Modifier.padding(8.dp)) {
             Text(
                 stringResource(R.string.settings_sync_settings),
@@ -310,7 +307,7 @@ internal class SettingsFragment : Fragment() {
     }
 
     @Composable
-    fun ExportMediaNotes() {
+    private fun ExportMediaNotes() {
         Card(modifier = Modifier.padding(8.dp)) {
             Text(
                 text = stringResource(R.string.settings_export_import_user_data),
@@ -355,11 +352,10 @@ internal class SettingsFragment : Fragment() {
         exportMediaNotesLauncher.launch(intent)
     }
 
-    private fun importMediaNotes() { // TODO
+    private fun importMediaNotes() {
         val intent = Intent().apply {
             action = Intent.ACTION_GET_CONTENT
             type = "application/json"
-
         }
         importMediaNotesLauncher.launch(intent)
     }
