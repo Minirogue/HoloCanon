@@ -29,9 +29,7 @@ class ImportMediaNotesJsonImpl @Inject constructor(
     private val appScope: ApplicationScope,
 ) : ImportMediaNotesJson {
 
-    private val json = Json {
-        allowTrailingComma = true
-    }
+    private val json = Json // can extend this with builder DSL
 
     override fun invoke(inputStream: InputStream) {
         appScope.launch(Dispatchers.IO) {

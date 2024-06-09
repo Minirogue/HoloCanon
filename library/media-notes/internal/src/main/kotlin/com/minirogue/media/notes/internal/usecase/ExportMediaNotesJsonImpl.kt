@@ -31,7 +31,7 @@ class ExportMediaNotesJsonImpl @Inject constructor(
     private val resources: Resources,
     private val appScope: ApplicationScope
 ) : ExportMediaNotesJson {
-    private val json = Json { prettyPrint = false }
+    private val json = Json { prettyPrint = true }
 
     override fun invoke(outputStream: OutputStream) {
         appScope.launch(Dispatchers.IO) {
