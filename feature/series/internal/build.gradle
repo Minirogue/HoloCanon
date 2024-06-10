@@ -2,7 +2,6 @@ plugins {
     id "holocanon.android.library"
     id "holocanon.hilt"
 }
-apply plugin: 'kotlin-kapt'
 
 android {
     buildFeatures {
