@@ -5,7 +5,7 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.get
 
 fun Project.configureRoom() {
-    pluginManager.apply("kotlin-kapt")
+    pluginManager.applyKsp()
 
     extensions.configure(CommonExtension::class.java) {
         defaultConfig {
@@ -20,6 +20,6 @@ fun Project.configureRoom() {
     with(dependencies) {
         add("implementation", libs.findLibrary("room.ktx").get())
         add("implementation", libs.findLibrary("room.runtime").get())
-        add("kapt", libs.findLibrary("room.compiler").get())
+        add("ksp", libs.findLibrary("room.compiler").get())
     }
 }
