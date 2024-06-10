@@ -1,18 +1,13 @@
 plugins {
     id "holocanon.android.library"
     id "holocanon.hilt"
+    id "com.google.devtools.ksp"
+    id "androidx.room"
 }
 
 android {
-    defaultConfig {
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
-            }
-        }
-        sourceSets {
-            androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
-        }
+    room {
+        schemaDirectory("$projectDir/schemas")
     }
 }
 
@@ -29,7 +24,7 @@ dependencies {
     implementation projects.library.commonModels.public
     implementation projects.library.settings.public
 
-    kapt libs.room.compiler
+    ksp libs.room.compiler
 
     androidTestImplementation libs.androidx.test
     androidTestImplementation libs.room.testing
