@@ -99,7 +99,7 @@ class ViewMediaItemFragment : Fragment() {
         } else ""
         fragmentBinding.releaseDate.text = item.date
         fragmentBinding.imageCover.load(item.imageURL) {
-            placeholder(R.drawable.common_resource_app_icon)
+            placeholder(R.drawable.common_resources_app_icon)
             if (isNetworkAllowed) {
                 networkCachePolicy(CachePolicy.ENABLED)
             } else networkCachePolicy(CachePolicy.DISABLED)

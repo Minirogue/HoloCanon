@@ -101,7 +101,7 @@ internal class SeriesFragment : Fragment() {
         fragmentBinding.seriesTitle.text = series.name
 
         fragmentBinding.seriesImage.load(series.imageUrl) {
-            placeholder(R.drawable.common_resource_app_icon)
+            placeholder(R.drawable.common_resources_app_icon)
             if (isNetworkAllowed) {
                 networkCachePolicy(CachePolicy.ENABLED)
             } else networkCachePolicy(CachePolicy.DISABLED)
