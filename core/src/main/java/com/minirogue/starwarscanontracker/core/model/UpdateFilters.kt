@@ -22,16 +22,12 @@ class UpdateFilters @Inject constructor(
     private val daoSeries: DaoSeries,
     private val daoCompany: DaoCompany,
     getCheckboxSettings: GetCheckboxSettings,
-    @ApplicationContext private val context: Context,
 ) {
     private val checkboxText = getCheckboxSettings().map { checkboxSettings ->
         listOf(
-            checkboxSettings.checkbox1Setting.name
-                ?: context.getString(R.string.checkbox1_default_text),
-            checkboxSettings.checkbox2Setting.name
-                ?: context.getString(R.string.checkbox2_default_text),
-            checkboxSettings.checkbox3Setting.name
-                ?: context.getString(R.string.checkbox3_default_text),
+            checkboxSettings.checkbox1Setting.name,
+            checkboxSettings.checkbox2Setting.name,
+            checkboxSettings.checkbox3Setting.name,
         )
     }
 

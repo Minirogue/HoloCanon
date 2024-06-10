@@ -2,6 +2,7 @@ package com.minirogue.starwarscanontracker.dagger
 
 import android.app.Application
 import android.content.Context
+import android.content.res.Resources
 import android.net.ConnectivityManager
 import com.minirogue.starwarscanontracker.application.IsNetworkAllowedImpl
 import com.minirogue.starwarscanontracker.core.usecase.GetMediaListWithNotes
@@ -31,6 +32,9 @@ interface AppModule {
     companion object {
         @Provides
         fun provideContext(application: Application): Context = application
+
+        @Provides
+        fun provideResources(application: Application): Resources = application.resources
 
         @Provides
         fun provideConnManager(app: Application): ConnectivityManager {

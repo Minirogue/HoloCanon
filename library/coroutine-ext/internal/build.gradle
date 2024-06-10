@@ -1,0 +1,14 @@
+plugins{
+    id 'holocanon.multiplatform.library'
+    id 'holocanon.hilt'
+}
+
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                api projects.library.coroutineExt.public
+            }
+        }
+    }
+}
