@@ -22,7 +22,6 @@ class UpdateFilters @Inject constructor(
     private val daoSeries: DaoSeries,
     private val daoCompany: DaoCompany,
     getCheckboxSettings: GetCheckboxSettings,
-    @ApplicationContext private val context: Context,
 ) {
     private val checkboxText = getCheckboxSettings().map { checkboxSettings ->
         listOf(
