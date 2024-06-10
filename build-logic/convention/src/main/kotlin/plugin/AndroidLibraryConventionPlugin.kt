@@ -2,8 +2,11 @@ package plugin
 
 import convention.configureAndroidLibrary
 import convention.configureCompose
+import convention.configureGradleChecker
 import convention.configureHilt
 import convention.configureKotlin
+import convention.configureRoom
+import convention.configureViewBinding
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -16,6 +19,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             }
             configureAndroidLibrary()
             configureKotlin()
+            configureGradleChecker()
 
             extensions.create(
                 "holocanon",
@@ -27,6 +31,8 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
 }
 
 open class HolocanonAndroidLibraryExtension(private val project: Project) {
-    fun hilt() = project.configureHilt()
     fun composeUi() = project.configureCompose()
+    fun hilt() = project.configureHilt()
+    fun viewBinding() = project.configureViewBinding()
+    fun room() = project.configureRoom()
 }

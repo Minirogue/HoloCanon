@@ -1,5 +1,6 @@
 package plugin
 
+import convention.configureGradleChecker
 import convention.configureJvm
 import convention.configureKotlin
 import org.gradle.api.Plugin
@@ -14,6 +15,7 @@ class KotlinJvmLibraryConventionPlugin : Plugin<Project> {
             }
             configureJvm()
             configureKotlin()
+            configureGradleChecker()
         }
     }
 }
