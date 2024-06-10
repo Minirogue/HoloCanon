@@ -1,6 +1,9 @@
 plugins{
     id "holocanon.android.app"
-    id "holocanon.hilt"
+}
+
+holocanon {
+    hilt()
 }
 
 def keystorePropsFile = rootProject.file('keystore.properties')

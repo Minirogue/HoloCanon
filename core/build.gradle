@@ -1,14 +1,10 @@
 plugins {
     id "holocanon.android.library"
-    id "holocanon.hilt"
-    id "com.google.devtools.ksp"
-    id "androidx.room"
 }
 
-android {
-    room {
-        schemaDirectory("$projectDir/schemas")
-    }
+holocanon {
+    hilt()
+ //   room()
 }
 
 dependencies {
@@ -20,11 +16,8 @@ dependencies {
     implementation libs.kotlinx.coroutines.core
     implementation libs.kotlinx.serialization.json
     implementation libs.lifecycle.viewmodel
-    implementation libs.room.runtime
     implementation projects.library.commonModels.public
     implementation projects.library.settings.public
-
-    ksp libs.room.compiler
 
     androidTestImplementation libs.androidx.test
     androidTestImplementation libs.room.testing

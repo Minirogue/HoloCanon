@@ -1,7 +1,10 @@
 plugins {
     id "holocanon.android.library"
-    id "holocanon.hilt"
-    id "holocanon.serialization"
+}
+
+holocanon {
+    hilt()
+    serialization()
 }
 
 dependencies {

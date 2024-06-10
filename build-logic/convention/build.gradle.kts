@@ -13,6 +13,7 @@ dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.detekt.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.room.gradlePlugin)
 }
 
 gradlePlugin {
@@ -29,17 +30,9 @@ gradlePlugin {
             id = "holocanon.multiplatform.library"
             implementationClass = "plugin.KotlinMultiplatformLibraryConvention"
         }
-        register("hilt") {
-            id = "holocanon.hilt"
-            implementationClass = "plugin.HiltConventionPlugin"
-        }
         register("androidApp") {
             id = "holocanon.android.app"
             implementationClass = "plugin.AndroidAppConventionPlugin"
-        }
-        register("compose") {
-            id = "holocanon.compose"
-            implementationClass = "plugin.ComposeConventionPlugin"
         }
         register("jvmApp") {
             id = "holocanon.jvm.app"

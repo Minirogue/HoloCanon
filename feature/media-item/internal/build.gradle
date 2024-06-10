@@ -1,12 +1,10 @@
 plugins {
     id "holocanon.android.library"
-    id "holocanon.hilt"
 }
 
-android {
-    buildFeatures {
-        viewBinding true
-    }
+holocanon {
+    hilt()
+    viewBinding()
 }
 
 dependencies {

@@ -2,16 +2,11 @@ plugins {
     id "holocanon.android.library"
 }
 
-android {
-    buildFeatures {
-        viewBinding true
-    }
+holocanon {
+    viewBinding()
 }
 
 dependencies {
-    // Android dependencies
     api libs.android.material
-
-    // project dependencies
-    api project(":library:filters:public")
+    api projects.library.filters.public
 }
