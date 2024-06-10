@@ -1,6 +1,9 @@
 plugins {
     id 'holocanon.jvm.app'
-    id 'holocanon.serialization'
+}
+
+holocanon {
+    serialization()
 }
 
 group = "com.minirogue"

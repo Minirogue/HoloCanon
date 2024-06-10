@@ -1,6 +1,9 @@
 plugins{
     id "holocanon.multiplatform.library"
-    id "holocanon.hilt"
+}
+
+holocanon {
+    hilt()
 }
 
 kotlin {

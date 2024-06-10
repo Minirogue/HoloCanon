@@ -12,6 +12,7 @@ java {
 dependencies {
     compileOnly(libs.android.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
+    compileOnly(libs.room.gradlePlugin)
 }
 
 gradlePlugin {
@@ -35,10 +36,6 @@ gradlePlugin {
         register("jvmApp") {
             id = "holocanon.jvm.app"
             implementationClass = "plugin.JvmAppConventionPlugin"
-        }
-        register("serialization") {
-            id = "holocanon.serialization"
-            implementationClass = "plugin.SerializationPlugin"
         }
     }
 }

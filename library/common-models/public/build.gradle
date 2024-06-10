@@ -1,10 +1,10 @@
 plugins{
     id 'holocanon.multiplatform.library'
-    id 'holocanon.serialization'
 }
 
 holocanon {
     hilt()
+    serialization()
 }
 
 kotlin {

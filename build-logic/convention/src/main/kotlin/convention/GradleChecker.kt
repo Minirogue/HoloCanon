@@ -18,7 +18,21 @@ open class GradleChecker : DefaultTask() {
     @TaskAction
     fun checkGradle() { // TODO make compatible with multiplatform modules too
         // filter out lines that start with whitespaces
-        val rootLines = gradleFile.readLines().filter { it.firstOrNull()?.isWhitespace() == false }
+        val allLines = gradleFile.readLines()
+        checkRootLines(allLines.filter { it.firstOrNull()?.isWhitespace() == false })
+        checkPluginsLines(allLines.filter { it.contains("id ") })
+    }
+
+    private fun checkPluginsLines(pluginsLines: List<String>) {
+        pluginsLines.forEach { pluginLine ->
+            if (!pluginLine.contains("holocanon.")) throw TaskExecutionException(
+                this,
+                AssertionError("Only holocanon plugins are allowed in the plugin block: ${pluginLine.trim()}")
+            )
+        }
+    }
+
+    private fun checkRootLines(rootLines: List<String>) {
         rootLines.forEach { root ->
             var isRootAcceptable = false
             acceptableRoots.forEach {
