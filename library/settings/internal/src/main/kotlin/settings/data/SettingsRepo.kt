@@ -1,5 +1,6 @@
 package settings.data
 
+import android.content.res.Resources
 import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -8,6 +9,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.minirogue.common.model.MediaType
+import com.minirogue.holocanon.library.settings.internal.R
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import settings.di.Settings
@@ -27,7 +29,10 @@ private const val CHECKBOX_3_DEFAULT_TEXT_KEY = "Owned"
 private const val DATABASE_VERSION_KEY = "current database version"
 private const val TAG = "SettingsRepo"
 
-internal class SettingsRepo @Inject constructor(@Settings private val dataStore: DataStore<Preferences>) {
+internal class SettingsRepo @Inject constructor(
+    @Settings private val dataStore: DataStore<Preferences>,
+    private val resources: Resources,
+) {
     private val userFilter1ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_1_ACTIVE_KEY)
     private val userFilter2ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_2_ACTIVE_KEY)
     private val userFilter3ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_3_ACTIVE_KEY)
@@ -43,16 +48,19 @@ internal class SettingsRepo @Inject constructor(@Settings private val dataStore:
     fun getSettings(): Flow<AllSettings> = dataStore.data.map { prefs ->
         AllSettings(
             checkboxSettings = CheckboxSettings(
-                checkbox1Setting = CheckboxSetting( // TODO change default to resource
-                    name = prefs[checkbox1DefaultTextPreferenceKey],
+                checkbox1Setting = CheckboxSetting(
+                    name = prefs[checkbox1DefaultTextPreferenceKey]
+                        ?: resources.getString(R.string.settings_checkbox1_default_text),
                     isInUse = prefs[userFilter1ActivePreferenceKey] ?: true
                 ),
                 checkbox2Setting = CheckboxSetting(
-                    name = prefs[checkbox2DefaultTextPreferenceKey],
+                    name = prefs[checkbox2DefaultTextPreferenceKey]
+                        ?: resources.getString(R.string.settings_checkbox2_default_text),
                     isInUse = prefs[userFilter2ActivePreferenceKey] ?: true
                 ),
                 checkbox3Setting = CheckboxSetting(
-                    name = prefs[checkbox3DefaultTextPreferenceKey],
+                    name = prefs[checkbox3DefaultTextPreferenceKey]
+                        ?: resources.getString(R.string.settings_checkbox3_default_text),
                     isInUse = prefs[userFilter3ActivePreferenceKey] ?: true
                 )
             ),

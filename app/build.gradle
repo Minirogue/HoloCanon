@@ -57,7 +57,9 @@ dependencies {
     implementation projects.feature.settings.internal
     implementation projects.feature.selectFilters.internal
     implementation projects.library.commonResources.public
+    implementation projects.library.coroutineExt.internal
     implementation projects.library.filters.internal
+    implementation projects.library.globalNotification.internal
     implementation projects.library.holoclient.internal
     implementation projects.library.mediaNotes.internal
     implementation projects.library.series.internal

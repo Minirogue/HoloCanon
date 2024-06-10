@@ -1,10 +1,20 @@
 plugins {
     id "holocanon.android.library"
     id "holocanon.hilt"
+    id "holocanon.serialization"
 }
 
 dependencies {
     api projects.library.mediaNotes.public
 
     implementation projects.core
+    implementation projects.library.coroutineExt.public
+    implementation projects.library.globalNotification.public
+    implementation projects.library.settings.public
+
+    testImplementation libs.mockk
+    testImplementation libs.kotlin.test
+    testImplementation libs.kotlinx.coroutines.test
+    testImplementation projects.library.globalNotification.testing
+    testImplementation projects.library.coroutineExt.testing
 }

@@ -1,9 +1,13 @@
 package view
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -32,6 +36,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -43,11 +48,48 @@ import settings.model.CheckboxSetting
 import settings.model.CheckboxSettings
 import viewmodel.SettingsState
 import viewmodel.SettingsViewModel
+import java.io.FileNotFoundException
 
 @AndroidEntryPoint
 internal class SettingsFragment : Fragment() {
 
     private val viewModel by viewModels<SettingsViewModel>()
+
+    val exportMediaNotesLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                try {
+                    val data = result.data?.data
+                    if (data != null) {
+                        val outputStream = activity?.contentResolver?.openOutputStream(data)
+                        if (outputStream != null) {
+                            viewModel.exportMediaNotes(outputStream)
+                        }
+                    }
+                } catch (e: FileNotFoundException) {
+                    Log.e(TAG, "Error exporting media notes", e)
+                }
+            }
+        }
+
+    val importMediaNotesLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                val dataUri = result.data?.data
+                if (dataUri != null) {
+                    try {
+                        val inputStream = activity?.contentResolver?.openInputStream(dataUri)
+                        if (inputStream != null) {
+                            viewModel.importMediaNotes(inputStream)
+                        } else {
+                            Log.e(TAG, "inputStream not found when importing media notes")
+                        }
+                    } catch (e: FileNotFoundException) {
+                        Log.e(TAG, "Error importing media notes", e)
+                    }
+                }
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,6 +113,7 @@ internal class SettingsFragment : Fragment() {
             state.value.checkboxSettings?.let { UserDefinedFilters(it) }
             state.value.permanentFilters?.let { IncludedMediaTypes(it) }
             state.value.wifiOnly?.let { DatabaseSyncSettings(wifiOnly = it) }
+            ExportMediaNotes()
         }
         val checkboxNumberForDialog = state.value.nameChangeDialogShowing
         val dialogOriginalName = when (checkboxNumberForDialog) {
@@ -102,7 +145,10 @@ internal class SettingsFragment : Fragment() {
                 .fillMaxWidth()
         ) {
             Text(
-                text = getString(R.string.settings_user_defined_filter, whichBox.toString()),
+                text = stringResource(
+                    R.string.settings_user_defined_filter,
+                    whichBox.toString()
+                ),
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(8.dp)
             )
@@ -116,24 +162,28 @@ internal class SettingsFragment : Fragment() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = getString(R.string.settings_filter_name),
+                        text = stringResource(R.string.settings_filter_name),
                         modifier = Modifier.padding(8.dp)
                     )
                     Text(
-                        text = checkboxSetting.name
-                            ?: "Error getting name", modifier = Modifier.padding(8.dp)
+                        text = checkboxSetting.name, modifier = Modifier.padding(8.dp)
                     )
                 }
             }
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { viewModel.setCheckboxActive(whichBox, !checkboxSetting.isInUse) },
+                    .clickable {
+                        viewModel.setCheckboxActive(
+                            whichBox,
+                            !checkboxSetting.isInUse
+                        )
+                    },
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = getString(R.string.settings_include_filter),
+                    text = stringResource(R.string.settings_include_filter),
                     modifier = Modifier.padding(8.dp)
                 )
                 Switch(
@@ -157,17 +207,17 @@ internal class SettingsFragment : Fragment() {
             onDismissRequest = { viewModel.dismissNameChangeDialog() },
             confirmButton = {
                 TextButton(onClick = { viewModel.setCheckboxName(whichBox, newName) }) {
-                    Text(text = getString(R.string.settings_save))
+                    Text(text = stringResource(R.string.settings_save))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { viewModel.dismissNameChangeDialog() }) {
-                    Text(text = getString(R.string.settings_cancel))
+                    Text(text = stringResource(R.string.settings_cancel))
                 }
             },
             title = {
                 Text(
-                    text = getString(
+                    text = stringResource(
                         R.string.settings_filter_name_change_text,
                         whichBox.toString()
                     )
@@ -176,7 +226,7 @@ internal class SettingsFragment : Fragment() {
             text = {
                 OutlinedTextField(value = newName,
                     onValueChange = { newName = it },
-                    label = { Text(getString(R.string.settings_new_name)) })
+                    label = { Text(stringResource(R.string.settings_new_name)) })
             })
     }
 
@@ -184,7 +234,7 @@ internal class SettingsFragment : Fragment() {
     private fun IncludedMediaTypes(permanentFilters: Map<MediaType, Boolean>) {
         Card(modifier = Modifier.padding(8.dp)) {
             Text(
-                getString(R.string.settings_included_media_types),
+                stringResource(R.string.settings_included_media_types),
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(8.dp)
             )
@@ -214,10 +264,10 @@ internal class SettingsFragment : Fragment() {
     }
 
     @Composable
-    fun DatabaseSyncSettings(wifiOnly: Boolean) {
+    private fun DatabaseSyncSettings(wifiOnly: Boolean) {
         Card(modifier = Modifier.padding(8.dp)) {
             Text(
-                getString(R.string.settings_sync_settings),
+                stringResource(R.string.settings_sync_settings),
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(8.dp),
             )
@@ -230,7 +280,7 @@ internal class SettingsFragment : Fragment() {
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = getString(R.string.settings_wifi_only_setting),
+                    text = stringResource(R.string.settings_wifi_only_setting),
                     modifier = Modifier.padding(8.dp)
                 )
                 Switch(
@@ -248,8 +298,69 @@ internal class SettingsFragment : Fragment() {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text(getString(R.string.settings_sync_online), modifier = Modifier.padding(8.dp))
+                Text(
+                    stringResource(R.string.settings_sync_online),
+                    modifier = Modifier.padding(8.dp)
+                )
             }
         }
+    }
+
+    @Composable
+    private fun ExportMediaNotes() {
+        Card(modifier = Modifier.padding(8.dp)) {
+            Text(
+                text = stringResource(R.string.settings_export_import_user_data),
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(8.dp),
+            )
+            HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { exportMediaNotes() },
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = stringResource(R.string.settings_export_user_data_as_json),
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { importMediaNotes() },
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(
+                    text = stringResource(R.string.settings_import_user_data_from_json),
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
+        }
+    }
+
+    private fun exportMediaNotes() {
+        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "application/json"
+            putExtra(Intent.EXTRA_TITLE, "holocanon_user_data.json")
+        }
+
+        exportMediaNotesLauncher.launch(intent)
+    }
+
+    private fun importMediaNotes() {
+        val intent = Intent().apply {
+            action = Intent.ACTION_GET_CONTENT
+            type = "application/json"
+        }
+        importMediaNotesLauncher.launch(intent)
+    }
+
+    companion object {
+        private const val TAG = "SettingsFragment"
     }
 }

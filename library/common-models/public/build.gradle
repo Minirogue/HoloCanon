@@ -1,6 +1,6 @@
 plugins{
     id 'holocanon.multiplatform.library'
-    id 'org.jetbrains.kotlin.plugin.serialization'
+    id 'holocanon.serialization'
 }
 
 kotlin {
@@ -9,7 +9,6 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation libs.kotlinx.serialization.core
             }
         }
     }

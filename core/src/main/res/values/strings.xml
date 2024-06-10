@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="checkbox1_default_text">Completed</string>
-    <string name="checkbox2_default_text">Wishlist</string>
-    <string name="checkbox3_default_text">Owned</string>
-</resources>

@@ -3,10 +3,12 @@ package com.minirogue.starwarscanontracker.view.activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.minirogue.holocanon.feature.media.item.usecase.GetMediaItemFragment
@@ -18,6 +20,8 @@ import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
 import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel
 import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import usecase.GetSettingsFragment
 import javax.inject.Inject
@@ -41,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var getSeriesFragment: GetSeriesFragment
 
     private val navigationViewModel: NavigationViewModel by viewModels()
+    private val mainActivityViewModel: MainActivityViewModel by viewModels()
 
     override fun onResume() {
         super.onResume()
@@ -78,6 +83,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        mainActivityViewModel.globalToasts
+            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+            .onEach { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
+            .launchIn(lifecycleScope)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -91,6 +100,7 @@ class MainActivity : AppCompatActivity() {
                 navigateToToolbarOption(ToolbarOption.Settings)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

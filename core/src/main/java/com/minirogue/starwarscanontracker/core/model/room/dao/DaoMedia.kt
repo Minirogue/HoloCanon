@@ -2,6 +2,7 @@ package com.minirogue.starwarscanontracker.core.model.room.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -26,6 +27,12 @@ abstract class DaoMedia {
     @Update
     abstract suspend fun update(mediaItemDto: MediaItemDto)
 
+    @Query("DELETE FROM media_notes")
+    abstract suspend fun clearAllMediaNotes()
+
+    @Query("SELECT * FROM media_notes")
+    abstract fun getAllMediaNotes(): Flow<List<MediaNotesDto>>
+
     @Deprecated("use Long version instead")
     @Query("SELECT * FROM media_notes WHERE media_id = :mediaId")
     abstract fun getMediaNotesById(mediaId: Int): LiveData<MediaNotesDto>
@@ -44,14 +51,14 @@ abstract class DaoMedia {
     abstract suspend fun update(um: MediaNotesDto)
 
     @Query(
-            "SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
-                    "ON media_items.id = media_notes.media_id WHERE media_items.series = :series"
+        "SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
+                "ON media_items.id = media_notes.media_id WHERE media_items.series = :series"
     )
     abstract fun getMediaNotesBySeries(series: Int): LiveData<List<MediaNotesDto>>
 
     @Query(
-            "SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
-                    "ON media_items.id = media_notes.media_id WHERE media_items.series = :series"
+        "SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
+                "ON media_items.id = media_notes.media_id WHERE media_items.series = :series"
     )
     abstract fun getMediaNotesBySeriesNonLive(series: Int): List<MediaNotesDto>
 
@@ -60,14 +67,18 @@ abstract class DaoMedia {
     abstract fun getMediaAndNotesRawQuery(query: SupportSQLiteQuery): Flow<List<MediaAndNotesDto>>
 
     @Query(
-            "SELECT media_items.*,media_notes.* FROM media_items " +
-                    "INNER JOIN media_notes ON media_items.id = media_notes.media_id " +
-                    "WHERE series = :seriesId"
+        "SELECT media_items.*,media_notes.* FROM media_items " +
+                "INNER JOIN media_notes ON media_items.id = media_notes.media_id " +
+                "WHERE series = :seriesId"
     )
     abstract fun getMediaAndNotesForSeries(seriesId: Int): Flow<List<MediaAndNotesDto>>
 
     @Transaction
-    open suspend fun updateMediaNote(checkBox: CheckBoxNumber, mediaItemId: Long, newValue: Boolean) {
+    open suspend fun updateMediaNote(
+        checkBox: CheckBoxNumber,
+        mediaItemId: Long,
+        newValue: Boolean
+    ) {
         val oldNotes = getMediaNotesById(mediaItemId).first()
         val newNotes = when (checkBox) {
             CheckBoxNumber.CheckBox1 -> oldNotes.apply { isBox1Checked = newValue }

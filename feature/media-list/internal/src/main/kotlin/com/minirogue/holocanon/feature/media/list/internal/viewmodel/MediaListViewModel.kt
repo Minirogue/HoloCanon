@@ -30,7 +30,7 @@ internal data class MediaListState(
     val activeFilters: List<MediaFilter> = emptyList(),
     val sortStyle: SortStyle = SortStyle.DEFAULT_STYLE,
     val searchTerm: String? = null,
-    val checkboxSettings: CheckboxSettings = CheckboxSettings.NONE,
+    val checkboxSettings: CheckboxSettings? = null,
     val isNetworkAllowed: Boolean = false,
 )
 

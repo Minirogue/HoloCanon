@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="media_notes_data_exported">Data exported</string>
+    <string name="media_notes_data_imported">Data imported</string>
+    <string name="media_notes_there_was_an_error_exporting_your_data">There was an error exporting your data.</string>
+    <string name="media_notes_there_was_an_error_importing_your_data">There was an error importing your data.</string>
+</resources>
