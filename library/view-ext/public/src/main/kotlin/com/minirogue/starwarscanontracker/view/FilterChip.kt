@@ -12,10 +12,10 @@ class FilterChip(mediaFilter: MediaFilter, ctx: Context) : Chip(ctx) {
         this.text = mediaFilter.name
         this.chipIcon = ResourcesCompat.getDrawable(
                 resources,
-                if (mediaFilter.isPositive) R.drawable.ic_filter_check else R.drawable.ic_filter_x,
+                if (mediaFilter.isPositive) R.drawable.view_ext_ic_filter_check else R.drawable.view_ext_ic_filter_x,
                 null
         )
-        this.closeIcon = ResourcesCompat.getDrawable(resources, R.drawable.ic_close, null)
+        this.closeIcon = ResourcesCompat.getDrawable(resources, R.drawable.view_ext_ic_close, null)
         this.isChipIconVisible = mediaFilter.isActive
         this.isCloseIconVisible = mediaFilter.isActive
     }

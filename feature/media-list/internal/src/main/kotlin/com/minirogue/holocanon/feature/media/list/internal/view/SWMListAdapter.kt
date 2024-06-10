@@ -140,13 +140,13 @@ internal class SWMListAdapter(
     private fun bindCoverImage(imageView: ImageView, imageUrl: String?) {
         if (!imageUrl.isNullOrBlank()) {
             imageView.load(imageUrl) {
-                placeholder(com.minirogue.holocanon.library.common.resources.R.drawable.common_resource_app_icon)
+                placeholder(com.minirogue.holocanon.library.common.resources.R.drawable.common_resources_app_icon)
                 if (adapterInterface.isNetworkAllowed()) {
                     networkCachePolicy(CachePolicy.ENABLED)
                 } else networkCachePolicy(CachePolicy.DISABLED)
             }
         } else {
-            imageView.load(com.minirogue.holocanon.library.common.resources.R.drawable.common_resource_app_icon)
+            imageView.load(com.minirogue.holocanon.library.common.resources.R.drawable.common_resources_app_icon)
         }
     }
 

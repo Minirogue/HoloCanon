@@ -16,14 +16,6 @@ dependencyResolutionManagement {
 rootProject.name = "holocanon"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-buildCache {
-    local {
-        directory = new File(rootDir, 'build-cache')
-        removeUnusedEntriesAfterDays = 30
-    }
-}
-
-
 include ':core'
 include ':app'
 include ':api'
