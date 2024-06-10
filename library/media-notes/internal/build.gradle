@@ -15,4 +15,6 @@ dependencies {
     testImplementation libs.mockk
     testImplementation libs.kotlin.test
     testImplementation libs.kotlinx.coroutines.test
+    testImplementation projects.library.globalNotification.testing
+    testImplementation projects.library.coroutineExt.testing
 }

@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.util.Log
 import com.holocanon.feature.global.notification.usecase.SendGlobalToast
 import com.holocanon.library.coroutine.ext.ApplicationScope
+import com.holocanon.library.coroutine.ext.HolocanonDispatchers
 import com.minirogue.holocanon.library.media.notes.internal.R
 import com.minirogue.media.notes.ExportMediaNotesJson
 import com.minirogue.media.notes.internal.model.CheckBoxNamesV1
@@ -29,12 +30,13 @@ class ExportMediaNotesJsonImpl @Inject constructor(
     private val getCheckboxSettings: GetCheckboxSettings,
     private val sendGlobalToast: SendGlobalToast,
     private val resources: Resources,
-    private val appScope: ApplicationScope
+    private val appScope: ApplicationScope,
+    private val dispatchers: HolocanonDispatchers,
 ) : ExportMediaNotesJson {
     private val json = Json { prettyPrint = true }
 
     override fun invoke(outputStream: OutputStream) {
-        appScope.launch(Dispatchers.IO) {
+        appScope.launch(dispatchers.io) {
             val checkBoxSettings = getCheckboxSettings().first()
             val allMediaNotes = daoMedia.getAllMediaNotes().first()
 

@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.util.Log
 import com.holocanon.feature.global.notification.usecase.SendGlobalToast
 import com.holocanon.library.coroutine.ext.ApplicationScope
+import com.holocanon.library.coroutine.ext.HolocanonDispatchers
 import com.minirogue.holocanon.library.media.notes.internal.R
 import com.minirogue.media.notes.ImportMediaNotesJson
 import com.minirogue.media.notes.internal.model.MediaNotesJsonV1
@@ -11,6 +12,7 @@ import com.minirogue.media.notes.internal.model.MediaNotesV1
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.serialization.SerializationException
@@ -27,12 +29,13 @@ class ImportMediaNotesJsonImpl @Inject constructor(
     private val sendGlobalToast: SendGlobalToast,
     private val resources: Resources,
     private val appScope: ApplicationScope,
+    private val dispatchers: HolocanonDispatchers,
 ) : ImportMediaNotesJson {
 
     private val json = Json // can extend this with builder DSL
 
     override fun invoke(inputStream: InputStream) {
-        appScope.launch(Dispatchers.IO) {
+        appScope.launch(dispatchers.io) {
             try {
                 val mediaNotesJsonDto = json.decodeFromStream<MediaNotesJsonV1>(inputStream)
                 inputStream.close()
