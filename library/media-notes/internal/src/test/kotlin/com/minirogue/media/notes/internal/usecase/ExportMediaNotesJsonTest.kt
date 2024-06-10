@@ -40,7 +40,7 @@ class ExportMediaNotesJsonTest {
     )
 
     @Test
-    fun `getMediaNotesAsJson returns a formatted json string`() = runTest {
+    fun `ExportMediaNotesJson correctly writes a formatted json to the given stream`() = runTest {
         // Arrange
         every { daoMedia.getAllMediaNotes() } returns flowOf(
             listOf(

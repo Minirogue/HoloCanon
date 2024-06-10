@@ -20,11 +20,11 @@ class SerializationPlugin : Plugin<Project> {
                 }
             } else {
                 with(dependencies) {
-                    addProvider(
+                    add(
                         "implementation",
                         libs.findLibrary("kotlinx.serialization.core").get()
                     )
-                    addProvider(
+                    add(
                         "implementation",
                         libs.findLibrary("kotlinx.serialization.json").get()
                     )
