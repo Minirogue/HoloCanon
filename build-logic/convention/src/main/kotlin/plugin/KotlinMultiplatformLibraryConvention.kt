@@ -1,6 +1,7 @@
 package plugin
 
 import convention.configureAndroidLibrary
+import convention.configureHilt
 import convention.configureKotlin
 import convention.configureKotlinMultiplatform
 import org.gradle.api.Plugin
@@ -16,6 +17,16 @@ class KotlinMultiplatformLibraryConvention : Plugin<Project> {
             configureKotlin()
             configureKotlinMultiplatform()
             configureAndroidLibrary()
+
+            extensions.create(
+                "holocanon",
+                HolocanonMultiplatformLibraryExtension::class.java,
+                target
+            )
         }
     }
+}
+
+open class HolocanonMultiplatformLibraryExtension(private val project: Project) {
+    fun hilt() = project.configureHilt()
 }

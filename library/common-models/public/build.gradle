@@ -3,6 +3,10 @@ plugins{
     id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
+holocanon {
+    hilt()
+}
+
 kotlin {
     jvm() // module is consumed by :api
 

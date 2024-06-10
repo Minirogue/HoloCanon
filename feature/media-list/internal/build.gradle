@@ -1,6 +1,9 @@
 plugins {
     id "holocanon.android.library"
-    id "holocanon.hilt"
+}
+
+holocanon {
+    hilt()
 }
 
 android {
