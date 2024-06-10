@@ -46,6 +46,7 @@ compose-uiTooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-uiToolingPreview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 compose-foundation = { group = "androidx.compose.ui", name = "foundation" }
 compose-activity = { group = "androidx.activity", name = "activity-compose" }
+detekt-gradlePlugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
 fastScroll = { group = "me.zhanghai.android.fastscroll", name = "library", version.ref = "fastScroll" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
@@ -63,9 +64,10 @@ ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-jso
 lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle" }
 lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 lifecycle-common = { group = "androidx.lifecycle", name = "lifecycle-common-java8", version.ref = "lifecycle" }
-mockk = {group = "io.mockk", name = "mockk", version.ref = "mockk"}
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-gradlePlugin = { group = "androidx.room", name = "room-gradle-plugin", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 

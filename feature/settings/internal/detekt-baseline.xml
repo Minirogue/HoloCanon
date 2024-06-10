@@ -2,16 +2,9 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>FunctionNaming:SettingsFragment.kt$SettingsFragment$@Composable fun DatabaseSyncSettings(wifiOnly: Boolean)</ID>
-    <ID>FunctionNaming:SettingsFragment.kt$SettingsFragment$@Composable private fun IncludedMediaTypes(permanentFilters: Map&lt;MediaType, Boolean&gt;)</ID>
-    <ID>FunctionNaming:SettingsFragment.kt$SettingsFragment$@Composable private fun MediaTypePermanentFilter(mediaType: MediaType, isActive: Boolean)</ID>
-    <ID>FunctionNaming:SettingsFragment.kt$SettingsFragment$@Composable private fun SettingsScreen(state: State&lt;SettingsState&gt;)</ID>
-    <ID>FunctionNaming:SettingsFragment.kt$SettingsFragment$@Composable private fun UserDefinedFilter(whichBox: Int, checkboxSetting: CheckboxSetting)</ID>
-    <ID>FunctionNaming:SettingsFragment.kt$SettingsFragment$@Composable private fun UserDefinedFilters(checkBoxSettings: CheckboxSettings)</ID>
-    <ID>FunctionNaming:SettingsFragment.kt$SettingsFragment$@OptIn(ExperimentalMaterial3Api::class) @Composable private fun CheckboxNameChangeDialog(whichBox: Int, initialName: String)</ID>
-    <ID>LongParameterList:SettingsViewModel.kt$SettingsViewModel$( private val getCheckboxSettings: GetCheckboxSettings, private val updateCheckboxName: UpdateCheckboxName, private val updateCheckboxActive: UpdateCheckboxActive, private val getPermanentFilterSettings: GetPermanentFilterSettings, private val updatePermanentFilterSettings: UpdatePermanentFilterSettings, private val maybeUpdateMediaDatabase: MaybeUpdateMediaDatabase, private val updateWifiSetting: UpdateWifiSetting, private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly, )</ID>
+    <ID>LongMethod:SettingsFragment.kt$SettingsFragment$@Composable private fun UserDefinedFilter(whichBox: Int, checkboxSetting: CheckboxSetting)</ID>
+    <ID>LongParameterList:SettingsViewModel.kt$SettingsViewModel$( private val getCheckboxSettings: GetCheckboxSettings, private val updateCheckboxName: UpdateCheckboxName, private val updateCheckboxActive: UpdateCheckboxActive, private val getPermanentFilterSettings: GetPermanentFilterSettings, private val updatePermanentFilterSettings: UpdatePermanentFilterSettings, private val maybeUpdateMediaDatabase: MaybeUpdateMediaDatabase, private val updateWifiSetting: UpdateWifiSetting, private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly, private val exportMediaNotesJson: ExportMediaNotesJson, private val importMediaNotesJson: ImportMediaNotesJson, )</ID>
     <ID>MagicNumber:SettingsFragment.kt$SettingsFragment$3</ID>
-    <ID>MaxLineLength:SettingsViewModel.kt$SettingsViewModel$getCheckboxSettings().collect { newCheckboxSettings -&gt; _state.update { it.copy(checkboxSettings = newCheckboxSettings) } }</ID>
-    <ID>MaxLineLength:SettingsViewModel.kt$SettingsViewModel$getPermanentFilterSettings().collect { newPermFilters -&gt; _state.update { it.copy(permanentFilters = newPermFilters) } }</ID>
+    <ID>TooManyFunctions:SettingsFragment.kt$SettingsFragment : Fragment</ID>
   </CurrentIssues>
 </SmellBaseline>

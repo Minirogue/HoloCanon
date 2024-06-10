@@ -39,9 +39,9 @@ class ImportMediaNotesJsonImpl @Inject constructor(
             try {
                 val mediaNotesJsonDto = json.decodeFromStream<MediaNotesJsonV1>(inputStream)
                 inputStream.close()
-                launch { updateCheckboxName(1, mediaNotesJsonDto.checkboxNames.name1) }
-                launch { updateCheckboxName(2, mediaNotesJsonDto.checkboxNames.name2) }
-                launch { updateCheckboxName(3, mediaNotesJsonDto.checkboxNames.name3) }
+                launch { updateCheckboxName(BOX_1, mediaNotesJsonDto.checkboxNames.name1) }
+                launch { updateCheckboxName(BOX_2, mediaNotesJsonDto.checkboxNames.name2) }
+                launch { updateCheckboxName(BOX_3, mediaNotesJsonDto.checkboxNames.name3) }
                 daoMedia.clearAllMediaNotes()
                 mediaNotesJsonDto.mediaNotes.map { notes ->
                     launch { daoMedia.insert(notes.toRoomDto()) }
@@ -76,5 +76,8 @@ class ImportMediaNotesJsonImpl @Inject constructor(
 
     companion object {
         private const val TAG = "ImportMediaNotesJson"
+        private const val BOX_1 = 1
+        private const val BOX_2 = 2
+        private const val BOX_3 = 3
     }
 }
