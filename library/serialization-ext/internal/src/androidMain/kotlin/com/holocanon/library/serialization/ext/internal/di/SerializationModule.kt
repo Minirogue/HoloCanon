@@ -1,6 +1,6 @@
 package com.holocanon.library.serialization.ext.internal.di
 
-import com.holocanon.library.serialization.ext.internal.holocanonJson
+import com.holocanon.library.serialization.ext.internal.HolocanonJson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,5 +11,5 @@ import kotlinx.serialization.json.Json
 @InstallIn(SingletonComponent::class)
 object SerializationModule {
     @Provides
-    fun provideJson(): Json = holocanonJson
+    fun provideJson(): Json = HolocanonJson()
 }

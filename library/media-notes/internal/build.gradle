@@ -20,4 +20,5 @@ dependencies {
     testImplementation libs.kotlinx.coroutines.test
     testImplementation projects.library.globalNotification.testing
     testImplementation projects.library.coroutineExt.testing
+    testImplementation projects.library.serializationExt.testing
 }

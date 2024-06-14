@@ -1,6 +1,6 @@
 package com.minirogue.api
 
-import com.holocanon.library.serialization.ext.internal.holocanonJson
+import com.holocanon.library.serialization.ext.internal.HolocanonJson
 import com.minirogue.api.media.getFullMediaList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -10,6 +10,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.encodeToString
 
 private val mainScope = CoroutineScope(Job() + Dispatchers.Default)
+private val holocanonJson = HolocanonJson()
 private const val API_ROOT_DIRECTORY = "holocanon-api/"
 
 internal fun main() {

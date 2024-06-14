@@ -1,6 +1,6 @@
 package com.minirogue.api.media
 
-import com.holocanon.library.serialization.ext.internal.holocanonJson
+import com.holocanon.library.serialization.ext.internal.HolocanonJson
 import com.minirogue.common.model.StarWarsMedia
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 private var inMemoryMedia: List<StarWarsMedia>? = null
+private val holocanonJson = HolocanonJson()
 
 internal suspend fun getFullMediaList(): List<StarWarsMedia> = inMemoryMedia
     ?: getMediaFromCsv().also { inMemoryMedia = it }
