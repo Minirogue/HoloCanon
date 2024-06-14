@@ -1,5 +1,8 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
-  <CurrentIssues></CurrentIssues>
+  <CurrentIssues>
+    <ID>LongParameterList:ExportMediaNotesJsonImpl.kt$ExportMediaNotesJsonImpl$( private val daoMedia: DaoMedia, private val getCheckboxSettings: GetCheckboxSettings, private val sendGlobalToast: SendGlobalToast, private val resources: Resources, private val appScope: ApplicationScope, private val dispatchers: HolocanonDispatchers, private val json: Json, )</ID>
+    <ID>LongParameterList:ImportMediaNotesJsonImpl.kt$ImportMediaNotesJsonImpl$( private val updateCheckboxName: UpdateCheckboxName, private val daoMedia: DaoMedia, private val sendGlobalToast: SendGlobalToast, private val resources: Resources, private val appScope: ApplicationScope, private val dispatchers: HolocanonDispatchers, private val json: Json, )</ID>
+  </CurrentIssues>
 </SmellBaseline>

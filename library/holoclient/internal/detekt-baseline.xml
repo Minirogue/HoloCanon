@@ -2,7 +2,7 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>LongParameterList:UpdateMediaDatabaseUseCase.kt$UpdateMediaDatabaseUseCase$( private val updateFilters: UpdateFilters, private val connectivityManager: ConnectivityManager, private val getApiMediaVersion: GetApiMediaVersion, private val getMediaFromApi: GetMediaFromApi, private val database: MediaDatabase, private val getSettings: GetAllSettings, private val setLatestDatabaseVersion: SetLatestDatabaseVersion, private val context: Context, )</ID>
+    <ID>LongParameterList:UpdateMediaDatabaseUseCase.kt$UpdateMediaDatabaseUseCase$( private val updateFilters: UpdateFilters, private val connectivityManager: ConnectivityManager, private val getApiMediaVersion: GetApiMediaVersion, private val getMediaFromApi: GetMediaFromApi, private val database: MediaDatabase, private val getSettings: GetAllSettings, private val setLatestDatabaseVersion: SetLatestDatabaseVersion, private val context: Context, private val json: Json, )</ID>
     <ID>TooGenericExceptionCaught:UpdateMediaDatabaseUseCase.kt$UpdateMediaDatabaseUseCase$e: Exception</ID>
   </CurrentIssues>
 </SmellBaseline>

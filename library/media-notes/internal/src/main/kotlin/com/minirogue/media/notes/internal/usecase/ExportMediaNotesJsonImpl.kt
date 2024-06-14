@@ -32,9 +32,8 @@ class ExportMediaNotesJsonImpl @Inject constructor(
     private val resources: Resources,
     private val appScope: ApplicationScope,
     private val dispatchers: HolocanonDispatchers,
+    private val json: Json,
 ) : ExportMediaNotesJson {
-    private val json = Json { prettyPrint = true }
-
     override fun invoke(outputStream: OutputStream) {
         appScope.launch(dispatchers.io) {
             val checkBoxSettings = getCheckboxSettings().first()

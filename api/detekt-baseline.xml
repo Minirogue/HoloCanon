@@ -2,18 +2,6 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>MagicNumber:Company.kt$MediaType.AUDIOBOOK$14</ID>
-    <ID>MagicNumber:Company.kt$MediaType.COMIC$7</ID>
-    <ID>MagicNumber:Company.kt$MediaType.COMIC_ADAPTATION$11</ID>
-    <ID>MagicNumber:Company.kt$MediaType.EPISODE$10</ID>
-    <ID>MagicNumber:Company.kt$MediaType.GAME$4</ID>
-    <ID>MagicNumber:Company.kt$MediaType.NOVEL$3</ID>
-    <ID>MagicNumber:Company.kt$MediaType.REFERENCE$6</ID>
-    <ID>MagicNumber:Company.kt$MediaType.SEASON$9</ID>
-    <ID>MagicNumber:Company.kt$MediaType.SHORT$13</ID>
-    <ID>MagicNumber:Company.kt$MediaType.TPB$8</ID>
-    <ID>MagicNumber:Company.kt$MediaType.TPB_ADAPTATION$12</ID>
-    <ID>MagicNumber:Company.kt$MediaType.YOUTH$5</ID>
     <ID>MagicNumber:VerifyImageLinks.kt$VerifyImageLinks$200</ID>
   </CurrentIssues>
 </SmellBaseline>

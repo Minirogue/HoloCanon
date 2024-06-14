@@ -6,6 +6,5 @@
     <ID>MagicNumber:SortStyle.kt$SortStyle$9999f</ID>
     <ID>TooManyFunctions:DaoFilter.kt$DaoFilter</ID>
     <ID>TooManyFunctions:DaoMedia.kt$DaoMedia</ID>
-    <ID>WildcardImport:RoomModule.kt$import com.minirogue.starwarscanontracker.core.model.room.dao.*</ID>
   </CurrentIssues>
 </SmellBaseline>

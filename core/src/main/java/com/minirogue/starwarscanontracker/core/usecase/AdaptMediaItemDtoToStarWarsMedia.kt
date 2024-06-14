@@ -18,11 +18,12 @@ import javax.inject.Inject
 class AdaptMediaItemDtoToStarWarsMedia @Inject internal constructor(
     private val daoCompany: DaoCompany,
     private val daoSeries: DaoSeries,
+    private val json: Json,
 ) {
     private var companyMap: Flow<Map<Int, Company>> = daoCompany.getAllCompanies()
         .map { list ->
             list.associate {
-                it.id to Json.decodeFromString<Company>("\"${it.companyName}\"")
+                it.id to json.decodeFromString<Company>("\"${it.companyName}\"")
             }
         }
     private var seriesMap: Flow<Map<Int, String>> = daoSeries.getAllSeries()

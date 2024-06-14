@@ -4,7 +4,7 @@ plugins {
 
 holocanon {
     hilt()
- //   room()
+    room()
 }
 
 dependencies {

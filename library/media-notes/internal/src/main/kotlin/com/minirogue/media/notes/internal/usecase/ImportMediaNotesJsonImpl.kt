@@ -30,10 +30,8 @@ class ImportMediaNotesJsonImpl @Inject constructor(
     private val resources: Resources,
     private val appScope: ApplicationScope,
     private val dispatchers: HolocanonDispatchers,
+    private val json: Json,
 ) : ImportMediaNotesJson {
-
-    private val json = Json // can extend this with builder DSL
-
     override fun invoke(inputStream: InputStream) {
         appScope.launch(dispatchers.io) {
             try {
