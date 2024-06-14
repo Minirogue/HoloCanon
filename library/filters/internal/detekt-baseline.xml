@@ -4,6 +4,5 @@
   <CurrentIssues>
     <ID>MaxLineLength:FilterExtensions.kt$fun MediaFilter.toFilterObject(): FilterObjectDto</ID>
     <ID>MaxLineLength:GetFilterImpl.kt$GetFilterImpl$override suspend operator fun invoke(id: Int, typeId: Int): MediaFilter?</ID>
-    <ID>MaxLineLength:GetPermanentFiltersImpl.kt$GetPermanentFiltersImpl$daoFilter.getFilter(type.legacyId, FilterTypeDto.FILTERCOLUMN_TYPE)?.toMediaFilter()?.let { filterList.add(it) }</ID>
   </CurrentIssues>
 </SmellBaseline>

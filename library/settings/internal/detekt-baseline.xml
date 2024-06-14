@@ -6,7 +6,6 @@
     <ID>MaxLineLength:GetCheckboxSettingsImpl.kt$GetCheckboxSettingsImpl$internal</ID>
     <ID>MaxLineLength:SetLatestDatabaseVersionImpl.kt$SetLatestDatabaseVersionImpl$internal</ID>
     <ID>MaxLineLength:SettingsLibraryModule.kt$SettingsLibraryModule$fun</ID>
-    <ID>MaxLineLength:SettingsLibraryModule.kt$produceMigrations = { context -&gt; listOf(SharedPreferencesMigration({ PreferenceManager.getDefaultSharedPreferences(context) })) }</ID>
     <ID>MaxLineLength:ShouldSyncViaWifiOnlyImpl.kt$ShouldSyncViaWifiOnlyImpl$internal</ID>
   </CurrentIssues>
 </SmellBaseline>
