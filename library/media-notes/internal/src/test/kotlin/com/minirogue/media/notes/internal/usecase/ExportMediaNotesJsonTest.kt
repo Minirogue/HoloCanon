@@ -5,6 +5,7 @@ import com.holocanon.feature.global.notification.usecase.FakeSendGlobalToast
 import com.holocanon.library.coroutine.ext.ApplicationScope
 import com.holocanon.library.coroutine.ext.CoroutineTestRule
 import com.holocanon.library.coroutine.ext.HolocanonDispatchers
+import com.holocanon.library.serialization.ext.testing.TestJson
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import io.mockk.every
@@ -12,6 +13,7 @@ import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.json.Json
 import org.junit.Rule
 import settings.model.CheckboxSetting
 import settings.model.CheckboxSettings
@@ -28,6 +30,8 @@ class ExportMediaNotesJsonTest {
     private val sendGlobalToast: FakeSendGlobalToast = FakeSendGlobalToast()
     private val resources: Resources = mockk()
     private val appScope: ApplicationScope = coroutineTestRule.applicationScope
+    private val json: Json = TestJson()
+
     private val holocanonDispatchers: HolocanonDispatchers = coroutineTestRule.holocanonDispatchers
 
     private val getMediaNotesAsJson = ExportMediaNotesJsonImpl(
@@ -36,7 +40,8 @@ class ExportMediaNotesJsonTest {
         sendGlobalToast = sendGlobalToast,
         resources = resources,
         appScope = appScope,
-        dispatchers = holocanonDispatchers
+        dispatchers = holocanonDispatchers,
+        json = json,
     )
 
     @Test

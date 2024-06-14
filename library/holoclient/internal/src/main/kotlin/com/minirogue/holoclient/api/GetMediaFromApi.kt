@@ -10,21 +10,24 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.SerializationException
+import kotlinx.serialization.json.Json
 import java.io.IOException
 import javax.inject.Inject
 
 private const val TAG = "GetMediaFromApiImpl"
 
-internal class GetMediaFromApi @Inject constructor() {
+internal class GetMediaFromApi @Inject constructor(
+    val json: Json,
+) {
     suspend operator fun invoke(): HoloResult<List<StarWarsMedia>> {
         return HttpClient(OkHttp) {
             install(ContentNegotiation) {
-                json()
+                json(json)
             }
         }.use { client ->
             try {
                 val result: List<StarWarsMedia> =
-                        client.get("https://minirogue.github.io/holocanon-api/media.json").body()
+                    client.get("https://minirogue.github.io/holocanon-api/media.json").body()
                 HoloResult.Success(result)
             } catch (responseException: ResponseException) {
                 Log.i(TAG, "failed response $responseException")

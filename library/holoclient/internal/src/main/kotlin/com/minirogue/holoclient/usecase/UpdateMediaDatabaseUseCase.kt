@@ -41,6 +41,7 @@ internal class UpdateMediaDatabaseUseCase @Inject constructor(
     private val getSettings: GetAllSettings,
     private val setLatestDatabaseVersion: SetLatestDatabaseVersion,
     private val context: Context,
+    private val json: Json,
 ) : MaybeUpdateMediaDatabase {
     override fun invoke(forced: Boolean) {
         usecaseScope.launch {
@@ -126,7 +127,7 @@ internal class UpdateMediaDatabaseUseCase @Inject constructor(
     private suspend fun getCompanyMap(): Map<Company, Int> = try {
         val dtoCompanies = database.daoCompany.getAllCompanies().first()
         Company.entries.associateWith { company ->
-            val text = Json.encodeToString(company).trimQuotes()
+            val text = json.encodeToString(company).trimQuotes()
             val dtoCompany = dtoCompanies.firstOrNull { it.companyName == text }
 
             dtoCompany?.id ?: database.daoCompany.insert(CompanyDto(companyName = text)).toInt()

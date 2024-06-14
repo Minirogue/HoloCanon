@@ -1,0 +1,17 @@
+plugins {
+    id 'holocanon.multiplatform.library'
+}
+
+holocanon {
+    serialization()
+}
+
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                api libs.kotlinx.serialization.json
+            }
+        }
+    }
+}

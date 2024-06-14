@@ -2,7 +2,6 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>FunctionNaming:HolocanonTheme.kt$@Composable fun HolocanonTheme( darkTheme: Boolean = true, // eventually replace with isSystemInDarkTheme() content: @Composable () -&gt; Unit )</ID>
     <ID>MagicNumber:Colors.kt$100</ID>
     <ID>MagicNumber:Colors.kt$101</ID>
     <ID>MagicNumber:Colors.kt$103</ID>
