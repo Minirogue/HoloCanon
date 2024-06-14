@@ -1,9 +1,9 @@
 package com.minirogue.api.media
 
+import com.holocanon.library.serialization.ext.internal.holocanonJson
 import com.minirogue.common.model.StarWarsMedia
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.CSVParser
 import java.text.SimpleDateFormat
@@ -30,14 +30,14 @@ private suspend fun getMediaFromCsv(): List<StarWarsMedia> = withContext(Dispatc
             StarWarsMedia(
                 id = csvRecord.get("id").toLong(),
                 title = csvRecord.get("title"),
-                type = Json.decodeFromString("\"${csvRecord.get("type")}\""),
+                type = holocanonJson.decodeFromString("\"${csvRecord.get("type")}\""),
                 imageUrl = csvRecord.get("image").ifEmpty { null },
                 releaseDate = csvRecord.get("released").also { validateDate(it) },
                 timeline = csvRecord.get("timeline").toFloatOrNull(),
                 description = csvRecord.get("description").ifEmpty { null },
                 series = csvRecord.get("series").ifEmpty { null },
                 number = csvRecord.get("number").toLongOrNull(),
-                publisher = Json.decodeFromString("\"${csvRecord.get("publisher")}\""),
+                publisher = holocanonJson.decodeFromString("\"${csvRecord.get("publisher")}\""),
                 ranking = csvRecord.get("ranking").toLongOrNull()
             ),
 

@@ -18,6 +18,7 @@ dependencies {
     implementation libs.ktor.client.okhttp
     implementation libs.ktor.serialization
     implementation projects.library.commonModels.public
+    implementation projects.library.serializationExt.internal
 
     testImplementation libs.kotlin.test
     testImplementation libs.kotlinx.coroutines.test

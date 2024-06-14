@@ -1,0 +1,19 @@
+plugins {
+    id 'holocanon.multiplatform.library'
+}
+
+holocanon {
+    hilt()
+    serialization()
+}
+
+kotlin {
+    jvm() // used by :api
+
+    sourceSets {
+        commonMain {
+            dependencies {
+            }
+        }
+    }
+}
