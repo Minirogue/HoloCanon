@@ -39,10 +39,9 @@ private suspend fun getMediaFromCsv(): List<StarWarsMedia> = withContext(Dispatc
                 series = csvRecord.get("series").ifEmpty { null },
                 number = csvRecord.get("number").toLongOrNull(),
                 publisher = holocanonJson.decodeFromString("\"${csvRecord.get("publisher")}\""),
-                ranking = csvRecord.get("ranking").toLongOrNull()
+                //     ranking = csvRecord.get("ranking").toLongOrNull()
             ),
-
-            )
+        )
     }
     csvParser.close()
     returnValue
