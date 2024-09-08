@@ -63,7 +63,7 @@ internal class SeriesViewModel @Inject constructor(
         }
         viewModelScope.launch {
             seriesList.addSource(getMediaAndNotesForSeries(seriesId).asLiveData()) { mediaAndNotesList ->
-                seriesList.postValue(mediaAndNotesList)
+                seriesList.postValue(mediaAndNotesList ?: emptyList())
             }
         }
     }
