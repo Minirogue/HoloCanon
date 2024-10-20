@@ -1,5 +1,6 @@
 package convention
 
+import ext.isMultiplatform
 import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 
@@ -7,7 +8,7 @@ fun Project.configureSerialization() {
     with(pluginManager) {
         apply("org.jetbrains.kotlin.plugin.serialization")
     }
-    if (plugins.hasPlugin("org.jetbrains.kotlin.multiplatform")) {
+    if (isMultiplatform()) {
         kotlinExtension.sourceSets.named("commonMain") {
             dependencies {
                 implementation(libs.findLibrary("kotlinx.serialization.core").get())

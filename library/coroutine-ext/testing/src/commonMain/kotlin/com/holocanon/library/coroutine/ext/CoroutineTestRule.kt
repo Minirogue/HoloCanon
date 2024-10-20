@@ -17,11 +17,13 @@ class CoroutineTestRule(
     val testScope: TestScope = TestScope(testDispatcher)
     val applicationScope: ApplicationScope = TestApplicationScope(testScope)
 
+    @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     override fun starting(description: Description) {
         super.starting(description)
         Dispatchers.setMain(testDispatcher)
     }
 
+    @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     override fun finished(description: Description) {
         super.finished(description)
         Dispatchers.resetMain()

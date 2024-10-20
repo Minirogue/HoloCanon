@@ -32,6 +32,7 @@ class ImportMediaNotesJsonImpl @Inject constructor(
     private val dispatchers: HolocanonDispatchers,
     private val json: Json,
 ) : ImportMediaNotesJson {
+    @OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
     override fun invoke(inputStream: InputStream) {
         appScope.launch(dispatchers.io) {
             try {

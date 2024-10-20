@@ -47,8 +47,11 @@ enum class MediaType(val legacyId: Int) {
     @SerialName("Audiobook")
     AUDIOBOOK(14);
 
+    @OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
     fun getSerialName() = MediaType.serializer().descriptor.getElementName(ordinal)
+
     companion object {
-        fun getFromLegacyId(legacyId: Int): MediaType? = entries.firstOrNull { it.legacyId == legacyId }
+        fun getFromLegacyId(legacyId: Int): MediaType? =
+            entries.firstOrNull { it.legacyId == legacyId }
     }
 }

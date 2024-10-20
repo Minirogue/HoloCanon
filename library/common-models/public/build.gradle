@@ -3,7 +3,6 @@ plugins{
 }
 
 holocanon {
-    hilt()
     serialization()
 }
 

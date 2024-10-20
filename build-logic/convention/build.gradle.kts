@@ -38,9 +38,5 @@ gradlePlugin {
             id = "holocanon.jvm.app"
             implementationClass = "plugin.JvmAppConventionPlugin"
         }
-        register("serialization") {
-            id = "holocanon.serialization"
-            implementationClass = "plugin.SerializationPlugin"
-        }
     }
 }

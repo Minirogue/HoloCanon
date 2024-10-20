@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.usecase.GetNotesForMedia
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetNotesForMediaImpl @Inject constructor(private val daoMedia: DaoMedia) : GetNotesForMedia {
@@ -12,7 +13,7 @@ class GetNotesForMediaImpl @Inject constructor(private val daoMedia: DaoMedia) :
      *
      * @param itemId the id associated to the MediaItem for which the MediaNotes are desired
      */
-    override fun invoke(itemId: Int): LiveData<MediaNotesDto> {
-        return daoMedia.getMediaNotesById(itemId)
+    override fun invoke(itemId: Int): Flow<MediaNotesDto> {
+        return daoMedia.getMediaNotesById(itemId.toLong())
     }
 }

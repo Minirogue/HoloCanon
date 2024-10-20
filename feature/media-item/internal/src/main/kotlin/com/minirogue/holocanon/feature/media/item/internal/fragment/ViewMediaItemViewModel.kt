@@ -2,6 +2,7 @@ package com.minirogue.holocanon.feature.media.item.internal.fragment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.minirogue.common.model.MediaType
@@ -44,7 +45,7 @@ class ViewMediaItemViewModel @Inject constructor(
 
     fun setItemId(itemId: Int) {
         liveMediaItemDto = getMedia(itemId)
-        liveMediaNotesDto = getNotesForMedia(itemId)
+        liveMediaNotesDto = getNotesForMedia(itemId).asLiveData(viewModelScope.coroutineContext)
         liveMediaTypeDto = liveMediaItemDto.map { MediaType.getFromLegacyId(it.type) }
     }
 

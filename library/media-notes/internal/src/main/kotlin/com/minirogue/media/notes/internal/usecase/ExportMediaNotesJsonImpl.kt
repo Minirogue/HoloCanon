@@ -34,6 +34,7 @@ class ExportMediaNotesJsonImpl @Inject constructor(
     private val dispatchers: HolocanonDispatchers,
     private val json: Json,
 ) : ExportMediaNotesJson {
+    @OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
     override fun invoke(outputStream: OutputStream) {
         appScope.launch(dispatchers.io) {
             val checkBoxSettings = getCheckboxSettings().first()
