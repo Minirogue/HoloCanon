@@ -16,6 +16,7 @@ fun Project.configureRoom() {
     with(dependencies) {
         add("implementation", libs.findLibrary("room.ktx").get())
         add("implementation", libs.findLibrary("room.runtime").get())
-        add("ksp", libs.findLibrary("room.compiler").get())
+        add("kspDebug", libs.findLibrary("room.compiler").get())
+        add("kspRelease", libs.findLibrary("room.compiler").get())
     }
 }

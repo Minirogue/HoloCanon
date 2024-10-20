@@ -31,6 +31,7 @@ class GetMediaListWithNotesImpl @Inject constructor(
     /**
      * Returns Flow containing a list of [MediaAndNotes] based on the current filters.
      */
+    @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     override fun invoke(): Flow<List<MediaAndNotes>> {
         return getActiveFilters().combine(getPermanentFilterSettings()) { filterList, permanentFilters ->
             convertFiltersToQuery(filterList, permanentFilters)
