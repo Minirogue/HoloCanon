@@ -17,25 +17,25 @@ internal object RoomModule {
 
     @Provides
     fun provideDatabase(application: Application): MediaDatabase =
-        MediaDatabase.getMediaDataBase(application)
+        MediaDatabase.getMediaDatabase(application)
 
     @Provides
     fun provideDaoMedia(database: MediaDatabase): DaoMedia {
-        return database.daoMedia
+        return database.getDaoMedia()
     }
 
     @Provides
     fun provideDaoFilter(database: MediaDatabase): DaoFilter {
-        return database.daoFilter
+        return database.getDaoFilter()
     }
 
     @Provides
     fun provideDaoSeries(database: MediaDatabase): DaoSeries {
-        return database.daoSeries
+        return database.getDaoSeries()
     }
 
     @Provides
     fun provideDaoCompany(database: MediaDatabase): DaoCompany {
-        return database.daoCompany
+        return database.getDaoCompany()
     }
 }
