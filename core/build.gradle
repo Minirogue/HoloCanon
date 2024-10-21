@@ -1,15 +1,13 @@
 plugins {
-    id "holocanon.multiplatform.library"
+    id "holocanon.android.library"
 }
 
 holocanon {
-    android {
-        hilt()
-        room()
-    }
+    hilt()
+    room()
 }
 
-kotlin.sourceSets.androidMain.dependencies {
+dependencies {
     api libs.room.ktx
     api projects.library.filters.public
     api projects.library.mediaNotes.public
@@ -20,8 +18,7 @@ kotlin.sourceSets.androidMain.dependencies {
     implementation libs.lifecycle.viewmodel
     implementation projects.library.commonModels.public
     implementation projects.library.settings.public
-}
-kotlin.sourceSets.androidInstrumentedTest.dependencies {
-    implementation libs.androidx.test
-    implementation libs.room.testing
+
+    androidTestImplementation libs.androidx.test
+    androidTestImplementation libs.room.testing
 }
