@@ -67,8 +67,8 @@ internal class UpdateMediaDatabaseUseCase @Inject constructor(
                     getTypeMap()
 
                 (getMediaFromApi() as? HoloResult.Success)?.value?.let { mediaList ->
-                    val daoMedia = database.daoMedia
-                    val daoSeries = database.daoSeries
+                    val daoMedia = database.getDaoMedia()
+                    val daoSeries = database.getDaoSeries()
                     mediaList.asFlow()
                         .map { media ->
                             val series = media.series
@@ -122,15 +122,15 @@ internal class UpdateMediaDatabaseUseCase @Inject constructor(
     )
 
     private suspend fun getSeriesMap() =
-        database.daoSeries.getAllSeries().first().associate { it.title to it.id }
+        database.getDaoSeries().getAllSeries().first().associate { it.title to it.id }
 
     private suspend fun getCompanyMap(): Map<Company, Int> = try {
-        val dtoCompanies = database.daoCompany.getAllCompanies().first()
+        val dtoCompanies = database.getDaoCompany().getAllCompanies().first()
         Company.entries.associateWith { company ->
             val text = json.encodeToString(company).trimQuotes()
             val dtoCompany = dtoCompanies.firstOrNull { it.companyName == text }
 
-            dtoCompany?.id ?: database.daoCompany.insert(CompanyDto(companyName = text)).toInt()
+            dtoCompany?.id ?: database.getDaoCompany().insert(CompanyDto(companyName = text)).toInt()
         }
     } catch (e: Exception) {
         Log.e(TAG, "error getting company map: $e")
