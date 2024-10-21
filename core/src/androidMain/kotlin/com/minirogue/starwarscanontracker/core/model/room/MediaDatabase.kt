@@ -154,7 +154,7 @@ abstract class MediaDatabase : RoomDatabase() {
             }
         }
 
-        fun getMediaDatabse(context: Context): MediaDatabase =
+        fun getMediaDatabase(context: Context): MediaDatabase =
             databaseInstance ?: Room.databaseBuilder(
                 context.getApplicationContext(),
                 MediaDatabase::class.java,
