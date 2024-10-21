@@ -2,12 +2,17 @@ plugins{
     id 'holocanon.multiplatform.library'
 }
 
-sourceSets {
-    commonMain {
-        dependencies {
-            api projects.library.commonModels.public
-            api libs.kotlinx.coroutines.core
+holocanon {
+    jvm()
+}
 
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {
+                api projects.library.commonModels.public
+                api libs.kotlinx.coroutines.core
+            }
         }
     }
 }

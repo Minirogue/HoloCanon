@@ -3,6 +3,7 @@ plugins {
 }
 
 holocanon {
+    jvm()
     serialization()
 }
 

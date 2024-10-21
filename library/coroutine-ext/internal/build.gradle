@@ -3,7 +3,9 @@ plugins{
 }
 
 holocanon {
-    hilt()
+    android{
+        hilt()
+    }
 }
 
 kotlin {

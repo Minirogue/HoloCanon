@@ -7,15 +7,15 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
+fun Project.configureKotlin() {
+    configureDetekt()
+}
+
 public fun Project.configureJvm() {
     extensions.configure(JavaPluginExtension::class.java) {
         sourceCompatibility = JavaVersion.toVersion(javaLibVersion)
         targetCompatibility = JavaVersion.toVersion(javaLibVersion)
     }
-}
-
-internal fun Project.configureKotlin() {
-    configureDetekt()
     tasks.withType(KotlinJvmCompile::class.java).configureEach {
         compilerOptions {
             jvmTarget.set(JvmTarget.fromTarget(javaLibVersion))

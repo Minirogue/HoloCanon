@@ -13,8 +13,8 @@ class JvmAppConventionPlugin : Plugin<Project> {
                 apply("application")
                 apply("org.jetbrains.kotlin.jvm")
             }
-            configureJvm()
             configureKotlin()
+            configureJvm()
 
             extensions.create("holocanon", HolocanonJvmAppExtension::class.java, target)
         }

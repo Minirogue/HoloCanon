@@ -18,6 +18,7 @@ private const val COMPILE_SDK = 34
 private const val TARGET_SDK = 34
 
 internal fun Project.configureAndroidLibrary() {
+    with(pluginManager) { apply("com.android.library") }
     extensions.configure(LibraryExtension::class.java) {
         val modulePath = path.split(":").drop(1).filter { it != "public" }
         namespace = "com.minirogue.holocanon.${modulePath.joinToString(".").replace("-", ".")}"
@@ -55,6 +56,7 @@ private fun Project.configureAndroidCommon(commonExtension: CommonExtension<*, *
         compileSdk = COMPILE_SDK
         defaultConfig {
             minSdk = MIN_SDK
+            testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
         compileOptions {
             sourceCompatibility = JavaVersion.toVersion(javaLibVersion)

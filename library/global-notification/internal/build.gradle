@@ -1,9 +1,11 @@
-plugins{
+plugins {
     id "holocanon.multiplatform.library"
 }
 
 holocanon {
-    hilt()
+    android {
+        hilt()
+    }
 }
 
 kotlin {
