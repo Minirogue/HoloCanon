@@ -70,7 +70,7 @@ class UpdateFilters @Inject constructor(
                 )
                 daoFilter.insert(tempFilter)
             } else {
-                tempFilter.displayText = company.companyName
+                tempFilter = tempFilter.copy(displayText = company.companyName)
                 daoFilter.update(tempFilter)
             }
         }
@@ -106,7 +106,7 @@ class UpdateFilters @Inject constructor(
                 )
                 daoFilter.insert(tempFilter)
             } else {
-                tempFilter.displayText = series.title
+                tempFilter = tempFilter.copy(displayText = series.title)
                 daoFilter.update(tempFilter)
             }
         }
@@ -139,7 +139,7 @@ class UpdateFilters @Inject constructor(
                 )
                 daoFilter.insert(tempFilter)
             } else {
-                tempFilter.displayText = displayText
+                tempFilter = tempFilter.copy(displayText = displayText)
                 daoFilter.update(tempFilter)
             }
         }
@@ -174,7 +174,7 @@ class UpdateFilters @Inject constructor(
             )
             daoFilter.insert(tempFilter)
         } else {
-            tempFilter.displayText = injectedCheckboxText[0]
+            tempFilter = tempFilter.copy(displayText = injectedCheckboxText[0])
             daoFilter.update(tempFilter)
         }
 
@@ -201,7 +201,7 @@ class UpdateFilters @Inject constructor(
             )
             daoFilter.insert(tempFilter)
         } else {
-            tempFilter.displayText = injectedCheckboxText[1]
+            tempFilter = tempFilter.copy(displayText = injectedCheckboxText[1])
             daoFilter.update(tempFilter)
         }
 
@@ -228,7 +228,7 @@ class UpdateFilters @Inject constructor(
             )
             daoFilter.insert(tempFilter)
         } else {
-            tempFilter.displayText = injectedCheckboxText[2]
+            tempFilter = tempFilter.copy(displayText = injectedCheckboxText[2])
             daoFilter.update(tempFilter)
         }
     }
