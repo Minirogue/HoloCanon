@@ -3,13 +3,14 @@ plugins {
 }
 
 holocanon {
-    hilt()
+    android {
+        hilt()
+    }
+    jvm()
     serialization()
 }
 
 kotlin {
-    jvm() // used by :api
-
     sourceSets {
         commonMain {
             dependencies {

@@ -2,6 +2,10 @@ plugins{
     id 'holocanon.multiplatform.library'
 }
 
+holocanon {
+    jvm()
+}
+
 kotlin {
     sourceSets {
         commonMain{

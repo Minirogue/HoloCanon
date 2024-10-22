@@ -2,5 +2,9 @@ plugins{
     id 'holocanon.multiplatform.library'
 }
 
+holocanon {
+    jvm()
+}
+
 dependencies {
 }

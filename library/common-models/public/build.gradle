@@ -4,11 +4,10 @@ plugins{
 
 holocanon {
     serialization()
+    jvm()
 }
 
 kotlin {
-    jvm() // module is consumed by :api
-
     sourceSets {
         commonMain {
             dependencies {

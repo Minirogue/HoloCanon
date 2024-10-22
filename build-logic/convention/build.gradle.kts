@@ -22,10 +22,6 @@ gradlePlugin {
             id = "holocanon.android.library"
             implementationClass = "plugin.AndroidLibraryConventionPlugin"
         }
-        register("kotlinJvmLibrary") {
-            id = "holocanon.kotlin.library"
-            implementationClass = "plugin.KotlinJvmLibraryConventionPlugin"
-        }
         register("multiplatformLibrary") {
             id = "holocanon.multiplatform.library"
             implementationClass = "plugin.KotlinMultiplatformLibraryConvention"

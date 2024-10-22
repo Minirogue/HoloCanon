@@ -3,8 +3,11 @@ package plugin
 import convention.configureAndroidLibrary
 import convention.configureHilt
 import convention.configureKotlin
-import convention.configureKotlinMultiplatform
+import convention.configureKotlinMultiplatformAndroid
+import convention.configureKotlinMultiplatformJvm
+import convention.configureRoom
 import convention.configureSerialization
+import org.gradle.api.Action
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -13,11 +16,8 @@ class KotlinMultiplatformLibraryConvention : Plugin<Project> {
         with(target) {
             with(pluginManager) {
                 apply("org.jetbrains.kotlin.multiplatform")
-                apply("com.android.library")
             }
             configureKotlin()
-            configureKotlinMultiplatform()
-            configureAndroidLibrary()
 
             extensions.create(
                 "holocanon",
@@ -29,6 +29,26 @@ class KotlinMultiplatformLibraryConvention : Plugin<Project> {
 }
 
 open class HolocanonMultiplatformLibraryExtension(private val project: Project) {
-    fun hilt() = project.configureHilt()
     fun serialization() = project.configureSerialization()
+
+    fun jvm() = jvm(Action {})
+    fun jvm(jvmActions: Action<JvmConfig>) {
+        project.configureKotlinMultiplatformJvm()
+        jvmActions.execute(JvmConfig((project)))
+    }
+
+    fun android() = android(Action {})
+    fun android(androidActions: Action<AndroidConfig>) {
+        project.configureKotlinMultiplatformAndroid()
+        androidActions.execute(AndroidConfig(project))
+    }
+}
+
+class AndroidConfig(val project: Project) {
+    fun room() = project.configureRoom()
+    fun hilt() = project.configureHilt()
+}
+
+class JvmConfig(val project: Project) {
+
 }

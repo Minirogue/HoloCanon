@@ -1,8 +1,17 @@
-plugins{
-    id 'holocanon.kotlin.library'
+plugins {
+    id "holocanon.multiplatform.library"
 }
 
-dependencies {
-    // Kotlin
-    api libs.kotlinx.coroutines.core
+holocanon {
+    jvm()
+}
+
+kotlin{
+    sourceSets {
+        commonMain{
+            dependencies {
+                api libs.kotlinx.coroutines.core
+            }
+        }
+    }
 }
