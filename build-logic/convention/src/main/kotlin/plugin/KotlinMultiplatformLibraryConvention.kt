@@ -7,6 +7,7 @@ import convention.configureKotlinMultiplatformAndroid
 import convention.configureKotlinMultiplatformJvm
 import convention.configureRoom
 import convention.configureSerialization
+import convention.configureViewBinding
 import org.gradle.api.Action
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -47,6 +48,7 @@ open class HolocanonMultiplatformLibraryExtension(private val project: Project) 
 class AndroidConfig(val project: Project) {
     fun room() = project.configureRoom()
     fun hilt() = project.configureHilt()
+    fun viewBinding() = project.configureViewBinding()
 }
 
 class JvmConfig(val project: Project) {
