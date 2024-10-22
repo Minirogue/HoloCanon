@@ -1,13 +1,15 @@
 plugins {
-    id "holocanon.android.library"
+    id "holocanon.multiplatform.library"
 }
 
 holocanon {
-    hilt()
-    viewBinding()
+    android {
+        hilt()
+        viewBinding()
+    }
 }
 
-dependencies {
+kotlin.sourceSets.androidMain.dependencies {
     api projects.feature.mediaItem.public
 
     implementation libs.androidx.constraintLayout
