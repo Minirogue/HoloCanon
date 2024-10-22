@@ -1,6 +1,7 @@
 package plugin
 
 import convention.configureAndroidLibrary
+import convention.configureCompose
 import convention.configureHilt
 import convention.configureKotlin
 import convention.configureKotlinMultiplatformAndroid
@@ -49,6 +50,7 @@ class AndroidConfig(val project: Project) {
     fun room() = project.configureRoom()
     fun hilt() = project.configureHilt()
     fun viewBinding() = project.configureViewBinding()
+    fun composeUi() = project.configureCompose()
 }
 
 class JvmConfig(val project: Project) {

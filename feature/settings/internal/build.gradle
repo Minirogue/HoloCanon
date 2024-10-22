@@ -1,13 +1,15 @@
 plugins {
-    id "holocanon.android.library"
+    id "holocanon.multiplatform.library"
 }
 
 holocanon {
-    hilt()
-    composeUi()
+    android {
+        hilt()
+        composeUi()
+    }
 }
 
-dependencies {
+kotlin.sourceSets.androidMain.dependencies {
     api projects.feature.settings.public
 
     implementation projects.core
