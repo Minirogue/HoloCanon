@@ -52,6 +52,7 @@ class AndroidConfig(val project: Project) {
     fun hilt() = project.configureHilt()
     fun room() = project.configureRoom()
     fun viewBinding() = project.configureViewBinding()
+    fun composeUi() = project.configureCompose()
 }
 
 class JvmConfig(val project: Project) {
