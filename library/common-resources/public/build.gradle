@@ -1,6 +1,7 @@
 plugins {
-    id "holocanon.android.library"
+    id "holocanon.multiplatform.library"
 }
 
-dependencies {
+holocanon {
+    android()
 }

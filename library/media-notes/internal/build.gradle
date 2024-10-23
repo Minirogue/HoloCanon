@@ -1,24 +1,28 @@
 plugins {
-    id "holocanon.android.library"
+    id "holocanon.multiplatform.library"
 }
 
 holocanon {
-    hilt()
-    serialization()
+    android {
+        hilt()
+        serialization()
+    }
 }
 
-dependencies {
+kotlin.sourceSets.androidMain.dependencies {
     api projects.library.mediaNotes.public
 
     implementation projects.core
     implementation projects.library.coroutineExt.public
     implementation projects.library.globalNotification.public
     implementation projects.library.settings.public
+}
 
-    testImplementation libs.mockk
-    testImplementation libs.kotlin.test
-    testImplementation libs.kotlinx.coroutines.test
-    testImplementation projects.library.globalNotification.testing
-    testImplementation projects.library.coroutineExt.testing
-    testImplementation projects.library.serializationExt.testing
+kotlin.sourceSets.androidUnitTest.dependencies {
+    implementation libs.mockk
+    implementation libs.kotlin.test
+    implementation libs.kotlinx.coroutines.test
+    implementation projects.library.globalNotification.testing
+    implementation projects.library.coroutineExt.testing
+    implementation projects.library.serializationExt.testing
 }
