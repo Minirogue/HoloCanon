@@ -6,12 +6,6 @@ holocanon {
     jvm()
 }
 
-kotlin {
-    sourceSets {
-        commonMain {
-            dependencies {
-                api projects.library.globalNotification.public
-            }
-        }
-    }
+kotlin.sourceSets.commonMain.dependencies {
+    api projects.library.globalNotification.public
 }

@@ -1,4 +1,4 @@
-plugins{
+plugins {
     id 'holocanon.multiplatform.library'
 }
 
@@ -6,13 +6,7 @@ holocanon {
     jvm()
 }
 
-kotlin {
-    sourceSets {
-        commonMain {
-            dependencies {
-                api projects.library.commonModels.public
-                api libs.kotlinx.coroutines.core
-            }
-        }
-    }
+kotlin.sourceSets.commonMain.dependencies {
+    api projects.library.commonModels.public
+    api libs.kotlinx.coroutines.core
 }

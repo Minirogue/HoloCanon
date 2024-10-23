@@ -16,20 +16,16 @@ open class GradleChecker : DefaultTask() {
     val gradleFile: File = project.buildFile
 
     @TaskAction
-    fun checkGradle() { // TODO make compatible with multiplatform modules too
-        // filter out lines that start with whitespaces
+    fun checkGradle() {
         val allLines = gradleFile.readLines()
         checkRootLines(allLines.filter { it.firstOrNull()?.isWhitespace() == false })
-        checkPluginsLines(allLines.filter { it.contains("id ") })
+        checkPluginsLines(allLines.take(3))
     }
 
     private fun checkPluginsLines(pluginsLines: List<String>) {
-        pluginsLines.forEach { pluginLine ->
-            if (!pluginLine.contains("holocanon.")) throw TaskExecutionException(
-                this,
-                AssertionError("Only holocanon plugins are allowed in the plugin block: ${pluginLine.trim()}")
-            )
-        }
+        assert(pluginsLines[0] == "plugins {") { "first line of build.gradle must be \"plugins {\": ${pluginsLines[0]}" }
+        assert(pluginsLines[1].contains("holocanon.")) { "Only holocanon plugins are allowed in the plugin block: ${pluginsLines[1].trim()}" }
+        assert(pluginsLines[2] == "}") { "plugins block should only contain one (holocanon plugin) and end with \"}\": ${pluginsLines[2]}" }
     }
 
     private fun checkRootLines(rootLines: List<String>) {
@@ -41,12 +37,24 @@ open class GradleChecker : DefaultTask() {
             }
             if (!isRootAcceptable) throw TaskExecutionException(
                 this,
-                AssertionError("All build.gradle root lines must start with one of $acceptableRoots")
+                AssertionError(
+                    "All build.gradle lines must start with whitespace or one of $acceptableRoots\n" +
+                            "\"$root\" does not fit this paradigm"
+                )
             )
         }
     }
 
     companion object {
-        private val acceptableRoots = listOf("plugins", "dependencies", "holocanon", "}")
+        private val acceptableRoots = listOf(
+            "plugins",
+            "holocanon",
+            "kotlin.sourceSets.androidMain.dependencies",
+            "kotlin.sourceSets.androidUnitTest.dependencies",
+            "kotlin.sourceSets.androidInstrumentedTest.dependencies",
+            "kotlin.sourceSets.commonMain.dependencies",
+            "dependencies",
+            "}"
+        )
     }
 }

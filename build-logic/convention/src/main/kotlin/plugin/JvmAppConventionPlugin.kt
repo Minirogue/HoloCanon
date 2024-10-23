@@ -1,7 +1,8 @@
 package plugin
 
+import convention.applyUniversalConfigurations
+import convention.configureGradleChecker
 import convention.configureJvm
-import convention.configureKotlin
 import convention.configureSerialization
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -13,7 +14,7 @@ class JvmAppConventionPlugin : Plugin<Project> {
                 apply("application")
                 apply("org.jetbrains.kotlin.jvm")
             }
-            configureKotlin()
+            applyUniversalConfigurations(useGradleChecker = false)
             configureJvm()
 
             extensions.create("holocanon", HolocanonJvmAppExtension::class.java, target)

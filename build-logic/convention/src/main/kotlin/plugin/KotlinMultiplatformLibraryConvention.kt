@@ -1,9 +1,10 @@
 package plugin
 
+import convention.applyUniversalConfigurations
 import convention.configureAndroidLibrary
 import convention.configureCompose
+import convention.configureGradleChecker
 import convention.configureHilt
-import convention.configureKotlin
 import convention.configureKotlinMultiplatformAndroid
 import convention.configureKotlinMultiplatformJvm
 import convention.configureRoom
@@ -19,7 +20,7 @@ class KotlinMultiplatformLibraryConvention : Plugin<Project> {
             with(pluginManager) {
                 apply("org.jetbrains.kotlin.multiplatform")
             }
-            configureKotlin()
+            applyUniversalConfigurations()
 
             extensions.create(
                 "holocanon",
