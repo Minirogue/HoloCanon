@@ -1,10 +1,9 @@
 plugins {
-    id "holocanon.android.library"
+    id "holocanon.multiplatform.library"
 }
 
 holocanon {
-    composeUi()
-}
-
-dependencies {
+    android {
+        composeUi()
+    }
 }

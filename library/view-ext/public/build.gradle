@@ -1,12 +1,14 @@
 plugins {
-    id "holocanon.android.library"
+    id "holocanon.multiplatform.library"
 }
 
 holocanon {
-    viewBinding()
+    android {
+        viewBinding()
+    }
 }
 
-dependencies {
+kotlin.sourceSets.androidMain.dependencies {
     api libs.android.material
     api projects.library.filters.public
 }

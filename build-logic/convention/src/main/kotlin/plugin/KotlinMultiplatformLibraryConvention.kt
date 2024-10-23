@@ -31,7 +31,12 @@ class KotlinMultiplatformLibraryConvention : Plugin<Project> {
 }
 
 open class HolocanonMultiplatformLibraryExtension(private val project: Project) {
-    fun serialization() = project.configureSerialization()
+    fun android() = android(Action {})
+    fun android(androidActions: Action<AndroidConfig>) {
+        project.configureKotlinMultiplatformAndroid()
+        androidActions.execute(AndroidConfig(project))
+    }
+
 
     fun jvm() = jvm(Action {})
     fun jvm(jvmActions: Action<JvmConfig>) {
@@ -39,18 +44,14 @@ open class HolocanonMultiplatformLibraryExtension(private val project: Project) 
         jvmActions.execute(JvmConfig((project)))
     }
 
-    fun android() = android(Action {})
-    fun android(androidActions: Action<AndroidConfig>) {
-        project.configureKotlinMultiplatformAndroid()
-        androidActions.execute(AndroidConfig(project))
-    }
+    fun serialization() = project.configureSerialization()
 }
 
 class AndroidConfig(val project: Project) {
-    fun room() = project.configureRoom()
-    fun hilt() = project.configureHilt()
-    fun viewBinding() = project.configureViewBinding()
     fun composeUi() = project.configureCompose()
+    fun hilt() = project.configureHilt()
+    fun room() = project.configureRoom()
+    fun viewBinding() = project.configureViewBinding()
 }
 
 class JvmConfig(val project: Project) {
