@@ -18,10 +18,6 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        register("androidLibrary") {
-            id = "holocanon.android.library"
-            implementationClass = "plugin.AndroidLibraryConventionPlugin"
-        }
         register("multiplatformLibrary") {
             id = "holocanon.multiplatform.library"
             implementationClass = "plugin.KotlinMultiplatformLibraryConvention"
