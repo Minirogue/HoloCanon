@@ -7,9 +7,6 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
-fun Project.configureKotlin() {
-    configureDetekt()
-}
 
 public fun Project.configureJvm() {
     extensions.configure(JavaPluginExtension::class.java) {
@@ -20,13 +17,5 @@ public fun Project.configureJvm() {
         compilerOptions {
             jvmTarget.set(JvmTarget.fromTarget(javaLibVersion))
         }
-    }
-}
-
-private fun Project.configureDetekt() {
-    plugins.apply("io.gitlab.arturbosch.detekt")
-    extensions.configure(DetektExtension::class.java) {
-        config.setFrom(rootProject.file("config/detekt-config.yml"))
-        buildUponDefaultConfig = true
     }
 }

@@ -6,12 +6,3 @@ holocanon {
     serialization()
     jvm()
 }
-
-kotlin {
-    sourceSets {
-        commonMain {
-            dependencies {
-            }
-        }
-    }
-}

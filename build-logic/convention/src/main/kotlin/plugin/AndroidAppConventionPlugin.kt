@@ -1,8 +1,9 @@
 package plugin
 
+import convention.applyUniversalConfigurations
 import convention.configureAndroidApp
+import convention.configureGradleChecker
 import convention.configureHilt
-import convention.configureKotlin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -13,8 +14,8 @@ class AndroidAppConventionPlugin: Plugin<Project> {
                     apply("com.android.application")
                     apply("kotlin-android")
                 }
+                applyUniversalConfigurations(useGradleChecker = false)
                 configureAndroidApp()
-                configureKotlin()
 
                 extensions.create(
                     "holocanon",

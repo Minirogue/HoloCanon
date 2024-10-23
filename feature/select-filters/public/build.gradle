@@ -6,6 +6,6 @@ holocanon{
     android()
 }
 
-dependencies {
+kotlin.sourceSets.androidMain.dependencies {
     api libs.androidx.fragment
 }

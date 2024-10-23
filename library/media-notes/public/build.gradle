@@ -6,12 +6,6 @@ holocanon {
     jvm()
 }
 
-kotlin{
-    sourceSets{
-        commonMain {
-            dependencies {
-                api libs.kotlinx.coroutines.core
-            }
-        }
-    }
+kotlin.sourceSets.commonMain.dependencies {
+    api libs.kotlinx.coroutines.core
 }

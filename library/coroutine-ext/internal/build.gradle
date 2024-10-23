@@ -1,19 +1,13 @@
-plugins{
+plugins {
     id 'holocanon.multiplatform.library'
 }
 
 holocanon {
-    android{
+    android {
         hilt()
     }
 }
 
-kotlin {
-    sourceSets {
-        commonMain {
-            dependencies {
-                api projects.library.coroutineExt.public
-            }
-        }
-    }
+kotlin.sourceSets.commonMain.dependencies {
+    api projects.library.coroutineExt.public
 }
