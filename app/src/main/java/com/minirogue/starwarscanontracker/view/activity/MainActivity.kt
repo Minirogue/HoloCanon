@@ -15,7 +15,7 @@ import com.minirogue.holocanon.feature.media.item.usecase.GetMediaItemFragment
 import com.minirogue.holocanon.feature.series.GetSeriesFragment
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.core.model.UpdateFilters
+import com.minirogue.starwarscanontracker.core.usecase.UpdateFilters
 import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
 import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel
 import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment

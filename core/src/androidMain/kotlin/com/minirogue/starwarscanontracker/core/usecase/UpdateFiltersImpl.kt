@@ -1,14 +1,11 @@
-package com.minirogue.starwarscanontracker.core.model
+package com.minirogue.starwarscanontracker.core.usecase
 
-import android.content.Context
 import com.minirogue.common.model.MediaType
-import com.minirogue.holocanon.core.R
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoCompany
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObjectDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -17,12 +14,12 @@ import kotlinx.coroutines.withContext
 import settings.usecase.GetCheckboxSettings
 import javax.inject.Inject
 
-class UpdateFilters @Inject constructor(
+internal class UpdateFiltersImpl @Inject constructor(
     private val daoFilter: DaoFilter,
     private val daoSeries: DaoSeries,
     private val daoCompany: DaoCompany,
     getCheckboxSettings: GetCheckboxSettings,
-) {
+): UpdateFilters {
     private val checkboxText = getCheckboxSettings().map { checkboxSettings ->
         listOf(
             checkboxSettings.checkbox1Setting.name,
@@ -31,7 +28,7 @@ class UpdateFilters @Inject constructor(
         )
     }
 
-    suspend operator fun invoke() = withContext(Dispatchers.Default) {
+    override suspend fun invoke() = withContext(Dispatchers.Default) {
         launch { updateSeriesFilters() }
         launch { updateCheckboxFilters() }
         launch { updateMediaTypeFilters() }

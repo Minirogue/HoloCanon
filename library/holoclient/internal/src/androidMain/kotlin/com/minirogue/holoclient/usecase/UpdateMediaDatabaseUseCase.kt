@@ -10,12 +10,12 @@ import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.holoclient.api.GetApiMediaVersion
 import com.minirogue.holoclient.api.GetMediaFromApi
 import com.minirogue.holoclient.api.HoloResult
-import com.minirogue.starwarscanontracker.core.model.UpdateFilters
 import com.minirogue.starwarscanontracker.core.model.room.MediaDatabase
 import com.minirogue.starwarscanontracker.core.model.room.entity.CompanyDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.SeriesDto
+import com.minirogue.starwarscanontracker.core.usecase.UpdateFilters
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -130,7 +130,8 @@ internal class UpdateMediaDatabaseUseCase @Inject constructor(
             val text = json.encodeToString(company).trimQuotes()
             val dtoCompany = dtoCompanies.firstOrNull { it.companyName == text }
 
-            dtoCompany?.id ?: database.getDaoCompany().insert(CompanyDto(companyName = text)).toInt()
+            dtoCompany?.id ?: database.getDaoCompany().insert(CompanyDto(companyName = text))
+                .toInt()
         }
     } catch (e: Exception) {
         Log.e(TAG, "error getting company map: $e")
