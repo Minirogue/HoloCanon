@@ -1,25 +1,16 @@
 package com.minirogue.holocanon.feature.media.item.internal.fragment
 
-import android.media.browse.MediaBrowser
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.holocanon.library.media.item.usecase.GetMedia
-import com.minirogue.common.model.MediaType
 import com.minirogue.common.model.StarWarsMedia
-import com.minirogue.media.notes.CheckBoxNumber
-import com.minirogue.media.notes.UpdateCheckValue
-import com.minirogue.starwarscanontracker.core.model.MediaNotes
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
-import com.minirogue.starwarscanontracker.core.usecase.GetNotesForMedia
+import com.minirogue.media.notes.model.CheckBoxNumber
+import com.minirogue.media.notes.usecase.UpdateCheckValue
+import com.minirogue.media.notes.model.MediaNotes
+import com.minirogue.media.notes.usecase.GetNotesForMedia
 import com.minirogue.starwarscanontracker.core.usecase.IsNetworkAllowed
-import com.minirogue.starwarscanontracker.core.usecase.UpdateNotes
 import kotlinx.coroutines.flow.MutableStateFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -31,7 +22,7 @@ import settings.usecase.GetCheckboxText
 import javax.inject.Inject
 
 data class ViewMediaItemState(
-    val checkboxtext: Array<String> = arrayOf("", "", ""),
+    val checkboxText: Array<String> = arrayOf("", "", ""),
     val checkboxVisibility: BooleanArray = booleanArrayOf(false, false, false),
     val isNetworkAllowed: Boolean = false,
     val mediaItem: StarWarsMedia? = null,

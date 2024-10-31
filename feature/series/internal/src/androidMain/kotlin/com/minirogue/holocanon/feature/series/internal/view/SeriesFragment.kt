@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.request.CachePolicy
 import com.minirogue.holocanon.feature.media.item.usecase.GetMediaItemFragment
@@ -19,8 +17,6 @@ import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
 import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel
 import com.minirogue.starwarscanontracker.view.collectWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -38,8 +34,8 @@ internal class SeriesFragment : Fragment() {
     ): View {
         val fragmentBinding = SeriesFragmentBinding.inflate(inflater, container, false)
         val bundle = this.arguments
-        val bundleItemId = bundle?.getInt(SERIES_ID_BUNDLE_KEY, -1) ?: -1
-        if (bundleItemId != -1) viewModel.setSeriesId(bundleItemId)
+        val seriesName = bundle?.getString(SERIES_NAME_BUNDLE_KEY)
+        if (seriesName != null) viewModel.setSeries(seriesName)
 
         with(fragmentBinding.checkbox1) {
             setOnClickListener { viewModel.toggleCheckbox1(isChecked) }
@@ -107,6 +103,12 @@ internal class SeriesFragment : Fragment() {
     }
 
     companion object {
-        const val SERIES_ID_BUNDLE_KEY = "series-id"
+        private const val SERIES_NAME_BUNDLE_KEY = "series-name"
+        fun getFragment(seriesName: String): SeriesFragment {
+            val bundle = Bundle().apply {
+                putString(SeriesFragment.SERIES_NAME_BUNDLE_KEY, seriesName)
+            }
+            return SeriesFragment().apply { arguments = bundle }
+        }
     }
 }

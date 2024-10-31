@@ -1,7 +1,7 @@
 package com.minirogue.media.notes.internal.usecase
 
-import com.minirogue.media.notes.CheckBoxNumber
-import com.minirogue.media.notes.UpdateCheckValue
+import com.minirogue.media.notes.model.CheckBoxNumber
+import com.minirogue.media.notes.usecase.UpdateCheckValue
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import javax.inject.Inject
 

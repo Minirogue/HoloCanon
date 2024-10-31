@@ -7,11 +7,7 @@ import com.minirogue.holocanon.feature.series.internal.view.SeriesFragment
 import javax.inject.Inject
 
 internal class GetSeriesFragmentImpl @Inject constructor() : GetSeriesFragment {
-    override fun invoke(seriesId: Int): Fragment {
-        val bundle = Bundle().apply {
-            putInt(SeriesFragment.SERIES_ID_BUNDLE_KEY, seriesId)
-        }
-
-        return SeriesFragment().apply { arguments = bundle }
+    override fun invoke(seriesName: String): Fragment {
+        return SeriesFragment.getFragment(seriesName = seriesName)
     }
 }

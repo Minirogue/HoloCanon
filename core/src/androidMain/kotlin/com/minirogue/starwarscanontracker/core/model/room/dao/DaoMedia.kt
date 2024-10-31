@@ -1,8 +1,6 @@
 package com.minirogue.starwarscanontracker.core.model.room.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -10,7 +8,7 @@ import androidx.room.RawQuery
 import androidx.room.Transaction
 import androidx.room.Update
 import androidx.sqlite.db.SupportSQLiteQuery
-import com.minirogue.media.notes.CheckBoxNumber
+import com.minirogue.media.notes.model.CheckBoxNumber
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotesDto
