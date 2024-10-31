@@ -50,7 +50,7 @@ abstract class DaoMedia {
         "SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
                 "ON media_items.id = media_notes.media_id WHERE media_items.series = :series"
     )
-    abstract fun getMediaNotesBySeries(series: Int): LiveData<List<MediaNotesDto>>
+    abstract fun getMediaNotesBySeries(series: Int): Flow<List<MediaNotesDto>>
 
     @Query(
         "SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
