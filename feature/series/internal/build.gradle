@@ -21,4 +21,5 @@ kotlin.sourceSets.androidMain.dependencies {
     implementation projects.library.mediaNotes.public
     implementation projects.library.series.public
     implementation projects.library.settings.public
+    implementation projects.library.viewExt.public
 }
