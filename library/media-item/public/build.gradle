@@ -1,0 +1,12 @@
+plugins {
+    id 'holocanon.multiplatform.library'
+}
+
+holocanon {
+    jvm()
+}
+
+kotlin.sourceSets.commonMain.dependencies {
+    api libs.kotlinx.coroutines.core
+    api projects.library.commonModels.public
+}

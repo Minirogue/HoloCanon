@@ -64,6 +64,7 @@ dependencies {
     implementation projects.library.filters.internal
     implementation projects.library.globalNotification.internal
     implementation projects.library.holoclient.internal
+    implementation projects.library.mediaItem.internal
     implementation projects.library.mediaNotes.internal
     implementation projects.library.serializationExt.internal
     implementation projects.library.series.internal

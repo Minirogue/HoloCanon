@@ -5,6 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 enum class MediaType(val legacyId: Int) {
+    @SerialName("Unknown")
+    UNKNOWN(-1),
+
     @SerialName("Movie")
     MOVIE(1),
 
@@ -51,7 +54,7 @@ enum class MediaType(val legacyId: Int) {
     fun getSerialName() = MediaType.serializer().descriptor.getElementName(ordinal)
 
     companion object {
-        fun getFromLegacyId(legacyId: Int): MediaType? =
-            entries.firstOrNull { it.legacyId == legacyId }
+        fun getFromLegacyId(legacyId: Int): MediaType =
+            entries.firstOrNull { it.legacyId == legacyId } ?: UNKNOWN
     }
 }

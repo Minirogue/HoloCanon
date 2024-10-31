@@ -40,6 +40,9 @@ class ViewMediaItemFragment : Fragment() {
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(ITEM_ID_KEY, -1) ?: -1
         if (bundleItemId != -1) viewModel.setItemId(bundleItemId)
+
+        viewModel.state.collectWithLifecy
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.liveMediaItemDto.asFlow()
                 .combine(viewModel.isNetworkAllowed) { item, isNetworkAllowed ->
@@ -71,9 +74,9 @@ class ViewMediaItemFragment : Fragment() {
                 { visibilityArray -> updateViews(visibilityArray, fragmentBinding) }
             )
 
-        fragmentBinding.checkbox3.setOnClickListener { viewModel.toggleCheckbox3() }
-        fragmentBinding.checkbox2.setOnClickListener { viewModel.toggleCheckbox2() }
-        fragmentBinding.checkbox1.setOnClickListener { viewModel.toggleCheckbox1() }
+        with(fragmentBinding.checkbox1) { setOnClickListener { viewModel.toggleCheckbox1(isChecked) } }
+        with(fragmentBinding.checkbox2) { setOnClickListener { viewModel.toggleCheckbox2(isChecked) } }
+        with(fragmentBinding.checkbox3) { setOnClickListener { viewModel.toggleCheckbox3(isChecked) } }
 
         return fragmentBinding.root
     }
