@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import coil.load
@@ -18,6 +17,7 @@ import com.minirogue.holocanon.feature.series.internal.databinding.SeriesFragmen
 import com.minirogue.series.model.Series
 import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
 import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel
+import com.minirogue.starwarscanontracker.view.collectWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
@@ -40,32 +40,16 @@ internal class SeriesFragment : Fragment() {
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(SERIES_ID_BUNDLE_KEY, -1) ?: -1
         if (bundleItemId != -1) viewModel.setSeriesId(bundleItemId)
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.seriesFlow
-                .combine(viewModel.isNetworkAllowed) { series, isNetworkAllowed ->
-                    Pair(
-                        series,
-                        isNetworkAllowed
-                    )
-                }
-                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
-                .collect { updateViews(it.first, it.second, fragmentBinding) }
+
+        with(fragmentBinding.checkbox1) {
+            setOnClickListener { viewModel.toggleCheckbox1(isChecked) }
         }
-        viewModel.liveSeriesNotes.observe(viewLifecycleOwner) { notes ->
-            updateViews(
-                notes,
-                fragmentBinding
-            )
+        with(fragmentBinding.checkbox2) {
+            setOnClickListener { viewModel.toggleCheckbox2(isChecked) }
         }
-        viewModel.checkBoxNames.asLiveData(lifecycleScope.coroutineContext).observe(
-            viewLifecycleOwner
-        ) { names -> setCheckBoxNames(names, fragmentBinding) }
-        viewModel.checkBoxVisibility.asLiveData(lifecycleScope.coroutineContext).observe(
-            viewLifecycleOwner
-        ) { visibility -> setCheckBoxVisibility(visibility, fragmentBinding) }
-        fragmentBinding.checkbox3.setOnClickListener { viewModel.toggleCheckbox3() }
-        fragmentBinding.checkbox2.setOnClickListener { viewModel.toggleCheckbox2() }
-        fragmentBinding.checkbox1.setOnClickListener { viewModel.toggleCheckbox1() }
+        with(fragmentBinding.checkbox3) {
+            setOnClickListener { viewModel.toggleCheckbox3(isChecked) }
+        }
 
         val recyclerView = fragmentBinding.seriesRecyclerview
         val adapter = SeriesListAdapter { itemId ->
@@ -73,8 +57,16 @@ internal class SeriesFragment : Fragment() {
         }
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
-        viewModel.seriesList.observe(viewLifecycleOwner) { adapter.submitList(it) }
 
+
+        viewModel.state.collectWithLifecycle { state ->
+            updateViews(state.seriesNotesArray, fragmentBinding)
+            updateViews(state.series, state.isNetworkAllowed, fragmentBinding)
+            adapter.submitList(state.mediaAndNotes)
+            setCheckBoxNames(state.checkBoxText, fragmentBinding)
+            setCheckBoxVisibility(state.checkBoxVisibility, fragmentBinding)
+
+        }
         return fragmentBinding.root
     }
 
@@ -108,7 +100,7 @@ internal class SeriesFragment : Fragment() {
         }
     }
 
-    private fun updateViews(notes: Array<Boolean>, fragmentBinding: SeriesFragmentBinding) {
+    private fun updateViews(notes: List<Boolean>, fragmentBinding: SeriesFragmentBinding) {
         fragmentBinding.checkbox1.isChecked = notes[0]
         fragmentBinding.checkbox2.isChecked = notes[1]
         fragmentBinding.checkbox3.isChecked = notes[2]
