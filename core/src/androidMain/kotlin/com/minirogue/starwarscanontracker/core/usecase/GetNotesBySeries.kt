@@ -1,6 +1,5 @@
 package com.minirogue.starwarscanontracker.core.usecase
 
-import androidx.lifecycle.LiveData
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import kotlinx.coroutines.flow.Flow
