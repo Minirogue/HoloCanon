@@ -1,22 +1,16 @@
 package com.minirogue.holocanon.feature.series.internal.view
 
-import androidx.appcompat.view.menu.ListMenuPresenter
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.minirogue.series.model.Series
 import com.minirogue.series.usecase.GetSeries
 import com.minirogue.series.usecase.GetSeriesIdFromName
 import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.usecase.Checkbox
 import com.minirogue.starwarscanontracker.core.usecase.GetMediaAndNotesForSeries
-import com.minirogue.starwarscanontracker.core.usecase.GetNotesBySeries
 import com.minirogue.starwarscanontracker.core.usecase.IsNetworkAllowed
 import com.minirogue.starwarscanontracker.core.usecase.SetCheckboxForSeries
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -24,9 +18,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withContext
 import settings.usecase.GetCheckboxSettings
 import settings.usecase.GetCheckboxText
 import javax.inject.Inject
@@ -52,7 +43,6 @@ data class SeriesState(
 internal class SeriesViewModel @Inject constructor(
     private val getSeries: GetSeries,
     getCheckboxText: GetCheckboxText,
-    private val getNotesBySeries: GetNotesBySeries,
     private val getMediaAndNotesForSeries: GetMediaAndNotesForSeries,
     private val setCheckboxForSeries: SetCheckboxForSeries,
     private val getSeriesIdFromName: GetSeriesIdFromName,

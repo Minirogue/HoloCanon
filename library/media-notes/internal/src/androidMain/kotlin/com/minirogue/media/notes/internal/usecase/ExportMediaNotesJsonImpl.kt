@@ -11,17 +11,14 @@ import com.minirogue.media.notes.internal.model.CheckBoxNamesV1
 import com.minirogue.media.notes.internal.model.MediaNotesJsonV1
 import com.minirogue.media.notes.internal.model.MediaNotesV1
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.encodeToStream
 import settings.usecase.GetCheckboxSettings
 import java.io.IOException
 import java.io.OutputStream
-import java.lang.Appendable
 import java.lang.Exception
 import javax.inject.Inject
 
