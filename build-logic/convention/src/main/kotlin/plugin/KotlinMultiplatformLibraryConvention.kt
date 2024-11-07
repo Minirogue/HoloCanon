@@ -13,6 +13,7 @@ import convention.configureViewBinding
 import org.gradle.api.Action
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.jetbrains.kotlin.gradle.dsl.KotlinProjectExtension
 
 class KotlinMultiplatformLibraryConvention : Plugin<Project> {
     override fun apply(target: Project) {
@@ -46,6 +47,12 @@ open class HolocanonMultiplatformLibraryExtension(private val project: Project) 
     }
 
     fun serialization() = project.configureSerialization()
+    fun explicitBackingFields() = project.extensions.configure(KotlinProjectExtension::class.java) {
+        sourceSets.all {
+            languageSettings.enableLanguageFeature("ExplicitBackingFields")
+        }
+    }
+
 }
 
 class AndroidConfig(val project: Project) {

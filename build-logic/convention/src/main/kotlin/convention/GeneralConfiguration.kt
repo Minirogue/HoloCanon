@@ -10,11 +10,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 fun Project.applyUniversalConfigurations(useGradleChecker: Boolean = true) {
     if (useGradleChecker) configureGradleChecker()
     configureDetekt()
-    extensions.configure(KotlinProjectExtension::class.java) {
-        sourceSets.all {
-            languageSettings.enableLanguageFeature("ExplicitBackingFields")
-        }
-    }
     tasks.withType(KotlinCompile::class.java).all {
         compilerOptions.freeCompilerArgs.add("-Xcontext-receivers")
     }
