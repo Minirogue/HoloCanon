@@ -3,7 +3,6 @@ package com.minirogue.media.notes.internal.usecase
 import com.minirogue.media.notes.model.MediaNotes
 import com.minirogue.media.notes.usecase.GetNotesForMedia
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

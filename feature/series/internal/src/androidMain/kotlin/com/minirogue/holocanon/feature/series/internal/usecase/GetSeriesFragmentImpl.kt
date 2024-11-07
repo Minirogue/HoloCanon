@@ -1,6 +1,5 @@
 package com.minirogue.holocanon.feature.series.internal.usecase
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.minirogue.holocanon.feature.series.GetSeriesFragment
 import com.minirogue.holocanon.feature.series.internal.view.SeriesFragment
