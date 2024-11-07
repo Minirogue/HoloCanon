@@ -1,6 +1,5 @@
 package com.minirogue.media.notes.internal.usecase
 
-import androidx.lifecycle.LiveData
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.usecase.GetNotesForMedia
