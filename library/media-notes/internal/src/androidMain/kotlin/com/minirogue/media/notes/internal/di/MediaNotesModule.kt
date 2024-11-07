@@ -2,12 +2,12 @@ package com.minirogue.media.notes.internal.di
 
 import com.minirogue.media.notes.ExportMediaNotesJson
 import com.minirogue.media.notes.ImportMediaNotesJson
-import com.minirogue.media.notes.UpdateCheckValue
+import com.minirogue.media.notes.usecase.UpdateCheckValue
 import com.minirogue.media.notes.internal.usecase.ExportMediaNotesJsonImpl
 import com.minirogue.media.notes.internal.usecase.GetNotesForMediaImpl
 import com.minirogue.media.notes.internal.usecase.ImportMediaNotesJsonImpl
 import com.minirogue.media.notes.internal.usecase.UpdateCheckValueImpl
-import com.minirogue.starwarscanontracker.core.usecase.GetNotesForMedia
+import com.minirogue.media.notes.usecase.GetNotesForMedia
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.minirogue.series.model.Series
 import com.minirogue.series.usecase.GetSeries
+import com.minirogue.series.usecase.GetSeriesIdFromName
 import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
 import com.minirogue.starwarscanontracker.core.usecase.Checkbox
 import com.minirogue.starwarscanontracker.core.usecase.GetMediaAndNotesForSeries
@@ -44,6 +45,7 @@ internal class SeriesViewModel @Inject constructor(
     getCheckboxText: GetCheckboxText,
     private val getMediaAndNotesForSeries: GetMediaAndNotesForSeries,
     private val setCheckboxForSeries: SetCheckboxForSeries,
+    private val getSeriesIdFromName: GetSeriesIdFromName,
     isNetworkAllowed: IsNetworkAllowed,
     getCheckboxSettings: GetCheckboxSettings,
 ) : ViewModel() {
@@ -70,7 +72,8 @@ internal class SeriesViewModel @Inject constructor(
     }
 
 
-    fun setSeriesId(seriesId: Int) {
+    fun setSeries(seriesName: String) = viewModelScope.launch {
+        val seriesId = getSeriesIdFromName(seriesName) ?: -1 // TODO this navigation can be improved
         state.update { it.copy(seriesId = seriesId) }
         getSeries(seriesId)
             .onEach { series -> state.update { it.copy(series = series) } }

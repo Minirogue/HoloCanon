@@ -1,0 +1,15 @@
+plugins {
+    id 'holocanon.multiplatform.library'
+}
+
+holocanon {
+    android {
+        hilt()
+    }
+}
+
+kotlin.sourceSets.commonMain.dependencies {
+    api projects.library.mediaItem.public
+
+    implementation projects.core
+}

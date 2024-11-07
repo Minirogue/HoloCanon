@@ -3,8 +3,8 @@ package com.minirogue.holocanon.feature.media.list.internal.viewmodel
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.minirogue.media.notes.CheckBoxNumber
-import com.minirogue.media.notes.UpdateCheckValue
+import com.minirogue.media.notes.model.CheckBoxNumber
+import com.minirogue.media.notes.usecase.UpdateCheckValue
 import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
 import com.minirogue.starwarscanontracker.core.model.SortStyle
 import com.minirogue.starwarscanontracker.core.usecase.GetMediaListWithNotes

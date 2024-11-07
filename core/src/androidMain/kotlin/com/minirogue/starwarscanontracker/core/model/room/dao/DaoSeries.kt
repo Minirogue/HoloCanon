@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface DaoSeries {
     @Query("SELECT * FROM series")
-    fun getAllNonLive(): List<SeriesDto>
+    suspend fun getAllNonLive(): List<SeriesDto>
 
     @Query("SELECT * FROM series")
     fun getAllSeries(): Flow<List<SeriesDto>>
