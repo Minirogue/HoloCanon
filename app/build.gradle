@@ -47,9 +47,8 @@ dependencies {
     implementation libs.fastScroll
     implementation libs.kotlinx.coroutines.core
     implementation libs.kotlinx.coroutines.android
-    implementation libs.androidx.lifecycle.livedata // TODO deprecate
-    implementation libs.androidx.lifecycle.viewmodel // TODO deprecate
-    implementation libs.androidx.lifecycle.common // TODO deprecate
+    implementation libs.androidx.lifecycle.viewmodel
+    implementation libs.androidx.lifecycle.common
     implementation libs.room.ktx
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation projects.core
