@@ -14,8 +14,8 @@ import java.io.FileInputStream
 import java.util.Properties
 
 private const val MIN_SDK = 21
-private const val COMPILE_SDK = 34
-private const val TARGET_SDK = 34
+private const val COMPILE_SDK = 35
+private const val TARGET_SDK = 35
 
 internal fun Project.configureAndroidLibrary() {
     with(pluginManager) { apply("com.android.library") }

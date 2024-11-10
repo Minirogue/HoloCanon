@@ -23,7 +23,7 @@ import filters.model.MediaFilter
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class FilterSelectionFragment : Fragment() {
+internal class FilterSelectionFragment : Fragment() {
 
     private val viewModel: FilterSelectionViewModel by viewModels()
 
@@ -55,7 +55,8 @@ class FilterSelectionFragment : Fragment() {
             }
 
             override fun setFilterGroupObservation(chipGroup: ChipGroup, filterGroup: FilterGroup) {
-                viewModel.getFiltersOfType(filterGroup.type).collectWithLifecycle { filters ->
+                viewModel.getFiltersOfType(filterGroup.type)
+                    .collectWithLifecycle { filters ->
                         chipGroup.removeAllViews()
                         filters.forEach { mediaFilter ->
                             if (!mediaFilter.isActive) {
