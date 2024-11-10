@@ -13,7 +13,6 @@ kotlin.sourceSets.androidMain.dependencies {
     api projects.feature.selectFilters.public
 
     implementation libs.android.material
-    implementation libs.androidx.lifecycle.livedata // TODO deprecate
     implementation projects.library.filters.public
     implementation projects.library.settings.public
     implementation projects.library.viewExt.public
