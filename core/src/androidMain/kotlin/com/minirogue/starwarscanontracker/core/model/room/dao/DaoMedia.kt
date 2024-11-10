@@ -1,8 +1,6 @@
 package com.minirogue.starwarscanontracker.core.model.room.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -10,7 +8,7 @@ import androidx.room.RawQuery
 import androidx.room.Transaction
 import androidx.room.Update
 import androidx.sqlite.db.SupportSQLiteQuery
-import com.minirogue.media.notes.CheckBoxNumber
+import com.minirogue.media.notes.model.CheckBoxNumber
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotesDto
@@ -37,7 +35,7 @@ abstract class DaoMedia {
     abstract fun getMediaNotesById(mediaId: Long): Flow<MediaNotesDto>
 
     @Query("SELECT * FROM media_items WHERE id = :mediaID LIMIT 1")
-    abstract fun getMediaItemById(mediaID: Int): LiveData<MediaItemDto>
+    abstract fun getMediaItemById(mediaID: Int): Flow<MediaItemDto>
 
     //The following are for MediaNotes interactions
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -50,7 +48,7 @@ abstract class DaoMedia {
         "SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
                 "ON media_items.id = media_notes.media_id WHERE media_items.series = :series"
     )
-    abstract fun getMediaNotesBySeries(series: Int): LiveData<List<MediaNotesDto>>
+    abstract fun getMediaNotesBySeries(series: Int): Flow<List<MediaNotesDto>>
 
     @Query(
         "SELECT media_notes.* FROM media_items INNER JOIN media_notes " +

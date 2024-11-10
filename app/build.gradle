@@ -47,9 +47,8 @@ dependencies {
     implementation libs.fastScroll
     implementation libs.kotlinx.coroutines.core
     implementation libs.kotlinx.coroutines.android
-    implementation libs.lifecycle.livedata // TODO deprecate
-    implementation libs.lifecycle.viewmodel // TODO deprecate
-    implementation libs.lifecycle.common// TODO deprecate
+    implementation libs.androidx.lifecycle.viewmodel
+    implementation libs.androidx.lifecycle.common
     implementation libs.room.ktx
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation projects.core
@@ -64,6 +63,7 @@ dependencies {
     implementation projects.library.filters.internal
     implementation projects.library.globalNotification.internal
     implementation projects.library.holoclient.internal
+    implementation projects.library.mediaItem.internal
     implementation projects.library.mediaNotes.internal
     implementation projects.library.serializationExt.internal
     implementation projects.library.series.internal

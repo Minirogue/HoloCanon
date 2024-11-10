@@ -2,6 +2,6 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>LongParameterList:SeriesViewModel.kt$SeriesViewModel$( private val getSeries: GetSeries, getCheckboxText: GetCheckboxText, private val getNotesBySeries: GetNotesBySeries, private val getMediaAndNotesForSeries: GetMediaAndNotesForSeries, private val setCheckboxForSeries: SetCheckboxForSeries, isNetworkAllowed: IsNetworkAllowed, getCheckboxSettings: GetCheckboxSettings, )</ID>
+    <ID>LongParameterList:SeriesViewModel.kt$SeriesViewModel$( private val getSeries: GetSeries, getCheckboxText: GetCheckboxText, private val getMediaAndNotesForSeries: GetMediaAndNotesForSeries, private val setCheckboxForSeries: SetCheckboxForSeries, private val getSeriesIdFromName: GetSeriesIdFromName, isNetworkAllowed: IsNetworkAllowed, getCheckboxSettings: GetCheckboxSettings, )</ID>
   </CurrentIssues>
 </SmellBaseline>

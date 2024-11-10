@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.minirogue.starwarscanontracker.core.model.MediaNotes
+import com.minirogue.media.notes.model.MediaNotes
 
 @Entity(tableName = "media_notes",
     foreignKeys = [ForeignKey(entity = MediaItemDto::class,

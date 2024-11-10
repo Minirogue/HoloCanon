@@ -10,5 +10,6 @@ holocanon {
 
 kotlin.sourceSets.androidMain.dependencies {
     api libs.android.material
+    api libs.androidx.lifecycle.runtime.ktx
     api projects.library.filters.public
 }

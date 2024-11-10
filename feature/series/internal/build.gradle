@@ -7,6 +7,7 @@ holocanon {
         hilt()
         viewBinding()
     }
+    explicitBackingFields()
 }
 
 kotlin.sourceSets.androidMain.dependencies {
@@ -21,4 +22,5 @@ kotlin.sourceSets.androidMain.dependencies {
     implementation projects.library.mediaNotes.public
     implementation projects.library.series.public
     implementation projects.library.settings.public
+    implementation projects.library.viewExt.public
 }

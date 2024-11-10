@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +15,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.minirogue.holocanon.feature.select.filters.internal.databinding.SelectFiltersFragmentBinding
 import com.minirogue.starwarscanontracker.view.FilterChip
+import com.minirogue.starwarscanontracker.view.collectWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import filters.model.FilterGroup
 import filters.model.FilterType
@@ -39,11 +39,13 @@ class FilterSelectionFragment : Fragment() {
 
         val activeChipGroup = fragmentBinding.selectedChipgroup
 
-        viewModel.getActiveFilters().asLiveData(lifecycleScope.coroutineContext).observe(viewLifecycleOwner) { activeFilters ->
-            activeChipGroup.removeAllViews(); activeFilters.forEach {
-            activeChipGroup.addView(makeCurrentFilterChip(it))
-        }
-        }
+        viewModel.getActiveFilters()
+            .collectWithLifecycle { activeFilters ->
+                activeChipGroup.removeAllViews()
+                activeFilters.forEach {
+                    activeChipGroup.addView(makeCurrentFilterChip(it))
+                }
+            }
 
         val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(fragmentContext)
         val adapter = FilterSelectionAdapter()
@@ -53,8 +55,7 @@ class FilterSelectionFragment : Fragment() {
             }
 
             override fun setFilterGroupObservation(chipGroup: ChipGroup, filterGroup: FilterGroup) {
-                viewModel.getFiltersOfType(filterGroup.type).asLiveData(lifecycleScope.coroutineContext)
-                    .observe(viewLifecycleOwner) { filters ->
+                viewModel.getFiltersOfType(filterGroup.type).collectWithLifecycle { filters ->
                         chipGroup.removeAllViews()
                         filters.forEach { mediaFilter ->
                             if (!mediaFilter.isActive) {
@@ -81,21 +82,21 @@ class FilterSelectionFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-               launch {
-                   viewModel.checkboxSettings.collect { checkboxSettings ->
-                       val list = ArrayList<FilterType>()
-                       if (!checkboxSettings.checkbox1Setting.isInUse) {
-                           list.add(FilterType.CheckboxOne)
-                       }
-                       if (!checkboxSettings.checkbox2Setting.isInUse) {
-                           list.add(FilterType.CheckboxTwo)
-                       }
-                       if (!checkboxSettings.checkbox3Setting.isInUse) {
-                           list.add(FilterType.CheckboxThree)
-                       }
-                       adapter.updateExcludedTypes(list)
-                   }
-               }
+                launch {
+                    viewModel.checkboxSettings.collect { checkboxSettings ->
+                        val list = ArrayList<FilterType>()
+                        if (!checkboxSettings.checkbox1Setting.isInUse) {
+                            list.add(FilterType.CheckboxOne)
+                        }
+                        if (!checkboxSettings.checkbox2Setting.isInUse) {
+                            list.add(FilterType.CheckboxTwo)
+                        }
+                        if (!checkboxSettings.checkbox3Setting.isInUse) {
+                            list.add(FilterType.CheckboxThree)
+                        }
+                        adapter.updateExcludedTypes(list)
+                    }
+                }
                 launch {
                     viewModel.filterTypes.collect { filterTypes -> adapter.updateList(filterTypes) }
                 }

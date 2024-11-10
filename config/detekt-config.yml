@@ -6,3 +6,8 @@ config:
 naming:
   FunctionNaming:
     ignoreAnnotated: ['Composable']
+style:
+  UnusedImports:
+    active: true
+  MagicNumber:
+    ignoreEnums: true

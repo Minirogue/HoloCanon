@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                 navigationViewModel.navigationDestination.collect { destination ->
                     when (destination) {
                         is NavigationDestination.MediaItemScreen -> navigateToMediaItem(destination.itemId)
-                        is NavigationDestination.SeriesScreen -> navigateToSeries(destination.seriesId)
+                        is NavigationDestination.SeriesScreen -> navigateToSeries(destination.seriesName)
                     }
                 }
             }
@@ -113,8 +113,8 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
-    private fun navigateToSeries(seriesId: Int) {
-        val seriesFragment = getSeriesFragment(seriesId)
+    private fun navigateToSeries(seriesName: String) {
+        val seriesFragment = getSeriesFragment(seriesName)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, seriesFragment)
             .addToBackStack(null)

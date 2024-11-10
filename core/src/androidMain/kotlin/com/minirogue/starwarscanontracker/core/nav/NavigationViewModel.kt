@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 
 sealed interface NavigationDestination {
     data class MediaItemScreen(val itemId: Long) : NavigationDestination
-    data class SeriesScreen(val seriesId: Int) : NavigationDestination
+    data class SeriesScreen(val seriesName: String) : NavigationDestination
 }
 
 class NavigationViewModel : ViewModel() {

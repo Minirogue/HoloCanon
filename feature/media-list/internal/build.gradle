@@ -16,7 +16,6 @@ kotlin.sourceSets.androidMain.dependencies {
     implementation libs.androidx.appcompat
     implementation libs.coil
     implementation libs.fastScroll
-    implementation libs.lifecycle.livedata // TODO deprecate
     implementation projects.core
     implementation projects.feature.mediaItem.public
     implementation projects.library.commonResources.public

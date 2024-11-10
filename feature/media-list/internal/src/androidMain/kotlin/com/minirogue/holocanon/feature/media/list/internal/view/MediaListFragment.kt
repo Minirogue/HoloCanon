@@ -35,8 +35,7 @@ import me.zhanghai.android.fastscroll.FastScrollerBuilder
 
 @AndroidEntryPoint
 internal class MediaListFragment : Fragment() {
-    private val layoutId = R.layout.media_list_fragment
-    private val binding by viewBinding(MediaListFragmentBinding::bind)
+    private lateinit var binding: MediaListFragmentBinding
 
     private val mediaListViewModel: MediaListViewModel by viewModels()
     private val navigationViewModel: NavigationViewModel by activityViewModels()
@@ -75,7 +74,8 @@ internal class MediaListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(layoutId, container, false)
+        binding = MediaListFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

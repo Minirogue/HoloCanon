@@ -1,6 +1,5 @@
 package com.minirogue.holocanon.feature.media.item.internal.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,22 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asFlow
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import coil.load
 import coil.request.CachePolicy
 import com.minirogue.common.model.MediaType
+import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.holocanon.feature.media.item.internal.R
 import com.minirogue.holocanon.feature.media.item.internal.databinding.MediaItemFragmentBinding
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
+import com.minirogue.media.notes.model.MediaNotes
 import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
 import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel
+import com.minirogue.starwarscanontracker.view.collectWithLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ViewMediaItemFragment : Fragment() {
@@ -40,40 +34,18 @@ class ViewMediaItemFragment : Fragment() {
         val bundle = this.arguments
         val bundleItemId = bundle?.getInt(ITEM_ID_KEY, -1) ?: -1
         if (bundleItemId != -1) viewModel.setItemId(bundleItemId)
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.liveMediaItemDto.asFlow()
-                .combine(viewModel.isNetworkAllowed) { item, isNetworkAllowed ->
-                    Pair(item, isNetworkAllowed)
-                }
-                .flowWithLifecycle(viewLifecycleOwner.lifecycle)
-                .collect { updateViews(it.first, it.second, fragmentBinding) }
-        }
-        viewModel.liveMediaNotesDto.observe(
-            viewLifecycleOwner,
-            { notes -> updateViews(notes, fragmentBinding) }
-        )
-        viewModel.liveMediaTypeDto.observe(
-            viewLifecycleOwner,
-            { mediaType -> updateView(mediaType, fragmentBinding) }
-        )
-        viewModel.checkBoxText.asLiveData(lifecycleScope.coroutineContext)
-            .observe(
-                viewLifecycleOwner,
-                { arr ->
-                    fragmentBinding.checkbox1.text = arr[0]
-                    fragmentBinding.checkbox2.text = arr[1]
-                    fragmentBinding.checkbox3.text = arr[2]
-                }
-            )
-        viewModel.checkBoxVisibility.asLiveData(lifecycleScope.coroutineContext)
-            .observe(
-                viewLifecycleOwner,
-                { visibilityArray -> updateViews(visibilityArray, fragmentBinding) }
-            )
 
-        fragmentBinding.checkbox3.setOnClickListener { viewModel.toggleCheckbox3() }
-        fragmentBinding.checkbox2.setOnClickListener { viewModel.toggleCheckbox2() }
-        fragmentBinding.checkbox1.setOnClickListener { viewModel.toggleCheckbox1() }
+        viewModel.state.collectWithLifecycle { state ->
+            state.mediaItem?.also { updateViews(it, state.isNetworkAllowed, fragmentBinding) }
+            state.mediaNotes?.also { updateViews(it, fragmentBinding) }
+            updateView(state.mediaItem?.type, fragmentBinding)
+            updateCheckboxText(state.checkboxText, fragmentBinding)
+            updateViews(state.checkboxVisibility, fragmentBinding)
+        }
+
+        with(fragmentBinding.checkbox1) { setOnClickListener { viewModel.toggleCheckbox1(isChecked) } }
+        with(fragmentBinding.checkbox2) { setOnClickListener { viewModel.toggleCheckbox2(isChecked) } }
+        with(fragmentBinding.checkbox3) { setOnClickListener { viewModel.toggleCheckbox3(isChecked) } }
 
         return fragmentBinding.root
     }
@@ -87,39 +59,48 @@ class ViewMediaItemFragment : Fragment() {
         fragmentBinding.checkbox3.visibility = if (visibilityArray[2]) View.VISIBLE else View.GONE
     }
 
-    @SuppressLint("SetTextI18n")
     private fun updateViews(
-        item: MediaItemDto,
+        item: StarWarsMedia,
         isNetworkAllowed: Boolean,
         fragmentBinding: MediaItemFragmentBinding
     ) {
         fragmentBinding.mediaTitle.text = item.title
-        fragmentBinding.descriptionTextview.text = if (item.description.isNotBlank()) {
+        fragmentBinding.descriptionTextview.text = if (!item.description.isNullOrBlank()) {
             getString(R.string.media_item_description_header) + " " + item.description
         } else ""
-        fragmentBinding.releaseDate.text = item.date
-        fragmentBinding.imageCover.load(item.imageURL) {
+        fragmentBinding.releaseDate.text = item.releaseDate
+        fragmentBinding.imageCover.load(item.imageUrl) {
             placeholder(R.drawable.common_resources_app_icon)
             if (isNetworkAllowed) {
                 networkCachePolicy(CachePolicy.ENABLED)
             } else networkCachePolicy(CachePolicy.DISABLED)
         }
-        if (item.series > 0) {
+        val series = item.series
+        if (!series.isNullOrBlank()) {
             fragmentBinding.viewSeriesButton.visibility = View.VISIBLE
             fragmentBinding.viewSeriesButton.setOnClickListener {
-                navigationViewModel.navigateTo(NavigationDestination.SeriesScreen(item.series))
+                navigationViewModel.navigateTo(NavigationDestination.SeriesScreen(series))
             }
         }
     }
 
-    private fun updateViews(notes: MediaNotesDto, fragmentBinding: MediaItemFragmentBinding) {
-        fragmentBinding.checkbox3.isChecked = notes.isBox3Checked
+    private fun updateViews(notes: MediaNotes, fragmentBinding: MediaItemFragmentBinding) {
         fragmentBinding.checkbox1.isChecked = notes.isBox1Checked
         fragmentBinding.checkbox2.isChecked = notes.isBox2Checked
+        fragmentBinding.checkbox3.isChecked = notes.isBox3Checked
     }
 
     private fun updateView(mediaType: MediaType?, fragmentBinding: MediaItemFragmentBinding) {
         fragmentBinding.mediaType.text = mediaType?.getSerialName() ?: ""
+    }
+
+    private fun updateCheckboxText(
+        checkboxText: Array<String>,
+        fragmentBinding: MediaItemFragmentBinding
+    ) {
+        fragmentBinding.checkbox1.text = checkboxText[0]
+        fragmentBinding.checkbox2.text = checkboxText[1]
+        fragmentBinding.checkbox3.text = checkboxText[2]
     }
 
     companion object {

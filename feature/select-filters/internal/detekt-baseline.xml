@@ -5,6 +5,5 @@
     <ID>MagicNumber:FilterSelectionAdapter.kt$FilterSelectionAdapter$90</ID>
     <ID>MaxLineLength:FilterSelectionAdapter.kt$FilterSelectionAdapter$FilterTypeViewHolder : ViewHolder</ID>
     <ID>MaxLineLength:FilterSelectionAdapter.kt$FilterSelectionAdapter$val binding = SelectFiltersFilterSelectionItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)</ID>
-    <ID>MaxLineLength:FilterSelectionFragment.kt$FilterSelectionFragment$viewModel.getActiveFilters().asLiveData(lifecycleScope.coroutineContext)</ID>
   </CurrentIssues>
 </SmellBaseline>
