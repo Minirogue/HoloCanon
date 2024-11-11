@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.test_app_fragment_activity)
 
         // When the user opens a fresh instance of the app
         if (savedInstanceState == null) {

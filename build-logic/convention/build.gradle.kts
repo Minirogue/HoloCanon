@@ -22,6 +22,10 @@ gradlePlugin {
             id = "holocanon.multiplatform.library"
             implementationClass = "plugin.KotlinMultiplatformLibraryConvention"
         }
+        register("testApp") {
+            id = "holocanon.test.app"
+            implementationClass = "plugin.TestAppPlugin"
+        }
         register("androidApp") {
             id = "holocanon.android.app"
             implementationClass = "plugin.AndroidAppConventionPlugin"

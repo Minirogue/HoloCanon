@@ -1,0 +1,13 @@
+plugins {
+    id "holocanon.multiplatform.library"
+}
+
+holocanon {
+    android {
+        hilt()
+    }
+}
+
+kotlin.sourceSets.androidMain.dependencies {
+    api projects.library.filters.public
+}
