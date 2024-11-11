@@ -1,0 +1,15 @@
+plugins {
+    id "holocanon.multiplatform.library"
+}
+
+holocanon {
+    android {
+        hilt()
+        composeUi()
+    }
+}
+
+kotlin.sourceSets.androidMain.dependencies {
+    implementation libs.androidx.appcompat
+    implementation projects.library.composeExt.public
+}
