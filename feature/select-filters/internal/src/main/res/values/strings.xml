@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="select_filters_include">include</string>
+    <string name="select_filters_exclude">exclude</string>
+</resources>

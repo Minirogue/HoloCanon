@@ -5,8 +5,9 @@ plugins {
 holocanon {
     android {
         hilt()
-        viewBinding()
+        composeUi()
     }
+    explicitBackingFields()
 }
 
 kotlin.sourceSets.androidMain.dependencies {
@@ -16,4 +17,5 @@ kotlin.sourceSets.androidMain.dependencies {
     implementation projects.library.filters.public
     implementation projects.library.settings.public
     implementation projects.library.viewExt.public
+    implementation projects.library.composeExt.public
 }
