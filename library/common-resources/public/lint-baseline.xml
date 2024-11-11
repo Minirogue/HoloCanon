@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.7.2" type="baseline" client="gradle" dependencies="false" name="AGP (8.7.2)" variant="all" version="8.7.2">
+
+    <issue
+        id="ResourceName"
+        message="Resource named &apos;`colorPrimary`&apos; does not start with the project&apos;s resource prefix &apos;`common_resources_`&apos;; rename to &apos;`common_resources_colorPrimary`&apos; ?"
+        errorLine1="    &lt;color name=&quot;colorPrimary&quot;>#008577&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/androidMain/res/values/colors.xml"
+            line="3"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="ResourceName"
+        message="Resource named &apos;`colorPrimaryDark`&apos; does not start with the project&apos;s resource prefix &apos;`common_resources_`&apos;; rename to &apos;`common_resources_colorPrimaryDark`&apos; ?"
+        errorLine1="    &lt;color name=&quot;colorPrimaryDark&quot;>#00574B&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/androidMain/res/values/colors.xml"
+            line="4"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="ResourceName"
+        message="Resource named &apos;`colorAccent`&apos; does not start with the project&apos;s resource prefix &apos;`common_resources_`&apos;; rename to &apos;`common_resources_colorAccent`&apos; ?"
+        errorLine1="    &lt;color name=&quot;colorAccent&quot;>@android:color/holo_blue_dark&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/androidMain/res/values/colors.xml"
+            line="5"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="ResourceName"
+        message="Resource named &apos;`darkBackground`&apos; does not start with the project&apos;s resource prefix &apos;`common_resources_`&apos;; rename to &apos;`common_resources_darkBackground`&apos; ?"
+        errorLine1="    &lt;color name=&quot;darkBackground&quot;>#222222&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/androidMain/res/values/colors.xml"
+            line="6"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="ResourceName"
+        message="Resource named &apos;`ic_launcher_background`&apos; does not start with the project&apos;s resource prefix &apos;`common_resources_`&apos;; rename to &apos;`common_resources_ic_launcher_background`&apos; ?"
+        errorLine1="    &lt;color name=&quot;ic_launcher_background&quot;>#EDEF50&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/androidMain/res/values/ic_launcher_background.xml"
+            line="3"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="ResourceName"
+        message="Resource named &apos;`AppTheme`&apos; does not start with the project&apos;s resource prefix &apos;`common_resources_`&apos;; rename to &apos;`CommonResourcesAppTheme`&apos; ?"
+        errorLine1="    &lt;style name=&quot;AppTheme&quot; parent=&quot;Theme.MaterialComponents.NoActionBar&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~">
+        <location
+            file="src/androidMain/res/values/styles.xml"
+            line="4"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `offset` is only used in API level 24 and higher (current min is 21)"
+        errorLine1="                        android:offset=&quot;0&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/androidMain/res/drawable/common_resources_app_icon.xml"
+            line="18"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `offset` is only used in API level 24 and higher (current min is 21)"
+        errorLine1="                        android:offset=&quot;1&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/androidMain/res/drawable/common_resources_app_icon.xml"
+            line="21"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `offset` is only used in API level 24 and higher (current min is 21)"
+        errorLine1="                        android:offset=&quot;0&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/androidMain/res/drawable/common_resources_app_icon.xml"
+            line="41"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="UnusedAttribute"
+        message="Attribute `offset` is only used in API level 24 and higher (current min is 21)"
+        errorLine1="                        android:offset=&quot;1&quot;"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/androidMain/res/drawable/common_resources_app_icon.xml"
+            line="44"
+            column="25"/>
+    </issue>
+
+</issues>
