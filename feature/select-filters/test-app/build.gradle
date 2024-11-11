@@ -1,0 +1,11 @@
+plugins {
+    id "holocanon.test.app"
+}
+
+dependencies {
+    implementation projects.feature.selectFilters.internal
+    implementation projects.feature.testApp.internal // TODO this should be inherent to the plugin
+    implementation projects.library.filters.testBindings
+    implementation projects.library.settings.testBindings
+    implementation projects.library.commonResources.public
+}
