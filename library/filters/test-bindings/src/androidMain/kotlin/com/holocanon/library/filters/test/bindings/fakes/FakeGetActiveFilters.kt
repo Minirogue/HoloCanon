@@ -1,10 +1,8 @@
 package com.holocanon.library.filters.test.bindings.fakes
 
 import filters.GetActiveFilters
-import filters.model.FilterType
 import filters.model.MediaFilter
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton

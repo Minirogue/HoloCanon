@@ -4,8 +4,6 @@ import filters.model.FilterGroup
 import filters.model.FilterType
 import filters.model.MediaFilter
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlin.Boolean
-import kotlin.String
 
 internal val fakeFilters = MutableStateFlow(
     listOf(
