@@ -69,6 +69,6 @@ private fun Project.configureAndroidCommon(commonExtension: CommonExtension<*, *
 
 private fun Project.getVersionCodeFromGitHistory(): Int {
     return providers.exec {
-        commandLine("git","rev-list", "--count", "HEAD")
+        commandLine("git","rev-list", "--count", "main")
     }.standardOutput.asText.get().trim().toInt().also {println("version code: $it")}
 }
