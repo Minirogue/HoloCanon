@@ -25,7 +25,7 @@ internal interface RoomModule {
         @Provides
         @Singleton
         fun provideDatabase(application: Application): MediaDatabase =
-            MediaDatabase.getMediaDatabase(application)
+            MediaDatabase.createDatabase(application)
 
         @Provides
         fun provideDaoMedia(database: MediaDatabase): DaoMedia {
