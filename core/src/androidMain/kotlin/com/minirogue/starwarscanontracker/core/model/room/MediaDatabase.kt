@@ -52,7 +52,6 @@ abstract class MediaDatabase : RoomDatabase() {
     }
 
     companion object {
-        private var databaseInstance: MediaDatabase? = null
         private const val DATABASE_NAME = "StarWars-database"
         private const val LATEST_PREPACKAGED_DATABASE = "schema16_ver13.db"
 
@@ -154,8 +153,7 @@ abstract class MediaDatabase : RoomDatabase() {
             }
         }
 
-        fun getMediaDatabase(context: Context): MediaDatabase =
-            databaseInstance ?: Room.databaseBuilder(
+        fun createDatabase(context: Context): MediaDatabase = Room.databaseBuilder(
                 context.getApplicationContext(),
                 MediaDatabase::class.java,
                 DATABASE_NAME
