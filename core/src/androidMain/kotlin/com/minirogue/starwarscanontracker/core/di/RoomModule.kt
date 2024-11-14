@@ -13,6 +13,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -22,6 +23,7 @@ internal interface RoomModule {
 
     companion object {
         @Provides
+        @Singleton
         fun provideDatabase(application: Application): MediaDatabase =
             MediaDatabase.getMediaDatabase(application)
 
