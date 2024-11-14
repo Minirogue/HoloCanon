@@ -3,7 +3,6 @@ package com.holocanon.library.filters.test.bindings.fakes
 import filters.UpdateFilter
 import filters.model.FilterGroup
 import filters.model.MediaFilter
-import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 class FakeUpdateFilter @Inject constructor() : UpdateFilter {
