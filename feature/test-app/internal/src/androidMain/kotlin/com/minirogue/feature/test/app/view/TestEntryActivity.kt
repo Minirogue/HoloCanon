@@ -23,7 +23,6 @@ internal class TestEntryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        testScreens.forEach { println("test-log ${it.screenName}") }
         setContent {
             HolocanonTheme {
                 Scaffold() { padding ->

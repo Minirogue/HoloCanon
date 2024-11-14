@@ -4,13 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import filters.GetActiveFilters
-import filters.GetAllFilterTypes
-import filters.GetFiltersOfType
+import filters.GetAllFilterGroups
 import filters.UpdateFilter
 import filters.model.FilterGroup
-import filters.model.FilterType
 import filters.model.MediaFilter
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -22,7 +19,7 @@ import settings.usecase.GetCheckboxSettings
 import javax.inject.Inject
 
 internal data class FilterSelectionState(
-    val allFilterTypes: List<FilterGroup> = emptyList(),
+    val filterGroups: Map<FilterGroup, List<MediaFilter>> = emptyMap(),
     val checkboxSettings: CheckboxSettings? = null,
     val activeFilters: List<MediaFilter> = emptyList(),
 )
@@ -30,27 +27,24 @@ internal data class FilterSelectionState(
 @HiltViewModel
 internal class FilterSelectionViewModel @Inject constructor(
     private val getActiveFilters: GetActiveFilters,
-    private val getFiltersOfType: GetFiltersOfType,
     private val updateFilter: UpdateFilter,
-    getAllFilterTypes: GetAllFilterTypes,
+    getAllFilterGroups: GetAllFilterGroups,
     getCheckboxSettings: GetCheckboxSettings,
 ) : ViewModel() {
 
     val state: StateFlow<FilterSelectionState>
-        private field = MutableStateFlow(FilterSelectionState()).also {
-            it.onEach { println("test-log: state updated $it") }.launchIn(viewModelScope)
-        }
+        private field = MutableStateFlow(FilterSelectionState())
 
     init {
-        getAllFilterTypes()
-            .onEach { filterTypes -> state.update { it.copy(allFilterTypes = filterTypes) } }
+        getAllFilterGroups()
+            .onEach { filterGroups -> state.update { it.copy(filterGroups = filterGroups) } }
             .launchIn(viewModelScope)
         getCheckboxSettings()
             .onEach { checkboxSettings -> state.update { it.copy(checkboxSettings = checkboxSettings) } }
             .launchIn(viewModelScope)
         getActiveFilters()
             .onEach { activeFilters -> state.update { it.copy(activeFilters = activeFilters) } }
-
+            .launchIn(viewModelScope)
     }
 
     fun flipFilterType(filterGroup: FilterGroup) = viewModelScope.launch {
@@ -67,9 +61,6 @@ internal class FilterSelectionViewModel @Inject constructor(
         updateFilter(newMediaFilter)
 
     }
-
-    fun getFiltersOfType(filterType: FilterType): Flow<List<MediaFilter>> =
-        getFiltersOfType.invoke(filterType)
 
     fun deactivateFilter(mediaFilter: MediaFilter) = viewModelScope.launch {
         val newMediaFilter = mediaFilter.copy(isActive = false)

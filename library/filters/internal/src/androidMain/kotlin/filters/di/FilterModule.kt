@@ -6,12 +6,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import filters.GetActiveFilters
 import filters.GetActiveFiltersImpl
-import filters.GetAllFilterTypes
-import filters.GetAllFilterTypesImpl
+import filters.GetAllFilterGroups
+import filters.GetAllFilterGroupsImpl
 import filters.GetFilter
 import filters.GetFilterImpl
-import filters.GetFiltersOfType
-import filters.GetFiltersOfTypeImpl
 import filters.GetPermanentFilters
 import filters.GetPermanentFiltersImpl
 import filters.UpdateFilter
@@ -24,9 +22,6 @@ internal interface FilterModule {
     fun bindGetActiveFilters(getActiveFiltersImpl: GetActiveFiltersImpl): GetActiveFilters
 
     @Binds
-    fun bindGetFiltersOfType(getFiltersOfTypeImpl: GetFiltersOfTypeImpl): GetFiltersOfType
-
-    @Binds
     fun bindUpdateFilter(updateFilterImpl: UpdateFilterImpl): UpdateFilter
 
     @Binds
@@ -36,5 +31,5 @@ internal interface FilterModule {
     fun bindGetPermanentFilters(getPermanentFiltersImpl: GetPermanentFiltersImpl): GetPermanentFilters
 
     @Binds
-    fun bindGetAllFiltertypes(impl: GetAllFilterTypesImpl): GetAllFilterTypes
+    fun bindGetAllFiltertypes(impl: GetAllFilterGroupsImpl): GetAllFilterGroups
 }
