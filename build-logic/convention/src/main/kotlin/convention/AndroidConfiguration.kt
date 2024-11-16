@@ -3,16 +3,8 @@ package convention
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.dsl.LibraryExtension
-import org.gradle.api.DefaultTask
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
-import org.gradle.api.tasks.OutputFile
-import org.gradle.api.tasks.TaskAction
-import java.io.File
-import java.io.FileInputStream
-import java.lang.ProcessBuilder.Redirect
-import java.util.Properties
-import java.util.concurrent.TimeUnit
 
 private const val MIN_SDK = 21
 private const val COMPILE_SDK = 35
@@ -69,6 +61,7 @@ private fun Project.configureAndroidCommon(commonExtension: CommonExtension<*, *
 
 private fun Project.getVersionCodeFromGitHistory(): Int {
     return providers.exec {
-        commandLine("git","rev-list", "--count", "HEAD")
-    }.standardOutput.asText.get().trim().toInt().also {println("version code: $it")}
+        commandLine("git", "rev-list", "--count", "HEAD")
+    }.standardOutput.asText.get().trim().toInt()
+        .also { logger.info("version code for $project is $it") }
 }
