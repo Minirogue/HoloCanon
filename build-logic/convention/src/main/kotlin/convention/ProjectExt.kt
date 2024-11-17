@@ -18,10 +18,3 @@ fun getDateAsVersionName(): String {
     val now = Instant.now().atOffset(ZoneOffset.UTC)
     return "${now.year % 100}.${now.monthValue}.${now.dayOfMonth}"
 }
-
-fun getVersionCodeFromProperties(propertiesFile: File): Int? {
-    return Properties().run {
-        load(FileInputStream(propertiesFile))
-        getProperty("VERSION_CODE").toIntOrNull()
-    }
-}
