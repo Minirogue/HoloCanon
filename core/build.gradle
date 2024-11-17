@@ -20,6 +20,7 @@ kotlin.sourceSets.androidMain.dependencies {
     implementation libs.androidx.lifecycle.viewmodel
     implementation projects.library.commonModels.public
     implementation projects.library.settings.public
+    implementation projects.library.coroutineExt.public
 }
 
 kotlin.sourceSets.androidInstrumentedTest.dependencies {
