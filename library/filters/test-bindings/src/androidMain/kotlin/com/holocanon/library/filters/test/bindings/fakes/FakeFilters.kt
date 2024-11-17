@@ -1,11 +1,14 @@
 package com.holocanon.library.filters.test.bindings.fakes
 
+import android.R.attr.type
 import filters.model.FilterGroup
 import filters.model.FilterType
 import filters.model.MediaFilter
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.update
 
-internal val fakeFilters = MutableStateFlow(
+private val fakeFilters = MutableStateFlow(
     listOf(
         MediaFilter(
             id = 1,
@@ -66,6 +69,27 @@ internal val fakeFilters = MutableStateFlow(
     )
 )
 
-internal val filterTypes = MutableStateFlow(FilterType.values().map {
+private val filterTypes = MutableStateFlow(FilterType.values().map {
     FilterGroup(it, true, it.name)
 })
+
+internal fun getFakeFilters() = combine(fakeFilters, filterTypes) { filters, filterTypes ->
+    filters.map { filter ->
+        filter.copy(
+            isPositive = filterTypes.find { it.type == filter.filterType }?.isFilterPositive
+                ?: error("error with FakeFilters getting positivity of $type")
+        )
+    }
+}
+
+internal fun updateFakeFilters(updateFunction: (List<MediaFilter>) -> List<MediaFilter>) =
+    fakeFilters.update { updateFunction(it) }
+
+internal fun getFakeFilterGroups() = combine(filterTypes, getFakeFilters()) { filterTypes, filters ->
+    filterTypes.associateWith { filterGroup ->
+        filters.filter { filterGroup.type == it.filterType }
+    }
+}
+
+internal fun updateFilterGroups(updateFunction: (List<FilterGroup>) -> List<FilterGroup>) =
+    filterTypes.update { updateFunction(it) }

@@ -39,8 +39,12 @@ interface DaoFilter {
     @Update
     suspend fun update(filterObjectDto: FilterObjectDto)
 
-    @Query("SELECT * FROM filter_object")
-    fun getAllFilters(): Flow<List<FilterObjectDto>>
+
+
+    // FullFilter
+    @Query("SELECT filter_object.*,filter_type.is_positive FROM filter_object " +
+            "INNER JOIN filter_type ON filter_object.type_id = filter_type.id ")
+    fun getAllFilters(): Flow<List<FullFilter>>
 
     @Query(
         "SELECT filter_object.*,filter_type.is_positive FROM filter_object " +
@@ -49,14 +53,6 @@ interface DaoFilter {
     )
     suspend fun getFilter(filterId: Int, typeId: Int): FullFilter?
 
-    @Query(
-        "SELECT filter_object.*,filter_type.is_positive FROM filter_object " +
-                "INNER JOIN filter_type ON filter_object.type_id = filter_type.id " +
-                "WHERE type_id=:typeId ORDER BY filter_text"
-    )
-    fun getFiltersWithType(typeId: Int): Flow<List<FullFilter>>
-
-    // FullFilter
     @Query(
         "SELECT filter_object.*,filter_type.is_positive FROM filter_object " +
                 "INNER JOIN filter_type ON filter_object.type_id = filter_type.id " +

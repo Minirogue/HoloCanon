@@ -10,5 +10,5 @@ import javax.inject.Singleton
 @Singleton
 class FakeGetActiveFilters @Inject constructor() : GetActiveFilters {
     override fun invoke(): Flow<List<MediaFilter>> =
-        fakeFilters.map { list -> list.filter { it.isActive } }
+        getFakeFilters().map { list -> list.filter { it.isActive } }
 }
