@@ -2,8 +2,7 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>LongMethod:SettingsFragment.kt$SettingsFragment$@Composable private fun UserDefinedFilter(whichBox: Int, checkboxSetting: CheckboxSetting)</ID>
-    <ID>LongParameterList:SettingsViewModel.kt$SettingsViewModel$( private val getCheckboxSettings: GetCheckboxSettings, private val updateCheckboxName: UpdateCheckboxName, private val updateCheckboxActive: UpdateCheckboxActive, private val getPermanentFilterSettings: GetPermanentFilterSettings, private val updatePermanentFilterSettings: UpdatePermanentFilterSettings, private val maybeUpdateMediaDatabase: MaybeUpdateMediaDatabase, private val updateWifiSetting: UpdateWifiSetting, private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly, private val exportMediaNotesJson: ExportMediaNotesJson, private val importMediaNotesJson: ImportMediaNotesJson, )</ID>
+    <ID>LongParameterList:SettingsViewModel.kt$SettingsViewModel$( private val getCheckboxSettings: GetCheckboxSettings, private val updateCheckboxName: UpdateCheckboxName, private val updateCheckboxActive: FlipIsCheckboxActive, private val getPermanentFilterSettings: GetPermanentFilterSettings, private val updatePermanentFilterSettings: UpdatePermanentFilterSettings, private val maybeUpdateMediaDatabase: MaybeUpdateMediaDatabase, private val updateWifiSetting: UpdateWifiSetting, private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly, private val exportMediaNotesJson: ExportMediaNotesJson, private val importMediaNotesJson: ImportMediaNotesJson, )</ID>
     <ID>MagicNumber:SettingsFragment.kt$SettingsFragment$3</ID>
     <ID>TooManyFunctions:SettingsFragment.kt$SettingsFragment : Fragment</ID>
   </CurrentIssues>

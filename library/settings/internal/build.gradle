@@ -13,4 +13,5 @@ kotlin.sourceSets.androidMain.dependencies {
 
     implementation libs.androidx.datastore
     implementation libs.androidx.preference
+    implementation projects.library.filters.public
 }

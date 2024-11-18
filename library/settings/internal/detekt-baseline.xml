@@ -2,6 +2,7 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
+    <ID>CyclomaticComplexMethod:SettingsRepo.kt$SettingsRepo$suspend fun updateCheckbox( whichBox: Int, updateFunction: (CheckboxSetting) -&gt; CheckboxSetting ): Result&lt;CheckboxSetting&gt;</ID>
     <ID>MagicNumber:SettingsRepo.kt$SettingsRepo$3</ID>
     <ID>MaxLineLength:GetCheckboxSettingsImpl.kt$GetCheckboxSettingsImpl$internal</ID>
     <ID>MaxLineLength:SetLatestDatabaseVersionImpl.kt$SetLatestDatabaseVersionImpl$internal</ID>

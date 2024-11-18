@@ -13,21 +13,35 @@ import filters.model.FilterType
 import filters.model.MediaFilter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
+import settings.usecase.GetCheckboxSettings
 import javax.inject.Inject
 
 internal class GetAllFilterGroupsImpl @Inject constructor(
-    private val daoFilter: DaoFilter
+    private val daoFilter: DaoFilter,
+    private val getPermanentFilters: GetPermanentFilters,
+    private val getCheckboxSettings: GetCheckboxSettings,
 ) : GetAllFilterGroups {
 
     override fun invoke(): Flow<Map<FilterGroup, List<MediaFilter>>> = combine(
         daoFilter.getAllFilterTypes(),
         daoFilter.getAllFilters(),
-    ) { filterTypes, filters ->
+        getPermanentFilters(),
+        getCheckboxSettings(),
+    ) { filterTypes, filters, permanentFilters, checkBoxSettings ->
         val adaptedFilters = filters.map { it.toMediaFilter() }
-        filterTypes.map { it.toFilterGroup() }.associateWith { filterGroup ->
-            adaptedFilters.filter { filterGroup.type == it.filterType }
-        }
+        filterTypes
+            .map { it.toFilterGroup() }
+            .filter {
+                when (it.type) {
+                    FilterType.CheckboxOne -> checkBoxSettings.checkbox1Setting.isInUse
+                    FilterType.CheckboxTwo -> checkBoxSettings.checkbox2Setting.isInUse
+                    FilterType.CheckboxThree -> checkBoxSettings.checkbox3Setting.isInUse
+                    else -> true
+                }
+            }
+            .associateWith { filterGroup ->
+                adaptedFilters.filter { filterGroup.type == it.filterType && it !in permanentFilters }
+            }
     }
 
     private fun FilterTypeDto.toFilterGroup(): FilterGroup =
