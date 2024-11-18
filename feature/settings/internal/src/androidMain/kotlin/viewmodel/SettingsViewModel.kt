@@ -15,7 +15,7 @@ import settings.model.CheckboxSettings
 import settings.usecase.GetCheckboxSettings
 import settings.usecase.GetPermanentFilterSettings
 import settings.usecase.ShouldSyncViaWifiOnly
-import settings.usecase.UpdateCheckboxActive
+import settings.usecase.FlipIsCheckboxActive
 import settings.usecase.UpdateCheckboxName
 import settings.usecase.UpdatePermanentFilterSettings
 import settings.usecase.UpdateWifiSetting
@@ -34,7 +34,7 @@ internal data class SettingsState(
 internal class SettingsViewModel @Inject constructor(
     private val getCheckboxSettings: GetCheckboxSettings,
     private val updateCheckboxName: UpdateCheckboxName,
-    private val updateCheckboxActive: UpdateCheckboxActive,
+    private val updateCheckboxActive: FlipIsCheckboxActive,
     private val getPermanentFilterSettings: GetPermanentFilterSettings,
     private val updatePermanentFilterSettings: UpdatePermanentFilterSettings,
     private val maybeUpdateMediaDatabase: MaybeUpdateMediaDatabase,
@@ -70,8 +70,8 @@ internal class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun setCheckboxActive(whichBox: Int, newValue: Boolean) = viewModelScope.launch {
-        updateCheckboxActive(whichBox, newValue)
+    fun flipIsCheckboxActive(whichBox: Int) = viewModelScope.launch {
+        updateCheckboxActive(whichBox)
     }
 
     fun setCheckboxName(whichBox: Int, newName: String) = viewModelScope.launch {

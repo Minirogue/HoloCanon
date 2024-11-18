@@ -173,12 +173,7 @@ internal class SettingsFragment : Fragment() {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable {
-                        viewModel.setCheckboxActive(
-                            whichBox,
-                            !checkboxSetting.isInUse
-                        )
-                    },
+                    .clickable { viewModel.flipIsCheckboxActive(whichBox) },
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
@@ -189,9 +184,7 @@ internal class SettingsFragment : Fragment() {
                 Switch(
                     modifier = Modifier
                         .padding(8.dp)
-                        .clickable {
-                            viewModel.setCheckboxActive(whichBox, !checkboxSetting.isInUse)
-                        },
+                        .clickable { viewModel.flipIsCheckboxActive(whichBox) },
                     checked = checkboxSetting.isInUse,
                     onCheckedChange = null
                 )

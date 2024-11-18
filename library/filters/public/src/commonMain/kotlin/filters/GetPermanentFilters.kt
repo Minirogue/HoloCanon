@@ -1,7 +1,8 @@
 package filters
 
 import filters.model.MediaFilter
+import kotlinx.coroutines.flow.Flow
 
 interface GetPermanentFilters {
-    suspend operator fun invoke(): List<MediaFilter>
+    operator fun invoke(): Flow<List<MediaFilter>>
 }

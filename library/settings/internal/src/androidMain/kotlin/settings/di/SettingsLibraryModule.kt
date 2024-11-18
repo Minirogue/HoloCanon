@@ -22,8 +22,8 @@ import settings.usecase.SetLatestDatabaseVersion
 import settings.usecase.SetLatestDatabaseVersionImpl
 import settings.usecase.ShouldSyncViaWifiOnly
 import settings.usecase.ShouldSyncViaWifiOnlyImpl
-import settings.usecase.UpdateCheckboxActive
-import settings.usecase.UpdateCheckboxActiveImpl
+import settings.usecase.FlipIsCheckboxActive
+import settings.usecase.FlipIsCheckboxActiveImpl
 import settings.usecase.UpdateCheckboxName
 import settings.usecase.UpdateCheckboxNameImpl
 import settings.usecase.UpdatePermanentFilterSettings
@@ -63,7 +63,7 @@ internal interface SettingsLibraryModule {
     fun bindShouldSyncViaWifiOnly(shouldSyncViaWifiOnlyImpl: ShouldSyncViaWifiOnlyImpl): ShouldSyncViaWifiOnly
 
     @Binds
-    fun bindUpdateCheckboxActive(updateCheckboxActiveImpl: UpdateCheckboxActiveImpl): UpdateCheckboxActive
+    fun bindUpdateCheckboxActive(updateCheckboxActiveImpl: FlipIsCheckboxActiveImpl): FlipIsCheckboxActive
 
     @Binds
     fun bindUpdateCheckboxName(updateCheckboxNameImpl: UpdateCheckboxNameImpl): UpdateCheckboxName

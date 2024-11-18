@@ -50,17 +50,17 @@ internal class SettingsRepo @Inject constructor(
             checkboxSettings = CheckboxSettings(
                 checkbox1Setting = CheckboxSetting(
                     name = prefs[checkbox1DefaultTextPreferenceKey]
-                        ?: resources.getString(R.string.settings_checkbox1_default_text),
+                        ?: getDefaultNameForCheckbox(1),
                     isInUse = prefs[userFilter1ActivePreferenceKey] ?: true
                 ),
                 checkbox2Setting = CheckboxSetting(
                     name = prefs[checkbox2DefaultTextPreferenceKey]
-                        ?: resources.getString(R.string.settings_checkbox2_default_text),
+                        ?: getDefaultNameForCheckbox(2),
                     isInUse = prefs[userFilter2ActivePreferenceKey] ?: true
                 ),
                 checkbox3Setting = CheckboxSetting(
                     name = prefs[checkbox3DefaultTextPreferenceKey]
-                        ?: resources.getString(R.string.settings_checkbox3_default_text),
+                        ?: getDefaultNameForCheckbox(3),
                     isInUse = prefs[userFilter3ActivePreferenceKey] ?: true
                 )
             ),
@@ -79,10 +79,9 @@ internal class SettingsRepo @Inject constructor(
      */
     suspend fun updateCheckbox(
         whichBox: Int,
-        newName: String? = null,
-        newUsageValue: Boolean? = null
-    ) {
-        try {
+        updateFunction: (CheckboxSetting) -> CheckboxSetting
+    ): Result<CheckboxSetting> {
+        return runCatching {
             val nameKey = when (whichBox) {
                 1 -> checkbox1DefaultTextPreferenceKey
                 2 -> checkbox2DefaultTextPreferenceKey
@@ -95,14 +94,26 @@ internal class SettingsRepo @Inject constructor(
                 3 -> userFilter3ActivePreferenceKey
                 else -> throw IllegalArgumentException("updateCheckbox called with invalid whichBox: $whichBox")
             }
+            var newCheckboxSetting: CheckboxSetting? = null
             dataStore.edit { prefs ->
-                newName?.also { prefs[nameKey] = it }
-                newUsageValue?.also { prefs[activeKey] = it }
+                newCheckboxSetting = updateFunction(
+                    CheckboxSetting(
+                        name = prefs[nameKey] ?: getDefaultNameForCheckbox(whichBox),
+                        isInUse = prefs[activeKey] ?: true
+                    )
+                )
+                prefs[nameKey] = newCheckboxSetting.name
+                prefs[activeKey] = newCheckboxSetting.isInUse
             }
-        } catch (e: IOException) {
-            Log.e(TAG, "error in updateCheckbox", e)
-        } catch (e: IllegalArgumentException) {
-            Log.e(TAG, "error in updateCheckbox", e)
+            newCheckboxSetting ?: error("couldn't get updated checkbox setting")
+        }.onFailure { throwable ->
+            when (throwable) {
+                is IOException -> Log.e(TAG, "error in updateCheckbox", throwable)
+                is IllegalArgumentException -> Log.e(TAG, "error in updateCheckbox", throwable)
+                is IllegalStateException -> Log.e(TAG, "error in updateCheckbox", throwable)
+                else -> throw throwable
+            }
+
         }
     }
 
@@ -134,5 +145,12 @@ internal class SettingsRepo @Inject constructor(
         } catch (e: IOException) {
             Log.e(TAG, "error in updateWifiSetting", e)
         }
+    }
+
+    private fun getDefaultNameForCheckbox(whichBox: Int): String = when (whichBox) {
+        1 -> resources.getString(R.string.settings_checkbox1_default_text)
+        2 -> resources.getString(R.string.settings_checkbox2_default_text)
+        3 -> resources.getString(R.string.settings_checkbox3_default_text)
+        else -> error("attempting to get name for checkbox that isn't 1, 2, or 3")
     }
 }
