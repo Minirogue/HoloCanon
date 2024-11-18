@@ -86,13 +86,13 @@ internal class SettingsRepo @Inject constructor(
                 1 -> checkbox1DefaultTextPreferenceKey
                 2 -> checkbox2DefaultTextPreferenceKey
                 3 -> checkbox3DefaultTextPreferenceKey
-                else -> throw IllegalArgumentException("updateCheckbox called with invalid whichBox: $whichBox")
+                else -> error("updateCheckbox called with invalid whichBox: $whichBox")
             }
             val activeKey = when (whichBox) {
                 1 -> userFilter1ActivePreferenceKey
                 2 -> userFilter2ActivePreferenceKey
                 3 -> userFilter3ActivePreferenceKey
-                else -> throw IllegalArgumentException("updateCheckbox called with invalid whichBox: $whichBox")
+                else -> error("updateCheckbox called with invalid whichBox: $whichBox")
             }
             var newCheckboxSetting: CheckboxSetting? = null
             dataStore.edit { prefs ->
