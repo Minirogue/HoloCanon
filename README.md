@@ -41,14 +41,19 @@ Here are some things that I plan to add to the app:
 
 ## About the Codebase
 
-This is an Android app written in Kotlin
+This is an Android app written in Kotlin.
+The modules are written as Kotlin Multiplatform (KMP) modules with the intent to eventually expand this app to iOS and web.
+The gradle configurations are defined by the conventions in `build-logic`
 
 ### Module Structure
 
 This codebase uses a module structure based on previous professional work I've done.
 Some may recognize it as an application of the [separated interface pattern](https://martinfowler.com/eaaCatalog/separatedInterface.html), which is itself also an application of the [dependency inversion principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle) from SOLID.
 That's basically some fancy buzzwords to say that most functionality is exposed by interfaces in `public` modules while the implementations are provided by a separate `internal` module that depends on that `public` module.
-There's more to it than that, which I plan to write up at some point,
+The core dependency rule here is that only application modules can depend on internal modules, but anything can depend on public modules.
+All modules are also designated as either `feature` or `library` modules with the expectation that feature modules will depend on library modules but not vice versa.
+
+Additionally there are testing-related modules: `test-app` and `test-bindings` which help with iterating on and testing UI/UX for individual features.
 
 ## License
 TODO
