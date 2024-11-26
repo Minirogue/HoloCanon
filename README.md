@@ -1,9 +1,11 @@
-# SWMediaTracker (published as HoloCanon)
-An Android app for tracking consumption of canonical Star Wars media. I started writing this app for myself to help me pick out books when I went to the library. Eventually, I realized there might be others out there who wish to use it, so I cleaned it up for production and it is currently published on the Google Play store at https://play.google.com/store/apps/details?id=com.minirogue.starwarscanontracker.
-
+# Holocanon
+An Android app for tracking consumption of canonical Star Wars media.
+I started writing this app for myself to help me pick out books when I went to the library.
+Eventually, I realized there might be others out there who wish to use it, so I cleaned it up for production and it is currently published on the Google Play store at https://play.google.com/store/apps/details?id=com.minirogue.starwarscanontracker.
 
 ## Installation
-The easiest way to install the latest version is through the Google Play store at the link above. Otherwise, you will need to compile the APK from this code and sideload it yourself (surely you can find a guide online for how to do this).
+The easiest way to install the latest version is through the Google Play store at the link above.
+From the codebase, the app that needs to be assembled to run the full app is the `:app` package, which has `debug` and `release` variants.
 
 ## Updating the Database
 The database itself is stored in `api/src/main/resources/media.csv`. Here are some guidelines for updating it:
@@ -20,25 +22,33 @@ The database itself is stored in `api/src/main/resources/media.csv`. Here are so
   * `series` should be included for all comics, TPBs, TV media, and any novels that are part of a trilogy. There may be other cases where it is appropriate as well. Ensure that this column matches exactly for all entries from the same series.
   * `number` should correspond to issue number, episode number, volume number, etc. as appropriate. Should probably be included for anything that has a `series`.
 * Keep the file sorted by `ID` when making a commit to avoid excessive diffs
-* Increment the number in `Version.kt` by 1 to ensure the clients automatically update their local databases.
+* Increment the version number in `Version.kt` by 1.
 * Running the `:api:test` gradle task will test to ensure the CSV can be correctly loaded by the code. This should be run on the PR before it's merged, but that requires a manual trigger by me.
 
-## Requested Features
+## Features TODO
 Here are some things that I plan to add to the app:
 
-* Add an import/export option so users can transfer or backup their list.
 * Provide a "printable" output (probably a TXT) based on a user's current search.
 * Add donation button, in case the users ever decide to feel generous. No plans to ever implement
-  paid features. (note: this would probably violate some Google policy because they want their
-  15-30%)
+  paid features. (note: this may violate some Google policy)
 * Add Hardcover, Omnibus, and reference books to database.
 * Expand support for different screen sizes.
 * Add a "stats" tab so users can track completion ("110/380 owned" and such)
 
 ## Tech TODO
 
-* Finish compartmentalizing code into modules
-* Migrate code to a Kotlin multiplatform pattern
+* Add iOS and Web apps
+
+## About the Codebase
+
+This is an Android app written in Kotlin
+
+### Module Structure
+
+This codebase uses a module structure based on previous professional work I've done.
+Some may recognize it as an application of the [separated interface pattern](https://martinfowler.com/eaaCatalog/separatedInterface.html), which is itself also an application of the [dependency inversion principle](https://en.wikipedia.org/wiki/Dependency_inversion_principle) from SOLID.
+That's basically some fancy buzzwords to say that most functionality is exposed by interfaces in `public` modules while the implementations are provided by a separate `internal` module that depends on that `public` module.
+There's more to it than that, which I plan to write up at some point,
 
 ## License
 TODO
