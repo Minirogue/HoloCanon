@@ -16,7 +16,7 @@ internal class GetActiveFiltersImpl @Inject constructor(
         daoFilter.getActiveFilters(),
         getPermanentFilters(),
     ){ activeFilters, permanentFilters ->
-        activeFilters.map { fullFilter -> fullFilter.toMediaFilter() }
+        activeFilters.mapNotNull { fullFilter -> fullFilter.toMediaFilter() }
             .filter { mediaFilter -> mediaFilter !in permanentFilters }
     }
 }

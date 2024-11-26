@@ -118,34 +118,14 @@ class GetMediaListWithNotesImpl @Inject constructor(
                         publisherFilter.append(" publisher = ${filter.id} ")
                     }
 
-                    FilterType.CheckboxThree -> {
+                    FilterType.Checkbox -> {
                         if (notesFilter.isNotEmpty()) {
                             notesFilter.append(" AND ")
                         }
                         if (!filter.isPositive) {
                             notesFilter.append(" NOT ")
                         }
-                        notesFilter.append(" media_notes.checkbox_3 = 1 ")
-                    }
-
-                    FilterType.CheckboxOne -> {
-                        if (notesFilter.isNotEmpty()) {
-                            notesFilter.append(" AND ")
-                        }
-                        if (!filter.isPositive) {
-                            notesFilter.append(" NOT ")
-                        }
-                        notesFilter.append(" media_notes.checkbox_1 = 1 ")
-                    }
-
-                    FilterType.CheckboxTwo -> {
-                        if (notesFilter.isNotEmpty()) {
-                            notesFilter.append(" AND ")
-                        }
-                        if (!filter.isPositive) {
-                            notesFilter.append(" NOT ")
-                        }
-                        notesFilter.append(" media_notes.checkbox_2 = 1 ")
+                        notesFilter.append(" media_notes.checkbox_${filter.id} = 1 ")
                     }
                 }
             }
