@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.AnimationSpec
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -36,6 +40,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -132,6 +137,10 @@ internal class FilterSelectionFragment : Fragment() {
         onFilterClicked: (MediaFilter) -> Unit
     ) {
         val isExpanded = remember { mutableStateOf(false) }
+        val dropDownArrowRotation = animateFloatAsState(
+            targetValue = if (isExpanded.value) 0f else -90f,
+            animationSpec = tween(durationMillis = 350)
+        )
         Row(
             Modifier
                 .fillMaxWidth()
@@ -142,16 +151,17 @@ internal class FilterSelectionFragment : Fragment() {
             Row {
                 Text(filterGroup.text)
                 Icon(
-                    Icons.Default.ArrowDropDown,
+                    modifier = Modifier.rotate(dropDownArrowRotation.value),
+                    imageVector = Icons.Default.ArrowDropDown,
                     contentDescription = null
-                ) // TODO content description and rotation
+                )
             }
             Switch(
                 checked = filterGroup.isFilterPositive,
                 onCheckedChange = { onGroupCheckChanged(it) },
             )
         }
-        if (isExpanded.value) {
+        AnimatedVisibility(isExpanded.value) {
             FlowRow(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -159,6 +169,7 @@ internal class FilterSelectionFragment : Fragment() {
             ) {
                 filters.forEach { filter ->
                     FilterChip(
+                        modifier = Modifier.padding(4.dp),
                         onClick = { onFilterClicked(filter) },
                         label = { Text(filter.name) },
                         selected = filter.isActive,
