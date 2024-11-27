@@ -5,7 +5,6 @@ import filters.model.MediaFilter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 internal class GetActiveFiltersImpl @Inject constructor(

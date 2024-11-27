@@ -14,6 +14,7 @@
     <ID>MagicNumber:MediaDatabase.kt$MediaDatabase.Companion.&lt;no name provided&gt;$8</ID>
     <ID>MagicNumber:MediaDatabase.kt$MediaDatabase.Companion.&lt;no name provided&gt;$9</ID>
     <ID>MagicNumber:SortStyle.kt$SortStyle$9999f</ID>
+    <ID>MagicNumber:UpdateFiltersImpl.kt$UpdateFiltersImpl$3</ID>
     <ID>MaxLineLength:MediaDatabase.kt$MediaDatabase$entities = [MediaItemDto::class, MediaNotesDto::class, SeriesDto::class, FilterObjectDto::class, FilterTypeDto::class, CompanyDto::class]</ID>
     <ID>MaxLineLength:MediaDatabase.kt$MediaDatabase.Companion.&lt;no name provided&gt;$"INSERT INTO `temp_table` (id, title, series, author, type, description, review, image, date, timeline, amazon_link, amazon_stream, publisher)"</ID>
     <ID>MaxLineLength:MediaDatabase.kt$MediaDatabase.Companion.&lt;no name provided&gt;$"INSERT INTO `temp_table` (id, title, series, author, type, description, review,image, date,timeline,amazon_link,amazon_stream) "</ID>
