@@ -3,6 +3,7 @@ package com.minirogue.starwarscanontracker.core.model.room.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import filters.model.FilterType
 
 @Entity(tableName = "filter_type")
 class FilterTypeDto(
@@ -12,11 +13,9 @@ class FilterTypeDto(
 ) {
 
     companion object {
-        const val FILTERCOLUMN_TYPE = 1
-        const val FILTERCOLUMN_CHECKBOX_ONE = 3
-        const val FILTERCOLUMN_CHECKBOX_TWO = 4
-        const val FILTERCOLUMN_CHECKBOX_THREE = 5
-        const val FILTERCOLUMN_SERIES = 6
-        const val FILTERCOLUMN_PUBLISHER = 7
+        val FILTERCOLUMN_TYPE = FilterType.MediaType.legacyIntegerConversion
+        val FILTERCOLUMN_SERIES = FilterType.Series.legacyIntegerConversion
+        val FILTERCOLUMN_PUBLISHER = FilterType.Publisher.legacyIntegerConversion
+        val FILTERCOLUMN_CHECKBOX = FilterType.Checkbox.legacyIntegerConversion
     }
 }

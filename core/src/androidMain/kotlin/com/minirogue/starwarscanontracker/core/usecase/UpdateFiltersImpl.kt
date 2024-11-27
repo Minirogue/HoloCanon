@@ -19,7 +19,7 @@ internal class UpdateFiltersImpl @Inject constructor(
     private val daoSeries: DaoSeries,
     private val daoCompany: DaoCompany,
     getCheckboxSettings: GetCheckboxSettings,
-): UpdateFilters {
+) : UpdateFilters {
     private val checkboxText = getCheckboxSettings().map { checkboxSettings ->
         listOf(
             checkboxSettings.checkbox1Setting.name,
@@ -37,7 +37,7 @@ internal class UpdateFiltersImpl @Inject constructor(
 
     private suspend fun updatePublisherFilters() = withContext(Dispatchers.Default) {
         var tempFilter: FilterObjectDto?
-        val publisherFilterText = "Publisher"
+        val publisherFilterText = "Publisher" // TODO use resource
 
         val insertWorked = daoFilter.insert(
             FilterTypeDto(
@@ -75,7 +75,7 @@ internal class UpdateFiltersImpl @Inject constructor(
 
     private suspend fun updateSeriesFilters() = withContext(Dispatchers.Default) {
         var tempFilter: FilterObjectDto?
-        val seriesFilterText = "Series"
+        val seriesFilterText = "Series" // TODO use resource
 
         val insertWorked = daoFilter.insert(
             FilterTypeDto(
@@ -111,7 +111,7 @@ internal class UpdateFiltersImpl @Inject constructor(
 
     private suspend fun updateMediaTypeFilters() = withContext(Dispatchers.Default) {
         var tempFilter: FilterObjectDto?
-        val mediaTypeText = "Media Type"
+        val mediaTypeText = "Media Type" // TODO use resource
 
         val insertWorked =
             daoFilter.insert(FilterTypeDto(FilterTypeDto.FILTERCOLUMN_TYPE, true, mediaTypeText))
@@ -144,89 +144,41 @@ internal class UpdateFiltersImpl @Inject constructor(
 
     @Suppress("LongMethod")
     private suspend fun updateCheckboxFilters() = withContext(Dispatchers.Default) {
+        val checkboxGroupName = "User-Defined"
         val injectedCheckboxText = checkboxText.first()
         var tempFilter: FilterObjectDto?
         // add checkbox filters
         var insertWorked = daoFilter.insert(
             FilterTypeDto(
-                FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE,
+                FilterTypeDto.FILTERCOLUMN_CHECKBOX,
                 true,
-                injectedCheckboxText[0]
+                checkboxGroupName
             )
         )
         if (insertWorked < 0) {
-            val filterTypeDto = daoFilter.getFilterType(FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE)
-            filterTypeDto.text = injectedCheckboxText[0]
+            val filterTypeDto = daoFilter.getFilterType(FilterTypeDto.FILTERCOLUMN_CHECKBOX)
+            filterTypeDto.text = checkboxGroupName
             daoFilter.update(filterTypeDto)
         }
 
-        tempFilter =
-            daoFilter.getFilter(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE)?.filterObjectDto
-        if (tempFilter == null) {
-            tempFilter = FilterObjectDto(
-                1,
-                FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE,
-                false,
-                injectedCheckboxText[0]
-            )
-            daoFilter.insert(tempFilter)
-        } else {
-            tempFilter = tempFilter.copy(displayText = injectedCheckboxText[0])
-            daoFilter.update(tempFilter)
-        }
-
-        insertWorked = daoFilter.insert(
-            FilterTypeDto(
-                FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO,
-                true,
-                injectedCheckboxText[1]
-            )
-        )
-        if (insertWorked < 0) {
-            val filterTypeDto = daoFilter.getFilterType(FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO)
-            filterTypeDto.text = injectedCheckboxText[1]
-            daoFilter.update(filterTypeDto)
-        }
-        tempFilter =
-            daoFilter.getFilter(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO)?.filterObjectDto
-        if (tempFilter == null) {
-            tempFilter = FilterObjectDto(
-                1,
-                FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO,
-                false,
-                injectedCheckboxText[1]
-            )
-            daoFilter.insert(tempFilter)
-        } else {
-            tempFilter = tempFilter.copy(displayText = injectedCheckboxText[1])
-            daoFilter.update(tempFilter)
-        }
-
-        insertWorked = daoFilter.insert(
-            FilterTypeDto(
-                FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE,
-                true,
-                injectedCheckboxText[2]
-            )
-        )
-        if (insertWorked < 0) {
-            val filterTypeDto = daoFilter.getFilterType(FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE)
-            filterTypeDto.text = injectedCheckboxText[2]
-            daoFilter.update(filterTypeDto)
-        }
-        tempFilter =
-            daoFilter.getFilter(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE)?.filterObjectDto
-        if (tempFilter == null) {
-            tempFilter = FilterObjectDto(
-                1,
-                FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE,
-                false,
-                injectedCheckboxText[2]
-            )
-            daoFilter.insert(tempFilter)
-        } else {
-            tempFilter = tempFilter.copy(displayText = injectedCheckboxText[2])
-            daoFilter.update(tempFilter)
+        for (checkboxNumber in listOf(1, 2, 3)) {
+            tempFilter =
+                daoFilter.getFilter(
+                    checkboxNumber,
+                    FilterTypeDto.FILTERCOLUMN_CHECKBOX
+                )?.filterObjectDto
+            if (tempFilter == null) {
+                tempFilter = FilterObjectDto(
+                    checkboxNumber,
+                    FilterTypeDto.FILTERCOLUMN_CHECKBOX,
+                    false,
+                    injectedCheckboxText[checkboxNumber - 1]
+                )
+                daoFilter.insert(tempFilter)
+            } else {
+                tempFilter = tempFilter.copy(displayText = injectedCheckboxText[checkboxNumber - 1])
+                daoFilter.update(tempFilter)
+            }
         }
     }
 }

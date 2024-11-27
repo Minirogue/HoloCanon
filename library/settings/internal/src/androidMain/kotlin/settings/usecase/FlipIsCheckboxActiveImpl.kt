@@ -16,14 +16,9 @@ internal class FlipIsCheckboxActiveImpl @Inject constructor(
                 .getOrNull()
         if (newSetting?.isInUse == false) {
             val filter = MediaFilter(
-                id = 1,
+                id = whichBox,
                 name = newSetting.name,
-                filterType = when (whichBox) {
-                    1 -> FilterType.CheckboxOne
-                    2 -> FilterType.CheckboxTwo
-                    3 -> FilterType.CheckboxThree
-                    else -> error("whickBox parameter of UpdateCheckboxActive must be 1, 2, or 3")
-                },
+                filterType = FilterType.Checkbox,
                 isPositive = true,
                 isActive = false,
             )

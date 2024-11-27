@@ -1,13 +1,8 @@
 package filters
 
+import android.util.Log
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto.Companion.FILTERCOLUMN_CHECKBOX_ONE
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto.Companion.FILTERCOLUMN_CHECKBOX_THREE
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto.Companion.FILTERCOLUMN_CHECKBOX_TWO
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto.Companion.FILTERCOLUMN_PUBLISHER
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto.Companion.FILTERCOLUMN_SERIES
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto.Companion.FILTERCOLUMN_TYPE
 import filters.model.FilterGroup
 import filters.model.FilterType
 import filters.model.MediaFilter
@@ -28,32 +23,35 @@ internal class GetAllFilterGroupsImpl @Inject constructor(
         getPermanentFilters(),
         getCheckboxSettings(),
     ) { filterTypes, filters, permanentFilters, checkBoxSettings ->
-        val adaptedFilters = filters.map { it.toMediaFilter() }
+        val adaptedFilters = filters.mapNotNull { it.toMediaFilter() }
         filterTypes
-            .map { it.toFilterGroup() }
+            .mapNotNull { it.toFilterGroup() }
             .filter {
-                when (it.type) {
-                    FilterType.CheckboxOne -> checkBoxSettings.checkbox1Setting.isInUse
-                    FilterType.CheckboxTwo -> checkBoxSettings.checkbox2Setting.isInUse
-                    FilterType.CheckboxThree -> checkBoxSettings.checkbox3Setting.isInUse
-                    else -> true
-                }
+                if (it.type == FilterType.Checkbox) {
+                    // Only include checkbox group if at least one checkbox is in use
+                    checkBoxSettings.checkbox1Setting.isInUse ||
+                            checkBoxSettings.checkbox2Setting.isInUse ||
+                            checkBoxSettings.checkbox3Setting.isInUse
+                } else true
             }
             .associateWith { filterGroup ->
                 adaptedFilters.filter { filterGroup.type == it.filterType && it !in permanentFilters }
             }
     }
 
-    private fun FilterTypeDto.toFilterGroup(): FilterGroup =
-        FilterGroup(type = getTypeFromInt(typeId), isFilterPositive = isFilterPositive, text = text)
+    private fun FilterTypeDto.toFilterGroup(): FilterGroup? =
+        try {
+            FilterGroup(
+                type = getTypeFromInt(typeId),
+                isFilterPositive = isFilterPositive,
+                text = text
+            )
+        } catch (e: IllegalStateException) {
+            Log.w("GetAllFilterGroupsImpl", "error adapting filter group", e)
+            null
+        }
 
-    private fun getTypeFromInt(typeId: Int): FilterType = when (typeId) {
-        FILTERCOLUMN_TYPE -> FilterType.MediaType
-        FILTERCOLUMN_CHECKBOX_ONE -> FilterType.CheckboxOne
-        FILTERCOLUMN_CHECKBOX_TWO -> FilterType.CheckboxTwo
-        FILTERCOLUMN_CHECKBOX_THREE -> FilterType.CheckboxThree
-        FILTERCOLUMN_SERIES -> FilterType.Series
-        FILTERCOLUMN_PUBLISHER -> FilterType.Publisher
-        else -> throw IllegalArgumentException("$typeId is not a valid filter type id")
-    }
+    private fun getTypeFromInt(typeId: Int): FilterType =
+        FilterType.values().find { it.legacyIntegerConversion == typeId }
+            ?: error("$typeId is not a valid filter type id")
 }

@@ -18,23 +18,23 @@ private val fakeFilters = MutableStateFlow(
             isActive = true
         ),
         MediaFilter(
-            id = 2,
+            id = 1,
             name = "Checkbox1",
-            filterType = FilterType.CheckboxOne,
+            filterType = FilterType.Checkbox,
+            isPositive = true,
+            isActive = true
+        ),
+        MediaFilter(
+            id = 2,
+            name = "Checkbox2",
+            filterType = FilterType.Checkbox,
             isPositive = true,
             isActive = true
         ),
         MediaFilter(
             id = 3,
-            name = "Checkbox2",
-            filterType = FilterType.CheckboxTwo,
-            isPositive = true,
-            isActive = true
-        ),
-        MediaFilter(
-            id = 4,
             name = "Checkbox3",
-            filterType = FilterType.CheckboxThree,
+            filterType = FilterType.Checkbox,
             isPositive = true,
             isActive = false
         ),
