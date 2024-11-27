@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
@@ -30,8 +31,15 @@ class AdaptMediaItemDtoToStarWarsMedia @Inject internal constructor(
     private val companyMap: SharedFlow<Map<Int, Company>> = daoCompany.getAllCompanies()
         .map { list ->
             list.associate {
-                it.id to json.decodeFromString<Company>("\"${it.companyName}\"")
-            }
+                it.id to try {
+                    json.decodeFromString<Company>("\"${it.companyName}\"")
+                } catch (e: SerializationException) {
+                    Log.e(TAG, "couldn't decode persisted company: ${it.companyName}", e)
+                    Company.DISNEY
+                } catch (e: IllegalArgumentException) {
+                    Log.e(TAG, "couldn't decode persisted company: ${it.companyName}", e)
+                    Company.DISNEY
+                }            }
         }
         .shareIn(scope = adapterScope, started = SharingStarted.Lazily, replay = 1)
 
@@ -49,8 +57,11 @@ class AdaptMediaItemDtoToStarWarsMedia @Inject internal constructor(
         description = mediaItemDto.description,
         series = seriesMap.first()[mediaItemDto.series],
         number = null,
-        publisher = companyMap.first()[mediaItemDto.publisher] ?: Company.DISNEY_LUCASFILMS.also {
-            Log.e("GetMediaWithNotes", "couldn't map publisher to a company: $this")
+        publisher = companyMap.first()[mediaItemDto.publisher] ?: Company.DISNEY.also {
+            Log.e(TAG, "couldn't map publisher to a company: $this")
         },
     )
+  companion object {
+      private const val TAG = "GetMediaWithNotes"
+  }
 }

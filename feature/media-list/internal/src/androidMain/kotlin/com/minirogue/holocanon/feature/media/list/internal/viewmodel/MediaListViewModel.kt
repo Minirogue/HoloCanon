@@ -107,7 +107,6 @@ internal class MediaListViewModel @Inject constructor(
         cacheFile.writeText(sortStyle.style.toString() + " " + if (sortStyle.ascending) "1" else "0")
     }
 
-    // TODO this should be a usecase and we should be using some kind of
     private suspend fun getSavedSort(): SortStyle = withContext(Dispatchers.IO) {
         val cacheFile = File(sortCacheFileName)
         if (!cacheFile.exists()) {
