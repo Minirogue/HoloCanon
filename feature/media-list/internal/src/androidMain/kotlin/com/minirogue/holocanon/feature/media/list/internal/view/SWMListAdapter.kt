@@ -26,7 +26,6 @@ internal class SWMListAdapter(
         fun onCheckbox1Clicked(itemId: Long, newValue: Boolean)
         fun onCheckbox2Clicked(itemId: Long, newValue: Boolean)
         fun onCheckbox3Clicked(itemId: Long, newValue: Boolean)
-        fun getSeriesString(seriesId: Int): String
         fun isNetworkAllowed(): Boolean
     }
 
@@ -76,12 +75,7 @@ internal class SWMListAdapter(
             mediaTitle.text = mediaItem.title
             dateTextview.text = mediaItem.releaseDate
             mediaType.text = mediaItem.type.getSerialName()
-//        if (mediaItem.series > 0) {
-//            series.text = adapterInterface.getSeriesString(mediaItem.series)
-//            series.visibility = View.VISIBLE
-//        } else {
             series.visibility = View.INVISIBLE
-//        }
         }
 
     private fun bindCheckBoxes(

@@ -59,11 +59,6 @@ internal class MediaListFragment : Fragment() {
             mediaListViewModel.onCheckBox3Clicked(itemId, newValue)
         }
 
-        override fun getSeriesString(seriesId: Int): String {
-            // TODO
-            return "Series not found"
-        }
-
         override fun isNetworkAllowed(): Boolean {
             return mediaListViewModel.state.value.isNetworkAllowed
         }
