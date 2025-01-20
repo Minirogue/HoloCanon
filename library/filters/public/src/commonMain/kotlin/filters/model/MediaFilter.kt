@@ -12,9 +12,10 @@ data class FilterGroup(val type: FilterType, val isFilterPositive: Boolean, val 
 
 enum class FilterType(val legacyIntegerConversion: Int) {
     MediaType(1),
-    CheckboxOne(3),
-    CheckboxTwo(4),
-    CheckboxThree(5),
+//    CheckboxOne(3),
+//    CheckboxTwo(4),
+//    CheckboxThree(5),
     Series(6),
     Publisher(7),
+    Checkbox(8),
 }
