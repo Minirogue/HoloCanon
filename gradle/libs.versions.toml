@@ -24,7 +24,7 @@ mockk = "1.13.16"
 preference = "1.2.1"
 recyclerview = "1.4.0"
 room = "2.7.0-alpha12"
-serialization = "1.7.3"
+serialization = "1.8.0"
 
 [libraries]
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradle" }
