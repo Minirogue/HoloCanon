@@ -1,8 +1,16 @@
 pluginManagement {
-    includeBuild("build-logic")
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.toString() == "com.github.minirogue")
+//                useModule("org.minirogue:minirogue-build-logic:$requested.version") // local
+              useModule("com.github.minirogue:minirogue-build-logic:$requested.version")
+        }
+    }
     repositories {
         google()
         mavenCentral()
+//        mavenLocal() // when testing build logic changes locally
+        maven { url "https://jitpack.io" }
     }
 }
 

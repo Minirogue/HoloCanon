@@ -1,16 +1,17 @@
 plugins {
-    id "holocanon.multiplatform.library"
+    id "minirogue.multiplatform.library"
 }
 
-holocanon {
+minirogue {
     android {
         hilt()
-        composeUi()
+        kotlinCompose()
     }
 }
 
 kotlin.sourceSets.androidMain.dependencies {
     api projects.feature.homeScreen.public
 
+    implementation libs.androidx.appcompat
     implementation projects.library.composeExt.public
 }

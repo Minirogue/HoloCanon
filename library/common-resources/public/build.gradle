@@ -1,7 +1,7 @@
 plugins {
-    id "holocanon.multiplatform.library"
+    id "minirogue.multiplatform.library"
 }
 
-holocanon {
+minirogue {
     android()
 }

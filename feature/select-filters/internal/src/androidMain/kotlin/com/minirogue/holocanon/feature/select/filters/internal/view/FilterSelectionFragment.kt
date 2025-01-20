@@ -45,7 +45,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.minirogue.holocanon.feature.select.filters.internal.R
+import com.holocanon.feature.select.filters.internal.R
 import compose.theme.HolocanonTheme
 import dagger.hilt.android.AndroidEntryPoint
 import filters.model.FilterGroup

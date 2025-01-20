@@ -31,7 +31,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
-import com.minirogue.holocanon.feature.home.screen.internal.R
+import com.holocanon.feature.home.screen.internal.R
 import compose.theme.HolocanonTheme
 import dagger.hilt.android.AndroidEntryPoint
 

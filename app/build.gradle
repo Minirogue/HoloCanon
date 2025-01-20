@@ -1,8 +1,8 @@
 plugins{
-    id "holocanon.android.app"
+    id "minirogue.android.app"
 }
 
-holocanon {
+minirogue {
     hilt()
 }
 

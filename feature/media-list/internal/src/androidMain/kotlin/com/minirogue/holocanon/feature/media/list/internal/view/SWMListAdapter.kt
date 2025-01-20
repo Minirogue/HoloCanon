@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.request.CachePolicy
 import com.minirogue.common.model.StarWarsMedia
-import com.minirogue.holocanon.feature.media.list.internal.databinding.MediaListItemBinding
+import com.holocanon.feature.media.list.internal.databinding.MediaListItemBinding
 import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
 import settings.model.CheckboxSettings
 
@@ -134,13 +134,13 @@ internal class SWMListAdapter(
     private fun bindCoverImage(imageView: ImageView, imageUrl: String?) {
         if (!imageUrl.isNullOrBlank()) {
             imageView.load(imageUrl) {
-                placeholder(com.minirogue.holocanon.library.common.resources.R.drawable.common_resources_app_icon)
+                placeholder(com.holocanon.library.common.resources.R.drawable.common_resources_app_icon)
                 if (adapterInterface.isNetworkAllowed()) {
                     networkCachePolicy(CachePolicy.ENABLED)
                 } else networkCachePolicy(CachePolicy.DISABLED)
             }
         } else {
-            imageView.load(com.minirogue.holocanon.library.common.resources.R.drawable.common_resources_app_icon)
+            imageView.load(com.holocanon.library.common.resources.R.drawable.common_resources_app_icon)
         }
     }
 

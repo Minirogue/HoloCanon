@@ -11,8 +11,8 @@ import coil.load
 import coil.request.CachePolicy
 import com.minirogue.common.model.MediaType
 import com.minirogue.common.model.StarWarsMedia
-import com.minirogue.holocanon.feature.media.item.internal.R
-import com.minirogue.holocanon.feature.media.item.internal.databinding.MediaItemFragmentBinding
+import com.holocanon.feature.media.item.internal.R
+import com.holocanon.feature.media.item.internal.databinding.MediaItemFragmentBinding
 import com.minirogue.media.notes.model.MediaNotes
 import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
 import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel

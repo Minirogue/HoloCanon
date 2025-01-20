@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.minirogue.common.model.MediaType
-import com.minirogue.holocanon.feature.settings.internal.R
+import com.holocanon.feature.settings.internal.R
 import compose.theme.HolocanonTheme
 import dagger.hilt.android.AndroidEntryPoint
 import settings.model.CheckboxSetting

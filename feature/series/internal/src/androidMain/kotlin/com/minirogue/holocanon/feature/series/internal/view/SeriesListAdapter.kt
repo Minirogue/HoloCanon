@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.minirogue.holocanon.feature.series.internal.R
+import com.holocanon.feature.series.internal.R
 import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
 
 internal class SeriesListAdapter(private val onItemClicked: (itemId: Long) -> Unit) :
