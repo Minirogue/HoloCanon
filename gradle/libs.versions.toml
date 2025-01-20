@@ -1,5 +1,4 @@
 [versions]
-androidGradle = "8.8.0"
 androidMaterial = "1.12.0"
 androidxCore = "1.15.0"
 androidxTest = "1.6.1"
@@ -28,7 +27,6 @@ room = "2.7.0-alpha12"
 serialization = "1.8.0"
 
 [libraries]
-android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradle" }
 android-material = { group = "com.google.android.material", name = "material", version.ref = "androidMaterial" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appCompat" }
@@ -36,6 +34,9 @@ androidx-constraintLayout = { group = "androidx.constraintlayout", name = "const
 androidx-core = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 androidx-fragment = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment" }
+androidx-lifecycle-common = { group = "androidx.lifecycle", name = "lifecycle-common-java8", version.ref = "lifecycle" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 androidx-preference = { group = "androidx.preference", name = "preference-ktx", version.ref = "preference" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
 androidx-test = { group = "androidx.test", name = "core", version.ref = "androidxTest" }
@@ -60,13 +61,8 @@ ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref =
 ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-contentNegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
-androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
-androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
-androidx-lifecycle-common = { group = "androidx.lifecycle", name = "lifecycle-common-java8", version.ref = "lifecycle" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 
 [plugins]
