@@ -15,11 +15,11 @@ import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
 import org.junit.Rule
+import org.junit.Test
 import settings.model.CheckboxSetting
 import settings.model.CheckboxSettings
 import settings.usecase.GetCheckboxSettings
 import java.io.ByteArrayOutputStream
-import kotlin.test.Test
 
 class ExportMediaNotesJsonTest {
     @get:Rule
