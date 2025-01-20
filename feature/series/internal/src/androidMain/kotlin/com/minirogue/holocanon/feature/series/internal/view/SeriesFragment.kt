@@ -10,8 +10,8 @@ import androidx.fragment.app.viewModels
 import coil.load
 import coil.request.CachePolicy
 import com.minirogue.holocanon.feature.media.item.usecase.GetMediaItemFragment
-import com.minirogue.holocanon.feature.series.internal.R
-import com.minirogue.holocanon.feature.series.internal.databinding.SeriesFragmentBinding
+import com.holocanon.feature.series.internal.R
+import com.holocanon.feature.series.internal.databinding.SeriesFragmentBinding
 import com.minirogue.series.model.Series
 import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
 import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel

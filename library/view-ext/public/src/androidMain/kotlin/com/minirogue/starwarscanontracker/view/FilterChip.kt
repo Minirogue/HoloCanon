@@ -3,7 +3,7 @@ package com.minirogue.starwarscanontracker.view
 import android.content.Context
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.chip.Chip
-import com.minirogue.holocanon.library.view.ext.R
+import com.holocanon.library.view.ext.R
 import filters.model.MediaFilter
 
 class FilterChip(mediaFilter: MediaFilter, ctx: Context) : Chip(ctx) {

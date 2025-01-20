@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.minirogue.holocanon.feature.test.app.internal.R
+import com.holocanon.feature.test.app.internal.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

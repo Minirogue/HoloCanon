@@ -1,8 +1,8 @@
 plugins {
-    id 'holocanon.jvm.app'
+    id 'minirogue.jvm.app'
 }
 
-holocanon {
+minirogue {
     serialization()
 }
 

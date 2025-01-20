@@ -19,7 +19,7 @@ dependencies {
 gradlePlugin {
     plugins {
         register("multiplatformLibrary") {
-            id = "holocanon.multiplatform.library"
+            id = "minirogue.multiplatform.library"
             implementationClass = "plugin.KotlinMultiplatformLibraryConvention"
         }
         register("testApp") {

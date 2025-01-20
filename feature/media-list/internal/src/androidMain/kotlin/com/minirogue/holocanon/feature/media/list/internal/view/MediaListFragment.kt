@@ -20,8 +20,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
-import com.minirogue.holocanon.feature.media.list.internal.R
-import com.minirogue.holocanon.feature.media.list.internal.databinding.MediaListFragmentBinding
+import com.holocanon.feature.media.list.internal.R
+import com.holocanon.feature.media.list.internal.databinding.MediaListFragmentBinding
 import com.minirogue.holocanon.feature.media.list.internal.view.SWMListAdapter.AdapterInterface
 import com.minirogue.holocanon.feature.media.list.internal.viewmodel.MediaListViewModel
 import com.minirogue.starwarscanontracker.core.model.SortStyle
