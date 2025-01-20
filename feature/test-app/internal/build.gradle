@@ -5,11 +5,12 @@ plugins {
 minirogue {
     android {
         hilt()
-        composeUi()
+        kotlinCompose()
     }
 }
 
 kotlin.sourceSets.androidMain.dependencies {
+    implementation libs.androidx.activity.compose
     implementation libs.androidx.appcompat
     implementation projects.library.composeExt.public
 }

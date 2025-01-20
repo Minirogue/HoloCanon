@@ -3,14 +3,12 @@ plugins {
 }
 
 minirogue {
+    jvmApp("com.minirogue.api.ApiMainKt")
     serialization()
 }
 
 group = "com.minirogue"
 version = "0.0.1"
-application {
-    mainClass.set("com.minirogue.api.ApiMainKt")
-}
 
 dependencies {
     implementation libs.commons.csv
