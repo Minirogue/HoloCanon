@@ -20,7 +20,7 @@ kotlin.sourceSets.androidMain.dependencies {
 
 kotlin.sourceSets.androidUnitTest.dependencies {
     implementation libs.mockk
-    implementation libs.kotlin.test
+    implementation libs.junit
     implementation libs.kotlinx.coroutines.test
     implementation projects.library.globalNotification.testing
     implementation projects.library.coroutineExt.testing

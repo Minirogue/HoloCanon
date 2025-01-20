@@ -18,7 +18,7 @@ dependencies {
     implementation projects.library.commonModels.public
     implementation projects.library.serializationExt.internal
 
-    testImplementation libs.kotlin.test
+    testImplementation libs.junit
     testImplementation libs.kotlinx.coroutines.test
 }
 

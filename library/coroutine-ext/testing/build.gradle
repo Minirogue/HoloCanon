@@ -8,6 +8,6 @@ minirogue {
 
 kotlin.sourceSets.commonMain.dependencies {
     api projects.library.coroutineExt.public
-    api libs.kotlin.test
+    api libs.junit
     api libs.kotlinx.coroutines.test
 }
