@@ -18,7 +18,7 @@ class GetPermanentFiltersImpl @Inject constructor(
         getPermanentFilterSettings(),
         daoFilter.getAllFilters(),
     ) { typeMap, allFilters ->
-        allFilters.map { it.toMediaFilter() }
+        allFilters.mapNotNull { it.toMediaFilter() }
             .filter { mediaFilter ->
                 mediaFilter.filterType == FilterType.MediaType &&
                         typeMap[MediaType.getFromLegacyId(mediaFilter.id)] == false
