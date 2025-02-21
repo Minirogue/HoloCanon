@@ -9,6 +9,7 @@ pluginManagement {
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
 //        mavenLocal() // when testing build logic changes locally
         maven { url "https://jitpack.io" }
     }
