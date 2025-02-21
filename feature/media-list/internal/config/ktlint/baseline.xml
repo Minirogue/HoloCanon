@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<baseline version="1.0">
+    <file name="src/androidMain/kotlin/com/minirogue/holocanon/feature/media/list/internal/usecase/GetMediaListFragmentImpl.kt">
+        <error line="8" column="40" source="standard:annotation" />
+        <error line="8" column="48" source="standard:annotation" />
+    </file>
+    <file name="src/androidMain/kotlin/com/minirogue/holocanon/feature/media/list/internal/view/MediaListFragment.kt">
+        <error line="45" column="54" source="standard:multiline-expression-wrapping" />
+        <error line="50" column="41" source="standard:function-signature" />
+        <error line="50" column="55" source="standard:function-signature" />
+        <error line="50" column="72" source="standard:function-signature" />
+        <error line="54" column="41" source="standard:function-signature" />
+        <error line="54" column="55" source="standard:function-signature" />
+        <error line="54" column="72" source="standard:function-signature" />
+        <error line="58" column="41" source="standard:function-signature" />
+        <error line="58" column="55" source="standard:function-signature" />
+        <error line="58" column="72" source="standard:function-signature" />
+        <error line="70" column="36" source="standard:trailing-comma-on-declaration-site" />
+        <error line="76" column="32" source="standard:function-signature" />
+        <error line="76" column="44" source="standard:function-signature" />
+        <error line="76" column="71" source="standard:function-signature" />
+        <error line="84" column="60" source="standard:multiline-expression-wrapping" />
+        <error line="84" column="60" source="standard:argument-list-wrapping" />
+        <error line="93" column="10" source="standard:trailing-comma-on-call-site" />
+        <error line="123" column="43" source="standard:multiline-expression-wrapping" />
+        <error line="123" column="43" source="standard:wrapping" />
+        <error line="124" column="39" source="standard:function-signature" />
+        <error line="124" column="51" source="standard:function-signature" />
+        <error line="124" column="77" source="standard:function-signature" />
+        <error line="148" column="11" source="standard:wrapping" />
+        <error line="148" column="54" source="standard:wrapping" />
+        <error line="151" column="62" source="standard:multiline-expression-wrapping" />
+        <error line="151" column="62" source="standard:function-signature" />
+        <error line="173" column="56" source="standard:multiline-expression-wrapping" />
+        <error line="173" column="56" source="standard:function-signature" />
+        <error line="175" column="20" source="standard:multiline-expression-wrapping" />
+    </file>
+    <file name="src/androidMain/kotlin/com/minirogue/holocanon/feature/media/list/internal/view/SWMListAdapter.kt">
+        <error line="3" column="1" source="standard:import-ordering" />
+        <error line="26" column="9" source="standard:blank-line-before-declaration" />
+        <error line="26" column="32" source="standard:function-signature" />
+        <error line="26" column="46" source="standard:function-signature" />
+        <error line="26" column="63" source="standard:function-signature" />
+        <error line="27" column="9" source="standard:blank-line-before-declaration" />
+        <error line="27" column="32" source="standard:function-signature" />
+        <error line="27" column="46" source="standard:function-signature" />
+        <error line="27" column="63" source="standard:function-signature" />
+        <error line="28" column="9" source="standard:blank-line-before-declaration" />
+        <error line="28" column="32" source="standard:function-signature" />
+        <error line="28" column="46" source="standard:function-signature" />
+        <error line="28" column="63" source="standard:function-signature" />
+        <error line="29" column="9" source="standard:blank-line-before-declaration" />
+        <error line="33" column="24" source="standard:multiline-expression-wrapping" />
+        <error line="38" column="28" source="standard:multiline-expression-wrapping" />
+        <error line="53" column="37" source="standard:function-signature" />
+        <error line="53" column="56" source="standard:function-signature" />
+        <error line="53" column="69" source="standard:function-signature" />
+        <error line="59" column="35" source="standard:function-signature" />
+        <error line="59" column="60" source="standard:function-signature" />
+        <error line="59" column="73" source="standard:function-signature" />
+        <error line="73" column="31" source="standard:function-signature" />
+        <error line="73" column="62" source="standard:function-signature" />
+        <error line="73" column="86" source="standard:function-signature" />
+        <error line="85" column="37" source="standard:trailing-comma-on-declaration-site" />
+        <error line="95" column="59" source="standard:trailing-comma-on-call-site" />
+        <error line="110" column="59" source="standard:trailing-comma-on-call-site" />
+        <error line="125" column="59" source="standard:trailing-comma-on-call-site" />
+        <error line="134" column="32" source="standard:function-signature" />
+        <error line="134" column="54" source="standard:function-signature" />
+        <error line="134" column="71" source="standard:function-signature" />
+        <error line="140" column="19" source="standard:if-else-wrapping" />
+        <error line="140" column="24" source="standard:if-else-bracing" />
+        <error line="140" column="24" source="standard:multiline-if-else" />
+        <error line="140" column="24" source="standard:if-else-wrapping" />
+        <error line="154" column="43" source="standard:trailing-comma-on-declaration-site" />
+        <error line="161" column="43" source="standard:trailing-comma-on-declaration-site" />
+    </file>
+    <file name="src/androidMain/kotlin/com/minirogue/holocanon/feature/media/list/internal/viewmodel/MediaListViewModel.kt">
+        <error line="38" column="34" source="standard:annotation" />
+        <error line="38" column="42" source="standard:annotation" />
+        <error line="47" column="1" source="standard:no-empty-first-line-in-class-body" />
+        <error line="50" column="48" source="standard:multiline-expression-wrapping" />
+        <error line="58" column="1" source="standard:indent" />
+        <error line="59" column="1" source="standard:indent" />
+        <error line="79" column="60" source="standard:trailing-comma-on-call-site" />
+        <error line="99" column="40" source="standard:multiline-expression-wrapping" />
+        <error line="99" column="40" source="standard:function-signature" />
+        <error line="105" column="58" source="standard:multiline-expression-wrapping" />
+        <error line="105" column="58" source="standard:function-signature" />
+        <error line="110" column="53" source="standard:multiline-expression-wrapping" />
+        <error line="110" column="53" source="standard:function-signature" />
+        <error line="129" column="28" source="standard:function-signature" />
+        <error line="129" column="42" source="standard:function-signature" />
+        <error line="129" column="59" source="standard:function-signature" />
+        <error line="129" column="63" source="standard:multiline-expression-wrapping" />
+        <error line="129" column="63" source="standard:function-signature" />
+        <error line="133" column="28" source="standard:function-signature" />
+        <error line="133" column="42" source="standard:function-signature" />
+        <error line="133" column="59" source="standard:function-signature" />
+        <error line="133" column="63" source="standard:multiline-expression-wrapping" />
+        <error line="133" column="63" source="standard:function-signature" />
+        <error line="137" column="28" source="standard:function-signature" />
+        <error line="137" column="42" source="standard:function-signature" />
+        <error line="137" column="59" source="standard:function-signature" />
+        <error line="137" column="63" source="standard:multiline-expression-wrapping" />
+        <error line="137" column="63" source="standard:function-signature" />
+        <error line="141" column="54" source="standard:multiline-expression-wrapping" />
+        <error line="141" column="54" source="standard:function-signature" />
+    </file>
+</baseline>

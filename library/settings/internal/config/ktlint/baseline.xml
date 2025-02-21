@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<baseline version="1.0">
+    <file name="src/androidMain/kotlin/settings/data/SettingsRepo.kt">
+        <error line="3" column="1" source="standard:import-ordering" />
+        <error line="32" column="28" source="standard:annotation" />
+        <error line="32" column="36" source="standard:annotation" />
+        <error line="48" column="44" source="standard:multiline-expression-wrapping" />
+        <error line="48" column="44" source="standard:function-signature" />
+        <error line="50" column="32" source="standard:multiline-expression-wrapping" />
+        <error line="51" column="36" source="standard:multiline-expression-wrapping" />
+        <error line="52" column="28" source="standard:multiline-expression-wrapping" />
+        <error line="54" column="76" source="standard:trailing-comma-on-call-site" />
+        <error line="56" column="36" source="standard:multiline-expression-wrapping" />
+        <error line="57" column="28" source="standard:multiline-expression-wrapping" />
+        <error line="59" column="76" source="standard:trailing-comma-on-call-site" />
+        <error line="61" column="36" source="standard:multiline-expression-wrapping" />
+        <error line="62" column="28" source="standard:multiline-expression-wrapping" />
+        <error line="64" column="76" source="standard:trailing-comma-on-call-site" />
+        <error line="65" column="18" source="standard:trailing-comma-on-call-site" />
+        <error line="68" column="39" source="standard:multiline-expression-wrapping" />
+        <error line="71" column="78" source="standard:trailing-comma-on-call-site" />
+        <error line="82" column="61" source="standard:trailing-comma-on-declaration-site" />
+        <error line="85" column="27" source="standard:multiline-expression-wrapping" />
+        <error line="91" column="29" source="standard:multiline-expression-wrapping" />
+        <error line="99" column="38" source="standard:multiline-expression-wrapping" />
+        <error line="102" column="59" source="standard:trailing-comma-on-call-site" />
+        <error line="103" column="22" source="standard:trailing-comma-on-call-site" />
+        <error line="116" column="1" source="standard:no-blank-line-before-rbrace" />
+        <error line="120" column="39" source="standard:function-signature" />
+        <error line="120" column="61" source="standard:function-signature" />
+        <error line="120" column="78" source="standard:function-signature" />
+        <error line="150" column="68" source="standard:multiline-expression-wrapping" />
+        <error line="150" column="68" source="standard:function-signature" />
+    </file>
+    <file name="src/androidMain/kotlin/settings/di/SettingsLibraryModule.kt">
+        <error line="3" column="1" source="standard:import-ordering" />
+        <error line="45" column="16" source="standard:multiline-expression-wrapping" />
+        <error line="45" column="16" source="standard:wrapping" />
+        <error line="47" column="24" source="standard:trailing-comma-on-call-site" />
+        <error line="49" column="10" source="standard:wrapping" />
+        <error line="50" column="6" source="standard:trailing-comma-on-call-site" />
+        <error line="76" column="77" source="standard:trailing-comma-on-declaration-site" />
+        <error line="89" column="30" source="standard:parameter-list-wrapping" />
+        <error line="89" column="30" source="standard:function-signature" />
+        <error line="89" column="66" source="standard:parameter-list-wrapping" />
+        <error line="89" column="66" source="standard:function-signature" />
+        <error line="89" column="93" source="standard:function-signature" />
+    </file>
+    <file name="src/androidMain/kotlin/settings/usecase/FlipIsCheckboxActiveImpl.kt">
+        <error line="9" column="40" source="standard:annotation" />
+        <error line="9" column="48" source="standard:annotation" />
+        <error line="18" column="26" source="standard:multiline-expression-wrapping" />
+        <error line="21" column="30" source="standard:multiline-expression-wrapping" />
+    </file>
+    <file name="src/androidMain/kotlin/settings/usecase/GetAllSettingsImpl.kt">
+        <error line="8" column="34" source="standard:annotation" />
+        <error line="8" column="42" source="standard:annotation" />
+    </file>
+    <file name="src/androidMain/kotlin/settings/usecase/GetCheckboxSettingsImpl.kt">
+        <error line="9" column="39" source="standard:annotation" />
+        <error line="9" column="47" source="standard:annotation" />
+        <error line="9" column="99" source="standard:colon-spacing" />
+    </file>
+    <file name="src/androidMain/kotlin/settings/usecase/GetPermanentFilterSettingsImpl.kt">
+        <error line="9" column="46" source="standard:annotation" />
+        <error line="9" column="54" source="standard:annotation" />
+    </file>
+    <file name="src/androidMain/kotlin/settings/usecase/SetLatestDatabaseVersionImpl.kt">
+        <error line="6" column="44" source="standard:annotation" />
+        <error line="6" column="52" source="standard:annotation" />
+    </file>
+    <file name="src/androidMain/kotlin/settings/usecase/ShouldSyncViaWifiOnlyImpl.kt">
+        <error line="8" column="41" source="standard:annotation" />
+        <error line="8" column="49" source="standard:annotation" />
+    </file>
+    <file name="src/androidMain/kotlin/settings/usecase/UpdateCheckboxNameImpl.kt">
+        <error line="6" column="38" source="standard:annotation" />
+        <error line="6" column="46" source="standard:annotation" />
+        <error line="7" column="43" source="standard:trailing-comma-on-declaration-site" />
+        <error line="9" column="33" source="standard:function-signature" />
+        <error line="9" column="48" source="standard:function-signature" />
+        <error line="9" column="63" source="standard:function-signature" />
+    </file>
+    <file name="src/androidMain/kotlin/settings/usecase/UpdatePermanentFilterSettingsImpl.kt">
+        <error line="7" column="49" source="standard:annotation" />
+        <error line="7" column="57" source="standard:annotation" />
+        <error line="8" column="43" source="standard:trailing-comma-on-declaration-site" />
+        <error line="10" column="33" source="standard:function-signature" />
+        <error line="10" column="55" source="standard:function-signature" />
+        <error line="10" column="72" source="standard:function-signature" />
+    </file>
+    <file name="src/androidMain/kotlin/settings/usecase/UpdateWifiSettingImpl.kt">
+        <error line="6" column="37" source="standard:annotation" />
+        <error line="6" column="45" source="standard:annotation" />
+    </file>
+</baseline>
