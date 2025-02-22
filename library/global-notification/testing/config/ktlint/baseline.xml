@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<baseline version="1.0">
+    <file name="src/commonMain/kotlin/com/holocanon/feature/global/notification/usecase/FakeGetGlobalToasts.kt">
+        <error line="13" column="5" source="standard:blank-line-before-declaration" />
+    </file>
+    <file name="src/commonMain/kotlin/com/holocanon/feature/global/notification/usecase/FakeSendGlobalToast.kt">
+        <error line="3" column="26" source="standard:colon-spacing" />
+        <error line="7" column="5" source="standard:blank-line-before-declaration" />
+    </file>
+</baseline>

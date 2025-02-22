@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<baseline version="1.0">
+    <file name="src/androidMain/kotlin/com/holocanon/library/filters/test/bindings/fakes/FakeFilters.kt">
+        <error line="11" column="27" source="standard:multiline-expression-wrapping" />
+        <error line="18" column="28" source="standard:trailing-comma-on-call-site" />
+        <error line="25" column="28" source="standard:trailing-comma-on-call-site" />
+        <error line="32" column="28" source="standard:trailing-comma-on-call-site" />
+        <error line="39" column="29" source="standard:trailing-comma-on-call-site" />
+        <error line="46" column="29" source="standard:trailing-comma-on-call-site" />
+        <error line="53" column="29" source="standard:trailing-comma-on-call-site" />
+        <error line="60" column="29" source="standard:trailing-comma-on-call-site" />
+        <error line="67" column="29" source="standard:trailing-comma-on-call-site" />
+        <error line="69" column="6" source="standard:trailing-comma-on-call-site" />
+        <error line="72" column="27" source="standard:multiline-expression-wrapping" />
+        <error line="72" column="44" source="standard:multiline-expression-wrapping" />
+        <error line="72" column="44" source="standard:wrapping" />
+        <error line="74" column="1" source="standard:wrapping" />
+        <error line="76" column="33" source="standard:multiline-expression-wrapping" />
+        <error line="76" column="33" source="standard:function-signature" />
+        <error line="79" column="26" source="standard:multiline-expression-wrapping" />
+        <error line="80" column="79" source="standard:trailing-comma-on-call-site" />
+        <error line="85" column="91" source="standard:function-signature" />
+        <error line="88" column="38" source="standard:multiline-expression-wrapping" />
+        <error line="88" column="38" source="standard:function-signature" />
+        <error line="94" column="92" source="standard:function-signature" />
+    </file>
+    <file name="src/androidMain/kotlin/com/holocanon/library/filters/test/bindings/fakes/FakeGetActiveFilters.kt">
+        <error line="11" column="27" source="standard:annotation" />
+        <error line="11" column="35" source="standard:annotation" />
+        <error line="12" column="53" source="standard:function-signature" />
+    </file>
+    <file name="src/androidMain/kotlin/com/holocanon/library/filters/test/bindings/fakes/FakeGetAllFilterGroups.kt">
+        <error line="9" column="29" source="standard:annotation" />
+        <error line="9" column="37" source="standard:annotation" />
+        <error line="10" column="49" source="standard:comma-spacing" />
+    </file>
+    <file name="src/androidMain/kotlin/com/holocanon/library/filters/test/bindings/fakes/FakeUpdateFilter.kt">
+        <error line="8" column="23" source="standard:annotation" />
+        <error line="8" column="31" source="standard:annotation" />
+    </file>
+</baseline>
