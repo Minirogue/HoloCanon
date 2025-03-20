@@ -40,8 +40,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.minirogue.common.model.MediaType
 import com.holocanon.feature.settings.internal.R
+import com.minirogue.common.model.MediaType
 import compose.theme.HolocanonTheme
 import dagger.hilt.android.AndroidEntryPoint
 import settings.model.CheckboxSetting
@@ -94,7 +94,7 @@ internal class SettingsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View = ComposeView(requireContext()).apply {
         setContent {
             val state = viewModel.state.collectAsState(SettingsState())
@@ -125,7 +125,7 @@ internal class SettingsFragment : Fragment() {
         if (checkboxNumberForDialog != null && dialogOriginalName != null) {
             CheckboxNameChangeDialog(
                 whichBox = checkboxNumberForDialog,
-                initialName = dialogOriginalName
+                initialName = dialogOriginalName,
             )
         }
     }
@@ -142,15 +142,15 @@ internal class SettingsFragment : Fragment() {
         Card(
             modifier = Modifier
                 .padding(8.dp)
-                .fillMaxWidth()
+                .fillMaxWidth(),
         ) {
             Text(
                 text = stringResource(
                     R.string.settings_user_defined_filter,
-                    whichBox.toString()
+                    whichBox.toString(),
                 ),
                 style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
             )
             HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
             if (checkboxSetting.isInUse) {
@@ -159,14 +159,15 @@ internal class SettingsFragment : Fragment() {
                         .fillMaxWidth()
                         .clickable { viewModel.showNameChangeDialog(whichBox) },
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
                         text = stringResource(R.string.settings_filter_name),
-                        modifier = Modifier.padding(8.dp)
+                        modifier = Modifier.padding(8.dp),
                     )
                     Text(
-                        text = checkboxSetting.name, modifier = Modifier.padding(8.dp)
+                        text = checkboxSetting.name,
+                        modifier = Modifier.padding(8.dp),
                     )
                 }
             }
@@ -179,14 +180,14 @@ internal class SettingsFragment : Fragment() {
             ) {
                 Text(
                     text = stringResource(R.string.settings_include_filter),
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(8.dp),
                 )
                 Switch(
                     modifier = Modifier
                         .padding(8.dp)
                         .clickable { viewModel.flipIsCheckboxActive(whichBox) },
                     checked = checkboxSetting.isInUse,
-                    onCheckedChange = null
+                    onCheckedChange = null,
                 )
             }
         }
@@ -212,15 +213,18 @@ internal class SettingsFragment : Fragment() {
                 Text(
                     text = stringResource(
                         R.string.settings_filter_name_change_text,
-                        whichBox.toString()
-                    )
+                        whichBox.toString(),
+                    ),
                 )
             },
             text = {
-                OutlinedTextField(value = newName,
+                OutlinedTextField(
+                    value = newName,
                     onValueChange = { newName = it },
-                    label = { Text(stringResource(R.string.settings_new_name)) })
-            })
+                    label = { Text(stringResource(R.string.settings_new_name)) },
+                )
+            },
+        )
     }
 
     @Composable
@@ -229,7 +233,7 @@ internal class SettingsFragment : Fragment() {
             Text(
                 stringResource(R.string.settings_included_media_types),
                 style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier.padding(8.dp),
             )
             HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
             MediaType.entries.forEach {
@@ -274,14 +278,14 @@ internal class SettingsFragment : Fragment() {
             ) {
                 Text(
                     text = stringResource(R.string.settings_wifi_only_setting),
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(8.dp),
                 )
                 Switch(
                     modifier = Modifier
                         .padding(8.dp)
                         .clickable { viewModel.toggleWifiSetting(!wifiOnly) },
                     checked = wifiOnly,
-                    onCheckedChange = null
+                    onCheckedChange = null,
                 )
             }
             Row(
@@ -293,7 +297,7 @@ internal class SettingsFragment : Fragment() {
             ) {
                 Text(
                     stringResource(R.string.settings_sync_online),
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(8.dp),
                 )
             }
         }
@@ -317,7 +321,7 @@ internal class SettingsFragment : Fragment() {
             ) {
                 Text(
                     text = stringResource(R.string.settings_export_user_data_as_json),
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(8.dp),
                 )
             }
             Row(
@@ -329,7 +333,7 @@ internal class SettingsFragment : Fragment() {
             ) {
                 Text(
                     text = stringResource(R.string.settings_import_user_data_from_json),
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(8.dp),
                 )
             }
         }

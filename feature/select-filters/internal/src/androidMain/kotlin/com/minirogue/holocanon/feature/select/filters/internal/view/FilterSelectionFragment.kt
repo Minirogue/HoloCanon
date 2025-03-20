@@ -59,7 +59,7 @@ internal class FilterSelectionFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View = ComposeView(requireContext()).apply {
         setContent {
             HolocanonTheme {
@@ -98,7 +98,7 @@ internal class FilterSelectionFragment : Fragment() {
                 filterGroup = filterGroupMapEntry.key,
                 filters = filterGroupMapEntry.value,
                 onGroupCheckChanged = { viewModel.flipFilterType(filterGroupMapEntry.key) },
-                onFilterClicked = { filter -> viewModel.flipFilterActive(filter) }
+                onFilterClicked = { filter -> viewModel.flipFilterActive(filter) },
             )
         }
     }
@@ -115,7 +115,9 @@ internal class FilterSelectionFragment : Fragment() {
                     if (filter.isPositive) Icons.Default.CheckCircle else Icons.Default.Close,
                     contentDescription = if (filter.isPositive) {
                         stringResource(R.string.select_filters_include)
-                    } else stringResource(R.string.select_filters_exclude)
+                    } else {
+                        stringResource(R.string.select_filters_exclude)
+                    },
                 )
             },
             trailingIcon = {
@@ -133,26 +135,26 @@ internal class FilterSelectionFragment : Fragment() {
         filterGroup: FilterGroup,
         filters: List<MediaFilter>,
         onGroupCheckChanged: (Boolean) -> Unit,
-        onFilterClicked: (MediaFilter) -> Unit
+        onFilterClicked: (MediaFilter) -> Unit,
     ) {
         val isExpanded = remember { mutableStateOf(false) }
         val dropDownArrowRotation = animateFloatAsState(
             targetValue = if (isExpanded.value) 0f else -90f,
-            animationSpec = tween(durationMillis = 350)
+            animationSpec = tween(durationMillis = 350),
         )
         Row(
             Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .clickable() { isExpanded.value = !isExpanded.value },
-            horizontalArrangement = Arrangement.SpaceBetween
+                .clickable { isExpanded.value = !isExpanded.value },
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Row {
                 Text(filterGroup.text)
                 Icon(
                     modifier = Modifier.rotate(dropDownArrowRotation.value),
                     imageVector = Icons.Default.ArrowDropDown,
-                    contentDescription = null
+                    contentDescription = null,
                 )
             }
             Switch(
@@ -164,7 +166,7 @@ internal class FilterSelectionFragment : Fragment() {
             FlowRow(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .wrapContentHeight()
+                    .wrapContentHeight(),
             ) {
                 filters.forEach { filter ->
                     FilterChip(
@@ -178,9 +180,13 @@ internal class FilterSelectionFragment : Fragment() {
                                     if (filter.isPositive) Icons.Default.CheckCircle else Icons.Default.Close,
                                     contentDescription = if (filter.isPositive) {
                                         stringResource(R.string.select_filters_include)
-                                    } else stringResource(R.string.select_filters_exclude)
+                                    } else {
+                                        stringResource(R.string.select_filters_exclude)
+                                    },
                                 )
-                            } else null
+                            } else {
+                                null
+                            }
                         },
                     )
                 }

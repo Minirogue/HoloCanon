@@ -15,69 +15,71 @@ private val fakeFilters = MutableStateFlow(
             name = "MediaType1",
             filterType = FilterType.MediaType,
             isPositive = true,
-            isActive = true
+            isActive = true,
         ),
         MediaFilter(
             id = 2,
             name = "Checkbox1",
             filterType = FilterType.CheckboxOne,
             isPositive = true,
-            isActive = true
+            isActive = true,
         ),
         MediaFilter(
             id = 3,
             name = "Checkbox2",
             filterType = FilterType.CheckboxTwo,
             isPositive = true,
-            isActive = true
+            isActive = true,
         ),
         MediaFilter(
             id = 4,
             name = "Checkbox3",
             filterType = FilterType.CheckboxThree,
             isPositive = true,
-            isActive = false
+            isActive = false,
         ),
         MediaFilter(
             id = 5,
             name = "Series1",
             filterType = FilterType.Series,
             isPositive = true,
-            isActive = false
+            isActive = false,
         ),
         MediaFilter(
             id = 8,
             name = "Series2",
             filterType = FilterType.Series,
             isPositive = true,
-            isActive = false
+            isActive = false,
         ),
         MediaFilter(
             id = 6,
             name = "Disney",
             filterType = FilterType.Publisher,
             isPositive = true,
-            isActive = false
+            isActive = false,
         ),
         MediaFilter(
             id = 7,
             name = "Fox",
             filterType = FilterType.Publisher,
             isPositive = true,
-            isActive = false
+            isActive = false,
         ),
-    )
+    ),
 )
 
-private val filterTypes = MutableStateFlow(FilterType.values().map {
-    FilterGroup(it, true, it.name)
-})
+private val filterTypes = MutableStateFlow(
+    FilterType.values().map {
+        FilterGroup(it, true, it.name)
+    },
+)
 
 internal fun getFakeFilters() = combine(fakeFilters, filterTypes) { filters, filterTypes ->
     filters.map { filter ->
         filter.copy(
             isPositive = filterTypes.find { it.type == filter.filterType }?.isFilterPositive
-                ?: error("error with FakeFilters getting positivity of $type")
+                ?: error("error with FakeFilters getting positivity of $type"),
         )
     }
 }

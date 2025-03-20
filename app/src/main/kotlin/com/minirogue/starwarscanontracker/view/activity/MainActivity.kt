@@ -15,9 +15,9 @@ import com.minirogue.holocanon.feature.media.item.usecase.GetMediaItemFragment
 import com.minirogue.holocanon.feature.series.GetSeriesFragment
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.core.usecase.UpdateFilters
 import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
 import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel
+import com.minirogue.starwarscanontracker.core.usecase.UpdateFilters
 import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private enum class ToolbarOption(val fragmentTag: String) {
-        Settings(SETTINGS_TAG);
+        Settings(SETTINGS_TAG),
     }
 
     companion object {

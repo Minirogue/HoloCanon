@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.onEach
 context(Fragment)
 fun <T> Flow<T>.collectWithLifecycle(
     minimumLifecycle: Lifecycle.State = Lifecycle.State.STARTED,
-    action: (T) -> Unit
+    action: (T) -> Unit,
 ) {
     flowWithLifecycle(viewLifecycleOwner.lifecycle, minimumLifecycle)
         .onEach(action)

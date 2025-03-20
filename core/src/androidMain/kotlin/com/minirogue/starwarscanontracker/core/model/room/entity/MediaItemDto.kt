@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "media_items",
-    indices = [Index("type"), Index("series")]
+    indices = [Index("type"), Index("series")],
 )
 data class MediaItemDto(
     @PrimaryKey

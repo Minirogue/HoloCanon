@@ -6,4 +6,3 @@ import kotlinx.coroutines.flow.Flow
 interface GetMediaListWithNotes {
     operator fun invoke(): Flow<List<MediaAndNotes>>
 }
-

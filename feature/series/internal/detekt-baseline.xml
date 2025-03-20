@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <ManuallySuppressedIssues/>
   <CurrentIssues>
     <ID>LongParameterList:SeriesViewModel.kt$SeriesViewModel$( private val getSeries: GetSeries, getCheckboxText: GetCheckboxText, private val getMediaAndNotesForSeries: GetMediaAndNotesForSeries, private val setCheckboxForSeries: SetCheckboxForSeries, private val getSeriesIdFromName: GetSeriesIdFromName, isNetworkAllowed: IsNetworkAllowed, getCheckboxSettings: GetCheckboxSettings, )</ID>
   </CurrentIssues>

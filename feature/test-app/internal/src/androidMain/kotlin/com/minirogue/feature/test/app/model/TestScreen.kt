@@ -10,7 +10,7 @@ public abstract class TestScreen private constructor() {
 
     private class TestFragment(
         override val screenName: String,
-        private val createFragment: (Context) -> Fragment
+        private val createFragment: (Context) -> Fragment,
     ) : TestScreen() {
         override fun launchScreen(context: Context) {
             context.startActivity(TestFragmentActivity.newIntent(context, createFragment))
@@ -20,7 +20,7 @@ public abstract class TestScreen private constructor() {
     companion object {
         fun fragment(
             screenName: String,
-            createFragment: (context: Context) -> Fragment
+            createFragment: (context: Context) -> Fragment,
         ): TestScreen {
             return TestFragment(screenName, createFragment)
         }

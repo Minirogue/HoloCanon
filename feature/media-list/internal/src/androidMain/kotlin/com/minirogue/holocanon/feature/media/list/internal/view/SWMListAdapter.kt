@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.request.CachePolicy
-import com.minirogue.common.model.StarWarsMedia
 import com.holocanon.feature.media.list.internal.databinding.MediaListItemBinding
+import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
 import settings.model.CheckboxSettings
 
@@ -82,7 +82,7 @@ internal class SWMListAdapter(
         checkbox1: CheckBox,
         checkbox2: CheckBox,
         checkbox3: CheckBox,
-        mediaAndNotes: MediaAndNotes
+        mediaAndNotes: MediaAndNotes,
     ) {
         with(checkbox1) {
             if (isCheckBoxActive[0]) {
@@ -92,7 +92,7 @@ internal class SWMListAdapter(
                 setOnClickListener {
                     adapterInterface.onCheckbox1Clicked(
                         mediaAndNotes.mediaItem.id,
-                        !mediaAndNotes.notes.isBox1Checked
+                        !mediaAndNotes.notes.isBox1Checked,
                     )
                 }
             } else {
@@ -107,7 +107,7 @@ internal class SWMListAdapter(
                 setOnClickListener {
                     adapterInterface.onCheckbox2Clicked(
                         mediaAndNotes.mediaItem.id,
-                        !mediaAndNotes.notes.isBox2Checked
+                        !mediaAndNotes.notes.isBox2Checked,
                     )
                 }
             } else {
@@ -122,7 +122,7 @@ internal class SWMListAdapter(
                 setOnClickListener {
                     adapterInterface.onCheckbox3Clicked(
                         mediaAndNotes.mediaItem.id,
-                        !mediaAndNotes.notes.isBox3Checked
+                        !mediaAndNotes.notes.isBox3Checked,
                     )
                 }
             } else {
@@ -137,7 +137,9 @@ internal class SWMListAdapter(
                 placeholder(com.holocanon.library.common.resources.R.drawable.common_resources_app_icon)
                 if (adapterInterface.isNetworkAllowed()) {
                     networkCachePolicy(CachePolicy.ENABLED)
-                } else networkCachePolicy(CachePolicy.DISABLED)
+                } else {
+                    networkCachePolicy(CachePolicy.DISABLED)
+                }
             }
         } else {
             imageView.load(com.holocanon.library.common.resources.R.drawable.common_resources_app_icon)
@@ -151,14 +153,14 @@ internal class SWMListAdapter(
             object : DiffUtil.ItemCallback<MediaAndNotes>() {
                 override fun areItemsTheSame(
                     oldItem: MediaAndNotes,
-                    newItem: MediaAndNotes
+                    newItem: MediaAndNotes,
                 ): Boolean {
                     return oldItem.mediaItem.id == newItem.mediaItem.id
                 }
 
                 override fun areContentsTheSame(
                     oldItem: MediaAndNotes,
-                    newItem: MediaAndNotes
+                    newItem: MediaAndNotes,
                 ): Boolean {
                     return oldItem == newItem
                 }

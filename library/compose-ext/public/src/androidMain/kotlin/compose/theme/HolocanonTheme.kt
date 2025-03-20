@@ -6,10 +6,10 @@ import androidx.compose.runtime.Composable
 @Composable
 fun HolocanonTheme(
     darkTheme: Boolean = true, // eventually replace with isSystemInDarkTheme()
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     MaterialTheme(
         colorScheme = if (darkTheme) DarkColors else LightColors,
-        content = content
+        content = content,
     )
 }

@@ -68,7 +68,7 @@ class ImportMediaNotesJsonImpl @Inject constructor(
             mediaId = mediaId.toInt(),
             isBox1Checked = checkBox1Value,
             isBox2Checked = checkBox2Value,
-            isBox3Checked = checkBox3Value
+            isBox3Checked = checkBox3Value,
         )
 
     companion object {

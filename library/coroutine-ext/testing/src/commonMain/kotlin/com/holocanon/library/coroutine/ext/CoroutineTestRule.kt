@@ -9,9 +9,8 @@ import kotlinx.coroutines.test.setMain
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
-
 class CoroutineTestRule(
-    val testDispatcher: TestDispatcher = StandardTestDispatcher()
+    val testDispatcher: TestDispatcher = StandardTestDispatcher(),
 ) : TestWatcher() {
     val holocanonDispatchers: HolocanonDispatchers = TestHolocanonDispatchers(testDispatcher)
     val testScope: TestScope = TestScope(testDispatcher)

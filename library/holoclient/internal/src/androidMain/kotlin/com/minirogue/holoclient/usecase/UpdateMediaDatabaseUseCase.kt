@@ -93,7 +93,7 @@ internal class UpdateMediaDatabaseUseCase @Inject constructor(
                     Toast.makeText(
                         context,
                         "Database Synced",
-                        Toast.LENGTH_SHORT
+                        Toast.LENGTH_SHORT,
                     ).show()
                 }
             }
@@ -103,7 +103,7 @@ internal class UpdateMediaDatabaseUseCase @Inject constructor(
     private fun StarWarsMedia.toDTO(
         seriesMap: Map<String, Int>,
         typeMap: Map<MediaType, Int>,
-        companyMap: Map<Company, Int>
+        companyMap: Map<Company, Int>,
     ): MediaItemDto = MediaItemDto(
         // TODO add "number" and remove unused fields
         id = this.id.toInt(),

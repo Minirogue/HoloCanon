@@ -13,6 +13,6 @@ internal class GetSeriesImpl @Inject constructor(private val daoSeries: DaoSerie
 
     private fun SeriesDto.toSeries(): Series = Series(
         name = title,
-        imageUrl = imageURL
+        imageUrl = imageURL,
     )
 }

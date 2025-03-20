@@ -8,8 +8,8 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.minirogue.common.model.MediaType
 import com.holocanon.library.settings.internal.R
+import com.minirogue.common.model.MediaType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import settings.di.Settings
@@ -51,24 +51,24 @@ internal class SettingsRepo @Inject constructor(
                 checkbox1Setting = CheckboxSetting(
                     name = prefs[checkbox1DefaultTextPreferenceKey]
                         ?: getDefaultNameForCheckbox(1),
-                    isInUse = prefs[userFilter1ActivePreferenceKey] ?: true
+                    isInUse = prefs[userFilter1ActivePreferenceKey] ?: true,
                 ),
                 checkbox2Setting = CheckboxSetting(
                     name = prefs[checkbox2DefaultTextPreferenceKey]
                         ?: getDefaultNameForCheckbox(2),
-                    isInUse = prefs[userFilter2ActivePreferenceKey] ?: true
+                    isInUse = prefs[userFilter2ActivePreferenceKey] ?: true,
                 ),
                 checkbox3Setting = CheckboxSetting(
                     name = prefs[checkbox3DefaultTextPreferenceKey]
                         ?: getDefaultNameForCheckbox(3),
-                    isInUse = prefs[userFilter3ActivePreferenceKey] ?: true
-                )
+                    isInUse = prefs[userFilter3ActivePreferenceKey] ?: true,
+                ),
             ),
             syncWifiOnly = prefs[syncWifiOnlyPreferenceKey] ?: true,
             permanentFilterSettings = MediaType.entries.associateWith {
                 prefs[booleanPreferencesKey(it.getSerialName())] ?: true
             },
-            latestDatabaseVersion = prefs[databaseVersionPreferenceKey] ?: 0L
+            latestDatabaseVersion = prefs[databaseVersionPreferenceKey] ?: 0L,
         )
     }
 
@@ -79,7 +79,7 @@ internal class SettingsRepo @Inject constructor(
      */
     suspend fun updateCheckbox(
         whichBox: Int,
-        updateFunction: (CheckboxSetting) -> CheckboxSetting
+        updateFunction: (CheckboxSetting) -> CheckboxSetting,
     ): Result<CheckboxSetting> {
         return runCatching {
             val nameKey = when (whichBox) {
@@ -99,8 +99,8 @@ internal class SettingsRepo @Inject constructor(
                 newCheckboxSetting = updateFunction(
                     CheckboxSetting(
                         name = prefs[nameKey] ?: getDefaultNameForCheckbox(whichBox),
-                        isInUse = prefs[activeKey] ?: true
-                    )
+                        isInUse = prefs[activeKey] ?: true,
+                    ),
                 )
                 prefs[nameKey] = newCheckboxSetting.name
                 prefs[activeKey] = newCheckboxSetting.isInUse
@@ -113,7 +113,6 @@ internal class SettingsRepo @Inject constructor(
                 is IllegalStateException -> Log.e(TAG, "error in updateCheckbox", throwable)
                 else -> throw throwable
             }
-
         }
     }
 

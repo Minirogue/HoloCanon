@@ -39,7 +39,8 @@ class AdaptMediaItemDtoToStarWarsMedia @Inject internal constructor(
                 } catch (e: IllegalArgumentException) {
                     Log.e(TAG, "couldn't decode persisted company: ${it.companyName}", e)
                     Company.DISNEY
-                }            }
+                }
+            }
         }
         .shareIn(scope = adapterScope, started = SharingStarted.Lazily, replay = 1)
 
@@ -61,7 +62,7 @@ class AdaptMediaItemDtoToStarWarsMedia @Inject internal constructor(
             Log.e(TAG, "couldn't map publisher to a company: $this")
         },
     )
-  companion object {
-      private const val TAG = "GetMediaWithNotes"
-  }
+    companion object {
+        private const val TAG = "GetMediaWithNotes"
+    }
 }

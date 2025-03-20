@@ -54,8 +54,8 @@ class TabbedListContainerFragment : Fragment() {
     }
 
     private class MainTabAdapter(
-            fragment: Fragment,
-            private val fragmentCreator: (TabInfo) -> Fragment
+        fragment: Fragment,
+        private val fragmentCreator: (TabInfo) -> Fragment,
     ) : FragmentStateAdapter(fragment) {
         override fun getItemCount(): Int = TabInfo.entries.size
 

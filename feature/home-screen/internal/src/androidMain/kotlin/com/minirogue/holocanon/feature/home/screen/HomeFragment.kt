@@ -41,7 +41,7 @@ internal class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View =
         ComposeView(requireContext()).apply {
             setContent {
@@ -58,12 +58,12 @@ internal class HomeFragment : Fragment() {
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
                 .background(MaterialTheme.colorScheme.surface)
-                .padding(horizontal = 24.dp)
+                .padding(horizontal = 24.dp),
         ) {
             Image(
                 painter = painterResource(id = R.drawable.home_screen_app_icon),
                 contentDescription = getString(R.string.home_screen_app_icon_description),
-                modifier = Modifier.align(Alignment.CenterHorizontally)
+                modifier = Modifier.align(Alignment.CenterHorizontally),
             )
             val welcomeString = getWelcomeString()
             val uriHandler = LocalUriHandler.current
@@ -76,12 +76,12 @@ internal class HomeFragment : Fragment() {
                         .firstOrNull()?.let { stringAnnotation ->
                             uriHandler.openUri(stringAnnotation.item)
                         }
-                }
+                },
             )
             Spacer(modifier = Modifier.heightIn(min = 12.dp, max = 48.dp))
             Text(
                 text = getString(R.string.home_screen_copyright_notice),
-                style = TextStyle.Default.copy(color = MaterialTheme.colorScheme.onSurface, fontSize = 10.sp)
+                style = TextStyle.Default.copy(color = MaterialTheme.colorScheme.onSurface, fontSize = 10.sp),
             )
         }
     }
@@ -96,7 +96,7 @@ internal class HomeFragment : Fragment() {
         addStyle(
             style = SpanStyle(
                 color = LINK_COLOR,
-                textDecoration = TextDecoration.Underline
+                textDecoration = TextDecoration.Underline,
             ),
             start = startIndex,
             end = endIndex,
@@ -105,7 +105,7 @@ internal class HomeFragment : Fragment() {
             tag = STRING_ANNOTATION_TAG,
             annotation = "https://discord.gg/RxXvTfX",
             start = startIndex,
-            end = endIndex
+            end = endIndex,
         )
     }
 

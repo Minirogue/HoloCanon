@@ -45,5 +45,5 @@ enum class Company {
     RANDOM_HOUSE_AUDIO,
 
     @SerialName("Random House Worlds")
-    RANDOM_HOUSE_WORLDS;
+    RANDOM_HOUSE_WORLDS,
 }

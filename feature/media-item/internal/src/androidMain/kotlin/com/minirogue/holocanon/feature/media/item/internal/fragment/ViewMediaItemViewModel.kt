@@ -5,12 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.holocanon.library.media.item.usecase.GetMedia
 import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.media.notes.model.CheckBoxNumber
-import com.minirogue.media.notes.usecase.UpdateCheckValue
 import com.minirogue.media.notes.model.MediaNotes
 import com.minirogue.media.notes.usecase.GetNotesForMedia
+import com.minirogue.media.notes.usecase.UpdateCheckValue
 import com.minirogue.starwarscanontracker.core.usecase.IsNetworkAllowed
-import kotlinx.coroutines.flow.MutableStateFlow
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map

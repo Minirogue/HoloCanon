@@ -19,7 +19,7 @@ internal class UpdateFiltersImpl @Inject constructor(
     private val daoSeries: DaoSeries,
     private val daoCompany: DaoCompany,
     getCheckboxSettings: GetCheckboxSettings,
-): UpdateFilters {
+) : UpdateFilters {
     private val checkboxText = getCheckboxSettings().map { checkboxSettings ->
         listOf(
             checkboxSettings.checkbox1Setting.name,
@@ -43,8 +43,8 @@ internal class UpdateFiltersImpl @Inject constructor(
             FilterTypeDto(
                 FilterTypeDto.FILTERCOLUMN_PUBLISHER,
                 true,
-                publisherFilterText
-            )
+                publisherFilterText,
+            ),
         )
         if (insertWorked < 0) {
             val filterTypeDto = daoFilter.getFilterType(FilterTypeDto.FILTERCOLUMN_PUBLISHER)
@@ -56,14 +56,14 @@ internal class UpdateFiltersImpl @Inject constructor(
         for (company in companyList) {
             tempFilter = daoFilter.getFilter(
                 company.id,
-                FilterTypeDto.FILTERCOLUMN_PUBLISHER
+                FilterTypeDto.FILTERCOLUMN_PUBLISHER,
             )?.filterObjectDto
             if (tempFilter == null) {
                 tempFilter = FilterObjectDto(
                     company.id,
                     FilterTypeDto.FILTERCOLUMN_PUBLISHER,
                     false,
-                    company.companyName
+                    company.companyName,
                 )
                 daoFilter.insert(tempFilter)
             } else {
@@ -81,8 +81,8 @@ internal class UpdateFiltersImpl @Inject constructor(
             FilterTypeDto(
                 FilterTypeDto.FILTERCOLUMN_SERIES,
                 true,
-                seriesFilterText
-            )
+                seriesFilterText,
+            ),
         )
         if (insertWorked < 0) {
             val filterTypeDto = daoFilter.getFilterType(FilterTypeDto.FILTERCOLUMN_SERIES)
@@ -99,7 +99,7 @@ internal class UpdateFiltersImpl @Inject constructor(
                     series.id,
                     FilterTypeDto.FILTERCOLUMN_SERIES,
                     false,
-                    series.title
+                    series.title,
                 )
                 daoFilter.insert(tempFilter)
             } else {
@@ -125,14 +125,14 @@ internal class UpdateFiltersImpl @Inject constructor(
             val displayText = mediaType.getSerialName()
             tempFilter = daoFilter.getFilter(
                 mediaType.legacyId,
-                FilterTypeDto.FILTERCOLUMN_TYPE
+                FilterTypeDto.FILTERCOLUMN_TYPE,
             )?.filterObjectDto
             if (tempFilter == null) {
                 tempFilter = FilterObjectDto(
                     mediaType.legacyId,
                     FilterTypeDto.FILTERCOLUMN_TYPE,
                     false,
-                    displayText
+                    displayText,
                 )
                 daoFilter.insert(tempFilter)
             } else {
@@ -151,8 +151,8 @@ internal class UpdateFiltersImpl @Inject constructor(
             FilterTypeDto(
                 FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE,
                 true,
-                injectedCheckboxText[0]
-            )
+                injectedCheckboxText[0],
+            ),
         )
         if (insertWorked < 0) {
             val filterTypeDto = daoFilter.getFilterType(FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE)
@@ -167,7 +167,7 @@ internal class UpdateFiltersImpl @Inject constructor(
                 1,
                 FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE,
                 false,
-                injectedCheckboxText[0]
+                injectedCheckboxText[0],
             )
             daoFilter.insert(tempFilter)
         } else {
@@ -179,8 +179,8 @@ internal class UpdateFiltersImpl @Inject constructor(
             FilterTypeDto(
                 FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO,
                 true,
-                injectedCheckboxText[1]
-            )
+                injectedCheckboxText[1],
+            ),
         )
         if (insertWorked < 0) {
             val filterTypeDto = daoFilter.getFilterType(FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO)
@@ -194,7 +194,7 @@ internal class UpdateFiltersImpl @Inject constructor(
                 1,
                 FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO,
                 false,
-                injectedCheckboxText[1]
+                injectedCheckboxText[1],
             )
             daoFilter.insert(tempFilter)
         } else {
@@ -206,8 +206,8 @@ internal class UpdateFiltersImpl @Inject constructor(
             FilterTypeDto(
                 FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE,
                 true,
-                injectedCheckboxText[2]
-            )
+                injectedCheckboxText[2],
+            ),
         )
         if (insertWorked < 0) {
             val filterTypeDto = daoFilter.getFilterType(FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE)
@@ -221,7 +221,7 @@ internal class UpdateFiltersImpl @Inject constructor(
                 1,
                 FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE,
                 false,
-                injectedCheckboxText[2]
+                injectedCheckboxText[2],
             )
             daoFilter.insert(tempFilter)
         } else {

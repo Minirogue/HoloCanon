@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 internal class GetGlobalToastsImpl @Inject constructor(
-    private val repository: GlobalToastRepository
-): GetGlobalToasts {
+    private val repository: GlobalToastRepository,
+) : GetGlobalToasts {
     override fun invoke(): Flow<String> {
         return repository.getToasts()
     }

@@ -21,7 +21,7 @@ class GetPermanentFiltersImpl @Inject constructor(
         allFilters.map { it.toMediaFilter() }
             .filter { mediaFilter ->
                 mediaFilter.filterType == FilterType.MediaType &&
-                        typeMap[MediaType.getFromLegacyId(mediaFilter.id)] == false
+                    typeMap[MediaType.getFromLegacyId(mediaFilter.id)] == false
             }
     }
 }

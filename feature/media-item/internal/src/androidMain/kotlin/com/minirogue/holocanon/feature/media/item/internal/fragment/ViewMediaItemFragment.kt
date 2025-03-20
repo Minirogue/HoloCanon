@@ -9,10 +9,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import coil.load
 import coil.request.CachePolicy
-import com.minirogue.common.model.MediaType
-import com.minirogue.common.model.StarWarsMedia
 import com.holocanon.feature.media.item.internal.R
 import com.holocanon.feature.media.item.internal.databinding.MediaItemFragmentBinding
+import com.minirogue.common.model.MediaType
+import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.media.notes.model.MediaNotes
 import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
 import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel
@@ -28,7 +28,7 @@ class ViewMediaItemFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         val fragmentBinding = MediaItemFragmentBinding.inflate(inflater, container, false)
         val bundle = this.arguments
@@ -52,7 +52,7 @@ class ViewMediaItemFragment : Fragment() {
 
     private fun updateViews(
         visibilityArray: BooleanArray,
-        fragmentBinding: MediaItemFragmentBinding
+        fragmentBinding: MediaItemFragmentBinding,
     ) {
         fragmentBinding.checkbox1.visibility = if (visibilityArray[0]) View.VISIBLE else View.GONE
         fragmentBinding.checkbox2.visibility = if (visibilityArray[1]) View.VISIBLE else View.GONE
@@ -62,18 +62,22 @@ class ViewMediaItemFragment : Fragment() {
     private fun updateViews(
         item: StarWarsMedia,
         isNetworkAllowed: Boolean,
-        fragmentBinding: MediaItemFragmentBinding
+        fragmentBinding: MediaItemFragmentBinding,
     ) {
         fragmentBinding.mediaTitle.text = item.title
         fragmentBinding.descriptionTextview.text = if (!item.description.isNullOrBlank()) {
             getString(R.string.media_item_description_header) + " " + item.description
-        } else ""
+        } else {
+            ""
+        }
         fragmentBinding.releaseDate.text = item.releaseDate
         fragmentBinding.imageCover.load(item.imageUrl) {
             placeholder(R.drawable.common_resources_app_icon)
             if (isNetworkAllowed) {
                 networkCachePolicy(CachePolicy.ENABLED)
-            } else networkCachePolicy(CachePolicy.DISABLED)
+            } else {
+                networkCachePolicy(CachePolicy.DISABLED)
+            }
         }
         val series = item.series
         if (!series.isNullOrBlank()) {
@@ -96,7 +100,7 @@ class ViewMediaItemFragment : Fragment() {
 
     private fun updateCheckboxText(
         checkboxText: Array<String>,
-        fragmentBinding: MediaItemFragmentBinding
+        fragmentBinding: MediaItemFragmentBinding,
     ) {
         fragmentBinding.checkbox1.text = checkboxText[0]
         fragmentBinding.checkbox2.text = checkboxText[1]
