@@ -9,4 +9,3 @@ internal class GetMediaItemFragmentImpl @Inject constructor() : GetMediaItemFrag
     override fun invoke(itemId: Int): Fragment = ViewMediaItemFragment.createInstance(itemId)
     override fun invoke(itemId: Long): Fragment = invoke(itemId.toInt())
 }
-

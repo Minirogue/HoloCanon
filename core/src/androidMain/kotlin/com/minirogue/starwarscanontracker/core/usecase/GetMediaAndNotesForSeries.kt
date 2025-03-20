@@ -15,7 +15,7 @@ class GetMediaAndNotesForSeries @Inject constructor(
             list.map {
                 MediaAndNotes(
                     adaptMediaItemDtoToStarWarsMedia(it.mediaItemDto),
-                    it.mediaNotesDto.toMediaNotes()
+                    it.mediaNotesDto.toMediaNotes(),
                 )
             }
         }

@@ -14,6 +14,6 @@ internal class GlobalToastRepository @Inject constructor() {
     }
 
     fun getToasts(): Flow<String> {
-       return toastEventChannel.receiveAsFlow()
+        return toastEventChannel.receiveAsFlow()
     }
 }

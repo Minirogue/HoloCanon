@@ -48,14 +48,14 @@ internal class SeriesListAdapter(private val onItemClicked: (itemId: Long) -> Un
             object : DiffUtil.ItemCallback<MediaAndNotes>() {
                 override fun areItemsTheSame(
                     oldItem: MediaAndNotes,
-                    newItem: MediaAndNotes
+                    newItem: MediaAndNotes,
                 ): Boolean {
                     return oldItem.mediaItem.id == newItem.mediaItem.id
                 }
 
                 override fun areContentsTheSame(
                     oldItem: MediaAndNotes,
-                    newItem: MediaAndNotes
+                    newItem: MediaAndNotes,
                 ): Boolean {
                     return oldItem == newItem
                 }

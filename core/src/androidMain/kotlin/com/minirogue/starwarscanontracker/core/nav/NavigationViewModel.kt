@@ -19,4 +19,3 @@ class NavigationViewModel : ViewModel() {
         _navigationDestination.emit(destination)
     }
 }
-

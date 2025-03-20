@@ -1,8 +1,5 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-  <ManuallySuppressedIssues></ManuallySuppressedIssues>
-  <CurrentIssues>
-    <ID>MaxLineLength:FilterExtensions.kt$fun MediaFilter.toFilterObject(): FilterObjectDto</ID>
-    <ID>MaxLineLength:GetFilterImpl.kt$GetFilterImpl$override suspend operator fun invoke(id: Int, typeId: Int): MediaFilter?</ID>
-  </CurrentIssues>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues/>
 </SmellBaseline>

@@ -52,15 +52,15 @@ class ExportMediaNotesJsonImpl @Inject constructor(
                                 checkBox2Value = mediaNotesDto.isBox2Checked,
                                 checkBox3Value = mediaNotesDto.isBox3Checked,
                             )
-                        }
+                        },
                     ),
-                    stream = outputStream
+                    stream = outputStream,
                 )
                 outputStream.close()
                 onSuccess()
-            } catch(e: IOException) {
+            } catch (e: IOException) {
                 onFailed(e)
-            } catch(e: SerializationException){
+            } catch (e: SerializationException) {
                 onFailed(e)
             }
         }
@@ -75,7 +75,7 @@ class ExportMediaNotesJsonImpl @Inject constructor(
         sendGlobalToast(resources.getString(R.string.media_notes_data_exported))
     }
 
-     companion object{
+    companion object {
         private const val TAG = "ExportMediaNotesImpl"
     }
 }

@@ -17,8 +17,8 @@ import kotlinx.coroutines.flow.first
 
 @Dao
 abstract class DaoMedia {
-    //This class defines the insert, query, update, and delete methods for the room
-    //The following are used for MediaItems
+    // This class defines the insert, query, update, and delete methods for the room
+    // The following are used for MediaItems
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract suspend fun insert(mediaItemDto: MediaItemDto): Long
 
@@ -37,7 +37,7 @@ abstract class DaoMedia {
     @Query("SELECT * FROM media_items WHERE id = :mediaID LIMIT 1")
     abstract fun getMediaItemById(mediaID: Int): Flow<MediaItemDto>
 
-    //The following are for MediaNotes interactions
+    // The following are for MediaNotes interactions
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract suspend fun insert(um: MediaNotesDto): Long
 
@@ -46,24 +46,24 @@ abstract class DaoMedia {
 
     @Query(
         "SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
-                "ON media_items.id = media_notes.media_id WHERE media_items.series = :series"
+            "ON media_items.id = media_notes.media_id WHERE media_items.series = :series",
     )
     abstract fun getMediaNotesBySeries(series: Int): Flow<List<MediaNotesDto>>
 
     @Query(
         "SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
-                "ON media_items.id = media_notes.media_id WHERE media_items.series = :series"
+            "ON media_items.id = media_notes.media_id WHERE media_items.series = :series",
     )
     abstract fun getMediaNotesBySeriesNonLive(series: Int): List<MediaNotesDto>
 
-    //The following return MediaAndNotes objects
+    // The following return MediaAndNotes objects
     @RawQuery(observedEntities = [MediaItemDto::class, MediaNotesDto::class])
     abstract fun getMediaAndNotesRawQuery(query: SupportSQLiteQuery): Flow<List<MediaAndNotesDto>>
 
     @Query(
         "SELECT media_items.*,media_notes.* FROM media_items " +
-                "INNER JOIN media_notes ON media_items.id = media_notes.media_id " +
-                "WHERE series = :seriesId"
+            "INNER JOIN media_notes ON media_items.id = media_notes.media_id " +
+            "WHERE series = :seriesId",
     )
     abstract fun getMediaAndNotesForSeries(seriesId: Int): Flow<List<MediaAndNotesDto>>
 
@@ -71,7 +71,7 @@ abstract class DaoMedia {
     open suspend fun updateMediaNote(
         checkBox: CheckBoxNumber,
         mediaItemId: Long,
-        newValue: Boolean
+        newValue: Boolean,
     ) {
         val oldNotes = getMediaNotesById(mediaItemId).first()
         val newNotes = when (checkBox) {

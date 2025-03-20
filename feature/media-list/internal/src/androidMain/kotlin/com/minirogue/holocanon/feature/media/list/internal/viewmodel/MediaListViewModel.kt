@@ -55,8 +55,8 @@ internal class MediaListViewModel @Inject constructor(
                 if (!searchTerm.isNullOrBlank()) {
                     list.filter {
                         it.mediaItem.title.contains(searchTerm, true) ||
-                                it.mediaItem.description?.contains(searchTerm, true) == true ||
-                                it.mediaItem.series?.contains(searchTerm, true) == true
+                            it.mediaItem.description?.contains(searchTerm, true) == true ||
+                            it.mediaItem.series?.contains(searchTerm, true) == true
                     }
                 } else {
                     list
@@ -76,7 +76,7 @@ internal class MediaListViewModel @Inject constructor(
             getCheckboxSettings().collect { checkboxSettings ->
                 _state.update {
                     it.copy(
-                        checkboxSettings = checkboxSettings
+                        checkboxSettings = checkboxSettings,
                     )
                 }
             }

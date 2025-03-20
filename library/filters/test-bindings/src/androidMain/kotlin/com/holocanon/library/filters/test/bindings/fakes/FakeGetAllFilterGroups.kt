@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class FakeGetAllFilterGroups @Inject constructor() : GetAllFilterGroups {
-    override fun invoke(): Flow<Map<FilterGroup,List<MediaFilter>>> = getFakeFilterGroups()
+    override fun invoke(): Flow<Map<FilterGroup, List<MediaFilter>>> = getFakeFilterGroups()
 }

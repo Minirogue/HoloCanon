@@ -71,7 +71,6 @@ internal class SeriesViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-
     fun setSeries(seriesName: String) = viewModelScope.launch {
         val seriesId = getSeriesIdFromName(seriesName) ?: -1 // TODO this navigation can be improved
         state.update { it.copy(seriesId = seriesId) }

@@ -14,12 +14,11 @@ private val CORUSCANT_BLUE = Color(57, 74, 89)
 private val VALOR_GREEN = Color(85, 101, 103)
 
 internal val DarkColors = darkColorScheme(
-        primary = PURE_RED,
-        onPrimary = DARK_SIDE_RED,
-        secondary = IMPERIAL_RED,
-        outline = PURE_RED,
-        background = PURE_DARK_SIDE,
-        surfaceVariant = DARK_SIDE_GRAY,
+    primary = PURE_RED,
+    onPrimary = DARK_SIDE_RED,
+    secondary = IMPERIAL_RED,
+    outline = PURE_RED,
+    background = PURE_DARK_SIDE,
+    surfaceVariant = DARK_SIDE_GRAY,
 )
 internal val LightColors = lightColorScheme()
-

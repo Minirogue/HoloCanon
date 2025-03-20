@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<baseline version="1.0">
-    <file name="src/androidMain/kotlin/com/minirogue/holocanon/feature/media/item/usecase/GetMediaItemFragment.kt">
-        <error line="7" column="5" source="standard:blank-line-before-declaration" />
-    </file>
-</baseline>

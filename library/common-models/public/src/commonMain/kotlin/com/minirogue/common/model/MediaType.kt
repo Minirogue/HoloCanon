@@ -48,7 +48,8 @@ enum class MediaType(val legacyId: Int) {
     SHORT(13),
 
     @SerialName("Audiobook")
-    AUDIOBOOK(14);
+    AUDIOBOOK(14),
+    ;
 
     @OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
     fun getSerialName() = MediaType.serializer().descriptor.getElementName(ordinal)

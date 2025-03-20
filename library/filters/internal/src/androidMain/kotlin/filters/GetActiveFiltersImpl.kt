@@ -15,7 +15,7 @@ internal class GetActiveFiltersImpl @Inject constructor(
     override fun invoke(): Flow<List<MediaFilter>> = combine(
         daoFilter.getActiveFilters(),
         getPermanentFilters(),
-    ){ activeFilters, permanentFilters ->
+    ) { activeFilters, permanentFilters ->
         activeFilters.map { fullFilter -> fullFilter.toMediaFilter() }
             .filter { mediaFilter -> mediaFilter !in permanentFilters }
     }

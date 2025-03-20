@@ -12,6 +12,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import settings.usecase.FlipIsCheckboxActive
+import settings.usecase.FlipIsCheckboxActiveImpl
 import settings.usecase.GetAllSettings
 import settings.usecase.GetAllSettingsImpl
 import settings.usecase.GetCheckboxSettings
@@ -22,8 +24,6 @@ import settings.usecase.SetLatestDatabaseVersion
 import settings.usecase.SetLatestDatabaseVersionImpl
 import settings.usecase.ShouldSyncViaWifiOnly
 import settings.usecase.ShouldSyncViaWifiOnlyImpl
-import settings.usecase.FlipIsCheckboxActive
-import settings.usecase.FlipIsCheckboxActiveImpl
 import settings.usecase.UpdateCheckboxName
 import settings.usecase.UpdateCheckboxNameImpl
 import settings.usecase.UpdatePermanentFilterSettings
@@ -42,12 +42,14 @@ private const val SETTINGS_DATASTORE_NAME = "settings"
 private val Context.datastore: DataStore<Preferences> by preferencesDataStore(
     name = SETTINGS_DATASTORE_NAME,
     produceMigrations = { context ->
-        listOf(SharedPreferencesMigration({
-            PreferenceManager.getDefaultSharedPreferences(
-                context
-            )
-        }))
-    }
+        listOf(
+            SharedPreferencesMigration({
+                PreferenceManager.getDefaultSharedPreferences(
+                    context,
+                )
+            }),
+        )
+    },
 )
 
 @Module
@@ -69,11 +71,13 @@ internal interface SettingsLibraryModule {
     fun bindUpdateCheckboxName(updateCheckboxNameImpl: UpdateCheckboxNameImpl): UpdateCheckboxName
 
     @Binds
-    fun bindGetPermanentFilterSettings(getPermanentFilterSettingsImpl: GetPermanentFilterSettingsImpl): GetPermanentFilterSettings
+    fun bindGetPermanentFilterSettings(
+        getPermanentFilterSettingsImpl: GetPermanentFilterSettingsImpl,
+    ): GetPermanentFilterSettings
 
     @Binds
     fun bindUpdatePermanentFilterSettings(
-        updatePermanentFilterSettingsImpl: UpdatePermanentFilterSettingsImpl
+        updatePermanentFilterSettingsImpl: UpdatePermanentFilterSettingsImpl,
     ): UpdatePermanentFilterSettings
 
     @Binds

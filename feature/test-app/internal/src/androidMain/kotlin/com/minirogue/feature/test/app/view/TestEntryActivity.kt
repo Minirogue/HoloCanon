@@ -25,10 +25,12 @@ internal class TestEntryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             HolocanonTheme {
-                Scaffold() { padding ->
-                    Column(modifier = Modifier
-                        .padding(padding)
-                        .fillMaxSize()) {
+                Scaffold { padding ->
+                    Column(
+                        modifier = Modifier
+                            .padding(padding)
+                            .fillMaxSize(),
+                    ) {
                         testScreens.forEach { testScreen ->
                             Button(onClick = { testScreen.launchScreen(this@TestEntryActivity) }) {
                                 Text(testScreen.screenName)

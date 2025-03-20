@@ -8,8 +8,8 @@ import settings.usecase.ShouldSyncViaWifiOnly
 import javax.inject.Inject
 
 class IsNetworkAllowedImpl @Inject constructor(
-        private val connMgr: ConnectivityManager,
-        private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly,
+    private val connMgr: ConnectivityManager,
+    private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly,
 ) : IsNetworkAllowed {
 
     private fun unmeteredOnly(): Flow<Boolean> = shouldSyncViaWifiOnly()

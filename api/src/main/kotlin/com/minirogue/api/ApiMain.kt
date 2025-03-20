@@ -32,7 +32,7 @@ private suspend fun createMediaResponses() {
     allMedia.forEach { starWarsMedia ->
         JsonWriter.write(
             holocanonJson.encodeToString(starWarsMedia),
-            "${API_ROOT_DIRECTORY}media/${starWarsMedia.id}.json"
+            "${API_ROOT_DIRECTORY}media/${starWarsMedia.id}.json",
         )
     }
 }

@@ -13,7 +13,7 @@ class FakeGetCheckboxSettings @Inject constructor() : GetCheckboxSettings {
             CheckboxSetting("checkbox1", true),
             CheckboxSetting("checkbox2", false),
             CheckboxSetting("checkbox3", true),
-        )
+        ),
     )
 
     override fun invoke(): Flow<CheckboxSettings> {

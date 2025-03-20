@@ -6,11 +6,17 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.minirogue.media.notes.model.MediaNotes
 
-@Entity(tableName = "media_notes",
-    foreignKeys = [ForeignKey(entity = MediaItemDto::class,
-        parentColumns = ["id"],
-        childColumns = ["media_id"],
-        onDelete = ForeignKey.CASCADE)])
+@Entity(
+    tableName = "media_notes",
+    foreignKeys = [
+        ForeignKey(
+            entity = MediaItemDto::class,
+            parentColumns = ["id"],
+            childColumns = ["media_id"],
+            onDelete = ForeignKey.CASCADE,
+        ),
+    ],
+)
 class MediaNotesDto(
     @field:PrimaryKey
     @ColumnInfo(name = "media_id")

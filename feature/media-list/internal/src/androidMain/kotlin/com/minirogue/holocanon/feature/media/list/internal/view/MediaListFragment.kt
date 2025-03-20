@@ -67,7 +67,7 @@ internal class MediaListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         binding = MediaListFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -81,16 +81,17 @@ internal class MediaListFragment : Fragment() {
 
         val swmListAdapter = SWMListAdapter(adapterInterface)
 
-        binding.mediaListSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
+        binding.mediaListSearchView.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                mediaListViewModel.updateSearch(newText)
-                return false
-            }
-        }
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    mediaListViewModel.updateSearch(newText)
+                    return false
+                }
+            },
         )
 
         with(binding.mediaRecyclerview) {
@@ -120,32 +121,36 @@ internal class MediaListFragment : Fragment() {
     }
 
     private fun addMenuItems() {
-        requireActivity().addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.media_list_menu, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                return when (menuItem.itemId) {
-                    R.id.sort_by_date_menu_item -> {
-                        mediaListViewModel.setSort(SortStyle.SORT_DATE)
-                        true
-                    }
-
-                    R.id.sort_by_timeline_menu_item -> {
-                        mediaListViewModel.setSort(SortStyle.SORT_TIMELINE)
-                        true
-                    }
-
-                    R.id.sort_by_title_menu_item -> {
-                        mediaListViewModel.setSort(SortStyle.SORT_TITLE)
-                        true
-                    }
-
-                    else -> false
+        requireActivity().addMenuProvider(
+            object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    menuInflater.inflate(R.menu.media_list_menu, menu)
                 }
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    return when (menuItem.itemId) {
+                        R.id.sort_by_date_menu_item -> {
+                            mediaListViewModel.setSort(SortStyle.SORT_DATE)
+                            true
+                        }
+
+                        R.id.sort_by_timeline_menu_item -> {
+                            mediaListViewModel.setSort(SortStyle.SORT_TIMELINE)
+                            true
+                        }
+
+                        R.id.sort_by_title_menu_item -> {
+                            mediaListViewModel.setSort(SortStyle.SORT_TITLE)
+                            true
+                        }
+
+                        else -> false
+                    }
+                }
+            },
+            viewLifecycleOwner,
+            Lifecycle.State.RESUMED,
+        )
     }
 
     private fun setFilterChips(filters: List<MediaFilter>) = with(binding.filterChipGroup) {

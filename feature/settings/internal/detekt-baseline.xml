@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <ManuallySuppressedIssues/>
   <CurrentIssues>
     <ID>LongParameterList:SettingsViewModel.kt$SettingsViewModel$( private val getCheckboxSettings: GetCheckboxSettings, private val updateCheckboxName: UpdateCheckboxName, private val updateCheckboxActive: FlipIsCheckboxActive, private val getPermanentFilterSettings: GetPermanentFilterSettings, private val updatePermanentFilterSettings: UpdatePermanentFilterSettings, private val maybeUpdateMediaDatabase: MaybeUpdateMediaDatabase, private val updateWifiSetting: UpdateWifiSetting, private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly, private val exportMediaNotesJson: ExportMediaNotesJson, private val importMediaNotesJson: ImportMediaNotesJson, )</ID>
     <ID>MagicNumber:SettingsFragment.kt$SettingsFragment$3</ID>

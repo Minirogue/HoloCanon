@@ -1,12 +1,14 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <ManuallySuppressedIssues/>
   <CurrentIssues>
-    <ID>CyclomaticComplexMethod:SettingsRepo.kt$SettingsRepo$suspend fun updateCheckbox( whichBox: Int, updateFunction: (CheckboxSetting) -&gt; CheckboxSetting ): Result&lt;CheckboxSetting&gt;</ID>
+    <ID>CyclomaticComplexMethod:SettingsRepo.kt$SettingsRepo$suspend fun updateCheckbox( whichBox: Int, updateFunction: (CheckboxSetting) -&gt; CheckboxSetting, ): Result&lt;CheckboxSetting&gt;</ID>
     <ID>MagicNumber:SettingsRepo.kt$SettingsRepo$3</ID>
     <ID>MaxLineLength:GetCheckboxSettingsImpl.kt$GetCheckboxSettingsImpl$internal</ID>
     <ID>MaxLineLength:SetLatestDatabaseVersionImpl.kt$SetLatestDatabaseVersionImpl$internal</ID>
-    <ID>MaxLineLength:SettingsLibraryModule.kt$SettingsLibraryModule$fun</ID>
     <ID>MaxLineLength:ShouldSyncViaWifiOnlyImpl.kt$ShouldSyncViaWifiOnlyImpl$internal</ID>
+    <ID>MaximumLineLength:GetCheckboxSettingsImpl.kt$GetCheckboxSettingsImpl$internal</ID>
+    <ID>MaximumLineLength:SetLatestDatabaseVersionImpl.kt$SetLatestDatabaseVersionImpl$internal</ID>
+    <ID>MaximumLineLength:ShouldSyncViaWifiOnlyImpl.kt$ShouldSyncViaWifiOnlyImpl$internal</ID>
   </CurrentIssues>
 </SmellBaseline>

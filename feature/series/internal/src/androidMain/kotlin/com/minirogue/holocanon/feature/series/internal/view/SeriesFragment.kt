@@ -9,9 +9,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import coil.load
 import coil.request.CachePolicy
-import com.minirogue.holocanon.feature.media.item.usecase.GetMediaItemFragment
 import com.holocanon.feature.series.internal.R
 import com.holocanon.feature.series.internal.databinding.SeriesFragmentBinding
+import com.minirogue.holocanon.feature.media.item.usecase.GetMediaItemFragment
 import com.minirogue.series.model.Series
 import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
 import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel
@@ -30,7 +30,7 @@ internal class SeriesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         val fragmentBinding = SeriesFragmentBinding.inflate(inflater, container, false)
         val bundle = this.arguments
@@ -54,21 +54,19 @@ internal class SeriesFragment : Fragment() {
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
 
-
         viewModel.state.collectWithLifecycle { state ->
             updateViews(state.seriesNotesArray, fragmentBinding)
             updateViews(state.series, state.isNetworkAllowed, fragmentBinding)
             adapter.submitList(state.mediaAndNotes)
             setCheckBoxNames(state.checkBoxText, fragmentBinding)
             setCheckBoxVisibility(state.checkBoxVisibility, fragmentBinding)
-
         }
         return fragmentBinding.root
     }
 
     private fun setCheckBoxVisibility(
         visibility: BooleanArray,
-        fragmentBinding: SeriesFragmentBinding
+        fragmentBinding: SeriesFragmentBinding,
     ) {
         fragmentBinding.checkbox1.visibility = if (visibility[0]) View.VISIBLE else View.GONE
         fragmentBinding.checkbox2.visibility = if (visibility[1]) View.VISIBLE else View.GONE
@@ -84,7 +82,7 @@ internal class SeriesFragment : Fragment() {
     private fun updateViews(
         series: Series,
         isNetworkAllowed: Boolean,
-        fragmentBinding: SeriesFragmentBinding
+        fragmentBinding: SeriesFragmentBinding,
     ) {
         fragmentBinding.seriesTitle.text = series.name
 
@@ -92,7 +90,9 @@ internal class SeriesFragment : Fragment() {
             placeholder(R.drawable.common_resources_app_icon)
             if (isNetworkAllowed) {
                 networkCachePolicy(CachePolicy.ENABLED)
-            } else networkCachePolicy(CachePolicy.DISABLED)
+            } else {
+                networkCachePolicy(CachePolicy.DISABLED)
+            }
         }
     }
 

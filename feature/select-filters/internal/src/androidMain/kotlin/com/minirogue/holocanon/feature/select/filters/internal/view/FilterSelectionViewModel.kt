@@ -59,7 +59,6 @@ internal class FilterSelectionViewModel @Inject constructor(
     fun setFilterInactive(mediaFilter: MediaFilter) = viewModelScope.launch {
         val newMediaFilter = mediaFilter.copy(isActive = false)
         updateFilter(newMediaFilter)
-
     }
 
     fun deactivateFilter(mediaFilter: MediaFilter) = viewModelScope.launch {

@@ -1,9 +1,5 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-  <ManuallySuppressedIssues></ManuallySuppressedIssues>
-  <CurrentIssues>
-    <ID>MagicNumber:FilterSelectionAdapter.kt$FilterSelectionAdapter$90</ID>
-    <ID>MaxLineLength:FilterSelectionAdapter.kt$FilterSelectionAdapter$FilterTypeViewHolder : ViewHolder</ID>
-    <ID>MaxLineLength:FilterSelectionAdapter.kt$FilterSelectionAdapter$val binding = SelectFiltersFilterSelectionItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)</ID>
-  </CurrentIssues>
+  <ManuallySuppressedIssues/>
+  <CurrentIssues/>
 </SmellBaseline>

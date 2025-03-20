@@ -26,6 +26,6 @@ class TestFragmentActivity : AppCompatActivity() {
         private var createFragment: ((context: Context) -> Fragment)? = null
         fun newIntent(context: Context, createFragment: (context: Context) -> Fragment): Intent =
             Intent(context, TestFragmentActivity::class.java)
-                .also { Companion.createFragment = createFragment}
+                .also { Companion.createFragment = createFragment }
     }
 }

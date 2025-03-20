@@ -40,7 +40,7 @@ class GetMediaListWithNotesImpl @Inject constructor(
                 list.map {
                     MediaAndNotes(
                         adaptMediaItemDtoToStarWarsMedia(it.mediaItemDto),
-                        it.mediaNotesDto.toMediaNotes()
+                        it.mediaNotesDto.toMediaNotes(),
                     )
                 }
             }
@@ -54,7 +54,7 @@ class GetMediaListWithNotesImpl @Inject constructor(
      */
     private suspend fun convertFiltersToQuery(
         filterList: List<MediaFilter>,
-        permanentFilterSettings: Map<MediaType, Boolean>
+        permanentFilterSettings: Map<MediaType, Boolean>,
     ): SimpleSQLiteQuery = withContext(Dispatchers.Default) {
         val gettingPermanentFilters =
             async { getPermanentFiltersAsStringBuilder(permanentFilterSettings) }
@@ -152,7 +152,7 @@ class GetMediaListWithNotesImpl @Inject constructor(
         }
         queryBuild.append(
             "SELECT media_items.*,media_notes.* FROM media_items " +
-                    "INNER JOIN media_notes ON media_items.id = media_notes.media_id "
+                "INNER JOIN media_notes ON media_items.id = media_notes.media_id ",
         )
         queryBuild.append(joins)
         var whereClause = false
@@ -199,7 +199,7 @@ class GetMediaListWithNotesImpl @Inject constructor(
      * of "AND NOT type = " statements for use in a room query.
      */
     private suspend fun getPermanentFiltersAsStringBuilder(
-        permanentFilterSettings: Map<MediaType, Boolean>
+        permanentFilterSettings: Map<MediaType, Boolean>,
     ): StringBuilder = withContext(Dispatchers.IO) {
         val permFiltersBuilder = StringBuilder()
         for (type in MediaType.entries) {

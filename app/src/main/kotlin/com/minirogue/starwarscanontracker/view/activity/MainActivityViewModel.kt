@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class MainActivityViewModel @Inject constructor(
-    private val getGlobalToasts: GetGlobalToasts
-): ViewModel() {
+    private val getGlobalToasts: GetGlobalToasts,
+) : ViewModel() {
     val globalToasts: Flow<String> = getGlobalToasts()
 }

@@ -23,7 +23,7 @@ internal class GetApiMediaVersion @Inject constructor() {
         }.use { client ->
             try {
                 val result: Int =
-                        client.get("https://minirogue.github.io/holocanon-api/version.json").body()
+                    client.get("https://minirogue.github.io/holocanon-api/version.json").body()
                 HoloResult.Success(result)
             } catch (responseException: ResponseException) {
                 Log.i(TAG, "failed response $responseException")

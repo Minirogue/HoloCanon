@@ -12,10 +12,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import settings.model.CheckboxSettings
+import settings.usecase.FlipIsCheckboxActive
 import settings.usecase.GetCheckboxSettings
 import settings.usecase.GetPermanentFilterSettings
 import settings.usecase.ShouldSyncViaWifiOnly
-import settings.usecase.FlipIsCheckboxActive
 import settings.usecase.UpdateCheckboxName
 import settings.usecase.UpdatePermanentFilterSettings
 import settings.usecase.UpdateWifiSetting
@@ -51,7 +51,7 @@ internal class SettingsViewModel @Inject constructor(
             getCheckboxSettings().collect { newCheckboxSettings ->
                 _state.update {
                     it.copy(
-                        checkboxSettings = newCheckboxSettings
+                        checkboxSettings = newCheckboxSettings,
                     )
                 }
             }
@@ -60,7 +60,7 @@ internal class SettingsViewModel @Inject constructor(
             getPermanentFilterSettings().collect { newPermFilters ->
                 _state.update {
                     it.copy(
-                        permanentFilters = newPermFilters
+                        permanentFilters = newPermFilters,
                     )
                 }
             }
@@ -98,11 +98,11 @@ internal class SettingsViewModel @Inject constructor(
 
     fun syncDatabase() = viewModelScope.launch { maybeUpdateMediaDatabase(true) }
 
-    fun importMediaNotes(inputStream: InputStream)  {
+    fun importMediaNotes(inputStream: InputStream) {
         importMediaNotesJson(inputStream)
     }
 
-    fun exportMediaNotes(outputStream: OutputStream)  {
+    fun exportMediaNotes(outputStream: OutputStream) {
         exportMediaNotesJson(outputStream)
     }
 }
