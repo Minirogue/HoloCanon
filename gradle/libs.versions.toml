@@ -17,7 +17,7 @@ lifecycle = "2.8.7"
 mockk = "1.13.17"
 preference = "1.2.1"
 recyclerview = "1.4.0"
-room = "2.7.0-rc02"
+room = "2.7.0-rc03"
 serialization = "1.8.0"
 
 [libraries]
