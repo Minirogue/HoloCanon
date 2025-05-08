@@ -3,7 +3,7 @@ androidMaterial = "1.12.0"
 androidxCore = "1.15.0"
 androidxTest = "1.6.1"
 appCompat = "1.7.0"
-buildLogic = "0.0.7"
+buildLogic = "0.0.9"
 commonsCSV = "1.14.0"
 constraintLayout = "2.2.1"
 coil = "2.7.0"
@@ -36,16 +36,11 @@ androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview"
 androidx-test = { group = "androidx.test", name = "core", version.ref = "androidxTest" }
 coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 commons-csv = { group = "org.apache.commons", name = "commons-csv", version.ref = "commonsCSV" }
-compose-material = { group = "androidx.compose.material3", name = "material3" }
-compose-uiTooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-compose-uiToolingPreview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-compose-foundation = { group = "androidx.compose.ui", name = "foundation" }
 fastScroll = { group = "me.zhanghai.android.fastscroll", name = "library", version.ref = "fastScroll" }
 junit = {group = "junit", name = "junit", version.ref = "junit"}
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
-kotlinx-serialization-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-core", version.ref = "serialization" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-okhttp = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
