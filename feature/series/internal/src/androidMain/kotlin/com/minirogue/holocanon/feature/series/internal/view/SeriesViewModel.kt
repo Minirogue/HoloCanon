@@ -2,6 +2,7 @@ package com.minirogue.holocanon.feature.series.internal.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.minirogue.media.notes.model.MediaNotes
 import com.minirogue.series.model.Series
 import com.minirogue.series.usecase.GetSeries
 import com.minirogue.series.usecase.GetSeriesIdFromName
@@ -30,13 +31,11 @@ data class SeriesState(
     val checkBoxText: Array<String> = arrayOf("", "", ""),
     val checkBoxVisibility: BooleanArray = booleanArrayOf(false, false, false),
 ) {
-    val seriesNotesArray: List<Boolean> by lazy {
-        listOf(
-            mediaAndNotes.all { it.notes.isBox1Checked },
-            mediaAndNotes.all { it.notes.isBox2Checked },
-            mediaAndNotes.all { it.notes.isBox3Checked },
-        )
-    }
+    val seriesNotes: MediaNotes = MediaNotes(
+        mediaAndNotes.all { it.notes.isBox1Checked },
+        mediaAndNotes.all { it.notes.isBox2Checked },
+        mediaAndNotes.all { it.notes.isBox3Checked },
+    )
 }
 
 @HiltViewModel
