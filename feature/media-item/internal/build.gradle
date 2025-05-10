@@ -6,6 +6,7 @@ minirogue {
     android {
         hilt()
         viewBinding()
+        kotlinCompose()
     }
 }
 
@@ -21,4 +22,6 @@ kotlin.sourceSets.androidMain.dependencies {
     implementation projects.library.mediaNotes.public
     implementation projects.library.settings.public
     implementation projects.library.viewExt.public
+    implementation libs.coil.compose
+    implementation projects.library.composeExt.public
 }

@@ -1,5 +1,9 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
   <ManuallySuppressedIssues/>
-  <CurrentIssues/>
+  <CurrentIssues>
+    <ID>LongParameterList:ViewMediaItemFragment.kt$ViewMediaItemFragment$( modifier: Modifier = Modifier, mediaItem: StarWarsMedia?, mediaNotes: MediaNotes?, checkboxText: Array&lt;String&gt;, checkboxVisibility: BooleanArray, onSeriesClicked: (seriesName: String) -&gt; Unit, onBox1Clicked: (newValue: Boolean) -&gt; Unit, onBox2Clicked: (newValue: Boolean) -&gt; Unit, onBox3Clicked: (newValue: Boolean) -&gt; Unit, )</ID>
+    <ID>LongParameterList:ViewMediaItemFragment.kt$ViewMediaItemFragment$( modifier: Modifier = Modifier, mediaNotes: MediaNotes?, checkboxText: Array&lt;String&gt;, checkboxVisibility: BooleanArray, onBox1Clicked: (newValue: Boolean) -&gt; Unit, onBox2Clicked: (newValue: Boolean) -&gt; Unit, onBox3Clicked: (newValue: Boolean) -&gt; Unit, )</ID>
+    <ID>LongParameterList:ViewMediaItemFragment.kt$ViewMediaItemFragment$( modifier: Modifier, state: ViewMediaItemState, onBox1Clicked: (newValue: Boolean) -&gt; Unit, onBox2Clicked: (newValue: Boolean) -&gt; Unit, onBox3Clicked: (newValue: Boolean) -&gt; Unit, onSeriesClicked: (seriesName: String) -&gt; Unit, )</ID>
+  </CurrentIssues>
 </SmellBaseline>
