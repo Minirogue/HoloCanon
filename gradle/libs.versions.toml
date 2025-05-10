@@ -18,7 +18,7 @@ mockk = "1.14.2"
 preference = "1.2.1"
 recyclerview = "1.4.0"
 room = "2.7.1"
-serialization = "1.8.0"
+serialization = "1.8.1"
 
 [libraries]
 android-material = { group = "com.google.android.material", name = "material", version.ref = "androidMaterial" }
