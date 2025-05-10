@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,18 +13,22 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -67,7 +72,7 @@ class ViewMediaItemFragment : Fragment() {
                             onSeriesClicked = {
                                 navigationViewModel
                                     .navigateTo(NavigationDestination.SeriesScreen(it))
-                            }
+                            },
                         )
                     }
                 }
@@ -75,7 +80,6 @@ class ViewMediaItemFragment : Fragment() {
         }
     }
 
-    // TODO need to adjust paddings
     @Composable
     private fun ViewMediaItemScreen(
         modifier: Modifier,
@@ -88,11 +92,12 @@ class ViewMediaItemFragment : Fragment() {
         Column(modifier = modifier.fillMaxSize()) {
             state.mediaItem?.title?.also {
                 Text(
+                    modifier = Modifier.padding(8.dp),
                     text = it,
                     softWrap = true,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 2,
-                    style = MaterialTheme.typography.headlineMedium
+                    style = MaterialTheme.typography.headlineMedium,
                 )
             }
             Row(modifier = Modifier.fillMaxWidth()) {
@@ -100,10 +105,10 @@ class ViewMediaItemFragment : Fragment() {
                     modifier = Modifier.fillMaxWidth(fraction = .5f),
                     imageUrl = state.mediaItem?.imageUrl,
                     description = state.mediaItem?.description,
-                    isNetworkAllowed = state.isNetworkAllowed
+                    isNetworkAllowed = state.isNetworkAllowed,
                 )
                 MediaItemRightColumn(
-                    modifier = Modifier.fillMaxWidth(fraction = .5f),
+                    modifier = Modifier.fillMaxWidth(),
                     mediaItem = state.mediaItem,
                     mediaNotes = state.mediaNotes,
                     checkboxText = state.checkboxText,
@@ -115,8 +120,6 @@ class ViewMediaItemFragment : Fragment() {
                 )
             }
         }
-
-
     }
 
     @Composable
@@ -128,17 +131,26 @@ class ViewMediaItemFragment : Fragment() {
     ) = Column(modifier = modifier.fillMaxHeight()) {
         imageUrl?.also {
             AsyncImage(
+                modifier = Modifier.padding(4.dp),
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(it)
                     .networkCachePolicy(if (isNetworkAllowed) CachePolicy.ENABLED else CachePolicy.DISABLED)
                     .build(),
-                contentDescription = "Media Cover",// TODO improve description
-                placeholder = painterResource(R.drawable.common_resources_app_icon)
+                contentDescription = "Media Cover", // TODO improve description
+                placeholder = painterResource(R.drawable.common_resources_app_icon),
+                fallback = painterResource(R.drawable.common_resources_app_icon),
+                error = painterResource(R.drawable.common_resources_app_icon),
             )
         }
         description?.also {
-            // TODO use formatted string instead of concatenation
-            if (it.isNotBlank()) Text(getString(R.string.media_item_description_header) + " " + it)
+            if (it.isNotBlank()) {
+                Text(
+                    modifier = Modifier
+                        .padding(8.dp)
+                        .verticalScroll(rememberScrollState()),
+                    text = it,
+                )
+            }
         }
     }
 
@@ -154,21 +166,25 @@ class ViewMediaItemFragment : Fragment() {
         onBox2Clicked: (newValue: Boolean) -> Unit,
         onBox3Clicked: (newValue: Boolean) -> Unit,
     ) = Column(modifier = modifier.fillMaxHeight()) {
-        mediaItem?.type?.getSerialName()?.also { Text(it) }
-        mediaItem?.releaseDate?.also { Text(it) }
+        mediaItem?.type?.getSerialName()
+            ?.also { Text(text = it, modifier = Modifier.padding(8.dp)) }
+        mediaItem?.releaseDate?.also { Text(text = it, modifier = Modifier.padding(8.dp)) }
         mediaItem?.series?.takeIf { it.isNotBlank() }?.also {
-            TextButton({ onSeriesClicked(it) }) { Text(getString(R.string.media_item_view_series)) }
+            Button(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                onClick = { onSeriesClicked(it) },
+            ) { Text(getString(R.string.media_item_view_series)) }
         }
         Spacer(Modifier.weight(1f))
 
         CheckboxGroup(
-            Modifier,
+            Modifier.padding(8.dp),
             mediaNotes,
             checkboxText,
             checkboxVisibility,
             onBox1Clicked,
             onBox2Clicked,
-            onBox3Clicked
+            onBox3Clicked,
         )
     }
 
@@ -181,34 +197,40 @@ class ViewMediaItemFragment : Fragment() {
         onBox1Clicked: (newValue: Boolean) -> Unit,
         onBox2Clicked: (newValue: Boolean) -> Unit,
         onBox3Clicked: (newValue: Boolean) -> Unit,
-    ) = Column(modifier) {
+    ) = Column(modifier = modifier.fillMaxWidth()) {
         val isBox1Checked = mediaNotes?.isBox1Checked
         val isBox2Checked = mediaNotes?.isBox2Checked
         val isBox3Checked = mediaNotes?.isBox3Checked
         if (checkboxVisibility[0] && isBox1Checked != null) {
             TextAndCheckbox(
                 checkboxText[0],
-                isBox1Checked
+                isBox1Checked,
             ) { onBox1Clicked(!isBox1Checked) }
         }
         if (checkboxVisibility[1] && isBox2Checked != null) {
             TextAndCheckbox(
                 checkboxText[1],
-                isBox2Checked
+                isBox2Checked,
             ) { onBox2Clicked(!isBox2Checked) }
         }
         if (checkboxVisibility[2] && isBox3Checked != null) {
             TextAndCheckbox(
                 checkboxText[2],
-                isBox3Checked
+                isBox3Checked,
             ) { onBox3Clicked(!isBox3Checked) }
         }
     }
 
     @Composable
     private fun TextAndCheckbox(text: String, isBoxChecked: Boolean, onClick: () -> Unit) =
-        Row(Modifier.clickable { onClick() }) {
-            Text(text = text)
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .clickable { onClick() }
+                .padding(8.dp),
+            horizontalArrangement = Arrangement.End,
+        ) {
+            Text(text = text, modifier = Modifier.padding(end = 8.dp))
             Checkbox(checked = isBoxChecked, onCheckedChange = null)
         }
 

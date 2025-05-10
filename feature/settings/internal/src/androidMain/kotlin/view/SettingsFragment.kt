@@ -19,7 +19,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -55,7 +54,7 @@ internal class SettingsFragment : Fragment() {
 
     private val viewModel by viewModels<SettingsViewModel>()
 
-    val exportMediaNotesLauncher =
+    private val exportMediaNotesLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 try {
@@ -72,7 +71,7 @@ internal class SettingsFragment : Fragment() {
             }
         }
 
-    val importMediaNotesLauncher =
+    private val importMediaNotesLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
                 val dataUri = result.data?.data
@@ -193,7 +192,6 @@ internal class SettingsFragment : Fragment() {
         }
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     private fun CheckboxNameChangeDialog(whichBox: Int, initialName: String) {
         var newName by remember { mutableStateOf(initialName) }
