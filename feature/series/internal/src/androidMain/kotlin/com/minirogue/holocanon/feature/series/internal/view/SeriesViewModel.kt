@@ -49,16 +49,15 @@ internal class SeriesViewModel @Inject constructor(
     isNetworkAllowed: IsNetworkAllowed,
     getCheckboxSettings: GetCheckboxSettings,
 ) : ViewModel() {
-
-    val state: StateFlow<SeriesState>
-        private field = MutableStateFlow(SeriesState(seriesId = null))
+    private val _state = MutableStateFlow(SeriesState(seriesId = null))
+    val state: StateFlow<SeriesState> = _state
 
     init {
         isNetworkAllowed()
-            .onEach { shouldAllowNetwork -> state.update { it.copy(isNetworkAllowed = shouldAllowNetwork) } }
+            .onEach { shouldAllowNetwork -> _state.update { it.copy(isNetworkAllowed = shouldAllowNetwork) } }
             .launchIn(viewModelScope)
         getCheckboxText()
-            .onEach { checkBoxText -> state.update { it.copy(checkBoxText = checkBoxText) } }
+            .onEach { checkBoxText -> _state.update { it.copy(checkBoxText = checkBoxText) } }
             .launchIn(viewModelScope)
         getCheckboxSettings().map { checkboxSettings ->
             booleanArrayOf(
@@ -67,18 +66,18 @@ internal class SeriesViewModel @Inject constructor(
                 checkboxSettings.checkbox3Setting.isInUse,
             )
         }
-            .onEach { checkBoxVisibility -> state.update { it.copy(checkBoxVisibility = checkBoxVisibility) } }
+            .onEach { checkBoxVisibility -> _state.update { it.copy(checkBoxVisibility = checkBoxVisibility) } }
             .launchIn(viewModelScope)
     }
 
     fun setSeries(seriesName: String) = viewModelScope.launch {
         val seriesId = getSeriesIdFromName(seriesName) ?: -1 // TODO this navigation can be improved
-        state.update { it.copy(seriesId = seriesId) }
+        _state.update { it.copy(seriesId = seriesId) }
         getSeries(seriesId)
-            .onEach { series -> state.update { it.copy(series = series) } }
+            .onEach { series -> _state.update { it.copy(series = series) } }
             .launchIn(viewModelScope)
         getMediaAndNotesForSeries(seriesId)
-            .onEach { mediaAndNotes -> state.update { it.copy(mediaAndNotes = mediaAndNotes) } }
+            .onEach { mediaAndNotes -> _state.update { it.copy(mediaAndNotes = mediaAndNotes) } }
             .launchIn(viewModelScope)
     }
 

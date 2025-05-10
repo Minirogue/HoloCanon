@@ -38,6 +38,7 @@ class ViewMediaItemViewModel @Inject constructor(
     isNetworkAllowed: IsNetworkAllowed,
     getCheckboxSettings: GetCheckboxSettings,
 ) : ViewModel() {
+
     private val _state = MutableStateFlow(ViewMediaItemState())
     val state: StateFlow<ViewMediaItemState> = _state
 
