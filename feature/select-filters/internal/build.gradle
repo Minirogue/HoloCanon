@@ -7,7 +7,6 @@ minirogue {
         hilt()
         kotlinCompose()
     }
-    explicitBackingFields()
 }
 
 kotlin.sourceSets.androidMain.dependencies {
