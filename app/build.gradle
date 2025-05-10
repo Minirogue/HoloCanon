@@ -44,6 +44,7 @@ dependencies {
     implementation libs.androidx.fragment
     implementation libs.androidx.preference
     implementation libs.coil
+    implementation libs.coil.ktor
     implementation libs.fastScroll
     implementation libs.kotlinx.coroutines.core
     implementation libs.kotlinx.coroutines.android
