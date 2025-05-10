@@ -39,12 +39,12 @@ class ViewMediaItemViewModel @Inject constructor(
     getCheckboxSettings: GetCheckboxSettings,
 ) : ViewModel() {
 
-    val state: StateFlow<ViewMediaItemState>
-        private field = MutableStateFlow(ViewMediaItemState())
+    private val _state = MutableStateFlow(ViewMediaItemState())
+    val state: StateFlow<ViewMediaItemState> = _state
 
     init {
         getCheckboxText()
-            .onEach { checkboxText -> state.update { it.copy(checkboxText = checkboxText) } }
+            .onEach { checkboxText -> _state.update { it.copy(checkboxText = checkboxText) } }
             .launchIn(viewModelScope)
         getCheckboxSettings().map { checkboxSettings ->
             booleanArrayOf(
@@ -53,19 +53,19 @@ class ViewMediaItemViewModel @Inject constructor(
                 checkboxSettings.checkbox3Setting.isInUse,
             )
         }
-            .onEach { checkBoxVisibility -> state.update { it.copy(checkboxVisibility = checkBoxVisibility) } }
+            .onEach { checkBoxVisibility -> _state.update { it.copy(checkboxVisibility = checkBoxVisibility) } }
             .launchIn(viewModelScope)
         isNetworkAllowed()
-            .onEach { shouldAllowNetwork -> state.update { it.copy(isNetworkAllowed = shouldAllowNetwork) } }
+            .onEach { shouldAllowNetwork -> _state.update { it.copy(isNetworkAllowed = shouldAllowNetwork) } }
             .launchIn(viewModelScope)
     }
 
     fun setItemId(itemId: Int) {
         getMedia(itemId)
-            .onEach { mediaItem -> state.update { it.copy(mediaItem = mediaItem) } }
+            .onEach { mediaItem -> _state.update { it.copy(mediaItem = mediaItem) } }
             .launchIn(viewModelScope)
         getNotesForMedia(itemId)
-            .onEach { mediaNotes -> state.update { it.copy(mediaNotes = mediaNotes) } }
+            .onEach { mediaNotes -> _state.update { it.copy(mediaNotes = mediaNotes) } }
             .launchIn(viewModelScope)
     }
 

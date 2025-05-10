@@ -7,7 +7,6 @@ minirogue {
         hilt()
         viewBinding()
     }
-    explicitBackingFields()
 }
 
 kotlin.sourceSets.androidMain.dependencies {

@@ -32,18 +32,18 @@ internal class FilterSelectionViewModel @Inject constructor(
     getCheckboxSettings: GetCheckboxSettings,
 ) : ViewModel() {
 
-    val state: StateFlow<FilterSelectionState>
-        private field = MutableStateFlow(FilterSelectionState())
+    private val _state = MutableStateFlow(FilterSelectionState())
+    val state: StateFlow<FilterSelectionState> = _state
 
     init {
         getAllFilterGroups()
-            .onEach { filterGroups -> state.update { it.copy(filterGroups = filterGroups) } }
+            .onEach { filterGroups -> _state.update { it.copy(filterGroups = filterGroups) } }
             .launchIn(viewModelScope)
         getCheckboxSettings()
-            .onEach { checkboxSettings -> state.update { it.copy(checkboxSettings = checkboxSettings) } }
+            .onEach { checkboxSettings -> _state.update { it.copy(checkboxSettings = checkboxSettings) } }
             .launchIn(viewModelScope)
         getActiveFilters()
-            .onEach { activeFilters -> state.update { it.copy(activeFilters = activeFilters) } }
+            .onEach { activeFilters -> _state.update { it.copy(activeFilters = activeFilters) } }
             .launchIn(viewModelScope)
     }
 
