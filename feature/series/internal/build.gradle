@@ -7,6 +7,7 @@ minirogue {
         hilt()
         viewBinding()
     }
+    kotlinCompose()
 }
 
 kotlin.sourceSets.androidMain.dependencies {
@@ -14,7 +15,7 @@ kotlin.sourceSets.androidMain.dependencies {
 
     implementation libs.androidx.constraintLayout
     implementation libs.androidx.recyclerview
-    implementation libs.coil
+    implementation libs.coil.compose
     implementation projects.core
     implementation projects.feature.mediaItem.public
     implementation projects.library.commonResources.public
@@ -22,4 +23,5 @@ kotlin.sourceSets.androidMain.dependencies {
     implementation projects.library.series.public
     implementation projects.library.settings.public
     implementation projects.library.viewExt.public
+    implementation projects.library.composeExt.public
 }
