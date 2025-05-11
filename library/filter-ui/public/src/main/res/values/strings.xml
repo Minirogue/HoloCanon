@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="filter_ui_dismiss_filter">Dismiss filter</string>
+    <string name="filter_ui_include">include</string>
+    <string name="filter_ui_exclude">exclude</string>
+</resources>

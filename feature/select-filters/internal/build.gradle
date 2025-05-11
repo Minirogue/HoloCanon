@@ -14,6 +14,7 @@ kotlin.sourceSets.androidMain.dependencies {
 
     implementation libs.android.material
     implementation projects.library.filters.public
+    implementation projects.library.filterUi.public
     implementation projects.library.settings.public
     implementation projects.library.viewExt.public
     implementation projects.library.composeExt.public

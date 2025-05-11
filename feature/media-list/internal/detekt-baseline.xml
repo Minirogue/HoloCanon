@@ -2,6 +2,6 @@
 <SmellBaseline>
   <ManuallySuppressedIssues/>
   <CurrentIssues>
-    <ID>LongParameterList:MediaListViewModel.kt$MediaListViewModel$( getActiveFilters: GetActiveFilters, private val updateFilter: UpdateFilter, private val updateCheckValue: UpdateCheckValue, getMediaListWithNotes: GetMediaListWithNotes, isNetworkAllowed: IsNetworkAllowed, getCheckboxSettings: GetCheckboxSettings, application: Application, )</ID>
+    <ID>TooManyFunctions:MediaListViewModel.kt$MediaListViewModel : ViewModel</ID>
   </CurrentIssues>
 </SmellBaseline>
