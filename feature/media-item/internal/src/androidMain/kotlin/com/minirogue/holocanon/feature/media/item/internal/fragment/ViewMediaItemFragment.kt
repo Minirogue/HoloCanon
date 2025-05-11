@@ -178,7 +178,7 @@ class ViewMediaItemFragment : Fragment() {
         Spacer(Modifier.weight(1f))
 
         CheckboxGroup(
-            Modifier.padding(8.dp),
+            Modifier.fillMaxWidth().padding(8.dp),
             mediaNotes,
             checkboxText,
             checkboxVisibility,
@@ -197,7 +197,7 @@ class ViewMediaItemFragment : Fragment() {
         onBox1Clicked: (newValue: Boolean) -> Unit,
         onBox2Clicked: (newValue: Boolean) -> Unit,
         onBox3Clicked: (newValue: Boolean) -> Unit,
-    ) = Column(modifier = modifier.fillMaxWidth()) {
+    ) = Column(modifier = modifier) {
         val isBox1Checked = mediaNotes?.isBox1Checked
         val isBox2Checked = mediaNotes?.isBox2Checked
         val isBox3Checked = mediaNotes?.isBox3Checked
