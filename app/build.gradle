@@ -4,6 +4,7 @@ plugins{
 
 minirogue {
     hilt()
+    kotlinCompose()
 }
 
 def keystorePropsFile = rootProject.file('keystore.properties')
@@ -39,6 +40,7 @@ dependencies {
 
     // Project Modules
     implementation libs.android.material
+    implementation libs.androidx.activity.compose
     implementation libs.androidx.appcompat
     implementation libs.androidx.constraintLayout
     implementation libs.androidx.fragment
@@ -71,4 +73,5 @@ dependencies {
     implementation projects.library.settings.internal
     implementation projects.library.coroutineExt.public
     implementation projects.library.viewExt.public
+    implementation projects.library.composeExt.public
 }

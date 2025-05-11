@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -19,6 +20,7 @@ import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
 import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel
 import com.minirogue.starwarscanontracker.core.usecase.UpdateFilters
 import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment
+import compose.theme.HolocanonTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -49,7 +51,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        lifecycleScope.launch {
+        lifecycleScope.launch { // TODO this should be done elsewhere
             // Update filters based on current information
             updateFilters()
             // Update media database if needed.
@@ -59,6 +61,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContent {
+            HolocanonTheme {
+                MainScreen()
+            }
+        }
         setContentView(R.layout.activity_main)
 
         // When the user opens a fresh instance of the app
