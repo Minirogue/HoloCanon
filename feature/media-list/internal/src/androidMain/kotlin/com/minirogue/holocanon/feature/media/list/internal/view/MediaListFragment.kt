@@ -22,6 +22,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
@@ -161,6 +163,8 @@ internal class MediaListFragment : Fragment() {
                 searchTerm.value = it
                 onSearchTermChanged(it)
             },
+            label = { Text("Search") }, // TODO extract string
+            leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) }
         )
     }
 
