@@ -1,0 +1,11 @@
+plugins {
+    id 'minirogue.multiplatform.library'
+}
+
+minirogue {
+    jvm()
+}
+
+kotlin.sourceSets.commonMain.dependencies {
+    api libs.compose.navigation
+}

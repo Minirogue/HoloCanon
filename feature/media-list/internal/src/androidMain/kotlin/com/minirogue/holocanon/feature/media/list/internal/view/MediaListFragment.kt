@@ -164,7 +164,7 @@ internal class MediaListFragment : Fragment() {
                 onSearchTermChanged(it)
             },
             label = { Text("Search") }, // TODO extract string
-            leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) }
+            leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
         )
     }
 

@@ -5,6 +5,7 @@ androidxTest = "1.6.1"
 appCompat = "1.7.0"
 buildLogic = "0.0.10"
 commonsCSV = "1.14.0"
+composeNavigation = "2.9.0-alpha16"
 constraintLayout = "2.2.1"
 coil = "2.7.0"
 coilCompose = "3.1.0"
@@ -39,6 +40,7 @@ coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose" ,version.ref = "coilCompose" }
 coil-ktor = {group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.ref = "coilCompose"}
 commons-csv = { group = "org.apache.commons", name = "commons-csv", version.ref = "commonsCSV" }
+compose-navigation = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
 fastScroll = { group = "me.zhanghai.android.fastscroll", name = "library", version.ref = "fastScroll" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }

@@ -1,25 +1,43 @@
 package com.minirogue.starwarscanontracker.view.activity
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
+import com.holocanon.library.navigation.NavContributor
+import com.minirogue.holocanon.feature.home.screen.HomeNav
 import com.minirogue.holocanon.feature.media.item.usecase.GetMediaItemFragment
 import com.minirogue.holocanon.feature.series.GetSeriesFragment
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
-import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel
 import com.minirogue.starwarscanontracker.core.usecase.UpdateFilters
-import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment
 import compose.theme.HolocanonTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
@@ -46,8 +64,17 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var getSeriesFragment: GetSeriesFragment
 
-    private val navigationViewModel: NavigationViewModel by viewModels()
+    @Inject
+    lateinit var navContributors: Set<@JvmSuppressWildcards NavContributor>
+
     private val mainActivityViewModel: MainActivityViewModel by viewModels()
+
+    private enum class TabInfo(val tabNameRes: Int, val navDestination: Any) {
+        // The order here defines the order of the tabs
+        HOME(R.string.nav_home, HomeNav),
+        MEDIA_LIST(R.string.nav_media_list, HomeNav), // TODO add actual nav
+        FILTERS(R.string.nav_filters, HomeNav), // TODO add actual nav
+    }
 
     override fun onResume() {
         super.onResume()
@@ -62,57 +89,74 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val navController = rememberNavController()
             HolocanonTheme {
-                MainScreen()
-            }
-        }
-        setContentView(R.layout.activity_main)
-
-        // When the user opens a fresh instance of the app
-        if (savedInstanceState == null) {
-            // initialize the fragment to the entry fragment
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, TabbedListContainerFragment())
-                .commit()
-        }
-
-        // Set up the toolbar
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportFragmentManager.apply {
-            addOnBackStackChangedListener {
-                supportActionBar?.setDisplayHomeAsUpEnabled(backStackEntryCount > 0)
-            }
-        }
-
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                navigationViewModel.navigationDestination.collect { destination ->
-                    when (destination) {
-                        is NavigationDestination.MediaItemScreen -> navigateToMediaItem(destination.itemId)
-                        is NavigationDestination.SeriesScreen -> navigateToSeries(destination.seriesName)
-                    }
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    topBar = { HolocanonAppBar(navController) },
+                ) { padding ->
+                    MainScreen(Modifier.padding(padding))
                 }
             }
         }
+
         mainActivityViewModel.globalToasts
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .onEach { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
-            .launchIn(lifecycleScope)
+            .launchIn(lifecycleScope) // TODO move to snackbar?
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.action_bar_menu, menu)
-        return true
-    }
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    private fun HolocanonAppBar(navController: NavController) = TopAppBar(
+        title = { Text(stringResource(R.string.app_name)) },
+        navigationIcon = {
+            if (navController.currentBackStackEntry != null) {
+                Icon(
+                    Icons.AutoMirrored.Default.ArrowBack,
+                    "Back", // TODO extract string
+                )
+            }
+        },
+        actions = {
+            Icon(
+                modifier = Modifier.clickable {
+                    navController.navigate(
+                        "settings",
+                    )
+                }, // TODO review navigation destinations
+                imageVector = Icons.Default.Settings,
+                contentDescription = "Settings", // TODO extract string
+            )
+        },
+    )
+
+    @Composable
+    private fun MainScreen(modifier: Modifier = Modifier) =
+        Column(modifier = modifier.fillMaxSize()) {
+            val mainScreenNavController = rememberNavController()
+            val startTab = TabInfo.HOME
+            val selectedTab = remember { mutableStateOf(startTab) }
+
+            TabRow(selectedTab.value.ordinal) {
+                TabInfo.entries.forEach { tabInfo ->
+                    Tab(
+                        selected = tabInfo == selectedTab.value,
+                        onClick = { selectedTab.value = tabInfo },
+                        text = { Text(stringResource(tabInfo.tabNameRes)) },
+                    )
+                }
+            }
+            NavHost(
+                navController = mainScreenNavController,
+                startTab.name,
+            ) {
+                navContributors.forEach { it.invoke(this, mainScreenNavController) }
+            }
+        }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.toolbar_settings -> {
-                navigateToToolbarOption(ToolbarOption.Settings)
-                true
-            }
-
             android.R.id.home -> {
                 onBackPressed()
                 true
@@ -134,28 +178,6 @@ class MainActivity : AppCompatActivity() {
         val seriesFragment = getSeriesFragment(seriesName)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, seriesFragment)
-            .addToBackStack(null)
-            .commit()
-    }
-
-    /**
-     * Replaces the displayed fragment with one associated to a [ToolbarOption].
-     *
-     * Checks to see if a Fragment associated to [toolbarOption] exists, then replaces the displayed
-     * fragment with that one, or a new Fragment if necessary.
-     */
-    private fun navigateToToolbarOption(toolbarOption: ToolbarOption) {
-        // Check if an instance of the desired Fragment already exists somewhere on the backstack
-        var frag = supportFragmentManager.findFragmentByTag(toolbarOption.fragmentTag)
-        // If the fragment doesn't already exist, create a new one
-        if (frag == null) {
-            frag = when (toolbarOption) {
-                ToolbarOption.Settings -> getSettingsFragment()
-            }
-        }
-        // Replace the fragment
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, frag, toolbarOption.fragmentTag)
             .addToBackStack(null)
             .commit()
     }

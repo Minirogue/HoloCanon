@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import com.minirogue.holocanon.feature.home.screen.GetHomeFragment
 import com.minirogue.holocanon.feature.media.list.usecase.GetMediaListFragment
 import com.minirogue.holocanon.feature.select.filters.usecase.GetSelectFiltersFragment
 import com.minirogue.starwarscanontracker.R
