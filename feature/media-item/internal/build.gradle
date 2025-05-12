@@ -15,7 +15,6 @@ kotlin.sourceSets.androidMain.dependencies {
 
     implementation libs.androidx.constraintLayout
     implementation libs.android.material
-    implementation libs.coil
     implementation projects.core
     implementation projects.library.commonResources.public
     implementation projects.library.mediaItem.public

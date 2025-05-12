@@ -69,9 +69,14 @@ class MainActivity : AppCompatActivity() {
                 .commit()
         }
 
-        // Set up the toolbar and navigation drawer
+        // Set up the toolbar
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+        supportFragmentManager.apply {
+            addOnBackStackChangedListener {
+                supportActionBar?.setDisplayHomeAsUpEnabled(backStackEntryCount > 0)
+            }
+        }
 
         lifecycleScope.launch {
             lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -98,6 +103,11 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.toolbar_settings -> {
                 navigateToToolbarOption(ToolbarOption.Settings)
+                true
+            }
+
+            android.R.id.home -> {
+                onBackPressed()
                 true
             }
 
