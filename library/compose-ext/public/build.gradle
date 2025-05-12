@@ -7,3 +7,8 @@ minirogue {
         kotlinCompose()
     }
 }
+
+kotlin.sourceSets.commonMain.dependencies {
+    implementation libs.coil.compose
+    implementation projects.library.commonResources.public
+}

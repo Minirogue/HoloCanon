@@ -7,6 +7,7 @@ minirogue {
         hilt()
         viewBinding()
     }
+    kotlinCompose()
 }
 
 kotlin.sourceSets.androidMain.dependencies {
@@ -14,7 +15,7 @@ kotlin.sourceSets.androidMain.dependencies {
 
     implementation libs.android.material
     implementation libs.androidx.appcompat
-    implementation libs.coil
+    implementation libs.coil.compose
     implementation libs.fastScroll
     implementation projects.core
     implementation projects.feature.mediaItem.public
@@ -22,4 +23,6 @@ kotlin.sourceSets.androidMain.dependencies {
     implementation projects.library.mediaNotes.public
     implementation projects.library.settings.public
     implementation projects.library.viewExt.public
+    implementation projects.library.composeExt.public
+    implementation projects.library.filterUi.public
 }

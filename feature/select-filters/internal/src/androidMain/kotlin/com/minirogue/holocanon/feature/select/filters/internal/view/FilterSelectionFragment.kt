@@ -1,5 +1,6 @@
 package com.minirogue.holocanon.feature.select.filters.internal.view
 
+import ActiveFilterChip
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,6 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,7 +27,6 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.InputChip
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -88,7 +87,10 @@ internal class FilterSelectionFragment : Fragment() {
                 .horizontalScroll(rememberScrollState()),
         ) {
             activeFilters.value.forEach { filter ->
-                ActiveFilterChip(filter) { viewModel.deactivateFilter(filter) }
+                ActiveFilterChip(
+                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
+                    filter,
+                ) { viewModel.deactivateFilter(filter) }
             }
         }
         HorizontalDivider()
@@ -103,33 +105,6 @@ internal class FilterSelectionFragment : Fragment() {
         }
     }
 
-    @Composable
-    private fun ActiveFilterChip(filter: MediaFilter, onDismiss: () -> Unit) {
-        InputChip(
-            modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp),
-            onClick = { onDismiss() },
-            label = { Text(filter.name) },
-            selected = filter.isPositive,
-            leadingIcon = {
-                Icon(
-                    if (filter.isPositive) Icons.Default.CheckCircle else Icons.Default.Close,
-                    contentDescription = if (filter.isPositive) {
-                        stringResource(R.string.select_filters_include)
-                    } else {
-                        stringResource(R.string.select_filters_exclude)
-                    },
-                )
-            },
-            trailingIcon = {
-                Icon(
-                    Icons.Default.Close,
-                    contentDescription = stringResource(R.string.select_filters_dismiss_filter),
-                )
-            },
-        )
-    }
-
-    @OptIn(ExperimentalLayoutApi::class)
     @Composable
     private fun ColumnScope.FilterTypeSubMenu(
         filterGroup: FilterGroup,
@@ -179,13 +154,11 @@ internal class FilterSelectionFragment : Fragment() {
                                 Icon(
                                     if (filter.isPositive) Icons.Default.CheckCircle else Icons.Default.Close,
                                     contentDescription = if (filter.isPositive) {
-                                        stringResource(R.string.select_filters_include)
+                                        stringResource(R.string.filter_ui_include)
                                     } else {
-                                        stringResource(R.string.select_filters_exclude)
+                                        stringResource(R.string.filter_ui_exclude)
                                     },
                                 )
-                            } else {
-                                null
                             }
                         },
                     )

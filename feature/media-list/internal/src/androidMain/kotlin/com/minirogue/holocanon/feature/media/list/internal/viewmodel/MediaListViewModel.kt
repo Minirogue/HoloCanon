@@ -1,6 +1,7 @@
 package com.minirogue.holocanon.feature.media.list.internal.viewmodel
 
 import android.app.Application
+import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.minirogue.media.notes.model.CheckBoxNumber
@@ -26,6 +27,7 @@ import settings.usecase.GetCheckboxSettings
 import java.io.File
 import javax.inject.Inject
 
+@Immutable // TODO benchmark with/without this
 internal data class MediaListState(
     val activeFilters: List<MediaFilter> = emptyList(),
     val sortStyle: SortStyle = SortStyle.DEFAULT_STYLE,
@@ -47,22 +49,10 @@ internal class MediaListViewModel @Inject constructor(
 
     private val _state: MutableStateFlow<MediaListState> = MutableStateFlow(MediaListState())
     val state: StateFlow<MediaListState> = _state
+
+    // TODO benchmark and compare with possible @Immutable usage
     val mediaList: Flow<List<MediaAndNotes>> = getMediaListWithNotes()
-        .combine(_state) { list, state ->
-            withContext(Dispatchers.Default) {
-                val sortStyle = state.sortStyle
-                val searchTerm = state.searchTerm
-                if (!searchTerm.isNullOrBlank()) {
-                    list.filter {
-                        it.mediaItem.title.contains(searchTerm, true) ||
-                            it.mediaItem.description?.contains(searchTerm, true) == true ||
-                            it.mediaItem.series?.contains(searchTerm, true) == true
-                    }
-                } else {
-                    list
-                }.sort(sortStyle)
-            }
-        }
+        .combine(_state) { list, state -> performSort(list, state.sortStyle, state.searchTerm) }
 
     // The file where the current sorting method is stored
     private val sortCacheFileName = application.cacheDir.toString() + "/sortCache"
@@ -92,7 +82,7 @@ internal class MediaListViewModel @Inject constructor(
         }
     }
 
-    fun updateSearch(searchTerm: String?) {
+    fun updateSearch(searchTerm: String) {
         _state.update { it.copy(searchTerm = searchTerm) }
     }
 
@@ -100,6 +90,22 @@ internal class MediaListViewModel @Inject constructor(
         val sortStyle = SortStyle(newCompareType, true)
         _state.update { it.copy(sortStyle = sortStyle) }
         saveSort(sortStyle)
+    }
+
+    private suspend fun performSort(
+        list: List<MediaAndNotes>,
+        sortStyle: SortStyle,
+        searchTerm: String?,
+    ): List<MediaAndNotes> = withContext(Dispatchers.Default) {
+        if (!searchTerm.isNullOrBlank()) {
+            list.filter {
+                it.mediaItem.title.contains(searchTerm, true) ||
+                    it.mediaItem.description?.contains(searchTerm, true) == true ||
+                    it.mediaItem.series?.contains(searchTerm, true) == true
+            }
+        } else {
+            list
+        }.sort(sortStyle)
     }
 
     private suspend fun saveSort(sortStyle: SortStyle) = withContext(Dispatchers.IO) {
