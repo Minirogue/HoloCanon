@@ -4,6 +4,7 @@ plugins{
 
 minirogue {
     hilt()
+    kotlinCompose()
 }
 
 def keystorePropsFile = rootProject.file('keystore.properties')
@@ -39,10 +40,12 @@ dependencies {
 
     // Project Modules
     implementation libs.android.material
+    implementation libs.androidx.activity.compose
     implementation libs.androidx.appcompat
     implementation libs.androidx.constraintLayout
     implementation libs.androidx.fragment
     implementation libs.androidx.preference
+    implementation libs.compose.navigation
     implementation libs.coil
     implementation libs.coil.ktor
     implementation libs.fastScroll
@@ -66,9 +69,11 @@ dependencies {
     implementation projects.library.holoclient.internal
     implementation projects.library.mediaItem.internal
     implementation projects.library.mediaNotes.internal
+    implementation projects.library.navigation.public
     implementation projects.library.serializationExt.internal
     implementation projects.library.series.internal
     implementation projects.library.settings.internal
     implementation projects.library.coroutineExt.public
     implementation projects.library.viewExt.public
+    implementation projects.library.composeExt.public
 }

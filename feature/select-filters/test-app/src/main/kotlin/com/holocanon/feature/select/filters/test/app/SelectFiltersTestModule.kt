@@ -1,7 +1,7 @@
 package com.holocanon.feature.select.filters.test.app
 
+import com.holocanon.feature.select.filters.FilterSelectionNav
 import com.minirogue.feature.test.app.model.TestScreen
-import com.minirogue.holocanon.feature.select.filters.usecase.GetSelectFiltersFragment
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,10 +15,8 @@ interface SelectFiltersTestModule {
     companion object {
         @Provides
         @IntoSet
-        fun provideSelectFilterScreen(getSelectFiltersFragment: GetSelectFiltersFragment): TestScreen =
-            TestScreen.fragment("select filters") {
-                getSelectFiltersFragment()
-            }
+        fun provideSelectFilterScreen(): TestScreen =
+            TestScreen.compose("select filters", FilterSelectionNav)
 
         @Provides
         fun provideTestScreens(screens: Set<@JvmSuppressWildcards TestScreen>): List<@JvmSuppressWildcards TestScreen> =

@@ -1,20 +1,17 @@
 package di
 
+import com.holocanon.library.navigation.NavContributor
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import settings.usecase.GetCheckboxText
-import usecase.GetCheckboxTextImpl
-import usecase.GetSettingsFragment
-import usecase.GetSettingsFragmentImpl
+import dagger.hilt.android.components.ActivityComponent
+import dagger.multibindings.IntoSet
+import nav.SettingsNavContributor
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ActivityComponent::class)
 internal interface SettingsModule {
     @Binds
-    fun provideGetSettingsFragment(impl: GetSettingsFragmentImpl): GetSettingsFragment
-
-    @Binds
-    fun bindGetCheckboxText(impl: GetCheckboxTextImpl): GetCheckboxText
+    @IntoSet
+    fun bindSettingsNavContributor(contributor: SettingsNavContributor): NavContributor
 }

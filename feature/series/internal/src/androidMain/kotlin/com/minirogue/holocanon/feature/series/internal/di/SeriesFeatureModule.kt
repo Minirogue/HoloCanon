@@ -1,15 +1,17 @@
 package com.minirogue.holocanon.feature.series.internal.di
 
-import com.minirogue.holocanon.feature.series.GetSeriesFragment
-import com.minirogue.holocanon.feature.series.internal.usecase.GetSeriesFragmentImpl
+import com.holocanon.library.navigation.NavContributor
+import com.minirogue.holocanon.feature.series.internal.nav.SeriesNavContributor
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ActivityComponent
+import dagger.multibindings.IntoSet
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ActivityComponent::class)
 internal interface SeriesFeatureModule {
     @Binds
-    fun bindGetSeriesFragment(impl: GetSeriesFragmentImpl): GetSeriesFragment
+    @IntoSet
+    fun bindSeriesNavContributor(contributor: SeriesNavContributor): NavContributor
 }

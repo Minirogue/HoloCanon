@@ -2,7 +2,7 @@
 <SmellBaseline>
   <ManuallySuppressedIssues/>
   <CurrentIssues>
-    <ID>MagicNumber:SettingsFragment.kt$SettingsFragment$3</ID>
-    <ID>TooManyFunctions:SettingsFragment.kt$SettingsFragment : Fragment</ID>
+    <ID>LongMethod:SettingsScreen.kt$@Composable private fun ExportMediaNotes( exportMediaNotes: (OutputStream) -&gt; Unit, importMediaNotes: (InputStream) -&gt; Unit, )</ID>
+    <ID>MagicNumber:SettingsScreen.kt$3</ID>
   </CurrentIssues>
 </SmellBaseline>

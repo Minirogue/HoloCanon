@@ -23,5 +23,7 @@ kotlin.sourceSets.androidMain.dependencies {
     implementation projects.library.series.public
     implementation projects.library.settings.public
     implementation projects.library.viewExt.public
+    implementation projects.library.navigation.public
+    implementation libs.hilt.compose
     implementation projects.library.composeExt.public
 }

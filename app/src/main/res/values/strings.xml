@@ -22,4 +22,7 @@
 
     <string name="how_to_buy">how to buy</string>
     <string name="sort_method">sort method</string>
+
+    <string name="content_description_back_button">Navigate back</string>
+    <string name="content_description_navigate_to_settings">Navigate to settings</string>
 </resources>

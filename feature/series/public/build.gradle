@@ -3,9 +3,9 @@ plugins {
 }
 
 minirogue {
-    android()
+    jvm()
+    serialization()
 }
 
 dependencies {
-    api libs.androidx.fragment
 }

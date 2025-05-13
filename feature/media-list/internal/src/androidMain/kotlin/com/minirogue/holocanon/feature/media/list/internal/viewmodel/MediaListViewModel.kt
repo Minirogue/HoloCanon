@@ -31,6 +31,8 @@ import javax.inject.Inject
 internal data class MediaListState(
     val activeFilters: List<MediaFilter> = emptyList(),
     val sortStyle: SortStyle = SortStyle.DEFAULT_STYLE,
+    val scrollPosition: Int = 0,
+    val scrollOffset: Int = 0,
     val searchTerm: String? = null,
     val checkboxSettings: CheckboxSettings? = null,
     val isNetworkAllowed: Boolean = false,
@@ -46,7 +48,6 @@ internal class MediaListViewModel @Inject constructor(
     getCheckboxSettings: GetCheckboxSettings,
     application: Application,
 ) : ViewModel() {
-
     private val _state: MutableStateFlow<MediaListState> = MutableStateFlow(MediaListState())
     val state: StateFlow<MediaListState> = _state
 
@@ -57,6 +58,7 @@ internal class MediaListViewModel @Inject constructor(
     // The file where the current sorting method is stored
     private val sortCacheFileName = application.cacheDir.toString() + "/sortCache"
 
+    // TODO cool off these hot state updates so the work respects lifecycle
     init {
         // filtering
         viewModelScope.launch {
@@ -90,6 +92,10 @@ internal class MediaListViewModel @Inject constructor(
         val sortStyle = SortStyle(newCompareType, true)
         _state.update { it.copy(sortStyle = sortStyle) }
         saveSort(sortStyle)
+    }
+
+    fun onScroll(index: Int, offset: Int) {
+        _state.update { it.copy(scrollPosition = index, scrollOffset = offset) }
     }
 
     private suspend fun performSort(

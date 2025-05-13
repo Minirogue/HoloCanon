@@ -13,6 +13,8 @@ kotlin.sourceSets.androidMain.dependencies {
     api projects.feature.selectFilters.public
 
     implementation libs.android.material
+    implementation libs.hilt.compose
+    implementation projects.library.navigation.public
     implementation projects.library.filters.public
     implementation projects.library.filterUi.public
     implementation projects.library.settings.public

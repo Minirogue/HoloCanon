@@ -1,29 +1,56 @@
 package com.minirogue.starwarscanontracker.view.activity
 
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import com.minirogue.holocanon.feature.media.item.usecase.GetMediaItemFragment
-import com.minirogue.holocanon.feature.series.GetSeriesFragment
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.holocanon.feature.select.filters.FilterSelectionNav
+import com.holocanon.feature.settings.SettingsNav
+import com.holocanon.library.navigation.AppBarConfig
+import com.holocanon.library.navigation.NavContributor
+import com.minirogue.holocanon.feature.home.screen.HomeNav
+import com.minirogue.holocanon.feature.media.list.usecase.MediaListNav
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.core.nav.NavigationDestination
-import com.minirogue.starwarscanontracker.core.nav.NavigationViewModel
 import com.minirogue.starwarscanontracker.core.usecase.UpdateFilters
-import com.minirogue.starwarscanontracker.view.fragment.TabbedListContainerFragment
+import compose.theme.HolocanonTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import usecase.GetSettingsFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,20 +63,27 @@ class MainActivity : AppCompatActivity() {
     lateinit var updateFilters: UpdateFilters
 
     @Inject
-    lateinit var getSettingsFragment: GetSettingsFragment
+    lateinit var navContributors: Set<@JvmSuppressWildcards NavContributor>
 
-    @Inject
-    lateinit var getMediaItemFragment: GetMediaItemFragment
-
-    @Inject
-    lateinit var getSeriesFragment: GetSeriesFragment
-
-    private val navigationViewModel: NavigationViewModel by viewModels()
     private val mainActivityViewModel: MainActivityViewModel by viewModels()
+
+    private enum class TabInfo(val tabNameRes: Int, val navDestination: Any) {
+        // The order here defines the order of the tabs
+        HOME(R.string.nav_home, HomeNav),
+        MEDIA_LIST(R.string.nav_media_list, MediaListNav),
+        FILTERS(R.string.nav_filters, FilterSelectionNav),
+        ;
+
+        companion object {
+            fun fromNavDestination(navDestination: NavDestination): TabInfo? {
+                return entries.find { navDestination.hasRoute(it.navDestination::class) }
+            }
+        }
+    }
 
     override fun onResume() {
         super.onResume()
-        lifecycleScope.launch {
+        lifecycleScope.launch { // TODO this should be done elsewhere
             // Update filters based on current information
             updateFilters()
             // Update media database if needed.
@@ -59,53 +93,98 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        // When the user opens a fresh instance of the app
-        if (savedInstanceState == null) {
-            // initialize the fragment to the entry fragment
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, TabbedListContainerFragment())
-                .commit()
-        }
-
-        // Set up the toolbar
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportFragmentManager.apply {
-            addOnBackStackChangedListener {
-                supportActionBar?.setDisplayHomeAsUpEnabled(backStackEntryCount > 0)
-            }
-        }
-
-        lifecycleScope.launch {
-            lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                navigationViewModel.navigationDestination.collect { destination ->
-                    when (destination) {
-                        is NavigationDestination.MediaItemScreen -> navigateToMediaItem(destination.itemId)
-                        is NavigationDestination.SeriesScreen -> navigateToSeries(destination.seriesName)
-                    }
+        setContent {
+            val navController = rememberNavController()
+            val appBarConfig = remember { mutableStateOf(AppBarConfig()) }
+            HolocanonTheme {
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    topBar = { HolocanonAppBar(navController, appBarConfig.value) },
+                ) { padding ->
+                    MainScreen(Modifier.padding(padding), navController) { appBarConfig.value = it }
                 }
             }
         }
+
         mainActivityViewModel.globalToasts
             .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
             .onEach { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
-            .launchIn(lifecycleScope)
+            .launchIn(lifecycleScope) // TODO move to snackbar?
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.action_bar_menu, menu)
-        return true
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    private fun HolocanonAppBar(navController: NavController, appBarConfig: AppBarConfig) {
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        CenterAlignedTopAppBar(
+            title = {
+                Text(
+                    appBarConfig.title.takeIf { it.isNotBlank() }
+                        ?: stringResource(R.string.app_name),
+                )
+            },
+            navigationIcon = {
+                if (navBackStackEntry?.destination?.let { TabInfo.fromNavDestination(it) } == null) {
+                    IconButton(
+                        onClick = { navController.popBackStack() },
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                            contentDescription = stringResource(R.string.content_description_back_button),
+                        )
+                    }
+                }
+            },
+            actions = {
+                appBarConfig.actions.forEach { it() }
+                IconButton(onClick = { navController.navigate(SettingsNav) }) {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = stringResource(R.string.content_description_navigate_to_settings),
+                    )
+                }
+            },
+        )
     }
+
+    @Composable
+    private fun MainScreen(
+        modifier: Modifier = Modifier,
+        navController: NavHostController,
+        onAppBarConfig: (AppBarConfig) -> Unit,
+    ) =
+        Column(modifier = modifier.fillMaxSize()) {
+            val currentBackStackEntry = navController.currentBackStackEntryAsState()
+            val selectedTab = remember {
+                derivedStateOf {
+                    currentBackStackEntry.value?.destination?.let { TabInfo.fromNavDestination(it) }
+                }
+            }
+
+            selectedTab.value?.also {
+                TabRow(it.ordinal) {
+                    TabInfo.entries.forEach { tabInfo ->
+                        Tab(
+                            selected = tabInfo == selectedTab.value,
+                            onClick = { navController.navigate(route = tabInfo.navDestination) },
+                            text = { Text(stringResource(tabInfo.tabNameRes)) },
+                        )
+                    }
+                }
+            }
+            NavHost(
+                navController = navController,
+                startDestination = TabInfo.HOME.navDestination,
+            ) {
+                navContributors.forEach {
+                    println("Contributing nav graph: ${it.javaClass.name}")
+                    it.invoke(this, navController, onAppBarConfig)
+                }
+            }
+        }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.toolbar_settings -> {
-                navigateToToolbarOption(ToolbarOption.Settings)
-                true
-            }
-
             android.R.id.home -> {
                 onBackPressed()
                 true
@@ -113,53 +192,5 @@ class MainActivity : AppCompatActivity() {
 
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun navigateToMediaItem(itemId: Long) {
-        val viewMediaItemFragment = getMediaItemFragment(itemId)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, viewMediaItemFragment)
-            .addToBackStack(null)
-            .commit()
-    }
-
-    private fun navigateToSeries(seriesName: String) {
-        val seriesFragment = getSeriesFragment(seriesName)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, seriesFragment)
-            .addToBackStack(null)
-            .commit()
-    }
-
-    /**
-     * Replaces the displayed fragment with one associated to a [ToolbarOption].
-     *
-     * Checks to see if a Fragment associated to [toolbarOption] exists, then replaces the displayed
-     * fragment with that one, or a new Fragment if necessary.
-     */
-    private fun navigateToToolbarOption(toolbarOption: ToolbarOption) {
-        // Check if an instance of the desired Fragment already exists somewhere on the backstack
-        var frag = supportFragmentManager.findFragmentByTag(toolbarOption.fragmentTag)
-        // If the fragment doesn't already exist, create a new one
-        if (frag == null) {
-            frag = when (toolbarOption) {
-                ToolbarOption.Settings -> getSettingsFragment()
-            }
-        }
-        // Replace the fragment
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, frag, toolbarOption.fragmentTag)
-            .addToBackStack(null)
-            .commit()
-    }
-
-    private enum class ToolbarOption(val fragmentTag: String) {
-        Settings(SETTINGS_TAG),
-    }
-
-    companion object {
-        // The following are definitions for the tags associated to the fragments called from the
-        // toolbar options.
-        private const val SETTINGS_TAG = "settings"
     }
 }

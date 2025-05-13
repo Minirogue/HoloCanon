@@ -4,8 +4,8 @@ plugins {
 
 minirogue {
     android()
+    serialization()
 }
 
 kotlin.sourceSets.androidMain.dependencies {
-    api libs.androidx.fragment
 }

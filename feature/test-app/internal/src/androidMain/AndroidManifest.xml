@@ -13,5 +13,9 @@
             android:name="com.minirogue.feature.test.app.view.TestFragmentActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.minirogue.feature.test.app.view.TestComposeActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 </manifest>
