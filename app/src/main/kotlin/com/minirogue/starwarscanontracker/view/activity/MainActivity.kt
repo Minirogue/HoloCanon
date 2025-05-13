@@ -123,14 +123,14 @@ class MainActivity : AppCompatActivity() {
                         ?: stringResource(R.string.app_name),
                 )
             },
-            navigationIcon = { // TODO clickable
+            navigationIcon = {
                 if (navBackStackEntry?.destination?.let { TabInfo.fromNavDestination(it) } == null) {
                     IconButton(
                         onClick = { navController.popBackStack() },
                     ) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                            contentDescription = "Back", // TODO extract string
+                            contentDescription = stringResource(R.string.content_description_back_button),
                         )
                     }
                 }
@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity() {
                 IconButton(onClick = { navController.navigate(SettingsNav) }) {
                     Icon(
                         imageVector = Icons.Default.Settings,
-                        contentDescription = "Settings", // TODO extract string
+                        contentDescription = stringResource(R.string.content_description_navigate_to_settings),
                     )
                 }
             },

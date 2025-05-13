@@ -120,7 +120,7 @@ private fun AppBarAction(onSelectSortStyle: (Int) -> Unit) = Box {
     IconButton(onClick = { isMenuOpen = !isMenuOpen }) {
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.media_list_sort),
-            contentDescription = "Sort", // TODO extract string
+            contentDescription = "Sort canon list",
         )
     }
     DropdownMenu(
@@ -152,7 +152,7 @@ private fun SearchBar(
         modifier = modifier,
         value = searchTerm ?: "",
         onValueChange = { onSearchTermChanged(it) },
-        label = { Text("Search") }, // TODO extract string
+        label = { Text(stringResource(R.string.media_list_search_label)) },
         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
     )
 }
@@ -177,7 +177,11 @@ private fun FilterGroup(
             Icon(
                 modifier = Modifier.rotate(sortArrowRotation.value),
                 painter = painterResource(R.drawable.media_list_ascending_sort),
-                contentDescription = null, // TODO
+                contentDescription = if (sortStyle.ascending) {
+                    stringResource(R.string.media_list_ascending)
+                } else {
+                    stringResource(R.string.media_list_descending)
+                },
             )
         },
     )

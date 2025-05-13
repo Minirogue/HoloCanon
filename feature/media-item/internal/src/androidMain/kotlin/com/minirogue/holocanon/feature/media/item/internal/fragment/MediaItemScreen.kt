@@ -94,7 +94,7 @@ private fun MediaItemViewLeftColumn(
                 .data(it)
                 .networkCachePolicy(if (isNetworkAllowed) CachePolicy.ENABLED else CachePolicy.DISABLED)
                 .build(),
-            contentDescription = "Media Cover", // TODO improve description
+            contentDescription = stringResource(R.string.media_item_content_description_cover_art),
             placeholder = painterResource(R.drawable.common_resources_app_icon),
             fallback = painterResource(R.drawable.common_resources_app_icon),
             error = painterResource(R.drawable.common_resources_app_icon),
