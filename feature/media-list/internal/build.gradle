@@ -24,7 +24,6 @@ kotlin.sourceSets.androidMain.dependencies {
     implementation projects.library.mediaNotes.public
     implementation projects.library.navigation.public
     implementation projects.library.settings.public
-    implementation projects.library.viewExt.public
     implementation projects.library.composeExt.public
     implementation projects.library.filterUi.public
 }
