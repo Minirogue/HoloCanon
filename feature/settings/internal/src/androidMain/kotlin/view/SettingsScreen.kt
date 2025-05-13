@@ -15,11 +15,17 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -38,6 +44,7 @@ import com.holocanon.feature.settings.internal.R
 import com.minirogue.common.model.MediaType
 import settings.model.CheckboxSetting
 import settings.model.CheckboxSettings
+import settings.model.DarkModeSetting
 import viewmodel.SettingsViewModel
 import java.io.FileNotFoundException
 import java.io.InputStream
@@ -55,6 +62,10 @@ internal fun SettingsScreen(
         modifier = Modifier.verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        state.theme?.also {
+            ThemeSettings(it, viewModel::updateTheme)
+        }
+
         state.checkboxSettings?.let {
             UserDefinedFilters(
                 it,
@@ -117,6 +128,34 @@ private fun UserDefinedFilters(
         showNameChangeDialog,
         flipIsCheckboxActive,
     )
+}
+
+@Composable
+private fun ThemeSettings(
+    theme: DarkModeSetting,
+    updateTheme: (DarkModeSetting) -> Unit,
+) = Card(
+    modifier = Modifier
+        .padding(8.dp)
+        .fillMaxWidth(),
+) {
+    TabRow(theme.ordinal) {
+        DarkModeSetting.entries.forEach { darkModeSetting ->
+            Tab(
+                selected = darkModeSetting == theme,
+                onClick = { updateTheme(darkModeSetting) },
+                text = {
+                    Text(
+                        when (darkModeSetting) {
+                            DarkModeSetting.SYSTEM -> stringResource(R.string.settings_system_theme)
+                            DarkModeSetting.LIGHT -> stringResource(R.string.settings_light_theme)
+                            DarkModeSetting.DARK -> stringResource(R.string.settings_dark_theme)
+                        }
+                    )
+                },
+            )
+        }
+    }
 }
 
 @Composable

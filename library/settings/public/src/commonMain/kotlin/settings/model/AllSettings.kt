@@ -7,4 +7,5 @@ data class AllSettings(
     val syncWifiOnly: Boolean,
     val permanentFilterSettings: Map<MediaType, Boolean>,
     val latestDatabaseVersion: Long,
+    val darkModeSetting: DarkModeSetting,
 )

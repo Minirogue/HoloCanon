@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
@@ -51,6 +52,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import settings.model.DarkModeSetting
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -96,7 +98,10 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val navController = rememberNavController()
             val appBarConfig = remember { mutableStateOf(AppBarConfig()) }
-            HolocanonTheme {
+            val darkModeSetting by mainActivityViewModel.darkModeSetting.collectAsStateWithLifecycle(
+                DarkModeSetting.SYSTEM
+            )
+            HolocanonTheme(darkModeSetting) {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     topBar = { HolocanonAppBar(navController, appBarConfig.value) },

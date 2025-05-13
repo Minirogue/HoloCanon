@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--  Theme Settings  -->
+    <string name="settings_system_theme">System Theme</string>
+    <string name="settings_light_theme">Light Theme</string>
+    <string name="settings_dark_theme">Dark Theme</string>
+
     <!--  Settings Screen  -->
     <string name="settings_sync_online">Sync database now</string>
     <string name="settings_wifi_only_setting">Sync on wifi only</string>
