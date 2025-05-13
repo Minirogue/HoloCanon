@@ -50,7 +50,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.navigation.NavController
 import com.holocanon.feature.media.list.internal.R
-import com.holocanon.library.navigation.AppBarAction
 import com.holocanon.library.navigation.AppBarConfig
 import com.minirogue.holocanon.feature.media.item.usecase.MediaItemNav
 import com.minirogue.holocanon.feature.media.list.internal.viewmodel.MediaListViewModel
@@ -62,7 +61,6 @@ import filters.model.MediaFilter
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import org.jetbrains.compose.resources.vectorResource
 import settings.model.CheckboxSettings
 
 private const val CARD_FADE_DURATION = 1000
