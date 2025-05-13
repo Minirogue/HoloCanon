@@ -13,17 +13,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import settings.model.CheckboxSettings
 import settings.usecase.GetCheckboxSettings
-import settings.usecase.GetCheckboxText
 import javax.inject.Inject
 
 data class ViewMediaItemState(
-    val checkboxText: Array<String> = arrayOf("", "", ""),
-    val checkboxVisibility: BooleanArray = booleanArrayOf(false, false, false),
+    val checkboxSettings: CheckboxSettings? = null,
     val isNetworkAllowed: Boolean = false,
     val mediaItem: StarWarsMedia? = null,
     val mediaNotes: MediaNotes? = null,
@@ -31,7 +29,6 @@ data class ViewMediaItemState(
 
 @HiltViewModel
 class ViewMediaItemViewModel @Inject constructor(
-    getCheckboxText: GetCheckboxText,
     private val getMedia: GetMedia,
     private val getNotesForMedia: GetNotesForMedia,
     private val updateNotes: UpdateCheckValue,
@@ -43,17 +40,8 @@ class ViewMediaItemViewModel @Inject constructor(
     val state: StateFlow<ViewMediaItemState> = _state
 
     init {
-        getCheckboxText()
-            .onEach { checkboxText -> _state.update { it.copy(checkboxText = checkboxText) } }
-            .launchIn(viewModelScope)
-        getCheckboxSettings().map { checkboxSettings ->
-            booleanArrayOf(
-                checkboxSettings.checkbox1Setting.isInUse,
-                checkboxSettings.checkbox2Setting.isInUse,
-                checkboxSettings.checkbox3Setting.isInUse,
-            )
-        }
-            .onEach { checkBoxVisibility -> _state.update { it.copy(checkboxVisibility = checkBoxVisibility) } }
+        getCheckboxSettings()
+            .onEach { checkBoxSettings -> _state.update { it.copy(checkboxSettings = checkBoxSettings) } }
             .launchIn(viewModelScope)
         isNetworkAllowed()
             .onEach { shouldAllowNetwork -> _state.update { it.copy(isNetworkAllowed = shouldAllowNetwork) } }

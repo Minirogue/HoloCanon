@@ -15,12 +15,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import settings.model.CheckboxSettings
 import settings.usecase.GetCheckboxSettings
-import settings.usecase.GetCheckboxText
 import javax.inject.Inject
 
 data class SeriesState(
@@ -28,8 +27,7 @@ data class SeriesState(
     val series: Series = Series("", null),
     val mediaAndNotes: List<MediaAndNotes> = emptyList(),
     val isNetworkAllowed: Boolean = false,
-    val checkBoxText: Array<String> = arrayOf("", "", ""),
-    val checkBoxVisibility: BooleanArray = booleanArrayOf(false, false, false),
+    val checkboxSettings: CheckboxSettings? = null,
 ) {
     val seriesNotes: MediaNotes = MediaNotes(
         mediaAndNotes.all { it.notes.isBox1Checked },
@@ -41,7 +39,6 @@ data class SeriesState(
 @HiltViewModel
 internal class SeriesViewModel @Inject constructor(
     private val getSeries: GetSeries,
-    getCheckboxText: GetCheckboxText,
     private val getMediaAndNotesForSeries: GetMediaAndNotesForSeries,
     private val setCheckboxForSeries: SetCheckboxForSeries,
     private val getSeriesIdFromName: GetSeriesIdFromName,
@@ -55,17 +52,8 @@ internal class SeriesViewModel @Inject constructor(
         isNetworkAllowed()
             .onEach { shouldAllowNetwork -> _state.update { it.copy(isNetworkAllowed = shouldAllowNetwork) } }
             .launchIn(viewModelScope)
-        getCheckboxText()
-            .onEach { checkBoxText -> _state.update { it.copy(checkBoxText = checkBoxText) } }
-            .launchIn(viewModelScope)
-        getCheckboxSettings().map { checkboxSettings ->
-            booleanArrayOf(
-                checkboxSettings.checkbox1Setting.isInUse,
-                checkboxSettings.checkbox2Setting.isInUse,
-                checkboxSettings.checkbox3Setting.isInUse,
-            )
-        }
-            .onEach { checkBoxVisibility -> _state.update { it.copy(checkBoxVisibility = checkBoxVisibility) } }
+        getCheckboxSettings()
+            .onEach { checkboxSettings -> _state.update { it.copy(checkboxSettings = checkboxSettings) } }
             .launchIn(viewModelScope)
     }
 

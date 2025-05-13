@@ -6,21 +6,23 @@ import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -29,12 +31,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.holocanon.feature.select.filters.FilterSelectionNav
+import com.holocanon.feature.settings.SettingsNav
+import com.holocanon.library.navigation.AppBarConfig
 import com.holocanon.library.navigation.NavContributor
 import com.minirogue.holocanon.feature.home.screen.HomeNav
-import com.minirogue.holocanon.feature.media.item.usecase.GetMediaItemFragment
-import com.minirogue.holocanon.feature.series.GetSeriesFragment
+import com.minirogue.holocanon.feature.media.list.usecase.MediaListNav
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import com.minirogue.starwarscanontracker.R
 import com.minirogue.starwarscanontracker.core.usecase.UpdateFilters
@@ -43,7 +51,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import usecase.GetSettingsFragment
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -56,15 +63,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var updateFilters: UpdateFilters
 
     @Inject
-    lateinit var getSettingsFragment: GetSettingsFragment
-
-    @Inject
-    lateinit var getMediaItemFragment: GetMediaItemFragment
-
-    @Inject
-    lateinit var getSeriesFragment: GetSeriesFragment
-
-    @Inject
     lateinit var navContributors: Set<@JvmSuppressWildcards NavContributor>
 
     private val mainActivityViewModel: MainActivityViewModel by viewModels()
@@ -72,8 +70,15 @@ class MainActivity : AppCompatActivity() {
     private enum class TabInfo(val tabNameRes: Int, val navDestination: Any) {
         // The order here defines the order of the tabs
         HOME(R.string.nav_home, HomeNav),
-        MEDIA_LIST(R.string.nav_media_list, HomeNav), // TODO add actual nav
-        FILTERS(R.string.nav_filters, HomeNav), // TODO add actual nav
+        MEDIA_LIST(R.string.nav_media_list, MediaListNav),
+        FILTERS(R.string.nav_filters, FilterSelectionNav),
+        ;
+
+        companion object {
+            fun fromNavDestination(navDestination: NavDestination): TabInfo? {
+                return entries.find { navDestination.hasRoute(it.navDestination::class) }
+            }
+        }
     }
 
     override fun onResume() {
@@ -90,12 +95,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
+            val appBarConfig = remember { mutableStateOf(AppBarConfig()) }
             HolocanonTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    topBar = { HolocanonAppBar(navController) },
+                    topBar = { HolocanonAppBar(navController, appBarConfig.value) },
                 ) { padding ->
-                    MainScreen(Modifier.padding(padding))
+                    MainScreen(Modifier.padding(padding), navController) { appBarConfig.value = it }
                 }
             }
         }
@@ -108,50 +114,72 @@ class MainActivity : AppCompatActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    private fun HolocanonAppBar(navController: NavController) = TopAppBar(
-        title = { Text(stringResource(R.string.app_name)) },
-        navigationIcon = {
-            if (navController.currentBackStackEntry != null) {
-                Icon(
-                    Icons.AutoMirrored.Default.ArrowBack,
-                    "Back", // TODO extract string
+    private fun HolocanonAppBar(navController: NavController, appBarConfig: AppBarConfig) {
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        CenterAlignedTopAppBar(
+            title = {
+                Text(
+                    appBarConfig.title.takeIf { it.isNotBlank() }
+                        ?: stringResource(R.string.app_name),
                 )
-            }
-        },
-        actions = {
-            Icon(
-                modifier = Modifier.clickable {
-                    navController.navigate(
-                        "settings",
+            },
+            navigationIcon = { // TODO clickable
+                if (navBackStackEntry?.destination?.let { TabInfo.fromNavDestination(it) } == null) {
+                    IconButton(
+                        onClick = { navController.popBackStack() },
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                            contentDescription = "Back", // TODO extract string
+                        )
+                    }
+                }
+            },
+            actions = {
+                appBarConfig.actions.forEach { it() }
+                IconButton(onClick = { navController.navigate(SettingsNav) }) {
+                    Icon(
+                        imageVector = Icons.Default.Settings,
+                        contentDescription = "Settings", // TODO extract string
                     )
-                }, // TODO review navigation destinations
-                imageVector = Icons.Default.Settings,
-                contentDescription = "Settings", // TODO extract string
-            )
-        },
-    )
+                }
+            },
+        )
+    }
 
     @Composable
-    private fun MainScreen(modifier: Modifier = Modifier) =
+    private fun MainScreen(
+        modifier: Modifier = Modifier,
+        navController: NavHostController,
+        onAppBarConfig: (AppBarConfig) -> Unit,
+    ) =
         Column(modifier = modifier.fillMaxSize()) {
-            val mainScreenNavController = rememberNavController()
-            val startTab = TabInfo.HOME
-            val selectedTab = remember { mutableStateOf(startTab) }
+            val currentBackStackEntry = navController.currentBackStackEntryAsState()
+            val selectedTab = remember {
+                derivedStateOf {
+                    currentBackStackEntry.value?.destination?.let { TabInfo.fromNavDestination(it) }
+                }
+            }
 
-            TabRow(selectedTab.value.ordinal) {
-                TabInfo.entries.forEach { tabInfo ->
-                    Tab(
-                        selected = tabInfo == selectedTab.value,
-                        onClick = { selectedTab.value = tabInfo },
-                        text = { Text(stringResource(tabInfo.tabNameRes)) },
-                    )
+            selectedTab.value?.also {
+                TabRow(it.ordinal) {
+                    TabInfo.entries.forEach { tabInfo ->
+                        Tab(
+                            selected = tabInfo == selectedTab.value,
+                            onClick = { navController.navigate(route = tabInfo.navDestination) },
+                            text = { Text(stringResource(tabInfo.tabNameRes)) },
+                        )
+                    }
                 }
             }
             NavHost(
-                navController = mainScreenNavController,
-                startTab.name,
+                navController = navController,
+                startDestination = TabInfo.HOME.navDestination,
             ) {
-                navContributors.forEach { it.invoke(this, mainScreenNavController) }
+                navContributors.forEach {
+                    println("Contributing nav graph: ${it.javaClass.name}")
+                    it.invoke(this, navController, onAppBarConfig)
+                }
             }
         }
 
@@ -164,31 +192,5 @@ class MainActivity : AppCompatActivity() {
 
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun navigateToMediaItem(itemId: Long) {
-        val viewMediaItemFragment = getMediaItemFragment(itemId)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, viewMediaItemFragment)
-            .addToBackStack(null)
-            .commit()
-    }
-
-    private fun navigateToSeries(seriesName: String) {
-        val seriesFragment = getSeriesFragment(seriesName)
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, seriesFragment)
-            .addToBackStack(null)
-            .commit()
-    }
-
-    private enum class ToolbarOption(val fragmentTag: String) {
-        Settings(SETTINGS_TAG),
-    }
-
-    companion object {
-        // The following are definitions for the tags associated to the fragments called from the
-        // toolbar options.
-        private const val SETTINGS_TAG = "settings"
     }
 }

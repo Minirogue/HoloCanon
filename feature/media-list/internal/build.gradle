@@ -16,11 +16,13 @@ kotlin.sourceSets.androidMain.dependencies {
     implementation libs.android.material
     implementation libs.androidx.appcompat
     implementation libs.coil.compose
+    implementation libs.hilt.compose
     implementation libs.fastScroll
     implementation projects.core
     implementation projects.feature.mediaItem.public
     implementation projects.library.commonResources.public
     implementation projects.library.mediaNotes.public
+    implementation projects.library.navigation.public
     implementation projects.library.settings.public
     implementation projects.library.viewExt.public
     implementation projects.library.composeExt.public

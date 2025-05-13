@@ -1,15 +1,17 @@
 package com.minirogue.holocanon.feature.select.filters.internal.di
 
-import com.minirogue.holocanon.feature.select.filters.internal.usecase.GetSelectFiltersFragmentImpl
-import com.minirogue.holocanon.feature.select.filters.usecase.GetSelectFiltersFragment
+import com.holocanon.library.navigation.NavContributor
+import com.minirogue.holocanon.feature.select.filters.internal.nav.FilterSelectionNavContributor
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.components.ActivityComponent
+import dagger.multibindings.IntoSet
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ActivityComponent::class)
 interface FilterSelectionModule {
     @Binds
-    fun bindGetSelectFiltersFragment(impl: GetSelectFiltersFragmentImpl): GetSelectFiltersFragment
+    @IntoSet
+    fun bindFilterSelectionNavContributor(impl: FilterSelectionNavContributor): NavContributor
 }

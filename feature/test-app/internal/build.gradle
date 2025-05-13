@@ -12,5 +12,7 @@ minirogue {
 kotlin.sourceSets.androidMain.dependencies {
     implementation libs.androidx.activity.compose
     implementation libs.androidx.appcompat
+    implementation libs.compose.navigation
     implementation projects.library.composeExt.public
+    implementation projects.library.navigation.public
 }
