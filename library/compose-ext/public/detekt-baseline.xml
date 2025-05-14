@@ -7,7 +7,11 @@
     <ID>MagicNumber:Colors.kt$103</ID>
     <ID>MagicNumber:Colors.kt$105</ID>
     <ID>MagicNumber:Colors.kt$108</ID>
+    <ID>MagicNumber:Colors.kt$180</ID>
     <ID>MagicNumber:Colors.kt$188</ID>
+    <ID>MagicNumber:Colors.kt$20</ID>
+    <ID>MagicNumber:Colors.kt$200</ID>
+    <ID>MagicNumber:Colors.kt$240</ID>
     <ID>MagicNumber:Colors.kt$255</ID>
     <ID>MagicNumber:Colors.kt$30</ID>
     <ID>MagicNumber:Colors.kt$34</ID>
@@ -19,7 +23,8 @@
     <ID>MagicNumber:Colors.kt$85</ID>
     <ID>MagicNumber:Colors.kt$89</ID>
     <ID>UnusedPrivateProperty:Colors.kt$private val CORUSCANT_BLUE = Color(57, 74, 89)</ID>
-    <ID>UnusedPrivateProperty:Colors.kt$private val DURASTEEL_GRAY = Color(100, 105, 108)</ID>
+    <ID>UnusedPrivateProperty:Colors.kt$private val DARK_SIDE_GRAY = Color(50, 55, 58)</ID>
+    <ID>UnusedPrivateProperty:Colors.kt$private val PURE_DARK_SIDE = Color(0, 0, 0)</ID>
     <ID>UnusedPrivateProperty:Colors.kt$private val VALOR_GREEN = Color(85, 101, 103)</ID>
   </CurrentIssues>
 </SmellBaseline>

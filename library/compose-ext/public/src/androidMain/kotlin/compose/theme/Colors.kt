@@ -1,6 +1,5 @@
 package compose.theme
 
-import androidx.annotation.InspectableProperty
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
@@ -29,7 +28,7 @@ internal val ForceDarkColors = darkColorScheme(
 internal val ForceLightColors = lightColorScheme(
     primary = FORCE_BLUE,
     onPrimary = FORCE_GREEN,
-    secondary = LIGHT_PURPLE
+    secondary = LIGHT_PURPLE,
 )
 
 internal val MaceDarkColors = darkColorScheme(
@@ -40,5 +39,5 @@ internal val MaceDarkColors = darkColorScheme(
 internal val MaceLightColors = lightColorScheme(
     primary = DARK_PURPLE,
     onPrimary = LIGHT_PURPLE,
-    secondary = DURASTEEL_GRAY
+    secondary = DURASTEEL_GRAY,
 )
