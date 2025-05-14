@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -23,6 +22,7 @@ import com.holocanon.library.navigation.NavContributor
 import compose.theme.HolocanonTheme
 import dagger.hilt.android.AndroidEntryPoint
 import settings.model.DarkModeSetting
+import settings.model.Theme
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -35,7 +35,7 @@ class TestComposeActivity : AppCompatActivity() {
         setContent {
             val navController = rememberNavController()
             val appBarConfig = remember { mutableStateOf(AppBarConfig()) }
-            HolocanonTheme(DarkModeSetting.SYSTEM) {
+            HolocanonTheme(DarkModeSetting.SYSTEM, Theme.Dynamic) {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     topBar = { TestAppBar(appBarConfig.value) },

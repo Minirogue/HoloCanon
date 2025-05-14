@@ -8,4 +8,5 @@ data class AllSettings(
     val permanentFilterSettings: Map<MediaType, Boolean>,
     val latestDatabaseVersion: Long,
     val darkModeSetting: DarkModeSetting,
+    val theme: Theme,
 )

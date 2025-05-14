@@ -15,9 +15,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import settings.model.CheckboxSettings
 import settings.model.DarkModeSetting
+import settings.model.Theme
 import settings.usecase.FlipIsCheckboxActive
 import settings.usecase.GetAllSettings
 import settings.usecase.UpdateCheckboxName
+import settings.usecase.UpdateDarkModeSetting
 import settings.usecase.UpdatePermanentFilterSettings
 import settings.usecase.UpdateTheme
 import settings.usecase.UpdateWifiSetting
@@ -30,7 +32,8 @@ internal data class SettingsState(
     val nameChangeDialogShowing: Int? = null,
     val permanentFilters: Map<MediaType, Boolean>? = null,
     val wifiOnly: Boolean? = null,
-    val theme: DarkModeSetting? = null,
+    val theme: Theme? = null,
+    val darkModeSetting: DarkModeSetting? = null,
 )
 
 @HiltViewModel
@@ -42,6 +45,7 @@ internal class SettingsViewModel @Inject constructor(
     private val maybeUpdateMediaDatabase: MaybeUpdateMediaDatabase,
     private val updateWifiSetting: UpdateWifiSetting,
     private val updateTheme: UpdateTheme,
+    private val updateDarkModeSetting: UpdateDarkModeSetting,
     private val exportMediaNotesJson: ExportMediaNotesJson,
     private val importMediaNotesJson: ImportMediaNotesJson,
 ) : ViewModel() {
@@ -56,15 +60,20 @@ internal class SettingsViewModel @Inject constructor(
                         checkboxSettings = settings.checkboxSettings,
                         permanentFilters = settings.permanentFilterSettings,
                         wifiOnly = settings.syncWifiOnly,
-                        theme = settings.darkModeSetting,
+                        theme = settings.theme,
+                        darkModeSetting = settings.darkModeSetting,
                     )
                 }
             }
             .launchIn(viewModelScope)
     }
 
-    fun updateTheme(newTheme: DarkModeSetting) = viewModelScope.launch {
+    fun updateTheme(newTheme: Theme) = viewModelScope.launch {
         updateTheme.invoke(newTheme)
+    }
+
+    fun updateDarkModeSetting(newDarkModeSetting: DarkModeSetting) = viewModelScope.launch {
+        updateDarkModeSetting.invoke(newDarkModeSetting)
     }
 
     fun flipIsCheckboxActive(whichBox: Int) = viewModelScope.launch {

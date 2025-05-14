@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--  Theme Settings  -->
-    <string name="settings_system_theme">System Theme</string>
-    <string name="settings_light_theme">Light Theme</string>
-    <string name="settings_dark_theme">Dark Theme</string>
+    <string name="settings_system_dark_mode">System Mode</string>
+    <string name="settings_light_mode">Light Mode</string>
+    <string name="settings_dark_mode">Dark Mode</string>
 
     <!--  Settings Screen  -->
     <string name="settings_sync_online">Sync database now</string>

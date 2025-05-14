@@ -26,6 +26,8 @@ import settings.usecase.ShouldSyncViaWifiOnly
 import settings.usecase.ShouldSyncViaWifiOnlyImpl
 import settings.usecase.UpdateCheckboxName
 import settings.usecase.UpdateCheckboxNameImpl
+import settings.usecase.UpdateDarkModeSetting
+import settings.usecase.UpdateDarkModeSettingImpl
 import settings.usecase.UpdatePermanentFilterSettings
 import settings.usecase.UpdatePermanentFilterSettingsImpl
 import settings.usecase.UpdateTheme
@@ -90,6 +92,9 @@ internal interface SettingsLibraryModule {
 
     @Binds
     fun bindUpdateTheme(impl: UpdateThemeImpl): UpdateTheme
+
+    @Binds
+    fun bindUpdateDarkModeSetting(impl: UpdateDarkModeSettingImpl): UpdateDarkModeSetting
 
     companion object {
         @Singleton

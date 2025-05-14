@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import settings.model.DarkModeSetting
+import settings.model.Theme
 import settings.usecase.GetAllSettings
 import javax.inject.Inject
 
@@ -15,5 +16,6 @@ internal class MainActivityViewModel @Inject constructor(
     getSettings: GetAllSettings,
 ) : ViewModel() {
     val globalToasts: Flow<String> = getGlobalToasts()
-    val darkModeSetting: Flow<DarkModeSetting> = getSettings().map { it.darkModeSetting }
+    val themeSettings: Flow<Pair<DarkModeSetting, Theme>> =
+        getSettings().map { Pair(it.darkModeSetting, it.theme) }
 }

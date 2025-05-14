@@ -21,6 +21,7 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -53,6 +54,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import settings.model.DarkModeSetting
+import settings.model.Theme
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -98,10 +100,11 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val navController = rememberNavController()
             val appBarConfig = remember { mutableStateOf(AppBarConfig()) }
-            val darkModeSetting by mainActivityViewModel.darkModeSetting.collectAsStateWithLifecycle(
-                DarkModeSetting.SYSTEM
-            )
-            HolocanonTheme(darkModeSetting) {
+            val themeSettings: State<Pair<DarkModeSetting, Theme>> =
+                mainActivityViewModel.themeSettings.collectAsStateWithLifecycle(
+                    Pair(DarkModeSetting.SYSTEM, Theme.Force),
+                )
+            HolocanonTheme(themeSettings.value.first, themeSettings.value.second) {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     topBar = { HolocanonAppBar(navController, appBarConfig.value) },

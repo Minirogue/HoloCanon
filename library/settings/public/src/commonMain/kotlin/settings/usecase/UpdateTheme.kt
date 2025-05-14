@@ -1,7 +1,7 @@
 package settings.usecase
 
-import settings.model.DarkModeSetting
+import settings.model.Theme
 
 interface UpdateTheme {
-   suspend operator fun invoke(newTheme: DarkModeSetting)
+    suspend operator fun invoke(newTheme: Theme)
 }

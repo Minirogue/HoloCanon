@@ -1,5 +1,5 @@
 package settings.model
 
 enum class DarkModeSetting {
-    SYSTEM, LIGHT, DARK
+    LIGHT, DARK, SYSTEM
 }

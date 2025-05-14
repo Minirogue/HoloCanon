@@ -2,6 +2,7 @@ package view
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,17 +16,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -45,6 +42,7 @@ import com.minirogue.common.model.MediaType
 import settings.model.CheckboxSetting
 import settings.model.CheckboxSettings
 import settings.model.DarkModeSetting
+import settings.model.Theme
 import viewmodel.SettingsViewModel
 import java.io.FileNotFoundException
 import java.io.InputStream
@@ -62,6 +60,9 @@ internal fun SettingsScreen(
         modifier = Modifier.verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        state.darkModeSetting?.also {
+            DarkModeSettings(it, viewModel::updateDarkModeSetting)
+        }
         state.theme?.also {
             ThemeSettings(it, viewModel::updateTheme)
         }
@@ -132,25 +133,56 @@ private fun UserDefinedFilters(
 
 @Composable
 private fun ThemeSettings(
-    theme: DarkModeSetting,
-    updateTheme: (DarkModeSetting) -> Unit,
+    currentTheme: Theme,
+    updateTheme: (Theme) -> Unit,
 ) = Card(
     modifier = Modifier
         .padding(8.dp)
         .fillMaxWidth(),
 ) {
-    TabRow(theme.ordinal) {
+    TabRow(currentTheme.ordinal) {
+        Theme.entries.forEach { theme ->
+            // Dynamic themes only available on Android 12 and later
+            if (theme != Theme.Dynamic || Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                Tab(
+                    selected = theme == currentTheme,
+                    onClick = { updateTheme(theme) },
+                    text = {
+                        Text(
+                            when (theme) {
+                                Theme.Force -> "Force Theme"
+                                Theme.Mace -> "Mace Theme"
+                                Theme.Dynamic -> "Dynamic Theme"
+                            },
+                        )
+                    },
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun DarkModeSettings(
+    currentDarkModeSetting: DarkModeSetting,
+    updateDarkModeSetting: (DarkModeSetting) -> Unit,
+) = Card(
+    modifier = Modifier
+        .padding(8.dp)
+        .fillMaxWidth(),
+) {
+    TabRow(currentDarkModeSetting.ordinal) {
         DarkModeSetting.entries.forEach { darkModeSetting ->
             Tab(
-                selected = darkModeSetting == theme,
-                onClick = { updateTheme(darkModeSetting) },
+                selected = darkModeSetting == currentDarkModeSetting,
+                onClick = { updateDarkModeSetting(darkModeSetting) },
                 text = {
                     Text(
                         when (darkModeSetting) {
-                            DarkModeSetting.SYSTEM -> stringResource(R.string.settings_system_theme)
-                            DarkModeSetting.LIGHT -> stringResource(R.string.settings_light_theme)
-                            DarkModeSetting.DARK -> stringResource(R.string.settings_dark_theme)
-                        }
+                            DarkModeSetting.SYSTEM -> stringResource(R.string.settings_system_dark_mode)
+                            DarkModeSetting.LIGHT -> stringResource(R.string.settings_light_mode)
+                            DarkModeSetting.DARK -> stringResource(R.string.settings_dark_mode)
+                        },
                     )
                 },
             )

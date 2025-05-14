@@ -7,5 +7,6 @@
     <ID>MaximumLineLength:GetCheckboxSettingsImpl.kt$GetCheckboxSettingsImpl$internal</ID>
     <ID>MaximumLineLength:SetLatestDatabaseVersionImpl.kt$SetLatestDatabaseVersionImpl$internal</ID>
     <ID>MaximumLineLength:ShouldSyncViaWifiOnlyImpl.kt$ShouldSyncViaWifiOnlyImpl$internal</ID>
+    <ID>TooManyFunctions:SettingsLibraryModule.kt$SettingsLibraryModule</ID>
   </CurrentIssues>
 </SmellBaseline>

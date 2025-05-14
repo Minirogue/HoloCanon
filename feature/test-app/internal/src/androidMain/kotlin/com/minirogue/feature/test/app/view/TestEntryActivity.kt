@@ -3,7 +3,6 @@ package com.minirogue.feature.test.app.view
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -15,6 +14,7 @@ import com.minirogue.feature.test.app.model.TestScreen
 import compose.theme.HolocanonTheme
 import dagger.hilt.android.AndroidEntryPoint
 import settings.model.DarkModeSetting
+import settings.model.Theme
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -26,7 +26,7 @@ internal class TestEntryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HolocanonTheme(DarkModeSetting.SYSTEM) {
+            HolocanonTheme(DarkModeSetting.SYSTEM, Theme.Force) {
                 Scaffold { padding ->
                     Column(
                         modifier = Modifier
