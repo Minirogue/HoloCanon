@@ -8,6 +8,5 @@
         android:allowBackup="true"
         android:label="Holocanon Test"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        />
+        android:theme="@style/Theme.MaterialComponents.NoActionBar" />
 </manifest>

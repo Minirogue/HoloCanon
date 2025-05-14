@@ -1,33 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.3.2" type="baseline" client="gradle" dependencies="false"
-    name="AGP (8.3.2)" variant="all" version="8.3.2">
-
-    <issue id="UnusedAttribute"
-        message="Attribute `offset` is only used in API level 24 and higher (current min is 21)"
-        errorLine1="              android:offset=&quot;0&quot;"
-        errorLine2="              ~~~~~~~~~~~~~~~~~~">
-        <location file="src/main/res/drawable/home_screen_app_icon.xml" line="18" column="15" />
-    </issue>
-
-    <issue id="UnusedAttribute"
-        message="Attribute `offset` is only used in API level 24 and higher (current min is 21)"
-        errorLine1="              android:offset=&quot;1&quot;"
-        errorLine2="              ~~~~~~~~~~~~~~~~~~">
-        <location file="src/main/res/drawable/home_screen_app_icon.xml" line="21" column="15" />
-    </issue>
-
-    <issue id="UnusedAttribute"
-        message="Attribute `offset` is only used in API level 24 and higher (current min is 21)"
-        errorLine1="              android:offset=&quot;0&quot;"
-        errorLine2="              ~~~~~~~~~~~~~~~~~~">
-        <location file="src/main/res/drawable/home_screen_app_icon.xml" line="41" column="15" />
-    </issue>
-
-    <issue id="UnusedAttribute"
-        message="Attribute `offset` is only used in API level 24 and higher (current min is 21)"
-        errorLine1="              android:offset=&quot;1&quot;"
-        errorLine2="              ~~~~~~~~~~~~~~~~~~">
-        <location file="src/main/res/drawable/home_screen_app_icon.xml" line="44" column="15" />
-    </issue>
+<issues format="6" by="lint 8.10.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.10.0)" variant="all" version="8.10.0">
 
 </issues>
