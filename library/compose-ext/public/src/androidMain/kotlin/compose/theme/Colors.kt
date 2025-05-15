@@ -13,12 +13,31 @@ private val PURE_RED = Color(255, 0, 0)
 private val CORUSCANT_BLUE = Color(57, 74, 89)
 private val VALOR_GREEN = Color(85, 101, 103)
 
-internal val DarkColors = darkColorScheme(
+private val LIGHT_PURPLE = Color(200, 20, 240)
+private val DARK_PURPLE = Color(100, 0, 100)
+private val ELECTRUM = Color(180, 180, 180)
+
+private val FORCE_BLUE = Color(0, 0, 200)
+private val FORCE_GREEN = Color(0, 200, 0)
+
+internal val ForceDarkColors = darkColorScheme(
     primary = PURE_RED,
     onPrimary = DARK_SIDE_RED,
     secondary = IMPERIAL_RED,
-    outline = PURE_RED,
-    background = PURE_DARK_SIDE,
-    surfaceVariant = DARK_SIDE_GRAY,
 )
-internal val LightColors = lightColorScheme()
+internal val ForceLightColors = lightColorScheme(
+    primary = FORCE_BLUE,
+    onPrimary = FORCE_GREEN,
+    secondary = LIGHT_PURPLE,
+)
+
+internal val MaceDarkColors = darkColorScheme(
+    primary = LIGHT_PURPLE,
+    onPrimary = DARK_PURPLE,
+    secondary = ELECTRUM,
+)
+internal val MaceLightColors = lightColorScheme(
+    primary = DARK_PURPLE,
+    onPrimary = LIGHT_PURPLE,
+    secondary = DURASTEEL_GRAY,
+)

@@ -26,8 +26,12 @@ import settings.usecase.ShouldSyncViaWifiOnly
 import settings.usecase.ShouldSyncViaWifiOnlyImpl
 import settings.usecase.UpdateCheckboxName
 import settings.usecase.UpdateCheckboxNameImpl
+import settings.usecase.UpdateDarkModeSetting
+import settings.usecase.UpdateDarkModeSettingImpl
 import settings.usecase.UpdatePermanentFilterSettings
 import settings.usecase.UpdatePermanentFilterSettingsImpl
+import settings.usecase.UpdateTheme
+import settings.usecase.UpdateThemeImpl
 import settings.usecase.UpdateWifiSetting
 import settings.usecase.UpdateWifiSettingImpl
 import javax.inject.Qualifier
@@ -85,6 +89,12 @@ internal interface SettingsLibraryModule {
 
     @Binds
     fun bindSetDatabaseVersion(impl: SetLatestDatabaseVersionImpl): SetLatestDatabaseVersion
+
+    @Binds
+    fun bindUpdateTheme(impl: UpdateThemeImpl): UpdateTheme
+
+    @Binds
+    fun bindUpdateDarkModeSetting(impl: UpdateDarkModeSettingImpl): UpdateDarkModeSetting
 
     companion object {
         @Singleton

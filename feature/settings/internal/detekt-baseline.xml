@@ -4,5 +4,6 @@
   <CurrentIssues>
     <ID>LongMethod:SettingsScreen.kt$@Composable private fun ExportMediaNotes( exportMediaNotes: (OutputStream) -&gt; Unit, importMediaNotes: (InputStream) -&gt; Unit, )</ID>
     <ID>MagicNumber:SettingsScreen.kt$3</ID>
+    <ID>TooManyFunctions:SettingsViewModel.kt$SettingsViewModel : ViewModel</ID>
   </CurrentIssues>
 </SmellBaseline>

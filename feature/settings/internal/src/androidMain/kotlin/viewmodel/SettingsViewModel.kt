@@ -9,15 +9,19 @@ import com.minirogue.media.notes.ImportMediaNotesJson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import settings.model.CheckboxSettings
+import settings.model.DarkModeSetting
+import settings.model.Theme
 import settings.usecase.FlipIsCheckboxActive
-import settings.usecase.GetCheckboxSettings
-import settings.usecase.GetPermanentFilterSettings
-import settings.usecase.ShouldSyncViaWifiOnly
+import settings.usecase.GetAllSettings
 import settings.usecase.UpdateCheckboxName
+import settings.usecase.UpdateDarkModeSetting
 import settings.usecase.UpdatePermanentFilterSettings
+import settings.usecase.UpdateTheme
 import settings.usecase.UpdateWifiSetting
 import java.io.InputStream
 import java.io.OutputStream
@@ -28,18 +32,20 @@ internal data class SettingsState(
     val nameChangeDialogShowing: Int? = null,
     val permanentFilters: Map<MediaType, Boolean>? = null,
     val wifiOnly: Boolean? = null,
+    val theme: Theme? = null,
+    val darkModeSetting: DarkModeSetting? = null,
 )
 
 @HiltViewModel
 internal class SettingsViewModel @Inject constructor(
-    private val getCheckboxSettings: GetCheckboxSettings,
+    getAllSettings: GetAllSettings,
     private val updateCheckboxName: UpdateCheckboxName,
     private val updateCheckboxActive: FlipIsCheckboxActive,
-    private val getPermanentFilterSettings: GetPermanentFilterSettings,
     private val updatePermanentFilterSettings: UpdatePermanentFilterSettings,
     private val maybeUpdateMediaDatabase: MaybeUpdateMediaDatabase,
     private val updateWifiSetting: UpdateWifiSetting,
-    private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly,
+    private val updateTheme: UpdateTheme,
+    private val updateDarkModeSetting: UpdateDarkModeSetting,
     private val exportMediaNotesJson: ExportMediaNotesJson,
     private val importMediaNotesJson: ImportMediaNotesJson,
 ) : ViewModel() {
@@ -47,27 +53,27 @@ internal class SettingsViewModel @Inject constructor(
     val state: StateFlow<SettingsState> = _state
 
     init {
-        viewModelScope.launch {
-            getCheckboxSettings().collect { newCheckboxSettings ->
+        getAllSettings()
+            .onEach { settings ->
                 _state.update {
                     it.copy(
-                        checkboxSettings = newCheckboxSettings,
+                        checkboxSettings = settings.checkboxSettings,
+                        permanentFilters = settings.permanentFilterSettings,
+                        wifiOnly = settings.syncWifiOnly,
+                        theme = settings.theme,
+                        darkModeSetting = settings.darkModeSetting,
                     )
                 }
             }
-        }
-        viewModelScope.launch {
-            getPermanentFilterSettings().collect { newPermFilters ->
-                _state.update {
-                    it.copy(
-                        permanentFilters = newPermFilters,
-                    )
-                }
-            }
-        }
-        viewModelScope.launch {
-            shouldSyncViaWifiOnly().collect { wifiOnly -> _state.update { it.copy(wifiOnly = wifiOnly) } }
-        }
+            .launchIn(viewModelScope)
+    }
+
+    fun updateTheme(newTheme: Theme) = viewModelScope.launch {
+        updateTheme.invoke(newTheme)
+    }
+
+    fun updateDarkModeSetting(newDarkModeSetting: DarkModeSetting) = viewModelScope.launch {
+        updateDarkModeSetting.invoke(newDarkModeSetting)
     }
 
     fun flipIsCheckboxActive(whichBox: Int) = viewModelScope.launch {

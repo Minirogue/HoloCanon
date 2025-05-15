@@ -9,6 +9,8 @@ minirogue {
 }
 
 kotlin.sourceSets.commonMain.dependencies {
+    api projects.library.settings.public
+
     implementation libs.coil.compose
     implementation projects.library.commonResources.public
 }

@@ -16,6 +16,8 @@ import settings.di.Settings
 import settings.model.AllSettings
 import settings.model.CheckboxSetting
 import settings.model.CheckboxSettings
+import settings.model.DarkModeSetting
+import settings.model.Theme
 import java.io.IOException
 import javax.inject.Inject
 
@@ -27,6 +29,9 @@ private const val CHECKBOX_1_DEFAULT_TEXT_KEY = "Completed"
 private const val CHECKBOX_2_DEFAULT_TEXT_KEY = "Wishlist"
 private const val CHECKBOX_3_DEFAULT_TEXT_KEY = "Owned"
 private const val DATABASE_VERSION_KEY = "current database version"
+private const val DARK_MODE_SETTING_KEY = "dark mode setting"
+private const val THEME_SETTING_KEY = "theme setting"
+
 private const val TAG = "SettingsRepo"
 
 internal class SettingsRepo @Inject constructor(
@@ -44,6 +49,8 @@ internal class SettingsRepo @Inject constructor(
     private val checkbox3DefaultTextPreferenceKey =
         stringPreferencesKey(CHECKBOX_3_DEFAULT_TEXT_KEY)
     private val databaseVersionPreferenceKey = longPreferencesKey(DATABASE_VERSION_KEY)
+    private val darkModeSettingPreferenceKey = stringPreferencesKey(DARK_MODE_SETTING_KEY)
+    private val themeSettingPreferenceKey = stringPreferencesKey(THEME_SETTING_KEY)
 
     fun getSettings(): Flow<AllSettings> = dataStore.data.map { prefs ->
         AllSettings(
@@ -69,6 +76,12 @@ internal class SettingsRepo @Inject constructor(
                 prefs[booleanPreferencesKey(it.getSerialName())] ?: true
             },
             latestDatabaseVersion = prefs[databaseVersionPreferenceKey] ?: 0L,
+            darkModeSetting = prefs[darkModeSettingPreferenceKey]?.let { prefValue ->
+                DarkModeSetting.entries.find { it.name == prefValue }
+            } ?: DarkModeSetting.SYSTEM,
+            theme = prefs[themeSettingPreferenceKey]?.let { prefValue ->
+                Theme.entries.find { it.name == prefValue }
+            } ?: Theme.Force,
         )
     }
 
@@ -143,6 +156,26 @@ internal class SettingsRepo @Inject constructor(
             }
         } catch (e: IOException) {
             Log.e(TAG, "error in updateWifiSetting", e)
+        }
+    }
+
+    suspend fun updateDarkModeSetting(newValue: DarkModeSetting) {
+        try {
+            dataStore.edit { prefs ->
+                prefs[darkModeSettingPreferenceKey] = newValue.name
+            }
+        } catch (e: IOException) {
+            Log.e(TAG, "error in updateDarkModeSetting", e)
+        }
+    }
+
+    suspend fun updateTheme(newValue: Theme) {
+        try {
+            dataStore.edit { prefs ->
+                prefs[themeSettingPreferenceKey] = newValue.name
+            }
+        } catch (e: IOException) {
+            Log.e(TAG, "error in updateTheme", e)
         }
     }
 

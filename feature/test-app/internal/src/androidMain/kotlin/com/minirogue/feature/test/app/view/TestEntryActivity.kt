@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import com.minirogue.feature.test.app.model.TestScreen
 import compose.theme.HolocanonTheme
 import dagger.hilt.android.AndroidEntryPoint
+import settings.model.DarkModeSetting
+import settings.model.Theme
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -24,7 +26,7 @@ internal class TestEntryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            HolocanonTheme {
+            HolocanonTheme(DarkModeSetting.SYSTEM, Theme.Force) {
                 Scaffold { padding ->
                     Column(
                         modifier = Modifier
