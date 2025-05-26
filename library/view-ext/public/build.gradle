@@ -3,9 +3,7 @@ plugins {
 }
 
 minirogue {
-    android {
-        viewBinding()
-    }
+    android()
 }
 
 kotlin.sourceSets.androidMain.dependencies {
