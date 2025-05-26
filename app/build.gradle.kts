@@ -36,9 +36,6 @@ android {
 }
 
 dependencies {
-//    implementation(fileTree(dir= "libs", include=['*.jar'])
-
-    // Project Modules
     implementation(libs.android.material)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
