@@ -80,32 +80,42 @@ internal fun FilterTypeSubMenu(
         }
         AnimatedVisibility(isExpanded.value) {
             HorizontalDivider()
-            FlowRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight(),
-            ) {
-                filters.forEach { filter ->
-                    FilterChip(
-                        modifier = Modifier.padding(4.dp),
-                        onClick = { onFilterClicked(filter) },
-                        label = { Text(filter.name) },
-                        selected = filter.isActive,
-                        leadingIcon = {
-                            if (filter.isActive) {
-                                Icon(
-                                    if (filter.isPositive) Icons.Default.CheckCircle else Icons.Default.Close,
-                                    contentDescription = if (filter.isPositive) {
-                                        stringResource(R.string.filter_ui_include)
-                                    } else {
-                                        stringResource(R.string.filter_ui_exclude)
-                                    },
-                                )
-                            }
+            GroupFilters(
+                modifier = Modifier.fillMaxWidth(),
+                filters = filters,
+                onFilterClicked = onFilterClicked,
+            )
+        }
+    }
+}
+
+@Composable
+fun GroupFilters(
+    modifier: Modifier = Modifier,
+    filters: List<MediaFilter>,
+    onFilterClicked: (MediaFilter) -> Unit,
+) = FlowRow(
+    modifier = modifier
+        .wrapContentHeight(),
+) {
+    filters.forEach { filter ->
+        FilterChip(
+            modifier = Modifier.padding(4.dp),
+            onClick = { onFilterClicked(filter) },
+            label = { Text(filter.name) },
+            selected = filter.isActive,
+            leadingIcon = {
+                if (filter.isActive) {
+                    Icon(
+                        if (filter.isPositive) Icons.Default.CheckCircle else Icons.Default.Close,
+                        contentDescription = if (filter.isPositive) {
+                            stringResource(R.string.filter_ui_include)
+                        } else {
+                            stringResource(R.string.filter_ui_exclude)
                         },
                     )
                 }
-            }
-        }
+            },
+        )
     }
 }
