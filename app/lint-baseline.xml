@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="6" by="lint 8.3.2" type="baseline" client="gradle" dependencies="false" name="AGP (8.3.2)" variant="all" version="8.3.2">
+<issues format="6" by="lint 8.10.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.10.0)" variant="all" version="8.10.0">
 
     <issue
         id="DataExtractionRules"
@@ -8,7 +8,7 @@
         errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="17"
+            line="16"
             column="40"/>
     </issue>
 
@@ -25,42 +25,20 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_shopping` appears to be unused"
-        errorLine1="&lt;vector android:height=&quot;24dp&quot; android:tint=&quot;#FFEFF5&quot;"
-        errorLine2="^">
-        <location
-            file="src/main/res/drawable/ic_shopping.xml"
-            line="1"
-            column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.media_title` appears to be unused"
-        errorLine1="    &lt;string name=&quot;media_title&quot;>Title&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="9"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.media_list_media_type` appears to be unused"
-        errorLine1="    &lt;string name=&quot;media_list_media_type&quot;>type&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="10"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
         message="The resource `R.string.launcher_icon_description` appears to be unused"
         errorLine1="    &lt;string name=&quot;launcher_icon_description&quot;>HoloCanon Icon&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/values/strings.xml"
+            line="7"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.string.nav_about` appears to be unused"
+        errorLine1="    &lt;string name=&quot;nav_about&quot;>About&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
             line="12"
@@ -69,67 +47,12 @@
 
     <issue
         id="UnusedResources"
-        message="The resource `R.string.cover_image_description` appears to be unused"
-        errorLine1="    &lt;string name=&quot;cover_image_description&quot;>cover&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="14"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.release_date` appears to be unused"
-        errorLine1="    &lt;string name=&quot;release_date&quot;>release date&lt;/string>"
+        message="The resource `R.string.nav_settings` appears to be unused"
+        errorLine1="    &lt;string name=&quot;nav_settings&quot;>Settings&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="15"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.series_title` appears to be unused"
-        errorLine1="    &lt;string name=&quot;series_title&quot;>series title&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="17"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.series_image_description` appears to be unused"
-        errorLine1="    &lt;string name=&quot;series_image_description&quot;>series image&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="18"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.view_series` appears to be unused"
-        errorLine1="    &lt;string name=&quot;view_series&quot;>View Series&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="19"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.media_list_cover_art` appears to be unused"
-        errorLine1="    &lt;string name=&quot;media_list_cover_art&quot;>Cover art&lt;/string>"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/strings.xml"
-            line="76"
+            line="13"
             column="13"/>
     </issue>
 
@@ -140,7 +63,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="77"
+            line="23"
             column="13"/>
     </issue>
 
@@ -151,7 +74,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="78"
+            line="24"
             column="13"/>
     </issue>
 
@@ -184,7 +107,7 @@
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle"
-            line="72"
+            line="57"
             column="20"/>
     </issue>
 
