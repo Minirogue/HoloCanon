@@ -26,7 +26,7 @@ internal data class FilterSelectionState(
 
 @HiltViewModel
 internal class FilterSelectionViewModel @Inject constructor(
-    private val getActiveFilters: GetActiveFilters,
+    getActiveFilters: GetActiveFilters,
     private val updateFilter: UpdateFilter,
     getAllFilterGroups: GetAllFilterGroups,
     getCheckboxSettings: GetCheckboxSettings,
