@@ -36,11 +36,13 @@ android {
 }
 
 dependencies {
-    implementation(libs.android.material)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintLayout)
     implementation(libs.androidx.fragment)
+    implementation(libs.androidx.lifecycle.common)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.android.material)
     implementation(libs.androidx.preference)
     implementation(libs.compose.navigation)
     implementation(libs.coil)
@@ -48,8 +50,6 @@ dependencies {
     implementation(libs.fastScroll)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.androidx.lifecycle.viewmodel)
-    implementation(libs.androidx.lifecycle.common)
     implementation(libs.room.ktx)
     implementation(projects.core)
     implementation(projects.feature.homeScreen.internal)
@@ -59,7 +59,9 @@ dependencies {
     implementation(projects.feature.settings.internal)
     implementation(projects.feature.selectFilters.internal)
     implementation(projects.library.commonResources.public)
+    implementation(projects.library.composeExt.public)
     implementation(projects.library.coroutineExt.internal)
+    implementation(projects.library.coroutineExt.public)
     implementation(projects.library.filters.internal)
     implementation(projects.library.globalNotification.internal)
     implementation(projects.library.holoclient.internal)
@@ -69,6 +71,5 @@ dependencies {
     implementation(projects.library.serializationExt.internal)
     implementation(projects.library.series.internal)
     implementation(projects.library.settings.internal)
-    implementation(projects.library.coroutineExt.public)
-    implementation(projects.library.composeExt.public)
+    implementation(projects.library.sorting.internal)
 }

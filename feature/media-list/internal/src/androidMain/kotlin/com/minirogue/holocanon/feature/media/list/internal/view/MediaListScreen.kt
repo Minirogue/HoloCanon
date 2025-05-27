@@ -34,12 +34,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.navigation.NavController
+import com.holocanon.core.model.MediaAndNotes
+import com.holocanon.feature.loading.LoadingScreen
 import com.holocanon.feature.media.list.internal.R
 import com.holocanon.library.navigation.AppBarConfig
+import com.holocanon.library.sorting.model.SortStyle
 import com.minirogue.holocanon.feature.media.item.usecase.MediaItemNav
 import com.minirogue.holocanon.feature.media.list.internal.viewmodel.MediaListViewModel
-import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
-import com.minirogue.starwarscanontracker.core.model.SortStyle
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -56,49 +57,48 @@ internal fun MediaListScreen(
     mediaListViewModel: MediaListViewModel = LocalView.current.findViewTreeViewModelStoreOwner()
         ?.let { hiltViewModel(it) } ?: hiltViewModel(), // Scope to Activity
 ) = Column(modifier = modifier.padding(horizontal = 8.dp)) {
-    val state by mediaListViewModel.state.collectAsStateWithLifecycle()
+    val state by mediaListViewModel.state.collectAsStateWithLifecycle(null)
     val mediaList by mediaListViewModel.mediaList.collectAsStateWithLifecycle(emptyList())
 
     LaunchedEffect(true) {
         val config = AppBarConfig(
-            actions = listOf({ AppBarAction(mediaListViewModel::setSort) }),
+            actions = listOf { AppBarAction(mediaListViewModel::setSort) },
         )
         setAppBar(config)
     }
 
-    SearchBar(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        searchTerm = state.searchTerm,
-        onSearchTermChanged = mediaListViewModel::updateSearch,
-    )
-    FilterGroup(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(40.dp)
-            .padding(vertical = 4.dp),
-        activeFilters = state.activeFilters,
-        sortStyle = state.sortStyle,
-        onDismissFilter = mediaListViewModel::deactivateFilter,
-        onTapSortStyle = mediaListViewModel::reverseSort,
-    )
-    MediaList(
-        modifier = Modifier
-            .fillMaxWidth()
-            .weight(1f)
-            .padding(vertical = 4.dp),
-        mediaList = mediaList,
-        checkboxSettings = state.checkboxSettings,
-        isNetworkAllowed = state.isNetworkAllowed,
-        initialScrollIndex = state.scrollPosition,
-        initialScrollOffset = state.scrollOffset,
-        onScroll = mediaListViewModel::onScroll,
-        onBox1Clicked = mediaListViewModel::onCheckBox1Clicked,
-        onBox2Clicked = mediaListViewModel::onCheckBox2Clicked,
-        onBox3Clicked = mediaListViewModel::onCheckBox3Clicked,
-        onItemClicked = { navController.navigate(MediaItemNav(it)) },
-    )
+    state?.also { nonNullState ->
+        SearchBar(
+            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+            searchTerm = nonNullState.searchTerm,
+            onSearchTermChanged = mediaListViewModel::updateSearch,
+        )
+        FilterGroup(
+            modifier = Modifier.fillMaxWidth()
+                .height(40.dp)
+                .padding(vertical = 4.dp),
+            activeFilters = nonNullState.activeFilters,
+            sortStyle = nonNullState.sortStyle,
+            onDismissFilter = mediaListViewModel::deactivateFilter,
+            onTapSortStyle = mediaListViewModel::reverseSort,
+        )
+        MediaList(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+                .padding(vertical = 4.dp),
+            mediaList = mediaList,
+            checkboxSettings = nonNullState.checkboxSettings,
+            isNetworkAllowed = nonNullState.isNetworkAllowed,
+            initialScrollIndex = nonNullState.scrollPosition,
+            initialScrollOffset = nonNullState.scrollOffset,
+            onScroll = mediaListViewModel::onScroll,
+            onBox1Clicked = mediaListViewModel::onCheckBox1Clicked,
+            onBox2Clicked = mediaListViewModel::onCheckBox2Clicked,
+            onBox3Clicked = mediaListViewModel::onCheckBox3Clicked,
+            onItemClicked = { navController.navigate(MediaItemNav(it)) },
+        )
+    } ?: LoadingScreen()
 }
 
 @Composable

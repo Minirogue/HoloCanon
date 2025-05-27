@@ -1,0 +1,12 @@
+plugins {
+    id 'minirogue.multiplatform.library'
+}
+
+minirogue {
+    jvm()
+}
+
+kotlin.sourceSets.commonMain.dependencies {
+    api libs.kotlinx.coroutines.core
+    api projects.core
+}

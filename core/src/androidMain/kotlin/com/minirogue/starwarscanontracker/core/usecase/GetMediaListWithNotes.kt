@@ -1,6 +1,6 @@
 package com.minirogue.starwarscanontracker.core.usecase
 
-import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
+import com.holocanon.core.model.MediaAndNotes
 import kotlinx.coroutines.flow.Flow
 
 interface GetMediaListWithNotes {

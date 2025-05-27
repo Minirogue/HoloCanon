@@ -18,9 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.holocanon.core.model.MediaAndNotes
 import com.holocanon.feature.media.list.internal.R
 import com.minirogue.media.notes.model.MediaNotes
-import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
 import compose.theme.HoloImage
 import settings.model.CheckboxSettings
 
