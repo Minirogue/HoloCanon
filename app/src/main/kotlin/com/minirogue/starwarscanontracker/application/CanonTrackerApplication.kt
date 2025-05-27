@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltAndroidApp
-class CanonTrackerApplication : Application(), ImageLoaderFactory {
+class CanonTrackerApplication : Application() {
     @Inject
     lateinit var applicationScope: ApplicationScope
 
