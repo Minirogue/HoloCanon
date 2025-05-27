@@ -3,9 +3,7 @@ package com.minirogue.holocanon.feature.home.screen
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
@@ -38,12 +36,14 @@ fun HomeScreen() {
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .background(MaterialTheme.colorScheme.surface)
-            .padding(horizontal = 24.dp),
+            .padding(horizontal = 16.dp, vertical = 8.dp),
     ) {
         Image(
             painter = painterResource(id = R.drawable.home_screen_app_icon),
             contentDescription = stringResource(R.string.home_screen_app_icon_description),
-            modifier = Modifier.align(Alignment.CenterHorizontally),
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(vertical = 8.dp),
         )
         val welcomeString = getWelcomeString()
         val uriHandler = LocalUriHandler.current
@@ -58,13 +58,13 @@ fun HomeScreen() {
                     }
             },
         )
-        Spacer(modifier = Modifier.heightIn(min = 12.dp, max = 48.dp))
         Text(
             text = stringResource(R.string.home_screen_copyright_notice),
             style = TextStyle.Default.copy(
                 color = MaterialTheme.colorScheme.onSurface,
                 fontSize = 10.sp,
             ),
+            modifier = Modifier.padding(vertical = 16.dp),
         )
     }
 }
