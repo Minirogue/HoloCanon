@@ -45,26 +45,17 @@ import com.holocanon.library.navigation.AppBarConfig
 import com.holocanon.library.navigation.NavContributor
 import com.minirogue.holocanon.feature.home.screen.HomeNav
 import com.minirogue.holocanon.feature.media.list.usecase.MediaListNav
-import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import com.minirogue.starwarscanontracker.R
-import com.minirogue.starwarscanontracker.core.usecase.UpdateFilters
 import compose.theme.HolocanonTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 import settings.model.DarkModeSetting
 import settings.model.Theme
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    @Inject
-    lateinit var maybeUpdateMediaDatabase: MaybeUpdateMediaDatabase
-
-    @Inject
-    lateinit var updateFilters: UpdateFilters
 
     @Inject
     lateinit var navContributors: Set<@JvmSuppressWildcards NavContributor>
@@ -82,16 +73,6 @@ class MainActivity : AppCompatActivity() {
             fun fromNavDestination(navDestination: NavDestination): TabInfo? {
                 return entries.find { navDestination.hasRoute(it.navDestination::class) }
             }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        lifecycleScope.launch { // TODO this should be done elsewhere
-            // Update filters based on current information
-            updateFilters()
-            // Update media database if needed.
-            maybeUpdateMediaDatabase()
         }
     }
 

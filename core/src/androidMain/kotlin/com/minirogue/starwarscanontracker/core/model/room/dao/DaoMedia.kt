@@ -35,7 +35,7 @@ abstract class DaoMedia {
     abstract fun getMediaNotesById(mediaId: Long): Flow<MediaNotesDto>
 
     @Query("SELECT * FROM media_items WHERE id = :mediaID LIMIT 1")
-    abstract fun getMediaItemById(mediaID: Int): Flow<MediaItemDto>
+    abstract fun getMediaItemById(mediaID: Long): Flow<MediaItemDto>
 
     // The following are for MediaNotes interactions
     @Insert(onConflict = OnConflictStrategy.IGNORE)
