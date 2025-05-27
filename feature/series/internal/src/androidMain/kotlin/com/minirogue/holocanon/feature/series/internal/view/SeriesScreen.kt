@@ -20,9 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.holocanon.core.model.MediaAndNotes
 import com.minirogue.holocanon.feature.media.item.usecase.MediaItemNav
 import com.minirogue.media.notes.model.MediaNotes
-import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
 import settings.model.CheckboxSettings
 
 @Composable

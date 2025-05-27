@@ -16,11 +16,13 @@ kotlin.sourceSets.androidMain.dependencies {
     implementation libs.coil.compose
     implementation libs.hilt.compose
     implementation projects.core
+    implementation projects.feature.loading.public
     implementation projects.feature.mediaItem.public
     implementation projects.library.commonResources.public
     implementation projects.library.mediaNotes.public
     implementation projects.library.navigation.public
     implementation projects.library.settings.public
+    implementation projects.library.sorting.public
     implementation projects.library.composeExt.public
     implementation projects.library.filterUi.public
 }

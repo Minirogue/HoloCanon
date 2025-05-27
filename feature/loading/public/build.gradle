@@ -1,0 +1,13 @@
+plugins {
+    id "minirogue.multiplatform.library"
+}
+
+minirogue {
+    android {
+        kotlinCompose()
+    }
+}
+
+kotlin.sourceSets.androidMain.dependencies {
+    implementation(projects.library.commonResources.public)
+}

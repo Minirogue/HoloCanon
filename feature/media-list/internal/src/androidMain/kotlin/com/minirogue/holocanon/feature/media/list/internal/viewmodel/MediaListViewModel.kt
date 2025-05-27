@@ -1,13 +1,15 @@
 package com.minirogue.holocanon.feature.media.list.internal.viewmodel
 
-import android.app.Application
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.holocanon.core.model.MediaAndNotes
+import com.holocanon.library.sorting.model.SortStyle
+import com.holocanon.library.sorting.usecase.GetSortStyle
+import com.holocanon.library.sorting.usecase.ReverseSort
+import com.holocanon.library.sorting.usecase.SaveSortStyle
 import com.minirogue.media.notes.model.CheckBoxNumber
 import com.minirogue.media.notes.usecase.UpdateCheckValue
-import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
-import com.minirogue.starwarscanontracker.core.model.SortStyle
 import com.minirogue.starwarscanontracker.core.usecase.GetMediaListWithNotes
 import com.minirogue.starwarscanontracker.core.usecase.IsNetworkAllowed
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,14 +19,12 @@ import filters.model.MediaFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import settings.model.CheckboxSettings
 import settings.usecase.GetCheckboxSettings
-import java.io.File
 import javax.inject.Inject
 
 @Immutable // TODO benchmark with/without this
@@ -46,56 +46,51 @@ internal class MediaListViewModel @Inject constructor(
     getMediaListWithNotes: GetMediaListWithNotes,
     isNetworkAllowed: IsNetworkAllowed,
     getCheckboxSettings: GetCheckboxSettings,
-    application: Application,
+    getSortStyle: GetSortStyle,
+    private val saveSortStyle: SaveSortStyle,
+    private val reverseSort: ReverseSort,
 ) : ViewModel() {
-    private val _state: MutableStateFlow<MediaListState> = MutableStateFlow(MediaListState())
-    val state: StateFlow<MediaListState> = _state
+    private data class BackingState(
+        val scrollPosition: Int = 0,
+        val scrollOffset: Int = 0,
+        val searchTerm: String? = null,
+    )
+
+    private val backingState: MutableStateFlow<BackingState> = MutableStateFlow(BackingState())
+
+    val state: Flow<MediaListState> = combine(
+        backingState,
+        getActiveFilters(),
+        getCheckboxSettings(),
+        isNetworkAllowed(),
+        getSortStyle.getSortStyle(),
+    ) { backing, activeFilters, checkboxSettings, isNetworkAllowed, sortStyle ->
+        MediaListState(
+            activeFilters = activeFilters,
+            sortStyle = sortStyle,
+            scrollPosition = backing.scrollPosition,
+            scrollOffset = backing.scrollOffset,
+            searchTerm = backing.searchTerm,
+            checkboxSettings = checkboxSettings,
+            isNetworkAllowed = isNetworkAllowed,
+        )
+    }
 
     // TODO benchmark and compare with possible @Immutable usage
     val mediaList: Flow<List<MediaAndNotes>> = getMediaListWithNotes()
-        .combine(_state) { list, state -> performSort(list, state.sortStyle, state.searchTerm) }
-
-    // The file where the current sorting method is stored
-    private val sortCacheFileName = application.cacheDir.toString() + "/sortCache"
-
-    // TODO cool off these hot state updates so the work respects lifecycle
-    init {
-        // filtering
-        viewModelScope.launch {
-            getActiveFilters().collect { activeFilters -> _state.update { it.copy(activeFilters = activeFilters) } }
-        }
-        viewModelScope.launch {
-            getCheckboxSettings().collect { checkboxSettings ->
-                _state.update {
-                    it.copy(
-                        checkboxSettings = checkboxSettings,
-                    )
-                }
-            }
-        }
-        viewModelScope.launch {
-            isNetworkAllowed().collect { networkAllowed ->
-                _state.update { it.copy(isNetworkAllowed = networkAllowed) }
-            }
-        }
-        viewModelScope.launch {
-            val savedSort = getSavedSort()
-            _state.update { it.copy(sortStyle = savedSort) }
-        }
-    }
+        .combine(state) { list, state -> performSort(list, state.sortStyle, state.searchTerm) }
 
     fun updateSearch(searchTerm: String) {
-        _state.update { it.copy(searchTerm = searchTerm) }
+        backingState.update { it.copy(searchTerm = searchTerm) }
     }
 
     fun setSort(newCompareType: Int) = viewModelScope.launch {
         val sortStyle = SortStyle(newCompareType, true)
-        _state.update { it.copy(sortStyle = sortStyle) }
-        saveSort(sortStyle)
+        saveSortStyle.saveSortStyle(sortStyle)
     }
 
     fun onScroll(index: Int, offset: Int) {
-        _state.update { it.copy(scrollPosition = index, scrollOffset = offset) }
+        backingState.update { it.copy(scrollPosition = index, scrollOffset = offset) }
     }
 
     private suspend fun performSort(
@@ -114,23 +109,8 @@ internal class MediaListViewModel @Inject constructor(
         }.sort(sortStyle)
     }
 
-    private suspend fun saveSort(sortStyle: SortStyle) = withContext(Dispatchers.IO) {
-        val cacheFile = File(sortCacheFileName)
-        cacheFile.writeText(sortStyle.style.toString() + " " + if (sortStyle.ascending) "1" else "0")
-    }
-
-    private suspend fun getSavedSort(): SortStyle = withContext(Dispatchers.IO) {
-        val cacheFile = File(sortCacheFileName)
-        if (!cacheFile.exists()) {
-            SortStyle.DEFAULT_STYLE
-        } else {
-            val split = cacheFile.readText().split(" ")
-            SortStyle(split[0].toInt(), split[1].toInt() == 1)
-        }
-    }
-
-    fun reverseSort() {
-        _state.update { it.copy(sortStyle = it.sortStyle.reversed()) }
+    fun reverseSort() = viewModelScope.launch {
+        reverseSort.reverse()
     }
 
     private suspend fun List<MediaAndNotes>.sort(sortStyle: SortStyle?): List<MediaAndNotes> =

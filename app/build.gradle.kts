@@ -54,7 +54,9 @@ dependencies {
     implementation(projects.feature.settings.internal)
     implementation(projects.feature.selectFilters.internal)
     implementation(projects.library.commonResources.public)
+    implementation(projects.library.composeExt.public)
     implementation(projects.library.coroutineExt.internal)
+    implementation(projects.library.coroutineExt.public)
     implementation(projects.library.filters.internal)
     implementation(projects.library.globalNotification.internal)
     implementation(projects.library.holoclient.internal)
@@ -64,6 +66,5 @@ dependencies {
     implementation(projects.library.serializationExt.internal)
     implementation(projects.library.series.internal)
     implementation(projects.library.settings.internal)
-    implementation(projects.library.coroutineExt.public)
-    implementation(projects.library.composeExt.public)
+    implementation(projects.library.sorting.internal)
 }

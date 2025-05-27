@@ -1,6 +1,6 @@
 package com.minirogue.starwarscanontracker.core.usecase
 
-import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
+import com.holocanon.core.model.MediaAndNotes
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
