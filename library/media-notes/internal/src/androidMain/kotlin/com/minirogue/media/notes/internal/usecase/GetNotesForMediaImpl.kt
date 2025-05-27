@@ -13,7 +13,7 @@ class GetNotesForMediaImpl @Inject constructor(private val daoMedia: DaoMedia) :
      *
      * @param itemId the id associated to the MediaItem for which the MediaNotes are desired
      */
-    override fun invoke(mediaId: Int): Flow<MediaNotes> {
-        return daoMedia.getMediaNotesById(mediaId.toLong()).map { it.toMediaNotes() }
+    override fun invoke(mediaId: Long): Flow<MediaNotes> {
+        return daoMedia.getMediaNotesById(mediaId).map { it.toMediaNotes() }
     }
 }

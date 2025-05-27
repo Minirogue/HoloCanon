@@ -4,5 +4,5 @@ import com.minirogue.common.model.StarWarsMedia
 import kotlinx.coroutines.flow.Flow
 
 interface GetMedia {
-    operator fun invoke(mediaId: Int): Flow<StarWarsMedia>
+    operator fun invoke(mediaId: Long): Flow<StarWarsMedia>
 }

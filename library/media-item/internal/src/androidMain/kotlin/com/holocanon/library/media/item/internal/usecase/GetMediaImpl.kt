@@ -12,7 +12,7 @@ internal class GetMediaImpl @Inject constructor(
     private val daoMedia: DaoMedia,
     private val adaptMediaItemDtoToStarWarsMedia: AdaptMediaItemDtoToStarWarsMedia,
 ) : GetMedia {
-    override fun invoke(mediaId: Int): Flow<StarWarsMedia> {
+    override fun invoke(mediaId: Long): Flow<StarWarsMedia> {
         return daoMedia.getMediaItemById(mediaId).map {
             adaptMediaItemDtoToStarWarsMedia(it)
         }

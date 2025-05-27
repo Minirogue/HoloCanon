@@ -4,5 +4,5 @@ import com.minirogue.media.notes.model.MediaNotes
 import kotlinx.coroutines.flow.Flow
 
 interface GetNotesForMedia {
-    operator fun invoke(mediaId: Int): Flow<MediaNotes>
+    operator fun invoke(mediaId: Long): Flow<MediaNotes>
 }
