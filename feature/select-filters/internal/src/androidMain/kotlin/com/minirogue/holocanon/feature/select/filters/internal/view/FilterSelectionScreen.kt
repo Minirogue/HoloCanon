@@ -3,6 +3,8 @@ package com.minirogue.holocanon.feature.select.filters.internal.view
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,7 +19,7 @@ internal fun FilterSelectionScreen(
     viewModel: FilterSelectionViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    Column(modifier = modifier.fillMaxSize()) {
+    Column(modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
         ActiveFilters(
             state = state,
             deactivateFilter = viewModel::deactivateFilter,

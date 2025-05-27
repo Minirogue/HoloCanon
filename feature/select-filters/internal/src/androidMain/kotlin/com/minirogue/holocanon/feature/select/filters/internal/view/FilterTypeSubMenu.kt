@@ -90,7 +90,7 @@ internal fun FilterTypeSubMenu(
 }
 
 @Composable
-fun GroupFilters(
+private fun GroupFilters(
     modifier: Modifier = Modifier,
     filters: List<MediaFilter>,
     onFilterClicked: (MediaFilter) -> Unit,
@@ -100,7 +100,7 @@ fun GroupFilters(
 ) {
     filters.forEach { filter ->
         FilterChip(
-            modifier = Modifier.padding(4.dp),
+            modifier = Modifier.padding(horizontal = 2.dp),
             onClick = { onFilterClicked(filter) },
             label = { Text(filter.name) },
             selected = filter.isActive,
