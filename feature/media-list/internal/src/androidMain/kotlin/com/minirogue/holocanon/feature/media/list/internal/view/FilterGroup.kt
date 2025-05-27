@@ -17,7 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.holocanon.feature.media.list.internal.R
-import com.minirogue.starwarscanontracker.core.model.SortStyle
+import com.holocanon.library.sorting.model.SortStyle
 import filters.model.MediaFilter
 
 @Composable

@@ -2,8 +2,8 @@ package com.minirogue.starwarscanontracker.usecase
 
 import android.util.SparseBooleanArray
 import androidx.sqlite.db.SimpleSQLiteQuery
+import com.holocanon.core.model.MediaAndNotes
 import com.minirogue.common.model.MediaType
-import com.minirogue.starwarscanontracker.core.model.MediaAndNotes
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.core.usecase.AdaptMediaItemDtoToStarWarsMedia

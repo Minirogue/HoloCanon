@@ -1,0 +1,16 @@
+plugins {
+    id "minirogue.multiplatform.library"
+}
+
+minirogue {
+    android {
+        hilt()
+    }
+}
+
+kotlin.sourceSets.androidMain.dependencies {
+    api projects.library.sorting.public
+
+    implementation libs.androidx.datastore
+    implementation libs.androidx.preference
+}

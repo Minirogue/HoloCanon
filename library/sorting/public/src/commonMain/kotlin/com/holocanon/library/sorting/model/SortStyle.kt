@@ -1,24 +1,10 @@
-package com.minirogue.starwarscanontracker.core.model
+package com.holocanon.library.sorting.model
 
+import com.holocanon.core.model.MediaAndNotes
 import com.minirogue.common.model.StarWarsMedia
 import kotlin.math.sign
 
 class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNotes> {
-
-    companion object {
-        const val SORT_TITLE = 1
-        const val SORT_TIMELINE = 2
-        const val SORT_DATE = 4
-        val DEFAULT_STYLE = SortStyle(SORT_DATE, true)
-        fun getSortText(sortType: Int): String {
-            return when (sortType) {
-                SORT_TITLE -> "Title"
-                SORT_TIMELINE -> "Timeline"
-                SORT_DATE -> "Date Released"
-                else -> "SortTypeNotFound"
-            }
-        }
-    }
 
     override fun compare(p0: MediaAndNotes?, p1: MediaAndNotes?): Int {
         return when {
@@ -62,8 +48,8 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
     }
 
     private fun compareTimelines(item1: StarWarsMedia, item2: StarWarsMedia): Int {
-        val time1 = item1.timeline ?: 9999f
-        val time2 = item2.timeline ?: 9999f
+        val time1 = item1.timeline ?: MAX_TIMELINE_VALUE
+        val time2 = item2.timeline ?: MAX_TIMELINE_VALUE
         return sign(time1 - time2).toInt()
     }
 
@@ -77,5 +63,20 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
 
     override fun reversed(): SortStyle {
         return SortStyle(style, !ascending)
+    }
+    companion object {
+        private const val MAX_TIMELINE_VALUE = 9999f
+        const val SORT_TITLE = 1
+        const val SORT_TIMELINE = 2
+        const val SORT_DATE = 4
+        val DEFAULT_STYLE = SortStyle(SORT_DATE, true)
+        fun getSortText(sortType: Int): String {
+            return when (sortType) {
+                SORT_TITLE -> "Title"
+                SORT_TIMELINE -> "Timeline"
+                SORT_DATE -> "Date Released"
+                else -> "SortTypeNotFound"
+            }
+        }
     }
 }
