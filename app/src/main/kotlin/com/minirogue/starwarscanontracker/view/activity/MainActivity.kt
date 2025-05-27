@@ -1,7 +1,6 @@
 package com.minirogue.starwarscanontracker.view.activity
 
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
