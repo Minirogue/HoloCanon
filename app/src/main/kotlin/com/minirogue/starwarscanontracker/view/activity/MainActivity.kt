@@ -160,45 +160,33 @@ class MainActivity : AppCompatActivity() {
         modifier: Modifier = Modifier,
         navController: NavHostController,
         onAppBarConfig: (AppBarConfig) -> Unit,
-    ) =
-        Column(modifier = modifier.fillMaxSize()) {
-            val currentBackStackEntry = navController.currentBackStackEntryAsState()
-            val selectedTab = remember {
-                derivedStateOf {
-                    currentBackStackEntry.value?.destination?.let { TabInfo.fromNavDestination(it) }
-                }
-            }
-
-            selectedTab.value?.also {
-                TabRow(it.ordinal) {
-                    TabInfo.entries.forEach { tabInfo ->
-                        Tab(
-                            selected = tabInfo == selectedTab.value,
-                            onClick = { navController.navigate(route = tabInfo.navDestination) },
-                            text = { Text(stringResource(tabInfo.tabNameRes)) },
-                        )
-                    }
-                }
-            }
-            NavHost(
-                navController = navController,
-                startDestination = TabInfo.HOME.navDestination,
-            ) {
-                navContributors.forEach {
-                    println("Contributing nav graph: ${it.javaClass.name}")
-                    it.invoke(this, navController, onAppBarConfig)
-                }
+    ) = Column(modifier = modifier.fillMaxSize()) {
+        val currentBackStackEntry = navController.currentBackStackEntryAsState()
+        val selectedTab = remember {
+            derivedStateOf {
+                currentBackStackEntry.value?.destination?.let { TabInfo.fromNavDestination(it) }
             }
         }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                true
+        selectedTab.value?.also {
+            TabRow(it.ordinal) {
+                TabInfo.entries.forEach { tabInfo ->
+                    Tab(
+                        selected = tabInfo == selectedTab.value,
+                        onClick = { navController.navigate(route = tabInfo.navDestination) },
+                        text = { Text(stringResource(tabInfo.tabNameRes)) },
+                    )
+                }
             }
-
-            else -> super.onOptionsItemSelected(item)
+        }
+        NavHost(
+            navController = navController,
+            startDestination = TabInfo.HOME.navDestination,
+        ) {
+            navContributors.forEach {
+                println("Contributing nav graph: ${it.javaClass.name}")
+                it.invoke(this, navController, onAppBarConfig)
+            }
         }
     }
 }
