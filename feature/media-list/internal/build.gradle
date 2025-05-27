@@ -12,11 +12,9 @@ minirogue {
 kotlin.sourceSets.androidMain.dependencies {
     api projects.feature.mediaList.public
 
-    implementation libs.android.material
     implementation libs.androidx.appcompat
     implementation libs.coil.compose
     implementation libs.hilt.compose
-    implementation libs.fastScroll
     implementation projects.core
     implementation projects.feature.loading.public
     implementation projects.feature.mediaItem.public

@@ -12,16 +12,14 @@ minirogue {
 kotlin.sourceSets.androidMain.dependencies {
     api projects.feature.mediaItem.public
 
-    implementation projects.feature.series.public
-    implementation libs.androidx.constraintLayout
-    implementation libs.android.material
+    implementation libs.coil.compose
     implementation libs.hilt.compose
     implementation projects.core
+    implementation projects.feature.series.public
     implementation projects.library.commonResources.public
+    implementation projects.library.composeExt.public
     implementation projects.library.mediaItem.public
     implementation projects.library.mediaNotes.public
-    implementation projects.library.settings.public
-    implementation libs.coil.compose
     implementation projects.library.navigation.public
-    implementation projects.library.composeExt.public
+    implementation projects.library.settings.public
 }

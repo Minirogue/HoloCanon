@@ -1,8 +1,6 @@
 package com.minirogue.starwarscanontracker.application
 
 import android.app.Application
-import coil.ImageLoader
-import coil.ImageLoaderFactory
 import com.holocanon.library.coroutine.ext.ApplicationScope
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import com.minirogue.starwarscanontracker.core.usecase.UpdateFilters
@@ -11,10 +9,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltAndroidApp
-class CanonTrackerApplication : Application(), ImageLoaderFactory {
-    override fun newImageLoader(): ImageLoader = ImageLoader.Builder(applicationContext)
-        .build()
-
+class CanonTrackerApplication : Application() {
     @Inject
     lateinit var applicationScope: ApplicationScope
 

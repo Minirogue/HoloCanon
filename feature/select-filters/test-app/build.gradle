@@ -3,6 +3,7 @@ plugins {
 }
 
 dependencies {
+    implementation libs.android.material
     implementation projects.feature.selectFilters.internal
     implementation projects.feature.testApp.internal // TODO this should be inherent to the plugin?
     implementation projects.library.filters.testBindings

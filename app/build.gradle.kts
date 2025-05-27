@@ -36,18 +36,13 @@ android {
 }
 
 dependencies {
+    implementation(libs.android.material)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.constraintLayout)
-    implementation(libs.androidx.fragment)
-    implementation(libs.androidx.lifecycle.common)
     implementation(libs.androidx.lifecycle.viewmodel)
-    implementation(libs.android.material)
     implementation(libs.androidx.preference)
     implementation(libs.compose.navigation)
-    implementation(libs.coil)
     implementation(libs.coil.ktor)
-    implementation(libs.fastScroll)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.room.ktx)
