@@ -4,12 +4,12 @@
     <issue
         id="DataExtractionRules"
         message="The attribute `android:fullBackupContent` is deprecated from Android 12 and higher and may be removed in future versions. Consider adding the attribute `android:dataExtractionRules` specifying an `@xml` resource which configures cloud backups and device transfers on Android 12 and higher."
-        errorLine1="            android:fullBackupContent=&quot;@xml/backup_descriptor&quot;>"
-        errorLine2="                                       ~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="        android:fullBackupContent=&quot;@xml/backup_descriptor&quot;"
+        errorLine2="                                   ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="16"
-            column="40"/>
+            line="12"
+            column="36"/>
     </issue>
 
     <issue
@@ -98,17 +98,6 @@
             file="src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
             line="2"
             column="1"/>
-    </issue>
-
-    <issue
-        id="UseTomlInstead"
-        message="Use version catalog instead"
-        errorLine1="    implementation &quot;androidx.legacy:legacy-support-v4:1.0.0&quot;"
-        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="build.gradle"
-            line="57"
-            column="20"/>
     </issue>
 
 </issues>
