@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -26,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.holocanon.feature.home.screen.internal.R
 
-private const val STRING_ANNOTATION_TAG = "URL"
 private val LINK_COLOR = Color(0xff64B5F6) // TODO move to theme
 
 @Composable
@@ -46,7 +44,6 @@ fun HomeScreen() {
                 .padding(vertical = 8.dp),
         )
         val welcomeString = getWelcomeString()
-        val uriHandler = LocalUriHandler.current
         Text(
             text = welcomeString,
             style = TextStyle.Default.copy(color = MaterialTheme.colorScheme.onSurface),
