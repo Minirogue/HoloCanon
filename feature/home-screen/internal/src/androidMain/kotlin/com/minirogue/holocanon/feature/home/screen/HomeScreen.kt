@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -14,10 +13,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -26,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.holocanon.feature.home.screen.internal.R
 
-private const val STRING_ANNOTATION_TAG = "URL"
 private val LINK_COLOR = Color(0xff64B5F6) // TODO move to theme
 
 @Composable
@@ -46,17 +44,9 @@ fun HomeScreen() {
                 .padding(vertical = 8.dp),
         )
         val welcomeString = getWelcomeString()
-        val uriHandler = LocalUriHandler.current
-        ClickableText(
+        Text(
             text = welcomeString,
             style = TextStyle.Default.copy(color = MaterialTheme.colorScheme.onSurface),
-            onClick = {
-                welcomeString
-                    .getStringAnnotations(STRING_ANNOTATION_TAG, it, it)
-                    .firstOrNull()?.let { stringAnnotation ->
-                        uriHandler.openUri(stringAnnotation.item)
-                    }
-            },
         )
         Text(
             text = stringResource(R.string.home_screen_copyright_notice),
@@ -85,10 +75,5 @@ fun getWelcomeString(): AnnotatedString = buildAnnotatedString {
         start = startIndex,
         end = endIndex,
     )
-    addStringAnnotation(
-        tag = STRING_ANNOTATION_TAG,
-        annotation = "https://discord.gg/RxXvTfX",
-        start = startIndex,
-        end = endIndex,
-    )
+    addLink(LinkAnnotation.Url("https://discord.gg/RxXvTfX"), startIndex, endIndex)
 }

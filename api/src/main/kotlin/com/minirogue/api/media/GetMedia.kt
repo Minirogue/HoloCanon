@@ -23,8 +23,11 @@ private suspend fun getMediaFromCsv(): List<StarWarsMedia> = withContext(Dispatc
         .setSkipHeaderRecord(true)
         .setIgnoreHeaderCase(true)
         .setTrim(true)
-        .build()
-    val csvParser = CSVParser(reader, format)
+        .get()
+    val csvParser = CSVParser.builder()
+        .setFormat(format)
+        .setReader(reader)
+        .get()
     val returnValue = mutableListOf<StarWarsMedia>()
     for (csvRecord in csvParser) {
         returnValue.add(

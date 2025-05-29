@@ -25,4 +25,4 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
       - name: Gradle build and checks
-        run: ./gradlew assembleDebug testDebugUnitTest jvmTest detekt lint --continue && ./gradlew --stop
+        run: ./gradlew assembleDebug testDebugUnitTest jvmTest :api:test detekt lint --continue && ./gradlew --stop
