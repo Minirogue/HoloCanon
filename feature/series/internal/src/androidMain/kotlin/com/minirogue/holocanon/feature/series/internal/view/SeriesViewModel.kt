@@ -3,13 +3,13 @@ package com.minirogue.holocanon.feature.series.internal.view
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.holocanon.core.model.MediaAndNotes
+import com.holocanon.library.settings.usecase.IsNetworkAllowed
 import com.minirogue.media.notes.model.MediaNotes
 import com.minirogue.series.model.Series
 import com.minirogue.series.usecase.GetSeries
 import com.minirogue.series.usecase.GetSeriesIdFromName
 import com.minirogue.starwarscanontracker.core.usecase.Checkbox
 import com.minirogue.starwarscanontracker.core.usecase.GetMediaAndNotesForSeries
-import com.minirogue.starwarscanontracker.core.usecase.IsNetworkAllowed
 import com.minirogue.starwarscanontracker.core.usecase.SetCheckboxForSeries
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory

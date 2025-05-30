@@ -6,6 +6,8 @@ import androidx.datastore.preferences.SharedPreferencesMigration
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.preference.PreferenceManager
+import com.holocanon.library.settings.internal.usecase.IsNetworkAllowedImpl
+import com.holocanon.library.settings.usecase.IsNetworkAllowed
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -95,6 +97,9 @@ internal interface SettingsLibraryModule {
 
     @Binds
     fun bindUpdateDarkModeSetting(impl: UpdateDarkModeSettingImpl): UpdateDarkModeSetting
+
+    @Binds
+    fun bindIsNetworkAllowed(impl: IsNetworkAllowedImpl): IsNetworkAllowed
 
     companion object {
         @Singleton

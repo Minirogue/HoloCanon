@@ -19,6 +19,7 @@ kotlin.sourceSets.androidMain.dependencies {
     implementation projects.feature.loading.public
     implementation projects.feature.mediaItem.public
     implementation projects.library.commonResources.public
+    implementation projects.library.mediaItem.public
     implementation projects.library.mediaNotes.public
     implementation projects.library.navigation.public
     implementation projects.library.settings.public

@@ -9,4 +9,5 @@ minirogue {
 kotlin.sourceSets.commonMain.dependencies {
     api libs.kotlinx.coroutines.core
     api projects.library.commonModels.public
+    api projects.core
 }

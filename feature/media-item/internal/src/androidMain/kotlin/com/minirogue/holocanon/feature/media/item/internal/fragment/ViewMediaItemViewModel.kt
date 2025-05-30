@@ -3,12 +3,12 @@ package com.minirogue.holocanon.feature.media.item.internal.fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.holocanon.library.media.item.usecase.GetMedia
+import com.holocanon.library.settings.usecase.IsNetworkAllowed
 import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.media.notes.model.CheckBoxNumber
 import com.minirogue.media.notes.model.MediaNotes
 import com.minirogue.media.notes.usecase.GetNotesForMedia
 import com.minirogue.media.notes.usecase.UpdateCheckValue
-import com.minirogue.starwarscanontracker.core.usecase.IsNetworkAllowed
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject

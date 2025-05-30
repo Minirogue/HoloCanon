@@ -1,4 +1,4 @@
-package com.minirogue.starwarscanontracker.core.usecase
+package com.holocanon.library.settings.usecase
 
 import kotlinx.coroutines.flow.Flow
 

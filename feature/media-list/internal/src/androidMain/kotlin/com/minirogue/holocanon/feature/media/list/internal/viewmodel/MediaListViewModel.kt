@@ -4,14 +4,14 @@ import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.holocanon.core.model.MediaAndNotes
+import com.holocanon.library.media.item.usecase.GetMediaListWithNotes
+import com.holocanon.library.settings.usecase.IsNetworkAllowed
 import com.holocanon.library.sorting.model.SortStyle
 import com.holocanon.library.sorting.usecase.GetSortStyle
 import com.holocanon.library.sorting.usecase.ReverseSort
 import com.holocanon.library.sorting.usecase.SaveSortStyle
 import com.minirogue.media.notes.model.CheckBoxNumber
 import com.minirogue.media.notes.usecase.UpdateCheckValue
-import com.minirogue.starwarscanontracker.core.usecase.GetMediaListWithNotes
-import com.minirogue.starwarscanontracker.core.usecase.IsNetworkAllowed
 import dagger.hilt.android.lifecycle.HiltViewModel
 import filters.GetActiveFilters
 import filters.UpdateFilter

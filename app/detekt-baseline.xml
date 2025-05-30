@@ -1,8 +1,5 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
   <ManuallySuppressedIssues/>
-  <CurrentIssues>
-    <ID>CyclomaticComplexMethod:GetMediaListWithNotesImpl.kt$GetMediaListWithNotesImpl$private suspend fun convertFiltersToQuery( filterList: List&lt;MediaFilter&gt;, permanentFilterSettings: Map&lt;MediaType, Boolean&gt;, ): SimpleSQLiteQuery</ID>
-    <ID>LongMethod:GetMediaListWithNotesImpl.kt$GetMediaListWithNotesImpl$private suspend fun convertFiltersToQuery( filterList: List&lt;MediaFilter&gt;, permanentFilterSettings: Map&lt;MediaType, Boolean&gt;, ): SimpleSQLiteQuery</ID>
-  </CurrentIssues>
+  <CurrentIssues/>
 </SmellBaseline>

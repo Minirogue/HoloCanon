@@ -1,4 +1,4 @@
-package com.minirogue.starwarscanontracker.core.usecase
+package com.holocanon.library.media.item.usecase
 
 import com.holocanon.core.model.MediaAndNotes
 import kotlinx.coroutines.flow.Flow
