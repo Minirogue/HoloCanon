@@ -1,0 +1,24 @@
+plugins {
+    id "minirogue.multiplatform.library"
+}
+
+minirogue {
+    kotlinCompose()
+    android {
+        hilt()
+    }
+}
+
+kotlin.sourceSets.androidMain.dependencies {
+    implementation(libs.compose.lifecycle)
+    implementation(libs.compose.navigation)
+    implementation(libs.compose.resources)
+    implementation(libs.hilt.compose)
+    implementation(projects.library.composeExt.public)
+    implementation(projects.library.navigation.public)
+    implementation(projects.library.globalNotification.public)
+    implementation(projects.feature.mediaList.public)
+    implementation(projects.feature.homeScreen.public)
+    implementation(projects.feature.selectFilters.public)
+    implementation(projects.feature.settings.public)
+}

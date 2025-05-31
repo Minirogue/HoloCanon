@@ -1,4 +1,4 @@
-package com.minirogue.starwarscanontracker.view.activity
+package com.holocanon.app.shared
 
 import androidx.lifecycle.ViewModel
 import com.holocanon.feature.global.notification.usecase.GetGlobalToasts
@@ -11,7 +11,7 @@ import settings.usecase.GetAllSettings
 import javax.inject.Inject
 
 @HiltViewModel
-internal class MainActivityViewModel @Inject constructor(
+class MainActivityViewModel @Inject constructor(
     getGlobalToasts: GetGlobalToasts,
     getSettings: GetAllSettings,
 ) : ViewModel() {

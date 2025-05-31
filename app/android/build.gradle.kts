@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.room.ktx)
+    implementation(projects.app.shared)
     implementation(projects.core)
     implementation(projects.feature.homeScreen.internal)
     implementation(projects.feature.mediaItem.internal)

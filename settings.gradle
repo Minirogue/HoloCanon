@@ -26,8 +26,12 @@ rootProject.name = "holocanon"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include ':core'
-include ':app'
+
 include ':api'
+
+include ':app:android'
+include ':app:shared'
+
 include ':feature:home-screen:internal'
 include ':feature:home-screen:public'
 include ':feature:loading:public'
@@ -43,6 +47,7 @@ include ':feature:series:public'
 include ':feature:settings:internal'
 include ':feature:settings:public'
 include ':feature:test-app:internal'
+
 include ':library:common-models:public'
 include ':library:common-resources:public'
 include ':library:compose-ext:public'
