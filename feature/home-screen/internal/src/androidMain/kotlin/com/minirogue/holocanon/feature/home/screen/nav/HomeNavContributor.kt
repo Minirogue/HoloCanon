@@ -8,9 +8,15 @@ import com.holocanon.library.navigation.AppBarConfig
 import com.holocanon.library.navigation.NavContributor
 import com.minirogue.holocanon.feature.home.screen.HomeNav
 import com.minirogue.holocanon.feature.home.screen.HomeScreen
-import javax.inject.Inject
+import me.tatarka.inject.annotations.Inject
+import software.amazon.lastmile.kotlin.inject.anvil.AppScope
+import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
+import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
 
-class HomeNavContributor @Inject constructor() : NavContributor() {
+@Inject
+@ContributesBinding(AppScope::class, multibinding = true)
+@SingleIn(AppScope::class)
+class HomeNavContributor : NavContributor() {
     override fun invoke(
         navGraphBuilder: NavGraphBuilder,
         navController: NavController,
