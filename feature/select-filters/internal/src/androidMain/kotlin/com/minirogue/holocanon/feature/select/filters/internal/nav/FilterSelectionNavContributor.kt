@@ -8,9 +8,15 @@ import com.holocanon.feature.select.filters.FilterSelectionNav
 import com.holocanon.library.navigation.AppBarConfig
 import com.holocanon.library.navigation.NavContributor
 import com.minirogue.holocanon.feature.select.filters.internal.view.FilterSelectionScreen
-import javax.inject.Inject
+import me.tatarka.inject.annotations.Inject
+import software.amazon.lastmile.kotlin.inject.anvil.AppScope
+import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
+import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
 
-class FilterSelectionNavContributor @Inject constructor() : NavContributor() {
+@Inject
+@ContributesBinding(AppScope::class, multibinding = true)
+@SingleIn(AppScope::class)
+class FilterSelectionNavContributor : NavContributor() {
     override fun invoke(
         navGraphBuilder: NavGraphBuilder,
         navController: NavController,

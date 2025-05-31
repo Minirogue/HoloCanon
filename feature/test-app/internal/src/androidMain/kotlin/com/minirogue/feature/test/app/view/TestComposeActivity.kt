@@ -23,12 +23,10 @@ import compose.theme.HolocanonTheme
 import dagger.hilt.android.AndroidEntryPoint
 import settings.model.DarkModeSetting
 import settings.model.Theme
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TestComposeActivity : AppCompatActivity() {
-    @Inject
-    lateinit var navContributors: Set<@JvmSuppressWildcards NavContributor>
+    private val navContributors: Set<NavContributor> = emptySet() // TODO fix DI here
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

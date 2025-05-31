@@ -39,8 +39,6 @@ dependencies {
     implementation(libs.android.material)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.lifecycle.viewmodel)
-    implementation(libs.androidx.preference)
     implementation(libs.compose.navigation)
     implementation(libs.coil.ktor)
     implementation(libs.kotlinx.coroutines.core)
