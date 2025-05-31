@@ -2,16 +2,16 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             if (requested.id.toString() == "com.github.minirogue")
-                useModule("org.minirogue:minirogue-build-logic:$requested.version") // local
-//              useModule("com.github.Minirogue:minirogue-build-logic:$requested.version")
+//                useModule("org.minirogue:minirogue-build-logic:$requested.version") // local
+              useModule("com.github.Minirogue:minirogue-build-logic:$requested.version")
         }
     }
     repositories {
         google()
         mavenCentral()
         gradlePluginPortal()
-        mavenLocal() // when testing build logic changes locally
-//        maven { url "https://jitpack.io" }
+//        mavenLocal() // when testing build logic changes locally
+        maven { url "https://jitpack.io" }
     }
 }
 
