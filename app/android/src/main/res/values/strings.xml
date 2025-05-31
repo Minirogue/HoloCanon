@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY appname "HoloCanon">]>
+
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="launcher_icon_description">HoloCanon Icon</string>
+    <!--navigation-->
+    <string name="nav_about">About</string>
+    <string name="nav_settings">Settings</string>
+
+    <!--quotes-->
+    <string-array name="quotes" tools:ignore="UnusedResources">
+        <item>Do or do not. There is no try.</item>
+        <item>This is the way.</item>
+        <item>I have spoken.</item>
+        <item>Grakkus isn\'t like other Hutts.</item>
+    </string-array>
+
+    <string name="how_to_buy">how to buy</string>
+    <string name="sort_method">sort method</string>
+</resources>

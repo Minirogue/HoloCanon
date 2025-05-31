@@ -12,4 +12,5 @@ kotlin.sourceSets.commonMain.dependencies {
     api projects.library.mediaItem.public
 
     implementation projects.core
+    implementation projects.library.settings.public
 }
