@@ -8,14 +8,12 @@ import com.holocanon.feature.select.filters.FilterSelectionNav
 import com.holocanon.library.navigation.AppBarConfig
 import com.holocanon.library.navigation.NavContributor
 import com.minirogue.holocanon.feature.select.filters.internal.view.FilterSelectionScreen
-import me.tatarka.inject.annotations.Inject
-import software.amazon.lastmile.kotlin.inject.anvil.AppScope
-import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
-import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesIntoSet
+import dev.zacsweers.metro.Inject
 
 @Inject
-@ContributesBinding(AppScope::class, multibinding = true)
-@SingleIn(AppScope::class)
+@ContributesIntoSet(AppScope::class)
 class FilterSelectionNavContributor : NavContributor() {
     override fun invoke(
         navGraphBuilder: NavGraphBuilder,
