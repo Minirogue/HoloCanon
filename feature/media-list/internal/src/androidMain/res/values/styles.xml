@@ -1,8 +1,0 @@
-<resources>
-
-    <style name="media_list_item_title_style" parent="@android:style/TextAppearance.Large">
-        android:ellipsize="end"
-        android:maxLines="1"</style>
-
-    <dimen name="media_list_checkbox_padding">8dp</dimen>
-</resources>

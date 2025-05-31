@@ -8,5 +8,5 @@ minirogue {
 
 kotlin.sourceSets.commonMain.dependencies {
     api libs.kotlinx.coroutines.core
-    api projects.core
+    api projects.library.mediaItem.public
 }

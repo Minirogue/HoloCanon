@@ -2,8 +2,8 @@ package com.minirogue.starwarscanontracker.application
 
 import android.app.Application
 import com.holocanon.library.coroutine.ext.ApplicationScope
+import com.holocanon.library.filters.usecase.UpdateFilters
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
-import com.minirogue.starwarscanontracker.core.usecase.UpdateFilters
 import dagger.hilt.android.HiltAndroidApp
 import kotlinx.coroutines.launch
 import javax.inject.Inject

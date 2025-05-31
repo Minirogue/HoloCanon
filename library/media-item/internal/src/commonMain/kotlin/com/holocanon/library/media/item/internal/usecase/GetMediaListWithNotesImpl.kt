@@ -2,7 +2,7 @@ package com.holocanon.library.media.item.internal.usecase
 
 import android.util.SparseBooleanArray
 import androidx.sqlite.db.SimpleSQLiteQuery
-import com.holocanon.core.model.MediaAndNotes
+import com.holocanon.library.media.item.model.MediaAndNotes
 import com.holocanon.library.media.item.usecase.GetMediaListWithNotes
 import com.minirogue.common.model.MediaType
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter

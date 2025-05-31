@@ -1,8 +1,10 @@
 package com.holocanon.library.media.item.internal.di
 
+import com.holocanon.library.media.item.internal.usecase.GetMediaAndNotesForSeriesImpl
 import com.holocanon.library.media.item.internal.usecase.GetMediaImpl
 import com.holocanon.library.media.item.internal.usecase.GetMediaListWithNotesImpl
 import com.holocanon.library.media.item.usecase.GetMedia
+import com.holocanon.library.media.item.usecase.GetMediaAndNotesForSeries
 import com.holocanon.library.media.item.usecase.GetMediaListWithNotes
 import dagger.Binds
 import dagger.Module
@@ -17,4 +19,7 @@ internal interface MediaItemModule {
 
     @Binds
     fun bindGetMediaListWithNotes(impl: GetMediaListWithNotesImpl): GetMediaListWithNotes
+
+    @Binds
+    fun bindGetMediaAndNotesForSeries(impl: GetMediaAndNotesForSeriesImpl): GetMediaAndNotesForSeries
 }

@@ -6,9 +6,6 @@ import com.minirogue.starwarscanontracker.core.model.room.dao.DaoCompany
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
-import com.minirogue.starwarscanontracker.core.usecase.UpdateFilters
-import com.minirogue.starwarscanontracker.core.usecase.UpdateFiltersImpl
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,9 +15,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 internal interface RoomModule {
-    @Binds
-    fun bindUpdateFilters(impl: UpdateFiltersImpl): UpdateFilters
-
     companion object {
         @Provides
         @Singleton
