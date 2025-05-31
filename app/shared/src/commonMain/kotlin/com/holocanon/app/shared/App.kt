@@ -56,7 +56,7 @@ fun App(navContributors: Set<NavContributor>, viewModel: MainActivityViewModel =
             MainScreen(
                 Modifier.padding(padding),
                 navController,
-                navContributors
+                navContributors,
             ) { appBarConfig.value = it }
         }
     }

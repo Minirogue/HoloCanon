@@ -35,6 +35,4 @@ class MainActivity : AppCompatActivity() {
             .onEach { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
             .launchIn(lifecycleScope) // TODO move to snackbar?
     }
-
-
 }
