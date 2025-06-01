@@ -3,14 +3,17 @@ package filters
 import com.minirogue.common.model.MediaType
 import com.minirogue.common.model.MediaType.Companion.getFromLegacyId
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import filters.model.FilterType
 import filters.model.MediaFilter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import settings.usecase.GetPermanentFilterSettings
-import javax.inject.Inject
-
-class GetPermanentFiltersImpl @Inject constructor(
+@Inject
+@ContributesBinding(AppScope::class)
+class GetPermanentFiltersImpl(
     private val daoFilter: DaoFilter,
     private val getPermanentFilterSettings: GetPermanentFilterSettings,
 ) : GetPermanentFilters {

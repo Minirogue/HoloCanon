@@ -1,9 +1,13 @@
 package settings.usecase
 
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import settings.data.SettingsRepo
-import javax.inject.Inject
 
-internal class UpdateCheckboxNameImpl @Inject constructor(
+@Inject
+@ContributesBinding(AppScope::class)
+class UpdateCheckboxNameImpl constructor(
     private val settingsRepo: SettingsRepo,
 ) : UpdateCheckboxName {
     override suspend fun invoke(whichBox: Int, newName: String) {

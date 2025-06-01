@@ -35,11 +35,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.holocanon.feature.settings.internal.R
 import com.holocanon.feature.settings.internal.viewmodel.SettingsViewModel
 import com.minirogue.common.model.MediaType
+import dev.zacsweers.metro.Provider
 import settings.model.CheckboxSetting
 import settings.model.CheckboxSettings
 import settings.model.DarkModeSetting
@@ -52,7 +53,8 @@ private const val TAG = "SettingsScreen"
 
 @Composable
 internal fun SettingsScreen(
-    viewModel: SettingsViewModel = hiltViewModel(),
+    viewModelProvider: Provider<SettingsViewModel>,
+    viewModel: SettingsViewModel = viewModel { viewModelProvider() },
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 

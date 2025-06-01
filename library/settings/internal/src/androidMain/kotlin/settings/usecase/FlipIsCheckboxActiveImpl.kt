@@ -1,12 +1,16 @@
 package settings.usecase
 
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import filters.UpdateFilter
 import filters.model.FilterType
 import filters.model.MediaFilter
 import settings.data.SettingsRepo
-import javax.inject.Inject
 
-internal class FlipIsCheckboxActiveImpl @Inject constructor(
+@Inject
+@ContributesBinding(AppScope::class)
+class FlipIsCheckboxActiveImpl(
     private val settingsRepo: SettingsRepo,
     private val updateFilter: UpdateFilter,
 ) : FlipIsCheckboxActive {

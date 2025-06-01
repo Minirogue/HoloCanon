@@ -1,13 +1,17 @@
 package com.holocanon.library.settings.test.bindings.fakes
 
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import settings.model.CheckboxSetting
 import settings.model.CheckboxSettings
 import settings.usecase.GetCheckboxSettings
-import javax.inject.Inject
 
-class FakeGetCheckboxSettings @Inject constructor() : GetCheckboxSettings {
+@Inject
+@ContributesBinding(AppScope::class)
+class FakeGetCheckboxSettings : GetCheckboxSettings {
     private val returnFlow = MutableStateFlow(
         CheckboxSettings(
             CheckboxSetting("checkbox1", true),

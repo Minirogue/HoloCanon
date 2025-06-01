@@ -22,8 +22,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import coil3.request.CachePolicy
@@ -44,12 +45,9 @@ import holocanon.library.common_resources.public.generated.resources.Res as Comm
 internal fun MediaItemScreen(
     modifier: Modifier = Modifier,
     itemId: Long,
+    viewModelFactory: ViewMediaItemViewModel.Factory,
     navController: NavController,
-    viewModel: ViewMediaItemViewModel = hiltViewModel(
-        creationCallback = { factory: ViewMediaItemViewModel.Factory ->
-            factory.create(itemId)
-        },
-    ),
+    viewModel: ViewMediaItemViewModel = viewModel { viewModelFactory.create(itemId) },
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 

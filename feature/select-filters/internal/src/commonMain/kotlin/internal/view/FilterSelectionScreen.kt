@@ -10,13 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import dev.zacsweers.metro.Provider
 
 @Composable
 internal fun FilterSelectionScreen(
+    viewModelProvider: Provider<FilterSelectionViewModel>,
     modifier: Modifier = Modifier,
-    viewModel: FilterSelectionViewModel = hiltViewModel(),
+    viewModel: FilterSelectionViewModel = viewModel { viewModelProvider() },
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     Column(modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState())) {

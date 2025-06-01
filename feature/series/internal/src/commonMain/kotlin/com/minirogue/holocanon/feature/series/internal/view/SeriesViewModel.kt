@@ -11,10 +11,9 @@ import com.minirogue.series.usecase.GetSeries
 import com.minirogue.series.usecase.GetSeriesIdFromName
 import com.minirogue.starwarscanontracker.core.usecase.Checkbox
 import com.minirogue.starwarscanontracker.core.usecase.SetCheckboxForSeries
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zacsweers.metro.Assisted
+import dev.zacsweers.metro.AssistedFactory
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -38,8 +37,8 @@ internal data class SeriesState(
     )
 }
 
-@HiltViewModel(assistedFactory = SeriesViewModel.Factory::class)
-internal class SeriesViewModel @AssistedInject constructor(
+@Inject
+internal class SeriesViewModel(
     @Assisted seriesName: String,
     getSeries: GetSeries,
     getMediaAndNotesForSeries: GetMediaAndNotesForSeries,

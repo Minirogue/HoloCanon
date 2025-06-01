@@ -12,7 +12,7 @@ import com.holocanon.library.sorting.usecase.ReverseSort
 import com.holocanon.library.sorting.usecase.SaveSortStyle
 import com.minirogue.media.notes.model.CheckBoxNumber
 import com.minirogue.media.notes.usecase.UpdateCheckValue
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zacsweers.metro.Inject
 import filters.GetActiveFilters
 import filters.UpdateFilter
 import filters.model.MediaFilter
@@ -25,7 +25,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import settings.model.CheckboxSettings
 import settings.usecase.GetCheckboxSettings
-import javax.inject.Inject
 
 @Immutable // TODO benchmark with/without this
 internal data class MediaListState(
@@ -38,8 +37,8 @@ internal data class MediaListState(
     val isNetworkAllowed: Boolean = false,
 )
 
-@HiltViewModel
-internal class MediaListViewModel @Inject constructor(
+@Inject
+internal class MediaListViewModel(
     getActiveFilters: GetActiveFilters,
     private val updateFilter: UpdateFilter,
     private val updateCheckValue: UpdateCheckValue,

@@ -6,9 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.holocanon.feature.test.app.internal.R
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class TestFragmentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -3,9 +3,7 @@ plugins {
 }
 
 minirogue {
-    android {
-        hilt()
-    }
+    android()
     metro()
     kotlinCompose()
 }
@@ -15,7 +13,6 @@ kotlin.sourceSets.commonMain.dependencies {
 
     implementation libs.coil.compose
     implementation libs.compose.resources
-    implementation libs.hilt.compose
     implementation projects.core
     implementation projects.feature.mediaItem.public
     implementation projects.library.commonResources.public

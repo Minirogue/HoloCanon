@@ -10,6 +10,9 @@ import com.minirogue.media.notes.internal.model.CheckBoxNamesV1
 import com.minirogue.media.notes.internal.model.MediaNotesJsonV1
 import com.minirogue.media.notes.internal.model.MediaNotesV1
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
@@ -20,9 +23,10 @@ import settings.usecase.GetCheckboxSettings
 import java.io.IOException
 import java.io.OutputStream
 import java.lang.Exception
-import javax.inject.Inject
 
-class ExportMediaNotesJsonImpl @Inject constructor(
+@Inject
+@ContributesBinding(AppScope::class)
+class ExportMediaNotesJsonImpl(
     private val daoMedia: DaoMedia,
     private val getCheckboxSettings: GetCheckboxSettings,
     private val sendGlobalToast: SendGlobalToast,

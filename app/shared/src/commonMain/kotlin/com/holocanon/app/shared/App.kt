@@ -24,19 +24,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.holocanon.app.shared.di.AppDependencyGraph
+import com.holocanon.app.shared.di.PlatformDependencies
+import com.holocanon.app.shared.di.getAppDependencyGraph
 import com.holocanon.feature.settings.SettingsNav
 import com.holocanon.library.navigation.AppBarConfig
 import com.holocanon.library.navigation.NavContributor
 import compose.theme.HolocanonTheme
-import dev.zacsweers.metro.createGraph
 import holocanon.app.shared.generated.resources.Res
 import holocanon.app.shared.generated.resources.app_name
 import holocanon.app.shared.generated.resources.content_description_back_button
@@ -47,8 +48,10 @@ import settings.model.Theme
 
 @Composable
 fun App(
-    navContributors: Set<NavContributor> = createGraph<AppDependencyGraph>().navContributors,
-    viewModel: MainActivityViewModel = hiltViewModel(),
+    platformDependencies: PlatformDependencies,
+    appDependencyGraph: AppDependencyGraph = getAppDependencyGraph(platformDependencies),
+    navContributors: Set<NavContributor> = appDependencyGraph.navContributors,
+    viewModel: MainViewModel = viewModel { appDependencyGraph.mainViewModel },
 ) {
     // Essentially treating this as Application.onCreate()
     LaunchedEffect(true) { viewModel.onAppStart() }

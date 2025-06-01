@@ -1,6 +1,6 @@
 package com.minirogue.holoclient.usecase
 
-import android.content.Context
+import android.app.Application
 import android.net.ConnectivityManager
 import android.util.Log
 import android.widget.Toast
@@ -16,6 +16,9 @@ import com.minirogue.starwarscanontracker.core.model.room.entity.CompanyDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.SeriesDto
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -26,12 +29,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import settings.usecase.GetAllSettings
 import settings.usecase.SetLatestDatabaseVersion
-import javax.inject.Inject
 
-internal class UpdateMediaDatabaseUseCase @Inject constructor(
+@Inject
+@ContributesBinding(AppScope::class)
+class UpdateMediaDatabaseUseCase internal constructor(
     private val updateFilters: UpdateFilters,
     private val connectivityManager: ConnectivityManager,
     private val getApiMediaVersion: GetApiMediaVersion,
@@ -39,7 +44,7 @@ internal class UpdateMediaDatabaseUseCase @Inject constructor(
     private val database: MediaDatabase,
     private val getSettings: GetAllSettings,
     private val setLatestDatabaseVersion: SetLatestDatabaseVersion,
-    private val context: Context,
+    private val context: Application,
     private val json: Json,
 ) : MaybeUpdateMediaDatabase {
     override fun invoke(forced: Boolean) {

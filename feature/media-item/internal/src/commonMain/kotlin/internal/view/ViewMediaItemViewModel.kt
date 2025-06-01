@@ -9,10 +9,9 @@ import com.minirogue.media.notes.model.CheckBoxNumber
 import com.minirogue.media.notes.model.MediaNotes
 import com.minirogue.media.notes.usecase.GetNotesForMedia
 import com.minirogue.media.notes.usecase.UpdateCheckValue
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zacsweers.metro.Assisted
+import dev.zacsweers.metro.AssistedFactory
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -29,8 +28,8 @@ internal data class ViewMediaItemState(
     val mediaNotes: MediaNotes? = null,
 )
 
-@HiltViewModel(assistedFactory = ViewMediaItemViewModel.Factory::class)
-internal class ViewMediaItemViewModel @AssistedInject constructor(
+@Inject
+internal class ViewMediaItemViewModel(
     @Assisted itemId: Long,
     getMedia: GetMedia,
     getNotesForMedia: GetNotesForMedia,

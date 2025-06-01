@@ -4,11 +4,15 @@ import com.holocanon.library.media.item.usecase.GetMedia
 import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.core.usecase.AdaptMediaItemDtoToStarWarsMedia
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
-internal class GetMediaImpl @Inject constructor(
+@Inject
+@ContributesBinding(AppScope::class)
+class GetMediaImpl(
     private val daoMedia: DaoMedia,
     private val adaptMediaItemDtoToStarWarsMedia: AdaptMediaItemDtoToStarWarsMedia,
 ) : GetMedia {

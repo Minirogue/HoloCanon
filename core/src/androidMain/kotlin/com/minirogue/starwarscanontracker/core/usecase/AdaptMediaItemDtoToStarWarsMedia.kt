@@ -8,7 +8,7 @@ import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoCompany
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
-import dagger.Reusable
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.SharedFlow
@@ -18,14 +18,13 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-import javax.inject.Inject
 
-@Reusable
-class AdaptMediaItemDtoToStarWarsMedia @Inject internal constructor(
-    private val daoCompany: DaoCompany,
-    private val daoSeries: DaoSeries,
+@Inject
+class AdaptMediaItemDtoToStarWarsMedia internal constructor(
+    daoCompany: DaoCompany,
+    daoSeries: DaoSeries,
     private val json: Json,
-    private val dispatchers: HolocanonDispatchers,
+    dispatchers: HolocanonDispatchers,
 ) {
     private val adapterScope = CoroutineScope(Job() + dispatchers.default)
     private val companyMap: SharedFlow<Map<Int, Company>> = daoCompany.getAllCompanies()

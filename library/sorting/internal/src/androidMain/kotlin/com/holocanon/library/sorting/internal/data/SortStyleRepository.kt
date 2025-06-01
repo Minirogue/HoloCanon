@@ -1,21 +1,25 @@
 package com.holocanon.library.sorting.internal.data
 
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
-import com.holocanon.library.sorting.internal.di.Sorting
 import com.holocanon.library.sorting.model.SortStyle
 import com.holocanon.library.sorting.usecase.GetSortStyle
 import com.holocanon.library.sorting.usecase.ReverseSort
 import com.holocanon.library.sorting.usecase.SaveSortStyle
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.binding
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
-internal class SortStyleRepository @Inject constructor(
-    @Sorting private val dataStore: DataStore<Preferences>,
+@Inject
+@ContributesBinding(AppScope::class, binding<GetSortStyle>())
+@ContributesBinding(AppScope::class, binding<SaveSortStyle>())
+@ContributesBinding(AppScope::class, binding<ReverseSort>())
+class SortStyleRepository(
+    private val dataStore: SortingDataStore,
 ) : GetSortStyle, SaveSortStyle, ReverseSort {
     private val sortStylePreferencesKey = intPreferencesKey(SORT_STYLE_KEY)
     private val ascendingPreferencesKey =

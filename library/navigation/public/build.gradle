@@ -4,6 +4,7 @@ plugins {
 
 minirogue {
     jvm()
+    metro()
 }
 
 kotlin.sourceSets.commonMain.dependencies {

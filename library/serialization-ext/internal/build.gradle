@@ -3,11 +3,10 @@ plugins {
 }
 
 minirogue {
-    android {
-        hilt()
-    }
+    android()
     jvm()
     serialization()
+    metro()
 }
 
 kotlin.sourceSets.commonMain.dependencies {

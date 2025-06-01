@@ -2,24 +2,22 @@ package settings.data
 
 import android.content.res.Resources
 import android.util.Log
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.holocanon.library.settings.internal.R
+import com.holocanon.library.settings.internal.data.SettingsDataStore
 import com.minirogue.common.model.MediaType
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import settings.di.Settings
 import settings.model.AllSettings
 import settings.model.CheckboxSetting
 import settings.model.CheckboxSettings
 import settings.model.DarkModeSetting
 import settings.model.Theme
 import java.io.IOException
-import javax.inject.Inject
 
 private const val USER_FILTER_1_ACTIVE_KEY = "user_filter_1_active"
 private const val USER_FILTER_2_ACTIVE_KEY = "user_filter_2_active"
@@ -34,8 +32,9 @@ private const val THEME_SETTING_KEY = "theme setting"
 
 private const val TAG = "SettingsRepo"
 
-internal class SettingsRepo @Inject constructor(
-    @Settings private val dataStore: DataStore<Preferences>,
+@Inject
+class SettingsRepo(
+    private val dataStore: SettingsDataStore,
     private val resources: Resources,
 ) {
     private val userFilter1ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_1_ACTIVE_KEY)

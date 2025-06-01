@@ -10,6 +10,9 @@ import com.minirogue.media.notes.internal.model.MediaNotesJsonV1
 import com.minirogue.media.notes.internal.model.MediaNotesV1
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
@@ -20,9 +23,10 @@ import kotlinx.serialization.json.decodeFromStream
 import settings.usecase.UpdateCheckboxName
 import java.io.IOException
 import java.io.InputStream
-import javax.inject.Inject
 
-class ImportMediaNotesJsonImpl @Inject constructor(
+@Inject
+@ContributesBinding(AppScope::class)
+class ImportMediaNotesJsonImpl(
     private val updateCheckboxName: UpdateCheckboxName,
     private val daoMedia: DaoMedia,
     private val sendGlobalToast: SendGlobalToast,

@@ -2,7 +2,7 @@ package internal.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zacsweers.metro.Inject
 import filters.GetActiveFilters
 import filters.GetAllFilterGroups
 import filters.UpdateFilter
@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import settings.model.CheckboxSettings
 import settings.usecase.GetCheckboxSettings
-import javax.inject.Inject
 
 internal data class FilterSelectionState(
     val filterGroups: Map<FilterGroup, List<MediaFilter>> = emptyMap(),
@@ -24,8 +23,8 @@ internal data class FilterSelectionState(
     val activeFilters: List<MediaFilter> = emptyList(),
 )
 
-@HiltViewModel
-internal class FilterSelectionViewModel @Inject constructor(
+@Inject
+internal class FilterSelectionViewModel constructor(
     getActiveFilters: GetActiveFilters,
     private val updateFilter: UpdateFilter,
     getAllFilterGroups: GetAllFilterGroups,
