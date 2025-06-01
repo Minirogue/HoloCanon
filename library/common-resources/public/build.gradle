@@ -3,5 +3,14 @@ plugins {
 }
 
 minirogue {
+    kotlinCompose()
     android()
+}
+
+kotlin.sourceSets.commonMain.dependencies {
+    implementation(libs.compose.resources)
+}
+
+compose.resources {
+    publicResClass = true
 }

@@ -8,15 +8,16 @@ minirogue {
     kotlinCompose()
 }
 
-kotlin.sourceSets.androidMain.dependencies {
+kotlin.sourceSets.commonMain.dependencies {
     api projects.feature.series.public
 
     implementation libs.coil.compose
-    
+    implementation libs.compose.resources
     implementation projects.core
+    implementation projects.feature.mediaItem.public
     implementation projects.library.commonResources.public
     implementation projects.library.composeExt.public
-    implementation projects.feature.mediaItem.public
+    implementation projects.library.mediaItem.public
     implementation projects.library.mediaNotes.public
     implementation projects.library.navigation.public
     implementation projects.library.series.public

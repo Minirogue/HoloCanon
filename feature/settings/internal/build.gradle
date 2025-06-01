@@ -8,10 +8,9 @@ minirogue {
     metro()
 }
 
-kotlin.sourceSets.androidMain.dependencies {
+kotlin.sourceSets.commonMain.dependencies {
     api projects.feature.settings.public
 
-    
     implementation projects.core
     implementation projects.library.composeExt.public
     implementation projects.library.holoclient.public

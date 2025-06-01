@@ -3,17 +3,16 @@ plugins {
 }
 
 minirogue {
-    android ()
-    metro()
+    android()
     kotlinCompose()
+    metro()
 }
 
-kotlin.sourceSets.androidMain.dependencies {
+kotlin.sourceSets.commonMain.dependencies {
     api projects.feature.mediaList.public
 
-    implementation libs.androidx.appcompat
     implementation libs.coil.compose
-    
+    implementation libs.compose.resources
     implementation projects.core
     implementation projects.feature.loading.public
     implementation projects.feature.mediaItem.public

@@ -12,7 +12,6 @@ minirogue {
 kotlin.sourceSets.commonMain.dependencies {
     api projects.feature.homeScreen.public
 
-    implementation libs.androidx.appcompat
     implementation projects.library.composeExt.public
     implementation projects.library.navigation.public
 }
