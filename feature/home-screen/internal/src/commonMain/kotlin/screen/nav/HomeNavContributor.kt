@@ -6,16 +6,14 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.holocanon.library.navigation.AppBarConfig
 import com.holocanon.library.navigation.NavContributor
-import me.tatarka.inject.annotations.Inject
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesIntoSet
+import dev.zacsweers.metro.Inject
 import screen.HomeNav
 import screen.HomeScreen
-import software.amazon.lastmile.kotlin.inject.anvil.AppScope
-import software.amazon.lastmile.kotlin.inject.anvil.ContributesBinding
-import software.amazon.lastmile.kotlin.inject.anvil.SingleIn
 
 @Inject
-@ContributesBinding(AppScope::class, multibinding = true)
-@SingleIn(AppScope::class)
+@ContributesIntoSet(AppScope::class)
 class HomeNavContributor : NavContributor() {
     override fun invoke(
         navGraphBuilder: NavGraphBuilder,
