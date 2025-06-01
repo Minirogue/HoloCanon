@@ -10,7 +10,7 @@ import dev.zacsweers.metro.ContributesTo
 import dev.zacsweers.metro.Provides
 
 @ContributesTo(AppScope::class)
-interface RoomDependencyGraph {
+interface RoomCommonDependencyGraph {
 
     @Provides
     fun provideDaoMedia(database: MediaDatabase): DaoMedia {

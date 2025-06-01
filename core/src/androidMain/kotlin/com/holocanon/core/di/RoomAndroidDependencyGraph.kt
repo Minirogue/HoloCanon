@@ -11,7 +11,7 @@ import dev.zacsweers.metro.Provides
 import dev.zacsweers.metro.SingleIn
 
 @ContributesTo(AppScope::class)
-interface CoreAndroidDependencyGraph {
+interface RoomAndroidDependencyGraph {
     @Provides
     @SingleIn(AppScope::class)
     fun provideRoomDatabase(application: Application): MediaDatabase {
