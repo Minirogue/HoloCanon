@@ -11,10 +11,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -47,16 +50,30 @@ fun App(
     navContributors: Set<NavContributor> = createGraph<AppDependencyGraph>().navContributors,
     viewModel: MainActivityViewModel = hiltViewModel(),
 ) {
+    // Essentially treating this as Application.onCreate()
+    LaunchedEffect(true) { viewModel.onAppStart() }
+
+    // Compose components
     val navController = rememberNavController()
     val appBarConfig = remember { mutableStateOf(AppBarConfig()) }
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    // top-level state
     val themeSettings: State<Pair<DarkModeSetting, Theme>> =
         viewModel.themeSettings.collectAsStateWithLifecycle(
             Pair(DarkModeSetting.SYSTEM, Theme.Force),
         )
+    val notification = viewModel.globalToasts.collectAsStateWithLifecycle(null)
+
+    LaunchedEffect(notification.value) {
+        notification.value?.also { snackbarHostState.showSnackbar(it) }
+    }
+
     HolocanonTheme(themeSettings.value.first, themeSettings.value.second) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = { HolocanonAppBar(navController, appBarConfig.value) },
+            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         ) { padding ->
             MainScreen(
                 Modifier.padding(padding),
