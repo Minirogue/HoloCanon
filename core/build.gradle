@@ -19,10 +19,8 @@ kotlin.sourceSets.androidMain.dependencies {
     api libs.room.ktx
     api projects.library.filters.public
 
-    implementation libs.androidx.core
     implementation libs.kotlinx.coroutines.core
     implementation libs.kotlinx.serialization.json
-    implementation libs.androidx.lifecycle.viewmodel
     implementation projects.library.settings.public
     implementation projects.library.coroutineExt.public
 }
