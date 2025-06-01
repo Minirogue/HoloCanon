@@ -61,6 +61,7 @@ class ExportMediaNotesJsonTest {
                 CheckboxSetting("box3", false),
             )
         )
+        every {resources.getString(any())} returns "toast message"
         val outputStream = ByteArrayOutputStream()
 
         // Act
@@ -84,8 +85,8 @@ class ExportMediaNotesJsonTest {
             "note_3_checked": true
         }
     ]
-}""",
-            { "media notes not written as expected" })
+}"""
+        ) { "media notes not written as expected" }
     }
 
 }
