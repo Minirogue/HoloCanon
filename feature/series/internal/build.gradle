@@ -3,11 +3,11 @@ plugins {
 }
 
 minirogue {
-    kotlinCompose()
-    kotlinInjectAnvil()
     android {
         hilt()
     }
+    metro()
+    kotlinCompose()
 }
 
 kotlin.sourceSets.commonMain.dependencies {

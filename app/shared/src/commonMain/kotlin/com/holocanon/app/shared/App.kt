@@ -28,11 +28,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.holocanon.app.shared.di.create
+import com.holocanon.app.shared.di.AppDependencyGraph
 import com.holocanon.feature.settings.SettingsNav
 import com.holocanon.library.navigation.AppBarConfig
 import com.holocanon.library.navigation.NavContributor
 import compose.theme.HolocanonTheme
+import dev.zacsweers.metro.createGraph
 import holocanon.app.shared.generated.resources.Res
 import holocanon.app.shared.generated.resources.app_name
 import holocanon.app.shared.generated.resources.content_description_back_button
@@ -43,7 +44,7 @@ import settings.model.Theme
 
 @Composable
 fun App(
-    navContributors: Set<NavContributor> = create().navContributors,
+    navContributors: Set<NavContributor> = createGraph<AppDependencyGraph>().navContributors,
     viewModel: MainActivityViewModel = hiltViewModel(),
 ) {
     val navController = rememberNavController()
