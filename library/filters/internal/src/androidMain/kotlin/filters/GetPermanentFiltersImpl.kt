@@ -1,8 +1,7 @@
 package filters
 
 import com.minirogue.common.model.MediaType
-import com.minirogue.common.model.MediaType.Companion.getFromLegacyId
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
+import com.minirogue.starwarscanontracker.core.data.dao.DaoFilter
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject

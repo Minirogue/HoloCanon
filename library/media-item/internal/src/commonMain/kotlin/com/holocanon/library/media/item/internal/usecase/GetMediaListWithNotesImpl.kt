@@ -2,11 +2,11 @@ package com.holocanon.library.media.item.internal.usecase
 
 import android.util.SparseBooleanArray
 import androidx.sqlite.db.SimpleSQLiteQuery
+import com.holocanon.core.data.dao.DaoMedia
 import com.holocanon.library.media.item.model.MediaAndNotes
 import com.holocanon.library.media.item.usecase.GetMediaListWithNotes
 import com.minirogue.common.model.MediaType
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
+import com.minirogue.starwarscanontracker.core.data.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.usecase.AdaptMediaItemDtoToStarWarsMedia
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
@@ -25,7 +25,7 @@ import settings.usecase.GetPermanentFilterSettings
 @Inject
 @ContributesBinding(AppScope::class)
 class GetMediaListWithNotesImpl(
-    private val daoMedia: DaoMedia,
+    private val daoMedia: com.holocanon.core.data.dao.DaoMedia,
     private val daoFilter: DaoFilter,
     private val getPermanentFilterSettings: GetPermanentFilterSettings,
     private val getActiveFilters: GetActiveFilters,

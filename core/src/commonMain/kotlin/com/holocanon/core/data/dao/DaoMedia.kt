@@ -1,17 +1,17 @@
-package com.minirogue.starwarscanontracker.core.model.room.dao
+package com.holocanon.core.data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.RawQuery
+import androidx.room.RoomRawQuery
 import androidx.room.Transaction
 import androidx.room.Update
-import androidx.sqlite.db.SupportSQLiteQuery
+import com.holocanon.core.data.entity.MediaItemDto
+import com.holocanon.core.data.entity.MediaNotesDto
+import com.holocanon.core.data.pojo.MediaAndNotesDto
 import com.minirogue.media.notes.model.CheckBoxNumber
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
-import com.minirogue.starwarscanontracker.core.model.room.pojo.MediaAndNotesDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 
@@ -58,7 +58,7 @@ abstract class DaoMedia {
 
     // The following return MediaAndNotes objects
     @RawQuery(observedEntities = [MediaItemDto::class, MediaNotesDto::class])
-    abstract fun getMediaAndNotesRawQuery(query: SupportSQLiteQuery): Flow<List<MediaAndNotesDto>>
+    abstract fun getMediaAndNotesRawQuery(query: RoomRawQuery): Flow<List<MediaAndNotesDto>>
 
     @Query(
         "SELECT media_items.*,media_notes.* FROM media_items " +

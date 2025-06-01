@@ -1,6 +1,6 @@
 package com.minirogue.series.usecase
 
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
+import com.minirogue.starwarscanontracker.core.data.dao.DaoSeries
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject

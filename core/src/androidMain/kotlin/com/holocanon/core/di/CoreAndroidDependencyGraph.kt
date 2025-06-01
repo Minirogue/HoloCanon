@@ -1,63 +1,45 @@
-package com.minirogue.starwarscanontracker.core.model.room
+package com.holocanon.core.di
 
-import android.content.Context
-import androidx.room.AutoMigration
-import androidx.room.Database
-import androidx.room.DeleteTable
+import android.app.Application
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.migration.AutoMigrationSpec
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoCompany
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
-import com.minirogue.starwarscanontracker.core.model.room.entity.CompanyDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObjectDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.SeriesDto
+import com.holocanon.core.data.database.MediaDatabase
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesTo
+import dev.zacsweers.metro.Provides
+import dev.zacsweers.metro.SingleIn
 
-@Database(
-    entities = [MediaItemDto::class, MediaNotesDto::class, SeriesDto::class, FilterObjectDto::class, FilterTypeDto::class, CompanyDto::class],
-    version = 20,
-    autoMigrations = [
-        AutoMigration(from = 17, to = 18), AutoMigration(
-            from = 18,
-            to = 19,
-            spec = MediaDatabase.AutoMigration18To19::class,
-        ), AutoMigration(from = 19, to = 20, spec = MediaDatabase.AutoMigration19To20::class),
-    ],
-    exportSchema = true,
-)
-abstract class MediaDatabase : RoomDatabase() {
-    abstract fun getDaoMedia(): DaoMedia
-    abstract fun getDaoSeries(): DaoSeries
-    abstract fun getDaoFilter(): DaoFilter
-    abstract fun getDaoCompany(): DaoCompany
-
-    @DeleteTable(tableName = "media_types")
-    class AutoMigration19To20 : AutoMigrationSpec {
-        override fun onPostMigrate(db: SupportSQLiteDatabase) {
-            super.onPostMigrate(db)
-        }
+@ContributesTo(AppScope::class)
+interface CoreAndroidDependencyGraph {
+    @Provides
+    @SingleIn(AppScope::class)
+    fun provideRoomDatabase(application: Application): MediaDatabase {
+        val dbFile = application.getDatabasePath(DATABASE_NAME)
+        return Room.databaseBuilder<MediaDatabase>(
+            context = application,
+            name = dbFile.absolutePath,
+        ).createFromAsset("database/$LATEST_PREPACKAGED_DATABASE")
+            .addMigrations(
+                MIGRATE_8_9,
+                MIGRATE_9_10,
+                MIGRATE_10_11,
+                MIGRATE_11_12,
+                MIGRATE_12_13,
+                MIGRATE_13_14,
+                MIGRATE_14_15,
+                MIGRATE_15_16,
+                MIGRATE_16_17,
+            )
+            .build()
     }
 
-    @DeleteTable(tableName = "media_character_join")
-    @DeleteTable(tableName = "characters")
-    class AutoMigration18To19 : AutoMigrationSpec {
-        override fun onPostMigrate(db: SupportSQLiteDatabase) {
-            super.onPostMigrate(db)
-        }
-    }
-
+    @Suppress("MagicNumber")
     companion object {
         private const val DATABASE_NAME = "StarWars-database"
         private const val LATEST_PREPACKAGED_DATABASE = "schema16_ver13.db"
 
-        private val MIGRATE_16_17: Migration = object : Migration(16, 17) {
+        internal val MIGRATE_16_17: Migration = object : Migration(16, 17) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 // Add publisher column to media_items
                 db.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'publisher' INTEGER NOT NULL DEFAULT 0")
@@ -90,13 +72,13 @@ abstract class MediaDatabase : RoomDatabase() {
             }
         }
 
-        private val MIGRATE_15_16: Migration = object : Migration(15, 16) {
+        internal val MIGRATE_15_16: Migration = object : Migration(15, 16) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL("ALTER TABLE 'filter_type' ADD COLUMN 'text' TEXT NOT NULL DEFAULT ''")
             }
         }
 
-        private val MIGRATE_14_15: Migration = object : Migration(14, 15) {
+        internal val MIGRATE_14_15: Migration = object : Migration(14, 15) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL("CREATE INDEX IF NOT EXISTS `index_media_items_type` ON `media_items` (`type`)")
                 db.execSQL("CREATE INDEX IF NOT EXISTS `index_media_items_series` ON `media_items` (`series`)")
@@ -113,7 +95,7 @@ abstract class MediaDatabase : RoomDatabase() {
             }
         }
 
-        private val MIGRATE_13_14: Migration = object : Migration(13, 14) {
+        internal val MIGRATE_13_14: Migration = object : Migration(13, 14) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL(
                     "CREATE TABLE IF NOT EXISTS `filter_object` (`filter_id` INTEGER NOT NULL, `type_id` INTEGER NOT NULL, `is_active` INTEGER NOT NULL, `filter_text` TEXT, PRIMARY KEY(`filter_id`), FOREIGN KEY(`type_id`) REFERENCES `filter_type`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
@@ -134,7 +116,7 @@ abstract class MediaDatabase : RoomDatabase() {
             }
         }
 
-        private val MIGRATE_12_13: Migration = object : Migration(12, 13) {
+        internal val MIGRATE_12_13: Migration = object : Migration(12, 13) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL(
                     "CREATE TABLE IF NOT EXISTS 'series'('id' INTEGER NOT NULL, 'title' TEXT NOT NULL, 'description' TEXT NOT NULL, 'image' TEXT NOT NULL, PRIMARY KEY('id'))",
@@ -143,50 +125,32 @@ abstract class MediaDatabase : RoomDatabase() {
             }
         }
 
-        private val MIGRATE_11_12: Migration = object : Migration(11, 12) {
+        internal val MIGRATE_11_12: Migration = object : Migration(11, 12) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'review' TEXT DEFAULT ''")
             }
         }
 
-        private val MIGRATE_10_11: Migration = object : Migration(10, 11) {
+        internal val MIGRATE_10_11: Migration = object : Migration(10, 11) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'amazon_link' TEXT DEFAULT ''")
                 db.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'amazon_stream' TEXT DEFAULT ''")
             }
         }
 
-        private val MIGRATE_8_9: Migration = object : Migration(8, 9) {
+        internal val MIGRATE_8_9: Migration = object : Migration(8, 9) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 // Example of adding a new column to a table. Make sure it matches the schema column
                 db.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'image' TEXT DEFAULT ''")
             }
         }
 
-        private val MIGRATE_9_10: Migration = object : Migration(9, 10) {
+        internal val MIGRATE_9_10: Migration = object : Migration(9, 10) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 // Example of adding a new column to a table. Make sure it matches the schema column
                 db.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'date' TEXT DEFAULT ''")
                 db.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'timeline' REAL NOT NULL DEFAULT 10000")
             }
         }
-
-        fun createDatabase(context: Context): MediaDatabase = Room.databaseBuilder(
-            context.getApplicationContext(),
-            MediaDatabase::class.java,
-            DATABASE_NAME,
-        ).createFromAsset("database/$LATEST_PREPACKAGED_DATABASE")
-            .addMigrations(
-                MediaDatabase.MIGRATE_8_9,
-                MediaDatabase.MIGRATE_9_10,
-                MediaDatabase.MIGRATE_10_11,
-                MediaDatabase.MIGRATE_11_12,
-                MediaDatabase.MIGRATE_12_13,
-                MediaDatabase.MIGRATE_13_14,
-                MediaDatabase.MIGRATE_14_15,
-                MediaDatabase.MIGRATE_15_16,
-                MediaDatabase.MIGRATE_16_17,
-            )
-            .build()
     }
 }

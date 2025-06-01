@@ -1,8 +1,8 @@
 package com.holocanon.library.media.item.internal.usecase
 
+import com.holocanon.core.data.dao.DaoMedia
 import com.holocanon.library.media.item.model.MediaAndNotes
 import com.holocanon.library.media.item.usecase.GetMediaAndNotesForSeries
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.core.usecase.AdaptMediaItemDtoToStarWarsMedia
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.map
 @Inject
 @ContributesBinding(AppScope::class)
 class GetMediaAndNotesForSeriesImpl(
-    private val daoMedia: DaoMedia,
+    private val daoMedia: com.holocanon.core.data.dao.DaoMedia,
     private val adaptMediaItemDtoToStarWarsMedia: AdaptMediaItemDtoToStarWarsMedia,
 ) : GetMediaAndNotesForSeries {
     override fun invoke(seriesId: Int): Flow<List<MediaAndNotes>> {

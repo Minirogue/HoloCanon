@@ -4,6 +4,7 @@ import android.app.Application
 import android.net.ConnectivityManager
 import android.util.Log
 import android.widget.Toast
+import com.holocanon.core.data.entity.SeriesDto
 import com.holocanon.library.filters.usecase.UpdateFilters
 import com.minirogue.common.model.Company
 import com.minirogue.common.model.MediaType
@@ -11,11 +12,10 @@ import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.holoclient.api.GetApiMediaVersion
 import com.minirogue.holoclient.api.GetMediaFromApi
 import com.minirogue.holoclient.api.HoloResult
-import com.minirogue.starwarscanontracker.core.model.room.MediaDatabase
-import com.minirogue.starwarscanontracker.core.model.room.entity.CompanyDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.SeriesDto
+import com.minirogue.starwarscanontracker.core.data.database.MediaDatabase
+import com.minirogue.starwarscanontracker.core.data.entity.CompanyDto
+import com.minirogue.starwarscanontracker.core.data.entity.MediaItemDto
+import com.minirogue.starwarscanontracker.core.data.entity.MediaNotesDto
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
@@ -29,7 +29,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import settings.usecase.GetAllSettings
 import settings.usecase.SetLatestDatabaseVersion
@@ -78,7 +77,10 @@ class UpdateMediaDatabaseUseCase internal constructor(
                             val series = media.series
                             if (seriesMap[series] == null && !series.isNullOrEmpty()) {
                                 val seriesDtoId =
-                                    daoSeries.insert(SeriesDto().apply { title = series }).toInt()
+                                    daoSeries.insert(
+                                        com.holocanon.core.data.entity.SeriesDto()
+                                            .apply { title = series },
+                                    ).toInt()
                                 seriesMap[series] = seriesDtoId
                             }
                             media.toDTO(seriesMap, typeMap, companyMap)

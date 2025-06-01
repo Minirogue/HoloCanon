@@ -1,13 +1,13 @@
-package com.minirogue.starwarscanontracker.core.model.room.dao
+package com.holocanon.core.data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObjectDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto
-import com.minirogue.starwarscanontracker.core.model.room.pojo.FullFilter
+import com.holocanon.core.data.entity.FilterObjectDto
+import com.holocanon.core.data.entity.FilterTypeDto
+import com.holocanon.core.data.pojo.FullFilter
 import kotlinx.coroutines.flow.Flow
 
 @Dao

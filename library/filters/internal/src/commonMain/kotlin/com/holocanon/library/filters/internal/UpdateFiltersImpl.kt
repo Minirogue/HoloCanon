@@ -2,11 +2,11 @@ package com.holocanon.library.filters.internal
 
 import com.holocanon.library.filters.usecase.UpdateFilters
 import com.minirogue.common.model.MediaType
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoCompany
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObjectDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto
+import com.minirogue.starwarscanontracker.core.data.dao.DaoCompany
+import com.minirogue.starwarscanontracker.core.data.dao.DaoFilter
+import com.minirogue.starwarscanontracker.core.data.dao.DaoSeries
+import com.minirogue.starwarscanontracker.core.data.entity.FilterObjectDto
+import com.minirogue.starwarscanontracker.core.data.entity.FilterTypeDto
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject

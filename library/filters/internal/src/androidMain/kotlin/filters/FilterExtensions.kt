@@ -1,7 +1,7 @@
 package filters
 
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObjectDto
-import com.minirogue.starwarscanontracker.core.model.room.pojo.FullFilter
+import com.minirogue.starwarscanontracker.core.data.entity.FilterObjectDto
+import com.minirogue.starwarscanontracker.core.data.pojo.FullFilter
 import filters.model.FilterType
 import filters.model.MediaFilter
 

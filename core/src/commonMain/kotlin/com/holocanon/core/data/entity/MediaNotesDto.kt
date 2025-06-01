@@ -1,4 +1,4 @@
-package com.minirogue.starwarscanontracker.core.model.room.entity
+package com.holocanon.core.data.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

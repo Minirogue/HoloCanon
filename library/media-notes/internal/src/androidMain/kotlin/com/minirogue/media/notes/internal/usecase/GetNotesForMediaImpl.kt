@@ -1,8 +1,8 @@
 package com.minirogue.media.notes.internal.usecase
 
+import com.holocanon.core.data.dao.DaoMedia
 import com.minirogue.media.notes.model.MediaNotes
 import com.minirogue.media.notes.usecase.GetNotesForMedia
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.map
 
 @Inject
 @ContributesBinding(AppScope::class)
-class GetNotesForMediaImpl(private val daoMedia: DaoMedia) : GetNotesForMedia {
+class GetNotesForMediaImpl(private val daoMedia: com.holocanon.core.data.dao.DaoMedia) : GetNotesForMedia {
     /**
      * Returns MediaNotes associated to the given MediaItem id
      *

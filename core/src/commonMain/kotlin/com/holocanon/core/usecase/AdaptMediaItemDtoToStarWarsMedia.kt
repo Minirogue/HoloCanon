@@ -1,13 +1,12 @@
-package com.minirogue.starwarscanontracker.core.usecase
+package com.holocanon.core.usecase
 
-import android.util.Log
+import com.holocanon.core.data.dao.DaoCompany
+import com.holocanon.core.data.dao.DaoSeries
+import com.holocanon.core.data.entity.MediaItemDto
 import com.holocanon.library.coroutine.ext.HolocanonDispatchers
 import com.minirogue.common.model.Company
 import com.minirogue.common.model.MediaType
 import com.minirogue.common.model.StarWarsMedia
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoCompany
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -25,6 +24,7 @@ class AdaptMediaItemDtoToStarWarsMedia internal constructor(
     daoSeries: DaoSeries,
     private val json: Json,
     dispatchers: HolocanonDispatchers,
+    logger: HoloLogger,
 ) {
     private val adapterScope = CoroutineScope(Job() + dispatchers.default)
     private val companyMap: SharedFlow<Map<Int, Company>> = daoCompany.getAllCompanies()

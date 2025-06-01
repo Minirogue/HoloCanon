@@ -1,6 +1,9 @@
-package com.minirogue.starwarscanontracker.core.usecase
+package com.minirogue.series.usecase
 
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
+import com.holocanon.core.data.dao.DaoMedia
+import com.minirogue.series.model.Checkbox
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Mutex
@@ -8,11 +11,12 @@ import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 
 @Inject
-class SetCheckboxForSeries(private val daoMedia: DaoMedia) {
+@ContributesBinding(AppScope::class)
+class SetCheckboxForSeriesImpl(private val daoMedia: com.holocanon.core.data.dao.DaoMedia) : SetCheckboxForSeries {
     // A Mutex in case notes are being updated concurrently (e.g. user clicks on two separate checkboxes for a series)
     private val updatingNotesMutex = Mutex()
 
-    suspend operator fun invoke(
+    override suspend operator fun invoke(
         checkbox: Checkbox,
         seriesId: Int,
         newValue: Boolean,
@@ -30,5 +34,3 @@ class SetCheckboxForSeries(private val daoMedia: DaoMedia) {
         }
     }
 }
-
-enum class Checkbox { CHECKBOX_1, CHECKBOX_2, CHECKBOX_3 }
