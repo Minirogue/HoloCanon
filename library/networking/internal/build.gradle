@@ -1,0 +1,18 @@
+plugins {
+    id "minirogue.multiplatform.library"
+}
+
+minirogue {
+    android()
+    metro()
+}
+
+kotlin.sourceSets.commonMain.dependencies {
+    api projects.library.networking.public
+
+    implementation libs.kotlinx.coroutines.core
+    implementation libs.ktor.client.core
+    implementation libs.ktor.client.contentNegotiation
+    implementation libs.ktor.client.okhttp
+    implementation libs.ktor.serialization
+}

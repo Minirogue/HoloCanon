@@ -22,6 +22,12 @@ dependencyResolutionManagement {
     }
 }
 
+buildCache {
+    local {
+        directory = new File(rootDir, '.gradle/build-cache')
+    }
+}
+
 rootProject.name = "holocanon"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
@@ -68,6 +74,8 @@ include ':library:media-item:public'
 include ':library:media-notes:internal'
 include ':library:media-notes:public'
 include ':library:navigation:public'
+include ':library:networking:internal'
+include ':library:networking:public'
 include ':library:serialization-ext:internal'
 include ':library:serialization-ext:testing'
 include ':library:series:internal'

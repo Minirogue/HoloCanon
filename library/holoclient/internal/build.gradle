@@ -7,15 +7,14 @@ minirogue {
     metro()
 }
 
-kotlin.sourceSets.androidMain.dependencies {
+kotlin.sourceSets.commonMain.dependencies {
     api projects.library.holoclient.public
 
     implementation libs.kotlinx.coroutines.core
-    implementation libs.ktor.client.core
-    implementation libs.ktor.client.contentNegotiation
-    implementation libs.ktor.client.okhttp
-    implementation libs.ktor.serialization
+    implementation libs.kotlinx.serialization.json
     implementation projects.core
     implementation projects.library.commonModels.public
+    implementation projects.library.globalNotification.public
+    implementation projects.library.networking.public
     implementation projects.library.settings.public
 }

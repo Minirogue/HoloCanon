@@ -19,7 +19,7 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: |
-            ~/.gradle/caches
+            .gradle
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ github.run_id }}
           restore-keys: |
