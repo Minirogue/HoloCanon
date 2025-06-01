@@ -3,14 +3,16 @@ package com.holocanon.library.media.item.internal.usecase
 import com.holocanon.library.media.item.model.MediaAndNotes
 import com.holocanon.library.media.item.usecase.GetMediaAndNotesForSeries
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
-import dev.zacsweers.metro.Inject
 import com.minirogue.starwarscanontracker.core.usecase.AdaptMediaItemDtoToStarWarsMedia
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 @Inject
-@ContributesTo(AppScope::class)
-class GetMediaAndNotesForSeries(
+@ContributesBinding(AppScope::class)
+class GetMediaAndNotesForSeriesImpl(
     private val daoMedia: DaoMedia,
     private val adaptMediaItemDtoToStarWarsMedia: AdaptMediaItemDtoToStarWarsMedia,
 ) : GetMediaAndNotesForSeries {

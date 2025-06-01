@@ -4,6 +4,7 @@ import android.app.Application
 import android.net.ConnectivityManager
 import android.util.Log
 import android.widget.Toast
+import com.holocanon.library.filters.usecase.UpdateFilters
 import com.minirogue.common.model.Company
 import com.minirogue.common.model.MediaType
 import com.minirogue.common.model.StarWarsMedia
@@ -15,7 +16,6 @@ import com.minirogue.starwarscanontracker.core.model.room.entity.CompanyDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.SeriesDto
-import com.minirogue.starwarscanontracker.core.usecase.UpdateFilters
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject

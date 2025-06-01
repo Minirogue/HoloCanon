@@ -32,15 +32,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.findViewTreeViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.holocanon.core.model.MediaAndNotes
-import com.holocanon.feature.loading.LoadingScreen
-import com.holocanon.feature.media.list.internal.R
-import com.holocanon.library.navigation.AppBarAction
 import com.holocanon.library.media.item.model.MediaAndNotes
+import com.holocanon.library.navigation.AppBarAction
 import com.holocanon.library.navigation.AppBarConfig
 import com.holocanon.library.sorting.model.SortStyle
 import com.minirogue.holocanon.feature.media.item.usecase.MediaItemNav
-import com.minirogue.holocanon.feature.media.list.internal.viewmodel.MediaListViewModel
 import dev.zacsweers.metro.Provider
 import holocanon.feature.media_list.internal.generated.resources.Res
 import holocanon.feature.media_list.internal.generated.resources.media_list_search_label

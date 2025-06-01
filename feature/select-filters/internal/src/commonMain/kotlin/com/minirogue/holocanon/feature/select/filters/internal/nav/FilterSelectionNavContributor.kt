@@ -1,30 +1,32 @@
-package com.minirogue.holocanon.feature.media.list.internal.nav
+package com.minirogue.holocanon.feature.select.filters.internal.nav
 
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.holocanon.feature.select.filters.FilterSelectionNav
 import com.holocanon.library.navigation.AppBarConfig
 import com.holocanon.library.navigation.NavContributor
-import com.minirogue.holocanon.feature.media.list.internal.view.MediaListScreen
-import com.minirogue.holocanon.feature.media.list.internal.viewmodel.MediaListViewModel
-import com.minirogue.holocanon.feature.media.list.usecase.MediaListNav
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoSet
 import dev.zacsweers.metro.Inject
 import dev.zacsweers.metro.Provider
+import internal.view.FilterSelectionScreen
+import internal.view.FilterSelectionViewModel
 
 @Inject
 @ContributesIntoSet(AppScope::class)
-class MediaListNavContributor internal constructor(
-    private val viewModelProvider: Provider<MediaListViewModel>,
+class FilterSelectionNavContributor internal constructor(
+    private val viewModelProvider: Provider<FilterSelectionViewModel>,
 ) : NavContributor() {
     override fun invoke(
         navGraphBuilder: NavGraphBuilder,
         navController: NavController,
         setAppBar: (AppBarConfig) -> Unit,
     ) = with(navGraphBuilder) {
-        composable<MediaListNav> {
-            MediaListScreen(viewModelProvider = viewModelProvider, navController = navController, setAppBar = setAppBar)
+        composable<FilterSelectionNav> {
+            LaunchedEffect(true) { setAppBar(AppBarConfig()) }
+            FilterSelectionScreen(viewModelProvider)
         }
     }
 }

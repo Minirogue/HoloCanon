@@ -7,12 +7,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.holocanon.library.navigation.AppBarConfig
 import com.holocanon.library.navigation.NavContributor
-import com.minirogue.holocanon.feature.media.item.internal.fragment.MediaItemScreen
-import com.minirogue.holocanon.feature.media.item.internal.fragment.ViewMediaItemViewModel
 import com.minirogue.holocanon.feature.media.item.usecase.MediaItemNav
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoSet
 import dev.zacsweers.metro.Inject
+import internal.view.MediaItemScreen
+import internal.view.ViewMediaItemViewModel
 
 @Inject
 @ContributesIntoSet(AppScope::class)

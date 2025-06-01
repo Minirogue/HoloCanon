@@ -3,8 +3,8 @@ package com.holocanon.app.shared
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.holocanon.feature.global.notification.usecase.GetGlobalToasts
+import com.holocanon.library.filters.usecase.UpdateFilters
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
-import com.minirogue.starwarscanontracker.core.usecase.UpdateFilters
 import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

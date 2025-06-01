@@ -3,7 +3,7 @@ plugins {
 }
 
 minirogue {
-    android ()
+    android()
     metro()
     kotlinCompose()
 }
