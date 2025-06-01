@@ -2,11 +2,12 @@ package com.minirogue.starwarscanontracker.core.usecase
 
 import com.holocanon.core.model.MediaAndNotes
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
-class GetMediaAndNotesForSeries @Inject constructor(
+@Inject
+class GetMediaAndNotesForSeries(
     private val daoMedia: DaoMedia,
     private val adaptMediaItemDtoToStarWarsMedia: AdaptMediaItemDtoToStarWarsMedia,
 ) {

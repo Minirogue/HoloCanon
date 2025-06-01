@@ -20,11 +20,9 @@ import androidx.navigation.compose.rememberNavController
 import com.holocanon.library.navigation.AppBarConfig
 import com.holocanon.library.navigation.NavContributor
 import compose.theme.HolocanonTheme
-import dagger.hilt.android.AndroidEntryPoint
 import settings.model.DarkModeSetting
 import settings.model.Theme
 
-@AndroidEntryPoint
 class TestComposeActivity : AppCompatActivity() {
     private val navContributors: Set<NavContributor> = emptySet() // TODO fix DI here
     override fun onCreate(savedInstanceState: Bundle?) {

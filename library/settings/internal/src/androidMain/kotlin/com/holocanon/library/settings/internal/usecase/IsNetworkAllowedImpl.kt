@@ -2,12 +2,16 @@ package com.holocanon.library.settings.internal.usecase
 
 import android.net.ConnectivityManager
 import com.holocanon.library.settings.usecase.IsNetworkAllowed
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import settings.usecase.ShouldSyncViaWifiOnly
-import javax.inject.Inject
 
-internal class IsNetworkAllowedImpl @Inject constructor(
+@Inject
+@ContributesBinding(AppScope::class)
+class IsNetworkAllowedImpl(
     private val connMgr: ConnectivityManager,
     private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly,
 ) : IsNetworkAllowed {

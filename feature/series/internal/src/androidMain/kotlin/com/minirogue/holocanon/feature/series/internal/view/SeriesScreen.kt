@@ -17,8 +17,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.holocanon.core.model.MediaAndNotes
 import com.minirogue.holocanon.feature.media.item.usecase.MediaItemNav
@@ -28,13 +28,10 @@ import settings.model.CheckboxSettings
 @Composable
 internal fun SeriesScreen(
     modifier: Modifier = Modifier,
+    viewModelFactory: SeriesViewModel.Factory,
     seriesName: String,
     navController: NavController,
-    viewModel: SeriesViewModel = hiltViewModel(
-        creationCallback = { factory: SeriesViewModel.Factory ->
-            factory.create(seriesName)
-        },
-    ),
+    viewModel: SeriesViewModel = viewModel { viewModelFactory.create(seriesName) },
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 

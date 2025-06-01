@@ -6,7 +6,6 @@ plugins {
 }
 
 minirogue {
-    hilt()
     kotlinCompose()
 }
 

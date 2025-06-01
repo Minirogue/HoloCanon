@@ -2,6 +2,7 @@ package com.minirogue.holoclient.api
 
 import android.util.Log
 import com.minirogue.common.model.StarWarsMedia
+import dev.zacsweers.metro.Inject
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.okhttp.OkHttp
@@ -12,11 +13,11 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import java.io.IOException
-import javax.inject.Inject
 
 private const val TAG = "GetMediaFromApiImpl"
 
-internal class GetMediaFromApi @Inject constructor(
+@Inject
+internal class GetMediaFromApi(
     val json: Json,
 ) {
     suspend operator fun invoke(): HoloResult<List<StarWarsMedia>> {

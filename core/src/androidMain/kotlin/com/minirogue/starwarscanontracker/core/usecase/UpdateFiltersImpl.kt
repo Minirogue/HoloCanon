@@ -6,15 +6,19 @@ import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterObjectDto
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import settings.usecase.GetCheckboxSettings
-import javax.inject.Inject
 
-internal class UpdateFiltersImpl @Inject constructor(
+@Inject
+@ContributesBinding(AppScope::class)
+class UpdateFiltersImpl(
     private val daoFilter: DaoFilter,
     private val daoSeries: DaoSeries,
     private val daoCompany: DaoCompany,

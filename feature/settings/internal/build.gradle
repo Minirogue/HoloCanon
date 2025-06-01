@@ -3,17 +3,15 @@ plugins {
 }
 
 minirogue {
+    android()
+    kotlinCompose()
     metro()
-    android {
-        hilt()
-        kotlinCompose()
-    }
 }
 
 kotlin.sourceSets.androidMain.dependencies {
     api projects.feature.settings.public
 
-    implementation libs.hilt.compose
+    
     implementation projects.core
     implementation projects.library.composeExt.public
     implementation projects.library.holoclient.public

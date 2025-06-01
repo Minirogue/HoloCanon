@@ -5,7 +5,6 @@ plugins {
 minirogue {
     metro()
     android {
-        hilt()
         kotlinCompose()
     }
 }
@@ -13,7 +12,7 @@ minirogue {
 kotlin.sourceSets.androidMain.dependencies {
     api projects.feature.selectFilters.public
 
-    implementation libs.hilt.compose
+    
     implementation projects.library.navigation.public
     implementation projects.library.filters.public
     implementation projects.library.filterUi.public

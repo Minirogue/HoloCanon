@@ -8,15 +8,18 @@ import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto.C
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto.Companion.FILTERCOLUMN_PUBLISHER
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto.Companion.FILTERCOLUMN_SERIES
 import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto.Companion.FILTERCOLUMN_TYPE
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import filters.model.FilterGroup
 import filters.model.FilterType
 import filters.model.MediaFilter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import settings.usecase.GetCheckboxSettings
-import javax.inject.Inject
-
-internal class GetAllFilterGroupsImpl @Inject constructor(
+@Inject
+@ContributesBinding(AppScope::class)
+class GetAllFilterGroupsImpl(
     private val daoFilter: DaoFilter,
     private val getPermanentFilters: GetPermanentFilters,
     private val getCheckboxSettings: GetCheckboxSettings,

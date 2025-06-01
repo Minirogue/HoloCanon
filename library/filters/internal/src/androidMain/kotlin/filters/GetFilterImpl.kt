@@ -1,10 +1,13 @@
 package filters
 
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import filters.model.MediaFilter
-import javax.inject.Inject
-
-class GetFilterImpl @Inject constructor(private val daoFilter: DaoFilter) : GetFilter {
+@Inject
+@ContributesBinding(AppScope::class)
+class GetFilterImpl(private val daoFilter: DaoFilter) : GetFilter {
     override suspend operator fun invoke(id: Int, typeId: Int): MediaFilter? = daoFilter.getFilter(
         id,
         typeId,

@@ -1,14 +1,17 @@
 package filters
 
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import filters.model.MediaFilter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
-
-internal class GetActiveFiltersImpl @Inject constructor(
+@Inject
+@ContributesBinding(AppScope::class)
+class GetActiveFiltersImpl(
     private val daoFilter: DaoFilter,
     private val getPermanentFilters: GetPermanentFilters,
 ) : GetActiveFilters {

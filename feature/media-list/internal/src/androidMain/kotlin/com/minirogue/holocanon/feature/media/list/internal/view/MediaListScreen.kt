@@ -15,6 +15,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.SearchBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -30,17 +31,19 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.findViewTreeViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.holocanon.core.model.MediaAndNotes
 import com.holocanon.feature.loading.LoadingScreen
 import com.holocanon.feature.media.list.internal.R
+import com.holocanon.library.navigation.AppBarAction
 import com.holocanon.library.navigation.AppBarConfig
 import com.holocanon.library.sorting.model.SortStyle
 import com.minirogue.holocanon.feature.media.item.usecase.MediaItemNav
 import com.minirogue.holocanon.feature.media.list.internal.viewmodel.MediaListViewModel
+import dev.zacsweers.metro.Provider
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -52,10 +55,12 @@ private const val CARD_PLACEMENT_DURATION = 800
 @Composable
 internal fun MediaListScreen(
     modifier: Modifier = Modifier,
+    viewModelProvider: Provider<MediaListViewModel>,
     navController: NavController,
     setAppBar: (AppBarConfig) -> Unit,
     mediaListViewModel: MediaListViewModel = LocalView.current.findViewTreeViewModelStoreOwner()
-        ?.let { hiltViewModel(it) } ?: hiltViewModel(), // Scope to Activity
+        ?.let { viewModel { viewModelProvider() } }
+        ?: viewModel { viewModelProvider() }, // Scope to Activity
 ) = Column(modifier = modifier.padding(horizontal = 8.dp)) {
     val state by mediaListViewModel.state.collectAsStateWithLifecycle(null)
     val mediaList by mediaListViewModel.mediaList.collectAsStateWithLifecycle(emptyList())
@@ -69,12 +74,15 @@ internal fun MediaListScreen(
 
     state?.also { nonNullState ->
         SearchBar(
-            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
             searchTerm = nonNullState.searchTerm,
             onSearchTermChanged = mediaListViewModel::updateSearch,
         )
         FilterGroup(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .height(40.dp)
                 .padding(vertical = 4.dp),
             activeFilters = nonNullState.activeFilters,

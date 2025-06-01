@@ -9,10 +9,8 @@ import com.holocanon.library.navigation.NavContributor
 import com.minirogue.holocanon.feature.home.screen.HomeNav
 import com.minirogue.holocanon.feature.home.screen.HomeScreen
 import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.ContributesIntoSet
 import dev.zacsweers.metro.Inject
-import dev.zacsweers.metro.SingleIn
 
 @Inject
 @ContributesIntoSet(AppScope::class)

@@ -1,9 +1,13 @@
 package com.minirogue.series.usecase
 
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
-import javax.inject.Inject
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 
-internal class GetSeriesIdFromNameImpl @Inject constructor(
+@Inject
+@ContributesBinding(AppScope::class)
+class GetSeriesIdFromNameImpl(
     private val daoSeries: DaoSeries,
 ) : GetSeriesIdFromName {
     override suspend fun invoke(name: String): Int? {

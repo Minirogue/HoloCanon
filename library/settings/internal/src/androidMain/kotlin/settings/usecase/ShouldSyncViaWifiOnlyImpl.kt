@@ -1,10 +1,13 @@
 package settings.usecase
 
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import settings.data.SettingsRepo
-import javax.inject.Inject
-
-internal class ShouldSyncViaWifiOnlyImpl @Inject constructor(private val settingsRepo: SettingsRepo) : ShouldSyncViaWifiOnly {
+@Inject
+@ContributesBinding(AppScope::class)
+class ShouldSyncViaWifiOnlyImpl(private val settingsRepo: SettingsRepo) : ShouldSyncViaWifiOnly {
     override fun invoke(): Flow<Boolean> = settingsRepo.getSettings().map { it.syncWifiOnly }
 }

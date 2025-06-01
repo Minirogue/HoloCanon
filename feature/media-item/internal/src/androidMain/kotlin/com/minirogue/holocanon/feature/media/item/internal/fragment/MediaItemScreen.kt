@@ -24,9 +24,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import coil3.request.CachePolicy
@@ -41,12 +41,9 @@ import settings.model.CheckboxSettings
 internal fun MediaItemScreen(
     modifier: Modifier = Modifier,
     itemId: Long,
+    viewModelFactory: ViewMediaItemViewModel.Factory,
     navController: NavController,
-    viewModel: ViewMediaItemViewModel = hiltViewModel(
-        creationCallback = { factory: ViewMediaItemViewModel.Factory ->
-            factory.create(itemId)
-        },
-    ),
+    viewModel: ViewMediaItemViewModel = viewModel { viewModelFactory.create(itemId) },
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 

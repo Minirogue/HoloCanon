@@ -8,6 +8,9 @@ import com.minirogue.common.model.MediaType
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.core.usecase.AdaptMediaItemDtoToStarWarsMedia
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import filters.GetActiveFilters
 import filters.model.FilterType
 import filters.model.MediaFilter
@@ -19,9 +22,9 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import settings.usecase.GetPermanentFilterSettings
-import javax.inject.Inject
-
-internal class GetMediaListWithNotesImpl @Inject constructor(
+@Inject
+@ContributesBinding(AppScope::class)
+class GetMediaListWithNotesImpl(
     private val daoMedia: DaoMedia,
     private val daoFilter: DaoFilter,
     private val getPermanentFilterSettings: GetPermanentFilterSettings,

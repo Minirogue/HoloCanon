@@ -6,7 +6,9 @@ import com.minirogue.common.model.MediaType
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import com.minirogue.media.notes.ExportMediaNotesJson
 import com.minirogue.media.notes.ImportMediaNotesJson
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.zacsweers.metro.AppScope
+import dev.zacsweers.metro.ContributesBinding
+import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -25,9 +27,8 @@ import settings.usecase.UpdateTheme
 import settings.usecase.UpdateWifiSetting
 import java.io.InputStream
 import java.io.OutputStream
-import javax.inject.Inject
 
-internal data class SettingsState(
+data class SettingsState(
     val checkboxSettings: CheckboxSettings? = null,
     val nameChangeDialogShowing: Int? = null,
     val permanentFilters: Map<MediaType, Boolean>? = null,
@@ -36,8 +37,9 @@ internal data class SettingsState(
     val darkModeSetting: DarkModeSetting? = null,
 )
 
-@HiltViewModel
-internal class SettingsViewModel @Inject constructor(
+@Inject
+@ContributesBinding(AppScope::class)
+class SettingsViewModel(
     getAllSettings: GetAllSettings,
     private val updateCheckboxName: UpdateCheckboxName,
     private val updateCheckboxActive: FlipIsCheckboxActive,
@@ -104,11 +106,11 @@ internal class SettingsViewModel @Inject constructor(
 
     fun syncDatabase() = viewModelScope.launch { maybeUpdateMediaDatabase(true) }
 
-    fun importMediaNotes(inputStream: InputStream) {
+    fun importMediaNotes(inputStream: InputStream) = viewModelScope.launch {
         importMediaNotesJson(inputStream)
     }
 
-    fun exportMediaNotes(outputStream: OutputStream) {
+    fun exportMediaNotes(outputStream: OutputStream) = viewModelScope.launch {
         exportMediaNotesJson(outputStream)
     }
 }
