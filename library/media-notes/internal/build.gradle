@@ -8,7 +8,7 @@ minirogue {
     metro()
 }
 
-kotlin.sourceSets.androidMain.dependencies {
+kotlin.sourceSets.commonMain.dependencies {
     api projects.library.mediaNotes.public
 
     implementation projects.core
@@ -17,7 +17,7 @@ kotlin.sourceSets.androidMain.dependencies {
     implementation projects.library.settings.public
 }
 
-kotlin.sourceSets.androidUnitTest.dependencies {
+kotlin.sourceSets.commonTest.dependencies {
     implementation libs.mockk
     implementation libs.junit
     implementation libs.kotlinx.coroutines.test
