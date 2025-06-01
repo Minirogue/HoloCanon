@@ -11,7 +11,6 @@ import com.holocanon.library.navigation.NavContributor
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoSet
 import dev.zacsweers.metro.Inject
-import view.SettingsScreen
 
 @Inject
 @ContributesIntoSet(AppScope::class)

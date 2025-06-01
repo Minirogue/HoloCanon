@@ -6,10 +6,10 @@ import androidx.navigation.compose.composable
 import com.holocanon.library.navigation.AppBarConfig
 import com.holocanon.library.navigation.NavContributor
 import com.minirogue.holocanon.feature.media.list.usecase.MediaListNav
-import internal.view.MediaListScreen
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesIntoSet
 import dev.zacsweers.metro.Inject
+import internal.view.MediaListScreen
 
 @Inject
 @ContributesIntoSet(AppScope::class)
