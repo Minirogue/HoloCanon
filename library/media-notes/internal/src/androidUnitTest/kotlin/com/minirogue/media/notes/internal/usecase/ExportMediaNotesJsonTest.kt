@@ -2,7 +2,6 @@ package com.minirogue.media.notes.internal.usecase
 
 import android.content.res.Resources
 import com.holocanon.feature.global.notification.usecase.FakeSendGlobalToast
-import com.holocanon.library.coroutine.ext.ApplicationScope
 import com.holocanon.library.coroutine.ext.CoroutineTestRule
 import com.holocanon.library.coroutine.ext.HolocanonDispatchers
 import com.holocanon.library.serialization.ext.testing.TestJson
@@ -29,7 +28,6 @@ class ExportMediaNotesJsonTest {
     private val getCheckboxSettings: GetCheckboxSettings = mockk()
     private val sendGlobalToast: FakeSendGlobalToast = FakeSendGlobalToast()
     private val resources: Resources = mockk()
-    private val appScope: ApplicationScope = coroutineTestRule.applicationScope
     private val json: Json = TestJson()
 
     private val holocanonDispatchers: HolocanonDispatchers = coroutineTestRule.holocanonDispatchers
@@ -39,7 +37,6 @@ class ExportMediaNotesJsonTest {
         getCheckboxSettings = getCheckboxSettings,
         sendGlobalToast = sendGlobalToast,
         resources = resources,
-        appScope = appScope,
         dispatchers = holocanonDispatchers,
         json = json,
     )
