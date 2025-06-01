@@ -10,19 +10,19 @@ import dev.zacsweers.metro.Inject
 class HoloLoggerImpl internal constructor(
     private val loggerDelegates: Set<LoggerDelegate>,
 ) : HoloLogger {
-    override fun debug(message: String) {
-        loggerDelegates.forEach { it.debug(message) }
+    override fun debug(message: String, tag: String?, throwable: Throwable?) {
+        loggerDelegates.forEach { it.debug(message, tag, throwable) }
     }
 
-    override fun info(message: String) {
-        loggerDelegates.forEach { it.info(message) }
+    override fun info(message: String, tag: String?, throwable: Throwable?) {
+        loggerDelegates.forEach { it.info(message, tag, throwable) }
     }
 
-    override fun warn(message: String) {
-        loggerDelegates.forEach { it.warn(message) }
+    override fun warn(message: String, tag: String?, throwable: Throwable?) {
+        loggerDelegates.forEach { it.warn(message, tag, throwable) }
     }
 
-    override fun error(message: String) {
-        loggerDelegates.forEach { it.error(message) }
+    override fun error(message: String, tag: String?, throwable: Throwable) {
+        loggerDelegates.forEach { it.error(message, tag, throwable) }
     }
 }

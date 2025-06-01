@@ -2,16 +2,16 @@ pluginManagement {
     resolutionStrategy {
         eachPlugin {
             if (requested.id.toString() == "com.github.minirogue")
-//                useModule("org.minirogue:minirogue-build-logic:$requested.version") // local
-              useModule("com.github.Minirogue:minirogue-build-logic:$requested.version")
+                useModule("org.minirogue:minirogue-build-logic:$requested.version") // local
+//              useModule("com.github.Minirogue:minirogue-build-logic:$requested.version")
         }
     }
     repositories {
         google()
         mavenCentral()
         gradlePluginPortal()
-//        mavenLocal() // when testing build logic changes locally
-        maven { url "https://jitpack.io" }
+        mavenLocal() // when testing build logic changes locally
+//        maven { url "https://jitpack.io" }
     }
 }
 
@@ -69,6 +69,8 @@ include ':library:global-notification:public'
 include ':library:global-notification:testing'
 include ':library:holoclient:internal'
 include ':library:holoclient:public'
+include ':library:logger:internal'
+include ':library:logger:public'
 include ':library:media-item:internal'
 include ':library:media-item:public'
 include ':library:media-notes:internal'

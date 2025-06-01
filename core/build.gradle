@@ -16,7 +16,6 @@ kotlin.sourceSets.commonMain.dependencies {
 
     implementation libs.kotlinx.coroutines.core
     implementation libs.kotlinx.serialization.json
-    implementation libs.androidx.lifecycle.viewmodel
     implementation projects.library.settings.public
     implementation projects.library.coroutineExt.public
 }

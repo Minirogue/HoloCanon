@@ -9,19 +9,19 @@ import dev.zacsweers.metro.Inject
 @ContributesIntoSet(AppScope::class)
 class AndroidLoggerDelegate : LoggerDelegate {
     // TODO figure out clean way to automate tagging
-    override fun debug(message: String) {
-        Log.d("untagged", message)
+    override fun debug(message: String, tag: String?, throwable: Throwable?) {
+        Log.d(tag, message, throwable)
     }
 
-    override fun info(message: String) {
-        Log.i("untagged", message)
+    override fun info(message: String, tag: String?, throwable: Throwable?) {
+        Log.i(tag, message, throwable)
     }
 
-    override fun warn(message: String) {
-        Log.w("untagged", message)
+    override fun warn(message: String, tag: String?, throwable: Throwable?) {
+        Log.w(tag, message, throwable)
     }
 
-    override fun error(message: String) {
-        Log.e("untagged", message)
+    override fun error(message: String, tag: String?, throwable: Throwable) {
+        Log.e(tag, message, throwable)
     }
 }

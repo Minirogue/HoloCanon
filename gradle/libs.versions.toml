@@ -22,9 +22,7 @@ serialization = "1.8.1"
 android-material = { group = "com.google.android.material", name = "material", version.ref = "androidMaterial" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appCompat" }
-androidx-core = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
-androidx-lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" }
 androidx-preference = { group = "androidx.preference", name = "preference-ktx", version.ref = "preference" }
 androidx-test = { group = "androidx.test", name = "core", version.ref = "androidxTest" }
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coilCompose" }
