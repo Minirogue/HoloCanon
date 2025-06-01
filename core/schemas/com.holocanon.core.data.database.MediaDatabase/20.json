@@ -120,8 +120,7 @@
             "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_media_items_series` ON `${TABLE_NAME}` (`series`)"
           }
-        ],
-        "foreignKeys": []
+        ]
       },
       {
         "tableName": "media_notes",
@@ -158,7 +157,6 @@
             "media_id"
           ]
         },
-        "indices": [],
         "foreignKeys": [
           {
             "table": "media_items",
@@ -207,9 +205,7 @@
           "columnNames": [
             "id"
           ]
-        },
-        "indices": [],
-        "foreignKeys": []
+        }
       },
       {
         "tableName": "filter_object",
@@ -236,8 +232,7 @@
           {
             "fieldPath": "displayText",
             "columnName": "filter_text",
-            "affinity": "TEXT",
-            "notNull": false
+            "affinity": "TEXT"
           }
         ],
         "primaryKey": {
@@ -247,7 +242,6 @@
             "type_id"
           ]
         },
-        "indices": [],
         "foreignKeys": [
           {
             "table": "filter_type",
@@ -290,9 +284,7 @@
           "columnNames": [
             "id"
           ]
-        },
-        "indices": [],
-        "foreignKeys": []
+        }
       },
       {
         "tableName": "companies",
@@ -316,12 +308,9 @@
           "columnNames": [
             "id"
           ]
-        },
-        "indices": [],
-        "foreignKeys": []
+        }
       }
     ],
-    "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
       "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ca8d08a4e127df0e34246ab40ede4dbd')"
