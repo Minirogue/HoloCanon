@@ -104,11 +104,11 @@ internal class SettingsViewModel @Inject constructor(
 
     fun syncDatabase() = viewModelScope.launch { maybeUpdateMediaDatabase(true) }
 
-    fun importMediaNotes(inputStream: InputStream) {
+    fun importMediaNotes(inputStream: InputStream) = viewModelScope.launch {
         importMediaNotesJson(inputStream)
     }
 
-    fun exportMediaNotes(outputStream: OutputStream) {
+    fun exportMediaNotes(outputStream: OutputStream) = viewModelScope.launch {
         exportMediaNotesJson(outputStream)
     }
 }

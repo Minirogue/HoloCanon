@@ -3,7 +3,6 @@ package com.holocanon.library.coroutine.ext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestDispatcher
-import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import org.junit.rules.TestWatcher
@@ -13,8 +12,6 @@ class CoroutineTestRule(
     val testDispatcher: TestDispatcher = StandardTestDispatcher(),
 ) : TestWatcher() {
     val holocanonDispatchers: HolocanonDispatchers = TestHolocanonDispatchers(testDispatcher)
-    val testScope: TestScope = TestScope(testDispatcher)
-    val applicationScope: ApplicationScope = TestApplicationScope(testScope)
 
     @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     override fun starting(description: Description) {
