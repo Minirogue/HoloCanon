@@ -4,6 +4,7 @@ import com.holocanon.core.data.dao.DaoCompany
 import com.holocanon.core.data.dao.DaoSeries
 import com.holocanon.core.data.entity.MediaItemDto
 import com.holocanon.library.coroutine.ext.HolocanonDispatchers
+import com.holocanon.library.logger.HoloLogger
 import com.minirogue.common.model.Company
 import com.minirogue.common.model.MediaType
 import com.minirogue.common.model.StarWarsMedia
@@ -24,7 +25,7 @@ class AdaptMediaItemDtoToStarWarsMedia internal constructor(
     daoSeries: DaoSeries,
     private val json: Json,
     dispatchers: HolocanonDispatchers,
-    logger: HoloLogger,
+    private val logger: HoloLogger,
 ) {
     private val adapterScope = CoroutineScope(Job() + dispatchers.default)
     private val companyMap: SharedFlow<Map<Int, Company>> = daoCompany.getAllCompanies()
@@ -33,10 +34,18 @@ class AdaptMediaItemDtoToStarWarsMedia internal constructor(
                 it.id to try {
                     json.decodeFromString<Company>("\"${it.companyName}\"")
                 } catch (e: SerializationException) {
-                    Log.e(TAG, "couldn't decode persisted company: ${it.companyName}", e)
+                    logger.error(
+                        tag = TAG,
+                        message = "couldn't decode persisted company: ${it.companyName}",
+                        throwable = e,
+                    )
                     Company.DISNEY
                 } catch (e: IllegalArgumentException) {
-                    Log.e(TAG, "couldn't decode persisted company: ${it.companyName}", e)
+                    logger.error(
+                        tag = TAG,
+                        message = "couldn't decode persisted company: ${it.companyName}",
+                        throwable = e,
+                    )
                     Company.DISNEY
                 }
             }
@@ -58,9 +67,14 @@ class AdaptMediaItemDtoToStarWarsMedia internal constructor(
         series = seriesMap.first()[mediaItemDto.series],
         number = null,
         publisher = companyMap.first()[mediaItemDto.publisher] ?: Company.DISNEY.also {
-            Log.e(TAG, "couldn't map publisher to a company: $this")
+            logger.error(
+                tag = TAG,
+                message = "couldn't map publisher to a company: $this",
+                throwable = IllegalStateException("null publisher"),
+            )
         },
     )
+
     companion object {
         private const val TAG = "GetMediaWithNotes"
     }

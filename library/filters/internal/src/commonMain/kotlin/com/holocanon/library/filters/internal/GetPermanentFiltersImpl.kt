@@ -1,15 +1,17 @@
-package filters
+package com.holocanon.library.filters.internal
 
+import com.holocanon.core.data.dao.DaoFilter
 import com.minirogue.common.model.MediaType
-import com.minirogue.starwarscanontracker.core.data.dao.DaoFilter
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
+import filters.GetPermanentFilters
 import filters.model.FilterType
 import filters.model.MediaFilter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import settings.usecase.GetPermanentFilterSettings
+
 @Inject
 @ContributesBinding(AppScope::class)
 class GetPermanentFiltersImpl(

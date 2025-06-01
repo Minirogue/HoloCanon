@@ -36,17 +36,9 @@ abstract class MediaDatabase : RoomDatabase() {
     abstract fun getDaoCompany(): DaoCompany
 
     @DeleteTable(tableName = "media_types")
-    class AutoMigration19To20 : AutoMigrationSpec {
-        override fun onPostMigrate(connection: SupportSQLiteDatabase) {
-            super.onPostMigrate(connection)
-        }
-    }
+    class AutoMigration19To20 : AutoMigrationSpec
 
     @DeleteTable(tableName = "media_character_join")
     @DeleteTable(tableName = "characters")
-    class AutoMigration18To19 : AutoMigrationSpec {
-        override fun onPostMigrate(connection: SupportSQLiteDatabase) {
-            super.onPostMigrate(connection)
-        }
-    }
+    class AutoMigration18To19 : AutoMigrationSpec
 }

@@ -18,6 +18,7 @@ kotlin.sourceSets.commonMain.dependencies {
     implementation libs.kotlinx.serialization.json
     implementation projects.library.settings.public
     implementation projects.library.coroutineExt.public
+    implementation projects.library.logger.public
 }
 
 kotlin.sourceSets.androidInstrumentedTest.dependencies {

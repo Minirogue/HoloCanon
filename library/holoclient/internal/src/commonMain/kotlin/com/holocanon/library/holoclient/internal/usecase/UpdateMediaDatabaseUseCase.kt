@@ -1,21 +1,23 @@
-package com.minirogue.holoclient.usecase
+package com.holocanon.library.holoclient.internal.usecase
 
 import android.app.Application
 import android.net.ConnectivityManager
 import android.util.Log
 import android.widget.Toast
-import com.holocanon.core.data.entity.SeriesDto
+import com.holocanon.core.data.dao.DaoCompany
+import com.holocanon.core.data.dao.DaoMedia
+import com.holocanon.core.data.dao.DaoSeries
+import com.holocanon.core.data.entity.CompanyDto
+import com.holocanon.core.data.entity.MediaItemDto
+import com.holocanon.core.data.entity.MediaNotesDto
 import com.holocanon.library.filters.usecase.UpdateFilters
+import com.holocanon.library.holoclient.internal.api.GetApiMediaVersion
+import com.holocanon.library.holoclient.internal.api.GetMediaFromApi
+import com.holocanon.library.networking.HoloResult
 import com.minirogue.common.model.Company
 import com.minirogue.common.model.MediaType
 import com.minirogue.common.model.StarWarsMedia
-import com.minirogue.holoclient.api.GetApiMediaVersion
-import com.minirogue.holoclient.api.GetMediaFromApi
-import com.minirogue.holoclient.api.HoloResult
-import com.minirogue.starwarscanontracker.core.data.database.MediaDatabase
-import com.minirogue.starwarscanontracker.core.data.entity.CompanyDto
-import com.minirogue.starwarscanontracker.core.data.entity.MediaItemDto
-import com.minirogue.starwarscanontracker.core.data.entity.MediaNotesDto
+import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
@@ -40,9 +42,11 @@ class UpdateMediaDatabaseUseCase internal constructor(
     private val connectivityManager: ConnectivityManager,
     private val getApiMediaVersion: GetApiMediaVersion,
     private val getMediaFromApi: GetMediaFromApi,
-    private val database: MediaDatabase,
     private val getSettings: GetAllSettings,
     private val setLatestDatabaseVersion: SetLatestDatabaseVersion,
+    private val daoMedia: DaoMedia,
+    private val daoSeries: DaoSeries,
+    private val daoCompany: DaoCompany,
     private val context: Application,
     private val json: Json,
 ) : MaybeUpdateMediaDatabase {
@@ -70,8 +74,6 @@ class UpdateMediaDatabaseUseCase internal constructor(
                     getTypeMap()
 
                 (getMediaFromApi() as? HoloResult.Success)?.value?.let { mediaList ->
-                    val daoMedia = database.getDaoMedia()
-                    val daoSeries = database.getDaoSeries()
                     mediaList.asFlow()
                         .map { media ->
                             val series = media.series
@@ -128,15 +130,15 @@ class UpdateMediaDatabaseUseCase internal constructor(
     )
 
     private suspend fun getSeriesMap() =
-        database.getDaoSeries().getAllSeries().first().associate { it.title to it.id }
+        daoSeries.getAllSeries().first().associate { it.title to it.id }
 
     private suspend fun getCompanyMap(): Map<Company, Int> = try {
-        val dtoCompanies = database.getDaoCompany().getAllCompanies().first()
+        val dtoCompanies = daoCompany.getAllCompanies().first()
         Company.entries.associateWith { company ->
             val text = json.encodeToString(company).trimQuotes()
             val dtoCompany = dtoCompanies.firstOrNull { it.companyName == text }
 
-            dtoCompany?.id ?: database.getDaoCompany().insert(CompanyDto(companyName = text))
+            dtoCompany?.id ?: daoCompany.insert(CompanyDto(companyName = text))
                 .toInt()
         }
     } catch (e: Exception) {

@@ -6,10 +6,10 @@ import com.holocanon.core.data.dao.DaoMedia
 import com.holocanon.feature.global.notification.usecase.SendGlobalToast
 import com.holocanon.library.coroutine.ext.HolocanonDispatchers
 import com.holocanon.library.media.notes.internal.R
+import com.holocanon.library.media.notes.internal.model.CheckBoxNamesV1
+import com.holocanon.library.media.notes.internal.model.MediaNotesJsonV1
+import com.holocanon.library.media.notes.internal.model.MediaNotesV1
 import com.minirogue.media.notes.ExportMediaNotesJson
-import com.minirogue.media.notes.internal.model.CheckBoxNamesV1
-import com.minirogue.media.notes.internal.model.MediaNotesJsonV1
-import com.minirogue.media.notes.internal.model.MediaNotesV1
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
@@ -27,7 +27,7 @@ import java.lang.Exception
 @Inject
 @ContributesBinding(AppScope::class)
 class ExportMediaNotesJsonImpl(
-    private val daoMedia: com.holocanon.core.data.dao.DaoMedia,
+    private val daoMedia: DaoMedia,
     private val getCheckboxSettings: GetCheckboxSettings,
     private val sendGlobalToast: SendGlobalToast,
     private val resources: Resources,

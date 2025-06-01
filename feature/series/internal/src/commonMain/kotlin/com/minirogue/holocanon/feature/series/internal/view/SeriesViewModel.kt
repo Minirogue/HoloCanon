@@ -6,8 +6,8 @@ import com.holocanon.library.media.item.model.MediaAndNotes
 import com.holocanon.library.media.item.usecase.GetMediaAndNotesForSeries
 import com.holocanon.library.settings.usecase.IsNetworkAllowed
 import com.minirogue.media.notes.model.MediaNotes
+import com.minirogue.series.model.Checkbox
 import com.minirogue.series.model.Series
-import com.minirogue.series.usecase.Checkbox
 import com.minirogue.series.usecase.GetSeries
 import com.minirogue.series.usecase.GetSeriesIdFromName
 import com.minirogue.series.usecase.SetCheckboxForSeries
@@ -42,7 +42,7 @@ internal class SeriesViewModel(
     @Assisted seriesName: String,
     getSeries: GetSeries,
     getMediaAndNotesForSeries: GetMediaAndNotesForSeries,
-    private val setCheckboxForSeries: com.minirogue.series.usecase.SetCheckboxForSeries,
+    private val setCheckboxForSeries: SetCheckboxForSeries,
     private val getSeriesIdFromName: GetSeriesIdFromName,
     isNetworkAllowed: IsNetworkAllowed,
     getCheckboxSettings: GetCheckboxSettings,
@@ -78,14 +78,14 @@ internal class SeriesViewModel(
     }
 
     fun toggleCheckbox1(seriesId: Int, newVal: Boolean) = viewModelScope.launch {
-        setCheckboxForSeries(com.minirogue.series.usecase.Checkbox.CHECKBOX_1, seriesId, newVal)
+        setCheckboxForSeries(Checkbox.CHECKBOX_1, seriesId, newVal)
     }
 
     fun toggleCheckbox2(seriesId: Int, newVal: Boolean) = viewModelScope.launch {
-        setCheckboxForSeries(com.minirogue.series.usecase.Checkbox.CHECKBOX_2, seriesId, newVal)
+        setCheckboxForSeries(Checkbox.CHECKBOX_2, seriesId, newVal)
     }
 
     fun toggleCheckbox3(seriesId: Int, newVal: Boolean) = viewModelScope.launch {
-        setCheckboxForSeries(com.minirogue.series.usecase.Checkbox.CHECKBOX_3, seriesId, newVal)
+        setCheckboxForSeries(Checkbox.CHECKBOX_3, seriesId, newVal)
     }
 }

@@ -12,7 +12,7 @@ import kotlinx.coroutines.withContext
 
 @Inject
 @ContributesBinding(AppScope::class)
-class SetCheckboxForSeriesImpl(private val daoMedia: com.holocanon.core.data.dao.DaoMedia) : SetCheckboxForSeries {
+class SetCheckboxForSeriesImpl(private val daoMedia: DaoMedia) : SetCheckboxForSeries {
     // A Mutex in case notes are being updated concurrently (e.g. user clicks on two separate checkboxes for a series)
     private val updatingNotesMutex = Mutex()
 
