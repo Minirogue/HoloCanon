@@ -1,0 +1,11 @@
+plugins {
+    id 'minirogue.multiplatform.library'
+}
+
+minirogue {
+    android()
+}
+
+kotlin.sourceSets.commonMain.dependencies {
+    api(libs.ktor.client.core)
+}

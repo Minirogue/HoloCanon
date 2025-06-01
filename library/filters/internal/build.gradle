@@ -7,7 +7,7 @@ minirogue {
     metro()
 }
 
-kotlin.sourceSets.androidMain.dependencies {
+kotlin.sourceSets.commonMain.dependencies {
     api projects.library.filters.public
 
     implementation projects.core
