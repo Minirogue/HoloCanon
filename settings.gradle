@@ -22,6 +22,12 @@ dependencyResolutionManagement {
     }
 }
 
+buildCache {
+    local {
+        directory = new File(rootDir, '.gradle/build-cache')
+    }
+}
+
 rootProject.name = "holocanon"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
