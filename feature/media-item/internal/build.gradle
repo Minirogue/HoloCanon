@@ -13,7 +13,6 @@ kotlin.sourceSets.commonMain.dependencies {
 
     implementation libs.compose.resources
     implementation libs.coil.compose
-
     implementation projects.core
     implementation projects.feature.series.public
     implementation projects.library.commonResources.public
