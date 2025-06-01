@@ -5,9 +5,9 @@ import android.util.Log
 import com.holocanon.feature.global.notification.usecase.SendGlobalToast
 import com.holocanon.library.coroutine.ext.HolocanonDispatchers
 import com.holocanon.library.media.notes.internal.R
+import com.holocanon.library.media.notes.internal.model.MediaNotesJsonV1
+import com.holocanon.library.media.notes.internal.model.MediaNotesV1
 import com.minirogue.media.notes.ImportMediaNotesJson
-import com.minirogue.media.notes.internal.model.MediaNotesJsonV1
-import com.minirogue.media.notes.internal.model.MediaNotesV1
 import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
 import dev.zacsweers.metro.AppScope
