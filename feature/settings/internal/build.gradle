@@ -11,6 +11,7 @@ minirogue {
 kotlin.sourceSets.commonMain.dependencies {
     api projects.feature.settings.public
 
+    implementation libs.compose.resources
     implementation projects.core
     implementation projects.library.composeExt.public
     implementation projects.library.holoclient.public

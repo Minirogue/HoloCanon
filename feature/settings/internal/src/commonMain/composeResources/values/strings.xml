@@ -5,6 +5,10 @@
     <string name="settings_light_mode">Light Mode</string>
     <string name="settings_dark_mode">Dark Mode</string>
 
+    <string name="settings_force_theme">Force Theme</string>
+    <string name="settings_mace_theme">Mace Theme</string>
+    <string name="settings_dynamic_theme">Dynamic Theme</string>
+
     <!--  Settings Screen  -->
     <string name="settings_sync_online">Sync database now</string>
     <string name="settings_wifi_only_setting">Sync on wifi only</string>

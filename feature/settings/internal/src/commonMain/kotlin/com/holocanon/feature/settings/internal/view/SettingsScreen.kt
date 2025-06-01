@@ -33,14 +33,34 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.holocanon.feature.settings.internal.R
 import com.holocanon.feature.settings.internal.viewmodel.SettingsViewModel
 import com.minirogue.common.model.MediaType
 import dev.zacsweers.metro.Provider
+import holocanon.feature.settings.internal.generated.resources.Res
+import holocanon.feature.settings.internal.generated.resources.settings_cancel
+import holocanon.feature.settings.internal.generated.resources.settings_dark_mode
+import holocanon.feature.settings.internal.generated.resources.settings_dynamic_theme
+import holocanon.feature.settings.internal.generated.resources.settings_export_import_user_data
+import holocanon.feature.settings.internal.generated.resources.settings_export_user_data_as_json
+import holocanon.feature.settings.internal.generated.resources.settings_filter_name
+import holocanon.feature.settings.internal.generated.resources.settings_filter_name_change_text
+import holocanon.feature.settings.internal.generated.resources.settings_force_theme
+import holocanon.feature.settings.internal.generated.resources.settings_import_user_data_from_json
+import holocanon.feature.settings.internal.generated.resources.settings_include_filter
+import holocanon.feature.settings.internal.generated.resources.settings_included_media_types
+import holocanon.feature.settings.internal.generated.resources.settings_light_mode
+import holocanon.feature.settings.internal.generated.resources.settings_mace_theme
+import holocanon.feature.settings.internal.generated.resources.settings_new_name
+import holocanon.feature.settings.internal.generated.resources.settings_save
+import holocanon.feature.settings.internal.generated.resources.settings_sync_online
+import holocanon.feature.settings.internal.generated.resources.settings_sync_settings
+import holocanon.feature.settings.internal.generated.resources.settings_system_dark_mode
+import holocanon.feature.settings.internal.generated.resources.settings_user_defined_filter
+import holocanon.feature.settings.internal.generated.resources.settings_wifi_only_setting
+import org.jetbrains.compose.resources.stringResource
 import settings.model.CheckboxSetting
 import settings.model.CheckboxSettings
 import settings.model.DarkModeSetting
@@ -152,9 +172,9 @@ private fun ThemeSettings(
                     text = {
                         Text(
                             when (theme) {
-                                Theme.Force -> "Force Theme"
-                                Theme.Mace -> "Mace Theme"
-                                Theme.Dynamic -> "Dynamic Theme"
+                                Theme.Force -> stringResource(Res.string.settings_force_theme)
+                                Theme.Mace -> stringResource(Res.string.settings_mace_theme)
+                                Theme.Dynamic -> stringResource(Res.string.settings_dynamic_theme)
                             },
                         )
                     },
@@ -181,9 +201,9 @@ private fun DarkModeSettings(
                 text = {
                     Text(
                         when (darkModeSetting) {
-                            DarkModeSetting.SYSTEM -> stringResource(R.string.settings_system_dark_mode)
-                            DarkModeSetting.LIGHT -> stringResource(R.string.settings_light_mode)
-                            DarkModeSetting.DARK -> stringResource(R.string.settings_dark_mode)
+                            DarkModeSetting.SYSTEM -> stringResource(Res.string.settings_system_dark_mode)
+                            DarkModeSetting.LIGHT -> stringResource(Res.string.settings_light_mode)
+                            DarkModeSetting.DARK -> stringResource(Res.string.settings_dark_mode)
                         },
                     )
                 },
@@ -206,7 +226,7 @@ private fun UserDefinedFilter(
     ) {
         Text(
             text = stringResource(
-                R.string.settings_user_defined_filter,
+                Res.string.settings_user_defined_filter,
                 whichBox.toString(),
             ),
             style = MaterialTheme.typography.titleMedium,
@@ -222,7 +242,7 @@ private fun UserDefinedFilter(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Text(
-                    text = stringResource(R.string.settings_filter_name),
+                    text = stringResource(Res.string.settings_filter_name),
                     modifier = Modifier.padding(8.dp),
                 )
                 Text(
@@ -239,7 +259,7 @@ private fun UserDefinedFilter(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = stringResource(R.string.settings_include_filter),
+                text = stringResource(Res.string.settings_include_filter),
                 modifier = Modifier.padding(8.dp),
             )
             Switch(
@@ -265,18 +285,18 @@ private fun CheckboxNameChangeDialog(
         onDismissRequest = { dismissNameChangeDialog() },
         confirmButton = {
             TextButton(onClick = { setCheckboxName(whichBox, newName) }) {
-                Text(text = stringResource(R.string.settings_save))
+                Text(text = stringResource(Res.string.settings_save))
             }
         },
         dismissButton = {
             TextButton(onClick = { dismissNameChangeDialog() }) {
-                Text(text = stringResource(R.string.settings_cancel))
+                Text(text = stringResource(Res.string.settings_cancel))
             }
         },
         title = {
             Text(
                 text = stringResource(
-                    R.string.settings_filter_name_change_text,
+                    Res.string.settings_filter_name_change_text,
                     whichBox.toString(),
                 ),
             )
@@ -285,7 +305,7 @@ private fun CheckboxNameChangeDialog(
             OutlinedTextField(
                 value = newName,
                 onValueChange = { newName = it },
-                label = { Text(stringResource(R.string.settings_new_name)) },
+                label = { Text(stringResource(Res.string.settings_new_name)) },
             )
         },
     )
@@ -298,7 +318,7 @@ private fun IncludedMediaTypes(
 ) {
     Card(modifier = Modifier.padding(8.dp)) {
         Text(
-            stringResource(R.string.settings_included_media_types),
+            stringResource(Res.string.settings_included_media_types),
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(8.dp),
         )
@@ -339,7 +359,7 @@ private fun DatabaseSyncSettings(
 ) {
     Card(modifier = Modifier.padding(8.dp)) {
         Text(
-            stringResource(R.string.settings_sync_settings),
+            stringResource(Res.string.settings_sync_settings),
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(8.dp),
         )
@@ -352,7 +372,7 @@ private fun DatabaseSyncSettings(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = stringResource(R.string.settings_wifi_only_setting),
+                text = stringResource(Res.string.settings_wifi_only_setting),
                 modifier = Modifier.padding(8.dp),
             )
             Switch(
@@ -371,7 +391,7 @@ private fun DatabaseSyncSettings(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                stringResource(R.string.settings_sync_online),
+                stringResource(Res.string.settings_sync_online),
                 modifier = Modifier.padding(8.dp),
             )
         }
@@ -422,7 +442,7 @@ private fun ExportMediaNotes(
 
     Card(modifier = Modifier.padding(8.dp)) {
         Text(
-            text = stringResource(R.string.settings_export_import_user_data),
+            text = stringResource(Res.string.settings_export_import_user_data),
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(8.dp),
         )
@@ -443,7 +463,7 @@ private fun ExportMediaNotes(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = stringResource(R.string.settings_export_user_data_as_json),
+                text = stringResource(Res.string.settings_export_user_data_as_json),
                 modifier = Modifier.padding(8.dp),
             )
         }
@@ -461,7 +481,7 @@ private fun ExportMediaNotes(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = stringResource(R.string.settings_import_user_data_from_json),
+                text = stringResource(Res.string.settings_import_user_data_from_json),
                 modifier = Modifier.padding(8.dp),
             )
         }
