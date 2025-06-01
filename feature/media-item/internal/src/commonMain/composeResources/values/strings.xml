@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="media_item_description_header">Description: </string>
+    <string name="media_item_media_type">type</string>
+    <string name="media_item_release_date">release date</string>
+    <string name="media_item_view_series">View Series</string>
+    <string name="media_item_media_title">Title</string>
+    <string name="media_item_cover_art">Cover art</string>
+    <string name="media_item_cover_description">cover</string>
+    <string name="media_item_content_description_cover_art">Cover art</string>
+</resources>

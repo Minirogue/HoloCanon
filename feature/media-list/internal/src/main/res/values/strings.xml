@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="media_list_content_description_sort_canon_list">Sort canon list</string>
-    <string name="media_list_search_label">Search</string>
-    <string name="media_list_ascending">ascending</string>
-    <string name="media_list_descending">descending</string>
-</resources>

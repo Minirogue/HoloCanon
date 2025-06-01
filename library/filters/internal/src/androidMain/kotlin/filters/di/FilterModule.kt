@@ -1,5 +1,6 @@
 package filters.di
 
+import com.holocanon.library.filters.usecase.UpdateFilters
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -32,4 +33,7 @@ internal interface FilterModule {
 
     @Binds
     fun bindGetAllFiltertypes(impl: GetAllFilterGroupsImpl): GetAllFilterGroups
+
+    @Binds
+    fun bindUpdateFilters(impl: com.holocanon.library.filters.internal.UpdateFiltersImpl): UpdateFilters
 }

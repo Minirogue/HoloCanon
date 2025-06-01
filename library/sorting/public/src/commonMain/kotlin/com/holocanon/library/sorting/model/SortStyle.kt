@@ -1,6 +1,6 @@
 package com.holocanon.library.sorting.model
 
-import com.holocanon.core.model.MediaAndNotes
+import com.holocanon.library.media.item.model.MediaAndNotes
 import com.minirogue.common.model.StarWarsMedia
 import kotlin.math.sign
 
