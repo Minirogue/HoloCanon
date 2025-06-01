@@ -72,7 +72,7 @@ fun App(
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             topBar = { HolocanonAppBar(navController, appBarConfig.value) },
-            snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+            snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         ) { padding ->
             MainScreen(
                 Modifier.padding(padding),
