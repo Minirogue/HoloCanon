@@ -4,7 +4,6 @@ plugins {
 
 minirogue {
     android()
-    jvm()
     metro()
     room()
 }
