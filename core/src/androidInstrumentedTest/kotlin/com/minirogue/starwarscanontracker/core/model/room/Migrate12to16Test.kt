@@ -20,8 +20,7 @@ class Migrate12to16Test {
     @JvmField
     val testHelper: MigrationTestHelper = MigrationTestHelper(
         InstrumentationRegistry.getInstrumentation(),
-        MediaDatabase::class.java.canonicalName,
-        FrameworkSQLiteOpenHelperFactory()
+        MediaDatabase::class.java,
     )
 
     @Test
