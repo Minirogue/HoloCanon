@@ -21,8 +21,8 @@ internal fun FilterSelectionScreen(
     modifier: Modifier = Modifier,
     viewModel: FilterSelectionViewModel = viewModel { viewModelProvider() },
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle( null)
-    state?.let {nonNullState ->
+    val state by viewModel.state.collectAsStateWithLifecycle(null)
+    state?.let { nonNullState ->
         Column(modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
             ActiveFilters(
                 state = nonNullState,
@@ -33,7 +33,8 @@ internal fun FilterSelectionScreen(
                 modifier = Modifier.padding(4.dp),
                 checkboxFilters = nonNullState.checkboxFilters,
                 onGroupCheckChanged = viewModel::flipFilterType,
-                onFilterClicked = viewModel::flipFilterActive,)
+                onFilterClicked = viewModel::flipFilterActive,
+            )
             nonNullState.nonCheckboxFilters.forEach { filterGroupMapEntry ->
                 FilterTypeSubMenu(
                     modifier = Modifier.padding(4.dp),

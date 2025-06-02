@@ -28,20 +28,20 @@ internal class FilterSelectionViewModel(
 
     val state: Flow<FilterSelectionState> = combine(
         getAllFilterGroups(),
-        getActiveFilters()
+        getActiveFilters(),
     ) { filterGroups, activeFilters ->
         val checkboxFilters = filterGroups.filter {
             it.key.type in setOf(
                 FilterType.CheckboxOne,
                 FilterType.CheckboxTwo,
-                FilterType.CheckboxThree
+                FilterType.CheckboxThree,
             )
         }
         val nonCheckboxFilterGroups = filterGroups.filter {
             it.key.type !in setOf(
                 FilterType.CheckboxOne,
                 FilterType.CheckboxTwo,
-                FilterType.CheckboxThree
+                FilterType.CheckboxThree,
             )
         }
         FilterSelectionState(

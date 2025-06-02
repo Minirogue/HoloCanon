@@ -6,7 +6,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,7 +18,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -68,9 +66,9 @@ internal fun CheckboxFilterSubMenu(
         }
         AnimatedVisibility(isExpanded.value) {
             Column {
-            checkboxFilters.forEach { (filterGroup, filters) ->
-                HorizontalDivider()
-                CheckboxFilterRow(
+                checkboxFilters.forEach { (filterGroup, filters) ->
+                    HorizontalDivider()
+                    CheckboxFilterRow(
                         modifier = Modifier.fillMaxWidth(),
                         filterGroup = filterGroup,
                         filter = filters.first(),
@@ -93,7 +91,7 @@ private fun CheckboxFilterRow(
 ) = Row(
     modifier = modifier.wrapContentHeight(),
     horizontalArrangement = Arrangement.SpaceBetween,
-    verticalAlignment = Alignment.CenterVertically
+    verticalAlignment = Alignment.CenterVertically,
 ) {
     FilterChip(
         modifier = Modifier.padding(horizontal = 2.dp),
