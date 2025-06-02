@@ -1,8 +1,8 @@
 package com.holocanon.library.media.notes.internal.usecase
 
+import com.holocanon.core.data.dao.DaoMedia
 import com.minirogue.media.notes.model.MediaNotes
 import com.minirogue.media.notes.usecase.GetNotesForMedia
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject

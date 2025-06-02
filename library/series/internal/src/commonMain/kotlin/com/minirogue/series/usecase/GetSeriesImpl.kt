@@ -1,8 +1,8 @@
 package com.minirogue.series.usecase
 
+import com.holocanon.core.data.dao.DaoSeries
+import com.holocanon.core.data.entity.SeriesDto
 import com.minirogue.series.model.Series
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoSeries
-import com.minirogue.starwarscanontracker.core.model.room.entity.SeriesDto
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject

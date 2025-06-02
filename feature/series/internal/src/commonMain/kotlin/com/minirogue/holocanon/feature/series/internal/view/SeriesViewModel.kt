@@ -6,11 +6,11 @@ import com.holocanon.library.media.item.model.MediaAndNotes
 import com.holocanon.library.media.item.usecase.GetMediaAndNotesForSeries
 import com.holocanon.library.settings.usecase.IsNetworkAllowed
 import com.minirogue.media.notes.model.MediaNotes
+import com.minirogue.series.model.Checkbox
 import com.minirogue.series.model.Series
 import com.minirogue.series.usecase.GetSeries
 import com.minirogue.series.usecase.GetSeriesIdFromName
-import com.minirogue.starwarscanontracker.core.usecase.Checkbox
-import com.minirogue.starwarscanontracker.core.usecase.SetCheckboxForSeries
+import com.minirogue.series.usecase.SetCheckboxForSeries
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.Inject

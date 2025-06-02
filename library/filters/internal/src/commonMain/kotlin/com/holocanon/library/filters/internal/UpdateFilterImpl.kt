@@ -1,7 +1,7 @@
 package com.holocanon.library.filters.internal
 
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
-import com.minirogue.starwarscanontracker.core.model.room.entity.FilterTypeDto
+import com.holocanon.core.data.dao.DaoFilter
+import com.holocanon.core.data.entity.FilterTypeDto
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject

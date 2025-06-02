@@ -4,9 +4,5 @@
   <CurrentIssues>
     <ID>CyclomaticComplexMethod:SettingsRepo.kt$SettingsRepo$suspend fun updateCheckbox( whichBox: Int, updateFunction: (CheckboxSetting) -&gt; CheckboxSetting, ): Result&lt;CheckboxSetting&gt;</ID>
     <ID>MagicNumber:SettingsRepo.kt$SettingsRepo$3</ID>
-    <ID>MaximumLineLength:GetCheckboxSettingsImpl.kt$GetCheckboxSettingsImpl$internal</ID>
-    <ID>MaximumLineLength:SetLatestDatabaseVersionImpl.kt$SetLatestDatabaseVersionImpl$internal</ID>
-    <ID>MaximumLineLength:ShouldSyncViaWifiOnlyImpl.kt$ShouldSyncViaWifiOnlyImpl$internal</ID>
-    <ID>TooManyFunctions:SettingsLibraryModule.kt$SettingsLibraryModule</ID>
   </CurrentIssues>
 </SmellBaseline>

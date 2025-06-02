@@ -1,13 +1,12 @@
 package com.holocanon.library.media.item.internal.usecase
 
 import android.util.SparseBooleanArray
-import androidx.sqlite.db.SimpleSQLiteQuery
+import com.holocanon.core.data.dao.DaoFilter
+import com.holocanon.core.usecase.AdaptMediaItemDtoToStarWarsMedia
+import com.holocanon.core.usecase.QueryMedia
 import com.holocanon.library.media.item.model.MediaAndNotes
 import com.holocanon.library.media.item.usecase.GetMediaListWithNotes
 import com.minirogue.common.model.MediaType
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoFilter
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
-import com.minirogue.starwarscanontracker.core.usecase.AdaptMediaItemDtoToStarWarsMedia
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
@@ -22,10 +21,11 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import settings.usecase.GetPermanentFilterSettings
+
 @Inject
 @ContributesBinding(AppScope::class)
 class GetMediaListWithNotesImpl(
-    private val daoMedia: DaoMedia,
+    private val queryMedia: QueryMedia,
     private val daoFilter: DaoFilter,
     private val getPermanentFilterSettings: GetPermanentFilterSettings,
     private val getActiveFilters: GetActiveFilters,
@@ -39,7 +39,7 @@ class GetMediaListWithNotesImpl(
         return getActiveFilters().combine(getPermanentFilterSettings()) { filterList, permanentFilters ->
             convertFiltersToQuery(filterList, permanentFilters)
         }.flatMapLatest { query ->
-            daoMedia.getMediaAndNotesRawQuery(query).map { list ->
+            queryMedia.query(query).map { list ->
                 list.map {
                     MediaAndNotes(
                         adaptMediaItemDtoToStarWarsMedia(it.mediaItemDto),
@@ -58,7 +58,7 @@ class GetMediaListWithNotesImpl(
     private suspend fun convertFiltersToQuery(
         filterList: List<MediaFilter>,
         permanentFilterSettings: Map<MediaType, Boolean>,
-    ): SimpleSQLiteQuery = withContext(Dispatchers.Default) {
+    ): String = withContext(Dispatchers.Default) {
         val gettingPermanentFilters =
             async { getPermanentFiltersAsStringBuilder(permanentFilterSettings) }
         val filterTypeIsPositive = SparseBooleanArray()
@@ -191,7 +191,7 @@ class GetMediaListWithNotesImpl(
             queryBuild.append(permanentFilters)
             queryBuild.append(")")
         }
-        SimpleSQLiteQuery(queryBuild.toString())
+        queryBuild.toString()
     }
 
     /**

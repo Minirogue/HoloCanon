@@ -3,29 +3,25 @@ plugins {
 }
 
 minirogue {
-    android {
-        room()
-    }
-    jvm()
+    android()
     metro()
+    room()
 }
 
 kotlin.sourceSets.commonMain.dependencies {
     api projects.library.mediaNotes.public
     api projects.library.commonModels.public
-}
-
-kotlin.sourceSets.androidMain.dependencies {
-    api libs.room.ktx
     api projects.library.filters.public
 
     implementation libs.kotlinx.coroutines.core
     implementation libs.kotlinx.serialization.json
     implementation projects.library.settings.public
     implementation projects.library.coroutineExt.public
+    implementation projects.library.logger.public
 }
 
 kotlin.sourceSets.androidInstrumentedTest.dependencies {
-    implementation libs.androidx.test
+    implementation libs.androidx.test.runner
+    implementation libs.androidx.test.core
     implementation libs.room.testing
 }

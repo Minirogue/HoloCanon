@@ -3,18 +3,8 @@
   <ManuallySuppressedIssues/>
   <CurrentIssues>
     <ID>ConstructorParameterNaming:FullFilter.kt$FullFilter$val is_positive: Boolean</ID>
-    <ID>MagicNumber:MediaDatabase.kt$MediaDatabase.Companion.&lt;no name provided&gt;$10</ID>
-    <ID>MagicNumber:MediaDatabase.kt$MediaDatabase.Companion.&lt;no name provided&gt;$11</ID>
-    <ID>MagicNumber:MediaDatabase.kt$MediaDatabase.Companion.&lt;no name provided&gt;$12</ID>
-    <ID>MagicNumber:MediaDatabase.kt$MediaDatabase.Companion.&lt;no name provided&gt;$13</ID>
-    <ID>MagicNumber:MediaDatabase.kt$MediaDatabase.Companion.&lt;no name provided&gt;$14</ID>
-    <ID>MagicNumber:MediaDatabase.kt$MediaDatabase.Companion.&lt;no name provided&gt;$15</ID>
-    <ID>MagicNumber:MediaDatabase.kt$MediaDatabase.Companion.&lt;no name provided&gt;$16</ID>
-    <ID>MagicNumber:MediaDatabase.kt$MediaDatabase.Companion.&lt;no name provided&gt;$17</ID>
-    <ID>MagicNumber:MediaDatabase.kt$MediaDatabase.Companion.&lt;no name provided&gt;$8</ID>
-    <ID>MagicNumber:MediaDatabase.kt$MediaDatabase.Companion.&lt;no name provided&gt;$9</ID>
     <ID>MaximumLineLength:MediaDatabase.kt$MediaDatabase$ </ID>
-    <ID>MaximumLineLength:MediaDatabase.kt$MediaDatabase.Companion.&lt;no name provided&gt;$ </ID>
+    <ID>MaximumLineLength:RoomAndroidDependencyGraph.kt$RoomAndroidDependencyGraph.Companion.&lt;no name provided&gt;$ </ID>
     <ID>TooManyFunctions:DaoFilter.kt$DaoFilter</ID>
     <ID>TooManyFunctions:DaoMedia.kt$DaoMedia</ID>
   </CurrentIssues>

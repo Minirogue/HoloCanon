@@ -5,8 +5,8 @@ import com.holocanon.feature.global.notification.usecase.FakeSendGlobalToast
 import com.holocanon.library.coroutine.ext.CoroutineTestRule
 import com.holocanon.library.coroutine.ext.HolocanonDispatchers
 import com.holocanon.library.serialization.ext.testing.TestJson
-import com.minirogue.starwarscanontracker.core.model.room.dao.DaoMedia
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
+import com.holocanon.core.data.dao.DaoMedia
+import com.holocanon.core.data.entity.MediaNotesDto
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf

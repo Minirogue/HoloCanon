@@ -1,20 +1,23 @@
 package com.holocanon.library.holoclient.internal.usecase
 
+import android.app.Application
 import android.net.ConnectivityManager
 import android.util.Log
-import com.holocanon.feature.global.notification.usecase.SendGlobalToast
+import android.widget.Toast
+import com.holocanon.core.data.dao.DaoCompany
+import com.holocanon.core.data.dao.DaoMedia
+import com.holocanon.core.data.dao.DaoSeries
+import com.holocanon.core.data.entity.CompanyDto
+import com.holocanon.core.data.entity.MediaItemDto
+import com.holocanon.core.data.entity.MediaNotesDto
 import com.holocanon.library.filters.usecase.UpdateFilters
 import com.holocanon.library.holoclient.internal.api.GetApiMediaVersion
 import com.holocanon.library.holoclient.internal.api.GetMediaFromApi
+import com.holocanon.library.networking.HoloResult
 import com.minirogue.common.model.Company
 import com.minirogue.common.model.MediaType
 import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
-import com.minirogue.starwarscanontracker.core.model.room.MediaDatabase
-import com.minirogue.starwarscanontracker.core.model.room.entity.CompanyDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaItemDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.MediaNotesDto
-import com.minirogue.starwarscanontracker.core.model.room.entity.SeriesDto
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
@@ -27,6 +30,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import settings.usecase.GetAllSettings
 import settings.usecase.SetLatestDatabaseVersion
@@ -38,10 +42,12 @@ class UpdateMediaDatabaseUseCase internal constructor(
     private val connectivityManager: ConnectivityManager,
     private val getApiMediaVersion: GetApiMediaVersion,
     private val getMediaFromApi: GetMediaFromApi,
-    private val database: MediaDatabase,
     private val getSettings: GetAllSettings,
     private val setLatestDatabaseVersion: SetLatestDatabaseVersion,
-    private val sendGlobalToast: SendGlobalToast,
+    private val daoMedia: DaoMedia,
+    private val daoSeries: DaoSeries,
+    private val daoCompany: DaoCompany,
+    private val context: Application,
     private val json: Json,
 ) : MaybeUpdateMediaDatabase {
     override fun invoke(forced: Boolean) {
@@ -54,7 +60,7 @@ class UpdateMediaDatabaseUseCase internal constructor(
                     return@withLock
                 }
                 val latestRemoteVersion =
-                    (getApiMediaVersion() as? com.holocanon.library.networking.HoloResult.Success)?.value?.toLong()
+                    (getApiMediaVersion() as? HoloResult.Success)?.value?.toLong()
 
                 if (!forced && latestRemoteVersion == latestLocalVersion) {
                     return@withLock
@@ -67,15 +73,16 @@ class UpdateMediaDatabaseUseCase internal constructor(
                 val typeMap: Map<MediaType, Int> =
                     getTypeMap()
 
-                (getMediaFromApi() as? com.holocanon.library.networking.HoloResult.Success)?.value?.let { mediaList ->
-                    val daoMedia = database.getDaoMedia()
-                    val daoSeries = database.getDaoSeries()
+                (getMediaFromApi() as? HoloResult.Success)?.value?.let { mediaList ->
                     mediaList.asFlow()
                         .map { media ->
                             val series = media.series
                             if (seriesMap[series] == null && !series.isNullOrEmpty()) {
                                 val seriesDtoId =
-                                    daoSeries.insert(SeriesDto().apply { title = series }).toInt()
+                                    daoSeries.insert(
+                                        com.holocanon.core.data.entity.SeriesDto()
+                                            .apply { title = series },
+                                    ).toInt()
                                 seriesMap[series] = seriesDtoId
                             }
                             media.toDTO(seriesMap, typeMap, companyMap)
@@ -90,7 +97,13 @@ class UpdateMediaDatabaseUseCase internal constructor(
                     }
                     updateFilters()
                 }
-                sendGlobalToast("Database Synced") // TODO extract string resource
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        context,
+                        "Database Synced",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                }
             }
         }
     }
@@ -117,15 +130,15 @@ class UpdateMediaDatabaseUseCase internal constructor(
     )
 
     private suspend fun getSeriesMap() =
-        database.getDaoSeries().getAllSeries().first().associate { it.title to it.id }
+        daoSeries.getAllSeries().first().associate { it.title to it.id }
 
     private suspend fun getCompanyMap(): Map<Company, Int> = try {
-        val dtoCompanies = database.getDaoCompany().getAllCompanies().first()
+        val dtoCompanies = daoCompany.getAllCompanies().first()
         Company.entries.associateWith { company ->
             val text = json.encodeToString(company).trimQuotes()
             val dtoCompany = dtoCompanies.firstOrNull { it.companyName == text }
 
-            dtoCompany?.id ?: database.getDaoCompany().insert(CompanyDto(companyName = text))
+            dtoCompany?.id ?: daoCompany.insert(CompanyDto(companyName = text))
                 .toInt()
         }
     } catch (e: Exception) {
