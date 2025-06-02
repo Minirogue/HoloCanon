@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.map
 
 @Inject
 @ContributesBinding(AppScope::class)
-class GetNotesForMediaImpl(private val daoMedia: com.holocanon.core.data.dao.DaoMedia) : GetNotesForMedia {
+class GetNotesForMediaImpl(private val daoMedia: DaoMedia) : GetNotesForMedia {
     /**
      * Returns MediaNotes associated to the given MediaItem id
      *

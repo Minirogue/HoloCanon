@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.map
 @Inject
 @ContributesBinding(AppScope::class)
 class GetMediaImpl(
-    private val daoMedia: com.holocanon.core.data.dao.DaoMedia,
+    private val daoMedia: DaoMedia,
     private val adaptMediaItemDtoToStarWarsMedia: AdaptMediaItemDtoToStarWarsMedia,
 ) : GetMedia {
     override fun invoke(mediaId: Long): Flow<StarWarsMedia> {

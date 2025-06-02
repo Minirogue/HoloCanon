@@ -24,7 +24,7 @@ class ExportMediaNotesJsonTest {
     @get:Rule
     val coroutineTestRule = CoroutineTestRule()
 
-    private val daoMedia: com.holocanon.core.data.dao.DaoMedia = mockk()
+    private val daoMedia: DaoMedia = mockk()
     private val getCheckboxSettings: GetCheckboxSettings = mockk()
     private val sendGlobalToast: FakeSendGlobalToast = FakeSendGlobalToast()
     private val resources: Resources = mockk()
