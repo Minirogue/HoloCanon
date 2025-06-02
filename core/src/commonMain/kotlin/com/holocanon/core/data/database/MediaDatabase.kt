@@ -10,6 +10,7 @@ import com.holocanon.core.data.dao.DaoCompany
 import com.holocanon.core.data.dao.DaoFilter
 import com.holocanon.core.data.dao.DaoMedia
 import com.holocanon.core.data.dao.DaoSeries
+import com.holocanon.core.data.database.MediaDatabase.Companion.SCHEMA_VERSION
 import com.holocanon.core.data.entity.CompanyDto
 import com.holocanon.core.data.entity.FilterObjectDto
 import com.holocanon.core.data.entity.FilterTypeDto
@@ -18,13 +19,11 @@ import com.holocanon.core.data.entity.MediaNotesDto
 
 @Database(
     entities = [MediaItemDto::class, MediaNotesDto::class, com.holocanon.core.data.entity.SeriesDto::class, FilterObjectDto::class, FilterTypeDto::class, CompanyDto::class],
-    version = 20,
+    version = SCHEMA_VERSION,
     autoMigrations = [
-        AutoMigration(from = 17, to = 18), AutoMigration(
-            from = 18,
-            to = 19,
-            spec = MediaDatabase.AutoMigration18To19::class,
-        ), AutoMigration(from = 19, to = 20, spec = MediaDatabase.AutoMigration19To20::class),
+        AutoMigration(from = 17, to = 18),
+        AutoMigration(from = 18, to = 19, spec = MediaDatabase.AutoMigration18To19::class),
+        AutoMigration(from = 19, to = 20, spec = MediaDatabase.AutoMigration19To20::class),
     ],
     exportSchema = true,
 )
@@ -41,4 +40,8 @@ abstract class MediaDatabase : RoomDatabase() {
     @DeleteTable(tableName = "media_character_join")
     @DeleteTable(tableName = "characters")
     class AutoMigration18To19 : AutoMigrationSpec
+
+    companion object {
+        internal const val SCHEMA_VERSION = 20
+    }
 }

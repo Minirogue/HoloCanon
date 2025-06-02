@@ -21,6 +21,7 @@ kotlin.sourceSets.commonMain.dependencies {
 }
 
 kotlin.sourceSets.androidInstrumentedTest.dependencies {
-    implementation libs.androidx.test
+    implementation libs.androidx.test.runner
+    implementation libs.androidx.test.core
     implementation libs.room.testing
 }

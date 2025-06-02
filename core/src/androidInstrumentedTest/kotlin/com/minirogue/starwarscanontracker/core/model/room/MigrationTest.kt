@@ -3,12 +3,18 @@ package com.minirogue.starwarscanontracker.core.model.room
 import androidx.room.testing.MigrationTestHelper
 import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.platform.app.InstrumentationRegistry
-import com.minirogue.starwarscanontracker.core.data.database.MediaDatabase
+import com.holocanon.core.data.database.MediaDatabase
+import com.holocanon.core.di.RoomAndroidDependencyGraph.Companion.MIGRATE_11_12
+import com.holocanon.core.di.RoomAndroidDependencyGraph.Companion.MIGRATE_12_13
+import com.holocanon.core.di.RoomAndroidDependencyGraph.Companion.MIGRATE_13_14
+import com.holocanon.core.di.RoomAndroidDependencyGraph.Companion.MIGRATE_14_15
+import com.holocanon.core.di.RoomAndroidDependencyGraph.Companion.MIGRATE_15_16
+import com.holocanon.core.di.RoomAndroidDependencyGraph.Companion.MIGRATE_16_17
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 import java.io.IOException
-
 
 //@RunWith(AndroidJUnit4::class)
 class MigrationTest {
@@ -17,10 +23,32 @@ class MigrationTest {
     @Rule
     @JvmField
     val testHelper: MigrationTestHelper = MigrationTestHelper(
-            InstrumentationRegistry.getInstrumentation(),
-            MediaDatabase::class.java.canonicalName,
-            FrameworkSQLiteOpenHelperFactory())
+        InstrumentationRegistry.getInstrumentation(),
+        MediaDatabase::class.java,
+//        FrameworkSQLiteOpenHelperFactory()
+    )
 
+    @Test
+    @Throws(IOException::class)
+    fun migrate11ToCurrent() {
+        var db = testHelper.createDatabase(TEST_DB, 11).apply {
+            //use execSQL() to populate room
+
+            close()
+        }
+
+        db = testHelper.runMigrationsAndValidate(
+            TEST_DB,
+            MediaDatabase.SCHEMA_VERSION,
+            true,
+            MIGRATE_11_12,
+            MIGRATE_12_13,
+            MIGRATE_13_14,
+            MIGRATE_14_15,
+            MIGRATE_15_16,
+            MIGRATE_16_17,
+        )
+    }
 
     @Test
     @Throws(IOException::class)
@@ -31,7 +59,7 @@ class MigrationTest {
             close()
         }
 
-        db = testHelper.runMigrationsAndValidate(TEST_DB, 12, true, MediaDatabase.MIGRATE_11_12)
+        db = testHelper.runMigrationsAndValidate(TEST_DB, 12, true, MIGRATE_11_12)
     }
 
     @Test
@@ -43,9 +71,8 @@ class MigrationTest {
             close()
         }
 
-        db = testHelper.runMigrationsAndValidate(TEST_DB, 13, true, MediaDatabase.MIGRATE_12_13)
+        db = testHelper.runMigrationsAndValidate(TEST_DB, 13, true, MIGRATE_12_13)
     }
-
 
     @Test
     @Throws(IOException::class)
@@ -56,7 +83,7 @@ class MigrationTest {
             close()
         }
 
-        db = testHelper.runMigrationsAndValidate(TEST_DB, 15, true, MediaDatabase.MIGRATE_14_15)
+        db = testHelper.runMigrationsAndValidate(TEST_DB, 15, true, MIGRATE_14_15)
     }
 
     @Test
@@ -68,7 +95,7 @@ class MigrationTest {
             close()
         }
 
-        db = testHelper.runMigrationsAndValidate(TEST_DB, 16, true, MediaDatabase.MIGRATE_15_16)
+        db = testHelper.runMigrationsAndValidate(TEST_DB, 16, true, MIGRATE_15_16)
     }
 
     @Test
@@ -79,9 +106,8 @@ class MigrationTest {
             close()
         }
 
-        db = testHelper.runMigrationsAndValidate(TEST_DB, 17, true, MediaDatabase.MIGRATE_16_17)
+        db = testHelper.runMigrationsAndValidate(TEST_DB, 17, true, MIGRATE_16_17)
     }
-
 
     @Test
     @Throws(IOException::class)
@@ -93,14 +119,18 @@ class MigrationTest {
         val seriesTitle = "a series far far away"
         val seriesDescription = "a series from long long ago"
         val seriesImage = "url of series image"
-        db.execSQL("INSERT INTO series (id, title, description, image) " +
-                "VALUES ($seriesId, '$seriesTitle', '$seriesDescription', '$seriesImage')")
+        db.execSQL(
+            "INSERT INTO series (id, title, description, image) " +
+                    "VALUES ($seriesId, '$seriesTitle', '$seriesDescription', '$seriesImage')"
+        )
 
         //Insert media_type entry
         val type = 5
         val typeText = "books or something"
-        db.execSQL("INSERT INTO media_types (id, text) " +
-                "VALUES ($type, '$typeText')")
+        db.execSQL(
+            "INSERT INTO media_types (id, text) " +
+                    "VALUES ($type, '$typeText')"
+        )
 
         //Insert media_items entry
         val itemId = 20
@@ -113,22 +143,26 @@ class MigrationTest {
         val timeline = -1.25
         val amazon_link = "url to buy"
         val amazon_stream = "url to stream"
-        db.execSQL("INSERT INTO media_items (id, title, series, author, type, description, review, image," +
-                " date, timeline, amazon_link, amazon_stream) " +
-                "VALUES ($itemId, '$title', $seriesId, '$author', $type, '$description', '$review', '$image'," +
-                " '$date', $timeline, '$amazon_link', '$amazon_stream')")
+        db.execSQL(
+            "INSERT INTO media_items (id, title, series, author, type, description, review, image," +
+                    " date, timeline, amazon_link, amazon_stream) " +
+                    "VALUES ($itemId, '$title', $seriesId, '$author', $type, '$description', '$review', '$image'," +
+                    " '$date', $timeline, '$amazon_link', '$amazon_stream')"
+        )
 
         //Insert media_notes entry
         val wantToWatchRead = 1
         val watchedOrRead = 0
         val owned = 1
-        db.execSQL("INSERT INTO media_notes (mediaId, want_to_watch_or_read, watched_or_read, owned) " +
-                "VALUES ($itemId, $wantToWatchRead, $watchedOrRead, $owned)")
+        db.execSQL(
+            "INSERT INTO media_notes (mediaId, want_to_watch_or_read, watched_or_read, owned) " +
+                    "VALUES ($itemId, $wantToWatchRead, $watchedOrRead, $owned)"
+        )
 
         db.close()
 
 
-        db = testHelper.runMigrationsAndValidate(TEST_DB, 14, true, MediaDatabase.MIGRATE_13_14)
+        db = testHelper.runMigrationsAndValidate(TEST_DB, 14, true, MIGRATE_13_14)
 
         var cursor = db.query("SELECT * FROM media_items WHERE id=$itemId")
         cursor.moveToPosition(0)
