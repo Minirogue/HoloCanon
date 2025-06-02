@@ -3,8 +3,8 @@
   <ManuallySuppressedIssues/>
   <CurrentIssues>
     <ID>ConstructorParameterNaming:FullFilter.kt$FullFilter$val is_positive: Boolean</ID>
-    <ID>MaximumLineLength:CoreAndroidDependencyGraph.kt$CoreAndroidDependencyGraph.Companion.&lt;no name provided&gt;$ </ID>
     <ID>MaximumLineLength:MediaDatabase.kt$MediaDatabase$ </ID>
+    <ID>MaximumLineLength:RoomAndroidDependencyGraph.kt$RoomAndroidDependencyGraph.Companion.&lt;no name provided&gt;$ </ID>
     <ID>TooManyFunctions:DaoFilter.kt$DaoFilter</ID>
     <ID>TooManyFunctions:DaoMedia.kt$DaoMedia</ID>
   </CurrentIssues>
