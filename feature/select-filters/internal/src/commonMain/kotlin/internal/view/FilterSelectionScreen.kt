@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.zacsweers.metro.Provider
+import loading.LoadingScreen
 
 @Composable
 internal fun FilterSelectionScreen(
@@ -20,21 +21,28 @@ internal fun FilterSelectionScreen(
     modifier: Modifier = Modifier,
     viewModel: FilterSelectionViewModel = viewModel { viewModelProvider() },
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
-    Column(modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
-        ActiveFilters(
-            state = state,
-            deactivateFilter = viewModel::deactivateFilter,
-        )
-        HorizontalDivider()
-        state.filterGroups.forEach { filterGroupMapEntry ->
-            FilterTypeSubMenu(
-                modifier = Modifier.padding(4.dp),
-                filterGroup = filterGroupMapEntry.key,
-                filters = filterGroupMapEntry.value,
-                onGroupCheckChanged = viewModel::flipFilterType,
-                onFilterClicked = viewModel::flipFilterActive,
+    val state by viewModel.state.collectAsStateWithLifecycle( null)
+    state?.let {nonNullState ->
+        Column(modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+            ActiveFilters(
+                state = nonNullState,
+                deactivateFilter = viewModel::deactivateFilter,
             )
+            HorizontalDivider()
+            CheckboxFilterSubMenu(
+                modifier = Modifier.padding(4.dp),
+                checkboxFilters = nonNullState.checkboxFilters,
+                onGroupCheckChanged = viewModel::flipFilterType,
+                onFilterClicked = viewModel::flipFilterActive,)
+            nonNullState.nonCheckboxFilters.forEach { filterGroupMapEntry ->
+                FilterTypeSubMenu(
+                    modifier = Modifier.padding(4.dp),
+                    filterGroup = filterGroupMapEntry.key,
+                    filters = filterGroupMapEntry.value,
+                    onGroupCheckChanged = viewModel::flipFilterType,
+                    onFilterClicked = viewModel::flipFilterActive,
+                )
+            }
         }
-    }
+    } ?: LoadingScreen()
 }
