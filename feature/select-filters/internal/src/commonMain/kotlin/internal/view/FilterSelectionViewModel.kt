@@ -7,43 +7,48 @@ import filters.GetActiveFilters
 import filters.GetAllFilterGroups
 import filters.UpdateFilter
 import filters.model.FilterGroup
+import filters.model.FilterType
 import filters.model.MediaFilter
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import settings.model.CheckboxSettings
-import settings.usecase.GetCheckboxSettings
 
 internal data class FilterSelectionState(
-    val filterGroups: Map<FilterGroup, List<MediaFilter>> = emptyMap(),
-    val checkboxSettings: CheckboxSettings? = null,
-    val activeFilters: List<MediaFilter> = emptyList(),
+    val checkboxFilters: Map<FilterGroup, List<MediaFilter>>,
+    val nonCheckboxFilters: Map<FilterGroup, List<MediaFilter>>,
+    val activeFilters: List<MediaFilter>,
 )
 
 @Inject
-internal class FilterSelectionViewModel constructor(
+internal class FilterSelectionViewModel(
     getActiveFilters: GetActiveFilters,
     private val updateFilter: UpdateFilter,
     getAllFilterGroups: GetAllFilterGroups,
-    getCheckboxSettings: GetCheckboxSettings,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(FilterSelectionState())
-    val state: StateFlow<FilterSelectionState> = _state
-
-    init {
-        getAllFilterGroups()
-            .onEach { filterGroups -> _state.update { it.copy(filterGroups = filterGroups) } }
-            .launchIn(viewModelScope)
-        getCheckboxSettings()
-            .onEach { checkboxSettings -> _state.update { it.copy(checkboxSettings = checkboxSettings) } }
-            .launchIn(viewModelScope)
-        getActiveFilters()
-            .onEach { activeFilters -> _state.update { it.copy(activeFilters = activeFilters) } }
-            .launchIn(viewModelScope)
+    val state: Flow<FilterSelectionState> = combine(
+        getAllFilterGroups(),
+        getActiveFilters(),
+    ) { filterGroups, activeFilters ->
+        val checkboxFilters = filterGroups.filter {
+            it.key.type in setOf(
+                FilterType.CheckboxOne,
+                FilterType.CheckboxTwo,
+                FilterType.CheckboxThree,
+            )
+        }
+        val nonCheckboxFilterGroups = filterGroups.filter {
+            it.key.type !in setOf(
+                FilterType.CheckboxOne,
+                FilterType.CheckboxTwo,
+                FilterType.CheckboxThree,
+            )
+        }
+        FilterSelectionState(
+            checkboxFilters = checkboxFilters,
+            nonCheckboxFilters = nonCheckboxFilterGroups,
+            activeFilters = activeFilters,
+        )
     }
 
     fun flipFilterType(filterGroup: FilterGroup) = viewModelScope.launch {
@@ -52,11 +57,6 @@ internal class FilterSelectionViewModel constructor(
 
     fun flipFilterActive(mediaFilter: MediaFilter) = viewModelScope.launch {
         val newMediaFilter = mediaFilter.copy(isActive = !mediaFilter.isActive)
-        updateFilter(newMediaFilter)
-    }
-
-    fun setFilterInactive(mediaFilter: MediaFilter) = viewModelScope.launch {
-        val newMediaFilter = mediaFilter.copy(isActive = false)
         updateFilter(newMediaFilter)
     }
 

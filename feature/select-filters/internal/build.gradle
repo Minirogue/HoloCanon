@@ -12,6 +12,7 @@ kotlin.sourceSets.commonMain.dependencies {
     api projects.feature.selectFilters.public
 
     implementation libs.compose.resources
+    implementation projects.feature.loading.public
     implementation projects.library.navigation.public
     implementation projects.library.filters.public
     implementation projects.library.filterUi.public
