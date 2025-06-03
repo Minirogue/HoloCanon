@@ -1,11 +1,6 @@
 package com.holocanon.feature.settings.internal.view
 
-import android.app.Activity.RESULT_OK
-import android.content.Intent
 import android.os.Build
-import android.util.Log
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,28 +21,32 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.holocanon.feature.settings.internal.viewmodel.SettingsViewModel
+import com.holocanon.library.file.picker.compose.prepareFilePicker
+import com.holocanon.library.file.picker.model.FileType
+import com.holocanon.library.file.picker.model.PickerArgs
 import com.minirogue.common.model.MediaType
 import dev.zacsweers.metro.Provider
 import holocanon.feature.settings.internal.generated.resources.Res
 import holocanon.feature.settings.internal.generated.resources.settings_cancel
 import holocanon.feature.settings.internal.generated.resources.settings_dark_mode
 import holocanon.feature.settings.internal.generated.resources.settings_dynamic_theme
+import holocanon.feature.settings.internal.generated.resources.settings_export_failed
 import holocanon.feature.settings.internal.generated.resources.settings_export_import_user_data
 import holocanon.feature.settings.internal.generated.resources.settings_export_user_data_as_json
 import holocanon.feature.settings.internal.generated.resources.settings_filter_name
 import holocanon.feature.settings.internal.generated.resources.settings_filter_name_change_text
 import holocanon.feature.settings.internal.generated.resources.settings_force_theme
+import holocanon.feature.settings.internal.generated.resources.settings_import_failed
 import holocanon.feature.settings.internal.generated.resources.settings_import_user_data_from_json
 import holocanon.feature.settings.internal.generated.resources.settings_include_filter
 import holocanon.feature.settings.internal.generated.resources.settings_included_media_types
@@ -60,23 +59,20 @@ import holocanon.feature.settings.internal.generated.resources.settings_sync_set
 import holocanon.feature.settings.internal.generated.resources.settings_system_dark_mode
 import holocanon.feature.settings.internal.generated.resources.settings_user_defined_filter
 import holocanon.feature.settings.internal.generated.resources.settings_wifi_only_setting
+import kotlinx.io.RawSink
+import kotlinx.io.RawSource
 import org.jetbrains.compose.resources.stringResource
 import settings.model.CheckboxSetting
 import settings.model.CheckboxSettings
 import settings.model.DarkModeSetting
 import settings.model.Theme
-import java.io.FileNotFoundException
-import java.io.InputStream
-import java.io.OutputStream
-
-private const val TAG = "SettingsScreen"
 
 @Composable
 internal fun SettingsScreen(
     viewModelProvider: Provider<SettingsViewModel>,
     viewModel: SettingsViewModel = viewModel { viewModelProvider() },
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsState()
 
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState()),
@@ -107,6 +103,7 @@ internal fun SettingsScreen(
         ExportMediaNotes(
             exportMediaNotes = viewModel::exportMediaNotes,
             importMediaNotes = viewModel::importMediaNotes,
+            onError = viewModel::onFileActionFailed,
         )
     }
 
@@ -400,45 +397,26 @@ private fun DatabaseSyncSettings(
 
 @Composable
 private fun ExportMediaNotes(
-    exportMediaNotes: (OutputStream) -> Unit,
-    importMediaNotes: (InputStream) -> Unit,
+    exportMediaNotes: (RawSink) -> Unit,
+    importMediaNotes: (RawSource) -> Unit,
+    onError: (String) -> Unit,
 ) {
-    val context = LocalContext.current
-    val importMediaNotesLauncher =
-        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                val dataUri = result.data?.data
-                if (dataUri != null) {
-                    try {
-                        val inputStream = context.contentResolver?.openInputStream(dataUri)
-                        if (inputStream != null) {
-                            importMediaNotes(inputStream)
-                        } else {
-                            Log.e(TAG, "inputStream not found when importing media notes")
-                        }
-                    } catch (e: FileNotFoundException) {
-                        Log.e(TAG, "Error importing media notes", e)
-                    }
-                }
-            }
-        }
-
-    val exportMediaNotesLauncher =
-        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == RESULT_OK) {
-                try {
-                    val data = result.data?.data
-                    if (data != null) {
-                        val outputStream = context.contentResolver?.openOutputStream(data)
-                        if (outputStream != null) {
-                            exportMediaNotes(outputStream)
-                        }
-                    }
-                } catch (e: FileNotFoundException) {
-                    Log.e(TAG, "Error exporting media notes", e)
-                }
-            }
-        }
+    val importExceptionString = stringResource(Res.string.settings_import_failed)
+    val exportExceptionString = stringResource(Res.string.settings_export_failed)
+    val importLauncher = prepareFilePicker(
+        pickerArgs = PickerArgs.Get(FileType.JSON, importMediaNotes),
+        onError = { onError(importExceptionString) },
+        onCancelled = { },
+    )
+    val exportLauncher = prepareFilePicker(
+        pickerArgs = PickerArgs.Save(
+            FileType.JSON,
+            defaultFileName = "holocanon_user_data.json",
+            exportMediaNotes,
+        ),
+        onError = { onError(exportExceptionString) },
+        onCancelled = { },
+    )
 
     Card(modifier = Modifier.padding(8.dp)) {
         Text(
@@ -450,15 +428,7 @@ private fun ExportMediaNotes(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable {
-                    val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-                        addCategory(Intent.CATEGORY_OPENABLE)
-                        type = "application/json"
-                        putExtra(Intent.EXTRA_TITLE, "holocanon_user_data.json")
-                    }
-
-                    exportMediaNotesLauncher.launch(intent)
-                },
+                .clickable { exportLauncher.launch() },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
@@ -470,13 +440,7 @@ private fun ExportMediaNotes(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable {
-                    val intent = Intent().apply {
-                        action = Intent.ACTION_GET_CONTENT
-                        type = "application/json"
-                    }
-                    importMediaNotesLauncher.launch(intent)
-                },
+                .clickable { importLauncher.launch() },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {

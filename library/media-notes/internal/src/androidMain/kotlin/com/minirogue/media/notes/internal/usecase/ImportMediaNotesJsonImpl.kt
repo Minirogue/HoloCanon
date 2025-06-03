@@ -17,12 +17,13 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.io.RawSource
+import kotlinx.io.buffered
+import kotlinx.io.readString
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
 import settings.usecase.UpdateCheckboxName
 import java.io.IOException
-import java.io.InputStream
 
 @Inject
 @ContributesBinding(AppScope::class)
@@ -35,10 +36,13 @@ class ImportMediaNotesJsonImpl(
     private val json: Json,
 ) : ImportMediaNotesJson {
     @OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
-    override suspend fun invoke(inputStream: InputStream) = withContext(NonCancellable + dispatchers.io) {
+    override suspend fun invoke(inputStream: RawSource) = withContext(NonCancellable + dispatchers.io) {
         try {
-            val mediaNotesJsonDto = json.decodeFromStream<MediaNotesJsonV1>(inputStream)
-            inputStream.close()
+            // TODO read from stream in a more buffered manner...
+            //  kotlinx.io and kotlinx.serialization don't have interop yet, though
+            val jsonString = inputStream.buffered().use { it.readString() }
+            val mediaNotesJsonDto = json.decodeFromString<MediaNotesJsonV1>(jsonString)
+
             launch { updateCheckboxName(BOX_1, mediaNotesJsonDto.checkboxNames.name1) }
             launch { updateCheckboxName(BOX_2, mediaNotesJsonDto.checkboxNames.name2) }
             launch { updateCheckboxName(BOX_3, mediaNotesJsonDto.checkboxNames.name3) }

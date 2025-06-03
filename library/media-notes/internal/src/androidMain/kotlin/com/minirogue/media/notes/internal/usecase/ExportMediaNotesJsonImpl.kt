@@ -16,12 +16,13 @@ import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
+import kotlinx.io.RawSink
+import kotlinx.io.buffered
+import kotlinx.io.writeString
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.encodeToStream
 import settings.usecase.GetCheckboxSettings
 import java.io.IOException
-import java.io.OutputStream
 import java.lang.Exception
 
 @Inject
@@ -35,12 +36,12 @@ class ExportMediaNotesJsonImpl(
     private val json: Json,
 ) : ExportMediaNotesJson {
     @OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
-    override suspend fun invoke(outputStream: OutputStream) = withContext(NonCancellable + dispatchers.io) {
+    override suspend fun invoke(outputStream: RawSink) = withContext(NonCancellable + dispatchers.io) {
         val checkBoxSettings = getCheckboxSettings().first()
         val allMediaNotes = daoMedia.getAllMediaNotes().first()
 
         try {
-            json.encodeToStream(
+            val jsonString = json.encodeToString(
                 value = MediaNotesJsonV1(
                     CheckBoxNamesV1(
                         name1 = checkBoxSettings.checkbox1Setting.name,
@@ -56,9 +57,10 @@ class ExportMediaNotesJsonImpl(
                         )
                     },
                 ),
-                stream = outputStream,
             )
-            outputStream.close()
+            outputStream.buffered().use {
+                it.writeString(jsonString)
+            }
             onSuccess()
         } catch (e: IOException) {
             onFailed(e)

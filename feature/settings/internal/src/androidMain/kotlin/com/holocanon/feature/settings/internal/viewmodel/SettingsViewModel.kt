@@ -2,6 +2,7 @@ package com.holocanon.feature.settings.internal.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.holocanon.feature.global.notification.usecase.SendGlobalToast
 import com.minirogue.common.model.MediaType
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import com.minirogue.media.notes.ExportMediaNotesJson
@@ -15,6 +16,8 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.io.RawSink
+import kotlinx.io.RawSource
 import settings.model.CheckboxSettings
 import settings.model.DarkModeSetting
 import settings.model.Theme
@@ -25,8 +28,6 @@ import settings.usecase.UpdateDarkModeSetting
 import settings.usecase.UpdatePermanentFilterSettings
 import settings.usecase.UpdateTheme
 import settings.usecase.UpdateWifiSetting
-import java.io.InputStream
-import java.io.OutputStream
 
 data class SettingsState(
     val checkboxSettings: CheckboxSettings? = null,
@@ -50,6 +51,7 @@ class SettingsViewModel(
     private val updateDarkModeSetting: UpdateDarkModeSetting,
     private val exportMediaNotesJson: ExportMediaNotesJson,
     private val importMediaNotesJson: ImportMediaNotesJson,
+    private val sendGlobalNotification: SendGlobalToast,
 ) : ViewModel() {
     private val _state = MutableStateFlow(SettingsState())
     val state: StateFlow<SettingsState> = _state
@@ -106,11 +108,15 @@ class SettingsViewModel(
 
     fun syncDatabase() = viewModelScope.launch { maybeUpdateMediaDatabase(true) }
 
-    fun importMediaNotes(inputStream: InputStream) = viewModelScope.launch {
+    fun importMediaNotes(inputStream: RawSource) = viewModelScope.launch {
         importMediaNotesJson(inputStream)
     }
 
-    fun exportMediaNotes(outputStream: OutputStream) = viewModelScope.launch {
+    fun exportMediaNotes(outputStream: RawSink) = viewModelScope.launch {
         exportMediaNotesJson(outputStream)
+    }
+
+    fun onFileActionFailed(string: String) = viewModelScope.launch {
+        sendGlobalNotification(string)
     }
 }

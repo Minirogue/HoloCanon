@@ -17,6 +17,8 @@
     <string name="settings_filter_name">Filter Name</string>
     <string name="settings_user_defined_filter">User-Defined Filter %1$s</string>
     <string name="settings_include_filter">Include Filter</string>
+    <string name="settings_import_failed">Import Failed</string>
+    <string name="settings_export_failed">Export Failed</string>"
 
     <!--  Filter name change dialog  -->
     <string name="settings_save">Save</string>
