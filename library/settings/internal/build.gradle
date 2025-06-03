@@ -4,13 +4,18 @@ plugins {
 
 minirogue {
     android()
+    kotlinCompose() // for resources
     metro()
 }
 
 kotlin.sourceSets.androidMain.dependencies {
+    implementation(libs.androidx.preference)
+}
+
+kotlin.sourceSets.commonMain.dependencies {
     api projects.library.settings.public
 
     implementation libs.androidx.datastore
-    implementation libs.androidx.preference
+    implementation libs.compose.resources
     implementation projects.library.filters.public
 }

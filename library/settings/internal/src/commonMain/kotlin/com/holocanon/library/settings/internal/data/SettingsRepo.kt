@@ -1,16 +1,19 @@
 package com.holocanon.library.settings.internal.data
 
-import android.content.res.Resources
 import android.util.Log
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.holocanon.library.settings.internal.R
 import com.minirogue.common.model.MediaType
 import dev.zacsweers.metro.Inject
+import holocanon.library.settings.internal.generated.resources.Res
+import holocanon.library.settings.internal.generated.resources.settings_checkbox1_default_text
+import holocanon.library.settings.internal.generated.resources.settings_checkbox2_default_text
+import holocanon.library.settings.internal.generated.resources.settings_checkbox3_default_text
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import org.jetbrains.compose.resources.getString
 import settings.model.AllSettings
 import settings.model.CheckboxSetting
 import settings.model.CheckboxSettings
@@ -34,7 +37,6 @@ private const val TAG = "SettingsRepo"
 @Inject
 class SettingsRepo(
     private val dataStore: SettingsDataStore,
-    private val resources: Resources,
 ) {
     private val userFilter1ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_1_ACTIVE_KEY)
     private val userFilter2ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_2_ACTIVE_KEY)
@@ -105,9 +107,8 @@ class SettingsRepo(
                 3 -> userFilter3ActivePreferenceKey
                 else -> error("updateCheckbox called with invalid whichBox: $whichBox")
             }
-            var newCheckboxSetting: CheckboxSetting? = null
-            dataStore.edit { prefs ->
-                newCheckboxSetting = updateFunction(
+            val newPrefs = dataStore.edit { prefs ->
+                val newCheckboxSetting = updateFunction(
                     CheckboxSetting(
                         name = prefs[nameKey] ?: getDefaultNameForCheckbox(whichBox),
                         isInUse = prefs[activeKey] ?: true,
@@ -116,7 +117,13 @@ class SettingsRepo(
                 prefs[nameKey] = newCheckboxSetting.name
                 prefs[activeKey] = newCheckboxSetting.isInUse
             }
-            newCheckboxSetting ?: error("couldn't get updated checkbox setting")
+            val newName = newPrefs[nameKey]
+            val newIsInUse = newPrefs[activeKey]
+            if (newName == null || newIsInUse == null) {
+                error("couldn't get updated checkbox setting")
+            } else {
+                CheckboxSetting(newName, newIsInUse)
+            }
         }.onFailure { throwable ->
             when (throwable) {
                 is IOException -> Log.e(TAG, "error in updateCheckbox", throwable)
@@ -177,10 +184,10 @@ class SettingsRepo(
         }
     }
 
-    private fun getDefaultNameForCheckbox(whichBox: Int): String = when (whichBox) {
-        1 -> resources.getString(R.string.settings_checkbox1_default_text)
-        2 -> resources.getString(R.string.settings_checkbox2_default_text)
-        3 -> resources.getString(R.string.settings_checkbox3_default_text)
+    private suspend fun getDefaultNameForCheckbox(whichBox: Int): String = when (whichBox) {
+        1 -> getString(Res.string.settings_checkbox1_default_text)
+        2 -> getString(Res.string.settings_checkbox2_default_text)
+        3 -> getString(Res.string.settings_checkbox3_default_text)
         else -> error("attempting to get name for checkbox that isn't 1, 2, or 3")
     }
 }
