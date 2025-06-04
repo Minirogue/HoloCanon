@@ -10,14 +10,14 @@ import dev.zacsweers.metro.Provides
 import dev.zacsweers.metro.createGraphFactory
 
 @DependencyGraph(AppScope::class)
-interface AndroidDependencyGraph : AppDependencyGraph {
+abstract class AndroidDependencyGraph : AppDependencyGraph {
+    init {
+        println("initializing dependency graph: $this")
+    }
     @Provides
     fun provideApplication(
         platformDependencies: PlatformDependencies,
     ): Application = platformDependencies.application
-
-    @Provides
-    fun provideResources(application: Application): Resources = application.resources
 
     @Provides
     fun provideConnManager(app: Application): ConnectivityManager {

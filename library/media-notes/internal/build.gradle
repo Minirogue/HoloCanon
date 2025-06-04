@@ -6,11 +6,14 @@ minirogue {
     android()
     serialization()
     metro()
+    kotlinCompose()
 }
 
 kotlin.sourceSets.commonMain.dependencies {
     api projects.library.mediaNotes.public
 
+    implementation libs.compose.resources
+    implementation libs.kotlinx.serialization.json.io
     implementation projects.core
     implementation projects.library.coroutineExt.public
     implementation projects.library.globalNotification.public
