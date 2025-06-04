@@ -3,10 +3,14 @@ plugins {
 }
 
 minirogue {
-    jvm()
+    android()
+    kotlinCompose()
+}
+
+kotlin.sourceSets.androidMain.dependencies {
+    implementation libs.androidx.activity.compose
 }
 
 kotlin.sourceSets.commonMain.dependencies {
-    api libs.kotlinx.coroutines.core
     api libs.kotlinx.io
 }

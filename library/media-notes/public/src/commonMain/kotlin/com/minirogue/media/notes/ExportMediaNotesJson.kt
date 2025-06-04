@@ -1,7 +1,7 @@
 package com.minirogue.media.notes
 
-import java.io.OutputStream
+import kotlinx.io.RawSink
 
 interface ExportMediaNotesJson {
-    suspend operator fun invoke(outputStream: OutputStream)
+    suspend operator fun invoke(outputStream: RawSink)
 }

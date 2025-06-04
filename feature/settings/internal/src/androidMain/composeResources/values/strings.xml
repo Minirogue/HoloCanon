@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Theme Settings  -->
+    <string name="settings_system_dark_mode">System Mode</string>
+    <string name="settings_light_mode">Light Mode</string>
+    <string name="settings_dark_mode">Dark Mode</string>
+
+    <string name="settings_force_theme">Force Theme</string>
+    <string name="settings_mace_theme">Mace Theme</string>
+    <string name="settings_dynamic_theme">Dynamic Theme</string>
+
+    <!--  Settings Screen  -->
+    <string name="settings_sync_online">Sync database now</string>
+    <string name="settings_wifi_only_setting">Sync on wifi only</string>
+    <string name="settings_sync_settings">Database Sync Settings</string>
+    <string name="settings_included_media_types">Included Media Types</string>
+    <string name="settings_filter_name">Filter Name</string>
+    <string name="settings_user_defined_filter">User-Defined Filter %1$s</string>
+    <string name="settings_include_filter">Include Filter</string>
+    <string name="settings_import_failed">Import Failed</string>
+    <string name="settings_export_failed">Export Failed</string>"
+
+    <!--  Filter name change dialog  -->
+    <string name="settings_save">Save</string>
+    <string name="settings_cancel">Cancel</string>
+    <string name="settings_new_name">New name</string>
+    <string name="settings_filter_name_change_text">Change name for user defined filter %1$s</string>
+    <string name="settings_export_import_user_data">Export/Import User Data</string>
+    <string name="settings_export_user_data_as_json">Export user data as JSON</string>
+    <string name="settings_import_user_data_from_json">Import user data from JSON</string>
+    <string name="settings_okay">Okay</string>
+    <string name="settings_uh_oh">Uh oh</string>
+</resources>

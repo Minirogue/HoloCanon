@@ -1,7 +1,7 @@
 package com.minirogue.media.notes
 
-import java.io.InputStream
+import kotlinx.io.RawSource
 
 interface ImportMediaNotesJson {
-    suspend operator fun invoke(inputStream: InputStream)
+    suspend operator fun invoke(inputStream: RawSource)
 }
