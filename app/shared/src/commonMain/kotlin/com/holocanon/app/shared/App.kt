@@ -23,6 +23,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -32,8 +33,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.holocanon.app.shared.di.AppDependencyGraph
-import com.holocanon.app.shared.di.PlatformDependencies
-import com.holocanon.app.shared.di.getAppDependencyGraph
 import com.holocanon.feature.settings.SettingsNav
 import com.holocanon.library.navigation.AppBarConfig
 import com.holocanon.library.navigation.NavContributor
@@ -48,9 +47,7 @@ import settings.model.Theme
 
 @Composable
 fun App(
-    platformDependencies: PlatformDependencies,
-    appDependencyGraph: AppDependencyGraph = getAppDependencyGraph(platformDependencies),
-    navContributors: Set<NavContributor> = appDependencyGraph.navContributors,
+    appDependencyGraph: AppDependencyGraph,
     viewModel: MainViewModel = viewModel { appDependencyGraph.mainViewModel },
 ) {
     // Essentially treating this as Application.onCreate()
@@ -58,6 +55,7 @@ fun App(
 
     // Compose components
     val navController = rememberNavController()
+    val navContributors = rememberSaveable { appDependencyGraph.navContributors }
     val appBarConfig = remember { mutableStateOf(AppBarConfig()) }
     val snackbarHostState = remember { SnackbarHostState() }
 
