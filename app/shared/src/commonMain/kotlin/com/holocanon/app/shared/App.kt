@@ -23,6 +23,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -48,9 +49,7 @@ import settings.model.Theme
 
 @Composable
 fun App(
-    platformDependencies: PlatformDependencies,
-    appDependencyGraph: AppDependencyGraph = getAppDependencyGraph(platformDependencies),
-    navContributors: Set<NavContributor> = appDependencyGraph.navContributors,
+    appDependencyGraph: AppDependencyGraph,
     viewModel: MainViewModel = viewModel { appDependencyGraph.mainViewModel },
 ) {
     // Essentially treating this as Application.onCreate()
@@ -58,6 +57,7 @@ fun App(
 
     // Compose components
     val navController = rememberNavController()
+    val navContributors = rememberSaveable { appDependencyGraph.navContributors }
     val appBarConfig = remember { mutableStateOf(AppBarConfig()) }
     val snackbarHostState = remember { SnackbarHostState() }
 
