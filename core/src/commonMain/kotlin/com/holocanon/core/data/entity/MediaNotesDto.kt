@@ -17,7 +17,7 @@ import com.minirogue.media.notes.model.MediaNotes
         ),
     ],
 )
-class MediaNotesDto(
+data class MediaNotesDto(
     @field:PrimaryKey
     @ColumnInfo(name = "media_id")
     val mediaId: Int,
@@ -28,18 +28,5 @@ class MediaNotesDto(
     @ColumnInfo(name = "checkbox_3")
     var isBox3Checked: Boolean = false,
 ) {
-
-    fun flipCheck1() {
-        isBox1Checked = !isBox1Checked
-    }
-
-    fun flipCheck2() {
-        isBox2Checked = !isBox2Checked
-    }
-
-    fun flipCheck3() {
-        isBox3Checked = !isBox3Checked
-    }
-
     fun toMediaNotes() = MediaNotes(isBox1Checked, isBox2Checked, isBox3Checked)
 }
