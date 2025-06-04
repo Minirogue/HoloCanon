@@ -11,7 +11,7 @@ class CanonTrackerApplication : Application() {
         dependencyGraph = getAppDependencyGraph(platformDependencies)
     }
 
-    companion object{
+    companion object {
         lateinit var dependencyGraph: AppDependencyGraph
     }
 }

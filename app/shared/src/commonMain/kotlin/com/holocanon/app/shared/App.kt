@@ -33,8 +33,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.holocanon.app.shared.di.AppDependencyGraph
-import com.holocanon.app.shared.di.PlatformDependencies
-import com.holocanon.app.shared.di.getAppDependencyGraph
 import com.holocanon.feature.settings.SettingsNav
 import com.holocanon.library.navigation.AppBarConfig
 import com.holocanon.library.navigation.NavContributor
