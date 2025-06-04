@@ -12,6 +12,10 @@ import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runCurrent
 import kotlinx.coroutines.test.runTest
+import kotlinx.io.Buffer
+import kotlinx.io.RawSink
+import kotlinx.io.Sink
+import kotlinx.io.readString
 import kotlinx.serialization.json.Json
 import org.junit.Rule
 import org.junit.Test
@@ -61,17 +65,17 @@ class ExportMediaNotesJsonTest {
                 CheckboxSetting("box3", false),
             )
         )
-        every {resources.getString(any())} returns "toast message"
-        val outputStream = ByteArrayOutputStream()
+        every { resources.getString(any()) } returns "toast message"
+        val outputStream = TestSink()
 
         // Act
         getMediaNotesAsJson(outputStream)
         runCurrent()
-        val result = outputStream.toString()
 
         // Assert
+        assert(outputStream.closed) { "output stream not closed" }
         assert(
-            result == """{
+            outputStream.written == """{
     "note_names": {
         "note_1_name": "box1",
         "note_2_name": "box2",
@@ -88,5 +92,22 @@ class ExportMediaNotesJsonTest {
 }"""
         ) { "media notes not written as expected" }
     }
+}
 
+private class TestSink : RawSink {
+    var closed = false
+    var flushed = false
+    var written: String? = null
+
+    override fun write(source: Buffer, byteCount: Long) {
+        written = source.readString()
+    }
+
+    override fun close() {
+        closed = true
+    }
+
+    override fun flush() {
+        flushed = true
+    }
 }
