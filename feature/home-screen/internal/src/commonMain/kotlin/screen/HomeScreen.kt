@@ -68,7 +68,6 @@ fun HomeScreen() {
 fun getWelcomeString(): AnnotatedString = buildAnnotatedString {
     val discordString = stringResource(Res.string.home_screen_discord)
     val fullString = stringResource(Res.string.home_screen_welcome_message, discordString).trimMargin()
-    println(fullString)
     val startIndex = fullString.indexOf(discordString)
     val endIndex = startIndex + discordString.length
     append(fullString)
