@@ -1,12 +1,10 @@
 package com.holocanon.library.media.notes.internal.usecase
 
-import android.content.res.Resources
 import android.util.Log
 import com.holocanon.core.data.dao.DaoMedia
 import com.holocanon.core.data.entity.MediaNotesDto
 import com.holocanon.feature.global.notification.usecase.SendGlobalToast
 import com.holocanon.library.coroutine.ext.HolocanonDispatchers
-import com.holocanon.library.media.notes.internal.R
 import com.holocanon.library.media.notes.internal.model.MediaNotesJsonV1
 import com.holocanon.library.media.notes.internal.model.MediaNotesV1
 import com.minirogue.media.notes.ImportMediaNotesJson
@@ -22,7 +20,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.io.RawSource
 import kotlinx.io.buffered
-import kotlinx.io.readString
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.io.decodeFromSource

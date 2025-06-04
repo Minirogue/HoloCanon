@@ -1,11 +1,9 @@
 package com.holocanon.library.media.notes.internal.usecase
 
-import android.content.res.Resources
 import android.util.Log
 import com.holocanon.core.data.dao.DaoMedia
 import com.holocanon.feature.global.notification.usecase.SendGlobalToast
 import com.holocanon.library.coroutine.ext.HolocanonDispatchers
-import com.holocanon.library.media.notes.internal.R
 import com.holocanon.library.media.notes.internal.model.CheckBoxNamesV1
 import com.holocanon.library.media.notes.internal.model.MediaNotesJsonV1
 import com.holocanon.library.media.notes.internal.model.MediaNotesV1
@@ -21,7 +19,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import kotlinx.io.RawSink
 import kotlinx.io.buffered
-import kotlinx.io.writeString
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.io.encodeToSink
@@ -54,7 +51,7 @@ class ExportMediaNotesJsonImpl(
                                 MediaNotesV1.fromMediaNotesDto(mediaNotesDto)
                             },
                         ),
-                        sink = it
+                        sink = it,
                     )
                 }
 

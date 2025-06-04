@@ -2,7 +2,6 @@ package com.holocanon.app.shared.di
 
 import android.app.Application
 import android.content.Context
-import android.content.res.Resources
 import android.net.ConnectivityManager
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.DependencyGraph
