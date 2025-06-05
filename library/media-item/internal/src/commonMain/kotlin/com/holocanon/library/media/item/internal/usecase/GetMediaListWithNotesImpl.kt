@@ -1,9 +1,9 @@
 package com.holocanon.library.media.item.internal.usecase
 
-import android.util.SparseBooleanArray
 import com.holocanon.core.data.dao.DaoFilter
 import com.holocanon.core.usecase.AdaptMediaItemDtoToStarWarsMedia
 import com.holocanon.core.usecase.QueryMedia
+import com.holocanon.library.coroutine.ext.HolocanonDispatchers
 import com.holocanon.library.media.item.model.MediaAndNotes
 import com.holocanon.library.media.item.usecase.GetMediaListWithNotes
 import com.minirogue.common.model.MediaType
@@ -14,6 +14,7 @@ import filters.GetActiveFilters
 import filters.model.FilterType
 import filters.model.MediaFilter
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -30,6 +31,7 @@ class GetMediaListWithNotesImpl(
     private val getPermanentFilterSettings: GetPermanentFilterSettings,
     private val getActiveFilters: GetActiveFilters,
     private val adaptMediaItemDtoToStarWarsMedia: AdaptMediaItemDtoToStarWarsMedia,
+    private val dispatchers: HolocanonDispatchers,
 ) : GetMediaListWithNotes {
     /**
      * Returns Flow containing a list of [MediaAndNotes] based on the current filters.
@@ -58,10 +60,10 @@ class GetMediaListWithNotesImpl(
     private suspend fun convertFiltersToQuery(
         filterList: List<MediaFilter>,
         permanentFilterSettings: Map<MediaType, Boolean>,
-    ): String = withContext(Dispatchers.Default) {
+    ): String = withContext(dispatchers.default) {
         val gettingPermanentFilters =
             async { getPermanentFiltersAsStringBuilder(permanentFilterSettings) }
-        val filterTypeIsPositive = SparseBooleanArray()
+        val filterTypeIsPositive = mutableMapOf<Int, Boolean>()
         for (filterType in daoFilter.getAllFilterTypesNonLive()) {
             filterTypeIsPositive.put(filterType.typeId, filterType.isFilterPositive)
         }
@@ -155,7 +157,7 @@ class GetMediaListWithNotesImpl(
         }
         queryBuild.append(
             "SELECT media_items.*,media_notes.* FROM media_items " +
-                "INNER JOIN media_notes ON media_items.id = media_notes.media_id ",
+                    "INNER JOIN media_notes ON media_items.id = media_notes.media_id ",
         )
         queryBuild.append(joins)
         var whereClause = false
@@ -203,7 +205,7 @@ class GetMediaListWithNotesImpl(
      */
     private suspend fun getPermanentFiltersAsStringBuilder(
         permanentFilterSettings: Map<MediaType, Boolean>,
-    ): StringBuilder = withContext(Dispatchers.IO) {
+    ): StringBuilder = withContext(dispatchers.io) {
         val permFiltersBuilder = StringBuilder()
         for (type in MediaType.entries) {
             if (permanentFilterSettings[type] == false) {

@@ -4,6 +4,7 @@ plugins {
 
 minirogue {
     android()
+    ios()
     serialization()
     metro()
     kotlinCompose()
@@ -21,7 +22,6 @@ kotlin.sourceSets.commonMain.dependencies {
 }
 
 kotlin.sourceSets.commonTest.dependencies {
-    implementation libs.mockk
     implementation libs.junit
     implementation libs.kotlinx.coroutines.test
     implementation projects.library.globalNotification.testing

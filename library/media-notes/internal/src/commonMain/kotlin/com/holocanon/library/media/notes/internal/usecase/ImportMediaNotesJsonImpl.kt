@@ -1,10 +1,10 @@
 package com.holocanon.library.media.notes.internal.usecase
 
-import android.util.Log
 import com.holocanon.core.data.dao.DaoMedia
 import com.holocanon.core.data.entity.MediaNotesDto
 import com.holocanon.feature.global.notification.usecase.SendGlobalToast
 import com.holocanon.library.coroutine.ext.HolocanonDispatchers
+import com.holocanon.library.logger.HoloLogger
 import com.holocanon.library.media.notes.internal.model.MediaNotesJsonV1
 import com.holocanon.library.media.notes.internal.model.MediaNotesV1
 import com.minirogue.media.notes.ImportMediaNotesJson
@@ -18,6 +18,7 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.io.IOException
 import kotlinx.io.RawSource
 import kotlinx.io.buffered
 import kotlinx.serialization.SerializationException
@@ -25,7 +26,6 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.io.decodeFromSource
 import org.jetbrains.compose.resources.getString
 import settings.usecase.UpdateCheckboxName
-import java.io.IOException
 
 @Inject
 @ContributesBinding(AppScope::class)
@@ -35,6 +35,7 @@ class ImportMediaNotesJsonImpl(
     private val sendGlobalToast: SendGlobalToast,
     private val dispatchers: HolocanonDispatchers,
     private val json: Json,
+    private val logger: HoloLogger,
 ) : ImportMediaNotesJson {
     @OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
     override suspend fun invoke(inputStream: RawSource) =
@@ -62,7 +63,7 @@ class ImportMediaNotesJsonImpl(
         }
 
     private suspend fun onFailed(e: Exception) {
-        Log.e(TAG, "Failed to parse Media Notes JSON", e)
+        logger.error(TAG, "Failed to parse Media Notes JSON", e)
         sendGlobalToast(getString(Res.string.media_notes_there_was_an_error_importing_your_data))
     }
 

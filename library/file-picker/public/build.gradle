@@ -4,6 +4,7 @@ plugins {
 
 minirogue {
     android()
+    ios()
     kotlinCompose()
 }
 

@@ -4,9 +4,10 @@ plugins {
 
 minirogue {
     android()
+    ios()
     metro()
 }
 
-kotlin.sourceSets.androidMain.dependencies {
+kotlin.sourceSets.commonMain.dependencies {
     api projects.library.logger.public
 }
