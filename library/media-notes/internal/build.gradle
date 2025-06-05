@@ -17,11 +17,11 @@ kotlin.sourceSets.commonMain.dependencies {
     implementation projects.core
     implementation projects.library.coroutineExt.public
     implementation projects.library.globalNotification.public
+    implementation projects.library.logger.public
     implementation projects.library.settings.public
 }
 
 kotlin.sourceSets.commonTest.dependencies {
-    implementation libs.mockk
     implementation libs.junit
     implementation libs.kotlinx.coroutines.test
     implementation projects.library.globalNotification.testing

@@ -9,4 +9,7 @@ minirogue {
 
 kotlin.sourceSets.commonMain.dependencies {
     api projects.library.filters.public
+
+    implementation libs.compose.material.icons
+    implementation projects.library.commonResources.public
 }

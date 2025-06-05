@@ -1,19 +1,18 @@
 package com.holocanon.library.holoclient.internal.usecase
 
-import android.app.Application
-import android.net.ConnectivityManager
-import android.util.Log
-import android.widget.Toast
 import com.holocanon.core.data.dao.DaoCompany
 import com.holocanon.core.data.dao.DaoMedia
 import com.holocanon.core.data.dao.DaoSeries
 import com.holocanon.core.data.entity.CompanyDto
 import com.holocanon.core.data.entity.MediaItemDto
 import com.holocanon.core.data.entity.MediaNotesDto
+import com.holocanon.feature.global.notification.usecase.SendGlobalToast
 import com.holocanon.library.filters.usecase.UpdateFilters
 import com.holocanon.library.holoclient.internal.api.GetApiMediaVersion
 import com.holocanon.library.holoclient.internal.api.GetMediaFromApi
+import com.holocanon.library.logger.HoloLogger
 import com.holocanon.library.networking.HoloResult
+import com.holocanon.library.settings.usecase.IsNetworkAllowed
 import com.minirogue.common.model.Company
 import com.minirogue.common.model.MediaType
 import com.minirogue.common.model.StarWarsMedia
@@ -23,6 +22,7 @@ import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.first
@@ -39,7 +39,6 @@ import settings.usecase.SetLatestDatabaseVersion
 @ContributesBinding(AppScope::class)
 class UpdateMediaDatabaseUseCase internal constructor(
     private val updateFilters: UpdateFilters,
-    private val connectivityManager: ConnectivityManager,
     private val getApiMediaVersion: GetApiMediaVersion,
     private val getMediaFromApi: GetMediaFromApi,
     private val getSettings: GetAllSettings,
@@ -47,16 +46,17 @@ class UpdateMediaDatabaseUseCase internal constructor(
     private val daoMedia: DaoMedia,
     private val daoSeries: DaoSeries,
     private val daoCompany: DaoCompany,
-    private val context: Application,
     private val json: Json,
+    private val sendGlobalToast: SendGlobalToast,
+    private val logger: HoloLogger,
+    private val isNetworkAllowed: IsNetworkAllowed,
 ) : MaybeUpdateMediaDatabase {
     override fun invoke(forced: Boolean) {
         usecaseScope.launch {
             mutex.withLock {
                 val settings = getSettings().first()
-                val wifiOnly = settings.syncWifiOnly
                 val latestLocalVersion = settings.latestDatabaseVersion
-                if (wifiOnly && connectivityManager.isActiveNetworkMetered) {
+                if (!isNetworkAllowed().first()) {
                     return@withLock
                 }
                 val latestRemoteVersion =
@@ -98,11 +98,7 @@ class UpdateMediaDatabaseUseCase internal constructor(
                     updateFilters()
                 }
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        context,
-                        "Database Synced",
-                        Toast.LENGTH_SHORT,
-                    ).show()
+                    sendGlobalToast("Database Synced") // TODO extract string resource
                 }
             }
         }
@@ -142,7 +138,7 @@ class UpdateMediaDatabaseUseCase internal constructor(
                 .toInt()
         }
     } catch (e: Exception) {
-        Log.e(TAG, "error getting company map: $e")
+        logger.error(TAG, "error getting company map:", e)
         emptyMap()
     }
 

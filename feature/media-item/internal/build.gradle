@@ -11,6 +11,7 @@ minirogue {
 kotlin.sourceSets.commonMain.dependencies {
     api projects.feature.mediaItem.public
 
+    implementation libs.compose.lifecycle
     implementation libs.compose.resources
     implementation libs.coil.compose
     implementation projects.core

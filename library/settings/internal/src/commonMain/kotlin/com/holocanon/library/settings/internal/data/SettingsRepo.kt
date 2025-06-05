@@ -1,10 +1,11 @@
 package com.holocanon.library.settings.internal.data
 
-import android.util.Log
+import androidx.datastore.core.IOException
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.holocanon.library.logger.HoloLogger
 import com.minirogue.common.model.MediaType
 import dev.zacsweers.metro.Inject
 import holocanon.library.settings.internal.generated.resources.Res
@@ -19,7 +20,6 @@ import settings.model.CheckboxSetting
 import settings.model.CheckboxSettings
 import settings.model.DarkModeSetting
 import settings.model.Theme
-import java.io.IOException
 
 private const val USER_FILTER_1_ACTIVE_KEY = "user_filter_1_active"
 private const val USER_FILTER_2_ACTIVE_KEY = "user_filter_2_active"
@@ -37,6 +37,7 @@ private const val TAG = "SettingsRepo"
 @Inject
 class SettingsRepo(
     private val dataStore: SettingsDataStore,
+    private val logger: HoloLogger,
 ) {
     private val userFilter1ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_1_ACTIVE_KEY)
     private val userFilter2ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_2_ACTIVE_KEY)
@@ -126,9 +127,9 @@ class SettingsRepo(
             }
         }.onFailure { throwable ->
             when (throwable) {
-                is IOException -> Log.e(TAG, "error in updateCheckbox", throwable)
-                is IllegalArgumentException -> Log.e(TAG, "error in updateCheckbox", throwable)
-                is IllegalStateException -> Log.e(TAG, "error in updateCheckbox", throwable)
+                is IOException -> logger.error(TAG, "error in updateCheckbox", throwable)
+                is IllegalArgumentException -> logger.error(TAG, "error in updateCheckbox", throwable)
+                is IllegalStateException -> logger.error(TAG, "error in updateCheckbox", throwable)
                 else -> throw throwable
             }
         }
@@ -140,7 +141,7 @@ class SettingsRepo(
                 prefs[booleanPreferencesKey(mediaType.getSerialName())] = isActive
             }
         } catch (e: IOException) {
-            Log.e(TAG, "error in updatePermanentFilter", e)
+            logger.error(TAG, "error in updatePermanentFilter", e)
         }
     }
 
@@ -150,7 +151,7 @@ class SettingsRepo(
                 prefs[databaseVersionPreferenceKey] = newVersionNumber
             }
         } catch (e: IOException) {
-            Log.e(TAG, "error in updateDatabaseVersionNumber", e)
+            logger.error(TAG, "error in updateDatabaseVersionNumber", e)
         }
     }
 
@@ -160,7 +161,7 @@ class SettingsRepo(
                 prefs[syncWifiOnlyPreferenceKey] = newvalue
             }
         } catch (e: IOException) {
-            Log.e(TAG, "error in updateWifiSetting", e)
+            logger.error(TAG, "error in updateWifiSetting", e)
         }
     }
 
@@ -170,7 +171,7 @@ class SettingsRepo(
                 prefs[darkModeSettingPreferenceKey] = newValue.name
             }
         } catch (e: IOException) {
-            Log.e(TAG, "error in updateDarkModeSetting", e)
+            logger.error(TAG, "error in updateDarkModeSetting", e)
         }
     }
 
@@ -180,7 +181,7 @@ class SettingsRepo(
                 prefs[themeSettingPreferenceKey] = newValue.name
             }
         } catch (e: IOException) {
-            Log.e(TAG, "error in updateTheme", e)
+            logger.error(TAG, "error in updateTheme", e)
         }
     }
 

@@ -13,6 +13,11 @@ kotlin.sourceSets.commonMain.dependencies {
     implementation libs.kotlinx.coroutines.core
     implementation libs.ktor.client.core
     implementation libs.ktor.client.contentNegotiation
-    implementation libs.ktor.client.okhttp
     implementation libs.ktor.serialization
+    implementation projects.library.logger.public
 }
+
+kotlin.sourceSets.androidMain.dependencies {
+    implementation libs.ktor.client.okhttp
+}
+

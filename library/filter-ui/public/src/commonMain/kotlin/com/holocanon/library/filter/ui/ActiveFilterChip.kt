@@ -6,9 +6,12 @@ import androidx.compose.material3.InputChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import com.holocanon.library.filter.ui.R
 import filters.model.MediaFilter
+import holocanon.library.filter_ui.public.generated.resources.Res
+import holocanon.library.filter_ui.public.generated.resources.filter_ui_dismiss_filter
+import holocanon.library.filter_ui.public.generated.resources.filter_ui_exclude
+import holocanon.library.filter_ui.public.generated.resources.filter_ui_include
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ActiveFilterChip(modifier: Modifier = Modifier, filter: MediaFilter, onDismiss: () -> Unit) {
@@ -21,16 +24,16 @@ fun ActiveFilterChip(modifier: Modifier = Modifier, filter: MediaFilter, onDismi
             Icon(
                 if (filter.isPositive) Icons.Default.CheckCircle else Icons.Default.Close,
                 contentDescription = if (filter.isPositive) {
-                    stringResource(R.string.filter_ui_include)
+                    stringResource(Res.string.filter_ui_include)
                 } else {
-                    stringResource(R.string.filter_ui_exclude)
+                    stringResource(Res.string.filter_ui_exclude)
                 },
             )
         },
         trailingIcon = {
             Icon(
                 Icons.Default.Close,
-                contentDescription = stringResource(R.string.filter_ui_dismiss_filter),
+                contentDescription = stringResource(Res.string.filter_ui_dismiss_filter),
             )
         },
     )

@@ -55,7 +55,7 @@ fun App(
 
     // Compose components
     val navController = rememberNavController()
-    val navContributors = rememberSaveable { appDependencyGraph.navContributors }
+    val navContributors = remember { appDependencyGraph.navContributors }
     val appBarConfig = remember { mutableStateOf(AppBarConfig()) }
     val snackbarHostState = remember { SnackbarHostState() }
 

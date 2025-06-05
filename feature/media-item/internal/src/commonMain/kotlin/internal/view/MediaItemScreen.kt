@@ -19,27 +19,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.navigation.NavController
-import coil3.compose.AsyncImage
-import coil3.request.CachePolicy
-import coil3.request.ImageRequest
 import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.holocanon.feature.series.SeriesNav
 import com.minirogue.media.notes.model.MediaNotes
+import compose.theme.HoloImage
+import compose.theme.collectAsStateSafely
 import holocanon.feature.media_item.internal.generated.resources.Res
 import holocanon.feature.media_item.internal.generated.resources.media_item_content_description_cover_art
 import holocanon.feature.media_item.internal.generated.resources.media_item_view_series
-import holocanon.library.common_resources.public.generated.resources.common_resources_app_icon
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import settings.model.CheckboxSettings
-import holocanon.library.common_resources.public.generated.resources.Res as CommonRes
 
 @Composable
 internal fun MediaItemScreen(
@@ -49,7 +42,7 @@ internal fun MediaItemScreen(
     navController: NavController,
     viewModel: ViewMediaItemViewModel = viewModel { viewModelFactory.create(itemId) },
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateSafely()
 
     Column(modifier = modifier.fillMaxSize()) {
         state.mediaItem?.title?.also {
@@ -90,19 +83,12 @@ private fun MediaItemViewLeftColumn(
     description: String?,
     isNetworkAllowed: Boolean,
 ) = Column(modifier = modifier.fillMaxHeight()) {
-    imageUrl?.also {
-        AsyncImage(
-            modifier = Modifier.padding(4.dp),
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(it)
-                .networkCachePolicy(if (isNetworkAllowed) CachePolicy.ENABLED else CachePolicy.DISABLED)
-                .build(),
-            contentDescription = stringResource(Res.string.media_item_content_description_cover_art),
-            placeholder = painterResource(CommonRes.drawable.common_resources_app_icon),
-            fallback = painterResource(CommonRes.drawable.common_resources_app_icon),
-            error = painterResource(CommonRes.drawable.common_resources_app_icon),
-        )
-    }
+    HoloImage(
+        modifier = Modifier.padding(4.dp),
+        contentDescription = stringResource(Res.string.media_item_content_description_cover_art),
+        sourceUri = imageUrl,
+        isNetworkAllowed = isNetworkAllowed,
+    )
     description?.also {
         if (it.isNotBlank()) {
             Text(

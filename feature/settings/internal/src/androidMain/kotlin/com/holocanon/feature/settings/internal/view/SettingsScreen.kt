@@ -162,7 +162,7 @@ private fun ThemeSettings(
     TabRow(currentTheme.ordinal) {
         Theme.entries.forEach { theme ->
             // Dynamic themes only available on Android 12 and later
-            if (theme != Theme.Dynamic || Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (theme != Theme.AndroidDynamic || Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 Tab(
                     selected = theme == currentTheme,
                     onClick = { updateTheme(theme) },
@@ -171,7 +171,7 @@ private fun ThemeSettings(
                             when (theme) {
                                 Theme.Force -> stringResource(Res.string.settings_force_theme)
                                 Theme.Mace -> stringResource(Res.string.settings_mace_theme)
-                                Theme.Dynamic -> stringResource(Res.string.settings_dynamic_theme)
+                                Theme.AndroidDynamic -> stringResource(Res.string.settings_dynamic_theme)
                             },
                         )
                     },

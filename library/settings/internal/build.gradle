@@ -8,14 +8,11 @@ minirogue {
     metro()
 }
 
-kotlin.sourceSets.androidMain.dependencies {
-    implementation(libs.androidx.preference)
-}
-
 kotlin.sourceSets.commonMain.dependencies {
     api projects.library.settings.public
 
     implementation libs.androidx.datastore
     implementation libs.compose.resources
     implementation projects.library.filters.public
+    implementation projects.library.logger.public
 }
