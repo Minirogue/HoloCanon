@@ -12,6 +12,7 @@ kotlin.sourceSets.commonMain.dependencies {
     api projects.feature.mediaList.public
 
     implementation libs.coil.compose
+    implementation libs.compose.lifecycle
     implementation libs.compose.resources
     implementation projects.core
     implementation projects.feature.loading.public

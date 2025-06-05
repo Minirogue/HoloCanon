@@ -15,6 +15,7 @@ kotlin.sourceSets.commonMain.dependencies {
     implementation projects.core
     implementation projects.library.commonModels.public
     implementation projects.library.globalNotification.public
+    implementation projects.library.logger.public
     implementation projects.library.networking.public
     implementation projects.library.settings.public
 }

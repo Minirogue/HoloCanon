@@ -1,5 +1,5 @@
 package settings.model
 
 enum class Theme {
-    Force, Mace, Dynamic
+    Force, Mace, AndroidDynamic
 }
