@@ -4,6 +4,7 @@ plugins {
 
 minirogue {
     android()
+    ios()
     metro()
 }
 
@@ -21,3 +22,6 @@ kotlin.sourceSets.androidMain.dependencies {
     implementation libs.ktor.client.okhttp
 }
 
+kotlin.sourceSets.getByName("iosMain").dependencies {
+    implementation(libs.ktor.client.darwin)
+}
