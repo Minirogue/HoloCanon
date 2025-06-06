@@ -23,9 +23,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import coil3.compose.AsyncImage
-import coil3.request.CachePolicy
-import coil3.request.ImageRequest
 import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.holocanon.feature.series.SeriesNav
 import com.minirogue.media.notes.model.MediaNotes
@@ -34,11 +31,8 @@ import compose.theme.collectAsStateSafely
 import holocanon.feature.media_item.internal.generated.resources.Res
 import holocanon.feature.media_item.internal.generated.resources.media_item_content_description_cover_art
 import holocanon.feature.media_item.internal.generated.resources.media_item_view_series
-import holocanon.library.common_resources.public.generated.resources.common_resources_app_icon
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import settings.model.CheckboxSettings
-import holocanon.library.common_resources.public.generated.resources.Res as CommonRes
 
 @Composable
 internal fun MediaItemScreen(
@@ -89,11 +83,12 @@ private fun MediaItemViewLeftColumn(
     description: String?,
     isNetworkAllowed: Boolean,
 ) = Column(modifier = modifier.fillMaxHeight()) {
-        HoloImage(            modifier = Modifier.padding(4.dp),
-            contentDescription = stringResource(Res.string.media_item_content_description_cover_art),
-       sourceUri = imageUrl ,
-            isNetworkAllowed = isNetworkAllowed,
-        )
+    HoloImage(
+        modifier = Modifier.padding(4.dp),
+        contentDescription = stringResource(Res.string.media_item_content_description_cover_art),
+        sourceUri = imageUrl,
+        isNetworkAllowed = isNetworkAllowed,
+    )
     description?.also {
         if (it.isNotBlank()) {
             Text(

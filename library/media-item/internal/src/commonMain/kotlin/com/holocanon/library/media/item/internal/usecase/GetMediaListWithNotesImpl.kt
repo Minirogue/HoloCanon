@@ -13,8 +13,6 @@ import dev.zacsweers.metro.Inject
 import filters.GetActiveFilters
 import filters.model.FilterType
 import filters.model.MediaFilter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -157,7 +155,7 @@ class GetMediaListWithNotesImpl(
         }
         queryBuild.append(
             "SELECT media_items.*,media_notes.* FROM media_items " +
-                    "INNER JOIN media_notes ON media_items.id = media_notes.media_id ",
+                "INNER JOIN media_notes ON media_items.id = media_notes.media_id ",
         )
         queryBuild.append(joins)
         var whereClause = false

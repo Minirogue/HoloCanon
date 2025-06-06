@@ -20,7 +20,7 @@ fun HolocanonTheme(
     val colors = when (theme) {
         Theme.Force -> if (darkTheme) ForceDarkColors else ForceLightColors
         Theme.Mace -> if (darkTheme) MaceDarkColors else MaceLightColors
-        Theme.AndroidDynamic -> {getDynamicColors(darkTheme)}
+        Theme.AndroidDynamic -> { getDynamicColors(darkTheme) }
     }
     MaterialTheme(
         colorScheme = colors,

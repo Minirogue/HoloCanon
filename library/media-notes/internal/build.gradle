@@ -18,6 +18,7 @@ kotlin.sourceSets.commonMain.dependencies {
     implementation projects.core
     implementation projects.library.coroutineExt.public
     implementation projects.library.globalNotification.public
+    implementation projects.library.logger.public
     implementation projects.library.settings.public
 }
 
