@@ -16,7 +16,9 @@ import dev.zacsweers.metro.Provider
 
 @Inject
 @ContributesIntoSet(AppScope::class)
-class SettingsNavContributor(private val viewModelProvider: Provider<SettingsViewModel>) : NavContributor() {
+class SettingsNavContributor(
+    private val viewModelProvider: Provider<SettingsViewModel>,
+) : NavContributor() {
     override fun invoke(
         navGraphBuilder: NavGraphBuilder,
         navController: NavController,

@@ -2,7 +2,7 @@
 androidMaterial = "1.12.0"
 androidxTest = "1.6.1"
 appCompat = "1.7.0"
-buildLogic = "0.0.14"
+buildLogic = "0.0.15"
 commonsCSV = "1.14.0"
 composeLifecycle = "2.9.0"
 composeNavigation = "2.9.0-beta02"

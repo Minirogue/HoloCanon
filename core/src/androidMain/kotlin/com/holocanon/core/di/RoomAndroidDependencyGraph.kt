@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.holocanon.core.data.database.MediaDatabase
+import com.holocanon.core.data.database.MediaDatabase.Companion.DATABASE_NAME
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesTo
 import dev.zacsweers.metro.Provides
@@ -36,7 +37,6 @@ interface RoomAndroidDependencyGraph {
 
     @Suppress("MagicNumber")
     companion object {
-        private const val DATABASE_NAME = "StarWars-database"
         private const val LATEST_PREPACKAGED_DATABASE = "schema16_ver13.db"
 
         internal val MIGRATE_16_17: Migration = object : Migration(16, 17) {

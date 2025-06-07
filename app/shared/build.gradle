@@ -12,15 +12,14 @@ minirogue {
 kotlin.sourceSets.commonMain.dependencies {
     implementation(libs.compose.lifecycle)
     implementation(libs.compose.navigation)
-    implementation(libs.compose.resources)
     implementation(projects.core)
     implementation(projects.feature.homeScreen.internal)
+    implementation(projects.feature.mainScreen.internal)
     implementation(projects.feature.mediaItem.internal)
     implementation(projects.feature.mediaList.internal)
     implementation(projects.feature.series.internal)
     implementation(projects.feature.settings.internal)
     implementation(projects.feature.selectFilters.internal)
-    implementation(projects.library.commonResources.public)
     implementation(projects.library.composeExt.public)
     implementation(projects.library.coroutineExt.internal)
     implementation(projects.library.coroutineExt.public)
@@ -37,3 +36,11 @@ kotlin.sourceSets.commonMain.dependencies {
     implementation(projects.library.settings.internal)
     implementation(projects.library.sorting.internal)
 }
+
+kotlin.sourceSets.iosMain.dependencies {
+    // TODO should be able to eliminate once ios bindings can be moved back into their modules
+    implementation(libs.androidx.datastore)
+}
+
+//tasks.matching { it.name == "syncComposeResourcesForIos" }
+//        .configureEach { enabled = false } // TODO https://youtrack.jetbrains.com/issue/CMP-4885

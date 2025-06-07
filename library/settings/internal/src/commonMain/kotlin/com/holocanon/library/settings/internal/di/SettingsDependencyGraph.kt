@@ -8,7 +8,7 @@ import dev.zacsweers.metro.Provides
 import dev.zacsweers.metro.SingleIn
 import okio.Path.Companion.toPath
 
-internal const val SETTINGS_DATASTORE_FILE_NAME = "datastore/settings.preferences_pb"
+const val SETTINGS_DATASTORE_FILE_NAME = "datastore/settings.preferences_pb"
 
 @ContributesTo(AppScope::class)
 interface SettingsDependencyGraph {

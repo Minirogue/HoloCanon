@@ -1,6 +1,5 @@
 package com.holocanon.feature.settings.internal.view
 
-import android.os.Build
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -162,7 +161,8 @@ private fun ThemeSettings(
     TabRow(currentTheme.ordinal) {
         Theme.entries.forEach { theme ->
             // Dynamic themes only available on Android 12 and later
-            if (theme != Theme.AndroidDynamic || Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            // TODO replace false with Build.VERSION.SDK_INT >= Build.VERSION_CODES.S and Android
+            if (theme != Theme.AndroidDynamic || false) {
                 Tab(
                     selected = theme == currentTheme,
                     onClick = { updateTheme(theme) },

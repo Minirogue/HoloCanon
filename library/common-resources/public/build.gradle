@@ -3,9 +3,9 @@ plugins {
 }
 
 minirogue {
-    kotlinCompose()
     android()
     ios()
+    kotlinCompose()
 }
 
 kotlin.sourceSets.commonMain.dependencies {
