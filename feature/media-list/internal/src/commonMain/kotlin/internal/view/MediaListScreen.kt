@@ -64,9 +64,11 @@ internal fun MediaListScreen(
     val mediaList by mediaListViewModel.mediaList.collectAsStateSafely(emptyList())
 
     LaunchedEffect(true) {
-        val config = AppBarConfig(
-            actions = listOf { AppBarAction(mediaListViewModel::setSort) },
-        )
+        val config = AppBarConfig.DEFAULT
+        // TODO fix this on iOS
+//            .copy(
+//            actions = listOf { AppBarAction(mediaListViewModel::setSort) },
+//        )
         setAppBar(config)
     }
 

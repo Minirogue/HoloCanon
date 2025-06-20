@@ -3,6 +3,7 @@ package com.holocanon.app.shared.di
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.holocanon.feature.global.notification.internal.usecase.GetGlobalToastsImpl
 import com.holocanon.feature.global.notification.usecase.GetGlobalToasts
 import com.holocanon.library.filters.internal.UpdateFiltersImpl
@@ -103,6 +104,8 @@ import io.ktor.client.engine.darwin.Darwin
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.serialization.json.Json
 import okio.Path.Companion.toPath
 import platform.Foundation.NSDocumentDirectory
@@ -323,7 +326,9 @@ fun bindGetSeriesIdFromName(impl: GetSeriesIdFromNameImpl): GetSeriesIdFromName
         return if (dbFilePath != null) {
             Room.databaseBuilder<MediaDatabase>(
                 name = dbFilePath,
-            ).build()
+            ).setDriver(BundledSQLiteDriver())
+                .setQueryCoroutineContext(Dispatchers.IO)
+                .build()
         } else error("Document directory is null")
     }
 

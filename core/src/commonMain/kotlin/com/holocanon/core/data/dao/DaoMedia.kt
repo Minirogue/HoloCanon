@@ -54,7 +54,7 @@ abstract class DaoMedia {
         "SELECT media_notes.* FROM media_items INNER JOIN media_notes " +
             "ON media_items.id = media_notes.media_id WHERE media_items.series = :series",
     )
-    abstract fun getMediaNotesBySeriesNonLive(series: Int): List<MediaNotesDto>
+    abstract suspend fun getMediaNotesBySeriesNonLive(series: Int): List<MediaNotesDto>
 
     // The following return MediaAndNotes objects
     @RawQuery(observedEntities = [MediaItemDto::class, MediaNotesDto::class])

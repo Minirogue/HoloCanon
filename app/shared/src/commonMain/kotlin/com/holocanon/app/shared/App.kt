@@ -7,13 +7,13 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.holocanon.app.shared.di.AppDependencyGraph
 import com.holocanon.feature.main.screen.internal.TopLevelScreen
 import com.holocanon.library.navigation.AppBarConfig
 import compose.theme.HolocanonTheme
+import compose.theme.collectAsStateSafely
 import settings.model.DarkModeSetting
 import settings.model.Theme
 
@@ -28,15 +28,15 @@ fun App(
     // Compose components
     val navController = rememberNavController()
     val navContributors = remember { appDependencyGraph.navContributors }
-    val appBarConfig = remember { mutableStateOf(AppBarConfig()) }
+    val appBarConfig = remember { mutableStateOf(AppBarConfig.DEFAULT) }
     val snackbarHostState = remember { SnackbarHostState() }
 
     // top-level state
     val themeSettings: State<Pair<DarkModeSetting, Theme>> =
-        viewModel.themeSettings.collectAsStateWithLifecycle(
+        viewModel.themeSettings.collectAsStateSafely(
             Pair(DarkModeSetting.SYSTEM, Theme.Force),
         )
-    val notification = viewModel.globalToasts.collectAsStateWithLifecycle(null)
+    val notification = viewModel.globalToasts.collectAsStateSafely(null)
 
     LaunchedEffect(notification.value) {
         notification.value?.also { snackbarHostState.showSnackbar(it) }

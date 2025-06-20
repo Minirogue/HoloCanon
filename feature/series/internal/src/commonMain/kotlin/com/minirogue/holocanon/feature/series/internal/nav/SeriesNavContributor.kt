@@ -26,7 +26,7 @@ class SeriesNavContributor internal constructor(
     ) = with(navGraphBuilder) {
         composable<SeriesNav> { backStackEntry ->
             val seriesNav: SeriesNav = backStackEntry.toRoute()
-            LaunchedEffect(true) { setAppBar(AppBarConfig()) }
+            LaunchedEffect(true) { setAppBar(AppBarConfig.DEFAULT) }
             SeriesScreen(
                 seriesName = seriesNav.seriesName,
                 viewModelFactory = viewModelFactory,

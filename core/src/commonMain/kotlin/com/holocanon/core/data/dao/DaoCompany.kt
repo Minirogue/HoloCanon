@@ -14,7 +14,7 @@ interface DaoCompany {
     suspend fun insert(companyDto: CompanyDto): Long
 
     @Query("SELECT * FROM companies")
-    fun getAllNonLive(): List<CompanyDto>
+    suspend fun getAllNonLive(): List<CompanyDto>
 
     @Query("SELECT * FROM companies")
     fun getAllCompanies(): Flow<List<CompanyDto>>

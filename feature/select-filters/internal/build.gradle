@@ -12,6 +12,7 @@ minirogue {
 kotlin.sourceSets.commonMain.dependencies {
     api projects.feature.selectFilters.public
 
+    implementation libs.compose.lifecycle
     implementation libs.compose.resources
     implementation projects.feature.loading.public
     implementation projects.library.navigation.public

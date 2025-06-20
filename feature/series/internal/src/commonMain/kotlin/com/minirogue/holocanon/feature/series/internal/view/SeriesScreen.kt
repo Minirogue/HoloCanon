@@ -17,12 +17,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.holocanon.library.media.item.model.MediaAndNotes
 import com.minirogue.holocanon.feature.media.item.usecase.MediaItemNav
 import com.minirogue.media.notes.model.MediaNotes
+import compose.theme.collectAsStateSafely
 import settings.model.CheckboxSettings
 
 @Composable
@@ -33,7 +33,7 @@ internal fun SeriesScreen(
     navController: NavController,
     viewModel: SeriesViewModel = viewModel { viewModelFactory.create(seriesName) },
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+    val state by viewModel.state.collectAsStateSafely()
 
     Column(modifier = modifier.fillMaxSize()) {
         Text(

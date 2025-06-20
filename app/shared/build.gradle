@@ -1,5 +1,6 @@
 plugins {
     id "minirogue.multiplatform.library"
+    id("org.jetbrains.kotlin.native.cocoapods")
 }
 
 minirogue {
@@ -7,6 +8,18 @@ minirogue {
     ios()
     kotlinCompose()
     metro()
+}
+
+kotlin.cocoapods {
+    // Required properties
+    // Specify the required Pod version here
+    // Otherwise, the Gradle project version is used
+    version = "1.0"
+    summary = "Some description for a Kotlin/Native module"
+    homepage = "Link to a Kotlin/Native module homepage"
+
+    ios.deploymentTarget = "16.0"
+    podfile = rootProject.file("app/ios/Podfile")
 }
 
 kotlin.sourceSets.commonMain.dependencies {
@@ -40,7 +53,5 @@ kotlin.sourceSets.commonMain.dependencies {
 kotlin.sourceSets.iosMain.dependencies {
     // TODO should be able to eliminate once ios bindings can be moved back into their modules
     implementation(libs.androidx.datastore)
+    implementation(libs.sqlite.driver)
 }
-
-//tasks.matching { it.name == "syncComposeResourcesForIos" }
-//        .configureEach { enabled = false } // TODO https://youtrack.jetbrains.com/issue/CMP-4885

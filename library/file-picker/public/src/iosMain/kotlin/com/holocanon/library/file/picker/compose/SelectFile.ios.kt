@@ -6,5 +6,7 @@ actual fun prepareFilePicker(
     onError: (Throwable) -> Unit,
     onCancelled: () -> Unit,
 ): SelectFileLauncher {
-    TODO("Not yet implemented")
+    return SelectFileLauncher {
+        TODO("prepareFilePicer() not properly implemented on iOS yet")
+    }
 }

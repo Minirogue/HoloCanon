@@ -21,7 +21,7 @@ class HomeNavContributor : NavContributor() {
         setAppBar: (AppBarConfig) -> Unit,
     ) = with(navGraphBuilder) {
         composable<HomeNav> { _ ->
-            LaunchedEffect(true) { setAppBar(AppBarConfig()) }
+            LaunchedEffect(true) { setAppBar(AppBarConfig.DEFAULT) }
             HomeScreen()
         }
     }

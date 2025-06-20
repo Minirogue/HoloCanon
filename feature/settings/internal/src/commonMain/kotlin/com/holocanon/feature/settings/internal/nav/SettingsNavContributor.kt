@@ -25,7 +25,7 @@ class SettingsNavContributor(
         setAppBar: (AppBarConfig) -> Unit,
     ) = with(navGraphBuilder) {
         composable<SettingsNav> {
-            LaunchedEffect(true) { setAppBar(AppBarConfig()) }
+            LaunchedEffect(true) { setAppBar(AppBarConfig.DEFAULT) }
             SettingsScreen(viewModelProvider)
         }
     }

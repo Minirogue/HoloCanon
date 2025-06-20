@@ -10,8 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import compose.theme.collectAsStateSafely
 import dev.zacsweers.metro.Provider
 import loading.LoadingScreen
 
@@ -21,7 +21,7 @@ internal fun FilterSelectionScreen(
     modifier: Modifier = Modifier,
     viewModel: FilterSelectionViewModel = viewModel { viewModelProvider() },
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle(null)
+    val state by viewModel.state.collectAsStateSafely(null)
     state?.let { nonNullState ->
         Column(modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
             ActiveFilters(
