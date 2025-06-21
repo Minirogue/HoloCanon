@@ -19,9 +19,9 @@ kotlin.sourceSets.commonMain.dependencies {
 }
 
 kotlin.sourceSets.androidMain.dependencies {
-    implementation libs.ktor.client.okhttp
+    implementation libs.ktor.client.android
 }
 
-kotlin.sourceSets.getByName("iosMain").dependencies {
+kotlin.sourceSets.iosMain.dependencies {
     implementation(libs.ktor.client.darwin)
 }

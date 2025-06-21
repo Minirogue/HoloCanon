@@ -23,6 +23,8 @@ kotlin.cocoapods {
 }
 
 kotlin.sourceSets.commonMain.dependencies {
+    implementation (libs.coil.compose)
+    implementation(libs.coil.ktor)
     implementation(libs.compose.lifecycle)
     implementation(libs.compose.navigation)
     implementation(projects.core)
@@ -50,8 +52,13 @@ kotlin.sourceSets.commonMain.dependencies {
     implementation(projects.library.sorting.internal)
 }
 
+kotlin.sourceSets.androidMain.dependencies {
+    implementation libs.ktor.client.android
+}
+
 kotlin.sourceSets.iosMain.dependencies {
     // TODO should be able to eliminate once ios bindings can be moved back into their modules
     implementation(libs.androidx.datastore)
+    implementation(libs.ktor.client.darwin)
     implementation(libs.sqlite.driver)
 }

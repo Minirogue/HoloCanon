@@ -65,6 +65,7 @@ import settings.model.CheckboxSetting
 import settings.model.CheckboxSettings
 import settings.model.DarkModeSetting
 import settings.model.Theme
+import settings.model.isAvailableOnPlatform
 
 @Composable
 internal fun SettingsScreen(
@@ -160,9 +161,7 @@ private fun ThemeSettings(
 ) {
     TabRow(currentTheme.ordinal) {
         Theme.entries.forEach { theme ->
-            // Dynamic themes only available on Android 12 and later
-            // TODO replace false with Build.VERSION.SDK_INT >= Build.VERSION_CODES.S and Android
-            if (theme != Theme.AndroidDynamic || false) {
+            if (theme.isAvailableOnPlatform()) {
                 Tab(
                     selected = theme == currentTheme,
                     onClick = { updateTheme(theme) },

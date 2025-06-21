@@ -16,5 +16,5 @@ class IsNetworkAllowedImpl(
 
     private fun unmeteredOnly(): Flow<Boolean> = shouldSyncViaWifiOnly()
 
-    override fun invoke(): Flow<Boolean> = unmeteredOnly().map { !it } // TODO check network on iOS
+    override fun invoke(): Flow<Boolean> = unmeteredOnly().map { true } // TODO check network on iOS
 }

@@ -4,7 +4,6 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -14,6 +13,7 @@ import com.holocanon.feature.main.screen.internal.TopLevelScreen
 import com.holocanon.library.navigation.AppBarConfig
 import compose.theme.HolocanonTheme
 import compose.theme.collectAsStateSafely
+import setImageLoader
 import settings.model.DarkModeSetting
 import settings.model.Theme
 
@@ -24,6 +24,7 @@ fun App(
 ) {
     // Essentially treating this as Application.onCreate()
     LaunchedEffect(true) { viewModel.onAppStart() }
+    setImageLoader()
 
     // Compose components
     val navController = rememberNavController()

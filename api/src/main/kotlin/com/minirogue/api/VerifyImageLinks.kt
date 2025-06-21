@@ -2,7 +2,7 @@ package com.minirogue.api
 
 import com.minirogue.common.model.StarWarsMedia
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.engine.java.Java
 import io.ktor.client.request.get
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -11,7 +11,7 @@ object VerifyImageLinks {
 
     suspend fun invoke(mediaList: List<StarWarsMedia>) {
         val imageAddresses = mediaList.associate { it.id to it.imageUrl }
-        val httpClient = HttpClient(OkHttp)
+        val httpClient = HttpClient(Java)
 
         val invalidImageLinks = imageAddresses.map { idToUrlEntry ->
             coroutineScope {

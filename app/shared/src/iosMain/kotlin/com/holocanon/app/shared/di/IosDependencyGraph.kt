@@ -63,6 +63,7 @@ import com.holocanon.feature.global.notification.internal.usecase.SendGlobalToas
 import com.holocanon.feature.global.notification.usecase.SendGlobalToast
 import com.holocanon.feature.settings.internal.nav.SettingsNavContributor
 import com.holocanon.library.filters.internal.GetPermanentFiltersImpl
+import com.holocanon.library.logger.internal.IosLoggerDelegate
 import com.holocanon.library.logger.internal.LoggerDelegate
 import com.holocanon.library.media.item.internal.usecase.GetMediaAndNotesForSeriesImpl
 import com.holocanon.library.media.item.internal.usecase.GetMediaListWithNotesImpl
@@ -293,9 +294,6 @@ fun bindGetSeriesIdFromName(impl: GetSeriesIdFromNameImpl): GetSeriesIdFromName
     }
 
     @Provides
-    fun provideLoggerDelegates(): Set<LoggerDelegate> = emptySet()
-
-    @Provides
     fun provideJson(): Json = HolocanonJson()
 
     @Provides
@@ -309,6 +307,9 @@ fun bindGetSeriesIdFromName(impl: GetSeriesIdFromNameImpl): GetSeriesIdFromName
 
     @Provides
     fun provideDaoCompany(database: MediaDatabase): DaoCompany = database.getDaoCompany()
+
+    @Provides
+    fun provideIosLogger(): Set<LoggerDelegate> = setOf(IosLoggerDelegate())
 
     @OptIn(ExperimentalForeignApi::class)
     @Provides
