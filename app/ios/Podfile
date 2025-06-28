@@ -1,0 +1,3 @@
+target 'holocanon' do
+    pod 'shared', :path => '../shared'
+end
