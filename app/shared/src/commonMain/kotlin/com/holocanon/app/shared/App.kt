@@ -47,13 +47,13 @@ import settings.model.Theme
 @Composable
 fun App(
     appDependencyGraph: AppDependencyGraph,
-    viewModel: MainViewModel = viewModel { appDependencyGraph.mainViewModel }
+    viewModel: MainViewModel = viewModel { appDependencyGraph.mainViewModel },
 ) {
     // Essentially treating this as Application.onCreate()
-        LaunchedEffect(true) { viewModel.onAppStart() }
+    LaunchedEffect(true) { viewModel.onAppStart() }
 
     // Compose components
-val navController = rememberNavController()
+    val navController = rememberNavController()
     val navContributors = remember { appDependencyGraph.navContributors }
     val appBarConfig = remember { mutableStateOf(AppBarConfig()) }
     val snackbarHostState = remember { SnackbarHostState() }
