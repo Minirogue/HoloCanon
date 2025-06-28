@@ -43,5 +43,6 @@ abstract class MediaDatabase : RoomDatabase() {
 
     companion object {
         internal const val SCHEMA_VERSION = 20
+        const val DATABASE_NAME = "StarWars-database"
     }
 }

@@ -3,6 +3,7 @@ package com.holocanon.app.shared.di
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
+import com.holocanon.library.platform.Platform
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.DependencyGraph
 import dev.zacsweers.metro.Provides
@@ -10,6 +11,10 @@ import dev.zacsweers.metro.createGraphFactory
 
 @DependencyGraph(AppScope::class)
 interface AndroidDependencyGraph : AppDependencyGraph {
+
+    @Provides
+    fun providePlatform(): Platform = Platform.Android
+
     @Provides
     fun provideApplication(
         platformDependencies: PlatformDependencies,

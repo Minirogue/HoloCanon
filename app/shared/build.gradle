@@ -1,25 +1,40 @@
 plugins {
     id "minirogue.multiplatform.library"
+    id("org.jetbrains.kotlin.native.cocoapods")
 }
 
 minirogue {
     android()
+    ios()
     kotlinCompose()
     metro()
 }
 
+kotlin.cocoapods {
+    // Required properties
+    // Specify the required Pod version here
+    // Otherwise, the Gradle project version is used
+    version = "1.0"
+    summary = "Some description for a Kotlin/Native module"
+    homepage = "Link to a Kotlin/Native module homepage"
+
+    ios.deploymentTarget = "16.0"
+    podfile = rootProject.file("app/ios/Podfile")
+}
+
 kotlin.sourceSets.commonMain.dependencies {
+    implementation (libs.coil.compose)
+    implementation(libs.coil.ktor)
     implementation(libs.compose.lifecycle)
     implementation(libs.compose.navigation)
-    implementation(libs.compose.resources)
     implementation(projects.core)
     implementation(projects.feature.homeScreen.internal)
+    implementation(projects.feature.mainScreen.internal)
     implementation(projects.feature.mediaItem.internal)
     implementation(projects.feature.mediaList.internal)
     implementation(projects.feature.series.internal)
     implementation(projects.feature.settings.internal)
     implementation(projects.feature.selectFilters.internal)
-    implementation(projects.library.commonResources.public)
     implementation(projects.library.composeExt.public)
     implementation(projects.library.coroutineExt.internal)
     implementation(projects.library.coroutineExt.public)
@@ -31,8 +46,20 @@ kotlin.sourceSets.commonMain.dependencies {
     implementation(projects.library.mediaNotes.internal)
     implementation(projects.library.navigation.public)
     implementation(projects.library.networking.internal)
+    implementation(projects.library.platform.public)
     implementation(projects.library.serializationExt.internal)
     implementation(projects.library.series.internal)
     implementation(projects.library.settings.internal)
     implementation(projects.library.sorting.internal)
+}
+
+kotlin.sourceSets.androidMain.dependencies {
+    implementation libs.ktor.client.android
+}
+
+kotlin.sourceSets.iosMain.dependencies {
+    // TODO should be able to eliminate once ios bindings can be moved back into their modules
+    implementation(libs.androidx.datastore)
+    implementation(libs.ktor.client.darwin)
+    implementation(libs.sqlite.driver)
 }

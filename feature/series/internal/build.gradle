@@ -4,6 +4,7 @@ plugins {
 
 minirogue {
     android()
+    ios()
     metro()
     kotlinCompose()
 }
@@ -12,6 +13,7 @@ kotlin.sourceSets.commonMain.dependencies {
     api projects.feature.series.public
 
     implementation libs.coil.compose
+    implementation libs.compose.lifecycle
     implementation libs.compose.resources
     implementation projects.core
     implementation projects.feature.mediaItem.public

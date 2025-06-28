@@ -1,0 +1,22 @@
+plugins {
+    id "minirogue.multiplatform.library"
+}
+
+minirogue {
+    android()
+    ios()
+    metro()
+    kotlinCompose()
+
+}
+
+kotlin.sourceSets.commonMain.dependencies {
+    implementation(libs.compose.material.icons)
+    implementation libs.compose.resources
+    implementation(projects.feature.selectFilters.public)
+    implementation(projects.feature.homeScreen.public)
+    implementation(projects.feature.mediaList.public)
+    implementation(projects.feature.settings.public)
+    implementation projects.library.composeExt.public
+    implementation projects.library.navigation.public
+}

@@ -15,7 +15,7 @@ interface DaoFilter {
 
     // FilterTypes:
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(filterTypeDto: FilterTypeDto): Long
+    suspend fun insert(filterTypeDto: FilterTypeDto): Long
 
     @Update
     suspend fun update(filterTypeDto: FilterTypeDto)
@@ -27,14 +27,14 @@ interface DaoFilter {
     fun getAllFilterTypes(): Flow<List<FilterTypeDto>>
 
     @Query("SELECT * FROM filter_type")
-    fun getAllFilterTypesNonLive(): List<FilterTypeDto>
+    suspend fun getAllFilterTypesNonLive(): List<FilterTypeDto>
 
     @Query("SELECT * FROM filter_type WHERE id=:id LIMIT 1")
-    fun getFilterType(id: Int): FilterTypeDto
+    suspend fun getFilterType(id: Int): FilterTypeDto
 
     // FilterObjects:
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(filterObjectDto: FilterObjectDto)
+    suspend fun insert(filterObjectDto: FilterObjectDto)
 
     @Update
     suspend fun update(filterObjectDto: FilterObjectDto)

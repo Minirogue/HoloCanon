@@ -8,7 +8,7 @@ import dev.zacsweers.metro.Provides
 import dev.zacsweers.metro.SingleIn
 import okio.Path.Companion.toPath
 
-internal const val SORT_STYLE_DATASTORE_FILE_NAME = "datastore/sort-style.preferences_pb"
+const val SORT_STYLE_DATASTORE_FILE_NAME = "datastore/sort-style.preferences_pb"
 
 @ContributesTo(AppScope::class)
 interface SortingDependencyGraph {

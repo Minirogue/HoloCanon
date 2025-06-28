@@ -25,7 +25,7 @@ class FilterSelectionNavContributor internal constructor(
         setAppBar: (AppBarConfig) -> Unit,
     ) = with(navGraphBuilder) {
         composable<FilterSelectionNav> {
-            LaunchedEffect(true) { setAppBar(AppBarConfig()) }
+            LaunchedEffect(true) { setAppBar(AppBarConfig.DEFAULT) }
             FilterSelectionScreen(viewModelProvider)
         }
     }

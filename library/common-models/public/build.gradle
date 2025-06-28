@@ -3,6 +3,7 @@ plugins{
 }
 
 minirogue {
-    serialization()
     jvm()
+    ios()
+    serialization()
 }

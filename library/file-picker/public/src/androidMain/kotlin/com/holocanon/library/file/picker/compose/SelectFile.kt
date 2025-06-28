@@ -80,7 +80,7 @@ private fun getSelectFileLauncher(
     is PickerArgs.Get -> SelectFileLauncher {
         val intent = Intent().apply {
             action = Intent.ACTION_GET_CONTENT
-            type = pickerArgs.fileType.typeAsString
+            type = pickerArgs.fileType.mimeType
         }
         launcher.launch(intent)
     }
@@ -88,7 +88,7 @@ private fun getSelectFileLauncher(
     is PickerArgs.Save -> SelectFileLauncher {
         val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
-            type = pickerArgs.fileType.typeAsString
+            type = pickerArgs.fileType.mimeType
             putExtra(Intent.EXTRA_TITLE, pickerArgs.defaultFileName)
         }
         launcher.launch(intent)

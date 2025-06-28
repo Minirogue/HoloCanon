@@ -26,7 +26,7 @@ class MediaItemNavContributor internal constructor(
     ) =
         with(navGraphBuilder) {
             composable<MediaItemNav> { backStackEntry ->
-                LaunchedEffect(true) { setAppBar(AppBarConfig()) }
+                LaunchedEffect(true) { setAppBar(AppBarConfig.DEFAULT) }
                 val mediaItemNav: MediaItemNav = backStackEntry.toRoute()
                 MediaItemScreen(
                     itemId = mediaItemNav.itemId,

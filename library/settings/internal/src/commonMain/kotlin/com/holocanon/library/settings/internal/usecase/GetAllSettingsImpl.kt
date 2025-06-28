@@ -10,6 +10,6 @@ import settings.usecase.GetAllSettings
 
 @Inject
 @ContributesBinding(AppScope::class)
-class GetAllSettingsImpl constructor(private val settingsRepo: SettingsRepo) : GetAllSettings {
+class GetAllSettingsImpl(private val settingsRepo: SettingsRepo) : GetAllSettings {
     override fun invoke(): Flow<AllSettings> = settingsRepo.getSettings()
 }
