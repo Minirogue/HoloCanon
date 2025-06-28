@@ -30,7 +30,7 @@ class TestComposeActivity : AppCompatActivity() {
 
         setContent {
             val navController = rememberNavController()
-            val appBarConfig = remember { mutableStateOf(AppBarConfig()) }
+            val appBarConfig = remember { mutableStateOf(AppBarConfig.DEFAULT) }
             HolocanonTheme(DarkModeSetting.SYSTEM, Theme.AndroidDynamic) {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),

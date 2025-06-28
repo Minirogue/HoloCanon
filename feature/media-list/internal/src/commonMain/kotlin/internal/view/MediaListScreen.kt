@@ -65,10 +65,10 @@ internal fun MediaListScreen(
 
     LaunchedEffect(true) {
         val config = AppBarConfig.DEFAULT
-        // TODO fix this on iOS
-//            .copy(
-//            actions = listOf { AppBarAction(mediaListViewModel::setSort) },
-//        )
+            // TODO fix this on iOS
+            .copy(
+                actions = listOf { AppBarAction(mediaListViewModel::setSort) },
+            )
         setAppBar(config)
     }
 

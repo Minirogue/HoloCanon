@@ -4,7 +4,6 @@ import coil3.compose.setSingletonImageLoaderFactory
 import coil3.request.CachePolicy
 import coil3.util.DebugLogger
 
-
 @Composable
 fun setImageLoader() {
     setSingletonImageLoaderFactory { context ->

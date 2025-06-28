@@ -5,7 +5,7 @@ import dev.zacsweers.metro.Inject
 
 @Inject
 class ImportExportFeatureFlag(val currentPlatform: Platform) {
-    fun isAvailable() = when(currentPlatform) {
+    fun isAvailable() = when (currentPlatform) {
         Platform.Android -> true
         Platform.IOS -> false
     }

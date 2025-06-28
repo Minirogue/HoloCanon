@@ -3,12 +3,10 @@ package compose.theme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import coil3.ImageLoader
 import coil3.compose.AsyncImage
 import coil3.compose.LocalPlatformContext
 import coil3.request.CachePolicy
 import coil3.request.ImageRequest
-import coil3.util.DebugLogger
 import holocanon.library.common_resources.public.generated.resources.Res
 import holocanon.library.common_resources.public.generated.resources.common_resources_app_icon
 import org.jetbrains.compose.resources.DrawableResource
