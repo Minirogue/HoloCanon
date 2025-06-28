@@ -20,10 +20,10 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: holocanon
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'adopt'
       - name: Generate the API data
         run: chmod +x holocanon/gradlew && holocanon/gradlew -p holocanon :api:run
