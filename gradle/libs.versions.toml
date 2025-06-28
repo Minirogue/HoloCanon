@@ -4,7 +4,7 @@ androidxTest = "1.6.1"
 appCompat = "1.7.1"
 buildLogic = "0.0.14"
 commonsCSV = "1.14.0"
-composeLifecycle = "2.9.0"
+composeLifecycle = "2.9.1"
 composeNavigation = "2.9.0-beta03"
 composeMaterialIcons = "1.7.3"
 coilCompose = "3.2.0"
@@ -15,7 +15,7 @@ kotlinxIo = "0.8.0"
 ktor = "3.2.0"
 preference = "1.2.1"
 serialization = "1.8.1"
-room = "2.7.1"
+room = "2.7.2"
 
 [libraries]
 android-material = { group = "com.google.android.material", name = "material", version.ref = "androidMaterial" }
