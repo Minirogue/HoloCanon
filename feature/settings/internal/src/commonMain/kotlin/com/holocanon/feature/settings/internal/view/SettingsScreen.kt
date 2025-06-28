@@ -100,11 +100,13 @@ internal fun SettingsScreen(
                 syncDatabase = viewModel::syncDatabase,
             )
         }
-        ExportMediaNotes(
-            exportMediaNotes = viewModel::exportMediaNotes,
-            importMediaNotes = viewModel::importMediaNotes,
-            onError = viewModel::onFileActionFailed,
-        )
+        if (state.isImportExportAvailable) {
+            ExportMediaNotes(
+                exportMediaNotes = viewModel::exportMediaNotes,
+                importMediaNotes = viewModel::importMediaNotes,
+                onError = viewModel::onFileActionFailed,
+            )
+        }
     }
 
     val checkboxNumberForDialog = state.nameChangeDialogShowing

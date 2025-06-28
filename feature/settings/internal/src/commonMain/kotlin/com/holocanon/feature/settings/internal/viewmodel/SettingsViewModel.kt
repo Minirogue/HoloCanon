@@ -3,6 +3,7 @@ package com.holocanon.feature.settings.internal.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.holocanon.feature.global.notification.usecase.SendGlobalToast
+import com.holocanon.feature.settings.internal.featureflag.ImportExportFeatureFlag
 import com.minirogue.common.model.MediaType
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import com.minirogue.media.notes.ExportMediaNotesJson
@@ -36,6 +37,7 @@ data class SettingsState(
     val wifiOnly: Boolean? = null,
     val theme: Theme? = null,
     val darkModeSetting: DarkModeSetting? = null,
+    val isImportExportAvailable: Boolean = false,
 )
 
 @Inject
@@ -52,8 +54,10 @@ class SettingsViewModel(
     private val exportMediaNotesJson: ExportMediaNotesJson,
     private val importMediaNotesJson: ImportMediaNotesJson,
     private val sendGlobalNotification: SendGlobalToast,
+    importExportFeatureFlag: ImportExportFeatureFlag,
 ) : ViewModel() {
-    private val _state = MutableStateFlow(SettingsState())
+    private val _state =
+        MutableStateFlow(SettingsState(isImportExportAvailable = importExportFeatureFlag.isAvailable()))
     val state: StateFlow<SettingsState> = _state
 
     init {

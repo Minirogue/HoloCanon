@@ -1,6 +1,7 @@
 package com.holocanon.library.file.picker.compose
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import com.holocanon.library.file.picker.model.FileType
 import com.holocanon.library.file.picker.model.PickerArgs
 import kotlinx.io.asSink
@@ -14,6 +15,7 @@ import platform.UIKit.UIDocumentPickerDelegateProtocol
 import platform.UIKit.UIDocumentPickerViewController
 import platform.UIKit.UIPresentationController
 import platform.UIKit.UIViewController
+import platform.UIKit.UIDocumentPickerMode
 import platform.UniformTypeIdentifiers.UTType
 import platform.UniformTypeIdentifiers.UTTypeContent
 import platform.UniformTypeIdentifiers.UTTypeFolder
@@ -25,62 +27,34 @@ import kotlin.native.concurrent.ThreadLocal
 
 
 // Implementation derived in large part from https://github.com/Wavesonics/compose-multiplatform-file-picker
+//  and https://medium.com/@adman.shadman/building-a-cross-platform-document-and-gallery-file-picker-in-kotlin-multiplatform-73e2c38db092
 @Composable
 actual fun prepareFilePicker(
     pickerArgs: PickerArgs,
     onError: (Throwable) -> Unit,
     onCancelled: () -> Unit,
 ): SelectFileLauncher {
-    return SelectFileLauncher {
-        val picker = IosFilePicker()
-        try {
-            // the active launcher references are to keep it in memory due to how IOS handles
-            //  memory management.
-            IosFilePicker.activeLauncher = picker
-            picker.launch(pickerArgs, onCancelled)
-        } catch (e: Throwable) {
-            onError(e)
-        } finally {
-            IosFilePicker.activeLauncher = null
-        }
-    }
-}
-
-
-private class IosFilePicker() {
-    fun launch(pickerArgs: PickerArgs, onCancelled: () -> Unit) {
-        activeLauncher = this
-        val picker = UIDocumentPickerViewController(
-            forOpeningContentTypes = listOf(pickerArgs.fileType.toUTType())
-        ).apply {
-            delegate = PickerDelegate(pickerArgs, onCancelled)
-            if (pickerArgs is PickerArgs.Save) {
-                pickerArgs.defaultFileName?.let { directoryURL = NSURL(string = it) }
-            }
-        }
-        UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(
-            // Reusing a closed/dismissed picker causes problems with
-            // triggering delegate functions, launch with a new one.
-            picker,
-            animated = true,
-            completion = { picker.allowsMultipleSelection = false },
+    val picker = when(pickerArgs){
+        is PickerArgs.Get -> UIDocumentPickerViewController(
+            forOpeningContentTypes =  listOf(pickerArgs.fileType.toUTType()),
+        )
+        is PickerArgs.Save -> UIDocumentPickerViewController(
+            forExportingURLs =  emptyList<Any>(),
         )
     }
-
-    @ThreadLocal
-    companion object {
-        /**
-         * For use only with launching plain (no compose dependencies)
-         * file picker. When a function completes iOS deallocates
-         * unreferenced objects created within it, so we need to
-         * keep a reference of the active launcher.
-         */
-        var activeLauncher: IosFilePicker? = null
+    val pickerDelegate = remember {
+        PickerDelegate(pickerArgs, onCancelled)
+    }
+    return remember {
+        SelectFileLauncher {
+            picker.setDelegate(pickerDelegate)
+            UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(picker, true, null)
+        }
     }
 }
 
 private fun FileType.toUTType(): UTType? = when (this) {
-    FileType.JSON -> UTType.typeWithFilenameExtension(this.mimeType)
+    FileType.JSON -> UTType.typeWithFilenameExtension(this.typeExtension)
 }
 
 

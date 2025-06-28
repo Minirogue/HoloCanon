@@ -74,6 +74,7 @@ import com.holocanon.library.media.notes.internal.usecase.ImportMediaNotesJsonIm
 import com.holocanon.library.navigation.NavContributor
 import com.holocanon.library.networking.HttpClientWrapper
 import com.holocanon.library.networking.internal.HttpClientWrapperImpl
+import com.holocanon.library.platform.Platform
 import com.holocanon.library.serialization.ext.internal.HolocanonJson
 import com.holocanon.library.settings.internal.data.SettingsDataStore
 import com.holocanon.library.settings.internal.di.SETTINGS_DATASTORE_FILE_NAME
@@ -203,24 +204,34 @@ interface IosDependencyGraph : AppDependencyGraph {
 
     @Binds
     fun bindHttpClientWrapper(impl: HttpClientWrapperImpl): HttpClientWrapper
-@Binds
-fun bindGetMediaListWithNotes(impl: GetMediaListWithNotesImpl): GetMediaListWithNotes
-@Binds
-fun bindUpdateCheckboxName(impl: UpdateCheckboxNameImpl): UpdateCheckboxName
-@Binds
-fun bindFlipCheckboxActive(impl: FlipIsCheckboxActiveImpl): FlipIsCheckboxActive
-@Binds
-fun bindExportMediaNotesJson(impl: ExportMediaNotesJsonImpl): ExportMediaNotesJson
-@Binds
-fun bindImportMediaNotesJson(impl: ImportMediaNotesJsonImpl): ImportMediaNotesJson
-@Binds
-fun bindGetSeries(impl: GetSeriesImpl): GetSeries
-@Binds
-fun bindGetMediaAndNotesForSeries(impl: GetMediaAndNotesForSeriesImpl): GetMediaAndNotesForSeries
-@Binds
-fun bindSetCheckboxForSeries(impl: SetCheckboxForSeriesImpl): SetCheckboxForSeries
-@Binds
-fun bindGetSeriesIdFromName(impl: GetSeriesIdFromNameImpl): GetSeriesIdFromName
+
+    @Binds
+    fun bindGetMediaListWithNotes(impl: GetMediaListWithNotesImpl): GetMediaListWithNotes
+
+    @Binds
+    fun bindUpdateCheckboxName(impl: UpdateCheckboxNameImpl): UpdateCheckboxName
+
+    @Binds
+    fun bindFlipCheckboxActive(impl: FlipIsCheckboxActiveImpl): FlipIsCheckboxActive
+
+    @Binds
+    fun bindExportMediaNotesJson(impl: ExportMediaNotesJsonImpl): ExportMediaNotesJson
+
+    @Binds
+    fun bindImportMediaNotesJson(impl: ImportMediaNotesJsonImpl): ImportMediaNotesJson
+
+    @Binds
+    fun bindGetSeries(impl: GetSeriesImpl): GetSeries
+
+    @Binds
+    fun bindGetMediaAndNotesForSeries(impl: GetMediaAndNotesForSeriesImpl): GetMediaAndNotesForSeries
+
+    @Binds
+    fun bindSetCheckboxForSeries(impl: SetCheckboxForSeriesImpl): SetCheckboxForSeries
+
+    @Binds
+    fun bindGetSeriesIdFromName(impl: GetSeriesIdFromNameImpl): GetSeriesIdFromName
+
     @Provides
     fun provideNavContributors(
         filterSelectionNavContributor: FilterSelectionNavContributor,
@@ -244,6 +255,9 @@ fun bindGetSeriesIdFromName(impl: GetSeriesIdFromNameImpl): GetSeriesIdFromName
             json(json)
         }
     }
+
+    @Provides
+    fun providePlatform(): Platform = Platform.IOS
 
     @Provides
     @SingleIn(AppScope::class)

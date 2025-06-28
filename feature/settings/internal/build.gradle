@@ -20,5 +20,6 @@ kotlin.sourceSets.commonMain.dependencies {
     implementation projects.library.globalNotification.public
     implementation projects.library.holoclient.public
     implementation projects.library.navigation.public
+    implementation projects.library.platform.public
     implementation projects.library.settings.public
 }

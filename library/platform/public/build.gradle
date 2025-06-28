@@ -1,0 +1,8 @@
+plugins {
+    id 'minirogue.multiplatform.library'
+}
+
+minirogue {
+    jvm()
+    ios()
+}

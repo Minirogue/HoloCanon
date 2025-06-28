@@ -46,6 +46,7 @@ kotlin.sourceSets.commonMain.dependencies {
     implementation(projects.library.mediaNotes.internal)
     implementation(projects.library.navigation.public)
     implementation(projects.library.networking.internal)
+    implementation(projects.library.platform.public)
     implementation(projects.library.serializationExt.internal)
     implementation(projects.library.series.internal)
     implementation(projects.library.settings.internal)
