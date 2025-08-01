@@ -3,8 +3,10 @@ plugins {
 }
 
 minirogue {
-    android()
-    ios()
+    platforms {
+        android()
+        ios()
+    }
     metro()
 }
 
