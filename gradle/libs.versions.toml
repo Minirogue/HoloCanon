@@ -1,6 +1,6 @@
 [versions]
 androidMaterial = "1.12.0"
-androidxTest = "1.6.1"
+androidxTest = "1.7.0"
 appCompat = "1.7.1"
 buildLogic = "0.0.17"
 commonsCSV = "1.14.0"
