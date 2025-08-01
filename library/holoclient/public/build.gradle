@@ -1,10 +1,12 @@
-plugins{
+plugins {
     id 'minirogue.multiplatform.library'
 }
 
 minirogue {
-    jvm()
-    ios()
+    platforms {
+        jvm()
+        ios()
+    }
 }
 
 dependencies {

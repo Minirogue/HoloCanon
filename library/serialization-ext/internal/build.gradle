@@ -3,9 +3,12 @@ plugins {
 }
 
 minirogue {
-    android()
-    ios()
-    jvm()
+    platforms {
+        android()
+        ios()
+        jvm()
+    }
+
     serialization()
     metro()
 }
