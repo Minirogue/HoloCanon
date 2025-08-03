@@ -4,7 +4,6 @@
     tools:ignore="GoogleAppIndexingWarning">
 
     <application
-        android:name="com.holocanon.feature.select.filters.test.app.HolocanonTestApp"
         android:allowBackup="true"
         android:label="Holocanon Test"
         android:supportsRtl="true"
