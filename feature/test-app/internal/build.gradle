@@ -9,7 +9,7 @@ minirogue {
     }
     metro()
     kotlinCompose()
-
+    serialization()
 }
 
 kotlin.sourceSets.androidMain.dependencies {
