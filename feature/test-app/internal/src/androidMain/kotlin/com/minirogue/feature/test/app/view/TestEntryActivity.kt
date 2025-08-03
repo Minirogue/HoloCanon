@@ -12,17 +12,16 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import com.minirogue.feature.test.app.model.TestScreen
 import compose.theme.HolocanonTheme
-import dev.zacsweers.metro.Inject
 import settings.model.DarkModeSetting
 import settings.model.Theme
 
 internal class TestEntryActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var testScreens: List<@JvmSuppressWildcards TestScreen>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val testScreens = emptySet<TestScreen>() // TODO inject
+
         setContent {
             HolocanonTheme(DarkModeSetting.SYSTEM, Theme.Force) {
                 Scaffold { padding ->

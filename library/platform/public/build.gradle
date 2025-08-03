@@ -3,6 +3,8 @@ plugins {
 }
 
 minirogue {
-    jvm()
-    ios()
+    platforms {
+        jvm()
+        ios()
+    }
 }
