@@ -37,7 +37,7 @@ fun App(
         viewModel.themeSettings.collectAsStateSafely(
             Pair(DarkModeSetting.SYSTEM, Theme.Force),
         )
-    val notification = viewModel.globalToasts.collectAsStateSafely(null)
+    val notification = viewModel.inAppNotifications.collectAsStateSafely(null)
 
     LaunchedEffect(notification.value) {
         notification.value?.also { snackbarHostState.showSnackbar(it) }

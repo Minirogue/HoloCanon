@@ -1,5 +1,5 @@
 package com.holocanon.feature.global.notification.usecase
 
-interface SendGlobalToast {
+interface SendInAppNotification {
     operator fun invoke(message: String)
 }

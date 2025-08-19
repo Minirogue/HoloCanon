@@ -6,7 +6,7 @@ import com.holocanon.core.data.dao.DaoSeries
 import com.holocanon.core.data.entity.CompanyDto
 import com.holocanon.core.data.entity.MediaItemDto
 import com.holocanon.core.data.entity.MediaNotesDto
-import com.holocanon.feature.global.notification.usecase.SendGlobalToast
+import com.holocanon.feature.global.notification.usecase.SendInAppNotification
 import com.holocanon.library.filters.usecase.UpdateFilters
 import com.holocanon.library.holoclient.internal.api.GetApiMediaVersion
 import com.holocanon.library.holoclient.internal.api.GetMediaFromApi
@@ -47,7 +47,7 @@ class UpdateMediaDatabaseUseCase internal constructor(
     private val daoSeries: DaoSeries,
     private val daoCompany: DaoCompany,
     private val json: Json,
-    private val sendGlobalToast: SendGlobalToast,
+    private val sendInAppNotification: SendInAppNotification,
     private val logger: HoloLogger,
     private val isNetworkAllowed: IsNetworkAllowed,
 ) : MaybeUpdateMediaDatabase {
@@ -98,7 +98,7 @@ class UpdateMediaDatabaseUseCase internal constructor(
                     updateFilters()
                 }
                 withContext(Dispatchers.Main) {
-                    sendGlobalToast("Database Synced") // TODO extract string resource
+                    sendInAppNotification("Database Synced") // TODO extract string resource
                 }
             }
         }
