@@ -20,6 +20,8 @@ import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
+import holocanon.library.holoclient.internal.generated.resources.Res
+import holocanon.library.holoclient.internal.generated.resources.holoclient_database_synced
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -32,6 +34,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
+import org.jetbrains.compose.resources.getString
 import settings.usecase.GetAllSettings
 import settings.usecase.SetLatestDatabaseVersion
 
@@ -98,7 +101,7 @@ class UpdateMediaDatabaseUseCase internal constructor(
                     updateFilters()
                 }
                 withContext(Dispatchers.Main) {
-                    sendInAppNotification("Database Synced") // TODO extract string resource
+                    sendInAppNotification(getString(Res.string.holoclient_database_synced))
                 }
             }
         }
