@@ -52,10 +52,6 @@ class IsNetworkAllowedImpl(
             unmeteredOnlyFlow,
             unmeteredNetworkConnectedFlow,
         ) { unmeteredOnly, unmeteredConnected ->
-            println("Network Allowed Test: unmetered only? $unmeteredOnly")
-            println("Network Allowed Test: unmetered connected? $unmeteredConnected")
-            val networkAllowed = (unmeteredOnly && unmeteredConnected) || !unmeteredOnly
-            println("Network Allowed Test: network allowed? $networkAllowed")
-            networkAllowed
+            (unmeteredOnly && unmeteredConnected) || !unmeteredOnly
         }
 }
