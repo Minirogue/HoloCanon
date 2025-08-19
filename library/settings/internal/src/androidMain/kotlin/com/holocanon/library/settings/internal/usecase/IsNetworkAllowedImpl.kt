@@ -10,12 +10,8 @@ import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
 import settings.usecase.ShouldSyncViaWifiOnly
 
 @Inject
@@ -51,11 +47,10 @@ class IsNetworkAllowedImpl(
 
     private val unmeteredOnlyFlow: Flow<Boolean> = shouldSyncViaWifiOnly()
 
-
     override fun invoke(): Flow<Boolean> =
         combine(
             unmeteredOnlyFlow,
-            unmeteredNetworkConnectedFlow
+            unmeteredNetworkConnectedFlow,
         ) { unmeteredOnly, unmeteredConnected ->
             println("Network Allowed Test: unmetered only? $unmeteredOnly")
             println("Network Allowed Test: unmetered connected? $unmeteredConnected")
