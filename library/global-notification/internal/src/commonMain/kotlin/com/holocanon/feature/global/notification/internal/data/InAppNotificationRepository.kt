@@ -9,13 +9,13 @@ import kotlinx.coroutines.flow.receiveAsFlow
 
 @Inject
 @SingleIn(AppScope::class)
-internal class GlobalToastRepository {
-    private val toastEventChannel = Channel<String>(Channel.BUFFERED)
-    fun enqueueToast(message: String) {
-        toastEventChannel.trySend(message)
+internal class InAppNotificationRepository {
+    private val inAppNotificationChannel = Channel<String>(Channel.BUFFERED)
+    fun enqueueNotification(message: String) {
+        inAppNotificationChannel.trySend(message)
     }
 
-    fun getToasts(): Flow<String> {
-        return toastEventChannel.receiveAsFlow()
+    fun getNotifications(): Flow<String> {
+        return inAppNotificationChannel.receiveAsFlow()
     }
 }

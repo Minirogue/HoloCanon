@@ -2,7 +2,7 @@ package com.holocanon.app.shared
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.holocanon.feature.global.notification.usecase.GetGlobalToasts
+import com.holocanon.feature.global.notification.usecase.GetInAppNotifications
 import com.holocanon.library.filters.usecase.UpdateFilters
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import dev.zacsweers.metro.Inject
@@ -15,12 +15,12 @@ import settings.usecase.GetAllSettings
 
 @Inject
 class MainViewModel(
-    getGlobalToasts: GetGlobalToasts,
+    getInAppNotifications: GetInAppNotifications,
     getSettings: GetAllSettings,
     private val updateFilters: UpdateFilters,
     private val maybeUpdateMediaDatabase: MaybeUpdateMediaDatabase,
 ) : ViewModel() {
-    val globalToasts: Flow<String> = getGlobalToasts()
+    val inAppNotifications: Flow<String> = getInAppNotifications()
     val themeSettings: Flow<Pair<DarkModeSetting, Theme>> =
         getSettings().map { Pair(it.darkModeSetting, it.theme) }
 

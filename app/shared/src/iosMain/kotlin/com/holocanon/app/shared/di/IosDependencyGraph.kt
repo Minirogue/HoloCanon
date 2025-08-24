@@ -2,10 +2,9 @@ package com.holocanon.app.shared.di
 
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.room.Room
-import androidx.room.RoomDatabase
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import com.holocanon.feature.global.notification.internal.usecase.GetGlobalToastsImpl
-import com.holocanon.feature.global.notification.usecase.GetGlobalToasts
+import com.holocanon.feature.global.notification.internal.usecase.GetInAppNotificationsImpl
+import com.holocanon.feature.global.notification.usecase.GetInAppNotifications
 import com.holocanon.library.filters.internal.UpdateFiltersImpl
 import com.holocanon.library.filters.usecase.UpdateFilters
 import com.holocanon.library.holoclient.internal.usecase.UpdateMediaDatabaseUseCase
@@ -59,8 +58,8 @@ import com.holocanon.core.data.dao.DaoMedia
 import com.holocanon.core.data.dao.DaoSeries
 import com.holocanon.core.data.database.MediaDatabase
 import com.holocanon.core.data.database.MediaDatabase.Companion.DATABASE_NAME
-import com.holocanon.feature.global.notification.internal.usecase.SendGlobalToastimpl
-import com.holocanon.feature.global.notification.usecase.SendGlobalToast
+import com.holocanon.feature.global.notification.internal.usecase.SendInAppNotificationImpl
+import com.holocanon.feature.global.notification.usecase.SendInAppNotification
 import com.holocanon.feature.settings.internal.nav.SettingsNavContributor
 import com.holocanon.library.filters.internal.GetPermanentFiltersImpl
 import com.holocanon.library.logger.internal.IosLoggerDelegate
@@ -122,7 +121,7 @@ import settings.usecase.UpdateCheckboxName
 @DependencyGraph(AppScope::class)
 interface IosDependencyGraph : AppDependencyGraph {
     @Binds
-    fun bindGetGlobalToasts(impl: GetGlobalToastsImpl): GetGlobalToasts
+    fun bindGetInAppNotifications(impl: GetInAppNotificationsImpl): GetInAppNotifications
 
     @Binds
     fun bindGetAllSettings(impl: GetAllSettingsImpl): GetAllSettings
@@ -194,7 +193,7 @@ interface IosDependencyGraph : AppDependencyGraph {
     fun bindGetCheckboxSettings(impl: GetCheckboxSettingsImpl): GetCheckboxSettings
 
     @Binds
-    fun bindSendGlobalToast(impl: SendGlobalToastimpl): SendGlobalToast
+    fun bindSendGlobalInAppNotifications(impl: SendInAppNotificationImpl): SendInAppNotification
 
     @Binds
     fun bindIsNetworkAvailable(impl: IsNetworkAllowedImpl): IsNetworkAllowed
