@@ -2,7 +2,7 @@ package com.holocanon.library.media.notes.internal.usecase
 
 import com.holocanon.core.data.dao.DaoMedia
 import com.holocanon.core.data.entity.MediaNotesDto
-import com.holocanon.feature.global.notification.usecase.SendGlobalToast
+import com.holocanon.feature.global.notification.usecase.SendInAppNotification
 import com.holocanon.library.coroutine.ext.HolocanonDispatchers
 import com.holocanon.library.logger.HoloLogger
 import com.holocanon.library.media.notes.internal.model.MediaNotesJsonV1
@@ -32,7 +32,7 @@ import settings.usecase.UpdateCheckboxName
 class ImportMediaNotesJsonImpl(
     private val updateCheckboxName: UpdateCheckboxName,
     private val daoMedia: DaoMedia,
-    private val sendGlobalToast: SendGlobalToast,
+    private val sendInAppNotification: SendInAppNotification,
     private val dispatchers: HolocanonDispatchers,
     private val json: Json,
     private val logger: HoloLogger,
@@ -64,11 +64,11 @@ class ImportMediaNotesJsonImpl(
 
     private suspend fun onFailed(e: Exception) {
         logger.error(TAG, "Failed to parse Media Notes JSON", e)
-        sendGlobalToast(getString(Res.string.media_notes_there_was_an_error_importing_your_data))
+        sendInAppNotification(getString(Res.string.media_notes_there_was_an_error_importing_your_data))
     }
 
     private suspend fun onSuccess() {
-        sendGlobalToast(getString(Res.string.media_notes_data_imported))
+        sendInAppNotification(getString(Res.string.media_notes_data_imported))
     }
 
     private fun MediaNotesV1.toRoomDto(): MediaNotesDto =

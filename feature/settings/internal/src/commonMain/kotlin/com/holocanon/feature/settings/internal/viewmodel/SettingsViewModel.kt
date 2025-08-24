@@ -2,7 +2,7 @@ package com.holocanon.feature.settings.internal.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.holocanon.feature.global.notification.usecase.SendGlobalToast
+import com.holocanon.feature.global.notification.usecase.SendInAppNotification
 import com.holocanon.feature.settings.internal.featureflag.ImportExportFeatureFlag
 import com.minirogue.common.model.MediaType
 import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
@@ -53,7 +53,7 @@ class SettingsViewModel(
     private val updateDarkModeSetting: UpdateDarkModeSetting,
     private val exportMediaNotesJson: ExportMediaNotesJson,
     private val importMediaNotesJson: ImportMediaNotesJson,
-    private val sendGlobalNotification: SendGlobalToast,
+    private val sendGlobalNotification: SendInAppNotification,
     importExportFeatureFlag: ImportExportFeatureFlag,
 ) : ViewModel() {
     private val _state =

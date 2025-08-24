@@ -7,12 +7,14 @@ minirogue {
         android()
         ios()
     }
+    kotlinCompose()
     metro()
 }
 
 kotlin.sourceSets.commonMain.dependencies {
     api projects.library.holoclient.public
 
+    implementation(libs.compose.resources)
     implementation libs.kotlinx.coroutines.core
     implementation libs.kotlinx.serialization.json
     implementation projects.core

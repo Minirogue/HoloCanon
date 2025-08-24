@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 
-class FakeGetGlobalToasts : GetGlobalToasts {
+class FakeGetInAppNotifications : GetInAppNotifications {
     private val stateFlow = MutableStateFlow<String?>(null)
 
     fun emit(message: String) {

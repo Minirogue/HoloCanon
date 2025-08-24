@@ -6,7 +6,7 @@ import com.holocanon.core.data.dao.DaoSeries
 import com.holocanon.core.data.entity.CompanyDto
 import com.holocanon.core.data.entity.MediaItemDto
 import com.holocanon.core.data.entity.MediaNotesDto
-import com.holocanon.feature.global.notification.usecase.SendGlobalToast
+import com.holocanon.feature.global.notification.usecase.SendInAppNotification
 import com.holocanon.library.filters.usecase.UpdateFilters
 import com.holocanon.library.holoclient.internal.api.GetApiMediaVersion
 import com.holocanon.library.holoclient.internal.api.GetMediaFromApi
@@ -20,6 +20,8 @@ import com.minirogue.holoclient.usecase.MaybeUpdateMediaDatabase
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
+import holocanon.library.holoclient.internal.generated.resources.Res
+import holocanon.library.holoclient.internal.generated.resources.holoclient_database_synced
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -32,6 +34,7 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
+import org.jetbrains.compose.resources.getString
 import settings.usecase.GetAllSettings
 import settings.usecase.SetLatestDatabaseVersion
 
@@ -47,7 +50,7 @@ class UpdateMediaDatabaseUseCase internal constructor(
     private val daoSeries: DaoSeries,
     private val daoCompany: DaoCompany,
     private val json: Json,
-    private val sendGlobalToast: SendGlobalToast,
+    private val sendInAppNotification: SendInAppNotification,
     private val logger: HoloLogger,
     private val isNetworkAllowed: IsNetworkAllowed,
 ) : MaybeUpdateMediaDatabase {
@@ -98,7 +101,7 @@ class UpdateMediaDatabaseUseCase internal constructor(
                     updateFilters()
                 }
                 withContext(Dispatchers.Main) {
-                    sendGlobalToast("Database Synced") // TODO extract string resource
+                    sendInAppNotification(getString(Res.string.holoclient_database_synced))
                 }
             }
         }

@@ -27,17 +27,14 @@ internal val ForceDarkColors = darkColorScheme(
 )
 internal val ForceLightColors = lightColorScheme(
     primary = FORCE_BLUE,
-    onPrimary = FORCE_GREEN,
-    secondary = LIGHT_PURPLE,
+    secondary = FORCE_GREEN,
 )
 
 internal val MaceDarkColors = darkColorScheme(
     primary = LIGHT_PURPLE,
-    onPrimary = DARK_PURPLE,
     secondary = ELECTRUM,
 )
 internal val MaceLightColors = lightColorScheme(
     primary = DARK_PURPLE,
-    onPrimary = LIGHT_PURPLE,
     secondary = DURASTEEL_GRAY,
 )

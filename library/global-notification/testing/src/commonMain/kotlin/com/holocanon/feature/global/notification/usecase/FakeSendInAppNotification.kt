@@ -1,6 +1,6 @@
 package com.holocanon.feature.global.notification.usecase
 
-class FakeSendGlobalToast : SendGlobalToast {
+class FakeSendInAppNotification : SendInAppNotification {
     private var calledArg: String? = null
 
     fun calledArgument(): String? = calledArg

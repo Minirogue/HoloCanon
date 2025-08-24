@@ -1,7 +1,7 @@
 package com.holocanon.library.media.notes.internal.usecase
 
 import com.holocanon.core.data.dao.DaoMedia
-import com.holocanon.feature.global.notification.usecase.SendGlobalToast
+import com.holocanon.feature.global.notification.usecase.SendInAppNotification
 import com.holocanon.library.coroutine.ext.HolocanonDispatchers
 import com.holocanon.library.logger.HoloLogger
 import com.holocanon.library.media.notes.internal.model.CheckBoxNamesV1
@@ -31,7 +31,7 @@ import settings.usecase.GetCheckboxSettings
 class ExportMediaNotesJsonImpl(
     private val daoMedia: DaoMedia,
     private val getCheckboxSettings: GetCheckboxSettings,
-    private val sendGlobalToast: SendGlobalToast,
+    private val sendInAppNotification: SendInAppNotification,
     private val dispatchers: HolocanonDispatchers,
     private val json: Json,
     private val logger: HoloLogger,
@@ -65,11 +65,11 @@ class ExportMediaNotesJsonImpl(
 
     private suspend fun onFailed(exception: Exception) {
         logger.error(TAG, "Failed to export media notes", exception)
-        sendGlobalToast(getString(Res.string.media_notes_there_was_an_error_exporting_your_data))
+        sendInAppNotification(getString(Res.string.media_notes_there_was_an_error_exporting_your_data))
     }
 
     private suspend fun onSuccess() {
-        sendGlobalToast(getString(Res.string.media_notes_data_exported))
+        sendInAppNotification(getString(Res.string.media_notes_data_exported))
     }
 
     companion object {

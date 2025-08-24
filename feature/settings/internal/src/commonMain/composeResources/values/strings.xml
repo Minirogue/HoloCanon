@@ -10,8 +10,8 @@
     <string name="settings_dynamic_theme">Dynamic Theme</string>
 
     <!--  Settings Screen  -->
-    <string name="settings_sync_online">Sync database now</string>
-    <string name="settings_wifi_only_setting">Sync on wifi only</string>
+    <string name="settings_sync_online">Sync database now (any network)</string>
+    <string name="settings_wifi_only_setting">Use unmetered networks only</string>
     <string name="settings_sync_settings">Database Sync Settings</string>
     <string name="settings_included_media_types">Included Media Types</string>
     <string name="settings_filter_name">Filter Name</string>
