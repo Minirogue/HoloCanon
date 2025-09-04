@@ -1,5 +1,5 @@
 [versions]
-androidMaterial = "1.12.0"
+androidMaterial = "1.13.0"
 androidxTest = "1.7.0"
 appCompat = "1.7.1"
 buildLogic = "0.1.1"
