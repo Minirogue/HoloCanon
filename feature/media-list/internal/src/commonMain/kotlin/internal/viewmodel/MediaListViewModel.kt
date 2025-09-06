@@ -100,8 +100,8 @@ internal class MediaListViewModel(
         if (!searchTerm.isNullOrBlank()) {
             list.filter {
                 it.mediaItem.title.contains(searchTerm, true) ||
-                        it.mediaItem.description?.contains(searchTerm, true) == true ||
-                        it.mediaItem.series?.contains(searchTerm, true) == true
+                    it.mediaItem.description?.contains(searchTerm, true) == true ||
+                    it.mediaItem.series?.contains(searchTerm, true) == true
             }
         } else {
             list
