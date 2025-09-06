@@ -22,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.holocanon.library.navigation.AppBarConfig
 import com.minirogue.feature.test.app.TestAppDi
 import compose.theme.HolocanonTheme
+import dev.zacsweers.metro.createGraph
 import kotlinx.serialization.Serializable
 import settings.model.DarkModeSetting
 import settings.model.Theme

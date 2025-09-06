@@ -9,9 +9,11 @@ import dev.zacsweers.metro.createGraph
 class SelectFiltersTestApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        TestAppDi.setInstance(createGraph<SelectFiltersTestAppDi>().createTestAppDi())
+        TestAppDi.setInstance(createGraph<SelectFiltersTestAppDi>().testAppDiFactory.createTestAppDi())
     }
 }
 
-@DependencyGraph(scope = AppScope::class, isExtendable = true)
-interface SelectFiltersTestAppDi
+@DependencyGraph(scope = AppScope::class)
+interface SelectFiltersTestAppDi {
+    val testAppDiFactory : TestAppDi.Factory
+}
