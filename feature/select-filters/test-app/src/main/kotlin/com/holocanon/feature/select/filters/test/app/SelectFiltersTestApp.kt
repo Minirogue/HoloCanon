@@ -15,5 +15,5 @@ class SelectFiltersTestApp : Application() {
 
 @DependencyGraph(scope = AppScope::class)
 interface SelectFiltersTestAppDi {
-    val testAppDiFactory : TestAppDi.Factory
+    val testAppDiFactory: TestAppDi.Factory
 }

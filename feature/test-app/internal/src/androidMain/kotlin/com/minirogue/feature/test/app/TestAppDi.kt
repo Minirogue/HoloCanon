@@ -2,7 +2,6 @@ package com.minirogue.feature.test.app
 
 import com.holocanon.library.navigation.NavContributor
 import dev.zacsweers.metro.AppScope
-import dev.zacsweers.metro.ContributesGraphExtension
 import dev.zacsweers.metro.ContributesTo
 import dev.zacsweers.metro.GraphExtension
 
