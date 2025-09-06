@@ -1,4 +1,4 @@
-package internal.view
+package com.minirogue.holocanon.feature.media.item.internal
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -108,9 +108,9 @@ private fun MediaItemRightColumn(
     mediaNotes: MediaNotes?,
     checkboxSettings: CheckboxSettings?,
     onSeriesClicked: (seriesName: String) -> Unit,
-    onBox1Clicked: (newValue: Boolean) -> Unit,
-    onBox2Clicked: (newValue: Boolean) -> Unit,
-    onBox3Clicked: (newValue: Boolean) -> Unit,
+    onBox1Clicked: (mediaId: Long?, newValue: Boolean) -> Unit,
+    onBox2Clicked: (mediaId: Long?, newValue: Boolean) -> Unit,
+    onBox3Clicked: (mediaId: Long?, newValue: Boolean) -> Unit,
 ) = Column(modifier = modifier.fillMaxHeight()) {
     mediaItem?.type?.getSerialName()
         ?.also { Text(text = it, modifier = Modifier.padding(8.dp)) }
@@ -128,6 +128,7 @@ private fun MediaItemRightColumn(
             Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
+            mediaItem?.id,
             mediaNotes,
             it,
             onBox1Clicked,
@@ -140,11 +141,12 @@ private fun MediaItemRightColumn(
 @Composable
 private fun CheckboxGroup(
     modifier: Modifier = Modifier,
+    mediaId: Long?,
     mediaNotes: MediaNotes?,
     checkboxSettings: CheckboxSettings,
-    onBox1Clicked: (newValue: Boolean) -> Unit,
-    onBox2Clicked: (newValue: Boolean) -> Unit,
-    onBox3Clicked: (newValue: Boolean) -> Unit,
+    onBox1Clicked: (mediaId: Long?, newValue: Boolean) -> Unit,
+    onBox2Clicked: (mediaId: Long?, newValue: Boolean) -> Unit,
+    onBox3Clicked: (mediaId: Long?, newValue: Boolean) -> Unit,
 ) = Column(modifier = modifier) {
     val isBox1Checked = mediaNotes?.isBox1Checked
     val isBox2Checked = mediaNotes?.isBox2Checked
@@ -153,19 +155,19 @@ private fun CheckboxGroup(
         TextAndCheckbox(
             checkboxSettings.checkbox1Setting.name,
             isBox1Checked,
-        ) { onBox1Clicked(!isBox1Checked) }
+        ) { onBox1Clicked(mediaId, !isBox1Checked) }
     }
     if (checkboxSettings.checkbox2Setting.isInUse && isBox2Checked != null) {
         TextAndCheckbox(
             checkboxSettings.checkbox2Setting.name,
             isBox2Checked,
-        ) { onBox2Clicked(!isBox2Checked) }
+        ) { onBox2Clicked(mediaId, !isBox2Checked) }
     }
     if (checkboxSettings.checkbox3Setting.isInUse && isBox3Checked != null) {
         TextAndCheckbox(
             checkboxSettings.checkbox3Setting.name,
             isBox3Checked,
-        ) { onBox3Clicked(!isBox3Checked) }
+        ) { onBox3Clicked(mediaId, !isBox3Checked) }
     }
 }
 

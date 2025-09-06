@@ -38,7 +38,7 @@ private const val TAG = "SettingsRepo"
 class SettingsRepo(
     private val dataStore: SettingsDataStore,
     private val logger: HoloLogger,
-) {
+) { // TODO add instrumented tests for datastore usage
     private val userFilter1ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_1_ACTIVE_KEY)
     private val userFilter2ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_2_ACTIVE_KEY)
     private val userFilter3ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_3_ACTIVE_KEY)
@@ -128,7 +128,12 @@ class SettingsRepo(
         }.onFailure { throwable ->
             when (throwable) {
                 is IOException -> logger.error(TAG, "error in updateCheckbox", throwable)
-                is IllegalArgumentException -> logger.error(TAG, "error in updateCheckbox", throwable)
+                is IllegalArgumentException -> logger.error(
+                    TAG,
+                    "error in updateCheckbox",
+                    throwable,
+                )
+
                 is IllegalStateException -> logger.error(TAG, "error in updateCheckbox", throwable)
                 else -> throw throwable
             }

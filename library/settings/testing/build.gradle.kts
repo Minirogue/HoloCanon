@@ -1,0 +1,18 @@
+plugins {
+    id("minirogue.multiplatform.library")
+}
+
+minirogue {
+    platforms {
+        jvm()
+        ios()
+    }
+}
+
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            api(projects.library.settings.public)
+        }
+    }
+}

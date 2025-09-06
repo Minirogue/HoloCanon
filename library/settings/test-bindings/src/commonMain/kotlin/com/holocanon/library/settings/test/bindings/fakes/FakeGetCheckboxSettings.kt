@@ -1,5 +1,6 @@
 package com.holocanon.library.settings.test.bindings.fakes
 
+import com.holocanon.library.settings.usecase.GetCheckboxSettings
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
@@ -7,7 +8,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import settings.model.CheckboxSetting
 import settings.model.CheckboxSettings
-import settings.usecase.GetCheckboxSettings
 
 @Inject
 @ContributesBinding(AppScope::class)
