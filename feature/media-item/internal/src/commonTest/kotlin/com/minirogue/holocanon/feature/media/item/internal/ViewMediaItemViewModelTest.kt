@@ -11,6 +11,7 @@ import com.minirogue.common.model.MediaType
 import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.media.notes.model.CheckBoxNumber
 import com.minirogue.media.notes.model.MediaNotes
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import settings.model.CheckboxSetting
@@ -20,6 +21,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class ViewMediaItemViewModelTest : CoroutineTest {
 
     // Test doubles
