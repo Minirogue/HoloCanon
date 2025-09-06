@@ -13,19 +13,15 @@ import com.minirogue.media.notes.usecase.UpdateCheckValue
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
 import dev.zacsweers.metro.Inject
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import settings.model.CheckboxSettings
 
 internal data class ViewMediaItemState(
-    val checkboxSettings: CheckboxSettings? = null,
-    val isNetworkAllowed: Boolean = false,
-    val mediaItem: StarWarsMedia? = null,
-    val mediaNotes: MediaNotes? = null,
+    val checkboxSettings: CheckboxSettings,
+    val isNetworkAllowed: Boolean,
+    val mediaItem: StarWarsMedia,
+    val mediaNotes: MediaNotes,
 )
 
 @Inject
@@ -43,39 +39,29 @@ internal class ViewMediaItemViewModel(
         fun create(itemId: Long): ViewMediaItemViewModel
     }
 
-    private val _state = MutableStateFlow(ViewMediaItemState())
-    val state: StateFlow<ViewMediaItemState> = _state
-
-    init {
-        getMedia(itemId)
-            .onEach { mediaItem -> _state.update { it.copy(mediaItem = mediaItem) } }
-            .launchIn(viewModelScope)
-        getNotesForMedia(itemId)
-            .onEach { mediaNotes -> _state.update { it.copy(mediaNotes = mediaNotes) } }
-            .launchIn(viewModelScope)
-        getCheckboxSettings()
-            .onEach { checkBoxSettings -> _state.update { it.copy(checkboxSettings = checkBoxSettings) } }
-            .launchIn(viewModelScope)
-        isNetworkAllowed()
-            .onEach { shouldAllowNetwork -> _state.update { it.copy(isNetworkAllowed = shouldAllowNetwork) } }
-            .launchIn(viewModelScope)
+    val state = combine(
+        getMedia(itemId),
+        getNotesForMedia(itemId),
+        getCheckboxSettings(),
+        isNetworkAllowed(),
+    ) { mediaItem, mediaNotes, checkboxSettings, networkAllowed ->
+        ViewMediaItemState(
+            checkboxSettings = checkboxSettings,
+            isNetworkAllowed = networkAllowed,
+            mediaItem = mediaItem,
+            mediaNotes = mediaNotes,
+        )
     }
 
-    fun toggleCheckbox1(mediaId: Long?, newValue: Boolean) = viewModelScope.launch {
-        if (mediaId != null) {
-            updateNotes(CheckBoxNumber.CheckBox1, mediaId, newValue)
-        }
+    fun toggleCheckbox1(mediaId: Long, newValue: Boolean) = viewModelScope.launch {
+        updateNotes(CheckBoxNumber.CheckBox1, mediaId, newValue)
     }
 
-    fun toggleCheckbox2(mediaId: Long?, newValue: Boolean) = viewModelScope.launch {
-        if (mediaId != null) {
-            updateNotes(CheckBoxNumber.CheckBox2, mediaId, newValue)
-        }
+    fun toggleCheckbox2(mediaId: Long, newValue: Boolean) = viewModelScope.launch {
+        updateNotes(CheckBoxNumber.CheckBox2, mediaId, newValue)
     }
 
-    fun toggleCheckbox3(mediaId: Long?, newValue: Boolean) = viewModelScope.launch {
-        if (mediaId != null) {
-            updateNotes(CheckBoxNumber.CheckBox3, mediaId, newValue)
-        }
+    fun toggleCheckbox3(mediaId: Long, newValue: Boolean) = viewModelScope.launch {
+        updateNotes(CheckBoxNumber.CheckBox3, mediaId, newValue)
     }
 }

@@ -32,7 +32,6 @@ compose-navigation = { group = "org.jetbrains.androidx.navigation", name = "navi
 compose-material-icons = { group = "org.jetbrains.compose.material", name = "material-icons-core", version.ref = "composeMaterialIcons" }
 compose-resources = { group = "org.jetbrains.compose.components", name = "components-resources" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
 kotlin-test-annotations-common = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common" }
 kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit" }
