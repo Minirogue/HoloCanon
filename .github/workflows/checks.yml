@@ -16,18 +16,6 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-      - uses: actions/upload-artifact@v4
-        with:
-          name: problems
-          path: build/reports/problems/problems-report.html
-          if-no-files-found: ignore
-      - uses: actions/upload-artifact@v4
-        with:
-          name: problems
-          path: |
-            **/build/reports/problems/problems-report.html
-            **/build/reports/tests/testDebugUnitTest/index.html
-          if-no-files-found: ignore
       - uses: actions/cache@v4
         with:
           path: |
@@ -38,3 +26,10 @@ jobs:
             ${{ runner.os }}-gradle-
       - name: Gradle build and checks
         run: ./gradlew assembleDebug testDebugUnitTest jvmTest :api:test detekt lint --continue && ./gradlew --stop
+      - uses: actions/upload-artifact@v4
+        with:
+          name: problems
+          path: |
+            **/build/reports/problems/problems-report.html
+            **/build/reports/tests/testDebugUnitTest/index.html
+          if-no-files-found: ignore
