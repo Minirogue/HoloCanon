@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.holocanon.library.media.item.model.MediaAndNotes
 import com.holocanon.library.media.item.usecase.GetMediaAndNotesForSeries
+import com.holocanon.library.settings.usecase.GetCheckboxSettings
 import com.holocanon.library.settings.usecase.IsNetworkAllowed
 import com.minirogue.media.notes.model.MediaNotes
 import com.minirogue.series.model.Checkbox
@@ -21,7 +22,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import settings.model.CheckboxSettings
-import settings.usecase.GetCheckboxSettings
 
 internal data class SeriesState(
     val seriesId: Int? = null,

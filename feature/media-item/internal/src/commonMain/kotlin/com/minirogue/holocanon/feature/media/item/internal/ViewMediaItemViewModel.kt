@@ -1,8 +1,9 @@
-package internal.view
+package com.minirogue.holocanon.feature.media.item.internal
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.holocanon.library.media.item.usecase.GetMedia
+import com.holocanon.library.settings.usecase.GetCheckboxSettings
 import com.holocanon.library.settings.usecase.IsNetworkAllowed
 import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.media.notes.model.CheckBoxNumber
@@ -19,7 +20,6 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import settings.model.CheckboxSettings
-import settings.usecase.GetCheckboxSettings
 
 internal data class ViewMediaItemState(
     val checkboxSettings: CheckboxSettings? = null,
@@ -61,22 +61,19 @@ internal class ViewMediaItemViewModel(
             .launchIn(viewModelScope)
     }
 
-    fun toggleCheckbox1(newValue: Boolean) = viewModelScope.launch {
-        val mediaId = state.value.mediaItem?.id
+    fun toggleCheckbox1(mediaId: Long?, newValue: Boolean) = viewModelScope.launch {
         if (mediaId != null) {
             updateNotes(CheckBoxNumber.CheckBox1, mediaId, newValue)
         }
     }
 
-    fun toggleCheckbox2(newValue: Boolean) = viewModelScope.launch {
-        val mediaId = state.value.mediaItem?.id
+    fun toggleCheckbox2(mediaId: Long?, newValue: Boolean) = viewModelScope.launch {
         if (mediaId != null) {
             updateNotes(CheckBoxNumber.CheckBox2, mediaId, newValue)
         }
     }
 
-    fun toggleCheckbox3(newValue: Boolean) = viewModelScope.launch {
-        val mediaId = state.value.mediaItem?.id
+    fun toggleCheckbox3(mediaId: Long?, newValue: Boolean) = viewModelScope.launch {
         if (mediaId != null) {
             updateNotes(CheckBoxNumber.CheckBox3, mediaId, newValue)
         }

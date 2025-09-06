@@ -1,4 +1,4 @@
-package settings.usecase
+package com.holocanon.library.settings.usecase
 
 import kotlinx.coroutines.flow.Flow
 import settings.model.CheckboxSettings
