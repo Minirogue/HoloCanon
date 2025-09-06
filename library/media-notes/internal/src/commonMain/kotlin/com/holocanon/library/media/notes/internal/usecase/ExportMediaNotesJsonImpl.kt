@@ -7,6 +7,7 @@ import com.holocanon.library.logger.HoloLogger
 import com.holocanon.library.media.notes.internal.model.CheckBoxNamesV1
 import com.holocanon.library.media.notes.internal.model.MediaNotesJsonV1
 import com.holocanon.library.media.notes.internal.model.MediaNotesV1
+import com.holocanon.library.settings.usecase.GetCheckboxSettings
 import com.minirogue.media.notes.ExportMediaNotesJson
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
@@ -24,7 +25,6 @@ import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.io.encodeToSink
 import org.jetbrains.compose.resources.getString
-import settings.usecase.GetCheckboxSettings
 
 @Inject
 @ContributesBinding(AppScope::class)

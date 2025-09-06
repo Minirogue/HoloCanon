@@ -1,5 +1,5 @@
 plugins {
-    id("minirogue.multiplatform.library")
+    id 'minirogue.multiplatform.library'
 }
 
 minirogue {
@@ -7,9 +7,8 @@ minirogue {
         jvm()
         ios()
     }
-    metro()
 }
 
 kotlin.sourceSets.commonMain.dependencies {
-    api(projects.library.settings.public)
+    api projects.library.mediaItem.public
 }

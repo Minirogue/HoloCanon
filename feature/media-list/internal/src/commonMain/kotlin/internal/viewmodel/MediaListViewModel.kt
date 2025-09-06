@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.holocanon.library.media.item.model.MediaAndNotes
 import com.holocanon.library.media.item.usecase.GetMediaListWithNotes
+import com.holocanon.library.settings.usecase.GetCheckboxSettings
 import com.holocanon.library.settings.usecase.IsNetworkAllowed
 import com.holocanon.library.sorting.model.SortStyle
 import com.holocanon.library.sorting.usecase.GetSortStyle
@@ -24,7 +25,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import settings.model.CheckboxSettings
-import settings.usecase.GetCheckboxSettings
 
 @Immutable // TODO benchmark with/without this
 internal data class MediaListState(

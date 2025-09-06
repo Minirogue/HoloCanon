@@ -32,6 +32,10 @@ compose-navigation = { group = "org.jetbrains.androidx.navigation", name = "navi
 compose-material-icons = { group = "org.jetbrains.compose.material", name = "material-icons-core", version.ref = "composeMaterialIcons" }
 compose-resources = { group = "org.jetbrains.compose.components", name = "components-resources" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test" }
+kotlin-test-annotations-common = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common" }
+kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlinx-io = { group = "org.jetbrains.kotlinx", name = "kotlinx-io-core", version.ref = "kotlinxIo" }
@@ -45,7 +49,7 @@ ktor-client-contentNegotiation = { group = "io.ktor", name = "ktor-client-conten
 ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 # TODO need to find a way to make sure this is in sync with version from plugin
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
-sqlite-driver = {group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqlite"}
+sqlite-driver = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqlite" }
 
 [plugins]
 minirogue-plugin = { id = "com.github.minirogue", version.ref = "buildLogic" }

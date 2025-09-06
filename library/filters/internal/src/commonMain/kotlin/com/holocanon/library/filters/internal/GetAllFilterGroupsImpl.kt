@@ -8,6 +8,7 @@ import com.holocanon.core.data.entity.FilterTypeDto.Companion.FILTERCOLUMN_CHECK
 import com.holocanon.core.data.entity.FilterTypeDto.Companion.FILTERCOLUMN_PUBLISHER
 import com.holocanon.core.data.entity.FilterTypeDto.Companion.FILTERCOLUMN_SERIES
 import com.holocanon.core.data.entity.FilterTypeDto.Companion.FILTERCOLUMN_TYPE
+import com.holocanon.library.settings.usecase.GetCheckboxSettings
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
 import dev.zacsweers.metro.Inject
@@ -18,7 +19,7 @@ import filters.model.FilterType
 import filters.model.MediaFilter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import settings.usecase.GetCheckboxSettings
+
 @Inject
 @ContributesBinding(AppScope::class)
 class GetAllFilterGroupsImpl(

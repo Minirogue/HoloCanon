@@ -3,7 +3,7 @@ pluginManagement {
         eachPlugin {
             if (requested.id.toString() == "com.github.minirogue")
 //                useModule("org.minirogue:minirogue-build-logic:$requested.version") // local
-              useModule("com.github.Minirogue:minirogue-build-logic:$requested.version")
+                useModule("com.github.Minirogue:minirogue-build-logic:$requested.version")
         }
     }
     repositories {
@@ -57,6 +57,7 @@ include ':feature:test-app:internal'
 
 include ':library:common-models:public'
 include ':library:common-resources:public'
+include ':library:common-test:testing'
 include ':library:compose-ext:public'
 include ':library:coroutine-ext:internal'
 include ':library:coroutine-ext:public'
@@ -75,8 +76,10 @@ include ':library:logger:internal'
 include ':library:logger:public'
 include ':library:media-item:internal'
 include ':library:media-item:public'
+include ':library:media-item:testing'
 include ':library:media-notes:internal'
 include ':library:media-notes:public'
+include ':library:media-notes:testing'
 include ':library:navigation:public'
 include ':library:networking:internal'
 include ':library:networking:public'
@@ -87,6 +90,7 @@ include ':library:series:internal'
 include ':library:series:public'
 include ':library:settings:internal'
 include ':library:settings:public'
+include ':library:settings:testing'
 include ':library:settings:test-bindings'
 include ':library:sorting:internal'
 include ':library:sorting:public'

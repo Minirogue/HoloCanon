@@ -6,6 +6,7 @@ import com.holocanon.core.data.dao.DaoSeries
 import com.holocanon.core.data.entity.FilterObjectDto
 import com.holocanon.core.data.entity.FilterTypeDto
 import com.holocanon.library.filters.usecase.UpdateFilters
+import com.holocanon.library.settings.usecase.GetCheckboxSettings
 import com.minirogue.common.model.MediaType
 import dev.zacsweers.metro.AppScope
 import dev.zacsweers.metro.ContributesBinding
@@ -15,7 +16,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import settings.usecase.GetCheckboxSettings
 
 @Inject
 @ContributesBinding(AppScope::class)

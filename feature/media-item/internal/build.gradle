@@ -26,3 +26,12 @@ kotlin.sourceSets.commonMain.dependencies {
     implementation projects.library.navigation.public
     implementation projects.library.settings.public
 }
+
+kotlin.sourceSets.commonTest.dependencies {
+    implementation projects.library.commonTest.testing
+
+    implementation projects.library.coroutineExt.testing
+    implementation projects.library.mediaItem.testing
+    implementation projects.library.mediaNotes.testing
+    implementation projects.library.settings.testing
+}
