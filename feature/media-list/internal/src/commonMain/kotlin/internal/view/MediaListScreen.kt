@@ -44,7 +44,7 @@ import internal.viewmodel.MediaListViewModel
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import loading.LoadingScreen
+import loading.withStateOrLoadingScreen
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import settings.model.CheckboxSettings
@@ -60,7 +60,6 @@ internal fun MediaListScreen(
     setAppBar: (AppBarConfig) -> Unit,
     mediaListViewModel: MediaListViewModel = viewModel { viewModelProvider() }, // Scope to Activity
 ) = Column(modifier = modifier.padding(horizontal = 8.dp)) {
-    val state by mediaListViewModel.state.collectAsStateSafely(null)
     val mediaList by mediaListViewModel.mediaList.collectAsStateSafely(emptyList())
 
     LaunchedEffect(true) {
@@ -72,12 +71,12 @@ internal fun MediaListScreen(
         setAppBar(config)
     }
 
-    state?.also { nonNullState ->
+    mediaListViewModel.state.withStateOrLoadingScreen { state ->
         SearchBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),
-            searchTerm = nonNullState.searchTerm,
+            searchTerm = state.searchTerm,
             onSearchTermChanged = mediaListViewModel::updateSearch,
         )
         FilterGroup(
@@ -85,8 +84,8 @@ internal fun MediaListScreen(
                 .fillMaxWidth()
                 .height(40.dp)
                 .padding(vertical = 4.dp),
-            activeFilters = nonNullState.activeFilters,
-            sortStyle = nonNullState.sortStyle,
+            activeFilters = state.activeFilters,
+            sortStyle = state.sortStyle,
             onDismissFilter = mediaListViewModel::deactivateFilter,
             onTapSortStyle = mediaListViewModel::reverseSort,
         )
@@ -96,17 +95,17 @@ internal fun MediaListScreen(
                 .weight(1f)
                 .padding(vertical = 4.dp),
             mediaList = mediaList,
-            checkboxSettings = nonNullState.checkboxSettings,
-            isNetworkAllowed = nonNullState.isNetworkAllowed,
-            initialScrollIndex = nonNullState.scrollPosition,
-            initialScrollOffset = nonNullState.scrollOffset,
+            checkboxSettings = state.checkboxSettings,
+            isNetworkAllowed = state.isNetworkAllowed,
+            initialScrollIndex = state.scrollPosition,
+            initialScrollOffset = state.scrollOffset,
             onScroll = mediaListViewModel::onScroll,
             onBox1Clicked = mediaListViewModel::onCheckBox1Clicked,
             onBox2Clicked = mediaListViewModel::onCheckBox2Clicked,
             onBox3Clicked = mediaListViewModel::onCheckBox3Clicked,
             onItemClicked = { navController.navigate(MediaItemNav(it)) },
         )
-    } ?: LoadingScreen()
+    }
 }
 
 @Composable

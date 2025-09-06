@@ -13,8 +13,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.input.key.Key.Companion.T
+import compose.theme.collectAsStateSafely
 import holocanon.library.common_resources.public.generated.resources.Res
 import holocanon.library.common_resources.public.generated.resources.common_resources_app_icon
+import kotlinx.coroutines.flow.Flow
 import org.jetbrains.compose.resources.painterResource
 
 private const val ROTATION_DURATION = 2000
@@ -25,11 +28,24 @@ fun LoadingScreen() = Box(modifier = Modifier.fillMaxSize(), contentAlignment = 
     val rotation by infiniteTransition.animateFloat(
         initialValue = 0f,
         targetValue = 360f,
-        animationSpec = infiniteRepeatable(animation = tween(ROTATION_DURATION, easing = LinearEasing)),
+        animationSpec = infiniteRepeatable(
+            animation = tween(
+                durationMillis = ROTATION_DURATION,
+                easing = LinearEasing,
+            ),
+        ),
     )
     Image(
         modifier = Modifier.rotate(rotation),
         painter = painterResource(Res.drawable.common_resources_app_icon),
         contentDescription = "loading",
     )
+}
+
+@Composable
+fun <T> Flow<T>.withStateOrLoadingScreen(
+    withState: @Composable (T) -> Unit,
+) {
+    val state by collectAsStateSafely(null)
+    state?.also { withState(it) } ?: LoadingScreen()
 }
