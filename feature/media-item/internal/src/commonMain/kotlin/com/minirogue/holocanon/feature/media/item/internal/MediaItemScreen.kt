@@ -31,6 +31,7 @@ import compose.theme.collectAsStateSafely
 import holocanon.feature.media_item.internal.generated.resources.Res
 import holocanon.feature.media_item.internal.generated.resources.media_item_content_description_cover_art
 import holocanon.feature.media_item.internal.generated.resources.media_item_view_series
+import loading.LoadingScreen
 import org.jetbrains.compose.resources.stringResource
 import settings.model.CheckboxSettings
 
@@ -42,38 +43,38 @@ internal fun MediaItemScreen(
     navController: NavController,
     viewModel: ViewMediaItemViewModel = viewModel { viewModelFactory.create(itemId) },
 ) {
-    val state by viewModel.state.collectAsStateSafely()
+    val state by viewModel.state.collectAsStateSafely(null)
 
-    Column(modifier = modifier.fillMaxSize()) {
-        state.mediaItem?.title?.also {
+    state?.also { nonNullState ->
+        Column(modifier = modifier.fillMaxSize()) {
             Text(
                 modifier = Modifier.padding(8.dp),
-                text = it,
+                text = nonNullState.mediaItem.title,
                 softWrap = true,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2,
                 style = MaterialTheme.typography.headlineMedium,
             )
+            Row(modifier = Modifier.fillMaxWidth()) {
+                MediaItemViewLeftColumn(
+                    modifier = Modifier.fillMaxWidth(fraction = .5f),
+                    imageUrl = nonNullState.mediaItem.imageUrl,
+                    description = nonNullState.mediaItem.description,
+                    isNetworkAllowed = nonNullState.isNetworkAllowed,
+                )
+                MediaItemRightColumn(
+                    modifier = Modifier.fillMaxWidth(),
+                    mediaItem = nonNullState.mediaItem,
+                    mediaNotes = nonNullState.mediaNotes,
+                    checkboxSettings = nonNullState.checkboxSettings,
+                    onSeriesClicked = { navController.navigate(SeriesNav(it)) },
+                    onBox1Clicked = viewModel::toggleCheckbox1,
+                    onBox2Clicked = viewModel::toggleCheckbox2,
+                    onBox3Clicked = viewModel::toggleCheckbox3,
+                )
+            }
         }
-        Row(modifier = Modifier.fillMaxWidth()) {
-            MediaItemViewLeftColumn(
-                modifier = Modifier.fillMaxWidth(fraction = .5f),
-                imageUrl = state.mediaItem?.imageUrl,
-                description = state.mediaItem?.description,
-                isNetworkAllowed = state.isNetworkAllowed,
-            )
-            MediaItemRightColumn(
-                modifier = Modifier.fillMaxWidth(),
-                mediaItem = state.mediaItem,
-                mediaNotes = state.mediaNotes,
-                checkboxSettings = state.checkboxSettings,
-                onSeriesClicked = { navController.navigate(SeriesNav(it)) },
-                onBox1Clicked = viewModel::toggleCheckbox1,
-                onBox2Clicked = viewModel::toggleCheckbox2,
-                onBox3Clicked = viewModel::toggleCheckbox3,
-            )
-        }
-    }
+    } ?: LoadingScreen()
 }
 
 @Composable
@@ -104,18 +105,18 @@ private fun MediaItemViewLeftColumn(
 @Composable
 private fun MediaItemRightColumn(
     modifier: Modifier = Modifier,
-    mediaItem: StarWarsMedia?,
-    mediaNotes: MediaNotes?,
-    checkboxSettings: CheckboxSettings?,
+    mediaItem: StarWarsMedia,
+    mediaNotes: MediaNotes,
+    checkboxSettings: CheckboxSettings,
     onSeriesClicked: (seriesName: String) -> Unit,
-    onBox1Clicked: (mediaId: Long?, newValue: Boolean) -> Unit,
-    onBox2Clicked: (mediaId: Long?, newValue: Boolean) -> Unit,
-    onBox3Clicked: (mediaId: Long?, newValue: Boolean) -> Unit,
+    onBox1Clicked: (mediaId: Long, newValue: Boolean) -> Unit,
+    onBox2Clicked: (mediaId: Long, newValue: Boolean) -> Unit,
+    onBox3Clicked: (mediaId: Long, newValue: Boolean) -> Unit,
 ) = Column(modifier = modifier.fillMaxHeight()) {
-    mediaItem?.type?.getSerialName()
-        ?.also { Text(text = it, modifier = Modifier.padding(8.dp)) }
-    mediaItem?.releaseDate?.also { Text(text = it, modifier = Modifier.padding(8.dp)) }
-    mediaItem?.series?.takeIf { it.isNotBlank() }?.also {
+    mediaItem.type.getSerialName()
+        .also { Text(text = it, modifier = Modifier.padding(8.dp)) }
+    mediaItem.releaseDate.also { Text(text = it, modifier = Modifier.padding(8.dp)) }
+    mediaItem.series?.takeIf { it.isNotBlank() }?.also {
         Button(
             modifier = Modifier.align(Alignment.CenterHorizontally),
             onClick = { onSeriesClicked(it) },
@@ -123,12 +124,12 @@ private fun MediaItemRightColumn(
     }
     Spacer(Modifier.weight(1f))
 
-    checkboxSettings?.also {
+    checkboxSettings.also {
         CheckboxGroup(
             Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
-            mediaItem?.id,
+            mediaItem.id,
             mediaNotes,
             it,
             onBox1Clicked,
@@ -141,29 +142,29 @@ private fun MediaItemRightColumn(
 @Composable
 private fun CheckboxGroup(
     modifier: Modifier = Modifier,
-    mediaId: Long?,
-    mediaNotes: MediaNotes?,
+    mediaId: Long,
+    mediaNotes: MediaNotes,
     checkboxSettings: CheckboxSettings,
-    onBox1Clicked: (mediaId: Long?, newValue: Boolean) -> Unit,
-    onBox2Clicked: (mediaId: Long?, newValue: Boolean) -> Unit,
-    onBox3Clicked: (mediaId: Long?, newValue: Boolean) -> Unit,
+    onBox1Clicked: (mediaId: Long, newValue: Boolean) -> Unit,
+    onBox2Clicked: (mediaId: Long, newValue: Boolean) -> Unit,
+    onBox3Clicked: (mediaId: Long, newValue: Boolean) -> Unit,
 ) = Column(modifier = modifier) {
-    val isBox1Checked = mediaNotes?.isBox1Checked
-    val isBox2Checked = mediaNotes?.isBox2Checked
-    val isBox3Checked = mediaNotes?.isBox3Checked
-    if (checkboxSettings.checkbox1Setting.isInUse && isBox1Checked != null) {
+    val isBox1Checked = mediaNotes.isBox1Checked
+    val isBox2Checked = mediaNotes.isBox2Checked
+    val isBox3Checked = mediaNotes.isBox3Checked
+    if (checkboxSettings.checkbox1Setting.isInUse) {
         TextAndCheckbox(
             checkboxSettings.checkbox1Setting.name,
             isBox1Checked,
         ) { onBox1Clicked(mediaId, !isBox1Checked) }
     }
-    if (checkboxSettings.checkbox2Setting.isInUse && isBox2Checked != null) {
+    if (checkboxSettings.checkbox2Setting.isInUse) {
         TextAndCheckbox(
             checkboxSettings.checkbox2Setting.name,
             isBox2Checked,
         ) { onBox2Clicked(mediaId, !isBox2Checked) }
     }
-    if (checkboxSettings.checkbox3Setting.isInUse && isBox3Checked != null) {
+    if (checkboxSettings.checkbox3Setting.isInUse) {
         TextAndCheckbox(
             checkboxSettings.checkbox3Setting.name,
             isBox3Checked,
