@@ -11,7 +11,7 @@ import com.minirogue.common.model.MediaType
 import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.media.notes.model.CheckBoxNumber
 import com.minirogue.media.notes.model.MediaNotes
-import kotlinx.coroutines.test.advanceUntilIdle
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import settings.model.CheckboxSetting
 import settings.model.CheckboxSettings
@@ -80,10 +80,10 @@ class ViewMediaItemViewModelTest : CoroutineTest {
         getCheckboxSettings.emit(dummyCheckboxSettings)
 
         // Act
-        advanceUntilIdle()
+        val state = viewModel.state.first()
 
         // Assert
-        with(viewModel.state.value) {
+        with(state) {
             assertEquals(dummyMediaItem, mediaItem)
             assertEquals(dummyNotes, mediaNotes)
             assertEquals(dummyCheckboxSettings, checkboxSettings)
