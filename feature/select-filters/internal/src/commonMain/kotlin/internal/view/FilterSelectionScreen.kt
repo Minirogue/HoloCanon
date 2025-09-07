@@ -11,9 +11,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import compose.theme.collectAsStateSafely
 import dev.zacsweers.metro.Provider
-import loading.LoadingScreen
+import loading.withStateOrLoadingScreen
 
 @Composable
 internal fun FilterSelectionScreen(
@@ -21,21 +20,20 @@ internal fun FilterSelectionScreen(
     modifier: Modifier = Modifier,
     viewModel: FilterSelectionViewModel = viewModel { viewModelProvider() },
 ) {
-    val state by viewModel.state.collectAsStateSafely(null)
-    state?.let { nonNullState ->
+    viewModel.state.withStateOrLoadingScreen { state ->
         Column(modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
             ActiveFilters(
-                state = nonNullState,
+                state = state,
                 deactivateFilter = viewModel::deactivateFilter,
             )
             HorizontalDivider()
             CheckboxFilterSubMenu(
                 modifier = Modifier.padding(4.dp),
-                checkboxFilters = nonNullState.checkboxFilters,
+                checkboxFilters = state.checkboxFilters,
                 onGroupCheckChanged = viewModel::flipFilterType,
                 onFilterClicked = viewModel::flipFilterActive,
             )
-            nonNullState.nonCheckboxFilters.forEach { filterGroupMapEntry ->
+            state.nonCheckboxFilters.forEach { filterGroupMapEntry ->
                 FilterTypeSubMenu(
                     modifier = Modifier.padding(4.dp),
                     filterGroup = filterGroupMapEntry.key,
@@ -45,5 +43,5 @@ internal fun FilterSelectionScreen(
                 )
             }
         }
-    } ?: LoadingScreen()
+    }
 }

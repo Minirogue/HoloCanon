@@ -27,11 +27,10 @@ import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.holocanon.feature.series.SeriesNav
 import com.minirogue.media.notes.model.MediaNotes
 import compose.theme.HoloImage
-import compose.theme.collectAsStateSafely
 import holocanon.feature.media_item.internal.generated.resources.Res
 import holocanon.feature.media_item.internal.generated.resources.media_item_content_description_cover_art
 import holocanon.feature.media_item.internal.generated.resources.media_item_view_series
-import loading.LoadingScreen
+import loading.withStateOrLoadingScreen
 import org.jetbrains.compose.resources.stringResource
 import settings.model.CheckboxSettings
 
@@ -43,13 +42,11 @@ internal fun MediaItemScreen(
     navController: NavController,
     viewModel: ViewMediaItemViewModel = viewModel { viewModelFactory.create(itemId) },
 ) {
-    val state by viewModel.state.collectAsStateSafely(null)
-
-    state?.also { nonNullState ->
+    viewModel.state.withStateOrLoadingScreen { state ->
         Column(modifier = modifier.fillMaxSize()) {
             Text(
                 modifier = Modifier.padding(8.dp),
-                text = nonNullState.mediaItem.title,
+                text = state.mediaItem.title,
                 softWrap = true,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2,
@@ -58,15 +55,15 @@ internal fun MediaItemScreen(
             Row(modifier = Modifier.fillMaxWidth()) {
                 MediaItemViewLeftColumn(
                     modifier = Modifier.fillMaxWidth(fraction = .5f),
-                    imageUrl = nonNullState.mediaItem.imageUrl,
-                    description = nonNullState.mediaItem.description,
-                    isNetworkAllowed = nonNullState.isNetworkAllowed,
+                    imageUrl = state.mediaItem.imageUrl,
+                    description = state.mediaItem.description,
+                    isNetworkAllowed = state.isNetworkAllowed,
                 )
                 MediaItemRightColumn(
                     modifier = Modifier.fillMaxWidth(),
-                    mediaItem = nonNullState.mediaItem,
-                    mediaNotes = nonNullState.mediaNotes,
-                    checkboxSettings = nonNullState.checkboxSettings,
+                    mediaItem = state.mediaItem,
+                    mediaNotes = state.mediaNotes,
+                    checkboxSettings = state.checkboxSettings,
                     onSeriesClicked = { navController.navigate(SeriesNav(it)) },
                     onBox1Clicked = viewModel::toggleCheckbox1,
                     onBox2Clicked = viewModel::toggleCheckbox2,
@@ -74,7 +71,7 @@ internal fun MediaItemScreen(
                 )
             }
         }
-    } ?: LoadingScreen()
+    }
 }
 
 @Composable
