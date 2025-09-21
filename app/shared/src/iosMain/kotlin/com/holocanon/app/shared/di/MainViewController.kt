@@ -4,7 +4,6 @@ import androidx.compose.ui.window.ComposeUIViewController
 import com.holocanon.app.shared.App
 import dev.zacsweers.metro.createGraphFactory
 
-
 private val iosDependencyGraph =
     createGraphFactory<IosDependencyGraph.Factory>().create(object : PlatformDependencies {})
 

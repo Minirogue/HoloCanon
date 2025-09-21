@@ -10,8 +10,8 @@ import platform.darwin.OS_LOG_TYPE_DEBUG
 import platform.darwin.OS_LOG_TYPE_ERROR
 import platform.darwin.OS_LOG_TYPE_FAULT
 import platform.darwin.OS_LOG_TYPE_INFO
-import platform.darwin._os_log_internal
 import platform.darwin.__dso_handle
+import platform.darwin._os_log_internal
 
 @Inject
 @ContributesIntoSet(AppScope::class)
@@ -33,7 +33,7 @@ class IosLoggerDelegate : LoggerDelegate {
             OS_LOG_DEFAULT,
             OS_LOG_TYPE_INFO,
             "%s",
-            "I/$tag: $message $throwable"
+            "I/$tag: $message $throwable",
         )
     }
 
@@ -43,7 +43,7 @@ class IosLoggerDelegate : LoggerDelegate {
             OS_LOG_DEFAULT,
             OS_LOG_TYPE_ERROR,
             "%s",
-            "W/$tag: $message $throwable"
+            "W/$tag: $message $throwable",
         )
     }
 
@@ -53,7 +53,7 @@ class IosLoggerDelegate : LoggerDelegate {
             OS_LOG_DEFAULT,
             OS_LOG_TYPE_FAULT,
             "%s",
-            "E/$tag: $message $throwable"
+            "E/$tag: $message $throwable",
         )
     }
 }
