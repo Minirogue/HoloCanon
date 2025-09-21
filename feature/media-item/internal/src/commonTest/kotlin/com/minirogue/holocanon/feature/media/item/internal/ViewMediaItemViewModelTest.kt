@@ -12,7 +12,6 @@ import com.minirogue.common.model.StarWarsMedia
 import com.minirogue.media.notes.model.CheckBoxNumber
 import com.minirogue.media.notes.model.MediaNotes
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import settings.model.CheckboxSetting
@@ -47,13 +46,13 @@ class ViewMediaItemViewModelTest : CoroutineTest {
         description = null,
         series = null,
         number = null,
-        publisher = Company.RANDOM_HOUSE
+        publisher = Company.RANDOM_HOUSE,
     )
     val dummyNotes = MediaNotes(isBox1Checked = true, isBox2Checked = false, isBox3Checked = true)
     val dummyCheckboxSettings = CheckboxSettings(
         checkbox1Setting = CheckboxSetting("1", false),
         checkbox2Setting = CheckboxSetting("2", true),
-        checkbox3Setting = CheckboxSetting("3", false)
+        checkbox3Setting = CheckboxSetting("3", false),
     )
 
     @BeforeTest
@@ -70,7 +69,7 @@ class ViewMediaItemViewModelTest : CoroutineTest {
             getNotesForMedia = getNotesForMedia,
             updateNotes = updateNotes,
             isNetworkAllowed = isNetworkAllowed,
-            getCheckboxSettings = getCheckboxSettings
+            getCheckboxSettings = getCheckboxSettings,
         )
     }
 
@@ -105,7 +104,7 @@ class ViewMediaItemViewModelTest : CoroutineTest {
         updateNotes.assertInvoked(
             expectedCheckboxNumber = CheckBoxNumber.CheckBox1,
             expectedMediaId = testItemId,
-            expectedNewValue = true
+            expectedNewValue = true,
         )
     }
 
@@ -120,7 +119,7 @@ class ViewMediaItemViewModelTest : CoroutineTest {
         updateNotes.assertInvoked(
             expectedCheckboxNumber = CheckBoxNumber.CheckBox1,
             expectedMediaId = testItemId,
-            expectedNewValue = false
+            expectedNewValue = false,
         )
     }
 
@@ -135,7 +134,7 @@ class ViewMediaItemViewModelTest : CoroutineTest {
         updateNotes.assertInvoked(
             expectedCheckboxNumber = CheckBoxNumber.CheckBox2,
             expectedMediaId = testItemId,
-            expectedNewValue = true
+            expectedNewValue = true,
         )
     }
 
@@ -150,7 +149,7 @@ class ViewMediaItemViewModelTest : CoroutineTest {
         updateNotes.assertInvoked(
             expectedCheckboxNumber = CheckBoxNumber.CheckBox2,
             expectedMediaId = testItemId,
-            expectedNewValue = false
+            expectedNewValue = false,
         )
     }
 
@@ -165,7 +164,7 @@ class ViewMediaItemViewModelTest : CoroutineTest {
         updateNotes.assertInvoked(
             expectedCheckboxNumber = CheckBoxNumber.CheckBox3,
             expectedMediaId = testItemId,
-            expectedNewValue = true
+            expectedNewValue = true,
         )
     }
 
@@ -180,7 +179,7 @@ class ViewMediaItemViewModelTest : CoroutineTest {
         updateNotes.assertInvoked(
             expectedCheckboxNumber = CheckBoxNumber.CheckBox3,
             expectedMediaId = testItemId,
-            expectedNewValue = false
+            expectedNewValue = false,
         )
     }
 }
