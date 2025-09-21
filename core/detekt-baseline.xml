@@ -3,6 +3,9 @@
   <ManuallySuppressedIssues/>
   <CurrentIssues>
     <ID>ConstructorParameterNaming:FullFilter.kt$FullFilter$val is_positive: Boolean</ID>
+    <ID>LongMethod:Migrate12to16Test.kt$Migrate12to16Test$@Test @Throws(IOException::class) fun migrate12To16ValidateData()</ID>
+    <ID>LongMethod:Migrate12to16Test.kt$Migrate12to16Test$@Test @Throws(IOException::class) fun migrate12To16ValidateJoinQuery()</ID>
+    <ID>LongMethod:MigrationTest.kt$MigrationTest$@Test @Throws(IOException::class) fun migrate13To14()</ID>
     <ID>MaximumLineLength:MediaDatabase.kt$MediaDatabase$ </ID>
     <ID>MaximumLineLength:RoomAndroidDependencyGraph.kt$RoomAndroidDependencyGraph.Companion.&lt;no name provided&gt;$ </ID>
     <ID>TooManyFunctions:DaoFilter.kt$DaoFilter</ID>

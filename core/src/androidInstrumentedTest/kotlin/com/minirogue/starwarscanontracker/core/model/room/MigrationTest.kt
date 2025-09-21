@@ -1,7 +1,6 @@
 package com.minirogue.starwarscanontracker.core.model.room
 
 import androidx.room.testing.MigrationTestHelper
-import androidx.sqlite.db.framework.FrameworkSQLiteOpenHelperFactory
 import androidx.test.platform.app.InstrumentationRegistry
 import com.holocanon.core.data.database.MediaDatabase
 import com.holocanon.core.di.RoomAndroidDependencyGraph.Companion.MIGRATE_11_12
@@ -13,12 +12,10 @@ import com.holocanon.core.di.RoomAndroidDependencyGraph.Companion.MIGRATE_16_17
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import java.io.IOException
 
-//@RunWith(AndroidJUnit4::class)
+// @RunWith(AndroidJUnit4::class)
 class MigrationTest {
-    private val TEST_DB = "test_database"
 
     @Rule
     @JvmField
@@ -32,7 +29,7 @@ class MigrationTest {
     @Throws(IOException::class)
     fun migrate11ToCurrent() {
         var db = testHelper.createDatabase(TEST_DB, 11).apply {
-            //use execSQL() to populate room
+            // use execSQL() to populate room
 
             close()
         }
@@ -54,7 +51,7 @@ class MigrationTest {
     @Throws(IOException::class)
     fun migrate11To12() {
         var db = testHelper.createDatabase(TEST_DB, 11).apply {
-            //use execSQL() to populate room
+            // use execSQL() to populate room
 
             close()
         }
@@ -66,7 +63,7 @@ class MigrationTest {
     @Throws(IOException::class)
     fun migrate12To13() {
         var db = testHelper.createDatabase(TEST_DB, 12).apply {
-            //use execSQL() to populate room
+            // use execSQL() to populate room
 
             close()
         }
@@ -78,7 +75,7 @@ class MigrationTest {
     @Throws(IOException::class)
     fun migrate14To15() {
         var db = testHelper.createDatabase(TEST_DB, 14).apply {
-            //use execSQL() to populate room
+            // use execSQL() to populate room
 
             close()
         }
@@ -90,7 +87,7 @@ class MigrationTest {
     @Throws(IOException::class)
     fun migrate15To16() {
         var db = testHelper.createDatabase(TEST_DB, 15).apply {
-            //use execSQL() to populate room
+            // use execSQL() to populate room
 
             close()
         }
@@ -102,7 +99,6 @@ class MigrationTest {
     @Throws(IOException::class)
     fun migrate16To17() {
         var db = testHelper.createDatabase(TEST_DB, 16).apply {
-
             close()
         }
 
@@ -114,25 +110,25 @@ class MigrationTest {
     fun migrate13To14() {
         var db = testHelper.createDatabase(TEST_DB, 13)
 
-        //Insert series entry
+        // Insert series entry
         val seriesId = 2
         val seriesTitle = "a series far far away"
         val seriesDescription = "a series from long long ago"
         val seriesImage = "url of series image"
         db.execSQL(
             "INSERT INTO series (id, title, description, image) " +
-                    "VALUES ($seriesId, '$seriesTitle', '$seriesDescription', '$seriesImage')"
+                "VALUES ($seriesId, '$seriesTitle', '$seriesDescription', '$seriesImage')",
         )
 
-        //Insert media_type entry
+        // Insert media_type entry
         val type = 5
         val typeText = "books or something"
         db.execSQL(
             "INSERT INTO media_types (id, text) " +
-                    "VALUES ($type, '$typeText')"
+                "VALUES ($type, '$typeText')",
         )
 
-        //Insert media_items entry
+        // Insert media_items entry
         val itemId = 20
         val title = "an interesting title"
         val author = "a person"
@@ -141,26 +137,25 @@ class MigrationTest {
         val image = "http://www.url.com/path/to/image"
         val date = "11/11/1111"
         val timeline = -1.25
-        val amazon_link = "url to buy"
-        val amazon_stream = "url to stream"
+        val amazonLink = "url to buy"
+        val amazonStream = "url to stream"
         db.execSQL(
             "INSERT INTO media_items (id, title, series, author, type, description, review, image," +
-                    " date, timeline, amazon_link, amazon_stream) " +
-                    "VALUES ($itemId, '$title', $seriesId, '$author', $type, '$description', '$review', '$image'," +
-                    " '$date', $timeline, '$amazon_link', '$amazon_stream')"
+                " date, timeline, amazon_link, amazon_stream) " +
+                "VALUES ($itemId, '$title', $seriesId, '$author', $type, '$description', '$review', '$image'," +
+                " '$date', $timeline, '$amazonLink', '$amazonStream')",
         )
 
-        //Insert media_notes entry
+        // Insert media_notes entry
         val wantToWatchRead = 1
         val watchedOrRead = 0
         val owned = 1
         db.execSQL(
             "INSERT INTO media_notes (mediaId, want_to_watch_or_read, watched_or_read, owned) " +
-                    "VALUES ($itemId, $wantToWatchRead, $watchedOrRead, $owned)"
+                "VALUES ($itemId, $wantToWatchRead, $watchedOrRead, $owned)",
         )
 
         db.close()
-
 
         db = testHelper.runMigrationsAndValidate(TEST_DB, 14, true, MIGRATE_13_14)
 
@@ -176,8 +171,8 @@ class MigrationTest {
         assertEquals(cursor.getString(cursor.getColumnIndex("image")), image)
         assertEquals(cursor.getString(cursor.getColumnIndex("date")), date)
         assertEquals(cursor.getDouble(cursor.getColumnIndex("timeline")), timeline, .0001)
-        assertEquals(cursor.getString(cursor.getColumnIndex("amazon_link")), amazon_link)
-        assertEquals(cursor.getString(cursor.getColumnIndex("amazon_stream")), amazon_stream)
+        assertEquals(cursor.getString(cursor.getColumnIndex("amazon_link")), amazonLink)
+        assertEquals(cursor.getString(cursor.getColumnIndex("amazon_stream")), amazonStream)
 
         cursor = db.query("SELECT * FROM media_notes WHERE mediaId=$itemId")
         cursor.moveToPosition(0)
@@ -185,5 +180,9 @@ class MigrationTest {
         assertEquals(cursor.getInt(cursor.getColumnIndex("want_to_watch_or_read")), wantToWatchRead)
         assertEquals(cursor.getInt(cursor.getColumnIndex("watched_or_read")), watchedOrRead)
         assertEquals(cursor.getInt(cursor.getColumnIndex("owned")), owned)
+    }
+
+    companion object {
+        private const val TEST_DB = "test_database"
     }
 }

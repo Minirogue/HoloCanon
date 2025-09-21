@@ -245,7 +245,7 @@ interface IosDependencyGraph : AppDependencyGraph {
         mediaItemNavContributor,
         mediaListNavContributor,
         seriesNavContributor,
-        settingsNavContributor
+        settingsNavContributor,
     )
 
     @Provides
@@ -343,7 +343,9 @@ interface IosDependencyGraph : AppDependencyGraph {
             ).setDriver(BundledSQLiteDriver())
                 .setQueryCoroutineContext(Dispatchers.IO)
                 .build()
-        } else error("Document directory is null")
+        } else {
+            error("Document directory is null")
+        }
     }
 
     @DependencyGraph.Factory
