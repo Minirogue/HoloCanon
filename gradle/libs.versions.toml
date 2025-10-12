@@ -15,7 +15,7 @@ kotlinxIo = "0.8.0"
 ktor = "3.3.1"
 serialization = "1.9.0"
 room = "2.8.2"
-sqlite = "2.6.0"
+sqlite = "2.6.1"
 
 [libraries]
 android-material = { group = "com.google.android.material", name = "material", version.ref = "androidMaterial" }
