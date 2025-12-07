@@ -25,6 +25,12 @@ jobs:
         with:
           java-version: '21'
           distribution: 'adopt'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v5
+        with:
+          build-scan-publish: true
+          build-scan-terms-of-use-url: 'https://gradle.com/terms-of-service'
+          build-scan-terms-of-use-agree: 'yes'
       - name: Generate the API data
         run: chmod +x holocanon/gradlew && holocanon/gradlew -p holocanon :api:run
       - name: Move api to io
