@@ -6,67 +6,74 @@ import com.holocanon.core.testing.fakes.FakeDaoFilter
 import com.holocanon.library.filters.testing.fakes.FakeGetPermanentFilters
 import filters.model.FilterType
 import filters.model.MediaFilter
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class GetActiveFiltersImplTest {
 
-    private lateinit var activeFlow: MutableStateFlow<List<FullFilter>>
-    private lateinit var permanentFlow: MutableStateFlow<List<MediaFilter>>
     private lateinit var daoFilter: FakeDaoFilter
     private lateinit var getPermanentFilters: FakeGetPermanentFilters
     private lateinit var getActiveFilters: GetActiveFiltersImpl
 
     @BeforeTest
     fun setup() {
-        activeFlow = MutableStateFlow(emptyList())
-        permanentFlow = MutableStateFlow(emptyList())
-        daoFilter = FakeDaoFilter(activeFilters = activeFlow)
-        getPermanentFilters = FakeGetPermanentFilters(permanentFlow)
+        daoFilter = FakeDaoFilter()
+        getPermanentFilters = FakeGetPermanentFilters()
         getActiveFilters = GetActiveFiltersImpl(daoFilter, getPermanentFilters)
     }
 
     @Test
     fun `invoke returns active filters from dao converted to MediaFilter when no permanent filters`() = runTest {
         // Arrange
-        activeFlow.value = listOf(
-            fullFilter(id = 1, name = "MediaType1", filterType = FilterType.MediaType),
-            fullFilter(id = 2, name = "Checkbox1", filterType = FilterType.CheckboxOne),
+        daoFilter.setActiveFilters(
+            flowOf(
+                listOf(
+                    fullFilter(id = 1, name = "MediaType1", filterType = FilterType.MediaType),
+                    fullFilter(id = 2, name = "Checkbox1", filterType = FilterType.CheckboxOne),
+                ),
+            ),
         )
-        permanentFlow.value = emptyList()
+        getPermanentFilters.setPermanentFilters(flowOf(emptyList()))
 
         // Act
         val result = getActiveFilters().first()
 
         // Assert
-        assertEquals(2, result.size)
-        assertEquals(1, result[0].id)
-        assertEquals("MediaType1", result[0].name)
-        assertEquals(FilterType.MediaType, result[0].filterType)
-        assertEquals(2, result[1].id)
-        assertEquals("Checkbox1", result[1].name)
-        assertEquals(FilterType.CheckboxOne, result[1].filterType)
+        assertEquals(
+            listOf(
+                MediaFilter(1, "MediaType1", FilterType.MediaType, isPositive = true, isActive = true),
+                MediaFilter(2, "Checkbox1", FilterType.CheckboxOne, isPositive = true, isActive = true),
+            ),
+            result,
+        )
     }
 
     @Test
     fun `invoke excludes active filters that are in permanent filters`() = runTest {
         // Arrange
-        activeFlow.value = listOf(
-            fullFilter(id = 1, name = "MediaType1", filterType = FilterType.MediaType),
-            fullFilter(id = 2, name = "Checkbox1", filterType = FilterType.CheckboxOne),
+        daoFilter.setActiveFilters(
+            flowOf(
+                listOf(
+                    fullFilter(id = 1, name = "MediaType1", filterType = FilterType.MediaType),
+                    fullFilter(id = 2, name = "Checkbox1", filterType = FilterType.CheckboxOne),
+                ),
+            ),
         )
-        permanentFlow.value = listOf(
-            MediaFilter(
-                id = 1,
-                name = "MediaType1",
-                filterType = FilterType.MediaType,
-                isPositive = true,
-                isActive = true,
+        getPermanentFilters.setPermanentFilters(
+            flowOf(
+                listOf(
+                    MediaFilter(
+                        id = 1,
+                        name = "MediaType1",
+                        filterType = FilterType.MediaType,
+                        isPositive = true,
+                        isActive = true,
+                    ),
+                ),
             ),
         )
 
@@ -74,37 +81,42 @@ class GetActiveFiltersImplTest {
         val result = getActiveFilters().first()
 
         // Assert
-        assertEquals(1, result.size)
-        assertEquals(2, result[0].id)
-        assertEquals("Checkbox1", result[0].name)
+        assertEquals(
+            listOf(MediaFilter(2, "Checkbox1", FilterType.CheckboxOne, isPositive = true, isActive = true)),
+            result,
+        )
     }
 
     @Test
     fun `invoke returns empty list when dao has no active filters`() = runTest {
         // Arrange
-        activeFlow.value = emptyList()
-        permanentFlow.value = emptyList()
+        daoFilter.setActiveFilters(flowOf(emptyList()))
+        getPermanentFilters.setPermanentFilters(flowOf(emptyList()))
 
         // Act
         val result = getActiveFilters().first()
 
         // Assert
-        assertTrue(result.isEmpty())
+        assertEquals(emptyList(), result)
     }
 
     @Test
     fun `invoke returns empty list when all active filters are permanent`() = runTest {
         // Arrange
-        activeFlow.value = listOf(
-            fullFilter(id = 1, name = "MediaType1", filterType = FilterType.MediaType),
+        daoFilter.setActiveFilters(
+            flowOf(listOf(fullFilter(id = 1, name = "MediaType1", filterType = FilterType.MediaType))),
         )
-        permanentFlow.value = listOf(
-            MediaFilter(
-                id = 1,
-                name = "MediaType1",
-                filterType = FilterType.MediaType,
-                isPositive = true,
-                isActive = true,
+        getPermanentFilters.setPermanentFilters(
+            flowOf(
+                listOf(
+                    MediaFilter(
+                        id = 1,
+                        name = "MediaType1",
+                        filterType = FilterType.MediaType,
+                        isPositive = true,
+                        isActive = true,
+                    ),
+                ),
             ),
         )
 
@@ -112,51 +124,7 @@ class GetActiveFiltersImplTest {
         val result = getActiveFilters().first()
 
         // Assert
-        assertTrue(result.isEmpty())
-    }
-
-    @Test
-    fun `invoke returns active filter when one active and no permanent filters`() = runTest {
-        // Arrange
-        activeFlow.value = listOf(fullFilter(id = 1, name = "A", filterType = FilterType.MediaType))
-        permanentFlow.value = emptyList()
-        val mediaFilterA = MediaFilter(1, "A", FilterType.MediaType, isPositive = true, isActive = true)
-
-        // Act
-        val result = getActiveFilters().first()
-
-        // Assert
-        assertEquals(listOf(mediaFilterA), result)
-    }
-
-    @Test
-    fun `invoke returns empty list when active filter is in permanent filters`() = runTest {
-        // Arrange
-        val mediaFilterA = MediaFilter(1, "A", FilterType.MediaType, isPositive = true, isActive = true)
-        activeFlow.value = listOf(fullFilter(id = 1, name = "A", filterType = FilterType.MediaType))
-        permanentFlow.value = listOf(mediaFilterA)
-
-        // Act
-        val result = getActiveFilters().first()
-
-        // Assert
-        assertTrue(result.isEmpty())
-    }
-
-    @Test
-    fun `invoke returns both active filters when two active and no permanent filters`() = runTest {
-        // Arrange
-        activeFlow.value = listOf(
-            fullFilter(id = 1, name = "A", filterType = FilterType.MediaType),
-            fullFilter(id = 2, name = "B", filterType = FilterType.Series),
-        )
-        permanentFlow.value = emptyList()
-
-        // Act
-        val result = getActiveFilters().first()
-
-        // Assert
-        assertEquals(2, result.size)
+        assertEquals(emptyList(), result)
     }
 
     private fun fullFilter(

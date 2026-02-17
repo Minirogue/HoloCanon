@@ -7,20 +7,24 @@ import com.holocanon.core.data.pojo.FullFilter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-class FakeDaoFilter(
-    private val activeFilters: Flow<List<FullFilter>>,
-) : DaoFilter {
+class FakeDaoFilter : DaoFilter {
+
+    private var activeFilters: Flow<List<FullFilter>> = flowOf(emptyList())
+
+    fun setActiveFilters(flow: Flow<List<FullFilter>>) {
+        activeFilters = flow
+    }
+
     override fun getActiveFilters(): Flow<List<FullFilter>> = activeFilters
 
-    override suspend fun insert(filterTypeDto: FilterTypeDto): Long = 0L
-    override suspend fun update(filterTypeDto: FilterTypeDto) = Unit
-    override fun getCheckBoxFilterTypes(): Flow<List<FilterTypeDto>> = flowOf(emptyList())
-    override fun getAllFilterTypes(): Flow<List<FilterTypeDto>> = flowOf(emptyList())
-    override suspend fun getAllFilterTypesNonLive(): List<FilterTypeDto> = emptyList()
-    override suspend fun getFilterType(id: Int): FilterTypeDto =
-        FilterTypeDto(typeId = id, isFilterPositive = true, text = "")
-    override suspend fun insert(filterObjectDto: FilterObjectDto) = Unit
-    override suspend fun update(filterObjectDto: FilterObjectDto) = Unit
-    override fun getAllFilters(): Flow<List<FullFilter>> = flowOf(emptyList())
-    override suspend fun getFilter(filterId: Int, typeId: Int): FullFilter? = null
+    override suspend fun insert(filterTypeDto: FilterTypeDto): Long = TODO()
+    override suspend fun update(filterTypeDto: FilterTypeDto) = TODO()
+    override fun getCheckBoxFilterTypes(): Flow<List<FilterTypeDto>> = TODO()
+    override fun getAllFilterTypes(): Flow<List<FilterTypeDto>> = TODO()
+    override suspend fun getAllFilterTypesNonLive(): List<FilterTypeDto> = TODO()
+    override suspend fun getFilterType(id: Int): FilterTypeDto = TODO()
+    override suspend fun insert(filterObjectDto: FilterObjectDto) = TODO()
+    override suspend fun update(filterObjectDto: FilterObjectDto) = TODO()
+    override fun getAllFilters(): Flow<List<FullFilter>> = TODO()
+    override suspend fun getFilter(filterId: Int, typeId: Int): FullFilter? = TODO()
 }
