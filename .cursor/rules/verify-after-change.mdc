@@ -1,0 +1,16 @@
+---
+description: Run detekt, lint, and tests after every code change. Use when you have edited project code and need to verify the change.
+alwaysApply: true
+---
+
+# Verify After Change
+
+After making any code change in this project, run the full verification suite:
+
+```bash
+./gradlew assembleDebug testDebugUnitTest jvmTest :api:test detekt lint --continue 2>&1 | tail -120
+```
+
+- Run this command **after** completing edits (e.g. after fixing a bug, adding a feature, or refactoring).
+- If the command fails, fix any reported issues (detekt/lint violations or test failures) before considering the change done.
+- Prefer running from the project root (`HoloCanon`).
