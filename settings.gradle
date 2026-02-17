@@ -32,6 +32,7 @@ rootProject.name = "holocanon"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include ':core'
+include ':core:testing'
 
 include ':api'
 
@@ -66,6 +67,7 @@ include ':library:file-picker:public'
 include ':library:filters:internal'
 include ':library:filters:public'
 include ':library:filters:test-bindings'
+include ':library:filters:testing'
 include ':library:filter-ui:public'
 include ':library:global-notification:internal'
 include ':library:global-notification:public'

@@ -1,0 +1,14 @@
+plugins {
+    id "minirogue.multiplatform.library"
+}
+
+minirogue {
+    platforms {
+        android()
+        ios()
+    }
+}
+
+kotlin.sourceSets.commonMain.dependencies {
+    api projects.core
+}
