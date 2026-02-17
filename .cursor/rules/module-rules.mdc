@@ -3,4 +3,6 @@ description: When working with Gradle modules
 globs: ["**/build.gradle","**/build.gradle.kts","**/settings.gradle","**/settings.gradle.kts"]
 alwaysApply: false
 ---
-All gradle modules should follow one of the following patterns, where MODULE_NAME is replaced with the specific name for that module: feature/MODULE_NAME/public, feature/MODULE_NAME/internal, feature/MODULE_NAME/test, library/MODULE_NAME/public, library/MODULE_NAME/internal, or library/MODULE_NAME/test
+All gradle modules should follow one of the following patterns, where MODULE_NAME is replaced with the specific name for that module: feature/MODULE_NAME/public, feature/MODULE_NAME/internal, feature/MODULE_NAME/test, library/MODULE_NAME/public, library/MODULE_NAME/internal, or library/MODULE_NAME/test or library/MODULE_NAME/testing.
+
+A testing module that provides test doubles for another module should use the same platform configuration as the module it supports (e.g. use `jvm()` if that module runs tests on JVM, not `android()`).

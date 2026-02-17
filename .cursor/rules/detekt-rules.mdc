@@ -1,0 +1,13 @@
+---
+description: Detekt and static analysis.
+globs: ["**/detekt*", "**/*.kt"]
+alwaysApply: false
+---
+
+# Detekt baseline
+- Do not create or edit detekt baseline XML by hand. Use the Gradle task to generate or update baselines:
+  ```bash
+  ./gradlew :<module>:detektBaseline
+  ```
+  Example: `./gradlew :core:testing:detektBaseline`
+- For issues that will not be fixed (e.g. necessary interface implementations), add them to the module’s detekt baseline via the command above instead of using `@Suppress` in code.

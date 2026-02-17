@@ -1,8 +1,22 @@
 ---
-description: 
-globs: 
+description: Test structure, assertions, and test doubles.
+globs: ["**/*Test*.kt", "**/commonTest/**", "**/testing/**"]
 alwaysApply: false
 ---
-For test doubles, prefer using stubs or fakes instead of mocks when an interface is available.
-Place test doubles in a test module associated to the module where the interface of that double is located.
+
+# Test doubles
+- Prefer stubs or fakes over mocks when an interface is available.
+- Place test doubles in a test module associated with the module where the interface is located (e.g. :library:filters:public interfaces → :library:filters:testing).
+- Have fakes accept data via setter functions rather than constructor parameters when that keeps tests clear.
+- Implement only what tests need; use `TODO()` for unused interface methods in fakes.
+
+# Test structure
+- Give each test exactly one Arrange, one Act, and one Assert; annotate with `// Arrange`, `// Act`, and `// Assert`.
+- Set up test doubles and the class under test in a `@BeforeTest` setup; set data in fakes inside each test’s Arrange (e.g. via setters), not only at construction.
+- Prefer local variables over shared fields; create flows and test data in each test’s Arrange unless they must be shared.
+- Use `flowOf(...)` when the flow is not updated after Arrange; use `MutableStateFlow` only when the test mutates the flow after setup.
+
+# Assertions
+- Assert list equality with `assertEquals(expectedList, result)` instead of asserting on length and elements separately.
+- Put the expected value directly in the assertion; avoid an intermediate `expected` variable when it only wraps that value.
 
