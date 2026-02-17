@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+For test doubles, prefer using stubs or fakes instead of mocks when an interface is available.
+Place test doubles in a test module associated to the module where the interface of that double is located.
+
