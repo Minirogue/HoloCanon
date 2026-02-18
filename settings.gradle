@@ -14,6 +14,9 @@ pluginManagement {
         maven { url = "https://jitpack.io" }
     }
 }
+plugins {
+    id("org.jetbrains.kotlinx.kover.aggregation") version "0.9.7"
+}
 
 dependencyResolutionManagement {
     repositories {
@@ -26,6 +29,11 @@ buildCache {
     local {
         directory = new File(rootDir, '.gradle/build-cache')
     }
+}
+
+kover {
+    // -Pkover
+    enableCoverage()
 }
 
 rootProject.name = "holocanon"
