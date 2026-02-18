@@ -12,7 +12,7 @@ import com.minirogue.media.notes.usecase.GetNotesForMedia
 import com.minirogue.media.notes.usecase.UpdateCheckValue
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
-import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.AssistedInject
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import settings.model.CheckboxSettings
@@ -24,7 +24,7 @@ internal data class ViewMediaItemState(
     val mediaNotes: MediaNotes,
 )
 
-@Inject
+@AssistedInject
 internal class ViewMediaItemViewModel(
     @Assisted itemId: Long,
     getMedia: GetMedia,
