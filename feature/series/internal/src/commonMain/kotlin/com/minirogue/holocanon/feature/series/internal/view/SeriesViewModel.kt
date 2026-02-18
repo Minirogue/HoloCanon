@@ -14,7 +14,7 @@ import com.minirogue.series.usecase.GetSeriesIdFromName
 import com.minirogue.series.usecase.SetCheckboxForSeries
 import dev.zacsweers.metro.Assisted
 import dev.zacsweers.metro.AssistedFactory
-import dev.zacsweers.metro.Inject
+import dev.zacsweers.metro.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.launchIn
@@ -37,7 +37,7 @@ internal data class SeriesState(
     )
 }
 
-@Inject
+@AssistedInject
 internal class SeriesViewModel(
     @Assisted seriesName: String,
     getSeries: GetSeries,
