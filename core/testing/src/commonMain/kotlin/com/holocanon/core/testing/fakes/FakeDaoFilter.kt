@@ -10,9 +10,14 @@ import kotlinx.coroutines.flow.flowOf
 class FakeDaoFilter : DaoFilter {
 
     private var activeFilters: Flow<List<FullFilter>> = flowOf(emptyList())
+    private var getFilterResult: FullFilter? = null
 
     fun setActiveFilters(flow: Flow<List<FullFilter>>) {
         activeFilters = flow
+    }
+
+    fun setGetFilterResult(filter: FullFilter?) {
+        getFilterResult = filter
     }
 
     override fun getActiveFilters(): Flow<List<FullFilter>> = activeFilters
@@ -26,5 +31,5 @@ class FakeDaoFilter : DaoFilter {
     override suspend fun insert(filterObjectDto: FilterObjectDto) = TODO()
     override suspend fun update(filterObjectDto: FilterObjectDto) = TODO()
     override fun getAllFilters(): Flow<List<FullFilter>> = TODO()
-    override suspend fun getFilter(filterId: Int, typeId: Int): FullFilter? = TODO()
+    override suspend fun getFilter(filterId: Int, typeId: Int): FullFilter? = getFilterResult
 }
