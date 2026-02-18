@@ -12,12 +12,13 @@ After making any code change in this project, run the full verification suite:
 ```
 
 - Run this command **after** completing edits (e.g. after fixing a bug, adding a feature, or refactoring).
+- **Always use this full verification command**; do not substitute a partial command (e.g. running only one test class or module).
 - If the command fails, fix any reported issues (detekt/lint violations or test failures) before considering the change done.
 - Prefer running from the project root (`HoloCanon`).
 
 # Detekt
 
-The detekt task can auto-fix certain formatting issues (e.g. import order). **Run detekt twice** before attempting to fix a failure manually; the second run may pass after auto-fixes from the first run.
+The detekt task can auto-fix certain formatting issues (e.g. import order). **Do not attempt to fix detekt issues before running detekt twice**: run detekt a second time first; only fix manually if it still fails after the second run.
 
 ```bash
 ./gradlew detekt 2>&1; ./gradlew detekt 2>&1

@@ -4,7 +4,16 @@ globs: ["**/detekt*", "**/*.kt"]
 alwaysApply: false
 ---
 
+# Kotlin style
+
+- Do not use the non-null assertion operator (`!!`) in code. Use safe calls, `requireNotNull`/`checkNotNull`, or explicit null checks instead.
+
+# Suppressions
+
+- Do not suppress detekt issues with `@Suppress` in code. Fix, remove, or baseline the offenses: fix the code, remove the offending code, or add the finding to the module's detekt baseline via the Gradle task.
+
 # Detekt baseline
+
 - Do not create or edit detekt baseline XML by hand. Use the Gradle task to generate or update baselines:
   ```bash
   ./gradlew :<module>:detektBaseline
