@@ -1,4 +1,5 @@
-import com.holocanon.library.settings.usecase.GetCheckboxSettings
+package com.holocanon.library.settings.usecase
+
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import settings.model.CheckboxSettings

@@ -17,6 +17,8 @@ alwaysApply: false
 - Use `flowOf(...)` when the flow is not updated after Arrange; use `MutableStateFlow` only when the test mutates the flow after setup.
 
 # Assertions
+
 - Assert list equality with `assertEquals(expectedList, result)` instead of asserting on length and elements separately.
 - Put the expected value directly in the assertion; avoid an intermediate `expected` variable when it only wraps that value.
+- Do not use sorting logic (e.g. `.sortedBy`) within test assertions; structure the test so the expected order is deterministic. Use `assertNotNull` and then the value when the result may be null.
 
