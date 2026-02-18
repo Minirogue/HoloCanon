@@ -16,6 +16,7 @@ kotlin.sourceSets.commonMain.dependencies {
 
     implementation libs.coil.compose
     implementation libs.compose.lifecycle
+    implementation libs.compose.material.icons
     implementation libs.compose.resources
     implementation projects.core
     implementation projects.feature.loading.public
