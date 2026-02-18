@@ -8,7 +8,7 @@ import dev.zacsweers.metro.Provides
 @ContributesTo(AppScope::class)
 interface SettingsAndroidDependencyGraph {
     @Provides
-    fun provideDataStorePath(application: Application): SettingsDataStorePath {
+    fun provideSettingsDataStorePath(application: Application): SettingsDataStorePath {
         return SettingsDataStorePath(
             application
                 .filesDir

@@ -8,7 +8,7 @@ import dev.zacsweers.metro.Provides
 @ContributesTo(AppScope::class)
 interface SortingAndroidDependencyGraph {
     @Provides
-    fun provideDataStorePath(application: Application): SortStyleDataStorePath {
+    fun provideSortStyleDataStorePath(application: Application): SortStyleDataStorePath {
         return SortStyleDataStorePath(
             application
                 .filesDir
