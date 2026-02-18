@@ -1,25 +1,26 @@
 [versions]
+andoidxActivityCompose = "1.12.4"
 androidMaterial = "1.13.0"
 androidxTest = "1.7.0"
 appCompat = "1.7.1"
-buildLogic = "0.1.13"
+buildLogic = "0.2.0"
+coilCompose = "3.3.0"
 commonsCSV = "1.14.1"
 composeLifecycle = "2.9.6"
-composeNavigation = "2.9.2"
 composeMaterialIcons = "1.7.3"
-coilCompose = "3.3.0"
+composeNavigation = "2.9.2"
 coroutines = "1.10.2"
 datastore = "1.2.0"
 junit = "4.13.2"
 kotlinxIo = "0.8.2"
 ktor = "3.4.0"
-serialization = "1.10.0"
 room = "2.8.4"
+serialization = "1.10.0"
 sqlite = "2.6.2"
 
 [libraries]
 android-material = { group = "com.google.android.material", name = "material", version.ref = "androidMaterial" }
-androidx-activity-compose = { group = "androidx.activity", name = "activity-compose" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "andoidxActivityCompose" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appCompat" }
 androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTest" }
@@ -28,8 +29,8 @@ coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref 
 coil-ktor = { group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.ref = "coilCompose" }
 commons-csv = { group = "org.apache.commons", name = "commons-csv", version.ref = "commonsCSV" }
 compose-lifecycle = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "composeLifecycle" }
-compose-navigation = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
 compose-material-icons = { group = "org.jetbrains.compose.material", name = "material-icons-core", version.ref = "composeMaterialIcons" }
+compose-navigation = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "composeNavigation" }
 compose-resources = { group = "org.jetbrains.compose.components", name = "components-resources" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 kotlin-test-annotations-common = { module = "org.jetbrains.kotlin:kotlin-test-annotations-common" }
@@ -40,11 +41,11 @@ kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 kotlinx-io = { group = "org.jetbrains.kotlinx", name = "kotlinx-io-core", version.ref = "kotlinxIo" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 kotlinx-serialization-json-io = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json-io", version.ref = "serialization" }
-ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
+ktor-client-contentNegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-client-darwin = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "ktor" }
 ktor-client-jvm = { group = "io.ktor", name = "ktor-client-java", version.ref = "ktor" }
-ktor-client-contentNegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 # TODO need to find a way to make sure this is in sync with version from plugin
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }

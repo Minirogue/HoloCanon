@@ -8,7 +8,7 @@ alwaysApply: true
 After making any code change in this project, run the full verification suite:
 
 ```bash
-./gradlew assembleDebug testDebugUnitTest jvmTest :api:test detekt lint --continue 2>&1 | tail -120
+./gradlew assembleDebug testAndroidHostTest jvmTest :api:test detekt lint --continue 2>&1 | tail -120
 ```
 
 - Run this command **after** completing edits (e.g. after fixing a bug, adding a feature, or refactoring).
