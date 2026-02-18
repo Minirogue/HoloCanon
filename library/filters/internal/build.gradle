@@ -23,4 +23,5 @@ kotlin.sourceSets.commonTest.dependencies {
     implementation projects.library.commonTest.testing
     implementation projects.library.coroutineExt.testing
     implementation projects.library.filters.testing
+    implementation projects.library.settings.testing
 }

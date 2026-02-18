@@ -1,11 +1,11 @@
 package com.minirogue.holocanon.feature.media.item.internal
 
-import FakeGetCheckboxSettings
-import FakeIsNetworkAllowed
 import com.holocanon.library.coroutine.ext.CoroutineTest
 import com.holocanon.library.media.item.usecase.FakeGetMedia
 import com.holocanon.library.media.notes.usecase.FakeGetNotesForMedia
 import com.holocanon.library.media.notes.usecase.FakeUpdateCheckValue
+import com.holocanon.library.settings.usecase.FakeGetCheckboxSettings
+import com.holocanon.library.settings.usecase.FakeIsNetworkAllowed
 import com.minirogue.common.model.Company
 import com.minirogue.common.model.MediaType
 import com.minirogue.common.model.StarWarsMedia
