@@ -23,12 +23,12 @@ jobs:
           build-scan-terms-of-use-url: 'https://gradle.com/terms-of-service'
           build-scan-terms-of-use-agree: 'yes'
       - name: Gradle build and checks
-        run: ./gradlew assembleDebug testDebugUnitTest jvmTest :api:test detekt lint -Pkover koverHtmlReport --continue && ./gradlew --stop
+        run: ./gradlew createAndroidVersionCode && ./gradlew assembleDebug testAndroidHostTest jvmTest :api:test detekt lint -Pkover koverHtmlReport --continue && ./gradlew --stop
       - uses: actions/upload-artifact@v4
         with:
           name: problems and reports
           path: |
             **/build/reports/problems/problems-report.html
-            **/build/reports/tests/testDebugUnitTest/index.html
+            **/build/reports/tests/testAndroidHostTest/index.html
             **/build/reports/kover/html/index.html
           if-no-files-found: ignore

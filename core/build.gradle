@@ -23,7 +23,7 @@ kotlin.sourceSets.commonMain.dependencies {
     implementation projects.library.logger.public
 }
 
-kotlin.sourceSets.androidInstrumentedTest.dependencies {
+kotlin.sourceSets.androidDeviceTest.dependencies {
     implementation libs.androidx.test.runner
     implementation libs.androidx.test.core
     implementation libs.room.testing
