@@ -24,7 +24,7 @@ jobs:
       - name: Configure git
         run: git config --global user.name "Shawn Witte" && git config --global user.email "shawn.l.witte@gmail.com"
       - name: Detekt Lint
-        run: (./gradlew detekt lint --continue || true) && ./gradlew --stop
+        run: (./gradlew createAndroidVersionCode && ./gradlew detekt lint --continue || true) && ./gradlew --stop
       - name: Commit and push automated fixes
         run: |
           if [ -z "$(git status --porcelain)" ]; then
