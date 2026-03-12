@@ -1,5 +1,5 @@
 [versions]
-andoidxActivityCompose = "1.12.4"
+andoidxActivityCompose = "1.13.0"
 androidMaterial = "1.13.0"
 androidxTest = "1.7.0"
 appCompat = "1.7.1"
