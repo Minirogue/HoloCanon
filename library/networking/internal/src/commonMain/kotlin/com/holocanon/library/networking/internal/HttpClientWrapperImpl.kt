@@ -20,9 +20,7 @@ class HttpClientWrapperImpl internal constructor(
     private val logger: HoloLogger,
 ) : HttpClientWrapper {
     override suspend fun <T> perform(httpOperation: suspend HttpClient.() -> T): HoloResult<T> =
-        httpClientProvider().use {
-                client
-            ->
+        httpClientProvider().use { client, ->
             try {
                 val result = client.httpOperation()
                 HoloResult.Success(result)

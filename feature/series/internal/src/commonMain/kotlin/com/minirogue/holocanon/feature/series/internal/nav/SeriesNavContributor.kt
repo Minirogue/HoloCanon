@@ -16,7 +16,7 @@ import dev.zacsweers.metro.Inject
 
 @Inject
 @ContributesIntoSet(AppScope::class)
-class SeriesNavContributor internal constructor(private val viewModelFactory: SeriesViewModel.Factory,) :
+class SeriesNavContributor internal constructor(private val viewModelFactory: SeriesViewModel.Factory) :
     NavContributor() {
     override fun invoke(
         navGraphBuilder: NavGraphBuilder,

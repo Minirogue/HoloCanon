@@ -35,7 +35,7 @@ private const val THEME_SETTING_KEY = "theme setting"
 private const val TAG = "SettingsRepo"
 
 @Inject
-class SettingsRepo(private val dataStore: SettingsDataStore, private val logger: HoloLogger,) { // TODO add instrumented tests for datastore usage
+class SettingsRepo(private val dataStore: SettingsDataStore, private val logger: HoloLogger) { // TODO add instrumented tests for datastore usage
     private val userFilter1ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_1_ACTIVE_KEY)
     private val userFilter2ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_2_ACTIVE_KEY)
     private val userFilter3ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_3_ACTIVE_KEY)

@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.combine
 
 @Inject
 @ContributesBinding(AppScope::class)
-class GetActiveFiltersImpl(private val daoFilter: DaoFilter, private val getPermanentFilters: GetPermanentFilters,) :
+class GetActiveFiltersImpl(private val daoFilter: DaoFilter, private val getPermanentFilters: GetPermanentFilters) :
     GetActiveFilters {
     override fun invoke(): Flow<List<MediaFilter>> = combine(
         daoFilter.getActiveFilters(),

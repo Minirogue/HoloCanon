@@ -14,7 +14,7 @@ const val SORT_STYLE_DATASTORE_FILE_NAME = "datastore/sort-style.preferences_pb"
 interface SortingDependencyGraph {
     @Provides
     @SingleIn(AppScope::class)
-    fun provideDataStore(sortStyleDataStorePath: SortStyleDataStorePath,): SortingDataStore {
+    fun provideDataStore(sortStyleDataStorePath: SortStyleDataStorePath): SortingDataStore {
         val datastore = PreferenceDataStoreFactory.createWithPath(
             produceFile = { sortStyleDataStorePath.pathAsString.toPath() },
         )

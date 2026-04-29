@@ -37,7 +37,7 @@ class GetMediaListWithNotesImpl(
     @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
     override fun invoke(): Flow<List<MediaAndNotes>> = getActiveFilters().combine(getPermanentFilterSettings()) {
             filterList,
-            permanentFilters
+            permanentFilters,
         ->
         convertFiltersToQuery(filterList, permanentFilters)
     }.flatMapLatest { query ->

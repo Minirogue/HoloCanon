@@ -15,7 +15,7 @@ import internal.viewmodel.MediaListViewModel
 
 @Inject
 @ContributesIntoSet(AppScope::class)
-class MediaListNavContributor internal constructor(private val viewModelProvider: Provider<MediaListViewModel>,) :
+class MediaListNavContributor internal constructor(private val viewModelProvider: Provider<MediaListViewModel>) :
     NavContributor() {
     override fun invoke(
         navGraphBuilder: NavGraphBuilder,

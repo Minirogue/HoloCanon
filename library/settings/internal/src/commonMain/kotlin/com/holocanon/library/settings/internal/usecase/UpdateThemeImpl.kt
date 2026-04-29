@@ -9,7 +9,7 @@ import settings.usecase.UpdateTheme
 
 @Inject
 @ContributesBinding(AppScope::class)
-class UpdateThemeImpl(private val settingsRepo: SettingsRepo,) : UpdateTheme {
+class UpdateThemeImpl(private val settingsRepo: SettingsRepo) : UpdateTheme {
     override suspend fun invoke(newTheme: Theme) {
         settingsRepo.updateTheme(newTheme)
     }

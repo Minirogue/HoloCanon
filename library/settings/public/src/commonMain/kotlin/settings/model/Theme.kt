@@ -3,7 +3,7 @@ package settings.model
 enum class Theme {
     Force,
     Mace,
-    AndroidDynamic
+    AndroidDynamic,
 }
 
 expect fun Theme.isAvailableOnPlatform(): Boolean

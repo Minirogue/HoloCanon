@@ -49,12 +49,12 @@ private fun FileType.toUTType(): UTType? = when (this) {
     FileType.JSON -> UTType.typeWithFilenameExtension(this.typeExtension)
 }
 
-private class PickerDelegate(private val pickerArgs: PickerArgs, private val onCancelled: () -> Unit,) :
+private class PickerDelegate(private val pickerArgs: PickerArgs, private val onCancelled: () -> Unit) :
     NSObject(),
     UIDocumentPickerDelegateProtocol,
     UIAdaptivePresentationControllerDelegateProtocol {
 
-    override fun documentPicker(controller: UIDocumentPickerViewController, didPickDocumentsAtURLs: List<*>,) {
+    override fun documentPicker(controller: UIDocumentPickerViewController, didPickDocumentsAtURLs: List<*>) {
         didPickDocumentsAtURLs.onEach { file ->
             (file as? NSURL)?.let { nsUrl ->
                 when (pickerArgs) {
@@ -65,9 +65,9 @@ private class PickerDelegate(private val pickerArgs: PickerArgs, private val onC
         }
     }
 
-    override fun documentPickerWasCancelled(controller: UIDocumentPickerViewController,) = onCancelled()
+    override fun documentPickerWasCancelled(controller: UIDocumentPickerViewController) = onCancelled()
 
-    override fun presentationControllerWillDismiss(presentationController: UIPresentationController,) {
+    override fun presentationControllerWillDismiss(presentationController: UIPresentationController) {
         (presentationController.presentedViewController as? UIDocumentPickerViewController)
             ?.let { documentPickerWasCancelled(it) }
     }

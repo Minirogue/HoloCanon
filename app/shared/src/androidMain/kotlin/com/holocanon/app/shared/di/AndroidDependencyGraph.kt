@@ -16,7 +16,7 @@ interface AndroidDependencyGraph : AppDependencyGraph {
     fun providePlatform(): Platform = Platform.Android
 
     @Provides
-    fun provideApplication(platformDependencies: PlatformDependencies,): Application = platformDependencies.application
+    fun provideApplication(platformDependencies: PlatformDependencies): Application = platformDependencies.application
 
     @Provides
     fun provideConnManager(app: Application): ConnectivityManager =

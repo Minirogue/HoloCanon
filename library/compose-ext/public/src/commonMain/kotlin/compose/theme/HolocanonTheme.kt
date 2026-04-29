@@ -7,7 +7,7 @@ import settings.model.DarkModeSetting
 import settings.model.Theme
 
 @Composable
-fun HolocanonTheme(darkModeSetting: DarkModeSetting, theme: Theme, content: @Composable () -> Unit,) {
+fun HolocanonTheme(darkModeSetting: DarkModeSetting, theme: Theme, content: @Composable () -> Unit) {
     val darkTheme = when (darkModeSetting) {
         DarkModeSetting.SYSTEM -> isSystemInDarkTheme()
         DarkModeSetting.LIGHT -> false
@@ -15,7 +15,9 @@ fun HolocanonTheme(darkModeSetting: DarkModeSetting, theme: Theme, content: @Com
     }
     val colors = when (theme) {
         Theme.Force -> if (darkTheme) ForceDarkColors else ForceLightColors
+
         Theme.Mace -> if (darkTheme) MaceDarkColors else MaceLightColors
+
         Theme.AndroidDynamic -> {
             getDynamicColors(darkTheme)
         }

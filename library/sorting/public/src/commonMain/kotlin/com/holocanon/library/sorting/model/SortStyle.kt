@@ -5,7 +5,7 @@ import com.minirogue.common.model.StarWarsMedia
 import kotlin.math.sign
 
 class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNotes> {
-    override fun compare(a: MediaAndNotes, b: MediaAndNotes,): Int {
+    override fun compare(a: MediaAndNotes, b: MediaAndNotes): Int {
         val compNum: Int = when (style) {
             SORT_TITLE -> compareTitles(a, b)
             SORT_TIMELINE -> compareTimelines(a.mediaItem, b.mediaItem)

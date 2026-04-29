@@ -14,7 +14,7 @@ const val SETTINGS_DATASTORE_FILE_NAME = "datastore/settings.preferences_pb"
 interface SettingsDependencyGraph {
     @SingleIn(AppScope::class)
     @Provides
-    fun provideSettingsDatastore(settingsDataStorePath: SettingsDataStorePath,): SettingsDataStore {
+    fun provideSettingsDatastore(settingsDataStorePath: SettingsDataStorePath): SettingsDataStore {
         val datastore = PreferenceDataStoreFactory.createWithPath(
             produceFile = { settingsDataStorePath.pathAsString.toPath() },
         )

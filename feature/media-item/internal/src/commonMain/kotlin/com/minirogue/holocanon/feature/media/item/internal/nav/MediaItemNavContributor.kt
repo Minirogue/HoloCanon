@@ -16,7 +16,7 @@ import dev.zacsweers.metro.Inject
 
 @Inject
 @ContributesIntoSet(AppScope::class)
-class MediaItemNavContributor internal constructor(private val viewModelFactory: ViewMediaItemViewModel.Factory,) :
+class MediaItemNavContributor internal constructor(private val viewModelFactory: ViewMediaItemViewModel.Factory) :
     NavContributor() {
     override fun invoke(
         navGraphBuilder: NavGraphBuilder,

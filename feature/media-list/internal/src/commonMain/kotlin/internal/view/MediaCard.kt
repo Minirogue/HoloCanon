@@ -123,7 +123,7 @@ private fun ColumnScope.CheckboxGroup(
 }
 
 @Composable
-private fun TextAndCheckbox(text: String, isBoxChecked: Boolean, modifier: Modifier = Modifier, onClick: () -> Unit,) =
+private fun TextAndCheckbox(text: String, isBoxChecked: Boolean, modifier: Modifier = Modifier, onClick: () -> Unit) =
     Row(
         modifier
             .clickable { onClick() }

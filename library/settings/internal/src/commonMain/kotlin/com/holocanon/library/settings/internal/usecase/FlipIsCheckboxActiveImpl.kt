@@ -11,7 +11,7 @@ import settings.usecase.FlipIsCheckboxActive
 
 @Inject
 @ContributesBinding(AppScope::class)
-class FlipIsCheckboxActiveImpl(private val settingsRepo: SettingsRepo, private val updateFilter: UpdateFilter,) :
+class FlipIsCheckboxActiveImpl(private val settingsRepo: SettingsRepo, private val updateFilter: UpdateFilter) :
     FlipIsCheckboxActive {
     override suspend fun invoke(whichBox: Int) {
         val newSetting =

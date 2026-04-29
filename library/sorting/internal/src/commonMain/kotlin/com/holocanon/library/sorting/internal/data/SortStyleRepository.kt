@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.map
 @ContributesBinding(AppScope::class, binding<GetSortStyle>())
 @ContributesBinding(AppScope::class, binding<SaveSortStyle>())
 @ContributesBinding(AppScope::class, binding<ReverseSort>())
-class SortStyleRepository(private val dataStore: SortingDataStore,) :
+class SortStyleRepository(private val dataStore: SortingDataStore) :
     GetSortStyle,
     SaveSortStyle,
     ReverseSort {

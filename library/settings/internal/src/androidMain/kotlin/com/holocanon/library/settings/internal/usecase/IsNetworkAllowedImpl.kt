@@ -16,14 +16,14 @@ import settings.usecase.ShouldSyncViaWifiOnly
 
 @Inject
 @ContributesBinding(AppScope::class)
-class IsNetworkAllowedImpl(private val connMgr: ConnectivityManager, shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly,) :
+class IsNetworkAllowedImpl(private val connMgr: ConnectivityManager, shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly) :
     IsNetworkAllowed {
 
     private val unmeteredNetworkConnectedFlow: Flow<Boolean> = callbackFlow {
         val networkCallback = object : ConnectivityManager.NetworkCallback() {
 
             // Network capabilities have changed for the network
-            override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities,) {
+            override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
                 super.onCapabilitiesChanged(network, networkCapabilities)
                 val unmetered =
                     networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)

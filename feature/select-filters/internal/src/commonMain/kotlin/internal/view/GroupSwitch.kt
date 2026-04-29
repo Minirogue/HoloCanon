@@ -15,7 +15,7 @@ import holocanon.feature.select_filters.internal.generated.resources.select_filt
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-internal fun GroupSwitch(filterGroup: FilterGroup, onGroupCheckChanged: (FilterGroup) -> Unit,) = Column(
+internal fun GroupSwitch(filterGroup: FilterGroup, onGroupCheckChanged: (FilterGroup) -> Unit) = Column(
     modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp),
     horizontalAlignment = Alignment.CenterHorizontally,
 ) {

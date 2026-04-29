@@ -127,7 +127,7 @@ class GetActiveFiltersImplTest {
         assertEquals(emptyList(), result)
     }
 
-    private fun fullFilter(id: Int, name: String, filterType: FilterType, isPositive: Boolean = true,): FullFilter =
+    private fun fullFilter(id: Int, name: String, filterType: FilterType, isPositive: Boolean = true): FullFilter =
         FullFilter(
             filterObjectDto = FilterObjectDto(
                 id = id,

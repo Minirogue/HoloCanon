@@ -9,7 +9,7 @@ import settings.usecase.UpdatePermanentFilterSettings
 
 @Inject
 @ContributesBinding(AppScope::class)
-class UpdatePermanentFilterSettingsImpl constructor(private val settingsRepo: SettingsRepo,) :
+class UpdatePermanentFilterSettingsImpl constructor(private val settingsRepo: SettingsRepo) :
     UpdatePermanentFilterSettings {
     override suspend fun invoke(mediaType: MediaType, isActive: Boolean) {
         settingsRepo.updatePermanentFilter(mediaType, isActive)

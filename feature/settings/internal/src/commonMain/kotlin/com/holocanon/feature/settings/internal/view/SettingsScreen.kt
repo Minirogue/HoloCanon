@@ -153,7 +153,7 @@ private fun UserDefinedFilters(
 }
 
 @Composable
-private fun ThemeSettings(currentTheme: Theme, updateTheme: (Theme) -> Unit,) = Card(
+private fun ThemeSettings(currentTheme: Theme, updateTheme: (Theme) -> Unit) = Card(
     modifier = Modifier
         .padding(8.dp)
         .fillMaxWidth(),
@@ -347,7 +347,7 @@ private fun MediaTypePermanentFilter(
 }
 
 @Composable
-private fun DatabaseSyncSettings(wifiOnly: Boolean, toggleWifiSetting: (Boolean) -> Unit, syncDatabase: () -> Unit,) {
+private fun DatabaseSyncSettings(wifiOnly: Boolean, toggleWifiSetting: (Boolean) -> Unit, syncDatabase: () -> Unit) {
     Card(modifier = Modifier.padding(8.dp)) {
         Text(
             stringResource(Res.string.settings_sync_settings),
