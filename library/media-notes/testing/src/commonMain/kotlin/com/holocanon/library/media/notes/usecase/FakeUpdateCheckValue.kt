@@ -9,11 +9,7 @@ class FakeUpdateCheckValue : UpdateCheckValue {
     private var invokedMediaItemId: Long? = null
     private var invokedNewValue: Boolean? = null
 
-    fun assertInvoked(
-        expectedCheckboxNumber: CheckBoxNumber,
-        expectedMediaId: Long,
-        expectedNewValue: Boolean,
-    ) {
+    fun assertInvoked(expectedCheckboxNumber: CheckBoxNumber, expectedMediaId: Long, expectedNewValue: Boolean,) {
         assertEquals(
             expectedCheckboxNumber,
             invokedCheckBoxNumber,
@@ -31,11 +27,7 @@ class FakeUpdateCheckValue : UpdateCheckValue {
         )
     }
 
-    override suspend fun invoke(
-        checkbox: CheckBoxNumber,
-        mediaItemId: Long,
-        newValue: Boolean,
-    ) {
+    override suspend fun invoke(checkbox: CheckBoxNumber, mediaItemId: Long, newValue: Boolean,) {
         invokedCheckBoxNumber = checkbox
         invokedNewValue = newValue
         invokedMediaItemId = mediaItemId

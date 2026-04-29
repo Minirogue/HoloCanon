@@ -18,7 +18,9 @@ interface TestAppDi {
         fun createTestAppDi(): TestAppDi
     }
     companion object {
-        fun setInstance(newInstance: TestAppDi) { instance = newInstance }
+        fun setInstance(newInstance: TestAppDi) {
+            instance = newInstance
+        }
         internal lateinit var instance: TestAppDi
     }
 }

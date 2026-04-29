@@ -37,31 +37,30 @@ class ExportMediaNotesJsonImpl(
     private val logger: HoloLogger,
 ) : ExportMediaNotesJson {
     @OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
-    override suspend fun invoke(outputStream: RawSink) =
-        withContext(NonCancellable + dispatchers.io) {
-            val checkBoxSettings = getCheckboxSettings().first()
-            val allMediaNotes = daoMedia.getAllMediaNotes().first()
+    override suspend fun invoke(outputStream: RawSink) = withContext(NonCancellable + dispatchers.io) {
+        val checkBoxSettings = getCheckboxSettings().first()
+        val allMediaNotes = daoMedia.getAllMediaNotes().first()
 
-            try {
-                outputStream.buffered().use {
-                    json.encodeToSink(
-                        value = MediaNotesJsonV1(
-                            CheckBoxNamesV1.fromCheckboxSettings(checkBoxSettings),
-                            allMediaNotes.map { mediaNotesDto ->
-                                MediaNotesV1.fromMediaNotesDto(mediaNotesDto)
-                            },
-                        ),
-                        sink = it,
-                    )
-                }
-
-                onSuccess()
-            } catch (e: IOException) {
-                onFailed(e)
-            } catch (e: SerializationException) {
-                onFailed(e)
+        try {
+            outputStream.buffered().use {
+                json.encodeToSink(
+                    value = MediaNotesJsonV1(
+                        CheckBoxNamesV1.fromCheckboxSettings(checkBoxSettings),
+                        allMediaNotes.map { mediaNotesDto ->
+                            MediaNotesV1.fromMediaNotesDto(mediaNotesDto)
+                        },
+                    ),
+                    sink = it,
+                )
             }
+
+            onSuccess()
+        } catch (e: IOException) {
+            onFailed(e)
+        } catch (e: SerializationException) {
+            onFailed(e)
         }
+    }
 
     private suspend fun onFailed(exception: Exception) {
         logger.error(TAG, "Failed to export media notes", exception)

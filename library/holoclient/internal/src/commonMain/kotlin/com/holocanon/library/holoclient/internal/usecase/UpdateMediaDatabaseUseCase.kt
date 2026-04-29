@@ -128,8 +128,7 @@ class UpdateMediaDatabaseUseCase internal constructor(
         publisher = companyMap[this.publisher] ?: -1,
     )
 
-    private suspend fun getSeriesMap() =
-        daoSeries.getAllSeries().first().associate { it.title to it.id }
+    private suspend fun getSeriesMap() = daoSeries.getAllSeries().first().associate { it.title to it.id }
 
     private suspend fun getCompanyMap(): Map<Company, Int> = try {
         val dtoCompanies = daoCompany.getAllCompanies().first()

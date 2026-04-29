@@ -260,9 +260,7 @@ interface IosDependencyGraph : AppDependencyGraph {
 
     @Provides
     @SingleIn(AppScope::class)
-    fun provideSortingDataStore(
-        sortStyleDataStorePath: SortStyleDataStorePath,
-    ): SortingDataStore {
+    fun provideSortingDataStore(sortStyleDataStorePath: SortStyleDataStorePath,): SortingDataStore {
         val datastore = PreferenceDataStoreFactory.createWithPath(
             produceFile = { sortStyleDataStorePath.pathAsString.toPath() },
         )
@@ -284,9 +282,7 @@ interface IosDependencyGraph : AppDependencyGraph {
 
     @Provides
     @SingleIn(AppScope::class)
-    fun provideSettingsDataStore(
-        settingsDataStorePath: SettingsDataStorePath,
-    ): SettingsDataStore {
+    fun provideSettingsDataStore(settingsDataStorePath: SettingsDataStorePath,): SettingsDataStore {
         val datastore = PreferenceDataStoreFactory.createWithPath(
             produceFile = { settingsDataStorePath.pathAsString.toPath() },
         )

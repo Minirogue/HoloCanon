@@ -18,9 +18,10 @@ import kotlinx.coroutines.flow.map
 @ContributesBinding(AppScope::class, binding<GetSortStyle>())
 @ContributesBinding(AppScope::class, binding<SaveSortStyle>())
 @ContributesBinding(AppScope::class, binding<ReverseSort>())
-class SortStyleRepository(
-    private val dataStore: SortingDataStore,
-) : GetSortStyle, SaveSortStyle, ReverseSort {
+class SortStyleRepository(private val dataStore: SortingDataStore,) :
+    GetSortStyle,
+    SaveSortStyle,
+    ReverseSort {
     private val sortStylePreferencesKey = intPreferencesKey(SORT_STYLE_KEY)
     private val ascendingPreferencesKey =
         booleanPreferencesKey(ASCENDING_KEY)

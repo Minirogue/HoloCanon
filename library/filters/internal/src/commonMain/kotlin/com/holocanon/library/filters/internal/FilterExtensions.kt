@@ -13,8 +13,7 @@ internal fun FullFilter.toMediaFilter(): MediaFilter = MediaFilter(
     isActive = filterObjectDto.active,
 )
 
-private fun filterTypeFromInt(intType: Int) =
-    FilterType.entries.first { it.legacyIntegerConversion == intType }
+private fun filterTypeFromInt(intType: Int) = FilterType.entries.first { it.legacyIntegerConversion == intType }
 
 internal fun MediaFilter.toFilterObject(): FilterObjectDto = FilterObjectDto(
     id,

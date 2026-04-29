@@ -7,10 +7,6 @@ import dev.zacsweers.metro.Inject
 
 @Inject
 @ContributesBinding(AppScope::class)
-class GetSeriesIdFromNameImpl(
-    private val daoSeries: DaoSeries,
-) : GetSeriesIdFromName {
-    override suspend fun invoke(name: String): Int? {
-        return daoSeries.getAllNonLive().firstOrNull { it.title == name }?.id
-    }
+class GetSeriesIdFromNameImpl(private val daoSeries: DaoSeries,) : GetSeriesIdFromName {
+    override suspend fun invoke(name: String): Int? = daoSeries.getAllNonLive().firstOrNull { it.title == name }?.id
 }

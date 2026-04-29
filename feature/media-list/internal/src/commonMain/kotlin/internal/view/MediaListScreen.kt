@@ -137,11 +137,7 @@ private fun AppBarAction(onSelectSortStyle: (Int) -> Unit) = Box {
 }
 
 @Composable
-private fun SearchBar(
-    modifier: Modifier = Modifier,
-    searchTerm: String?,
-    onSearchTermChanged: (String) -> Unit,
-) {
+private fun SearchBar(modifier: Modifier = Modifier, searchTerm: String?, onSearchTermChanged: (String) -> Unit,) {
     TextField(
         modifier = modifier,
         value = searchTerm ?: "",

@@ -8,9 +8,7 @@ import settings.usecase.SetLatestDatabaseVersion
 
 @Inject
 @ContributesBinding(AppScope::class)
-class SetLatestDatabaseVersionImpl constructor(
-    private val settingsRepo: SettingsRepo,
-) : SetLatestDatabaseVersion {
+class SetLatestDatabaseVersionImpl constructor(private val settingsRepo: SettingsRepo,) : SetLatestDatabaseVersion {
     override suspend fun invoke(newVersionNumber: Long) {
         settingsRepo.updateDatabaseVersionNumber(newVersionNumber)
     }

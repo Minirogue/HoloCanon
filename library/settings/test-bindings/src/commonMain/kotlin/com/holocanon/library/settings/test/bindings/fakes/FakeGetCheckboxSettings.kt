@@ -20,7 +20,5 @@ class FakeGetCheckboxSettings : GetCheckboxSettings {
         ),
     )
 
-    override fun invoke(): Flow<CheckboxSettings> {
-        return returnFlow
-    }
+    override fun invoke(): Flow<CheckboxSettings> = returnFlow
 }

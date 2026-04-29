@@ -13,22 +13,14 @@ import dev.zacsweers.metro.Provides
 interface RoomCommonDependencyGraph {
 
     @Provides
-    fun provideDaoMedia(database: MediaDatabase): DaoMedia {
-        return database.getDaoMedia()
-    }
+    fun provideDaoMedia(database: MediaDatabase): DaoMedia = database.getDaoMedia()
 
     @Provides
-    fun provideDaoFilter(database: MediaDatabase): DaoFilter {
-        return database.getDaoFilter()
-    }
+    fun provideDaoFilter(database: MediaDatabase): DaoFilter = database.getDaoFilter()
 
     @Provides
-    fun provideDaoSeries(database: MediaDatabase): DaoSeries {
-        return database.getDaoSeries()
-    }
+    fun provideDaoSeries(database: MediaDatabase): DaoSeries = database.getDaoSeries()
 
     @Provides
-    fun provideDaoCompany(database: MediaDatabase): DaoCompany {
-        return database.getDaoCompany()
-    }
+    fun provideDaoCompany(database: MediaDatabase): DaoCompany = database.getDaoCompany()
 }

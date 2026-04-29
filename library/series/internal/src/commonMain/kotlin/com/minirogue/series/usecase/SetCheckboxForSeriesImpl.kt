@@ -16,21 +16,18 @@ class SetCheckboxForSeriesImpl(private val daoMedia: DaoMedia) : SetCheckboxForS
     // A Mutex in case notes are being updated concurrently (e.g. user clicks on two separate checkboxes for a series)
     private val updatingNotesMutex = Mutex()
 
-    override suspend operator fun invoke(
-        checkbox: Checkbox,
-        seriesId: Int,
-        newValue: Boolean,
-    ) = withContext(Dispatchers.Default) {
-        updatingNotesMutex.withLock {
-            val listOfNotes = daoMedia.getMediaNotesBySeriesNonLive(seriesId)
-            for (notes in listOfNotes) {
-                when (checkbox) {
-                    Checkbox.CHECKBOX_1 -> notes.isBox1Checked = newValue
-                    Checkbox.CHECKBOX_2 -> notes.isBox2Checked = newValue
-                    Checkbox.CHECKBOX_3 -> notes.isBox3Checked = newValue
+    override suspend operator fun invoke(checkbox: Checkbox, seriesId: Int, newValue: Boolean,) =
+        withContext(Dispatchers.Default) {
+            updatingNotesMutex.withLock {
+                val listOfNotes = daoMedia.getMediaNotesBySeriesNonLive(seriesId)
+                for (notes in listOfNotes) {
+                    when (checkbox) {
+                        Checkbox.CHECKBOX_1 -> notes.isBox1Checked = newValue
+                        Checkbox.CHECKBOX_2 -> notes.isBox2Checked = newValue
+                        Checkbox.CHECKBOX_3 -> notes.isBox3Checked = newValue
+                    }
+                    daoMedia.update(notes)
                 }
-                daoMedia.update(notes)
             }
         }
-    }
 }

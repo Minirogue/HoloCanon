@@ -19,8 +19,8 @@ internal enum class TabInfo(val tabNameRes: StringResource, val navDestination: 
     ;
 
     companion object {
-        fun fromNavDestination(navDestination: NavDestination): TabInfo? {
-            return entries.find { navDestination.hasRoute(it.navDestination::class) }
+        fun fromNavDestination(navDestination: NavDestination): TabInfo? = entries.find {
+            navDestination.hasRoute(it.navDestination::class)
         }
     }
 }

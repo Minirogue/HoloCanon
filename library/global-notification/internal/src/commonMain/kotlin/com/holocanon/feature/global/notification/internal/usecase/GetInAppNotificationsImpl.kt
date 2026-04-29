@@ -9,10 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Inject
 @ContributesBinding(AppScope::class)
-class GetInAppNotificationsImpl internal constructor(
-    private val repository: InAppNotificationRepository,
-) : GetInAppNotifications {
-    override fun invoke(): Flow<String> {
-        return repository.getNotifications()
-    }
+class GetInAppNotificationsImpl internal constructor(private val repository: InAppNotificationRepository,) :
+    GetInAppNotifications {
+    override fun invoke(): Flow<String> = repository.getNotifications()
 }

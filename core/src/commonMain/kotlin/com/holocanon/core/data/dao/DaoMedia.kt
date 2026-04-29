@@ -68,11 +68,7 @@ abstract class DaoMedia {
     abstract fun getMediaAndNotesForSeries(seriesId: Int): Flow<List<MediaAndNotesDto>>
 
     @Transaction
-    open suspend fun updateMediaNote(
-        checkBox: CheckBoxNumber,
-        mediaItemId: Long,
-        newValue: Boolean,
-    ) {
+    open suspend fun updateMediaNote(checkBox: CheckBoxNumber, mediaItemId: Long, newValue: Boolean,) {
         val oldNotes = getMediaNotesById(mediaItemId).first()
         val newNotes = when (checkBox) {
             CheckBoxNumber.CheckBox1 -> oldNotes.apply { isBox1Checked = newValue }

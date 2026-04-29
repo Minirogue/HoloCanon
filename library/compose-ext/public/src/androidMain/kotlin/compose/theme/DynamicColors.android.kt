@@ -8,12 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 @Composable
-actual fun getDynamicColors(isDarkMode: Boolean): ColorScheme {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        if (isDarkMode) {
-            dynamicDarkColorScheme(LocalContext.current)
-        } else {
-            dynamicLightColorScheme(LocalContext.current)
-        }
-    } else if (isDarkMode) ForceDarkColors else ForceLightColors
+actual fun getDynamicColors(isDarkMode: Boolean): ColorScheme = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+    if (isDarkMode) {
+        dynamicDarkColorScheme(LocalContext.current)
+    } else {
+        dynamicLightColorScheme(LocalContext.current)
+    }
+} else if (isDarkMode) {
+    ForceDarkColors
+} else {
+    ForceLightColors
 }

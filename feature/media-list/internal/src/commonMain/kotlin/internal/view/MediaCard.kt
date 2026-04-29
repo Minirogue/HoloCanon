@@ -123,16 +123,12 @@ private fun ColumnScope.CheckboxGroup(
 }
 
 @Composable
-private fun TextAndCheckbox(
-    text: String,
-    isBoxChecked: Boolean,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit,
-) = Row(
-    modifier
-        .clickable { onClick() }
-        .padding(horizontal = 4.dp, vertical = 2.dp),
-) {
-    Text(text = text, modifier = Modifier.padding(end = 12.dp))
-    Checkbox(checked = isBoxChecked, onCheckedChange = null)
-}
+private fun TextAndCheckbox(text: String, isBoxChecked: Boolean, modifier: Modifier = Modifier, onClick: () -> Unit,) =
+    Row(
+        modifier
+            .clickable { onClick() }
+            .padding(horizontal = 4.dp, vertical = 2.dp),
+    ) {
+        Text(text = text, modifier = Modifier.padding(end = 12.dp))
+        Checkbox(checked = isBoxChecked, onCheckedChange = null)
+    }

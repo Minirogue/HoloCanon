@@ -11,10 +11,6 @@ import settings.usecase.GetPermanentFilterSettings
 
 @Inject
 @ContributesBinding(AppScope::class)
-class GetPermanentFilterSettingsImpl constructor(
-    private val settingsRepo: SettingsRepo,
-) : GetPermanentFilterSettings {
-    override fun invoke(): Flow<Map<MediaType, Boolean>> {
-        return settingsRepo.getSettings().map { it.permanentFilterSettings }
-    }
+class GetPermanentFilterSettingsImpl constructor(private val settingsRepo: SettingsRepo,) : GetPermanentFilterSettings {
+    override fun invoke(): Flow<Map<MediaType, Boolean>> = settingsRepo.getSettings().map { it.permanentFilterSettings }
 }

@@ -16,9 +16,7 @@ class GetMediaImpl(
     private val daoMedia: DaoMedia,
     private val adaptMediaItemDtoToStarWarsMedia: AdaptMediaItemDtoToStarWarsMedia,
 ) : GetMedia {
-    override fun invoke(mediaId: Long): Flow<StarWarsMedia> {
-        return daoMedia.getMediaItemById(mediaId).map {
-            adaptMediaItemDtoToStarWarsMedia(it)
-        }
+    override fun invoke(mediaId: Long): Flow<StarWarsMedia> = daoMedia.getMediaItemById(mediaId).map {
+        adaptMediaItemDtoToStarWarsMedia(it)
     }
 }
