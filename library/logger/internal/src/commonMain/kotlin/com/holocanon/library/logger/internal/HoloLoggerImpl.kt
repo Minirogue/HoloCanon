@@ -7,9 +7,7 @@ import dev.zacsweers.metro.Inject
 
 @Inject
 @ContributesBinding(AppScope::class)
-class HoloLoggerImpl internal constructor(
-    private val loggerDelegates: Set<LoggerDelegate>,
-) : HoloLogger {
+class HoloLoggerImpl internal constructor(private val loggerDelegates: Set<LoggerDelegate>) : HoloLogger {
     override fun debug(message: String, tag: String?, throwable: Throwable?) {
         loggerDelegates.forEach { it.debug(message, tag, throwable) }
     }

@@ -13,6 +13,5 @@ import kotlinx.coroutines.flow.map
 @ContributesBinding(AppScope::class)
 @SingleIn(AppScope::class)
 class FakeGetActiveFilters : GetActiveFilters {
-    override fun invoke(): Flow<List<MediaFilter>> =
-        getFakeFilters().map { list -> list.filter { it.isActive } }
+    override fun invoke(): Flow<List<MediaFilter>> = getFakeFilters().map { list -> list.filter { it.isActive } }
 }

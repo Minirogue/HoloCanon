@@ -73,10 +73,7 @@ private fun TestAppBar(appBarConfig: AppBarConfig) = CenterAlignedTopAppBar(
 )
 
 @Composable
-private fun TestAppEntryScreen(
-    modifier: Modifier = Modifier,
-    navController: NavController,
-) = Column(
+private fun TestAppEntryScreen(modifier: Modifier = Modifier, navController: NavController) = Column(
     modifier = modifier.fillMaxSize(),
 ) {
     navController.graph

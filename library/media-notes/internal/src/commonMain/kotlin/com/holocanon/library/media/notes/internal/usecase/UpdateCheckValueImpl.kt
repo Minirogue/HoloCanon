@@ -9,9 +9,7 @@ import dev.zacsweers.metro.Inject
 
 @Inject
 @ContributesBinding(AppScope::class)
-class UpdateCheckValueImpl(
-    private val daoMedia: DaoMedia,
-) : UpdateCheckValue {
+class UpdateCheckValueImpl(private val daoMedia: DaoMedia) : UpdateCheckValue {
     override suspend fun invoke(checkbox: CheckBoxNumber, mediaItemId: Long, newValue: Boolean) {
         daoMedia.updateMediaNote(checkbox, mediaItemId, newValue)
     }

@@ -15,7 +15,5 @@ internal class InAppNotificationRepository {
         inAppNotificationChannel.trySend(message)
     }
 
-    fun getNotifications(): Flow<String> {
-        return inAppNotificationChannel.receiveAsFlow()
-    }
+    fun getNotifications(): Flow<String> = inAppNotificationChannel.receiveAsFlow()
 }

@@ -5,10 +5,7 @@ import com.minirogue.common.model.StarWarsMedia
 import kotlin.math.sign
 
 class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNotes> {
-    override fun compare(
-        a: MediaAndNotes,
-        b: MediaAndNotes,
-    ): Int {
+    override fun compare(a: MediaAndNotes, b: MediaAndNotes): Int {
         val compNum: Int = when (style) {
             SORT_TITLE -> compareTitles(a, b)
             SORT_TIMELINE -> compareTimelines(a.mediaItem, b.mediaItem)
@@ -49,9 +46,7 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
         return sign(time1 - time2).toInt()
     }
 
-    fun getText(): String {
-        return getSortText(style)
-    }
+    fun getText(): String = getSortText(style)
 
     companion object {
         private const val MAX_TIMELINE_VALUE = 9999f
@@ -59,13 +54,11 @@ class SortStyle(val style: Int, val ascending: Boolean) : Comparator<MediaAndNot
         const val SORT_TIMELINE = 2
         const val SORT_DATE = 4
         val DEFAULT_STYLE = SortStyle(SORT_DATE, true)
-        fun getSortText(sortType: Int): String {
-            return when (sortType) {
-                SORT_TITLE -> "Title"
-                SORT_TIMELINE -> "Timeline"
-                SORT_DATE -> "Date Released"
-                else -> "SortTypeNotFound"
-            }
+        fun getSortText(sortType: Int): String = when (sortType) {
+            SORT_TITLE -> "Title"
+            SORT_TIMELINE -> "Timeline"
+            SORT_DATE -> "Date Released"
+            else -> "SortTypeNotFound"
         }
     }
 }

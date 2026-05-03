@@ -16,14 +16,11 @@ interface AndroidDependencyGraph : AppDependencyGraph {
     fun providePlatform(): Platform = Platform.Android
 
     @Provides
-    fun provideApplication(
-        platformDependencies: PlatformDependencies,
-    ): Application = platformDependencies.application
+    fun provideApplication(platformDependencies: PlatformDependencies): Application = platformDependencies.application
 
     @Provides
-    fun provideConnManager(app: Application): ConnectivityManager {
-        return app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    }
+    fun provideConnManager(app: Application): ConnectivityManager =
+        app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     @DependencyGraph.Factory
     fun interface Factory {

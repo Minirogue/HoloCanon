@@ -9,7 +9,5 @@ class FakeIsNetworkAllowed : IsNetworkAllowed {
         returnFlow.emit(isNetworkAllowed)
     }
 
-    override fun invoke(): Flow<Boolean> {
-        return returnFlow
-    }
+    override fun invoke(): Flow<Boolean> = returnFlow
 }

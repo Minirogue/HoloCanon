@@ -35,10 +35,7 @@ private const val THEME_SETTING_KEY = "theme setting"
 private const val TAG = "SettingsRepo"
 
 @Inject
-class SettingsRepo(
-    private val dataStore: SettingsDataStore,
-    private val logger: HoloLogger,
-) { // TODO add instrumented tests for datastore usage
+class SettingsRepo(private val dataStore: SettingsDataStore, private val logger: HoloLogger) { // TODO add instrumented tests for datastore usage
     private val userFilter1ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_1_ACTIVE_KEY)
     private val userFilter2ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_2_ACTIVE_KEY)
     private val userFilter3ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_3_ACTIVE_KEY)
@@ -94,49 +91,49 @@ class SettingsRepo(
     suspend fun updateCheckbox(
         whichBox: Int,
         updateFunction: (CheckboxSetting) -> CheckboxSetting,
-    ): Result<CheckboxSetting> {
-        return runCatching {
-            val nameKey = when (whichBox) {
-                1 -> checkbox1DefaultTextPreferenceKey
-                2 -> checkbox2DefaultTextPreferenceKey
-                3 -> checkbox3DefaultTextPreferenceKey
-                else -> error("updateCheckbox called with invalid whichBox: $whichBox")
-            }
-            val activeKey = when (whichBox) {
-                1 -> userFilter1ActivePreferenceKey
-                2 -> userFilter2ActivePreferenceKey
-                3 -> userFilter3ActivePreferenceKey
-                else -> error("updateCheckbox called with invalid whichBox: $whichBox")
-            }
-            val newPrefs = dataStore.edit { prefs ->
-                val newCheckboxSetting = updateFunction(
-                    CheckboxSetting(
-                        name = prefs[nameKey] ?: getDefaultNameForCheckbox(whichBox),
-                        isInUse = prefs[activeKey] ?: true,
-                    ),
-                )
-                prefs[nameKey] = newCheckboxSetting.name
-                prefs[activeKey] = newCheckboxSetting.isInUse
-            }
-            val newName = newPrefs[nameKey]
-            val newIsInUse = newPrefs[activeKey]
-            if (newName == null || newIsInUse == null) {
-                error("couldn't get updated checkbox setting")
-            } else {
-                CheckboxSetting(newName, newIsInUse)
-            }
-        }.onFailure { throwable ->
-            when (throwable) {
-                is IOException -> logger.error(TAG, "error in updateCheckbox", throwable)
-                is IllegalArgumentException -> logger.error(
-                    TAG,
-                    "error in updateCheckbox",
-                    throwable,
-                )
+    ): Result<CheckboxSetting> = runCatching {
+        val nameKey = when (whichBox) {
+            1 -> checkbox1DefaultTextPreferenceKey
+            2 -> checkbox2DefaultTextPreferenceKey
+            3 -> checkbox3DefaultTextPreferenceKey
+            else -> error("updateCheckbox called with invalid whichBox: $whichBox")
+        }
+        val activeKey = when (whichBox) {
+            1 -> userFilter1ActivePreferenceKey
+            2 -> userFilter2ActivePreferenceKey
+            3 -> userFilter3ActivePreferenceKey
+            else -> error("updateCheckbox called with invalid whichBox: $whichBox")
+        }
+        val newPrefs = dataStore.edit { prefs ->
+            val newCheckboxSetting = updateFunction(
+                CheckboxSetting(
+                    name = prefs[nameKey] ?: getDefaultNameForCheckbox(whichBox),
+                    isInUse = prefs[activeKey] ?: true,
+                ),
+            )
+            prefs[nameKey] = newCheckboxSetting.name
+            prefs[activeKey] = newCheckboxSetting.isInUse
+        }
+        val newName = newPrefs[nameKey]
+        val newIsInUse = newPrefs[activeKey]
+        if (newName == null || newIsInUse == null) {
+            error("couldn't get updated checkbox setting")
+        } else {
+            CheckboxSetting(newName, newIsInUse)
+        }
+    }.onFailure { throwable ->
+        when (throwable) {
+            is IOException -> logger.error(TAG, "error in updateCheckbox", throwable)
 
-                is IllegalStateException -> logger.error(TAG, "error in updateCheckbox", throwable)
-                else -> throw throwable
-            }
+            is IllegalArgumentException -> logger.error(
+                TAG,
+                "error in updateCheckbox",
+                throwable,
+            )
+
+            is IllegalStateException -> logger.error(TAG, "error in updateCheckbox", throwable)
+
+            else -> throw throwable
         }
     }
 

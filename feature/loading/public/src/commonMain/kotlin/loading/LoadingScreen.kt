@@ -43,9 +43,7 @@ fun LoadingScreen() = Box(modifier = Modifier.fillMaxSize(), contentAlignment = 
 }
 
 @Composable
-fun <T> Flow<T>.withStateOrLoadingScreen(
-    withState: @Composable (T) -> Unit,
-) {
+fun <T> Flow<T>.withStateOrLoadingScreen(withState: @Composable (T) -> Unit) {
     val state by collectAsStateSafely(null)
     state?.also { withState(it) } ?: LoadingScreen()
 }

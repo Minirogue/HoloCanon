@@ -8,9 +8,7 @@ import io.ktor.client.request.get
 
 @Inject
 internal class GetApiMediaVersion(private val clientWrapper: HttpClientWrapper) {
-    internal suspend operator fun invoke(): HoloResult<Int> {
-        return clientWrapper.perform {
-            get("https://minirogue.github.io/holocanon-api/version.json").body()
-        }
+    internal suspend operator fun invoke(): HoloResult<Int> = clientWrapper.perform {
+        get("https://minirogue.github.io/holocanon-api/version.json").body()
     }
 }

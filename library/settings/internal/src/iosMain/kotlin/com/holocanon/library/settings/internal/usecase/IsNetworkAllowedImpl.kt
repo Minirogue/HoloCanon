@@ -10,9 +10,7 @@ import settings.usecase.ShouldSyncViaWifiOnly
 
 @Inject
 @ContributesBinding(AppScope::class)
-class IsNetworkAllowedImpl(
-    private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly,
-) : IsNetworkAllowed {
+class IsNetworkAllowedImpl(private val shouldSyncViaWifiOnly: ShouldSyncViaWifiOnly) : IsNetworkAllowed {
 
     private fun unmeteredOnly(): Flow<Boolean> = shouldSyncViaWifiOnly()
 

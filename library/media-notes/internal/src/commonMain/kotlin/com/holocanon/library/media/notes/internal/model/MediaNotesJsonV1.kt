@@ -18,12 +18,11 @@ internal data class CheckBoxNamesV1(
     @SerialName("note_3_name") val name3: String,
 ) {
     companion object {
-        fun fromCheckboxSettings(checkBoxSettings: CheckboxSettings): CheckBoxNamesV1 =
-            CheckBoxNamesV1(
-                name1 = checkBoxSettings.checkbox1Setting.name,
-                name2 = checkBoxSettings.checkbox2Setting.name,
-                name3 = checkBoxSettings.checkbox3Setting.name,
-            )
+        fun fromCheckboxSettings(checkBoxSettings: CheckboxSettings): CheckBoxNamesV1 = CheckBoxNamesV1(
+            name1 = checkBoxSettings.checkbox1Setting.name,
+            name2 = checkBoxSettings.checkbox2Setting.name,
+            name3 = checkBoxSettings.checkbox3Setting.name,
+        )
     }
 }
 

@@ -101,10 +101,9 @@ class SettingsViewModel(
         _state.update { it.copy(nameChangeDialogShowing = null) }
     }
 
-    fun setPermanentFilterActive(mediaType: MediaType, newActiveValue: Boolean) =
-        viewModelScope.launch {
-            updatePermanentFilterSettings(mediaType, newActiveValue)
-        }
+    fun setPermanentFilterActive(mediaType: MediaType, newActiveValue: Boolean) = viewModelScope.launch {
+        updatePermanentFilterSettings(mediaType, newActiveValue)
+    }
 
     fun toggleWifiSetting(newValue: Boolean) = viewModelScope.launch {
         updateWifiSetting(newValue)

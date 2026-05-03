@@ -19,8 +19,8 @@ class HttpClientWrapperImpl internal constructor(
     private val httpClientProvider: Provider<HttpClient>,
     private val logger: HoloLogger,
 ) : HttpClientWrapper {
-    override suspend fun <T> perform(httpOperation: suspend HttpClient.() -> T): HoloResult<T> {
-        return httpClientProvider().use { client ->
+    override suspend fun <T> perform(httpOperation: suspend HttpClient.() -> T): HoloResult<T> =
+        httpClientProvider().use { client ->
             try {
                 val result = client.httpOperation()
                 HoloResult.Success(result)
@@ -35,7 +35,6 @@ class HttpClientWrapperImpl internal constructor(
                 HoloResult.Failure(serializationException)
             }
         }
-    }
 
     companion object {
         private const val TAG = "HttpClientWrapperImpl"

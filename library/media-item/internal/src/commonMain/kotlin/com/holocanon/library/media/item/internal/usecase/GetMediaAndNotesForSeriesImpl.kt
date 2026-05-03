@@ -16,8 +16,8 @@ class GetMediaAndNotesForSeriesImpl(
     private val daoMedia: DaoMedia,
     private val adaptMediaItemDtoToStarWarsMedia: AdaptMediaItemDtoToStarWarsMedia,
 ) : GetMediaAndNotesForSeries {
-    override fun invoke(seriesId: Int): Flow<List<MediaAndNotes>> {
-        return daoMedia.getMediaAndNotesForSeries(seriesId).map { list ->
+    override fun invoke(seriesId: Int): Flow<List<MediaAndNotes>> =
+        daoMedia.getMediaAndNotesForSeries(seriesId).map { list ->
             list.map {
                 MediaAndNotes(
                     adaptMediaItemDtoToStarWarsMedia(it.mediaItemDto),
@@ -25,5 +25,4 @@ class GetMediaAndNotesForSeriesImpl(
                 )
             }
         }
-    }
 }

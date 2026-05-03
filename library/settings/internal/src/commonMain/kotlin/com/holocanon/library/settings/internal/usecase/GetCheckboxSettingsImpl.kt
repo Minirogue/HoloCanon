@@ -12,6 +12,5 @@ import settings.model.CheckboxSettings
 @Inject
 @ContributesBinding(AppScope::class)
 class GetCheckboxSettingsImpl(private val settingsRepo: SettingsRepo) : GetCheckboxSettings {
-    override fun invoke(): Flow<CheckboxSettings> =
-        settingsRepo.getSettings().map { it.checkboxSettings }
+    override fun invoke(): Flow<CheckboxSettings> = settingsRepo.getSettings().map { it.checkboxSettings }
 }

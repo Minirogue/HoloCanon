@@ -8,9 +8,8 @@ import dev.zacsweers.metro.Inject
 
 @Inject
 @ContributesBinding(AppScope::class)
-class SendInAppNotificationImpl internal constructor(
-    private val repository: InAppNotificationRepository,
-) : SendInAppNotification {
+class SendInAppNotificationImpl internal constructor(private val repository: InAppNotificationRepository) :
+    SendInAppNotification {
     override fun invoke(message: String) {
         repository.enqueueNotification(message)
     }

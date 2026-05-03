@@ -10,7 +10,5 @@ class FakeGetInAppNotifications : GetInAppNotifications {
     fun emit(message: String) {
         stateFlow.value = message
     }
-    override fun invoke(): Flow<String> {
-        return stateFlow.filterNotNull()
-    }
+    override fun invoke(): Flow<String> = stateFlow.filterNotNull()
 }
